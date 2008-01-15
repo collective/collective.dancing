@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/prefs_main_template/macros/master"
+      i18n:domain="collective.dancing">
+
+  <metal:block fill-slot="top_slot"
+               tal:define="dummy python:request.set('disable_border', 1)" />
+
+  <body>
+
+    <div metal:fill-slot="prefs_configlet_main">
+
+      <h1 i18n:translate="">Newsletter configuration</h1>
+
+      <ul>
+        <li>
+          <a href="./newsletter-stats-controlpanel.html">
+            Newsletter statistics
+          </a>
+        </li>
+      </ul>
+
+    </div>
+
+  </body>
+</html>

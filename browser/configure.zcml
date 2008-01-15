@@ -1,0 +1,19 @@
+<zope:configure
+   xmlns:zope="http://namespaces.zope.org/zope"
+   xmlns="http://namespaces.zope.org/browser">
+
+  <page
+      name="newsletter-stats-controlpanel.html"
+      for="*"
+      class=".stats.StatsView"
+      permission="cmf.ManagePortal"
+      />
+
+  <page
+      name="newsletter-controlpanel.html"
+      for="*"
+      template="controlpanel.pt"
+      permission="zope.Public"
+      />
+
+</zope:configure>
