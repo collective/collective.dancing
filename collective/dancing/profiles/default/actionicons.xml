@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<action-icons xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="collective.singing">
+ <action-icon category="controlpanel"
+              action_id="collective.dancing"
+              title="Newsletters" priority="0"
+              icon_expr="mail_icon.gif"
+              i18n:attributes="title"/>
+</action-icons>

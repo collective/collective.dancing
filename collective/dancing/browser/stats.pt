@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/prefs_main_template/macros/master"
+      i18n:domain="collective.dancing">
+
+  <metal:block fill-slot="top_slot"
+               tal:define="dummy python:request.set('disable_border', 1)" />
+
+  <body>
+
+    <div metal:fill-slot="prefs_configlet_main"
+         tal:define="stats view/statistics">
+
+      <h1>Newsletter statistics</h1>
+
+      <p tal:condition="not:stats" i18n:translate="">
+        No statistics available at this time.
+      </p>
+
+      <table tal:condition="stats">
+        <caption>
+          Statistics of queued messages
+        </caption>
+        <tr>
+          <th i18n:translate="">Timestamp</th>
+          <th i18n:translate="">Channel</th>
+          <th i18n:translate="">Number of messages queued</th>
+        </tr>
+        <tr tal:repeat="stat stats">
+          <td tal:content="stat/timestamp"></td>
+          <td tal:content="stat/channel_title"></td>
+          <td tal:content="stat/number_of_msgs"></td>
+        </tr>
+      </table>
+
+      <form action="." tal:attributes="action request/ACTUAL_URL">
+        <input type="hidden" name="submitted" value="1" />
+        <input type="submit" name="clear" value="Clear statistics"
+               i18n:attributes="value"/>
+      </form>
+
+    </div>
+
+  </body>
+</html>
