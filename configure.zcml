@@ -6,6 +6,7 @@
    i18n_domain="collective.dancing">
 
   <include package="collective.singing" />
+  <include package=".browser" />
 
   <!-- Make this package a Zope 2 product -->
   <five:registerPackage package="." initialize=".initialize" />
@@ -20,6 +21,7 @@
      provides="Products.GenericSetup.interfaces.EXTENSION"
      />
 
-  <include package=".browser" />
+  <utility component=".channel.channel_lookup" />
+
 
 </configure>
