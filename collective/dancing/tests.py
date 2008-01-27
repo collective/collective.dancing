@@ -1,4 +1,5 @@
 import unittest
+from zope.testing import doctest
 from Testing import ZopeTestCase as ztc
 from Products.Five import zcml
 from Products.Five import fiveconfigure
@@ -28,9 +29,15 @@ ptc.setupPloneSite(products=['collective.dancing'])
 def test_suite():
     return unittest.TestSuite([
 
+        doctest.DocTestSuite('collective.dancing.channel'),
+
+        ztc.ZopeDocFileSuite(
+            'channel.txt',
+            test_class=ptc.PloneTestCase,
+            ),
+
         ztc.ZopeDocFileSuite(
             'browser.txt',
-            package='collective.dancing',
             test_class=ptc.FunctionalTestCase,
             ),
         ])

@@ -10,6 +10,13 @@
       />
 
   <page
+      name="newsletter-admin-controlpanel.html"
+      for="*"
+      class=".channel.ChannelAdministrationView"
+      permission="cmf.ManagePortal"
+      />
+
+  <page
       name="newsletter-controlpanel.html"
       for="*"
       template="controlpanel.pt"

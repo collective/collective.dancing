@@ -55,3 +55,18 @@ And reload that statistics page:
   True
   >>> str(second.timestamp) in browser.contents
   True
+
+Administration
+--------------
+
+The admistration screen can be reached through the same control panel:
+
+  >>> browser.goBack()
+  >>> browser.getLink('Newsletter administration').click()
+  >>> browser.getControl('Channel title').value = 'My channel'
+  >>> browser.getControl('Add').click()
+  >>> '"My channel" created' in browser.contents
+  True
+
+  >>> print_error()
+
