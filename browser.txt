@@ -66,9 +66,7 @@ The admistration screen can be reached through the same control panel:
   >>> browser.getLink('Newsletter administration').click()
   >>> browser.getControl('Title').value = 'My channel'
   >>> browser.getControl('Add').click()
-  >>> 'Item added successfully.' in browser.contents
+  >>> 'Item added successfully' in browser.contents
   True
   >>> 'My channel' in browser.contents
   True 
- 
-

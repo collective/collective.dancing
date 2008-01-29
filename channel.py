@@ -33,14 +33,17 @@ class Channel(OFS.SimpleItem.SimpleItem):
     """
     interface.implements(collective.singing.interfaces.IChannel)
 
-    def __init__(self, name):
+    def __init__(self, name, title=None):
         self.name = name
+        if title is None:
+            title = name
+        self.title = title
         self.subscriptions = collective.singing.subscribe.SimpleSubscriptions()
         self.composers = None
         self.collector = None
         self.scheduler = None
 
-    @property 
+    @property
     def id(self):
         return self.name
 
