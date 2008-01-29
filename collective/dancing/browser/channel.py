@@ -9,28 +9,27 @@ from Products.CMFPlone import utils
 from collective.singing import z2
 from collective.dancing import MessageFactory as _
 from collective.dancing.channel import Channel
+from collective.singing.browser import crud
+from collective.singing.interfaces import IChannel
 
-class ChannelAddForm(form.AddForm):
-    """Add form for channels.
+class ChannelManageForm(crud.CrudForm):
+    """'Does everything' form for channels.
     """
-    template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
+
+    update_schema = field.Fields(IChannel).select('title')
     
-    fields = field.Fields(schema.TextLine(__name__='title',
-                                          title=_(u'Channel title')))
-
-    def create(self, data):
-        self._object_name = utils.normalizeString(
+    def get_items(self):
+        return [(ob.getId(), ob) for ob in self.context.objectValues()]
+    
+    def add(self, data):
+        name = utils.normalizeString(
             data['title'].encode('utf-8'), encoding='utf-8')
-        return Channel(self.name)
+        self.context[name] = Channel(name)
+        return self.context[name]
 
-    def add(self, object):
-        self.context[object.id] = object
-
-    def render(self):
-        if self._finishedAdd:
-            self.status = '"%s" created' % (self._object_name,)
-        return super(form.AddForm, self).render()
-
+    def remove(self, (id, item)):
+        self.context.manage_delObjects([id])
+        
 class ChannelAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('skeleton.pt')
     
@@ -39,4 +38,4 @@ class ChannelAdministrationView(BrowserView):
     def contents(self):
         # A call to 'switch_on' is required before we can render z3c.forms.
         z2.switch_on(self)
-        return ChannelAddForm(self.context, self.request)()
+        return ChannelManageForm(self.context, self.request)()
