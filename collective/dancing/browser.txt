@@ -68,6 +68,7 @@ The admistration screen can be reached through the same control panel:
   >>> browser.getControl('Add').click()
   >>> 'Item added successfully.' in browser.contents
   True
-
+  >>> 'My channel' in browser.contents
+  True 
  
 
