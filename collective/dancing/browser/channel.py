@@ -24,7 +24,7 @@ class ChannelManageForm(crud.CrudForm):
     def add(self, data):
         name = utils.normalizeString(
             data['title'].encode('utf-8'), encoding='utf-8')
-        self.context[name] = Channel(name)
+        self.context[name] = Channel(name, data['title'])
         return self.context[name]
 
     def remove(self, (id, item)):
