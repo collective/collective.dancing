@@ -1,7 +1,4 @@
-from zope import schema
-from zope.app.pagetemplate import viewpagetemplatefile
 from z3c.form import field
-from z3c.form import form
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFPlone import utils
