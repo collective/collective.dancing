@@ -38,6 +38,7 @@ class Channel(OFS.SimpleItem.SimpleItem):
         self.subscriptions = collective.singing.subscribe.SimpleSubscriptions()
         self.composers = None
         self.collector = None
+        self.scheduler = None
 
     @property 
     def id(self):

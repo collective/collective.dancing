@@ -10,6 +10,7 @@ Setup
   >>> from Testing.ZopeTestCase import user_password
   >>> from Products.Five.testbrowser import Browser
   >>> browser = Browser()
+  >>> browser.handleErrors = False
   >>> from collective.dancing.tests import setup_error_log
   >>> print_error = setup_error_log(self.portal)
 
@@ -63,10 +64,10 @@ The admistration screen can be reached through the same control panel:
 
   >>> browser.goBack()
   >>> browser.getLink('Newsletter administration').click()
-  >>> browser.getControl('Channel title').value = 'My channel'
+  >>> browser.getControl('Title').value = 'My channel'
   >>> browser.getControl('Add').click()
-  >>> '"My channel" created' in browser.contents
+  >>> 'Item added successfully.' in browser.contents
   True
 
-  >>> print_error()
+ 
 
