@@ -1,5 +1,6 @@
 <configure
    xmlns="http://namespaces.zope.org/zope"
+   xmlns:browser="http://namespaces.zope.org/browser"
    xmlns:i18n="http://namespaces.zope.org/i18n"
    xmlns:five="http://namespaces.zope.org/five"
    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
@@ -20,6 +21,12 @@
      description=""
      provides="Products.GenericSetup.interfaces.EXTENSION"
      />
+
+  <browser:resourceDirectory 	   
+      name="dancing-resources"
+      directory="resources"
+      permission="zope2.Public"
+      />
 
   <utility component=".channel.channel_lookup" />
 
