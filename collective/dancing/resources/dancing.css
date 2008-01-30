@@ -1,0 +1,27 @@
+div.crud-form {
+    padding: 1em;
+}
+
+div.crud-form div.action {
+    display: inline;
+    margin-right: 1em;
+}
+
+div.crud-form table {
+    margin-bottom: 1em;
+}
+
+div.crud-form table td {
+    padding: 0.5em;
+}
+
+div.crud-form td.error {
+    background-color: #FFDDCC;
+}
+
+div.crud-form td.error div.error {
+    border-width: 0;
+    margin: 0;
+    padding: 0.2em;
+    font-weight: bold;
+}
