@@ -9,11 +9,12 @@ from collective.dancing.channel import Channel
 from collective.singing.browser import crud
 from collective.singing.interfaces import IChannel
 
-class ChannelManageForm(crud.CrudForm):
+class ManageChannelsForm(crud.CrudForm):
     """'Does everything' form for channels.
     """
 
     update_schema = field.Fields(IChannel).select('title')
+    view_schema = field.Fields(IChannel).select('title')
     
     def get_items(self):
         return [(ob.getId(), ob) for ob in self.context.objectValues()]
@@ -26,6 +27,9 @@ class ChannelManageForm(crud.CrudForm):
 
     def remove(self, (id, item)):
         self.context.manage_delObjects([id])
+
+    def link(self, item):
+        return item.absolute_url()
         
 class ChannelAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('skeleton.pt')
@@ -35,4 +39,4 @@ class ChannelAdministrationView(BrowserView):
     def contents(self):
         # A call to 'switch_on' is required before we can render z3c.forms.
         z2.switch_on(self)
-        return ChannelManageForm(self.context, self.request)()
+        return ManageChannelsForm(self.context.channels, self.request)()

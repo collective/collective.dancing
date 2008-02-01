@@ -30,5 +30,6 @@
 
   <utility component=".channel.channel_lookup" />
 
+  <subscriber handler=".channel.tool_added" />
 
 </configure>
