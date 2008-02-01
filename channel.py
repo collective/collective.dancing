@@ -1,6 +1,8 @@
 from zope import component
 from zope import interface
+import zope.app.container.interfaces
 
+import OFS.event
 import OFS.Folder
 import OFS.SimpleItem
 import Products.CMFPlone.interfaces
@@ -11,10 +13,18 @@ import collective.singing.interfaces
 
 def channel_lookup():
     root = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
-    return root['newsletter-channels'].objectValues()
+    return root['portal_newsletters']['channels'].objectValues()
 interface.directlyProvides(channel_lookup,
                            collective.singing.interfaces.IChannelLookup)
 
+class PortalNewsletters(OFS.Folder.Folder):
+    pass
+
+@component.adapter(PortalNewsletters,
+                   zope.app.container.interfaces.IObjectAddedEvent)
+def tool_added(tool, event):
+    if 'channels' not in tool.objectIds():
+        tool['channels'] = ChannelContainer('channels')
 
 class ChannelContainer(OFS.Folder.Folder):
     """

@@ -62,11 +62,35 @@ Administration
 
 The admistration screen can be reached through the same control panel:
 
-  >>> browser.goBack()
+  >>> browser.open('http://nohost/plone/newsletter-controlpanel.html')
   >>> browser.getLink('Newsletter administration').click()
+
+Through this administration screen we can add and delete channels:
+
   >>> browser.getControl('Title').value = 'My channel'
   >>> browser.getControl('Add').click()
   >>> 'Item added successfully' in browser.contents
   True
   >>> 'My channel' in browser.contents
   True 
+  >>> browser.getControl('Title').value = 'My other channel'
+  >>> browser.getControl('Add').click()
+  >>> 'Item added successfully' in browser.contents
+  True
+
+Let's delete the first of the two channels:
+
+  >>> btn = browser.getControl(name='crud-edit.my-channel.widgets.delete:list')
+  >>> btn.value = ['selected']
+  >>> browser.getControl(name='crud-edit.buttons.delete').click()
+  >>> "Successfully deleted items" in browser.contents
+  True
+  >>> 'My channel' in browser.contents, 'My other channel' in browser.contents
+  (False, True)
+
+We can click on the channel's name to get to the channel management
+screen:
+
+  >>> browser.getLink('My other channel').click()
+
+  

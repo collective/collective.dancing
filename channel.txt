@@ -18,7 +18,7 @@ channels in the site:
 Let's create a channel and ask for the list of channels again:
 
   >>> from collective.dancing.channel import Channel
-  >>> channelcontainer = self.portal['newsletter-channels']
-  >>> channelcontainer['c1'] = Channel('c1')
+  >>> channels = self.portal['portal_newsletters']['channels']
+  >>> channels['c1'] = Channel('c1')
   >>> component.getUtility(IChannelLookup)()
-  [<Channel at /plone/newsletter-channels/c1>]
+  [<Channel at /plone/portal_newsletters/channels/c1>]
