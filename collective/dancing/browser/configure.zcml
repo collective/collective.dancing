@@ -3,9 +3,16 @@
    xmlns="http://namespaces.zope.org/browser">
 
   <page
+      name="newsletter-controlpanel.html"
+      for="*"
+      class=".controlpanel.ControlPanelView"
+      permission="cmf.ManagePortal"
+      />
+
+  <page
       name="newsletter-stats-controlpanel.html"
       for="*"
-      class=".stats.StatsView"
+      class=".controlpanel.StatsView"
       permission="cmf.ManagePortal"
       />
 
@@ -14,13 +21,6 @@
       for="*"
       class=".channel.ChannelAdministrationView"
       permission="cmf.ManagePortal"
-      />
-
-  <page
-      name="newsletter-controlpanel.html"
-      for="*"
-      template="controlpanel.pt"
-      permission="zope.Public"
       />
 
 </zope:configure>
