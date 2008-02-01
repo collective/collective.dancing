@@ -7,9 +7,6 @@
       i18n:domain="collective.dancing">
 <body>
 
-  <metal:block fill-slot="top_slot"
-               tal:define="dummy python:request.set('disable_border', 1)" />
-
   <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main">
       

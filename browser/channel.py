@@ -2,12 +2,13 @@ from z3c.form import field
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFPlone import utils
-
 from collective.singing import z2
-from collective.dancing import MessageFactory as _
-from collective.dancing.channel import Channel
 from collective.singing.browser import crud
 from collective.singing.interfaces import IChannel
+
+from collective.dancing import MessageFactory as _
+from collective.dancing.channel import Channel
+from collective.dancing.browser import controlpanel
 
 class ManageChannelsForm(crud.CrudForm):
     """'Does everything' form for channels.
@@ -32,9 +33,10 @@ class ManageChannelsForm(crud.CrudForm):
         return item.absolute_url()
         
 class ChannelAdministrationView(BrowserView):
-    __call__ = ViewPageTemplateFile('skeleton.pt')
+    __call__ = ViewPageTemplateFile('controlpanel.pt')
     
     label = _(u'Newsletter Channels administration')
+    back_link = controlpanel.back_to_controlpanel
 
     def contents(self):
         # A call to 'switch_on' is required before we can render z3c.forms.

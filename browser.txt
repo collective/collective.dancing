@@ -57,6 +57,14 @@ And reload that statistics page:
   >>> str(second.timestamp) in browser.contents
   True
 
+We can also clear all stats:
+
+  >>> browser.getControl('Clear statistics').click()
+  >>> "Statistics cleared" in browser.contents
+  True
+  >>> str(first.timestamp) in browser.contents
+  False
+
 Administration
 --------------
 
@@ -80,7 +88,7 @@ Through this administration screen we can add and delete channels:
 
 Let's delete the first of the two channels:
 
-  >>> btn = browser.getControl(name='crud-edit.my-channel.widgets.delete:list')
+  >>> btn = browser.getControl(name='crud-edit.my-channel.widgets.select:list')
   >>> btn.value = ['selected']
   >>> browser.getControl(name='crud-edit.buttons.delete').click()
   >>> "Successfully deleted items" in browser.contents
