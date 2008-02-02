@@ -76,8 +76,8 @@ class EditForm(crud.EditForm):
         selected = self.selected_items()
         if selected:
             self.status = _(u"Successfully flushed channels.")
-            for id, channel in selected:
-                channel.queue.flush()
+            for id, stats in selected:
+                stats.channel.queue.flush()
 
 class StatsForm(crud.CrudForm):
     """View list of queues and last modification dates for all
