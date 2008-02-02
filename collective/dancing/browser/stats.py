@@ -85,7 +85,6 @@ class StatsForm(crud.CrudForm):
     """
     addform_factory = crud.NullForm
     editform_factory = EditForm
-    update_schema = field.Fields()
     view_schema = IQueueStatistics
 
     def get_items(self):
