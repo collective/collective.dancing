@@ -9,6 +9,7 @@ import Products.CMFPlone.interfaces
 
 import collective.singing.subscribe
 import collective.singing.interfaces
+import collective.singing.message
 
 
 def channel_lookup():
@@ -52,6 +53,8 @@ class Channel(OFS.SimpleItem.SimpleItem):
         self.composers = None
         self.collector = None
         self.scheduler = None
+        self.queue = collective.singing.message.MessageQueues()
+        super(Channel, self).__init__(name)
 
     @property
     def id(self):

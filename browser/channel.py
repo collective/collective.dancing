@@ -29,9 +29,10 @@ class ManageChannelsForm(crud.CrudForm):
     def remove(self, (id, item)):
         self.context.manage_delObjects([id])
 
-    def link(self, item):
-        return item.absolute_url()
-        
+    def link(self, item, field, value):
+        if field == 'title':
+            return item.absolute_url()
+
 class ChannelAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
     

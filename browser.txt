@@ -30,47 +30,11 @@ reach it as an administrator through the 'Site Setup' link:
   >>> "Newsletter configuration" in browser.contents
   True
 
-Stats
------
-
-A simple statistics screen can be reached by visiting the 'Newsletter
-statistics' link:
-
-  >>> browser.getLink('Newsletter statistics').click()
-  >>> "No statistics available at this time" in browser.contents
-  True
-
-We want to see some statistics, don't we?  Let's add some fake stats:
-
-  >>> from collective.dancing import stats
-  >>> import datetime
-  >>> first = stats.Stat(datetime.datetime.now(), "Book snippets", 42)
-  >>> second = stats.Stat(datetime.datetime.now(), "News items", 30)
-  >>> stats.get_queued_stats().append(first)
-  >>> stats.get_queued_stats().append(second)
-
-And reload that statistics page:
-
-  >>> browser.reload()
-  >>> str(first.timestamp) in browser.contents
-  True
-  >>> str(second.timestamp) in browser.contents
-  True
-
-We can also clear all stats:
-
-  >>> browser.getControl('Clear statistics').click()
-  >>> "Statistics cleared" in browser.contents
-  True
-  >>> str(first.timestamp) in browser.contents
-  False
-
 Administration
 --------------
 
-The admistration screen can be reached through the same control panel:
+The admistration screen can be reached through Plone control panel:
 
-  >>> browser.open('http://nohost/plone/newsletter-controlpanel.html')
   >>> browser.getLink('Newsletter administration').click()
 
 Through this administration screen we can add and delete channels:
@@ -101,4 +65,17 @@ screen:
 
   >>> browser.getLink('My other channel').click()
 
-  
+TODO
+
+Stats
+-----
+
+Also the statistics screens can be reached through the control panel:
+
+  >>> browser.open('http://nohost/plone/newsletter-controlpanel.html')
+  >>> browser.getLink('Newsletter statistics').click()
+
+We can see that our channel is listed here:
+
+  >>> 'My other channel' in browser.contents
+  True
