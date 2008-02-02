@@ -12,7 +12,7 @@
   <page
       name="newsletter-stats-controlpanel.html"
       for="*"
-      class=".controlpanel.StatsView"
+      class=".stats.StatsView"
       permission="cmf.ManagePortal"
       />
 
