@@ -1,0 +1,86 @@
+Collector
+=========
+
+See ``collective.singing.interfaces.ICollector``
+
+Give me a list of all collectors
+--------------------------------
+
+Collectors are stored separately from channels, since they can be
+useful for more than one channel at the same time.  The "Collector
+Vocabulary" provides us with a list of available collectors.  Luckily,
+some default collectors are created at install time:
+
+  >>> from zope import component
+  >>> from zope.schema.interfaces import IVocabularyFactory
+  >>> factory = component.getUtility(
+  ...     IVocabularyFactory, u"Collector Vocabulary")
+  >>> vocab = factory(None)
+  >>> for term in vocab: # doctest: +NORMALIZE_WHITESPACE
+  ...     print '%s: %r' % (term.token, term.value)
+  /plone/portal_newsletters/collectors/default-latest-news:
+    <SmartFolderCollector at /plone/portal_newsletters/collectors/default-latest-news>
+
+Getting items from a collector
+------------------------------
+
+Collectors implement the ``get_item`` method, which returns a tuple of
+the form ``(items, cue)``.  See
+``collective.singing.interfaces.ICollector``.
+
+  >>> collector = term.value
+  >>> items, cue = collector.get_items()
+  >>> len(items)
+  0
+
+To have this default collector return items, we'll need to add a news
+item in the site:
+
+  >>> news = self.portal.news
+  >>> workflow = self.portal.portal_workflow
+  >>> self.loginAsPortalOwner()
+  >>> news.invokeFactory(
+  ...     'News Item', id='flu', title='Drug-resistant flu rising, says WHO')
+  'flu'
+  >>> workflow.doActionFor(news['flu'], 'publish')
+
+  >>> items, cue = collector.get_items()
+  >>> items
+  [<ATNewsItem at /plone/news/flu>]
+
+By passing the retrieved cue to the ``get_items`` method, we restrict
+the results to items that are newer than the last time we called the
+method.  Let's create another news item to verify that:
+
+  >>> news.invokeFactory(
+  ...     'News Item', id='mini', title='The miniskirt is back again')
+  'mini'
+  >>> workflow.doActionFor(news['mini'], 'publish')
+
+Let's set our item's creation date a couple of miliseconds into the
+future.  This is to make sure that we don't slip the date index's
+granularity:
+
+  >>> from DateTime import DateTime
+  >>> news['mini'].setCreationDate(DateTime() + 0.0005)
+  >>> news['mini'].reindexObject(idxs=['created'])
+  >>> items, cue = collector.get_items(cue=cue)
+  >>> items
+  [<ATNewsItem at /plone/news/mini>]
+
+Let's imagine we have a cue that we retrieved yesterday.  When using
+it, we'll get both items:
+
+  >>> items, cue = collector.get_items(cue=cue-1)
+  >>> items
+  [<ATNewsItem at /plone/news/mini>, <ATNewsItem at /plone/news/flu>]
+
+The collector also implements a ``schema`` attribute.  See the
+``ICollector`` interface.  Our default collector returns an empty
+schema:
+
+  >>> collector.schema.names()
+  []
+
+TODO: Show how the schema changes when we select the portal types
+returned as a configuration option for the subscriber.

@@ -70,7 +70,7 @@ class ChannelStatistics(object):
         return msg_count, last_modified
 
 class EditForm(crud.EditForm):
-    @button.buttonAndHandler(_('Flush'), name='delete')
+    @button.buttonAndHandler(_('Flush old messages'), name='flush')
     def handle_flush(self, action):
         self.status = _(u"Please select items to flush.")
         selected = self.selected_items()

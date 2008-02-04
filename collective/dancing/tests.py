@@ -37,6 +37,11 @@ def test_suite():
             ),
 
         ztc.ZopeDocFileSuite(
+            'collector.txt',
+            test_class=ptc.PloneTestCase,
+            ),
+
+        ztc.ZopeDocFileSuite(
             'browser.txt',
             test_class=ptc.FunctionalTestCase,
             ),

@@ -29,7 +29,11 @@
       />
 
   <utility component=".channel.channel_lookup" />
-
   <subscriber handler=".channel.tool_added" />
+
+  <utility component=".collector.collector_vocabulary"
+           name="Collector Vocabulary" />
+  <subscriber handler=".collector.container_added" />
+  <subscriber handler=".collector.sfc_added" />
 
 </configure>
