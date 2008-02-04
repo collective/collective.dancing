@@ -6,11 +6,11 @@ import OFS.event
 import OFS.Folder
 import OFS.SimpleItem
 import Products.CMFPlone.interfaces
-
 import collective.singing.subscribe
 import collective.singing.interfaces
 import collective.singing.message
 
+import collective.dancing.collector
 
 def channel_lookup():
     root = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
@@ -24,8 +24,12 @@ class PortalNewsletters(OFS.Folder.Folder):
 @component.adapter(PortalNewsletters,
                    zope.app.container.interfaces.IObjectAddedEvent)
 def tool_added(tool, event):
-    if 'channels' not in tool.objectIds():
-        tool['channels'] = ChannelContainer('channels')
+    factories = dict(channels=ChannelContainer,
+                     collectors=collective.dancing.collector.CollectorContainer)
+    existing = tool.objectIds()
+    for name, factory in factories.items():
+        if name not in existing:
+            tool[name] = factory(name)
 
 class ChannelContainer(OFS.Folder.Folder):
     """
@@ -41,6 +45,8 @@ class Channel(OFS.SimpleItem.SimpleItem):
       >>> from zope.interface.verify import verifyObject
       >>> verifyObject(collective.singing.interfaces.IChannel, channel)
       True
+      >>> channel.name
+      'xs'
     """
     interface.implements(collective.singing.interfaces.IChannel)
 
@@ -59,4 +65,3 @@ class Channel(OFS.SimpleItem.SimpleItem):
     @property
     def id(self):
         return self.name
-

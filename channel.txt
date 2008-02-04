@@ -1,15 +1,28 @@
 Channels
 ========
 
-When installed in a Plone site, `collective.dancing` will install a
-channel container and a list of `IChannel` objects in it.
+Setup
+-----
 
   >>> from zope import component
   >>> from zope.app.component.hooks import setSite
   >>> setSite(self.portal)
 
-The registered `IChannelLookup` utility will give us a list of all
-channels in the site:
+The portal tool
+---------------
+
+When installed in a Plone site, we will create a tool called
+``portal_newsletters``, and therein a couple of containers:
+
+  >>> sorted(self.portal['portal_newsletters'].objectIds())
+  ['channels', 'collectors']
+
+Give me a list of all channels
+------------------------------
+
+The ``channels`` folder contains the list of ``IChannel`` available.
+These channels can be retrieved through the ``IChannelLookup``
+utility, like so:
 
   >>> from collective.singing.interfaces import IChannelLookup
   >>> component.getUtility(IChannelLookup)()
@@ -19,6 +32,7 @@ Let's create a channel and ask for the list of channels again:
 
   >>> from collective.dancing.channel import Channel
   >>> channels = self.portal['portal_newsletters']['channels']
-  >>> channels['c1'] = Channel('c1')
+  >>> channels['wq'] = Channel('wq')
   >>> component.getUtility(IChannelLookup)()
-  [<Channel at /plone/portal_newsletters/channels/c1>]
+  [<Channel at /plone/portal_newsletters/channels/wq>]
+
