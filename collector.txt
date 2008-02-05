@@ -11,6 +11,7 @@ useful for more than one channel at the same time.  The "Collector
 Vocabulary" provides us with a list of available collectors.  Luckily,
 some default collectors are created at install time:
 
+  >>> from zope import interface
   >>> from zope import component
   >>> from zope.schema.interfaces import IVocabularyFactory
   >>> factory = component.getUtility(
@@ -57,12 +58,12 @@ method.  Let's create another news item to verify that:
   'mini'
   >>> workflow.doActionFor(news['mini'], 'publish')
 
-Let's set our item's creation date a couple of miliseconds into the
+Let's set our item's creation date a couple of seconds into the
 future.  This is to make sure that we don't slip the date index's
 granularity:
 
   >>> from DateTime import DateTime
-  >>> news['mini'].setCreationDate(DateTime() + 0.0005)
+  >>> news['mini'].setCreationDate(DateTime() + 0.005)
   >>> news['mini'].reindexObject(idxs=['created'])
   >>> items, cue = collector.get_items(cue=cue)
   >>> items
@@ -82,5 +83,95 @@ schema:
   >>> collector.schema.names()
   []
 
-TODO: Show how the schema changes when we select the portal types
-returned as a configuration option for the subscriber.
+Criterions for everyone
+-----------------------
+
+Let's change the default collector to also return events:
+
+  >>> type_criterion = collector.topic.listCriteria()[0]
+  >>> type_criterion
+  <ATPortalTypeCriterion at /plone/portal_newsletters/collectors/default-latest-news/topic/crit__Type_ATPortalTypeCriterion>
+  >>> type_criterion.Value()
+  ('News Item',)
+  >>> type_criterion.setValue(('News Item', 'Event'))
+
+Let's see if a new event is returned by the collector now:
+
+  >>> events = self.portal.events
+  >>> events.invokeFactory(
+  ...     'Event', id='super-bowl',
+  ...     title='Super Bowl XLII', creation_date=DateTime() + 0.005)
+  'super-bowl'
+  >>> workflow.doActionFor(events['super-bowl'], 'publish')
+
+  >>> items, cue = collector.get_items()
+  >>> items # doctest: +NORMALIZE_WHITESPACE
+  [<ATEvent at /plone/events/super-bowl>, <ATNewsItem at /plone/news/mini>,
+   <ATNewsItem at /plone/news/flu>]
+
+We can signal that we want one or more criterions to be made available
+for further restriction by the user.  The
+``user_restrictable_criterions`` governs this.  Let's set it so that
+users can select out of the two available portal types the ones they'd
+like to get notifications about:
+
+  >>> collector.user_restrictable_criterions
+  []
+  >>> 'Type' in collector.schema
+  False
+  >>> collector.user_restrictable_criterions = ['Type']
+
+The schema of our collector now includes a choice field for the type:
+
+  >>> field = collector.schema['Type']
+  >>> field.title
+  u'Select content types'
+  >>> [t.value for t in field.vocabulary]
+  [u'News Item', u'Event']
+
+The ``collective.singing.interfaces.ICollectorData`` mapping gives us
+information about what choices a subscriber made.  See the interface
+for details.
+
+Let's first define a subscription class along with an adapter that
+gives us the data that the collector looks for to further restrict the
+search:
+
+  >>> import collective.singing.interfaces
+  >>> class Subscription(object):
+  ...     collector_data = {}
+  >>> @component.adapter(Subscription)
+  ... @interface.implementer(collective.singing.interfaces.ICollectorData)
+  ... def collector_data(subscription):
+  ...     return subscription.collector_data
+  >>> component.provideAdapter(collector_data)
+
+First of all, it should be fine to call ``get_items`` with a
+subscriber that does *not* have any colletor data, i.e. he hasn't made
+any choices.  This will return the same items as before:
+
+  >>> items, cue = collector.get_items(subscription=Subscription())
+  >>> items # doctest: +NORMALIZE_WHITESPACE
+  [<ATEvent at /plone/events/super-bowl>, <ATNewsItem at /plone/news/mini>,
+   <ATNewsItem at /plone/news/flu>]
+
+We can provide both a cue and a subscription:
+
+  >>> items, cue = collector.get_items(cue=cue-1, subscription=Subscription())
+  >>> items # doctest: +NORMALIZE_WHITESPACE
+  [<ATEvent at /plone/events/super-bowl>, <ATNewsItem at /plone/news/mini>,
+   <ATNewsItem at /plone/news/flu>]
+
+Now comes the interesting part.  We'll say that our subscriber made a
+choice based on the type field.  In this case, we'll select events
+only:
+
+  >>> subscription = Subscription()
+  >>> value = [t.value for t in field.vocabulary][0]
+  >>> value
+  u'News Item'
+  >>> field.__name__
+  u'Type'
+  >>> subscription.collector_data[field.__name__] = [value]
+  >>> collector.get_items(subscription=subscription)[0]
+  [<ATNewsItem at /plone/news/mini>, <ATNewsItem at /plone/news/flu>]

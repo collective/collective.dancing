@@ -35,5 +35,6 @@
            name="Collector Vocabulary" />
   <subscriber handler=".collector.container_added" />
   <subscriber handler=".collector.sfc_added" />
+  <adapter factory=".collector.SelectionCriterionMediator" />
 
 </configure>
