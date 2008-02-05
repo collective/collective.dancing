@@ -35,9 +35,14 @@ interface.classImplements(
 def collector_vocabulary(context):
     root = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
     collectors = root['portal_newsletters']['collectors'].objectValues()
-    return zope.schema.vocabulary.SimpleVocabulary.fromItems(
-        [('/'.join(collector.getPhysicalPath()), collector)
-         for collector in collectors])
+    terms = []
+    for collector in collectors:
+        terms.append(
+            zope.schema.vocabulary.SimpleTerm(
+                value=collector,
+                token='/'.join(collector.getPhysicalPath()),
+                title=collector.title))
+    return zope.schema.vocabulary.SimpleVocabulary(terms)
 interface.alsoProvides(collector_vocabulary,
                        zope.schema.interfaces.IVocabularyFactory)
 
@@ -184,6 +189,7 @@ class PathCriterionMediator(object):
             path = '/'.join(folder.getPhysicalPath())
             term = zope.schema.vocabulary.SimpleTerm(
                 value=CriterionValue(path, self),
+                token=path,
                 title=unicode(folder.Title(), 'UTF-8'))
             terms.append(term)
 
