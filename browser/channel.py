@@ -1,3 +1,5 @@
+from zope import schema
+import zope.schema.vocabulary
 from z3c.form import field
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -14,7 +16,18 @@ class ManageChannelsForm(crud.CrudForm):
     """'Does everything' form for channels.
     """
 
-    update_schema = field.Fields(IChannel).select('title')
+    @property
+    def update_schema(self):
+        fields = field.Fields(IChannel).select('title')
+
+        collector = schema.Choice(
+            __name__='collector',
+            title=IChannel['collector'].title,
+            vocabulary='Collector Vocabulary')
+
+        fields += field.Fields(collector)
+        return fields
+
     view_schema = field.Fields(IChannel).select('title')
     
     def get_items(self):
