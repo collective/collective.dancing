@@ -1,21 +1,23 @@
+import datetime
+
 from zope import schema
 import zope.schema.vocabulary
 from z3c.form import field
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFPlone import utils
+from collective.singing.interfaces import IChannel
 from collective.singing import z2
 from collective.singing.browser import crud
-from collective.singing.interfaces import IChannel
+import collective.singing.subscribe
 
 from collective.dancing import MessageFactory as _
 from collective.dancing.channel import Channel
 from collective.dancing.browser import controlpanel
 
 class ManageChannelsForm(crud.CrudForm):
-    """'Does everything' form for channels.
+    """Crud form for channels.
     """
-
     @property
     def update_schema(self):
         fields = field.Fields(IChannel).select('title')
@@ -36,7 +38,7 @@ class ManageChannelsForm(crud.CrudForm):
     def add(self, data):
         name = utils.normalizeString(
             data['title'].encode('utf-8'), encoding='utf-8')
-        self.context[name] = Channel(name, data['title'])
+        self.context[name] = Channel(name, data['title'], data['collector'])
         return self.context[name]
 
     def remove(self, (id, item)):
@@ -56,3 +58,88 @@ class ChannelAdministrationView(BrowserView):
         # A call to 'switch_on' is required before we can render z3c.forms.
         z2.switch_on(self)
         return ManageChannelsForm(self.context.channels, self.request)()
+
+class ManageSubscriptionsForm(crud.CrudForm):
+    """Crud form for subscriptions.
+    """
+    # These are set by the SubscriptionsAdministrationView
+    format = None 
+    composer = None
+
+    @property
+    def prefix(self):
+        return self.format
+
+    def _composer_fields(self):
+        return field.Fields(self.composer.schema)
+
+    def _collector_fields(self):
+        return field.Fields(self.context.collector.schema)
+
+    @property
+    def update_schema(self):
+        fields = self._composer_fields()
+        fields += self._collector_fields()
+        return fields
+
+    def get_items(self):
+        subscriptions = collective.singing.interfaces.ISubscriptions(
+            self.context)
+        items = []
+        for secret, subscriptions in subscriptions.items():
+            for subscription in subscriptions:
+                md = collective.singing.interfaces.ISubscriptionMetadata(
+                    subscription)
+                if md['format'] == self.format:
+                    items.append((secret, subscription))
+        return items
+
+    def add(self, data):
+        secret = collective.singing.subscribe.secret(
+            self.context, self.composer, data, self.request)
+
+        composer_data = dict(
+            [(name, value) for (name, value) in data.items()
+             if name in self._composer_fields()])
+
+        collector_data = dict(
+            [(name, value) for (name, value) in data.items()
+             if name in self._collector_fields()])
+
+        metadata = dict(format=self.format,
+                        data=datetime.datetime.now(),
+                        pending=True)
+
+        subscription = collective.singing.subscribe.SimpleSubscription(
+            self.context, secret, composer_data, collector_data, metadata)
+
+        subscriptions = collective.singing.interfaces.ISubscriptions(
+            self.context)
+        subscriptions[secret].append(subscription)
+        return subscription
+
+    def remove(self, (id, item)):
+        self.context.manage_delObjects([id])
+
+class SubscriptionsAdministrationView(BrowserView):
+    """Manage subscriptions in a channel.
+    """
+    __call__ = ViewPageTemplateFile('controlpanel.pt')
+
+    def label(self):
+        return _(u'${channel} subscriptions administration',
+                 mapping=dict(channel=self.context.title))
+
+    def back_link(self):
+        return dict(label=_(u"Up to Channels administration"),
+                    url=self.context.aq_inner.aq_parent.absolute_url())
+
+    def contents(self):
+        z2.switch_on(self)
+        forms = []
+        for format, composer in self.context.composers.items():
+            form = ManageSubscriptionsForm(self.context, self.request)
+            form.format = format
+            form.composer = composer
+            forms.append(form)
+        return '\n'.join([form() for form in forms])

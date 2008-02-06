@@ -2,24 +2,46 @@
    xmlns:zope="http://namespaces.zope.org/zope"
    xmlns="http://namespaces.zope.org/browser">
 
+  <defaultView
+      for="collective.dancing.channel.IPortalNewsletters"
+      name="index_html"
+      />
+
+  <defaultView
+      for="collective.dancing.channel.IChannelContainer"
+      name="index_html"
+      />
+
+  <defaultView
+      for="collective.singing.interfaces.IChannel"
+      name="index_html"
+      />
+
   <page
-      name="newsletter-controlpanel.html"
-      for="*"
+      name="index_html"
+      for="collective.dancing.channel.PortalNewsletters"
       class=".controlpanel.ControlPanelView"
       permission="cmf.ManagePortal"
       />
 
   <page
-      name="newsletter-stats-controlpanel.html"
-      for="*"
+      name="newsletter-stats.html"
+      for="collective.dancing.channel.ChannelContainer"
       class=".stats.StatsView"
       permission="cmf.ManagePortal"
       />
 
   <page
-      name="newsletter-admin-controlpanel.html"
-      for="*"
+      name="index_html"
+      for="collective.dancing.channel.ChannelContainer"
       class=".channel.ChannelAdministrationView"
+      permission="cmf.ManagePortal"
+      />
+
+  <page
+      name="index_html"
+      for="collective.singing.interfaces.IChannel"
+      class=".channel.SubscriptionsAdministrationView"
       permission="cmf.ManagePortal"
       />
 
