@@ -52,8 +52,6 @@ class CollectorContainer(OFS.Folder.Folder):
 @component.adapter(CollectorContainer,
                    zope.app.container.interfaces.IObjectAddedEvent)
 def container_added(container, event):
-    """
-    """
     name = 'default-latest-news'
     container[name] = SmartFolderCollector(
         name, u"Latest news")
