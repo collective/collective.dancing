@@ -30,6 +30,7 @@
 
   <utility component=".channel.channel_lookup" />
   <subscriber handler=".channel.tool_added" />
+  <adapter factory=".channel.channel_subscriptions" />
 
   <utility component=".collector.collector_vocabulary"
            name="Collector Vocabulary" />
@@ -37,5 +38,7 @@
   <subscriber handler=".collector.sfc_added" />
   <adapter factory=".collector.SelectionCriterionMediator" />
   <adapter factory=".collector.PathCriterionMediator" />
+
+  <adapter factory=".composer.composerdata_from_subscription" />
 
 </configure>

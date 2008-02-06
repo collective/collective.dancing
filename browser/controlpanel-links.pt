@@ -1,11 +1,11 @@
 <ul>
   <li>
-    <a href="./portal_newsletters/newsletter-admin-controlpanel.html">
+    <a href="./channels">
       Newsletter administration
     </a>
   </li>
   <li>
-    <a href="./newsletter-stats-controlpanel.html">
+    <a href="./channels/newsletter-stats.html">
       Newsletter statistics
     </a>
   </li>
