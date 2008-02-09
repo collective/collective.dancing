@@ -15,11 +15,13 @@ this test:
 
   >>> from zope import interface, component
   >>> import collective.singing.interfaces
+  >>> import collective.singing.message
 
   >>> class Channel(object):
   ...     def __init__(self, title, url):
   ...         self.title = title
   ...         self.url = url
+  ...         self.queue = collective.singing.message.MessageQueues()
   ...     def absolute_url(self):
   ...         return self.url
 
