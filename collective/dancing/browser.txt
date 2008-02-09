@@ -35,7 +35,7 @@ Administration
 
 The admistration screen can be reached through Plone control panel:
 
-  >>> browser.getLink('Newsletter administration').click()
+  >>> browser.getLink('Newsletter channels administration').click()
 
 Through this administration screen we can add and delete channels:
 
