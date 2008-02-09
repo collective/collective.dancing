@@ -1,5 +1,3 @@
-# XXX: This module is largely untested; I need to move the tests from
-# a project I ripped this from.
 import md5
 import re
 
@@ -54,12 +52,13 @@ class HTMLComposer(object):
     template = ViewPageTemplateFile('browser/composer-html.pt')
     confirm_template = ViewPageTemplateFile('browser/composer-html-confirm.pt')
 
-    def secret(self, data):
+    @staticmethod
+    def secret(data):
         return md5.new(data['email'] + 'XXX').hexdigest()
     
     context = None
     @property
-    def _request(self):
+    def request(self):
         site = zope.app.component.hooks.getSite()
         return site.REQUEST
 
@@ -80,11 +79,11 @@ class HTMLComposer(object):
         
         unsubscribe_url = (
             '%s/unsubscribe.html?secret=%s' %
-            (channel.library.absolute_url(), subscription.secret))
+            (channel.absolute_url(), subscription.secret))
 
         html = self.template(
             subject=subject,
-            contents=items[0],
+            contents=items,
             channel=channel,
             unsubscribe_url=unsubscribe_url)
         return html
@@ -93,12 +92,11 @@ class HTMLComposer(object):
         site = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
         site_title = unicode(site.Title(), 'UTF-8')
 
-        language = self._request.get('LANGUAGE')
+        language = self.request.get('LANGUAGE')
         subject = zope.i18n.translate(
-            _(u"${site-title}: ${channel-title}"),
-            domain='collective.dancing',
-            mapping={'site-title': site_title,
-                     'channel-title': subscription.channel.title},
+            _(u"${site-title}: ${channel-title}",
+              mapping={'site-title': site_title,
+                       'channel-title': subscription.channel.title}),
             target_language=language)
         html = self._render_html(subscription, items, subject)
 
@@ -109,7 +107,9 @@ class HTMLComposer(object):
             html,
             from_addr=self._from_address,
             to_addr=composer_data['email'])
-        return message
+
+        return collective.singing.message.Message(
+            message, subscription)
 
     def render_confirmation(self, subscription):
         channel = subscription.channel
@@ -120,11 +120,10 @@ class HTMLComposer(object):
 
         html = self.confirm_template(channel=channel,
                                      confirm_url=confirm_url)
-        language = self._request.get('LANGUAGE')
+        language = self.request.get('LANGUAGE')
         subject = zope.i18n.translate(
-            _(u"Confirm your subscription with ${channel-title}"),
-            domain='collective.dancing',
-            mapping={'channel-title': subscription.channel.title},
+            _(u"Confirm your subscription with ${channel-title}",
+              mapping={'channel-title': subscription.channel.title}),
             target_language=language)
 
         composer_data = collective.singing.interfaces.IComposerData(
@@ -132,6 +131,8 @@ class HTMLComposer(object):
         message = collective.singing.mail.create_html_mail(
             subject,
             html.encode('UTF-8'),
-            from_addr=self.from_address,
+            from_addr=self._from_address,
             to_addr=composer_data['email'])
-        return message
+
+        return collective.singing.message.Message(
+            message, subscription)

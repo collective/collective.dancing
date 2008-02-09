@@ -104,7 +104,9 @@ We can create a message now and see how the statistics reflect this.
 First, let's get a hold of our subscription object:
 
   >>> channel = self.portal.portal_newsletters.channels.objectValues()[0]
-  >>> subscription = channel.subscriptions.values()[0]
+  >>> subscription = channel.subscriptions.values()[0][0]
+  >>> subscription # doctest: +ELLIPSIS
+  <collective.singing.subscribe.SimpleSubscription object ...>
 
   >>> from collective.singing import message
   >>> message.Message(payload=u"Hello, World!", subscription=subscription) \
