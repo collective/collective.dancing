@@ -7,7 +7,9 @@
   <body>
     <h1 tal:content="options/subject">Your daily book bite</h1>
 
-    <p tal:content="structure options/contents"></p>
+    <p tal:repeat="item options/contents"
+       tal:content="structure item">
+    </p>
 
     <p i18n:translate="">
       You're receiving this e-mail because you're registered for the
