@@ -12,7 +12,7 @@ Setup
   >>> browser = Browser()
   >>> browser.handleErrors = False
   >>> from collective.dancing.tests import setup_error_log
-  >>> print_error = setup_error_log(self.portal)
+  >>> print_error = setup_error_log(portal)
 
 Control panel
 -------------
@@ -22,7 +22,7 @@ reach it as an administrator through the 'Site Setup' link:
 
   >>> browser.addHeader('Authorization',
   ...                   'Basic %s:%s' % ('portal_owner', user_password))
-  >>> browser.open(self.portal.absolute_url())
+  >>> browser.open(portal.absolute_url())
   >>> browser.getLink('Site Setup').click()
   >>> browser.getLink('Newsletters').click()
   >>> browser.url
@@ -30,8 +30,8 @@ reach it as an administrator through the 'Site Setup' link:
   >>> "Newsletter configuration" in browser.contents
   True
 
-Administration
---------------
+Channels administration
+-----------------------
 
 The admistration screen can be reached through Plone control panel:
 
@@ -60,7 +60,7 @@ Let's delete the first of the two channels:
   >>> 'My channel' in browser.contents, 'My other channel' in browser.contents
   (False, True)
 
-The default "Latest News" collector is already selected for our
+The default "Latest news" collector is already selected for our
 channel:
 
   >>> collector = browser.getControl(
@@ -68,12 +68,75 @@ channel:
   >>> collector.displayValue
   ['Latest news']
 
+Configuring collectors
+----------------------
+
+We can click on "Latest news" to configure what items go into the
+channel:
+
+  >>> browser.getLink('Latest news').click()
+
+Here, we'll find a link to the Smart Folder that's used to filter and
+sort the items that go into the channel.  Thus, we click another time
+to interact with the Smart Folder interface:
+
+  >>> browser.getLink('edit the Smart Folder').click()
+
+Let's say we wanted the channel to contain both News Items and Events.
+We'll add to the selection the Events type and save:
+
+  >>> types = browser.getControl(
+  ...     name='crit__Type_ATPortalTypeCriterion_value:list')
+  >>> types.value = ['News Item', 'Event']
+  >>> browser.getControl(name='form.button.Save').click()
+  >>> "Changes saved" in browser.contents
+  True
+
+Okay, so now we catch both events and news items throughout the site.
+To see if that's true, we'll create two items, one for each type:
+
+  >>> news = portal.news
+  >>> workflow = portal.portal_workflow
+  >>> self.loginAsPortalOwner()
+  >>> news.invokeFactory(
+  ...     'News Item', id='flu', title='Drug-resistant flu rising, says WHO')
+  'flu'
+  >>> workflow.doActionFor(news['flu'], 'publish')
+
+  >>> events = portal.events
+  >>> events.invokeFactory('Event', id='super-bowl', title='Super Bowl XLII')
+  'super-bowl'
+  >>> workflow.doActionFor(events['super-bowl'], 'publish')
+
+We can now expect these two items to show up when we look at the
+collector's Smart Folder's RSS view:
+
+  >>> browser.open(browser.url.rsplit('/', 1)[0] + '/RSS')
+  >>> 'Super Bowl XLII' in browser.contents, 'flu rising' in browser.contents
+  (True, True)
+
+For e-mail subscriptions to this channel, we'll allow subscribers to
+choose which content types they're interested in; whether it's news
+items, events, or both.  The default will be both.
+
+We'll mark the "Portal Types Criterion" as restrictable by the
+subscriber.  The collector edit form allows us to do this:
+
+  >>> browser.goBack()
+  >>> browser.getLink('Latest news').click()
+  >>> criteria = browser.getControl("User restrictable criterions")
+  >>> criteria.value = ['Type']
+  >>> browser.getControl('Apply').click()
+  >>> "Data successfully updated" in browser.contents
+  True
+
 Channel subscriptions
 ---------------------
 
-We can click on the channel's name to reach the channel subscriptions
-screen:
+Going back to the channel administration screen, we can click on the
+channel's name to reach the channel subscriptions screen:
 
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
   >>> browser.getLink('My other channel').click()
 
 We can add new subscriptions here:
@@ -85,7 +148,17 @@ We can add new subscriptions here:
   >>> 'daniel@localhost' in browser.contents
   True
 
-XXX: Try out adding collector data.
+We'll add another subscription.  This one filters on the content type:
+
+  >>> browser.getControl('E-mail address').value = u"mailman@localhost"
+  >>> browser.getControl('Select content types').value = ['News Item']
+  >>> browser.getControl('Add').click()
+  >>> 'Item added successfully' in browser.contents
+  True
+
+  >>> print browser.contents # doctest: +ELLIPSIS
+  <!DOCTYPE...daniel@localhost...
+  ...mailman@localhost...selected="selected">News Item</option>...
 
 Stats
 -----
@@ -97,13 +170,13 @@ Also the statistics screens can be reached through the control panel:
 
 We can see that our channel is listed here:
 
-  >>> print browser.contents #doctest: +ELLIPSIS
+  >>> print browser.contents # doctest: +ELLIPSIS
   <!DOCTYPE...My other channel...0...0...0...0...0...
 
 We can create a message now and see how the statistics reflect this.
 First, let's get a hold of our subscription object:
 
-  >>> channel = self.portal.portal_newsletters.channels.objectValues()[0]
+  >>> channel = portal.portal_newsletters.channels.objectValues()[0]
   >>> subscription = channel.subscriptions.values()[0][0]
   >>> subscription # doctest: +ELLIPSIS
   <collective.singing.subscribe.SimpleSubscription object ...>
@@ -118,3 +191,9 @@ Et voila:
   >>> browser.reload()
   >>> print browser.contents #doctest: +ELLIPSIS
   <!DOCTYPE...My other channel...0...1...0...0...0...
+
+TODO
+----
+
+- Subscribe
+- Send mails

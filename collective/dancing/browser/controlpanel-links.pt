@@ -5,6 +5,11 @@
     </a>
   </li>
   <li>
+    <a href="./collectors">
+      Newsletter collectors administration
+    </a>
+  </li>
+  <li>
     <a href="./channels/newsletter-stats.html">
       Newsletter statistics
     </a>

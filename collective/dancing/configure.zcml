@@ -34,10 +34,13 @@
 
   <utility component=".collector.collector_vocabulary"
            name="Collector Vocabulary" />
+  <utility component=".collector.criterions_vocabulary"
+           name="User restrictable criterions" />
   <subscriber handler=".collector.container_added" />
   <subscriber handler=".collector.sfc_added" />
   <adapter factory=".collector.SelectionCriterionMediator" />
   <adapter factory=".collector.PathCriterionMediator" />
+  <adapter factory=".collector.collectordata_from_subscription" />
 
   <adapter factory=".composer.composerdata_from_subscription" />
 

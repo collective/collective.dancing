@@ -1,8 +1,14 @@
 import datetime
 
+from zope import component
 from zope import schema
+import zope.interface
+import zope.schema.interfaces
 import zope.schema.vocabulary
 from z3c.form import field
+import z3c.form.interfaces
+import z3c.form.datamanager
+import z3c.form.term
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFPlone import utils
@@ -12,6 +18,7 @@ from collective.singing.browser import crud
 import collective.singing.subscribe
 
 from collective.dancing import MessageFactory as _
+from collective.dancing import collector
 from collective.dancing.channel import Channel
 from collective.dancing.browser import controlpanel
 
@@ -30,7 +37,9 @@ class ManageChannelsForm(crud.CrudForm):
         fields += field.Fields(collector)
         return fields
 
-    view_schema = field.Fields(IChannel).select('title')
+    @property
+    def view_schema(self):
+        return self.update_schema.copy()
     
     def get_items(self):
         return [(ob.getId(), ob) for ob in self.context.objectValues()]
@@ -47,6 +56,10 @@ class ManageChannelsForm(crud.CrudForm):
     def link(self, item, field, value):
         if field == 'title':
             return item.absolute_url()
+        elif field == 'collector':
+            value = value[0]
+            collector = self.context.aq_inner.restrictedTraverse(str(value))
+            return collector.absolute_url()
 
 class ChannelAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
@@ -121,13 +134,33 @@ class ManageSubscriptionsForm(crud.CrudForm):
     def remove(self, (id, item)):
         self.context.manage_delObjects([id])
 
+class SubscriptionChoiceFieldDataManager(z3c.form.datamanager.AttributeField):
+    # This nasty hack allows us to have the default IDataManager to
+    # use a different schema for adapting the context.  This is
+    # necessary because the schema that
+    # ``collector.SmartFolderCollector.schema`` produces is a
+    # dynamically generated interface.
+    #
+    # ``collector.SmartFolderCollector.schema`` should rather produce
+    # an interface with fields that already have the right interface
+    # to adapt to as their ``interface`` attribute.
+    component.adapts(
+        collective.singing.subscribe.SimpleSubscription,
+        zope.schema.interfaces.IField)
+
+    def __init__(self, context, field):
+        super(SubscriptionChoiceFieldDataManager, self).__init__(context, field)
+        if self.field.interface is not None:
+            if issubclass(self.field.interface, collector.ICollectorSchema):
+                self.field.interface = collector.ICollectorSchema
+
 class SubscriptionsAdministrationView(BrowserView):
     """Manage subscriptions in a channel.
     """
     __call__ = ViewPageTemplateFile('controlpanel.pt')
 
     def label(self):
-        return _(u'${channel} subscriptions administration',
+        return _(u'"${channel}" subscriptions administration',
                  mapping=dict(channel=self.context.title))
 
     def back_link(self):

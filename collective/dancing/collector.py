@@ -8,11 +8,14 @@ import zope.app.container.interfaces
 import zope.i18nmessageid
 import DateTime
 import OFS.Folder
+import Products.CMFCore.utils
 import Products.CMFPlone.interfaces
 import Products.CMFPlone.utils
 import Products.ATContentTypes.criteria.selection
 import Products.ATContentTypes.criteria.path
 import collective.singing.interfaces
+
+from collective.dancing import utils
 
 class IATCriterionMediator(interface.Interface):
     field = schema.Object(
@@ -46,8 +49,25 @@ def collector_vocabulary(context):
 interface.alsoProvides(collector_vocabulary,
                        zope.schema.interfaces.IVocabularyFactory)
 
+def criterions_vocabulary(context):
+    terms = []
+    for cr in context.topic.listCriteria():
+        try:
+            IATCriterionMediator(cr)
+        except TypeError, e:
+            continue
+        else:
+            terms.append(
+                zope.schema.vocabulary.SimpleTerm(
+                    value=cr.Field(),
+                    title=cr.shortDesc,
+                ))
+    return zope.schema.vocabulary.SimpleVocabulary(terms)
+interface.alsoProvides(criterions_vocabulary,
+                       zope.schema.interfaces.IVocabularyFactory)
+
 class CollectorContainer(OFS.Folder.Folder):
-    pass
+    Title = u"Collectors"
 
 @component.adapter(CollectorContainer,
                    zope.app.container.interfaces.IObjectAddedEvent)
@@ -65,10 +85,21 @@ def container_added(container, event):
     topic.setSortCriterion('created', True)
     topic.setLayout('folder_summary_view')
 
+class ICollectorSchema(interface.Interface):
+    pass
+
+@component.adapter(collective.singing.interfaces.ISubscription)
+@interface.implementer(ICollectorSchema)
+def collectordata_from_subscription(subscription):
+    composer_data = collective.singing.interfaces.ICollectorData(subscription)
+    return utils.AttributeToDictProxy(composer_data)
+
 class SmartFolderCollector(OFS.Folder.Folder):
+    interface.implements(collective.singing.interfaces.ICollector)
+    
     def __init__(self, id, title):
         self.id = id
-        self.title = title
+        self.title = self.Title = title
         self.user_restrictable_criterions = []
         super(SmartFolderCollector, self).__init__()
 
@@ -108,10 +139,12 @@ class SmartFolderCollector(OFS.Folder.Folder):
         root = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
         self = self.__of__(root)
         topic = self['topic']
-        
+
+        # We collect our topic's criteria based on their "field",
+        # which is a string that corresponds to a catalog index.
         criterions_by_fieldname = {}
         for cr in topic.listCriteria():
-            criterions_by_fieldname[str(cr.field)] = cr
+            criterions_by_fieldname[str(cr.Field())] = cr
 
         fields = []
         for name in self.user_restrictable_criterions:
@@ -127,12 +160,15 @@ class SmartFolderCollector(OFS.Folder.Folder):
                 fields.append((name, field))
 
         return zope.interface.interface.InterfaceClass(
-            'Schema', attrs=dict(fields))
+            'Schema', bases=(ICollectorSchema,), attrs=dict(fields))
 
     def added(self):
         Products.CMFPlone.utils._createObjectByType(
             'Topic', self, id='topic', title=self.title)
         self['topic'].unmarkCreationFlag()
+
+        workflow = Products.CMFCore.utils.getToolByName(self, 'portal_workflow')
+        workflow.doActionFor(self['topic'], 'publish')
 
 @component.adapter(SmartFolderCollector,
                    zope.app.container.interfaces.IObjectAddedEvent)
@@ -148,12 +184,27 @@ class CriterionValue(object):
         return "<CriterionValue with value %r, mediated by %r>" % (
             self.value, self.mediator)
 
+    def __eq__(self, other):
+        return (isinstance(other, CriterionValue) and
+                other.value == self.value and
+                other.mediator.criterion == self.mediator.criterion)
+
 def _choice_field(criterion, vocabulary):
-    return schema.Choice(
+    return schema.Set(
         __name__=criterion.Field(),
         title=zope.i18nmessageid.Message(
             unicode(criterion.shortDesc), domain='collective.dancing'),
-        vocabulary=vocabulary)
+        value_type=schema.Choice(vocabulary=vocabulary))
+
+class LaxVocabulary(zope.schema.vocabulary.SimpleVocabulary):
+    """This vocabulary treats values the same if they're equal.
+    """
+    def getTerm(self, value):
+        same = [t for t in self if t.value == value]
+        if same:
+            return same[0]
+        else:
+            raise LookupError(value)
 
 class SelectionCriterionMediator(object):
     component.adapts(IATSelectionCriterion)
@@ -166,7 +217,7 @@ class SelectionCriterionMediator(object):
     def field(self):
         dl = self.criterion.getCurrentValues()
         values = self.criterion.Value()
-        vocabulary = zope.schema.vocabulary.SimpleVocabulary.fromItems(
+        vocabulary = LaxVocabulary.fromItems(
             [(v, CriterionValue(dl.getValue(v), self)) for v in values])
         return _choice_field(self.criterion, vocabulary)
 
@@ -191,7 +242,7 @@ class PathCriterionMediator(object):
                 title=unicode(folder.Title(), 'UTF-8'))
             terms.append(term)
 
-        vocabulary = zope.schema.vocabulary.SimpleVocabulary(terms)
+        vocabulary = LaxVocabulary(terms)
         return _choice_field(self.criterion, vocabulary)
 
     def query_args(self, value):

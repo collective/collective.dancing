@@ -23,7 +23,7 @@ class IPortalNewsletters(interface.Interface):
     pass
 
 class PortalNewsletters(OFS.Folder.Folder):
-    pass
+    Title = u"Newsletters"
 
 @component.adapter(PortalNewsletters,
                    zope.app.container.interfaces.IObjectAddedEvent)
@@ -47,6 +47,8 @@ class ChannelContainer(OFS.Folder.Folder):
       ['your-channel']
     """
 
+    Title = u"Channels"
+
 class Channel(OFS.SimpleItem.SimpleItem):
     """
       >>> channel = Channel('xs')
@@ -64,7 +66,7 @@ class Channel(OFS.SimpleItem.SimpleItem):
         self.name = name
         if title is None:
             title = name
-        self.title = title
+        self.title = self.Title = title
         self.subscriptions = collective.singing.subscribe.SimpleSubscriptions()
         self.collector = collector
         self.scheduler = None
