@@ -126,7 +126,7 @@ The schema of our collector now includes a choice field for the type:
   >>> field = collector.schema['Type']
   >>> field.title
   u'Select content types'
-  >>> [t.value.value for t in field.vocabulary]
+  >>> [t.value.value for t in field.value_type.vocabulary]
   [u'News Item', u'Event']
 
 The ``collective.singing.interfaces.ICollectorData`` mapping gives us
@@ -170,7 +170,7 @@ choice based on the type field.  In this case, we'll select events
 only:
 
   >>> subscription = Subscription()
-  >>> value = [t.value for t in field.vocabulary][0]
+  >>> value = [t.value for t in field.value_type.vocabulary][0]
   >>> value # doctest: +ELLIPSIS
   <CriterionValue with value u'News Item', mediated by <collective.dancing.collector.SelectionCriterionMediator ...>>
 
@@ -221,7 +221,7 @@ only:
 
   >>> field.title
   u'Location in site'
-  >>> value, title = [(t.value, t.title) for t in field.vocabulary][1]
+  >>> value, title = [(t.value, t.title) for t in field.value_type.vocabulary][1]
   >>> value.value
   '/plone/news'
   >>> title
@@ -233,7 +233,7 @@ only:
 In addition to that, if our user decides to be only interested in news
 items, he'll naturally get the same list:
 
-  >>> value = [t.value for t in collector.schema['Type'].vocabulary][0]
+  >>> value = [t.value for t in collector.schema['Type'].value_type.vocabulary][0]
   >>> value # doctest: +ELLIPSIS
   <CriterionValue with value u'News Item', mediated by <collective.dancing.collector.SelectionCriterionMediator ...>>
   >>> subscription.collector_data['Type'] = [value]
@@ -243,7 +243,7 @@ items, he'll naturally get the same list:
 Now what if the user decides to view only items in ``/plone/events``?
 Nothing will be returned then:
 
-  >>> value = [t.value for t in field.vocabulary][0]
+  >>> value = [t.value for t in field.value_type.vocabulary][0]
   >>> subscription.collector_data[field.__name__] = [value]
   >>> len(collector.get_items(subscription=subscription)[0])
   0
@@ -251,7 +251,7 @@ Nothing will be returned then:
 Lastly, we'll test if everything both news items are returned when
 both directories are selected, and when none of them is selected:
 
-  >>> value = [t.value for t in field.vocabulary]
+  >>> value = [t.value for t in field.value_type.vocabulary]
   >>> subscription.collector_data[field.__name__] = value
   >>> collector.get_items(subscription=subscription)[0]
   [<ATNewsItem at /plone/news/mini>, <ATNewsItem at /plone/news/flu>]

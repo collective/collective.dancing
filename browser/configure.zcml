@@ -2,6 +2,13 @@
    xmlns:zope="http://namespaces.zope.org/zope"
    xmlns="http://namespaces.zope.org/browser">
 
+  <zope:adapter factory=".channel.SubscriptionChoiceFieldDataManager" />
+
+  <zope:adapter factory="z3c.form.browser.checkbox.CheckBoxFieldWidget"
+                for="zope.schema.interfaces.IUnorderedCollection
+                     collective.singing.interfaces.IFormLayer"
+                />
+
   <defaultView
       for="collective.dancing.channel.IPortalNewsletters"
       name="index_html"
@@ -14,6 +21,11 @@
 
   <defaultView
       for="collective.singing.interfaces.IChannel"
+      name="index_html"
+      />
+
+  <defaultView
+      for="collective.singing.interfaces.ICollector"
       name="index_html"
       />
 
@@ -42,6 +54,20 @@
       name="index_html"
       for="collective.singing.interfaces.IChannel"
       class=".channel.SubscriptionsAdministrationView"
+      permission="cmf.ManagePortal"
+      />
+
+  <page
+      name="index_html"
+      for="collective.dancing.collector.CollectorContainer"
+      class=".collector.CollectorAdministrationView"
+      permission="cmf.ManagePortal"
+      />
+
+  <page
+      name="index_html"
+      for="collective.singing.interfaces.ICollector"
+      class=".collector.CollectorEditView"
       permission="cmf.ManagePortal"
       />
 

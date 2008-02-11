@@ -12,16 +12,7 @@ import collective.singing.interfaces
 import collective.singing.mail
 
 from collective.dancing import MessageFactory as _
-
-class AttributeToDictProxy(object):
-    def __init__(self, wrapped):
-        self.wrapped = wrapped
-
-    def __setitem__(self, name, value):
-        self.wrapped[name] = value
-
-    def __getattr__(self, name):
-        return self.wrapped[name]
+from collective.dancing import utils
 
 class InvalidEmailAddress(schema.ValidationError):
     _(u"Your e-mail address is invalid")
@@ -40,7 +31,7 @@ class IHTMLComposerSchema(interface.Interface):
 @interface.implementer(IHTMLComposerSchema)
 def composerdata_from_subscription(subscription):
     composer_data = collective.singing.interfaces.IComposerData(subscription)
-    return AttributeToDictProxy(composer_data)
+    return utils.AttributeToDictProxy(composer_data)
 
 class HTMLComposer(object):
     interface.implements(collective.singing.interfaces.IComposer,
