@@ -7,6 +7,8 @@
    i18n_domain="collective.dancing">
 
   <include package="collective.singing" />
+  <adapter factory="collective.singing.mail.Dispatch" />
+
   <include package=".browser" />
 
   <!-- Make this package a Zope 2 product -->
