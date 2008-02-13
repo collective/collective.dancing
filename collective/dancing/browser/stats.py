@@ -79,6 +79,20 @@ class EditForm(crud.EditForm):
             for id, stats in selected:
                 stats.channel.queue.flush()
 
+    @button.buttonAndHandler(_('Send messages now'), name='send')
+    def handle_send(self, action):
+        self.status = _(u"Please select which channel you'd like to send "
+                        "queued e-mails of.")
+        selected = self.selected_items()
+        if selected:
+            sent, failed = 0, 0
+            for id, stats in selected:
+                s, f = stats.channel.queue.dispatch()
+                sent += s
+                failed += f
+            self.status = _(u"${sent} message(s) sent, ${failed} failure(s).",
+                            mapping=dict(sent=sent, failed=failed))
+
 class StatsForm(crud.CrudForm):
     """View list of queues and last modification dates for all
     available channels.

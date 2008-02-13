@@ -14,6 +14,23 @@ Setup
   >>> from collective.dancing.tests import setup_error_log
   >>> print_error = setup_error_log(portal)
 
+We want messages to be printed out instead of sending them:
+
+  >>> from zope import interface, component
+  >>> import zope.sendmail.interfaces
+
+  >>> class MyMailDelivery(object):
+  ...     interface.implements(zope.sendmail.interfaces.IMailDelivery)
+  ...
+  ...     def send(self, from_, to, message):
+  ...         print 'MyMailDelivery sending:'
+  ...         print 'From: ', from_
+  ...         print 'To: ', to
+  ...         print 'Message follows:'
+  ...         print message
+
+  >>> component.provideUtility(MyMailDelivery())
+
 Control panel
 -------------
 
@@ -124,8 +141,7 @@ subscriber.  The collector edit form allows us to do this:
 
   >>> browser.goBack()
   >>> browser.getLink('Latest news').click()
-  >>> criteria = browser.getControl("User restrictable criterions")
-  >>> criteria.value = ['Type']
+  >>> criteria = browser.getControl("Select content types").click()
   >>> browser.getControl('Apply').click()
   >>> "Data successfully updated" in browser.contents
   True
@@ -151,14 +167,14 @@ We can add new subscriptions here:
 We'll add another subscription.  This one filters on the content type:
 
   >>> browser.getControl('E-mail address').value = u"mailman@localhost"
-  >>> browser.getControl('Select content types').value = ['News Item']
+  >>> browser.getControl('News Item', index=1).click()
   >>> browser.getControl('Add').click()
   >>> 'Item added successfully' in browser.contents
   True
 
   >>> print browser.contents # doctest: +ELLIPSIS
   <!DOCTYPE...daniel@localhost...
-  ...mailman@localhost...selected="selected">News Item</option>...
+  ...mailman@localhost...value="News Item" checked="checked" />...
 
 Stats
 -----
@@ -181,6 +197,8 @@ First, let's get a hold of our subscription object:
   >>> subscription # doctest: +ELLIPSIS
   <collective.singing.subscribe.SimpleSubscription object ...>
 
+We can now queue a new message:
+
   >>> from collective.singing import message
   >>> message.Message(payload=u"Hello, World!", subscription=subscription) \
   ... # doctest: +ELLIPSIS
@@ -191,6 +209,55 @@ Et voila:
   >>> browser.reload()
   >>> print browser.contents #doctest: +ELLIPSIS
   <!DOCTYPE...My other channel...0...1...0...0...0...
+
+The statistics screen allows us to also send queued messages.  Right
+now, noone knows how to send text messages like the one we just
+created.  We'll register an adapter to do that for us:
+
+  >>> import collective.singing.interfaces
+
+  >>> class MyTextDispatch(object):
+  ...     interface.implements(collective.singing.interfaces.IDispatch)
+  ...     component.adapts(unicode)
+  ... 
+  ...     failure = False
+  ... 
+  ...     def __init__(self, message):
+  ...         self.message = message
+  ... 
+  ...     def __call__(self):
+  ...         if self.failure:
+  ...             return u'error', self.failure
+  ...         print "Sending %r" % self.message
+  ...         return u'sent', None
+
+  >>> component.provideAdapter(MyTextDispatch)
+
+Now we can select our channel and click the "Send messages now" button:
+
+  >>> btn = browser.getControl(
+  ...     name='crud-edit.my-other-channel.widgets.select:list')
+  >>> btn.value = ['selected']
+  >>> browser.getControl('Send messages now').click()
+  Sending u'Hello, World!'
+  >>> "1 message(s) sent" in browser.contents
+  True
+
+If sending the message fails, we'll get notified:
+
+  >>> message.Message(payload=u"Hello, Aliens!", subscription=subscription) \
+  ... # doctest: +ELLIPSIS
+  <collective.singing.message.Message object ...>
+
+  >>> MyTextDispatch.failure = u'Sorry, failed'
+  >>> btn = browser.getControl(
+  ...     name='crud-edit.my-other-channel.widgets.select:list')
+  >>> btn.value = ['selected']
+  >>> browser.getControl('Send messages now').click()
+  >>> "1 failure(s)" in browser.contents
+  True
+  >>> "0 message(s) sent" in browser.contents
+  True
 
 TODO
 ----
