@@ -279,7 +279,7 @@ We'll subscribe to events only:
 
   >>> browser.getControl('E-mail address').value = u"root@localhost"
   >>> browser.getControl('Event').click()
-  >>> browser.getControl('Subscribe').click() \
+  >>> browser.getControl('Finish').click() \
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   MyMailDelivery sending:
   From: Site Administrator <>
@@ -335,7 +335,7 @@ For this, we'll quickly add another subscription:
 
   >>> browser.open(channel.absolute_url() + '/subscribe.html')
   >>> browser.getControl('E-mail address').value = u"daemon@localhost"
-  >>> browser.getControl('Subscribe').click() \
+  >>> browser.getControl('Finish').click() \
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   MyMailDelivery sending:
   From: Site Administrator <>
@@ -361,3 +361,106 @@ We're now no longer subscribed:
 
 Using a scheduler to send e-mails
 ---------------------------------
+
+The default scheduler for channels is the weekly scheduler:
+
+  >>> channel.scheduler
+  <WeeklyScheduler at /plone/portal_newsletters/channels/my-other-channel/scheduler>
+
+Calling the scheduler's ``tick`` method will send messages to all our
+subscribers.  Right now the scheduler is inactive though, i.e. it
+won't trigger, ever:
+
+  >>> channel.scheduler.tick(channel)
+
+Let's make it active.  Now we can see that the messages are being
+sent:
+
+  >>> channel.scheduler.active = True
+  >>> channel.scheduler.tick(channel)
+  blabla
+
+Doing it a second time won't do anything:
+
+  >>> channel.scheduler.tick(channel)
+
+This has two reasons really: Firstly, the scheduler keeps track of
+when it queued something the last time:
+
+  >>> import datetime
+  >>> now = datetime.datetime.now()
+  >>> channel.scheduler.triggered_last < now
+  True
+  >>> now - datetime.timedelta(hours=1) < channel.scheduler.triggered_last
+  True
+
+Secondly, all our subscriptions have a "cue" set, which marks the time
+when they last received an item:
+
+  >>> subscriptions = []
+  >>> for subs in channel.subscriptions.values():
+  ...     subscriptions.extend(subs)
+  >>> mds = [interfaces.ISubscriptionMetadata(s) for s in subscriptions]
+  >>> [md['cue'] for md in mds]
+  [foo, bar, baz]
+
+We have to reset *both* the cues and the ``triggered_last`` time for
+messages to be queued again:
+
+  >>> for md in mds:
+  ...     del md['cue']
+  >>> channel.scheduler.tick(channel)
+
+  >>> channel.scheduler.triggered_last = datetime.datetime(1, 1, 1, 0, 0)
+  >>> channel.scheduler.tick(channel)
+  blabla
+
+We can choose another scheduler for our channel by visiting the
+channel administration screen:
+
+  >>> browser.addHeader('Authorization',
+  ...                   'Basic %s:%s' % ('portal_owner', user_password))
+  >>> browser.open(channel.absolute_url())
+  >>> select = browser.getControl(
+  ...     name='crud-edit.my-other-channel.widgets.scheduler:list')
+  >>> select.value = ['Weekly Scheduler']
+  >>> browser.getControl('Apply').click()
+  >>> "Data successfully updated" in browser.contents
+  True
+
+That's right!  We're keeping the same scheduler.  Thus, another tick
+won't do anything, because the ``triggered_last`` date is preserved:
+
+  >>> channel.scheduler.tick(channel)
+
+Let's select the daily scheduler now:
+
+  >>> select = browser.getControl(
+  ...     name='crud-edit.my-other-channel.widgets.scheduler:list')
+  >>> select.value = ['Daily Scheduler']
+  >>> browser.getControl('Apply').click()
+  >>> "Data successfully updated" in browser.contents
+  True
+
+Again, that scheduler is inactive by default.  Also, the subscriptions
+still have their cues set:
+
+  >>> channel.scheduler.tick(channel)
+  >>> for md in mds:
+  ...     del md['cue']
+  >>> channel.scheduler.tick(channel)
+
+We can visit the scheduler's management screen to activate it:
+
+  >>> browser.getLink('Daily scheduler').click()
+  >>> "Daily scheduler for My other channel" in browser.contents
+  True
+  >>> browser.getControl('Active').click()
+  >>> browser.getControl('Apply').click()
+  >>> "Data successfully updated" in browser.contents
+  True
+
+The scheduler will send messages now:
+
+  >>> channel.scheduler.tick(channel)
+  blabla

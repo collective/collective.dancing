@@ -118,7 +118,7 @@ class SmartFolderCollector(OFS.Folder.Folder):
                 mediator = None
                 if hasattr(cvalue, '__iter__'):
                     if len(cvalue):
-                        mediator = cvalue[0].mediator
+                        mediator = tuple(cvalue)[0].mediator
                         value = [cvalue.value for cvalue in cvalue]
                     else:
                         continue
@@ -196,16 +196,6 @@ def _choice_field(criterion, vocabulary):
             unicode(criterion.shortDesc), domain='collective.dancing'),
         value_type=schema.Choice(vocabulary=vocabulary))
 
-class LaxVocabulary(zope.schema.vocabulary.SimpleVocabulary):
-    """This vocabulary treats values the same if they're equal.
-    """
-    def getTerm(self, value):
-        same = [t for t in self if t.value == value]
-        if same:
-            return same[0]
-        else:
-            raise LookupError(value)
-
 class SelectionCriterionMediator(object):
     component.adapts(IATSelectionCriterion)
     interface.implements(IATCriterionMediator)
@@ -217,7 +207,7 @@ class SelectionCriterionMediator(object):
     def field(self):
         dl = self.criterion.getCurrentValues()
         values = self.criterion.Value()
-        vocabulary = LaxVocabulary.fromItems(
+        vocabulary = utils.LaxVocabulary.fromItems(
             [(v, CriterionValue(dl.getValue(v), self)) for v in values])
         return _choice_field(self.criterion, vocabulary)
 
@@ -242,7 +232,7 @@ class PathCriterionMediator(object):
                 title=unicode(folder.Title(), 'UTF-8'))
             terms.append(term)
 
-        vocabulary = LaxVocabulary(terms)
+        vocabulary = utils.LaxVocabulary(terms)
         return _choice_field(self.criterion, vocabulary)
 
     def query_args(self, value):
