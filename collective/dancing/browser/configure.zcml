@@ -2,6 +2,8 @@
    xmlns:zope="http://namespaces.zope.org/zope"
    xmlns="http://namespaces.zope.org/browser">
 
+  <!-- Administration -->
+
   <zope:adapter factory=".channel.SubscriptionChoiceFieldDataManager" />
 
   <zope:adapter factory="z3c.form.browser.checkbox.CheckBoxFieldWidget"
@@ -70,5 +72,29 @@
       class=".collector.CollectorEditView"
       permission="cmf.ManagePortal"
       />
+
+
+  <!-- Subscription -->
+
+  <page
+      name="subscribe.html"
+      for="collective.singing.interfaces.IChannel"
+      class=".subscribe.Subscribe"
+      permission="zope2.View"
+      />
+
+  <page
+     name="confirm-subscription.html"
+      for="collective.singing.interfaces.IChannel"
+     class=".subscribe.Confirm"
+     permission="zope2.View"
+     />
+
+  <page
+     name="unsubscribe.html"
+      for="collective.singing.interfaces.IChannel"
+     class=".subscribe.Unsubscribe"
+     permission="zope2.View"
+     />
 
 </zope:configure>
