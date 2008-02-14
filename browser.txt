@@ -9,8 +9,12 @@ Setup
 
   >>> from Testing.ZopeTestCase import user_password
   >>> from Products.Five.testbrowser import Browser
-  >>> browser = Browser()
-  >>> browser.handleErrors = False
+  >>> def new_browser():
+  ...     browser = Browser()
+  ...     browser.handleErrors = False
+  ...     return browser
+  >>> browser = new_browser()
+
   >>> from collective.dancing.tests import setup_error_log
   >>> print_error = setup_error_log(portal)
 
@@ -21,13 +25,15 @@ We want messages to be printed out instead of sending them:
 
   >>> class MyMailDelivery(object):
   ...     interface.implements(zope.sendmail.interfaces.IMailDelivery)
+  ...     sent = []
   ...
   ...     def send(self, from_, to, message):
   ...         print 'MyMailDelivery sending:'
-  ...         print 'From: ', from_
-  ...         print 'To: ', to
+  ...         print 'From:', from_
+  ...         print 'To:', to
   ...         print 'Message follows:'
   ...         print message
+  ...         self.sent.append(message)
 
   >>> component.provideUtility(MyMailDelivery())
 
@@ -259,8 +265,99 @@ If sending the message fails, we'll get notified:
   >>> "0 message(s) sent" in browser.contents
   True
 
-TODO
-----
+Subscribe
+---------
 
-- Subscribe
-- Send mails
+Every channel has a view that allows people to subscribe:
+
+  >>> browser = new_browser()
+  >>> browser.open(channel.absolute_url() + '/subscribe.html')
+  >>> "My other channel" in browser.contents
+  True
+
+We'll subscribe to events only:
+
+  >>> browser.getControl('E-mail address').value = u"root@localhost"
+  >>> browser.getControl('Event').click()
+  >>> browser.getControl('Subscribe').click() \
+  ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  MyMailDelivery sending:
+  From: Site Administrator <>
+  To: root@localhost
+  Message follows:
+  ...
+  To confirm your subscription with My other channel, please click here:...
+  
+  >>> "Thanks for your subscription" in browser.contents
+  True
+
+  >>> import quopri
+  >>> msg = quopri.decodestring(MyMailDelivery.sent[-1])
+  >>> confirm_url = "http://nohost/plone/portal_newsletters/channels/my-other-channel/confirm-subscription.html"
+  >>> confirm_url + "?secret=" in msg
+  True
+  >>> secret = msg[msg.rindex('secret='):msg.index('</a')]
+  >>> secret.startswith('secret=')
+  True
+
+So now we've received an e-mail to confirm our subscription.  Snooping
+around in the list of subscribers, we can see that our subscription is
+*pending*:
+
+  >>> from collective.singing.interfaces import (
+  ...     ISubscriptionMetadata, IComposerData)
+  >>> subscription = channel.subscriptions[secret.split('=')[1]][0]
+  >>> ISubscriptionMetadata(subscription)['pending']
+  True
+  >>> dict(IComposerData(subscription))
+  {'email': u'root@localhost'}
+
+After confirming our subscription, the subscription is no longer
+pending:
+
+  >>> browser.open(confirm_url + '?' + secret)
+  >>> "You confirmed your subscription successfully" in browser.contents
+  True
+  >>> ISubscriptionMetadata(subscription)['pending']
+  False
+
+Trying to confirm a subscription that doesn't exist will give us a
+meaningful message:
+
+  >>> browser.open(confirm_url + '?secret=imfake')
+  >>> "Your subscription isn't known to us" in browser.contents
+  True
+
+Unsubscribe
+-----------
+
+For this, we'll quickly add another subscription:
+
+  >>> browser.open(channel.absolute_url() + '/subscribe.html')
+  >>> browser.getControl('E-mail address').value = u"daemon@localhost"
+  >>> browser.getControl('Subscribe').click() \
+  ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  MyMailDelivery sending:
+  From: Site Administrator <>
+  To: daemon@localhost...
+
+  >>> msg = quopri.decodestring(MyMailDelivery.sent[-1])
+  >>> secret = msg[msg.rindex('secret='):msg.index('</a')]
+  >>> browser.open(confirm_url + '?' + secret)
+  >>> "You confirmed your subscription successfully" in browser.contents
+  True
+
+Now let's unsubscribe:
+
+  >>> browser.open(channel.absolute_url() + '/unsubscribe.html?' + secret)
+  >>> "You unsubscribed successfully" in browser.contents
+  True
+
+We're now no longer subscribed:
+
+  >>> browser.open(channel.absolute_url() + '/unsubscribe.html?' + secret)
+  >>> "You aren't subscribed to this channel" in browser.contents
+  True
+
+Using a scheduler to send e-mails
+---------------------------------
