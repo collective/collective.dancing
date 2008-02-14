@@ -62,14 +62,14 @@ class Channel(OFS.SimpleItem.SimpleItem):
 
     composers = {'html': collective.dancing.composer.HTMLComposer()}
 
-    def __init__(self, name, title=None, collector=None):
+    def __init__(self, name, title=None, collector=None, scheduler=None):
         self.name = name
         if title is None:
             title = name
         self.title = self.Title = title
         self.subscriptions = collective.singing.subscribe.SimpleSubscriptions()
         self.collector = collector
-        self.scheduler = None
+        self.scheduler = scheduler
         self.queue = collective.singing.message.MessageQueues()
         super(Channel, self).__init__(name)
 

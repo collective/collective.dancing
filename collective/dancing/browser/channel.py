@@ -1,4 +1,5 @@
 import datetime
+import sys
 
 from zope import component
 from zope import schema
@@ -9,18 +10,57 @@ from z3c.form import field
 import z3c.form.interfaces
 import z3c.form.datamanager
 import z3c.form.term
+import OFS.SimpleItem
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.CMFPlone import utils
+import Products.CMFPlone.utils
 from collective.singing.interfaces import IChannel
 from collective.singing import z2
 from collective.singing.browser import crud
+import collective.singing.scheduler
 import collective.singing.subscribe
 
 from collective.dancing import MessageFactory as _
 from collective.dancing import collector
+from collective.dancing import utils
 from collective.dancing.channel import Channel
 from collective.dancing.browser import controlpanel
+
+def simpleitem_wrap(klass, name):
+    class SimpleItemWrapper(klass, OFS.SimpleItem.SimpleItem):
+        id = name
+        Title = klass.title
+
+    klassname = klass.__name__
+    SimpleItemWrapper.__name__ = klassname
+    module = sys.modules[__name__]
+    assert not hasattr (module, klassname), "%r already a name in this module."
+    setattr(module, klassname, SimpleItemWrapper)
+    return SimpleItemWrapper
+
+schedulers = [
+    simpleitem_wrap(klass, 'scheduler')
+    for klass in collective.singing.scheduler.schedulers]
+
+class FactoryChoice(schema.Choice):
+    def _validate(self, value):
+        if self._init_field:
+            return
+        super(schema.Choice, self)._validate(value)
+
+        # We'll skip validating against the vocabulary
+
+def scheduler_vocabulary(context):
+    terms = []
+    for factory in schedulers:
+        terms.append(
+            zope.schema.vocabulary.SimpleTerm(
+                value=factory(),
+                token='%s.%s' % (factory.__module__, factory.__name__),
+                title=factory.title))
+    return utils.LaxVocabulary(terms)
+zope.interface.alsoProvides(scheduler_vocabulary,
+                            zope.schema.interfaces.IVocabularyFactory)
 
 class ManageChannelsForm(crud.CrudForm):
     """Crud form for channels.
@@ -34,7 +74,12 @@ class ManageChannelsForm(crud.CrudForm):
             title=IChannel['collector'].title,
             vocabulary='Collector Vocabulary')
 
-        fields += field.Fields(collector)
+        scheduler = FactoryChoice(
+            __name__='scheduler',
+            title=IChannel['scheduler'].title,
+            vocabulary='Scheduler Vocabulary')
+
+        fields += field.Fields(collector, scheduler)
         return fields
 
     @property
@@ -45,9 +90,10 @@ class ManageChannelsForm(crud.CrudForm):
         return [(ob.getId(), ob) for ob in self.context.objectValues()]
     
     def add(self, data):
-        name = utils.normalizeString(
+        name = Products.CMFPlone.utils.normalizeString(
             data['title'].encode('utf-8'), encoding='utf-8')
-        self.context[name] = Channel(name, data['title'], data['collector'])
+        self.context[name] = Channel(
+            name, data['title'], data['collector'], data['scheduler'])
         return self.context[name]
 
     def remove(self, (id, item)):
@@ -60,6 +106,8 @@ class ManageChannelsForm(crud.CrudForm):
             value = value[0]
             collector = self.context.aq_inner.restrictedTraverse(str(value))
             return collector.absolute_url()
+        elif field == 'scheduler':
+            return item.scheduler.absolute_url()
 
 class ChannelAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
