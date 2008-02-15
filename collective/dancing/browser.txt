@@ -28,7 +28,7 @@ We want messages to be printed out instead of sending them:
   ...     sent = []
   ...
   ...     def send(self, from_, to, message):
-  ...         print 'MyMailDelivery sending:'
+  ...         print '*MyMailDelivery sending*:'
   ...         print 'From:', from_
   ...         print 'To:', to
   ...         print 'Message follows:'
@@ -71,6 +71,16 @@ Through this administration screen we can add and delete channels:
   >>> browser.getControl('Title').value = 'My other channel'
   >>> browser.getControl('Add').click()
   >>> 'Item added successfully' in browser.contents
+  True
+
+Trying to rename a channel to the empty string will trigger a form
+error:
+
+  >>> browser.getControl(name='crud-edit.my-channel.widgets.title').value = ''
+  >>> browser.getControl('Apply changes').click()
+  >>> "There were some errors" in browser.contents
+  True
+  >>> "Required input is missing" in browser.contents
   True
 
 Let's delete the first of the two channels:
@@ -201,7 +211,7 @@ First, let's get a hold of our subscription object:
   >>> channel = portal.portal_newsletters.channels.objectValues()[0]
   >>> subscription = channel.subscriptions.values()[0][0]
   >>> subscription # doctest: +ELLIPSIS
-  <collective.singing.subscribe.SimpleSubscription object ...>
+  <SimpleSubscription to ...>
 
 We can now queue a new message:
 
@@ -281,7 +291,7 @@ We'll subscribe to events only:
   >>> browser.getControl('Event').click()
   >>> browser.getControl('Finish').click() \
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-  MyMailDelivery sending:
+  *MyMailDelivery sending*:
   From: Site Administrator <>
   To: root@localhost
   Message follows:
@@ -337,7 +347,7 @@ For this, we'll quickly add another subscription:
   >>> browser.getControl('E-mail address').value = u"daemon@localhost"
   >>> browser.getControl('Finish').click() \
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-  MyMailDelivery sending:
+  *MyMailDelivery sending*:
   From: Site Administrator <>
   To: daemon@localhost...
 
@@ -359,6 +369,12 @@ We're now no longer subscribed:
   >>> "You aren't subscribed to this channel" in browser.contents
   True
 
+Let's flush the message queue:
+
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS
+  *MyMailDelivery sending*:...
+  >>> MyMailDelivery.sent = []
+
 Using a scheduler to send e-mails
 ---------------------------------
 
@@ -378,11 +394,41 @@ sent:
 
   >>> channel.scheduler.active = True
   >>> channel.scheduler.tick(channel)
-  blabla
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *MyMailDelivery sending*:
+  From: Site Administrator <>
+  To: root@localhost
+  Message follows:
+  ...
+  Subject: Plone site: My other channel
+  ...
+  Super Bowl XLII
+  ...
+  To: daniel@localhost
+  ...
+  Super Bowl XLII
+  ...
+  Drug-resistant flu rising, says WHO
+  ...
+  To: mailman@localhost
+  ...
+  Drug-resistant flu rising, says WHO
+  ...
+  (3, 0)
 
-Doing it a second time won't do anything:
+Let's take a closer look at the mail that's sent to mailman:
+
+  >>> msg = quopri.decodestring(MyMailDelivery.sent[-1])
+  >>> "Super Bowl" in msg
+  False
+  >>> msg # doctest: +ELLIPSIS
+  '...<a href="/plone/portal_newsletters/channels/my-other-channel/unsubscribe.html?secret=...">...Click here to unsubscribe...</a>...'
+
+Ticking the scheduler a second time won't do anything:
 
   >>> channel.scheduler.tick(channel)
+  >>> channel.queue.dispatch()
+  (0, 0)
 
 This has two reasons really: Firstly, the scheduler keeps track of
 when it queued something the last time:
@@ -400,55 +446,65 @@ when they last received an item:
   >>> subscriptions = []
   >>> for subs in channel.subscriptions.values():
   ...     subscriptions.extend(subs)
-  >>> mds = [interfaces.ISubscriptionMetadata(s) for s in subscriptions]
-  >>> [md['cue'] for md in mds]
-  [foo, bar, baz]
+  >>> [s.metadata['cue'] for s in subscriptions] # doctest: +ELLIPSIS
+  [DateTime(...), DateTime(...), DateTime(...)]
 
 We have to reset *both* the cues and the ``triggered_last`` time for
 messages to be queued again:
 
-  >>> for md in mds:
-  ...     del md['cue']
+  >>> for subs in subscriptions:
+  ...     del subs.metadata['cue']
   >>> channel.scheduler.tick(channel)
+  >>> channel.queue.dispatch()
+  (0, 0)
 
   >>> channel.scheduler.triggered_last = datetime.datetime(1, 1, 1, 0, 0)
   >>> channel.scheduler.tick(channel)
-  blabla
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS
+  *MyMailDelivery sending*:
+  ...
+  To: root@localhost...To: daniel@localhost...To: mailman@localhost...
+  (3, 0)
 
 We can choose another scheduler for our channel by visiting the
-channel administration screen:
+channel administration screen.  But for now, let's resubmit the form
+with the same scheduler to make sure that its ``triggered_last`` date
+is preserved:
 
+  >>> triggered_last = channel.scheduler.triggered_last
   >>> browser.addHeader('Authorization',
   ...                   'Basic %s:%s' % ('portal_owner', user_password))
-  >>> browser.open(channel.absolute_url())
+  >>> browser.open(channel.aq_parent.absolute_url())
   >>> select = browser.getControl(
   ...     name='crud-edit.my-other-channel.widgets.scheduler:list')
-  >>> select.value = ['Weekly Scheduler']
+  >>> select.displayValue
+  ['Weekly scheduler']
   >>> browser.getControl('Apply').click()
-  >>> "Data successfully updated" in browser.contents
+  >>> "No changes made" in browser.contents
   True
-
-That's right!  We're keeping the same scheduler.  Thus, another tick
-won't do anything, because the ``triggered_last`` date is preserved:
-
-  >>> channel.scheduler.tick(channel)
+  >>> triggered_last == channel.scheduler.triggered_last
+  True
 
 Let's select the daily scheduler now:
 
   >>> select = browser.getControl(
   ...     name='crud-edit.my-other-channel.widgets.scheduler:list')
-  >>> select.value = ['Daily Scheduler']
+  >>> select.displayValue = ['Daily scheduler']
   >>> browser.getControl('Apply').click()
-  >>> "Data successfully updated" in browser.contents
+  >>> "Successfully updated" in browser.contents
   True
 
 Again, that scheduler is inactive by default.  Also, the subscriptions
 still have their cues set:
 
   >>> channel.scheduler.tick(channel)
-  >>> for md in mds:
-  ...     del md['cue']
+  >>> channel.queue.dispatch()
+  (0, 0)
+  >>> for subs in subscriptions:
+  ...     del subs.metadata['cue']
   >>> channel.scheduler.tick(channel)
+  >>> channel.queue.dispatch()
+  (0, 0)
 
 We can visit the scheduler's management screen to activate it:
 
@@ -457,10 +513,14 @@ We can visit the scheduler's management screen to activate it:
   True
   >>> browser.getControl('Active').click()
   >>> browser.getControl('Apply').click()
-  >>> "Data successfully updated" in browser.contents
+  >>> "Successfully updated" in browser.contents
   True
 
 The scheduler will send messages now:
 
   >>> channel.scheduler.tick(channel)
-  blabla
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS
+  *MyMailDelivery sending*:
+  ...
+  To: root@localhost...To: daniel@localhost...To: mailman@localhost...
+  (3, 0)

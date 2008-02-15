@@ -30,6 +30,7 @@ def test_suite():
     return unittest.TestSuite([
 
         doctest.DocTestSuite('collective.dancing.channel'),
+        doctest.DocTestSuite('collective.dancing.composer'),
 
         ztc.ZopeDocFileSuite(
             'channel.txt',
