@@ -109,10 +109,19 @@ channel:
 
   >>> browser.getLink('Latest news').click()
 
-Here, we'll find a link to the Smart Folder that's used to filter and
-sort the items that go into the channel.  Thus, we click another time
-to interact with the Smart Folder interface:
+The collector administration screen shows an overview of all available
+collectors:
 
+  >>> browser.getLink('Up to Collectors administration').click()
+  >>> "Newsletter Collectors administration" in browser.contents
+  True
+
+Back at the collector edit screen for "Latest news", we'll find a link
+to the Smart Folder that's used to filter and sort the items that go
+into the channels.  We can visit the Smart Folder that defines the
+criteria of what goes into the channel here:
+
+  >>> browser.getLink('Latest news').click()
   >>> browser.getLink('edit the Smart Folder').click()
 
 Let's say we wanted the channel to contain both News Items and Events.
