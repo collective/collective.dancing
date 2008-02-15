@@ -35,7 +35,7 @@ class ManageCollectorsForm(crud.CrudForm):
     def remove(self, (id, item)):
         self.context.manage_delObjects([id])
 
-    def link(self, item, field, value):
+    def link(self, item, field):
         if field == 'title':
             return item.absolute_url()
 
