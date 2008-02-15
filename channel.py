@@ -66,7 +66,7 @@ class Channel(OFS.SimpleItem.SimpleItem):
         self.name = name
         if title is None:
             title = name
-        self.title = self.Title = title
+        self.title = title
         self.subscriptions = collective.singing.subscribe.SimpleSubscriptions()
         self.collector = collector
         self.scheduler = scheduler
@@ -76,6 +76,9 @@ class Channel(OFS.SimpleItem.SimpleItem):
     @property
     def id(self):
         return self.name
+
+    def Title(self):
+        return self.title
 
 @component.adapter(Channel)
 @interface.implementer(collective.singing.interfaces.ISubscriptions)

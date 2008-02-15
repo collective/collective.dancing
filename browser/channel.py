@@ -29,7 +29,8 @@ from collective.dancing.browser import controlpanel
 def simpleitem_wrap(klass, name):
     class SimpleItemWrapper(klass, OFS.SimpleItem.SimpleItem):
         id = name
-        Title = klass.title
+        def Title(self):
+            return klass.title
 
     klassname = klass.__name__
     SimpleItemWrapper.__name__ = klassname
@@ -99,15 +100,14 @@ class ManageChannelsForm(crud.CrudForm):
     def remove(self, (id, item)):
         self.context.manage_delObjects([id])
 
-    def link(self, item, field, value):
+    def link(self, item, field):
         if field == 'title':
             return item.absolute_url()
         elif field == 'collector':
-            value = value[0]
-            collector = self.context.aq_inner.restrictedTraverse(str(value))
-            return collector.absolute_url()
+            return item.collector.absolute_url()
         elif field == 'scheduler':
-            return item.scheduler.absolute_url()
+            if item.scheduler is not None:
+                return item.scheduler.absolute_url()
 
 class ChannelAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
@@ -168,8 +168,7 @@ class ManageSubscriptionsForm(crud.CrudForm):
              if name in self._collector_fields()])
 
         metadata = dict(format=self.format,
-                        data=datetime.datetime.now(),
-                        pending=True)
+                        date=datetime.datetime.now())
 
         subscription = collective.singing.subscribe.SimpleSubscription(
             self.context, secret, composer_data, collector_data, metadata)

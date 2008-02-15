@@ -36,6 +36,11 @@
       name="index_html"
       />
 
+  <defaultView
+      for="collective.singing.interfaces.IScheduler"
+      name="index_html"
+      />
+
   <page
       name="index_html"
       for="collective.dancing.channel.PortalNewsletters"
