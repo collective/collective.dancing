@@ -28,6 +28,7 @@ from collective.dancing.browser import controlpanel
 
 def simpleitem_wrap(klass, name):
     class SimpleItemWrapper(klass, OFS.SimpleItem.SimpleItem):
+        __doc__ = OFS.SimpleItem.SimpleItem.__doc__
         id = name
         def Title(self):
             return klass.title

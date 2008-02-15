@@ -83,6 +83,12 @@
       permission="cmf.ManagePortal"
       />
 
+  <page
+      name="index_html"
+      for="collective.singing.interfaces.IScheduler"
+      class=".scheduler.SchedulerEditView"
+      permission="cmf.ManagePortal"
+      />
 
   <!-- Subscription views -->
 

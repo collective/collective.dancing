@@ -511,9 +511,9 @@ We can visit the scheduler's management screen to activate it:
   >>> browser.getLink('Daily scheduler').click()
   >>> "Daily scheduler for My other channel" in browser.contents
   True
-  >>> browser.getControl('Active').click()
+  >>> browser.getControl(name='form.widgets.active:list').value = ['true']
   >>> browser.getControl('Apply').click()
-  >>> "Successfully updated" in browser.contents
+  >>> "Data successfully updated" in browser.contents
   True
 
 The scheduler will send messages now:
