@@ -127,3 +127,31 @@ class HTMLComposer(object):
 
         return collective.singing.message.Message(
             message, subscription)
+
+def plone_html_strip(html):
+    r"""
+      >>> html = (
+      ...     '<html><body><h1 class="documentFirstHeading">'
+      ...     'Hi, it\'s me!</h1><p>Wannabe the son of Frankenstein</p>'
+      ...     '<div class="visualClear"></div></body></html>')
+      >>> plone_html_strip(html)
+      u'<h1 class="documentFirstHeading">Hi, it\'s me!</h1><p>Wannabe the son of Frankenstein</p>'
+    """
+    if not isinstance(html, unicode):
+        html = unicode(html, 'UTF-8')
+
+    first_index = html.find('<h1 class="documentFirstHeading">')
+    second_index = html.find('<div class="visualClear"', first_index)
+    return html[first_index:second_index]
+
+class HTMLFormatter(object):
+    """Format HTML for callable items.
+    """
+    interface.implements(collective.singing.interfaces.IFormatItem)
+
+    def __init__(self, item):
+        self.item = item
+
+    def __call__(self):
+        html = self.item()
+        return plone_html_strip(html)

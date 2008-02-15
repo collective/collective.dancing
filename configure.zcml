@@ -45,5 +45,7 @@
   <adapter factory=".collector.collectordata_from_subscription" />
 
   <adapter factory=".composer.composerdata_from_subscription" />
+  <adapter factory=".composer.HTMLFormatter"
+           for="Products.Archetypes.interfaces.IBaseObject" />
 
 </configure>
