@@ -105,7 +105,10 @@ class ManageChannelsForm(crud.CrudForm):
         if field == 'title':
             return item.absolute_url()
         elif field == 'collector':
-            return item.collector.absolute_url()
+            collector_id = item.collector.getId()
+            collector = getattr(self.context.aq_inner.aq_parent.collectors,
+                                collector_id)
+            return collector.absolute_url()
         elif field == 'scheduler':
             if item.scheduler is not None:
                 return item.scheduler.absolute_url()
