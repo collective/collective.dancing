@@ -156,7 +156,8 @@ class ManageSubscriptionsForm(crud.CrudForm):
                 md = collective.singing.interfaces.ISubscriptionMetadata(
                     subscription)
                 if md['format'] == self.format:
-                    items.append((secret, subscription))
+                    items.append(('%s:%s' %
+                                  (secret, self.format), subscription))
         return items
 
     def add(self, data):
@@ -183,7 +184,13 @@ class ManageSubscriptionsForm(crud.CrudForm):
         return subscription
 
     def remove(self, (id, item)):
-        self.context.manage_delObjects([id])
+        secret, format = id.rsplit(':', 1)
+        user_subscriptions = self.context.subscriptions[secret]
+        for_format = [s for s in user_subscriptions
+                      if s.metadata['format'] == format]
+        assert len(for_format) == 1
+        for_format = for_format[0]
+        user_subscriptions.remove(for_format)
 
 class SubscriptionChoiceFieldDataManager(z3c.form.datamanager.AttributeField):
     # This nasty hack allows us to have the default IDataManager to
