@@ -403,6 +403,7 @@ sent:
 
   >>> channel.scheduler.active = True
   >>> channel.scheduler.tick(channel)
+  3
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *MyMailDelivery sending*:
   From: Site Administrator <>
@@ -436,8 +437,6 @@ Let's take a closer look at the mail that's sent to mailman:
 Ticking the scheduler a second time won't do anything:
 
   >>> channel.scheduler.tick(channel)
-  >>> channel.queue.dispatch()
-  (0, 0)
 
 This has two reasons really: Firstly, the scheduler keeps track of
 when it queued something the last time:
@@ -464,11 +463,10 @@ messages to be queued again:
   >>> for subs in subscriptions:
   ...     del subs.metadata['cue']
   >>> channel.scheduler.tick(channel)
-  >>> channel.queue.dispatch()
-  (0, 0)
 
   >>> channel.scheduler.triggered_last = datetime.datetime(1, 1, 1, 0, 0)
   >>> channel.scheduler.tick(channel)
+  3
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS
   *MyMailDelivery sending*:
   ...
@@ -507,13 +505,9 @@ Again, that scheduler is inactive by default.  Also, the subscriptions
 still have their cues set:
 
   >>> channel.scheduler.tick(channel)
-  >>> channel.queue.dispatch()
-  (0, 0)
   >>> for subs in subscriptions:
   ...     del subs.metadata['cue']
   >>> channel.scheduler.tick(channel)
-  >>> channel.queue.dispatch()
-  (0, 0)
 
 We can visit the scheduler's management screen to activate it:
 
@@ -528,6 +522,25 @@ We can visit the scheduler's management screen to activate it:
 The scheduler will send messages now:
 
   >>> channel.scheduler.tick(channel)
+  3
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS
+  *MyMailDelivery sending*:
+  ...
+  To: root@localhost...To: daniel@localhost...To: mailman@localhost...
+  (3, 0)
+
+Now it's silent again:
+
+  >>> for subs in subscriptions:
+  ...     del subs.metadata['cue']
+  >>> channel.scheduler.tick(channel)
+
+We can manually trigger the scheduler and thereby override the time
+check by using the "Trigger now" button:
+
+  >>> browser.getControl('Trigger now').click()
+  >>> "3 messages queued" in browser.contents
+  True
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS
   *MyMailDelivery sending*:
   ...
