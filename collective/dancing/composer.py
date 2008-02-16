@@ -1,5 +1,6 @@
 import md5
 import re
+import smtplib
 
 from zope import interface
 from zope import component
@@ -7,7 +8,9 @@ from zope import schema
 import zope.annotation.interfaces
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 import zope.app.component.hooks
+import zope.sendmail.interfaces
 import Products.CMFCore.interfaces
+import Products.CMFPlone.interfaces
 import collective.singing.interfaces
 import collective.singing.mail
 
@@ -155,3 +158,28 @@ class HTMLFormatter(object):
     def __call__(self):
         html = self.item()
         return plone_html_strip(html)
+
+class SMTPMailer(object):
+    """A mailer for use with zope.sendmail that fetches settings from
+    the Plone site's configuration.
+    """
+    interface.implements(zope.sendmail.interfaces.ISMTPMailer)
+
+    SMTP = smtplib.SMTP
+
+    def _fetch_settings(self):
+        root = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
+        m = root.MailHost
+        return dict(hostname=m.smtp_host or 'localhost',
+                    port=m.smtp_port,
+                    username=m.smtp_userid or m.smtp_uid or None,
+                    password=m.smtp_pass or m.smtp_pwd or None,)
+
+    def send(self, fromaddr, toaddrs, message):
+        cfg = self._fetch_settings()
+
+        connection = self.SMTP(cfg['hostname'], str(cfg['port']))
+        if cfg['username'] is not None and cfg['password'] is not None:
+            connection.login(cfg['username'], cfg['password'])
+        connection.sendmail(fromaddr, toaddrs, message)
+        connection.quit()

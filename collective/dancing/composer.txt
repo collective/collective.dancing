@@ -94,3 +94,17 @@ That is, we can use it to retrieve a subscription's secret:
   From: Site Administrator <>...
   To: daniel@localhost...
   ...To confirm your subscription with News for nerds, please click here...
+
+IMailer
+-------
+
+The ``composer`` module defines an ``IMailer`` utility that's used to
+send out mails.  Let's make sure that it's registered properly, and
+that it has the right settings:
+
+  >>> from zope import component
+  >>> from zope.sendmail.interfaces import IMailer
+  >>> smtp = component.getUtility(IMailer, 'plone.smtp')
+  >>> cfg = smtp._fetch_settings()
+  >>> cfg['username'], cfg['password'], cfg['hostname'], cfg['port']
+  (None, None, 'localhost', 25)

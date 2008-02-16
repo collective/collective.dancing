@@ -11,6 +11,8 @@
 
   <include package=".browser" />
 
+  <include file="mail.zcml" />
+
   <!-- Make this package a Zope 2 product -->
   <five:registerPackage package="." initialize=".initialize" />
 

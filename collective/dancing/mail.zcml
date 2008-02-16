@@ -1,0 +1,35 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:mail="http://namespaces.zope.org/mail"
+   i18n_domain="collective.dancing">
+
+  <!-- ``zope.sendmail`` is a dependency for sending mail -->
+  <include package="zope.sendmail" file="meta.zcml" />
+  <include package="zope.sendmail" />
+
+  <!-- We define our own ISMTPMailer utility that fetches settings
+       from the portal -->
+  <utility name="plone.smtp" factory=".composer.SMTPMailer" />
+  
+  <!--
+  For mail delivery in deployment, consider using the
+  ``queuedDeliver``.  ``./queue`` has to be a ``Maildir`` folder.
+  XXX: Add docs when we know more about usage of this directive.
+
+  <mail:queuedDelivery
+      queuePath="./queue"
+      mailer="smtp"
+      permission="zope.SendMail"
+      />
+
+  Remember to comment out the ``mail:directDelivery`` when you active
+  ``mail:queuedDelivery``
+  -->
+
+  <mail:directDelivery 
+      name=""
+      mailer="smtp"
+      permission="zope.Public" />
+
+</configure>
+
