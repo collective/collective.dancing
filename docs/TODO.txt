@@ -1,0 +1,12 @@
+- We need to implement a secure secret hash.  An unsecure hash is
+  generated right now in ``collective.dancing.composer``.
+
+- We want a page that allows subscribing to any of the channels at
+  once.
+
+- We need to test the queue and see after how many messages it makes
+  sense to commit back.  The relevant code is in
+  ``collective.singing.message``.
+
+- We need a convenient way of calling each scheduler's ``tick`` and
+  the queues' ``dispatch`` methods periodically.
