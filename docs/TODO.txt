@@ -1,8 +1,26 @@
+High priority
+=============
+
+- My subscriptions page for users; including add, remove and edit
+  subscriptions.  We'll need to add a catalog for subscriptions for
+  that.
+
+- We want persistent composers where one can edit the template that's
+  used for sending out the message.
+
 - We need to implement a secure secret hash.  An unsecure hash is
   generated right now in ``collective.dancing.composer``.
 
-- We want a page that allows subscribing to any of the channels at
-  once.
+- Figure out issue with ZODB3 and fakezope2eggs.
+
+- Help texts for the management screens.
+
+Medium priority
+===============
+
+- A plain text composer plus template.
+
+- The collector needs to be clever about caching results.
 
 - We need to test the queue and see after how many messages it makes
   sense to commit back.  The relevant code is in
