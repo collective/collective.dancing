@@ -12,6 +12,8 @@ High priority
 
 - Figure out issue with ZODB3 and fakezope2eggs. (nouri)
 
+- Add proper logging support. (nouri)
+
 - Help texts for the management screens. (stonor)
 
 Medium priority
