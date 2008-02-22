@@ -201,6 +201,21 @@ We'll add another subscription.  This one filters on the content type:
   <!DOCTYPE...daniel@localhost...
   ...mailman@localhost...value="News Item" checked="checked" />...
 
+
+All subscriptions
+-----------------
+
+This is a super form where all subscriptions (across Channels) can be edited. 
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels/subscriptions_overview')
+  >>> 'Subscriptions administration' in browser.contents
+  True
+  >>> 'daniel@localhost' in browser.contents
+  True
+  >>> print browser.contents
+  <!DOCTYPE...daniel@localhost...
+
+
 Stats
 -----
 

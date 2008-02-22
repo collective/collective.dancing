@@ -61,6 +61,12 @@
       class=".channel.ChannelAdministrationView"
       permission="cmf.ManagePortal"
       />
+  <page
+      name="subscriptions_overview"
+      for="collective.dancing.channel.ChannelContainer"
+      class=".subscriptions.SubscriptionsOverviewView"
+      permission="cmf.ManagePortal"
+      />
 
   <page
       name="index_html"
