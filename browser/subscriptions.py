@@ -1,6 +1,7 @@
 import datetime
 
 from zope import component
+from zope import interface
 from zope import schema
 import zope.interface
 import zope.schema.interfaces
@@ -28,6 +29,10 @@ class SubscriptionsOverviewForm(crud.CrudForm):
     format = None 
     composer = None
 
+
+    # No add form yet
+    addform_factory = crud.NullForm
+    
     @property
     def label(self):
         return _(u'Edit ${format} ${composer}', mapping={'format':self.format,
@@ -35,48 +40,40 @@ class SubscriptionsOverviewForm(crud.CrudForm):
     
     @property
     def prefix(self):
-        return self.context.name + self.format
+        return str(self.context.Title + self.format)
 
     def _composer_fields(self):
         return field.Fields(self.composer.schema)
 
     def _collector_fields(self):
+        return []
         return field.Fields(self.context.collector.schema)
 
     @property
     def update_schema(self):
-        fields = self._composer_fields()
-        fields += self._collector_fields()
-        return fields
+        return None # we're using IUpdateSchema adapter
 
-    def update(self):
-        super(SubscriptionsOverviewForm, self).update()
-
-        subscriptions = collective.singing.interfaces.ISubscriptions(
-            self.context)
-        secret = self.request.get('secret', None) 
-        if (secret and subscriptions[secret]):
-            editform = self.editform_factory(self, self.request)
-            editform.update()
-            self.subforms = [editform]
-        else:
-            addform = self.addform_factory(self, self.request)
-            addform.update()
-            self.subforms = [addform]
-
+    def add_schema(self):
+        return None
 
     def get_items(self):
-        subscriptions = collective.singing.interfaces.ISubscriptions(
-            self.context)
-
-        secret = self.request.get('secret', None) 
-
-        my_subscriptions = subscriptions[secret]
         items = []
-        
-        for subscription in my_subscriptions:
-            items.append(('%s:%s:%s' %
-                          (secret, self.format, self.name), subscription))
+        for channel in component.getUtility(collective.singing.interfaces.IChannelLookup)():
+             subscriptions = collective.singing.interfaces.ISubscriptions(channel)
+             secret = collective.singing.subscribe.secret(
+                          channel,
+                          channel.composers[self.request.get('format')],
+                          {'email':self.request.get('email', '')},
+                          self.request)
+
+             my_subscriptions = subscriptions[secret]
+             for secret, subscriptions in subscriptions.items():
+                 for subscription in subscriptions:
+                     md = collective.singing.interfaces.ISubscriptionMetadata(
+                         subscription)
+                     if md['format'] == self.format:
+                         items.append(('%s:%s:%s' %
+                               (secret, self.format, channel.name), subscription))
         return items
         #for secret, subscriptions in list(subscriptions[secret]):
         #    for subscription in subscriptions:
@@ -111,42 +108,52 @@ class SubscriptionsOverviewForm(crud.CrudForm):
         return subscription
 
     def remove(self, (id, item)):
-        secret, format, channel= id.rsplit(':', 2)
-        user_subscriptions = self.context.subscriptions[secret]
-        for_format = [s for s in user_subscriptions
-                      if s.metadata['format'] == format]
-        #assert len(for_format) == 1
-        for_format = for_format[0]
-        user_subscriptions.remove(for_format)
+        secret, format, channelname = id.rsplit(':', 2)
 
+        for channel in component.getUtility(collective.singing.interfaces.IChannelLookup)():
+            if channel.name == channelname:
+                user_subscriptions = channel.subscriptions[secret]
+                for_format = [s for s in user_subscriptions
+                              if s.metadata['format'] == format]
+                assert len(for_format) == 1
+                for_format = for_format[0]
+                user_subscriptions.remove(for_format)
 
-        
+@component.adapter(SubscriptionsOverviewForm, collective.singing.interfaces.ISubscription)
+@interface.implementer(crud.IUpdateSchema)
+def subscriptionsoverview_updatefields(form, subscription):
+    collector_schema = subscription.channel.collector.schema
+    return field.Fields(collector_schema)
+
+class ISubscriptionOverviewViewSchema(interface.Interface):
+    channelname = schema.TextLine(title=_(u'Channel'))
+                           
+@component.adapter(SubscriptionsOverviewForm, collective.singing.interfaces.ISubscription)
+@interface.implementer(crud.IViewSchema)
+def subscriptionsoverview_viewfields(form, subscription):
+    return field.Fields(field)
+    
 class SubscriptionsOverviewView(BrowserView):
     """Manage subscriptions in a channel.
     """
     __call__ = ViewPageTemplateFile('controlpanel.pt')
 
     def label(self):
-        return _(u'Subscriptions administration',
+        return _(u'Your subscriptions',
                  mapping=dict(channel=self.context.title))
-
-    def back_link(self):
-        return dict(label=_(u"Back to Channels administration"),
-                    url=self.context.absolute_url())
 
     def contents(self):
         z2.switch_on(self)
         forms = []
-        
-        for channel in component.getUtility(collective.singing.interfaces.IChannelLookup)():
-            for format, composer in channel.composers.items():
-                request = self.request
-                request['secret'] = collective.singing.subscribe.secret(
-                    channel, composer, {'email':u'daniel@localhost'}, request)
+        composers = component.getUtility(collective.singing.interfaces.IChannelLookup)()[0].composers
+        for format, composer in composers.items():
+            request = self.request
+            request.set('format',format) 
 
-                form = SubscriptionsOverviewForm(channel, request)
-                #format, composer = channel.composers.items()[0] #Only one composer for now!
-                form.format = format
-                form.composer = composer
-                forms.append(form)
+            form = SubscriptionsOverviewForm(self.context, request)
+
+            form.format = format
+            form.composer = composer
+            forms.append(form)
         return '\n'.join([form() for form in forms])
+

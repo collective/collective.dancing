@@ -107,16 +107,19 @@
 
   <page
      name="confirm-subscription.html"
-      for="collective.singing.interfaces.IChannel"
+     for="collective.singing.interfaces.IChannel"
      class=".subscribe.Confirm"
      permission="zope2.View"
      />
 
   <page
      name="unsubscribe.html"
-      for="collective.singing.interfaces.IChannel"
+     for="collective.singing.interfaces.IChannel"
      class=".subscribe.Unsubscribe"
      permission="zope2.View"
      />
+
+   <zope:adapter factory=".subscriptions.subscriptionsoverview_updatefields" />
+   <!--zope:adapter factory=".subscriptions.subscriptionsoverview_viewfields" /-->
 
 </zope:configure>
