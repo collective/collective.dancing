@@ -201,21 +201,6 @@ We'll add another subscription.  This one filters on the content type:
   <!DOCTYPE...daniel@localhost...
   ...mailman@localhost...value="News Item" checked="checked" />...
 
-
-All subscriptions
------------------
-
-This is a super form where all subscriptions (across Channels) can be edited. 
-
-  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels/subscriptions_overview')
-  >>> 'Subscriptions administration' in browser.contents
-  True
-  >>> 'daniel@localhost' in browser.contents
-  True
-  >>> print browser.contents
-  <!DOCTYPE...daniel@localhost...
-
-
 Stats
 -----
 
@@ -361,6 +346,48 @@ meaningful message:
   >>> browser.open(confirm_url + '?secret=imfake')
   >>> "Your subscription isn't known to us" in browser.contents
   True
+
+Manage all subscriptions of a user
+----------------------------------
+
+This is a super form where all subscriptions (across channels) can be
+edited.  It also allows channels to be subscribed to.
+
+We'll add another channel along with another collector to be able to
+fully test this form:
+
+  >>> from collective.dancing.channel import Channel
+  >>> selecta = portal.portal_newsletters.collectors['brand-new-selecta'] = \
+  ...     SmartFolderCollector('brand-new-selecta', 'Brand new selecta')
+  >>> portal.portal_newsletters.channels['brand-new-channel'] = \
+  ...     Channel('brand-new-channel', 'Brand new channel', selecta)
+
+We can now subscribe to our new channel through the "user
+subscriptions" interface.
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels/subscriptions_overview?secret=' + secret)
+  >>> 'Your subscriptions' in browser.contents
+  True
+  >>> browser.getControl('E-mail address').value = u"root@localhost"
+  >>> browser.getControl('Finish').click() \
+  ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *MyMailDelivery sending*:
+  From: Site Administrator <>
+  To: root@localhost
+  Message follows:
+  ...
+  To confirm your subscription with Brand new channel, please click here:...
+  >>> "Thanks for your subscription" in browser.contents
+  True
+
+The portal type criterion is only available for the first subscription:
+NOTE : use find or check to see if browser has any nifty features. 
+   >>> first_occurence = browser.find('ATPortalTypeCriterion')
+   >>> second_ocurrence = browser.find('ATPortalTypeCriterion', first_occurence)
+   >>> first_occurence != -1
+   True
+   >>> second_occurence != -1
+   False
 
 Unsubscribe
 -----------
