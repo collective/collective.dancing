@@ -43,7 +43,7 @@
 
   <page
       name="index_html"
-      for="collective.dancing.channel.PortalNewsletters"
+      for="collective.dancing.channel.IPortalNewsletters"
       class=".controlpanel.ControlPanelView"
       permission="cmf.ManagePortal"
       />
@@ -59,12 +59,6 @@
       name="index_html"
       for="collective.dancing.channel.ChannelContainer"
       class=".channel.ChannelAdministrationView"
-      permission="cmf.ManagePortal"
-      />
-  <page
-      name="subscriptions_overview"
-      for="collective.dancing.channel.ChannelContainer"
-      class=".subscriptions.SubscriptionsOverviewView"
       permission="cmf.ManagePortal"
       />
 
@@ -99,6 +93,13 @@
   <!-- Subscription views -->
 
   <page
+      name="my-subscriptions.html"
+      for="collective.dancing.channel.IPortalNewsletters"
+      class=".subscribe.Subscriptions"
+      permission="zope2.View"
+      />
+
+  <page
       name="subscribe.html"
       for="collective.singing.interfaces.IChannel"
       class=".subscribe.Subscribe"
@@ -118,8 +119,5 @@
      class=".subscribe.Unsubscribe"
      permission="zope2.View"
      />
-
-   <zope:adapter factory=".subscriptions.subscriptionsoverview_updatefields" />
-   <!--zope:adapter factory=".subscriptions.subscriptionsoverview_viewfields" /-->
 
 </zope:configure>

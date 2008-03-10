@@ -347,48 +347,6 @@ meaningful message:
   >>> "Your subscription isn't known to us" in browser.contents
   True
 
-Manage all subscriptions of a user
-----------------------------------
-
-This is a super form where all subscriptions (across channels) can be
-edited.  It also allows channels to be subscribed to.
-
-We'll add another channel along with another collector to be able to
-fully test this form:
-
-  >>> from collective.dancing.channel import Channel
-  >>> selecta = portal.portal_newsletters.collectors['brand-new-selecta'] = \
-  ...     SmartFolderCollector('brand-new-selecta', 'Brand new selecta')
-  >>> portal.portal_newsletters.channels['brand-new-channel'] = \
-  ...     Channel('brand-new-channel', 'Brand new channel', selecta)
-
-We can now subscribe to our new channel through the "user
-subscriptions" interface.
-
-  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels/subscriptions_overview?secret=' + secret)
-  >>> 'Your subscriptions' in browser.contents
-  True
-  >>> browser.getControl('E-mail address').value = u"root@localhost"
-  >>> browser.getControl('Finish').click() \
-  ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-  *MyMailDelivery sending*:
-  From: Site Administrator <>
-  To: root@localhost
-  Message follows:
-  ...
-  To confirm your subscription with Brand new channel, please click here:...
-  >>> "Thanks for your subscription" in browser.contents
-  True
-
-The portal type criterion is only available for the first subscription:
-NOTE : use find or check to see if browser has any nifty features. 
-   >>> first_occurence = browser.find('ATPortalTypeCriterion')
-   >>> second_ocurrence = browser.find('ATPortalTypeCriterion', first_occurence)
-   >>> first_occurence != -1
-   True
-   >>> second_occurence != -1
-   False
-
 Unsubscribe
 -----------
 
@@ -588,3 +546,140 @@ check by using the "Trigger now" button:
   ...
   To: root@localhost...To: daniel@localhost...To: mailman@localhost...
   (3, 0)
+
+The "My subscriptions" page
+---------------------------
+
+This page allows users to manage their subscriptions.  Subscriptions
+can be edited, removed and added.
+
+Let's first step back and let's create another channel, along with its
+own selector and composers.  We'll do this using the API to make this
+test more compact:
+
+  >>> from zope import schema
+  >>> from zope.schema.vocabulary import SimpleVocabulary
+  >>> from collective.dancing.channel import Channel
+  >>> from collective.dancing.collector import SmartFolderCollector
+  >>> from collective.dancing.composer import HTMLComposer
+
+  >>> class MyHTMLComposer(HTMLComposer):
+  ...     title = u'Hypertext E-Mail with selectable font-size'
+  ...     class schema(HTMLComposer.schema):
+  ...         font_size = schema.Choice(
+  ...             title=u"Font size",
+  ...             vocabulary=SimpleVocabulary.fromValues([8, 12, 16]))
+  >>> __builtins__['MyHTMLComposer'] = MyHTMLComposer # make it persistable
+
+  >>> selecta = portal.portal_newsletters.collectors['brand-new-selecta'] = \
+  ...     SmartFolderCollector('brand-new-selecta', 'Brand new selecta')
+  >>> new_channel = portal.portal_newsletters.channels['brand-new-channel'] = \
+  ...     Channel('brand-new-channel', 'Brand new channel',
+  ...             {'html': HTMLComposer(), 'html-fontsize': MyHTMLComposer()},
+  ...             selecta)
+
+We can now look at root's subscriptions.  Note how we add the secret
+as a query parameter.  We expect the subscription to "My other
+channel" to be shown:
+
+  >>> secret = channel.composers['html'].secret(dict(email='root@localhost'))
+  >>> browser.open(portal.absolute_url() +
+  ...              '/portal_newsletters/my-subscriptions.html?secret=' + secret)
+  >>> 'You are currently subscribed to these newsletters:' in browser.contents
+  True
+  >>> 'You can subscribe to these newsletters:' in browser.contents
+  True
+  >>> html1 = browser.contents[browser.contents.index('You are currently'):
+  ...                          browser.contents.index('You can subscribe')]
+  >>> 'My other channel' in html1, 'Brand new channel' in html1
+  (True, False)
+  >>> 'Unsubscribe' in html1
+  True
+
+We can subscribe to "Brand new channel":
+
+  >>> html2 = browser.contents[browser.contents.index('You can subscribe'):]
+  >>> 'My other channel' in html2, 'Brand new channel' in html2
+  (False, True)
+
+"Brand new channel" has two ways to subscribe.  This reflects the two
+composers that we used:
+
+  >>> 'HTML E-Mail' in html2
+  True
+  >>> 'Hypertext E-Mail with selectable font-size' in html2
+  True
+
+Let's use the form now to subscribe 'root' to both news items and events:
+
+  >>> subscription = channel.subscriptions[secret][0]
+  >>> [t.value for t in subscription.collector_data['Type']]
+  [u'Event']
+  >>> browser.getControl('News Item').click()
+  >>> browser.getControl('Apply').click()
+  >>> 'Data successfully updated' in browser.contents
+  True
+  >>> [t.value for t in subscription.collector_data['Type']]
+  [u'News Item', u'Event']
+
+Next, we'll subscribe to "Brand new channel".  We'll use the secretond
+format, which is Hypertext with variable font-size:
+
+  >>> len(new_channel.subscriptions[secret])
+  0
+  >>> browser.getControl('E-mail address', index=0).value = u"root@localhost"
+  >>> browser.getControl('Font size').getControl('16').click()
+  >>> browser.getControl('Subscribe', index=0).click()
+  >>> "You subscribed successfully" in browser.contents
+  True
+  >>> len(new_channel.subscriptions[secret])
+  1
+  >>> new_channel.subscriptions[secret][0].composer_data['font_size']
+  16
+  >>> new_channel.subscriptions[secret][0].metadata.get('pending', False)
+  False
+
+No confirmation mail?  That's right.  Remember that we provided the
+secret when we visited the subscriptions page.
+
+Now let's unsubscribe from "My other channel":
+
+  >>> len(new_channel.subscriptions[secret])
+  1
+  >>> browser.getControl('Unsubscribe').click() # doctest: +ELLIPSIS
+  Traceback (most recent call last):
+  ...
+  AmbiguityError: label 'Unsubscribe'
+  >>> browser.getControl('Unsubscribe', index=0).click()
+  >>> "You unsubscribed successfully" in browser.contents
+  True
+  >>> len(channel.subscriptions[secret])
+  0
+
+We could now subscribe to "My other channel" again:
+
+  >>> html2 = browser.contents[browser.contents.index('You can subscribe'):]
+  >>> 'My other channel' in html2
+  True
+
+We can use this same form to subscribe to a channel without a secret.
+This will trigger the confirmation mail to be sent out:
+
+  >>> browser.open(portal.absolute_url() +
+  ...              '/portal_newsletters/my-subscriptions.html')
+  >>> browser.getControl('E-mail address', index=0).value = "daemon@localhost"
+  >>> browser.getControl('Subscribe', index=0).click()
+  *MyMailDelivery sending*:
+  From: Site Administrator <>
+  To: daemon@localhost
+  Message follows:
+  ...
+  To confirm your subscription with My other channel, please click here:...
+  >>> "You subscribed successfully." in browser.contents
+  True
+
+  >>> secret = channel.composers['html'].secret(dict(email='daemon@localhost'))
+  >>> len(channel.subscriptions[secret])
+  1
+  >>> channel.subscriptions[secret][0].metadata['pending']
+  True
