@@ -23,9 +23,10 @@ class IPortalNewsletters(interface.Interface):
     pass
 
 class PortalNewsletters(OFS.Folder.Folder):
+    interface.implements(IPortalNewsletters)
     Title = u"Newsletters"
 
-@component.adapter(PortalNewsletters,
+@component.adapter(IPortalNewsletters,
                    zope.app.container.interfaces.IObjectAddedEvent)
 def tool_added(tool, event):
     factories = dict(channels=ChannelContainer,
@@ -60,14 +61,16 @@ class Channel(OFS.SimpleItem.SimpleItem):
     """
     interface.implements(collective.singing.interfaces.IChannel)
 
-    composers = {'html': collective.dancing.composer.HTMLComposer()}
-
-    def __init__(self, name, title=None, collector=None, scheduler=None):
+    def __init__(self, name, title=None,
+                 composers=None, collector=None, scheduler=None):
         self.name = name
         if title is None:
             title = name
         self.title = title
         self.subscriptions = collective.singing.subscribe.SimpleSubscriptions()
+        if composers is None:
+            composers = {'html': collective.dancing.composer.HTMLComposer()}
+        self.composers = composers
         self.collector = collector
         self.scheduler = scheduler
         self.queue = collective.singing.message.MessageQueues()

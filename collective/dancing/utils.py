@@ -4,11 +4,13 @@ import Acquisition
 
 class AttributeToDictProxy(object):
     def __init__(self, wrapped, default=z3c.form.interfaces.NOVALUE):
-        self.wrapped = wrapped
-        self.default = default
+        super(AttributeToDictProxy, self).__setattr__('wrapped', wrapped)
+        super(AttributeToDictProxy, self).__setattr__('default', default)
 
     def __setitem__(self, name, value):
         self.wrapped[name] = value
+
+    __setattr__ = __setitem__
 
     def __getattr__(self, name):
         return self.wrapped.get(name, self.default)
