@@ -7,8 +7,6 @@ High priority
 - We need to implement a secure secret hash.  An unsecure hash is
   generated right now in ``collective.dancing.composer``. (nouri)
 
-- Figure out issue with ZODB3 and fakezope2eggs. (nouri)
-
 - Add proper logging support. (nouri)
 
 - Help texts for the management screens. (stonor)
@@ -29,3 +27,11 @@ Medium priority
 
 - We need a convenient way of calling each scheduler's ``tick`` and
   the queues' ``dispatch`` methods periodically.
+
+- Make an ISubscription that holds reference to the member id.  This
+  would allow us to implement collectors that filter based on
+  subscribers' permissions.
+
+- Make the subscription form (``my-subscriptions.html``) more
+  configurable, e.g. to group subscriptions.  Also, use permissions on
+  channels to check who can subscribe (e.g. Anonymous vs. Members).

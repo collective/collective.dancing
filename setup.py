@@ -2,11 +2,13 @@ from setuptools import setup, find_packages
 
 version = '0.1'
 
+def read(*pathnames):
+    return open(os.path.join(os.path.dirname(__file__), *pathnames)).read()
+
 setup(name='collective.dancing',
       version=version,
       description="",
-      long_description="""\
-""",
+      long_description=read('docs', 'README.txt'),
 
       classifiers=[
         "Framework :: Plone",
