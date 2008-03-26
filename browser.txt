@@ -1,3 +1,4 @@
+/'News
 Browser tests
 =============
 
@@ -619,8 +620,8 @@ Let's use the form now to subscribe 'root' to both news items and events:
   >>> browser.getControl('Apply').click()
   >>> 'Data successfully updated' in browser.contents
   True
-  >>> [t.value for t in subscription.collector_data['Type']]
-  [u'News Item', u'Event']
+  >>> sorted([t.value for t in subscription.collector_data['Type']])
+  [u'Event', u'News Item']
 
 Next, we'll subscribe to "Brand new channel".  We'll use the secretond
 format, which is Hypertext with variable font-size:
