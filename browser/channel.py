@@ -67,6 +67,12 @@ zope.interface.alsoProvides(scheduler_vocabulary,
 class ManageChannelsForm(crud.CrudForm):
     """Crud form for channels.
     """
+    
+    description = _("""Add or edit channels that will use 
+      collectors to gather and email specific sets of information 
+      from your site, to subscribed email addresses, at 
+      scheduled times.""")
+    
     @property
     def update_schema(self):
         fields = field.Fields(IChannel).select('title')
@@ -118,7 +124,7 @@ class ManageChannelsForm(crud.CrudForm):
 class ChannelAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
     
-    label = _(u'Newsletter Channels administration')
+    label = _(u'Channel administration')
     back_link = controlpanel.back_to_controlpanel
 
     def contents(self):

@@ -8,7 +8,7 @@ from collective.dancing import MessageFactory as _
 
 def back_to_controlpanel(self):
     root = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
-    return dict(label=_(u"Up to newsletter control panel"),
+    return dict(label=_(u"Up to Singing & Dancing configuration"),
                 url=root.absolute_url() + '/portal_newsletters')
 
 class ControlPanelView(BrowserView):
