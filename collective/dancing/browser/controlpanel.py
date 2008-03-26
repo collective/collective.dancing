@@ -15,7 +15,7 @@ class ControlPanelView(BrowserView):
     __call__ = pagetemplatefile.ViewPageTemplateFile('controlpanel.pt')
     contents = pagetemplatefile.ViewPageTemplateFile('controlpanel-links.pt')
 
-    label = _(u"Newsletter configuration")
+    label = _(u"Singing & Dancing configuration")
 
     def back_link(self):
         return dict(label=_(u"Up to Site Setup"),

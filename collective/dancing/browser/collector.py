@@ -42,7 +42,7 @@ class ManageCollectorsForm(crud.CrudForm):
 class CollectorAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
 
-    label = _(u'Newsletter Collectors administration')
+    label = _(u'Collector administration')
     back_link = controlpanel.back_to_controlpanel
 
     def contents(self):
@@ -75,7 +75,7 @@ class CollectorEditView(BrowserView):
                  mapping=dict(collector=self.context.title))
 
     def back_link(self):
-        return dict(label=_(u"Up to Collectors administration"),
+        return dict(label=_(u"Up to Collector administration"),
                     url=self.context.aq_inner.aq_parent.absolute_url())
 
     def contents(self):

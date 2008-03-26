@@ -20,7 +20,7 @@
 
   <genericsetup:registerProfile
      name="default"
-     title="Newsletter setup"
+     title="Singing &amp; Dancing"
      directory="profiles/default"
      description=""
      provides="Products.GenericSetup.interfaces.EXTENSION"

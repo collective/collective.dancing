@@ -1,7 +1,7 @@
   <dl>
     <dt >
-      <a i18n:translate="label_channels_administration" href="./channels">
-        Newsletter channels administration
+      <a i18n:translate="label_channel_administration" href="./channels">
+        Channel administration
       </a>
     </dt>
     <dd i18n:translate="description_channel_administration">
@@ -11,18 +11,18 @@
     </dd>
     <dt>
       <a href="./collectors"
-          i18n:translate="label_collectors_administration">
-        Newsletter collectors administration
+          i18n:translate="label_collector_administration">
+        Collector administration
       </a>
     </dt>
-    <dd i18n:translate="description_collectors_administration">
+    <dd i18n:translate="description_collector_administration">
       Collectors are useful for automatic newsletters.  They are
       responsible for assembling a list of items for publishing.
     </dd>
     <dt>
       <a i18n:translate="label_statistics_administration"
            href="./channels/newsletter-stats.html">
-        Newsletter statistics
+         Statistics
       </a>
     </dt>
     <dd i18n:translate="description_statistics_administration">
