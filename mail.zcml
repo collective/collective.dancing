@@ -11,14 +11,13 @@
        from the portal -->
   <utility name="plone.smtp" factory=".composer.SMTPMailer" />
   
-  <!--
-  For mail delivery in deployment, consider using the
+  <!--  For mail delivery in deployment, consider using the
   ``queuedDeliver``.  ``./queue`` has to be a ``Maildir`` folder.
   XXX: Add docs when we know more about usage of this directive.
 
   <mail:queuedDelivery
       queuePath="./queue"
-      mailer="smtp"
+      mailer="plone.smtp"
       permission="zope.SendMail"
       />
 
@@ -28,7 +27,7 @@
 
   <mail:directDelivery 
       name=""
-      mailer="smtp"
+      mailer="plone.smtp"
       permission="zope.Public" />
 
 </configure>
