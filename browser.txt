@@ -48,10 +48,10 @@ reach it as an administrator through the 'Site Setup' link:
   ...                   'Basic %s:%s' % ('portal_owner', user_password))
   >>> browser.open(portal.absolute_url())
   >>> browser.getLink('Site Setup').click()
-  >>> browser.getLink('Newsletters').click()
+  >>> browser.getLink('Singing & Dancing').click()
   >>> browser.url
   'http://nohost/plone/portal_newsletters'
-  >>> "Newsletter configuration" in browser.contents
+  >>> "Singing &amp; Dancing configuration" in browser.contents
   True
 
 Channels administration
@@ -59,7 +59,7 @@ Channels administration
 
 The admistration screen can be reached through Plone control panel:
 
-  >>> browser.getLink('Newsletter channels administration').click()
+  >>> browser.getLink('Channel administration').click()
 
 Through this administration screen we can add and delete channels:
 
@@ -113,8 +113,8 @@ channel:
 The collector administration screen shows an overview of all available
 collectors:
 
-  >>> browser.getLink('Up to Collectors administration').click()
-  >>> "Newsletter Collectors administration" in browser.contents
+  >>> browser.getLink('Up to Collector administration').click()
+  >>> "Collector administration" in browser.contents
   True
 
 Back at the collector edit screen for "Latest news", we'll find a link
@@ -208,7 +208,7 @@ Stats
 Also the statistics screens can be reached through the control panel:
 
   >>> browser.open('http://nohost/plone/portal_newsletters')
-  >>> browser.getLink('Newsletter statistics').click()
+  >>> browser.getLink('Statistics').click()
 
 We can see that our channel is listed here:
 
