@@ -12,6 +12,7 @@ import collective.singing.message
 
 import collective.dancing.collector
 import collective.dancing.composer
+from collective.dancing import MessageFactory as _
 
 def channel_lookup():
     root = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
@@ -49,6 +50,12 @@ class ChannelContainer(OFS.Folder.Folder):
     """
 
     Title = u"Channels"
+
+@component.adapter(IChannelContainer,
+                   zope.app.container.interfaces.IObjectAddedEvent)
+def channels_added(container, event):
+    default_channel = Channel('default-channel', title=_(u"Newsletter"))
+    container['default-channel'] = default_channel
 
 class Channel(OFS.SimpleItem.SimpleItem):
     """
