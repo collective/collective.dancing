@@ -16,6 +16,7 @@ import Products.ATContentTypes.criteria.path
 import collective.singing.interfaces
 
 from collective.dancing import utils
+from collective.dancing import MessageFactory as _
 
 class IATCriterionMediator(interface.Interface):
     field = schema.Object(

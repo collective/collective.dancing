@@ -80,11 +80,13 @@ class ManageChannelsForm(crud.CrudForm):
         collector = schema.Choice(
             __name__='collector',
             title=IChannel['collector'].title,
+            required=False,
             vocabulary='Collector Vocabulary')
 
         scheduler = FactoryChoice(
             __name__='scheduler',
             title=IChannel['scheduler'].title,
+            required=False,
             vocabulary='Scheduler Vocabulary')
 
         fields += field.Fields(collector, scheduler)
@@ -112,7 +114,7 @@ class ManageChannelsForm(crud.CrudForm):
     def link(self, item, field):
         if field == 'title':
             return item.absolute_url()
-        elif field == 'collector':
+        elif field == 'collector' and item.collector is not None:
             collector_id = item.collector.getId()
             collector = getattr(self.context.aq_inner.aq_parent.collectors,
                                 collector_id)

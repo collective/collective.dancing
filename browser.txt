@@ -94,13 +94,22 @@ Let's delete the first of the two channels:
   >>> 'My channel' in browser.contents, 'My other channel' in browser.contents
   (False, True)
 
-The default "Latest news" collector is already selected for our
+The default is not to have a collector or a scheduler, let's select some for our
 channel:
 
   >>> collector = browser.getControl(
   ...     name='crud-edit.my-other-channel.widgets.collector:list')
   >>> collector.displayValue
-  ['Latest news']
+  ['no value']
+  >>> collector.displayValue = ['Latest news']
+
+  >>> scheduler = browser.getControl(
+  ...     name='crud-edit.my-other-channel.widgets.scheduler:list')
+  >>> scheduler.displayValue
+  ['no value']
+  >>> scheduler.displayValue = ['Weekly scheduler']
+
+  >>> browser.getControl('Apply changes').click()
 
 Configuring collectors
 ----------------------
@@ -218,7 +227,7 @@ We can see that our channel is listed here:
 We can create a message now and see how the statistics reflect this.
 First, let's get a hold of our subscription object:
 
-  >>> channel = portal.portal_newsletters.channels.objectValues()[0]
+  >>> channel = portal.portal_newsletters.channels.objectValues()[1]
   >>> subscription = channel.subscriptions.values()[0][0]
   >>> subscription # doctest: +ELLIPSIS
   <SimpleSubscription to ...>
@@ -388,7 +397,7 @@ Let's flush the message queue:
 Using a scheduler to send e-mails
 ---------------------------------
 
-The default scheduler for channels is the weekly scheduler:
+The scheduler for our channel is the weekly scheduler:
 
   >>> channel.scheduler
   <WeeklyScheduler at /plone/portal_newsletters/channels/my-other-channel/scheduler>
@@ -628,9 +637,9 @@ format, which is Hypertext with variable font-size:
 
   >>> len(new_channel.subscriptions[secret])
   0
-  >>> browser.getControl('E-mail address', index=0).value = u"root@localhost"
+  >>> browser.getControl('E-mail address', index=1).value = u"root@localhost"
   >>> browser.getControl('Font size').getControl('16').click()
-  >>> browser.getControl('Subscribe', index=0).click()
+  >>> browser.getControl('Subscribe', index=1).click()
   >>> "You subscribed successfully" in browser.contents
   True
   >>> len(new_channel.subscriptions[secret])
@@ -668,8 +677,8 @@ This will trigger the confirmation mail to be sent out:
 
   >>> browser.open(portal.absolute_url() +
   ...              '/portal_newsletters/my-subscriptions.html')
-  >>> browser.getControl('E-mail address', index=0).value = "daemon@localhost"
-  >>> browser.getControl('Subscribe', index=0).click()
+  >>> browser.getControl('E-mail address', index=1).value = "daemon@localhost"
+  >>> browser.getControl('Subscribe', index=1).click()
   *MyMailDelivery sending*:
   From: Site Administrator <>
   To: daemon@localhost
