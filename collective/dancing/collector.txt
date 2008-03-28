@@ -3,6 +3,9 @@ Collector
 
 See ``collective.singing.interfaces.ICollector``
 
+  >>> from collective.dancing.tests import replace_with_fieldindex
+  >>> replace_with_fieldindex('created', portal)
+
 Give me a list of all collectors
 --------------------------------
 
@@ -144,17 +147,15 @@ any choices.  This will return the same items as before:
 
   >>> items, cue = collector.get_items(subscription=Subscription())
   >>> items # doctest: +NORMALIZE_WHITESPACE
-  [<ATNewsItem at /plone/news/flu>,
-   <ATNewsItem at /plone/news/mini>,
-   <ATEvent at /plone/events/super-bowl>]
+  [<ATEvent at /plone/events/super-bowl>, <ATNewsItem at /plone/news/mini>,
+   <ATNewsItem at /plone/news/flu>]
 
 We can provide both a cue and a subscription:
 
   >>> items, cue = collector.get_items(cue=cue-1, subscription=Subscription())
   >>> items # doctest: +NORMALIZE_WHITESPACE
-  [<ATNewsItem at /plone/news/flu>,
-   <ATNewsItem at /plone/news/mini>,
-   <ATEvent at /plone/events/super-bowl>]
+  [<ATEvent at /plone/events/super-bowl>, <ATNewsItem at /plone/news/mini>,
+   <ATNewsItem at /plone/news/flu>]
 
   >>> len(collector.get_items(cue=cue+1, subscription=Subscription())[0])
   0
@@ -180,9 +181,8 @@ If we select no value, then we should get all items:
   >>> subscription.collector_data[field.__name__] = []
   >>> items, cue = collector.get_items(subscription=Subscription())
   >>> items # doctest: +NORMALIZE_WHITESPACE
-  [<ATNewsItem at /plone/news/flu>,
-   <ATNewsItem at /plone/news/mini>,
-   <ATEvent at /plone/events/super-bowl>]
+  [<ATEvent at /plone/events/super-bowl>, <ATNewsItem at /plone/news/mini>,
+   <ATNewsItem at /plone/news/flu>]
 
 User restrictable paths
 -----------------------
