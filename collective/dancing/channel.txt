@@ -15,7 +15,7 @@ When installed in a Plone site, we will create a tool called
 ``portal_newsletters``, and therein a couple of containers:
 
   >>> sorted(self.portal['portal_newsletters'].objectIds())
-  ['channels', 'collectors', 'composers', 'templates']
+  ['channels', 'collectors']
 
 Give me a list of all channels
 ------------------------------
@@ -26,13 +26,14 @@ utility, like so:
 
   >>> from collective.singing.interfaces import IChannelLookup
   >>> component.getUtility(IChannelLookup)()
-  []
+  [<Channel at /plone/portal_newsletters/channels/default-channel>]
 
-Let's create a channel and ask for the list of channels again:
+Let's create another channel and ask for the list of channels again:
 
   >>> from collective.dancing.channel import Channel
   >>> channels = self.portal['portal_newsletters']['channels']
   >>> channels['wq'] = Channel('wq')
-  >>> component.getUtility(IChannelLookup)()
-  [<Channel at /plone/portal_newsletters/channels/wq>]
+  >>> component.getUtility(IChannelLookup)() # doctest: +NORMALIZE_WHITESPACE
+  [<Channel at /plone/portal_newsletters/channels/default-channel>, 
+   <Channel at /plone/portal_newsletters/channels/wq>]
 

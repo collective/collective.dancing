@@ -108,33 +108,3 @@ that it has the right settings:
   >>> cfg = smtp._fetch_settings()
   >>> cfg['username'], cfg['password'], cfg['hostname'], cfg['port']
   (None, None, 'localhost', 25)
-
-
-
-Setup
------
-
-  >>> from zope import component
-  >>> from zope.app.component.hooks import setSite
-  >>> setSite(self.portal)
-
-The portal tool
----------------
-
-When installed in a Plone site, we will create a tool called
-``portal_newsletters``, and therein a couple of containers:
-
-  >>> sorted(self.portal['portal_newsletters'].objectIds())
-  ['channels', 'collectors', 'composers', 'templates']
-
-Give me a list of all composers
--------------------------------
-
-The ``composers`` contains the list of ``IComposer`` available.
-These composers can be retrieved through the ``IComposerLookup``
-utility, like so:
-
-  >>> from collective.singing.interfaces import IComposerLookup
-  >>> component.getUtility(IComposerLookup)()
-  []
-

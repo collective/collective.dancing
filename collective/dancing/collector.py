@@ -16,6 +16,7 @@ import Products.ATContentTypes.criteria.path
 import collective.singing.interfaces
 
 from collective.dancing import utils
+from collective.dancing import MessageFactory as _
 
 class IATCriterionMediator(interface.Interface):
     field = schema.Object(
@@ -129,7 +130,7 @@ class SmartFolderCollector(OFS.Folder.Folder):
                 query_args.update(mediator.query_args(value))
 
         items = topic.queryCatalog(full_objects=True, **query_args)
-        return items, DateTime.DateTime() + 0.005
+        return items, DateTime.DateTime()
 
     @property
     def schema(self):
