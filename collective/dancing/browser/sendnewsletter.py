@@ -7,6 +7,7 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 import collective.singing.z2
 import collective.singing.scheduler
+import datetime
 
 from collective.dancing import MessageFactory as _
 
@@ -41,6 +42,8 @@ class SendAsNewsletterForm(form.Form):
         for channel in channels:
             queued += collective.singing.scheduler.assemble_messages(
                 channel, (self.context,), include_collector_items)
+            if channel.scheduler is not None and include_collector_items:
+                channel.scheduler.triggered_last = datetime.datetime.now()
 
         self.status = _(u"${num} messages queued.", mapping=dict(num=queued))
 

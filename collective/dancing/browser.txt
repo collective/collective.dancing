@@ -575,7 +575,7 @@ To show this, we'll first create a new news item:
   >>> workflow.doActionFor(news['vdfm'], 'publish')
   
 We'll now send the front page as a newsletter:
-  
+  >>> previous_trigger_time = channel.scheduler.triggered_last
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
   >>> browser.getControl('Newsletter').click()
   >>> browser.getControl('My other channel').click()
@@ -589,6 +589,11 @@ We'll now send the front page as a newsletter:
   Welcome to Plone...Vickar's daughter...
   (3, 0)
 
+The scheduler last triggered time is also updated.
+
+  >>> previous_trigger_time < channel.scheduler.triggered_last
+  True
+  
 If we want we can avoid adding the collector items for selected channels,
 We create a new item again...:
 
@@ -598,6 +603,7 @@ We create a new item again...:
   'allisquiet'
   >>> workflow.doActionFor(news['allisquiet'], 'publish')
 
+  >>> previous_trigger_time = channel.scheduler.triggered_last
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
   >>> browser.getControl('Newsletter').click()
   >>> browser.getControl('My other channel').click()
@@ -622,7 +628,10 @@ We create a new item again...:
   >>> "All is quiet on the western front" in msg
   False
 
+Since we did not include collector items the scheduler triggered time is not updated:
 
+  >>> previous_trigger_time == channel.scheduler.triggered_last
+  True
   
 The "My subscriptions" page
 ---------------------------
