@@ -130,7 +130,7 @@ class SmartFolderCollector(OFS.Folder.Folder):
                 query_args.update(mediator.query_args(value))
 
         items = topic.queryCatalog(full_objects=True, **query_args)
-        return items, DateTime.DateTime() + 0.005
+        return items, DateTime.DateTime()
 
     @property
     def schema(self):

@@ -149,7 +149,9 @@ class ManageSubscriptionsForm(crud.CrudForm):
         return field.Fields(self.composer.schema)
 
     def _collector_fields(self):
-        return field.Fields(self.context.collector.schema)
+        if self.context.collector is not None:
+            return field.Fields(self.context.collector.schema)
+        return field.Fields()
 
     @property
     def update_schema(self):
