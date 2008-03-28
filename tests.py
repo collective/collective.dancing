@@ -16,6 +16,11 @@ def setup_error_log(site):
             print logs[index]['tb_text']
     return print_error
 
+def replace_with_fieldindex(name, site):
+    site.portal_catalog.delIndex(name)
+    site.portal_catalog.addIndex(name, 'FieldIndex')
+    site.portal_catalog.manage_reindexIndex((name,))
+
 @onsetup
 def setUp():
     fiveconfigure.debug_mode = True
