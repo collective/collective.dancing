@@ -7,6 +7,9 @@
   <zope:utility component=".channel.scheduler_vocabulary"
                 name="Scheduler Vocabulary" />
 
+  <zope:utility component=".channel.composer_vocabulary"
+                name="Composer Vocabulary" />
+
   <zope:adapter factory=".channel.SubscriptionChoiceFieldDataManager" />
 
   <zope:adapter factory="z3c.form.browser.checkbox.CheckBoxFieldWidget"
@@ -120,12 +123,4 @@
      permission="zope2.View"
      />
 
-  <!-- Stuff -->
-  <page
-     name="send-newsletter.html"
-     for="*"
-     class=".sendnewsletter.SendAsNewsletterView"
-     permission="cmf.ManagePortal"
-     />
-  
 </zope:configure>

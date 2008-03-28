@@ -37,7 +37,6 @@ the form ``(items, cue)``.  See
 To have this default collector return items, we'll need to add a news
 item in the site:
 
-  >>> from DateTime import DateTime
   >>> news = self.portal.news
   >>> workflow = self.portal.portal_workflow
   >>> self.loginAsPortalOwner()
@@ -58,6 +57,17 @@ method.  Let's create another news item to verify that:
   ...     'News Item', id='mini', title='The miniskirt is back again')
   'mini'
   >>> workflow.doActionFor(news['mini'], 'publish')
+
+Let's set our item's creation date a couple of seconds into the
+future.  This is to make sure that we don't slip the date index's
+granularity:
+
+  >>> from DateTime import DateTime
+  >>> news['mini'].setCreationDate(DateTime() + 0.005)
+  >>> news['mini'].reindexObject(idxs=['created'])
+  >>> items, cue = collector.get_items(cue=cue)
+  >>> items
+  [<ATNewsItem at /plone/news/mini>]
 
 Let's imagine we have a cue that we retrieved yesterday.  When using
 it, we'll get both items:
@@ -90,16 +100,15 @@ Let's see if a new event is returned by the collector now:
   >>> events = self.portal.events
   >>> events.invokeFactory(
   ...     'Event', id='super-bowl',
-  ...     title='Super Bowl XLII')
+  ...     title='Super Bowl XLII', creation_date=DateTime() + 0.005)
   'super-bowl'
   >>> workflow.doActionFor(events['super-bowl'], 'publish')
 
   >>> items, cue = collector.get_items()
-  >>> len(items)
-  3
-  >>> events['super-bowl'] in items 
-  True
-  
+  >>> items # doctest: +NORMALIZE_WHITESPACE
+  [<ATEvent at /plone/events/super-bowl>, <ATNewsItem at /plone/news/mini>,
+   <ATNewsItem at /plone/news/flu>]
+
 We can signal that we want one or more criterions to be made available
 for further restriction by the user.  The
 ``user_restrictable_criterions`` governs this.  Let's set it so that
@@ -144,18 +153,15 @@ any choices.  This will return the same items as before:
 
   >>> items, cue = collector.get_items(subscription=Subscription())
   >>> items # doctest: +NORMALIZE_WHITESPACE
-  [<ATNewsItem at /plone/news/flu>,
-   <ATNewsItem at /plone/news/mini>,
-   <ATEvent at /plone/events/super-bowl>]
+  [<ATEvent at /plone/events/super-bowl>, <ATNewsItem at /plone/news/mini>,
+   <ATNewsItem at /plone/news/flu>]
 
 We can provide both a cue and a subscription:
 
   >>> items, cue = collector.get_items(cue=cue-1, subscription=Subscription())
   >>> items # doctest: +NORMALIZE_WHITESPACE
-  [<ATNewsItem at /plone/news/flu>,
-   <ATNewsItem at /plone/news/mini>,
-   <ATEvent at /plone/events/super-bowl>]
-
+  [<ATEvent at /plone/events/super-bowl>, <ATNewsItem at /plone/news/mini>,
+   <ATNewsItem at /plone/news/flu>]
   >>> len(collector.get_items(cue=cue+1, subscription=Subscription())[0])
   0
 
@@ -180,9 +186,8 @@ If we select no value, then we should get all items:
   >>> subscription.collector_data[field.__name__] = []
   >>> items, cue = collector.get_items(subscription=Subscription())
   >>> items # doctest: +NORMALIZE_WHITESPACE
-  [<ATNewsItem at /plone/news/flu>,
-   <ATNewsItem at /plone/news/mini>,
-   <ATEvent at /plone/events/super-bowl>]
+  [<ATEvent at /plone/events/super-bowl>, <ATNewsItem at /plone/news/mini>,
+   <ATNewsItem at /plone/news/flu>]
 
 User restrictable paths
 -----------------------

@@ -1,6 +1,7 @@
 import md5
 import re
 import smtplib
+import OFS
 
 from zope import interface
 from zope import component
@@ -21,12 +22,22 @@ class InvalidEmailAddress(schema.ValidationError):
     _(u"Your e-mail address is invalid")
     regex = r"[a-zA-Z0-9._%-]+@([a-zA-Z0-9-]+\.)*[a-zA-Z]{2,4}"
 
+def composer_lookup():
+    root = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
+    return root['portal_newsletters']['composers'].objectValues()
+interface.directlyProvides(composer_lookup,
+                           collective.singing.interfaces.IComposerLookup)
+
 def check_email(value):
     if not re.match(InvalidEmailAddress.regex, value):
         raise InvalidEmailAddress
     return True
 
 class IHTMLComposerSchema(interface.Interface):
+    email = schema.TextLine(title=_(u"E-mail address"),
+                            constraint=check_email)
+
+class IComposerSchema(interface.Interface):
     email = schema.TextLine(title=_(u"E-mail address"),
                             constraint=check_email)
 
@@ -39,12 +50,16 @@ def composerdata_from_subscription(subscription):
 class HTMLComposer(object):
     interface.implements(collective.singing.interfaces.IComposer,
                          collective.singing.interfaces.IComposerBasedSecret)
-
+    name = 'html'
     title = _(u'HTML E-Mail')
     schema = IHTMLComposerSchema
 
     template = ViewPageTemplateFile('browser/composer-html.pt')
     confirm_template = ViewPageTemplateFile('browser/composer-html-confirm.pt')
+
+    def __eq__(self, other):
+        """We need a weaker equivalence than default (identity??)"""
+        return isinstance(other, HTMLComposer)
 
     @staticmethod
     def secret(data):
@@ -131,6 +146,8 @@ class HTMLComposer(object):
         return collective.singing.message.Message(
             message, subscription)
 
+composers = (HTMLComposer,)
+
 def plone_html_strip(html):
     r"""
       >>> html = (
@@ -183,3 +200,11 @@ class SMTPMailer(object):
             connection.login(cfg['username'], cfg['password'])
         connection.sendmail(fromaddr, toaddrs, message)
         connection.quit()
+
+class ComposerContainer(OFS.Folder.Folder):
+    Title = u"Composers"
+
+@component.adapter(ComposerContainer,
+                   zope.app.container.interfaces.IObjectAddedEvent)
+def container_added(container, event):
+    name = 'default-composer'

@@ -64,6 +64,18 @@ def scheduler_vocabulary(context):
 zope.interface.alsoProvides(scheduler_vocabulary,
                             zope.schema.interfaces.IVocabularyFactory)
 
+def composer_vocabulary(context):
+    terms = []
+    for factory in collective.dancing.composer.composers:
+        terms.append(
+            zope.schema.vocabulary.SimpleTerm(
+                value=factory(),
+                token='%s.%s' % (factory.__module__, factory.__name__),
+                title=factory.title))
+    return utils.LaxVocabulary(terms)
+zope.interface.alsoProvides(composer_vocabulary,
+                            zope.schema.interfaces.IVocabularyFactory)
+
 class ManageChannelsForm(crud.CrudForm):
     """Crud form for channels.
     """
@@ -80,16 +92,20 @@ class ManageChannelsForm(crud.CrudForm):
         collector = schema.Choice(
             __name__='collector',
             title=IChannel['collector'].title,
-            required=False,
             vocabulary='Collector Vocabulary')
 
         scheduler = FactoryChoice(
             __name__='scheduler',
             title=IChannel['scheduler'].title,
-            required=False,
             vocabulary='Scheduler Vocabulary')
 
-        fields += field.Fields(collector, scheduler)
+        composers = schema.Set(
+            __name__='composers',
+            title=IChannel['composers'].title,
+            value_type=FactoryChoice(vocabulary='Composer Vocabulary'))
+            
+        fields += field.Fields(collector, scheduler, composers)
+        
         return fields
 
     @property
@@ -114,7 +130,7 @@ class ManageChannelsForm(crud.CrudForm):
     def link(self, item, field):
         if field == 'title':
             return item.absolute_url()
-        elif field == 'collector' and item.collector is not None:
+        elif field == 'collector':
             collector_id = item.collector.getId()
             collector = getattr(self.context.aq_inner.aq_parent.collectors,
                                 collector_id)
@@ -149,9 +165,7 @@ class ManageSubscriptionsForm(crud.CrudForm):
         return field.Fields(self.composer.schema)
 
     def _collector_fields(self):
-        if self.context.collector is not None:
-            return field.Fields(self.context.collector.schema)
-        return field.Fields()
+        return field.Fields(self.context.collector.schema)
 
     @property
     def update_schema(self):

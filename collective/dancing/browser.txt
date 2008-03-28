@@ -94,22 +94,13 @@ Let's delete the first of the two channels:
   >>> 'My channel' in browser.contents, 'My other channel' in browser.contents
   (False, True)
 
-The default is not to have a collector or a scheduler, let's select some for our
+The default "Latest news" collector is already selected for our
 channel:
 
   >>> collector = browser.getControl(
   ...     name='crud-edit.my-other-channel.widgets.collector:list')
   >>> collector.displayValue
-  ['no value']
-  >>> collector.displayValue = ['Latest news']
-
-  >>> scheduler = browser.getControl(
-  ...     name='crud-edit.my-other-channel.widgets.scheduler:list')
-  >>> scheduler.displayValue
-  ['no value']
-  >>> scheduler.displayValue = ['Weekly scheduler']
-
-  >>> browser.getControl('Apply changes').click()
+  ['Latest news']
 
 Configuring collectors
 ----------------------
@@ -147,7 +138,6 @@ We'll add to the selection the Events type and save:
 Okay, so now we catch both events and news items throughout the site.
 To see if that's true, we'll create two items, one for each type:
 
-  >>> from DateTime import DateTime
   >>> news = portal.news
   >>> workflow = portal.portal_workflow
   >>> self.loginAsPortalOwner()
@@ -189,8 +179,7 @@ Going back to the channel administration screen, we can click on the
 channel's name to reach the channel subscriptions screen:
 
   >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
-  >>> browser.getLink(url='http://nohost/plone/portal_newsletters/channels/my-other-channel').click()
-
+  >>> browser.getLink('My other channel').click()
 
 We can add new subscriptions here:
 
@@ -229,7 +218,7 @@ We can see that our channel is listed here:
 We can create a message now and see how the statistics reflect this.
 First, let's get a hold of our subscription object:
 
-  >>> channel = portal.portal_newsletters.channels.objectValues()[1]
+  >>> channel = portal.portal_newsletters.channels.objectValues()[0]
   >>> subscription = channel.subscriptions.values()[0][0]
   >>> subscription # doctest: +ELLIPSIS
   <SimpleSubscription to ...>
@@ -399,7 +388,7 @@ Let's flush the message queue:
 Using a scheduler to send e-mails
 ---------------------------------
 
-The scheduler for our channel is the weekly scheduler:
+The default scheduler for channels is the weekly scheduler:
 
   >>> channel.scheduler
   <WeeklyScheduler at /plone/portal_newsletters/channels/my-other-channel/scheduler>
@@ -441,8 +430,6 @@ sent:
 Let's take a closer look at the mail that's sent to mailman:
 
   >>> msg = quopri.decodestring(MyMailDelivery.sent[-1])
-  >>> 'mailman@localhost' in msg
-  True
   >>> "Super Bowl" in msg
   False
   >>> msg # doctest: +ELLIPSIS
@@ -561,78 +548,6 @@ check by using the "Trigger now" button:
   To: root@localhost...To: daniel@localhost...To: mailman@localhost...
   (3, 0)
 
-Sending newsletters from content objects
-----------------------------------------
-
-We can also send newsletters directly from any content object.  If the
-channel has a collector, this will also send the collector's items.
-To show this, we'll first create a new news item:
-
-  >>> news.invokeFactory(
-  ...     'News Item', id='vdfm',
-  ...     title="Vickar's daughter foully murdered")
-  'vdfm'
-  >>> workflow.doActionFor(news['vdfm'], 'publish')
-  
-We'll now send the front page as a newsletter:
-  >>> previous_trigger_time = channel.scheduler.triggered_last
-  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
-  >>> browser.getControl('Newsletter').click()
-  >>> browser.getControl('My other channel').click()
-  >>> browser.getControl('Send').click()
-  >>> "3 messages queued" in browser.contents
-  True
-  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-  *MyMailDelivery sending*:
-  ...
-  To: root@localhost...To: daniel@localhost...To: mailman@localhost...
-  Welcome to Plone...Vickar's daughter...
-  (3, 0)
-
-The scheduler last triggered time is also updated.
-
-  >>> previous_trigger_time < channel.scheduler.triggered_last
-  True
-  
-If we want we can avoid adding the collector items for selected channels,
-We create a new item again...:
-
-  >>> news.invokeFactory(
-  ...     'News Item', id='allisquiet',
-  ...     title="All is quiet on the western front")
-  'allisquiet'
-  >>> workflow.doActionFor(news['allisquiet'], 'publish')
-
-  >>> previous_trigger_time = channel.scheduler.triggered_last
-  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
-  >>> browser.getControl('Newsletter').click()
-  >>> browser.getControl('My other channel').click()
-
-... and this time we choose not to add collector items...
-
-  >>> browser.getControl(name='form.widgets.include_collector_items:list').value = ['false']
-  >>> browser.getControl('Send').click()
-  >>> "3 messages queued" in browser.contents
-  True
-  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-  *MyMailDelivery sending*:
-  ...
-  To: root@localhost...To: daniel@localhost...To: mailman@localhost...
-  (3, 0)
-
-... so our new News Item is not sent out.
-
-  >>> msg = quopri.decodestring(MyMailDelivery.sent[-1])
-  >>> 'mailman@localhost' in msg
-  True
-  >>> "All is quiet on the western front" in msg
-  False
-
-Since we did not include collector items the scheduler triggered time is not updated:
-
-  >>> previous_trigger_time == channel.scheduler.triggered_last
-  True
-  
 The "My subscriptions" page
 ---------------------------
 
@@ -713,9 +628,9 @@ format, which is Hypertext with variable font-size:
 
   >>> len(new_channel.subscriptions[secret])
   0
-  >>> browser.getControl('E-mail address', index=1).value = u"root@localhost"
+  >>> browser.getControl('E-mail address', index=0).value = u"root@localhost"
   >>> browser.getControl('Font size').getControl('16').click()
-  >>> browser.getControl('Subscribe', index=1).click()
+  >>> browser.getControl('Subscribe', index=0).click()
   >>> "You subscribed successfully" in browser.contents
   True
   >>> len(new_channel.subscriptions[secret])
@@ -753,8 +668,8 @@ This will trigger the confirmation mail to be sent out:
 
   >>> browser.open(portal.absolute_url() +
   ...              '/portal_newsletters/my-subscriptions.html')
-  >>> browser.getControl('E-mail address', index=1).value = "daemon@localhost"
-  >>> browser.getControl('Subscribe', index=1).click()
+  >>> browser.getControl('E-mail address', index=0).value = "daemon@localhost"
+  >>> browser.getControl('Subscribe', index=0).click()
   *MyMailDelivery sending*:
   From: Site Administrator <>
   To: daemon@localhost
@@ -769,4 +684,3 @@ This will trigger the confirmation mail to be sent out:
   1
   >>> channel.subscriptions[secret][0].metadata['pending']
   True
-

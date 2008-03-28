@@ -102,8 +102,6 @@ class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
 
     @property
     def fields(self):
-        if self.context.channel.collector is None:
-            return field.Fields()
         return field.Fields(self.context.channel.collector.schema)
 
     buttons, handlers = form.EditForm.buttons, form.EditForm.handlers
@@ -136,12 +134,10 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
 
     @property
     def fields(self):
-        fields = field.Fields(self.context.composers[self.format].schema,
-                              prefix='composer.')
-        if self.context.collector is not None:
-            fields += field.Fields(self.context.collector.schema,
-                                   prefix='collector.')
-        return fields
+        return (field.Fields(self.context.composers[self.format].schema,
+                             prefix='composer.') +
+                field.Fields(self.context.collector.schema,
+                             prefix='collector.'))
 
     @button.buttonAndHandler(_('Subscribe'), name='subscribe')
     def handle_subscribe(self, action):
