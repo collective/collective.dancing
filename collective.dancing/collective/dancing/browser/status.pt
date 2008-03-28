@@ -1,0 +1,3 @@
+<div class="portalMessage"
+     tal:condition="view/status" tal:content="view/status">
+</div>

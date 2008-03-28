@@ -1,0 +1,9 @@
+Changelog for collective.dancing
+
+    (name of developer listed in brackets)
+
+collective.dancing - 0.1 Unreleased
+
+    - Initial package structure.
+      [zopeskel]
+

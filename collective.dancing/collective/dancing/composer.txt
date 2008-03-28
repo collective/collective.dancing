@@ -1,0 +1,140 @@
+Composing messages
+==================
+
+The ``composer`` module provides
+``collective.singing.interfaces.IComposer`` implementations for
+assembling mails.
+
+  >>> import collective.dancing.composer
+
+Setup
+-----
+
+Let's make an ISubscription and an IChannel implementation for use in
+this test:
+
+  >>> from zope import interface, component
+  >>> import collective.singing.interfaces
+  >>> import collective.singing.message
+
+  >>> class Channel(object):
+  ...     def __init__(self, title, url):
+  ...         self.title = title
+  ...         self.url = url
+  ...         self.queue = collective.singing.message.MessageQueues()
+  ...     def absolute_url(self):
+  ...         return self.url
+
+  >>> class Subscription(object):
+  ...     def __init__(self, channel):
+  ...         self.channel = channel
+  ...         self.composer_data = {}
+
+  >>> @component.adapter(Subscription)
+  ... @interface.implementer(collective.singing.interfaces.IComposerData)
+  ... def composer_data(subscription):
+  ...     return subscription.composer_data
+  >>> component.provideAdapter(composer_data)
+
+HTMLComposer
+------------
+
+The ``HTMLComposer`` creates messages of type
+``email.Message.Message``.  It expects the subscription's
+``IComposerData`` to have an 'email' entry:
+
+  >>> HTMLComposer = collective.dancing.composer.HTMLComposer
+  >>> HTMLComposer.schema.names()
+  ['email']
+
+The HTMLComposer implements both the ``IComposer`` and the
+``IComposerBasedSecret`` interfaces:
+
+  >>> from zope.interface import verify
+  >>> verify.verifyClass(collective.singing.interfaces.IComposer,
+  ...                    HTMLComposer)
+  True
+  >>> verify.verifyClass(collective.singing.interfaces.IComposerBasedSecret,
+  ...                    HTMLComposer)
+  True
+
+That is, we can use it to retrieve a subscription's secret:
+
+  >>> channel = Channel('News for nerds', 'http://my.chann.el')
+  >>> subscription = Subscription(channel)
+  >>> subscription.composer_data['email'] = u'daniel@localhost'
+  >>> secret = HTMLComposer.secret(subscription.composer_data)
+  >>> isinstance(secret, str)
+  True
+  >>> subscription.secret = secret
+
+  >>> composer = HTMLComposer()
+  >>> msg = composer.render(subscription, items=(
+  ...     'My bonnie lies over the ocean',
+  ...     'My bonnie lies over the sea',
+  ...     'My bonnie lies over the ocean',
+  ...     'Oh bring back my bonnie to me'))
+  >>> msg # doctest: +ELLIPSIS
+  <collective.singing.message.Message object ...>
+  >>> msg.payload # doctest: +ELLIPSIS
+  <email.Message.Message instance ...>
+  >>> print msg.payload.as_string() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  Content-Type: multipart/alternative;...
+  Subject: Plone site: News for nerds...
+  From: Site Administrator <>...
+  To: daniel@localhost...
+  ...My bonnie lies over the ocean...My bonnie lies over the sea...
+
+  >>> msg = composer.render_confirmation(subscription) # doctest: +ELLIPSIS
+  >>> msg # doctest: +ELLIPSIS
+  <collective.singing.message.Message object ...>
+  >>> print msg.payload.as_string() # doctest: +ELLIPSIS
+  Content-Type: multipart/alternative;...
+  Subject: Confirm your subscription with News for nerds...
+  From: Site Administrator <>...
+  To: daniel@localhost...
+  ...To confirm your subscription with News for nerds, please click here...
+
+IMailer
+-------
+
+The ``composer`` module defines an ``IMailer`` utility that's used to
+send out mails.  Let's make sure that it's registered properly, and
+that it has the right settings:
+
+  >>> from zope import component
+  >>> from zope.sendmail.interfaces import IMailer
+  >>> smtp = component.getUtility(IMailer, 'plone.smtp')
+  >>> cfg = smtp._fetch_settings()
+  >>> cfg['username'], cfg['password'], cfg['hostname'], cfg['port']
+  (None, None, 'localhost', 25)
+
+
+
+Setup
+-----
+
+  >>> from zope import component
+  >>> from zope.app.component.hooks import setSite
+  >>> setSite(self.portal)
+
+The portal tool
+---------------
+
+When installed in a Plone site, we will create a tool called
+``portal_newsletters``, and therein a couple of containers:
+
+  >>> sorted(self.portal['portal_newsletters'].objectIds())
+  ['channels', 'collectors', 'composers', 'templates']
+
+Give me a list of all composers
+-------------------------------
+
+The ``composers`` contains the list of ``IComposer`` available.
+These composers can be retrieved through the ``IComposerLookup``
+utility, like so:
+
+  >>> from collective.singing.interfaces import IComposerLookup
+  >>> component.getUtility(IComposerLookup)()
+  []
+
