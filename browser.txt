@@ -147,6 +147,7 @@ We'll add to the selection the Events type and save:
 Okay, so now we catch both events and news items throughout the site.
 To see if that's true, we'll create two items, one for each type:
 
+  >>> from DateTime import DateTime
   >>> news = portal.news
   >>> workflow = portal.portal_workflow
   >>> self.loginAsPortalOwner()
@@ -188,7 +189,8 @@ Going back to the channel administration screen, we can click on the
 channel's name to reach the channel subscriptions screen:
 
   >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
-  >>> browser.getLink('My other channel').click()
+  >>> browser.getLink(url='http://nohost/plone/portal_newsletters/channels/my-other-channel').click()
+
 
 We can add new subscriptions here:
 
@@ -439,6 +441,8 @@ sent:
 Let's take a closer look at the mail that's sent to mailman:
 
   >>> msg = quopri.decodestring(MyMailDelivery.sent[-1])
+  >>> 'mailman@localhost' in msg
+  True
   >>> "Super Bowl" in msg
   False
   >>> msg # doctest: +ELLIPSIS
@@ -557,6 +561,69 @@ check by using the "Trigger now" button:
   To: root@localhost...To: daniel@localhost...To: mailman@localhost...
   (3, 0)
 
+Sending newsletters from content objects
+----------------------------------------
+
+We can also send newsletters directly from any content object.  If the
+channel has a collector, this will also send the collector's items.
+To show this, we'll first create a new news item:
+
+  >>> news.invokeFactory(
+  ...     'News Item', id='vdfm',
+  ...     title="Vickar's daughter foully murdered")
+  'vdfm'
+  >>> workflow.doActionFor(news['vdfm'], 'publish')
+  
+We'll now send the front page as a newsletter:
+  
+  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
+  >>> browser.getControl('Newsletter').click()
+  >>> browser.getControl('My other channel').click()
+  >>> browser.getControl('Send').click()
+  >>> "3 messages queued" in browser.contents
+  True
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *MyMailDelivery sending*:
+  ...
+  To: root@localhost...To: daniel@localhost...To: mailman@localhost...
+  Welcome to Plone...Vickar's daughter...
+  (3, 0)
+
+If we want we can avoid adding the collector items for selected channels,
+We create a new item again...:
+
+  >>> news.invokeFactory(
+  ...     'News Item', id='allisquiet',
+  ...     title="All is quiet on the western front")
+  'allisquiet'
+  >>> workflow.doActionFor(news['allisquiet'], 'publish')
+
+  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
+  >>> browser.getControl('Newsletter').click()
+  >>> browser.getControl('My other channel').click()
+
+... and this time we choose not to add collector items...
+
+  >>> browser.getControl(name='form.widgets.include_collector_items:list').value = ['false']
+  >>> browser.getControl('Send').click()
+  >>> "3 messages queued" in browser.contents
+  True
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *MyMailDelivery sending*:
+  ...
+  To: root@localhost...To: daniel@localhost...To: mailman@localhost...
+  (3, 0)
+
+... so our new News Item is not sent out.
+
+  >>> msg = quopri.decodestring(MyMailDelivery.sent[-1])
+  >>> 'mailman@localhost' in msg
+  True
+  >>> "All is quiet on the western front" in msg
+  False
+
+
+  
 The "My subscriptions" page
 ---------------------------
 
@@ -693,3 +760,4 @@ This will trigger the confirmation mail to be sent out:
   1
   >>> channel.subscriptions[secret][0].metadata['pending']
   True
+
