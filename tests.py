@@ -52,6 +52,11 @@ def test_suite():
             test_class=ptc.PloneTestCase,
             ),
 
+        ztc.ZopeDocTestSuite(
+            'collective.dancing.browser.widget',
+            test_class=ptc.PloneTestCase,
+            ),
+
         ztc.ZopeDocFileSuite(
             'browser.txt',
             test_class=ptc.FunctionalTestCase,
