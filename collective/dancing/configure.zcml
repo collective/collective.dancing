@@ -49,4 +49,12 @@
   <adapter factory=".composer.HTMLFormatter"
            for="Products.Archetypes.interfaces.IBaseObject" />
 
+  <adapter factory=".browser.collector.EditCollectorForm"
+	   provides="z3c.form.interfaces.ISubForm"/>
+
+  <adapter factory=".browser.collector.EditTopicForm"
+	   provides="z3c.form.interfaces.ISubForm"/>
+  
+  <adapter factory=".browser.collector.URL"
+  	   provides=".browser.collector.IURL"/>
 </configure>

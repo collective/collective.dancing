@@ -1,5 +1,7 @@
+import zope.publisher
 from zope import schema
 from zope import component
+from zope import interface
 from zope.app.pagetemplate import viewpagetemplatefile
 from z3c.form import field
 from z3c.form import form, subform
@@ -12,6 +14,8 @@ from collective.singing.interfaces import ICollector
 from collective.singing.browser import crud
 import collective.singing.interfaces
 import collective.singing.z2
+
+import OFS.interfaces
 
 from collective.dancing import MessageFactory as _
 from collective.dancing import collector
@@ -53,9 +57,41 @@ class CollectorAdministrationView(BrowserView):
 collector_fields = field.Fields(
     collective.singing.interfaces.ICollector).select('title', 'optional')
 
+class IURL(interface.Interface):
+    """ Adds url  """
+    url = schema.TextLine(title=_(u"Link"))
+
+class URL(object):
+    component.adapts(OFS.interfaces.ITraversable)
+    
+    def __init__(self, context):
+        self.url = context.absolute_url()
+
+    
+class EditTopicForm(subform.EditSubForm):
+    """Edit a single collector.
+    """
+    component.adapts(Products.ATContentTypes.interfaces.IATTopic,
+                     zope.publisher.interfaces.http.IHTTPRequest,
+                     z3c.form.interfaces.IEditForm)
+    
+    template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
+
+    fields = field.Fields(
+        schema.TextLine(__name__='title',
+                        title=_(u"Title"),
+                        ),
+        #IURL['url']
+        )
+    
+
 class EditCollectorForm(subform.EditSubForm):
     """Edit a single collector.
     """
+    component.adapts(collective.singing.interfaces.ICollector,
+                     zope.publisher.interfaces.http.IHTTPRequest,
+                     z3c.form.interfaces.IEditForm)
+
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
     fields = collector_fields
 
@@ -70,12 +106,13 @@ class EditCollectorForm(subform.EditSubForm):
              subform = component.getMultiAdapter(
                 (item, self.request, self.parentForm),
                 z3c.form.interfaces.ISubForm)
-            subform.update()
-            self.subforms.append(subform)
+             subform.update()
+             self.subforms.append(subform)
 
 class EditRootCollectorForm(form.EditForm):
     """Edit a single collector.
     """
+
     fields = collector_fields
 
     @property
@@ -86,10 +123,11 @@ class EditRootCollectorForm(form.EditForm):
         super(EditRootCollectorForm, self).update()
         self.subforms = []
         for item in self.context.objectValues():
+            
              subform = component.getMultiAdapter(
                 (item, self.request, self), z3c.form.interfaces.ISubForm)
-            subform.update()
-            self.subforms.append(subform)
+             subform.update()
+             self.subforms.append(subform)
     
 class CollectorEditView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
