@@ -19,7 +19,7 @@ from collective.singing import z2
 from collective.singing.browser import crud
 import collective.singing.scheduler
 import collective.singing.subscribe
-
+from zope.app.pagetemplate import viewpagetemplatefile
 from collective.dancing import MessageFactory as _
 from collective.dancing import collector
 from collective.dancing import utils
@@ -64,6 +64,30 @@ def scheduler_vocabulary(context):
 zope.interface.alsoProvides(scheduler_vocabulary,
                             zope.schema.interfaces.IVocabularyFactory)
 
+class ChannelEditForm(crud.EditForm):
+    template = viewpagetemplatefile.ViewPageTemplateFile('channel-crud-table.pt')
+    def _update_subforms(self):
+        self.subforms = []
+        for id, item in self.context.get_items():
+            subform = ChannelEditSubForm(self, self.request)
+            subform.content = item
+            subform.content_id = id
+            subform.update()
+            self.subforms.append(subform)
+
+class ChannelEditSubForm(crud.EditSubForm):
+    """special version of get titles for channel"""
+    template = viewpagetemplatefile.ViewPageTemplateFile('channel-crud-row.pt')
+    def getNiceTitles(self):
+        widgetsForTitles = self.getTitleWidgets()        
+
+        freakList = []
+        for item in widgetsForTitles:
+            freakList.append(item.field.title)
+        if len(freakList)> 2:
+            freakList[2] = u'Subscribers'
+        return freakList
+
 class ManageChannelsForm(crud.CrudForm):
     """Crud form for channels.
     """
@@ -72,7 +96,8 @@ class ManageChannelsForm(crud.CrudForm):
       collectors to gather and email specific sets of information 
       from your site, to subscribed email addresses, at 
       scheduled times.""")
-    
+    editform_factory = ChannelEditForm
+    template = viewpagetemplatefile.ViewPageTemplateFile('channel-form-master.pt')
     @property
     def update_schema(self):
         fields = field.Fields(IChannel).select('title')
@@ -122,6 +147,9 @@ class ManageChannelsForm(crud.CrudForm):
         elif field == 'scheduler':
             if item.scheduler is not None:
                 return item.scheduler.absolute_url()
+                
+        
+
 
 class ChannelAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
