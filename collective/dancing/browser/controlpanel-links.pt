@@ -1,31 +1,71 @@
-  <dl>
-    <dt >
+<ul class="formTabs">
+    <li class="formTab firstFormTab">
+      <a class="selected" i18n:translate="label_general_info" href="./info">
+        General info
+      </a>
+    </li>
+    <li class="formTab">
       <a i18n:translate="label_channel_administration" href="./channels">
         Channel administration
       </a>
-    </dt>
-    <dd i18n:translate="description_channel_administration">
-        A Channel is a hub of configuration.  It doesn't do anything by
-        itself.  Rather, it provides a number of components to configure
-        and work with.  It is also the container of subscriptions to it.
-    </dd>
-    <dt>
+    </li>
+    <li class="formTab">
       <a href="./collectors"
           i18n:translate="label_collector_administration">
         Collector administration
       </a>
-    </dt>
-    <dd i18n:translate="description_collector_administration">
-      Collectors are useful for automatic newsletters.  They are
-      responsible for assembling a list of items for publishing.
-    </dd>
-    <dt>
+    </li>
+    <li class="formTab lastFormTab">
       <a i18n:translate="label_statistics_administration"
            href="./channels/newsletter-stats.html">
          Statistics
       </a>
-    </dt>
-    <dd i18n:translate="description_statistics_administration">
-    ...
-    </dd>
-</dl>
+    </li>
+</ul>
+
+<fieldset class="formPanel" id="fieldset-info">
+
+<h3>Channels</h3>
+  <p i18n:translate="description_channel_administration">
+      A Channel is a hub of configuration.  It doesn't do anything by
+      itself.  Rather, it provides a number of components to configure
+      and work with.  It is also the container of subscriptions to it.
+  </p>
+
+<h3>Collectors</h3>
+  <p i18n:translate="description_collector_administration">
+    Collectors are useful for automatic newsletters.  They are
+    responsible for assembling a list of items for publishing.
+  </p>
+
+<h3>Statistics</h3>
+  <p i18n:translate="description_statistics_administration">
+  ...
+  </p>
+
+</fieldset>
+
+<!--<fieldset class="formPanel hidden" id="fieldset-channel">-->
+<fieldset class="formPanel" id="fieldset-channel">
+
+<h3>Channels fieldset</h3>
+
+<div tal:replace="python:here.channels">replace the this with the content from the view</div>
+
+</fieldset>
+
+<fieldset class="formPanel" id="fieldset-collectors">
+
+<h3>Collectors fieldset</h3>
+
+<div tal:replace="python:here.collectors">replace the this with the content from the view</div>
+
+</fieldset>
+
+<fieldset class="formPanel" id="fieldset-statistics">
+
+<h3>Statistics fieldset</h3>
+
+<!--<div tal:replace="python:">replace the this with the content from the view</div>-->
+
+</fieldset>
