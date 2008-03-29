@@ -7,10 +7,4 @@
 
   <div tal:replace="structure view/form" />
   
-  <div style="margin-top: 2em">
-    You can also
-    <a href="./topic/criterion_edit_form">edit the Smart Folder</a>
-    and its criteria.
-  </div>
-
 </html>

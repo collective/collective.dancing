@@ -1,7 +1,8 @@
 from zope import schema
+from zope import component
 from zope.app.pagetemplate import viewpagetemplatefile
 from z3c.form import field
-from z3c.form import form
+from z3c.form import form, subform
 import z3c.form.interfaces
 import z3c.form.browser.select
 from Products.Five import BrowserView
@@ -49,23 +50,47 @@ class CollectorAdministrationView(BrowserView):
         collective.singing.z2.switch_on(self)
         return ManageCollectorsForm(self.context, self.request)()
 
-class EditCollectorForm(form.EditForm):
+collector_fields = field.Fields(
+    collective.singing.interfaces.ICollector).select('title', 'optional')
+
+class EditCollectorForm(subform.EditSubForm):
     """Edit a single collector.
     """
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
+    fields = collector_fields
 
     @property
-    def fields(self):
-        fields = field.Fields(collective.singing.interfaces.ICollector).select(
-            'title')
+    def parent_form(self):
+        return self.parentForm
 
-        criterions = schema.Set(
-            __name__='user_restrictable_criterions',
-            title=_(u"User restrictable criterions"),
-            value_type=schema.Choice(vocabulary='User restrictable criterions'))
-        fields += field.Fields(criterions)
-        return fields
+    def update(self):
+        super(EditRootCollectorForm, self).update()
+        self.subforms = []
+        for item in self.context.objectValues():
+             subform = component.getMultiAdapter(
+                (item, self.request, self.parentForm),
+                z3c.form.interfaces.ISubForm)
+            subform.update()
+            self.subforms.append(subform)
 
+class EditRootCollectorForm(form.EditForm):
+    """Edit a single collector.
+    """
+    fields = collector_fields
+
+    @property
+    def parent_form(self):
+        return self
+
+    def update(self):
+        super(EditRootCollectorForm, self).update()
+        self.subforms = []
+        for item in self.context.objectValues():
+             subform = component.getMultiAdapter(
+                (item, self.request, self), z3c.form.interfaces.ISubForm)
+            subform.update()
+            self.subforms.append(subform)
+    
 class CollectorEditView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
     contents_template = ViewPageTemplateFile('collector-edit-contents.pt')
@@ -80,6 +105,6 @@ class CollectorEditView(BrowserView):
 
     def contents(self):
         collective.singing.z2.switch_on(self)
-        self.form = EditCollectorForm(self.context, self.request)
+        self.form = EditRootCollectorForm(self.context, self.request)
         return self.contents_template()
         
