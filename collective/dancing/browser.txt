@@ -132,7 +132,7 @@ into the channels.  We can visit the Smart Folder that defines the
 criteria of what goes into the channel here:
 
   >>> browser.getLink('Latest news').click()
-  >>> browser.getLink('edit the Smart Folder').click()
+  >>> browser.getLink('Edit the Smart Folder').click()
 
 Let's say we wanted the channel to contain both News Items and Events.
 We'll add to the selection the Events type and save:

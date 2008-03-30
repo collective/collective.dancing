@@ -21,11 +21,6 @@
 
   <zope:adapter factory=".collector.EditTopicForm"
                 provides="z3c.form.interfaces.ISubForm" />
-  
-  <zope:adapter factory=".collector.URL"
-                provides=".collector.IURL" />
-
-
 
   <!-- Administration views -->
 
