@@ -24,7 +24,7 @@ from collective.dancing import MessageFactory as _
 from collective.dancing import collector
 from collective.dancing import utils
 from collective.dancing.channel import Channel
-from collective.dancing.browser import controlpanel
+import collective.dancing.composer
 
 def simpleitem_wrap(klass, name):
     class SimpleItemWrapper(klass, OFS.SimpleItem.SimpleItem):
@@ -76,6 +76,9 @@ def composer_vocabulary(context):
 zope.interface.alsoProvides(composer_vocabulary,
                             zope.schema.interfaces.IVocabularyFactory)
 
+class ISetToDictField(zope.schema.interfaces.ISet):
+    pass
+    
 class ManageChannelsForm(crud.CrudForm):
     """Crud form for channels.
     """
@@ -102,7 +105,10 @@ class ManageChannelsForm(crud.CrudForm):
         composers = schema.Set(
             __name__='composers',
             title=IChannel['composers'].title,
+            default=set([collective.dancing.composer.HTMLComposer()]),
             value_type=FactoryChoice(vocabulary='Composer Vocabulary'))
+            
+        zope.interface.directlyProvides(composers, ISetToDictField)
             
         fields += field.Fields(collector, scheduler, composers)
         
@@ -143,6 +149,8 @@ class ChannelAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
     
     label = _(u'Channel administration')
+ 
+    from collective.dancing.browser import controlpanel
     back_link = controlpanel.back_to_controlpanel
 
     def contents(self):

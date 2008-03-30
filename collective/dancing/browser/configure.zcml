@@ -17,6 +17,10 @@
                      collective.singing.interfaces.IFormLayer"
                 />
 
+  <zope:adapter factory="collective.singing.browser.datamanager.SetToDictField"
+                for="* .channel.ISetToDictField"
+                />
+
   <!-- Administration views -->
 
   <defaultView

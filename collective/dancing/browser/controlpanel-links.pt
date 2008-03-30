@@ -50,7 +50,7 @@
 
 <h3>Channels fieldset</h3>
 
-<div tal:replace="python:here.channels">replace the this with the content from the view</div>
+<div tal:replace="structure view/channelcontents">replace the this with the content from the view</div>
 
 </fieldset>
 
