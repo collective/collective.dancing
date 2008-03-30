@@ -37,10 +37,6 @@ class IHTMLComposerSchema(interface.Interface):
     email = schema.TextLine(title=_(u"E-mail address"),
                             constraint=check_email)
 
-class IComposerSchema(interface.Interface):
-    email = schema.TextLine(title=_(u"E-mail address"),
-                            constraint=check_email)
-
 @component.adapter(collective.singing.interfaces.ISubscription)
 @interface.implementer(IHTMLComposerSchema)
 def composerdata_from_subscription(subscription):

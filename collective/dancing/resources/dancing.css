@@ -26,3 +26,10 @@ div.crud-form td.error div.error {
     padding: 0.2em;
     font-weight: bold;
 }
+
+.link-subscribers{
+    background-image: url(group.gif);
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 20px;
+}

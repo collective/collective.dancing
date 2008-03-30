@@ -16,6 +16,11 @@ def setup_error_log(site):
             print logs[index]['tb_text']
     return print_error
 
+def replace_with_fieldindex(name, site):
+    site.portal_catalog.delIndex(name)
+    site.portal_catalog.addIndex(name, 'FieldIndex')
+    site.portal_catalog.manage_reindexIndex((name,))
+
 @onsetup
 def setUp():
     fiveconfigure.debug_mode = True
@@ -44,6 +49,11 @@ def test_suite():
 
         ztc.ZopeDocFileSuite(
             'composer.txt',
+            test_class=ptc.PloneTestCase,
+            ),
+
+        ztc.ZopeDocTestSuite(
+            'collective.dancing.browser.widget',
             test_class=ptc.PloneTestCase,
             ),
 
