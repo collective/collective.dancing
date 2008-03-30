@@ -71,8 +71,8 @@ class URL(object):
 class EditTopicForm(subform.EditSubForm):
     """Edit a single collector.
     """
-    component.adapts(Products.ATContentTypes.interfaces.IATTopic,
-                     zope.publisher.interfaces.http.IHTTPRequest,
+    component.adapts(Products.ATContentTypes.content.topic.ATTopic,
+                     None,
                      z3c.form.interfaces.IEditForm)
     
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
@@ -81,7 +81,7 @@ class EditTopicForm(subform.EditSubForm):
         schema.TextLine(__name__='title',
                         title=_(u"Title"),
                         ),
-        #IURL['url']
+        IURL['url'],
         )
     
 

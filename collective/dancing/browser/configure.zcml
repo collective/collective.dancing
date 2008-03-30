@@ -16,6 +16,17 @@
                      collective.singing.interfaces.IFormLayer"
                 />
 
+  <zope:adapter factory=".collector.EditCollectorForm"
+                provides="z3c.form.interfaces.ISubForm" />
+
+  <zope:adapter factory=".collector.EditTopicForm"
+                provides="z3c.form.interfaces.ISubForm" />
+  
+  <zope:adapter factory=".collector.URL"
+                provides=".collector.IURL" />
+
+
+
   <!-- Administration views -->
 
   <defaultView
