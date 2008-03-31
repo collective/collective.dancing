@@ -8,6 +8,8 @@ from collective.singing import z2
 
 from collective.dancing import MessageFactory as _
 from collective.dancing.browser.channel import ManageChannelsForm
+from collective.dancing.browser.collector import ManageCollectorsForm
+from collective.dancing.browser.stats import StatsForm
 
 def back_to_controlpanel(self):
     root = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
@@ -30,3 +32,11 @@ class ControlPanelView(BrowserView):
         z2.switch_on(self)
         return ManageChannelsForm(self.context.channels, self.request)()
 
+    def collectorcontents(self):
+        z2.switch_on(self)
+        return ManageCollectorsForm(self.context, self.request)()
+
+    def statscontents(self):
+        # A call to 'switch_on' is required before we can render z3c.forms.
+        z2.switch_on(self)
+        return StatsForm(None, self.request)()

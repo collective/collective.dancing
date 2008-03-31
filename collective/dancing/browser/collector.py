@@ -14,7 +14,6 @@ import collective.singing.z2
 
 from collective.dancing import MessageFactory as _
 from collective.dancing import collector
-from collective.dancing.browser import controlpanel
 
 class ManageCollectorsForm(crud.CrudForm):
     """Crud form for collectors.
@@ -43,10 +42,12 @@ class CollectorAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
 
     label = _(u'Collector administration')
-    back_link = controlpanel.back_to_controlpanel
+
+    #from collective.dancing.browser import controlpanel
+    #back_link = controlpanel.back_to_controlpanel
 
     def contents(self):
-        collective.singing.z2.switch_on(self)
+        z2.switch_on(self)
         return ManageCollectorsForm(self.context, self.request)()
 
 class EditCollectorForm(form.EditForm):
@@ -79,7 +80,7 @@ class CollectorEditView(BrowserView):
                     url=self.context.aq_inner.aq_parent.absolute_url())
 
     def contents(self):
-        collective.singing.z2.switch_on(self)
+        z2.switch_on(self)
         self.form = EditCollectorForm(self.context, self.request)
         return self.contents_template()
         

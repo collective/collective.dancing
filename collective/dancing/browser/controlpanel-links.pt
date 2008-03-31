@@ -1,10 +1,5 @@
 <ul class="formTabs">
     <li class="formTab firstFormTab">
-      <a class="selected" i18n:translate="label_general_info" href="./info">
-        General info
-      </a>
-    </li>
-    <li class="formTab">
       <a i18n:translate="label_channel_administration" href="./channels">
         Channel administration
       </a>
@@ -23,7 +18,7 @@
     </li>
 </ul>
 
-<fieldset class="formPanel" id="fieldset-info">
+<fieldset>
 
 <h3>Channels</h3>
   <p i18n:translate="description_channel_administration">
@@ -42,30 +37,29 @@
   <p i18n:translate="description_statistics_administration">
   ...
   </p>
-
 </fieldset>
 
 <!--<fieldset class="formPanel hidden" id="fieldset-channel">-->
-<fieldset class="formPanel" id="fieldset-channel">
+<fieldset name="channels" class="formPanel" id="fieldset-channel">
 
 <h3>Channels fieldset</h3>
 
-<div tal:replace="structure view/channelcontents">replace the this with the content from the view</div>
+<div tal:replace="structure view/channelcontents" />
 
 </fieldset>
 
-<fieldset class="formPanel" id="fieldset-collectors">
+<fieldset name="collectors" class="formPanel" id="fieldset-collectors">
 
 <h3>Collectors fieldset</h3>
 
-<div tal:replace="python:here.collectors">replace the this with the content from the view</div>
+<!--<div tal:replace="structure view/collectorscontents" />-->
 
 </fieldset>
 
-<fieldset class="formPanel" id="fieldset-statistics">
+<fieldset name="stats" class="formPanel" id="fieldset-statistics">
 
 <h3>Statistics fieldset</h3>
 
-<!--<div tal:replace="python:">replace the this with the content from the view</div>-->
+<div tal:replace="structure view/statscontents" />
 
 </fieldset>

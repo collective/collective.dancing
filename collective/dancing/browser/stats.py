@@ -11,7 +11,7 @@ from collective.singing import interfaces
 from collective.singing import z2
 from collective.singing.browser import crud
 
-from collective.dancing.browser import controlpanel
+#from collective.dancing.browser import controlpanel
 from collective.dancing import MessageFactory as _
 
 class IQueueStatistics(interface.Interface):
@@ -118,7 +118,9 @@ class StatsView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
 
     label = _(u"Newsletter statistics")
-    back_link = controlpanel.back_to_controlpanel
+
+    #from collective.dancing.browser import controlpanel
+    #back_link = controlpanel.back_to_controlpanel
 
     def contents(self):
         # A call to 'switch_on' is required before we can render z3c.forms.
