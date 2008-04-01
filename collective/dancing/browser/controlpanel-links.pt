@@ -2,20 +2,21 @@
  <!-- general information about the configuration -->
  <dt id="fieldsetlegend-general-info">General info</dt>
  <dd id="fieldset-general-info">
-     <h3>Channels</h3>
+     <h3>Channel</h3>
 	<p i18n:translate="description_channel_administration">
       	A Channel is a hub of configuration.  It doesn't do anything by
       	itself.  Rather, it provides a number of components to configure
       	and work with.  It is also the container of subscriptions to it.
        </p>
-     <h3>Collectors</h3>
+     <h3>Collector</h3>
 	<p i18n:translate="description_collector_administration">
      	Collectors are useful for automatic newsletters.  They are
      	responsible for assembling a list of items for publishing.
      	</p>
      <h3>Statistics</h3>
 	<p i18n:translate="description_statistics_administration">
-  	...
+  	Statistics give you an overview about data related to a newsletter. 
+	e.g. how many times it was send, ... etc.
   	</p>
  </dd>
  <!-- channel information -->
