@@ -578,16 +578,18 @@ We'll now send the front page as a newsletter:
   >>> previous_trigger_time = channel.scheduler.triggered_last
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
   >>> browser.getControl('Newsletter').click()
+
+When we click send, the newsletter(s) will be dispatched immediately.
+
   >>> browser.getControl('My other channel').click()
-  >>> browser.getControl('Send').click()
-  >>> "3 messages queued" in browser.contents
-  True
-  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  >>> browser.getControl('Send').click() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *MyMailDelivery sending*:
   ...
   To: root@localhost...To: daniel@localhost...To: mailman@localhost...
   Welcome to Plone...Vickar's daughter...
-  (3, 0)
+
+  >>> "3 messages queued" in browser.contents
+  True
 
 The scheduler last triggered time is also updated.
 
@@ -611,14 +613,13 @@ We create a new item again...:
 ... and this time we choose not to add collector items...
 
   >>> browser.getControl(name='form.widgets.include_collector_items:list').value = ['false']
-  >>> browser.getControl('Send').click()
-  >>> "3 messages queued" in browser.contents
-  True
-  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  >>> browser.getControl('Send').click() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *MyMailDelivery sending*:
   ...
   To: root@localhost...To: daniel@localhost...To: mailman@localhost...
-  (3, 0)
+
+  >>> "3 messages queued" in browser.contents
+  True
 
 ... so our new News Item is not sent out.
 

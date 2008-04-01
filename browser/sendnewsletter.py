@@ -44,6 +44,7 @@ class SendAsNewsletterForm(form.Form):
                 channel, (self.context,), include_collector_items)
             if channel.scheduler is not None and include_collector_items:
                 channel.scheduler.triggered_last = datetime.datetime.now()
+            channel.queue.dispatch()
 
         self.status = _(u"${num} messages queued.", mapping=dict(num=queued))
 
