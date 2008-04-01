@@ -172,8 +172,9 @@ For e-mail subscriptions to this channel, we'll allow subscribers to
 choose which content types they're interested in; whether it's news
 items, events, or both.  The default will be both.
 
-We'll mark the "Portal Types Criterion" as restrictable by the
-subscriber.  The collector edit form allows us to do this:
+The default collector that's set up in the site after installation is
+"Latest news".  It contains exactly one Smart Folder.  First, we'll
+have to remove this Smart Folder, and create two container collectors:
 
   >>> browser.goBack()
   >>> browser.getLink('Latest news').click()

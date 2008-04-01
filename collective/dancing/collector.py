@@ -61,23 +61,37 @@ def collectordata_from_subscription(subscription):
     composer_data = collective.singing.interfaces.ICollectorData(subscription)
     return utils.AttributeToDictProxy(composer_data)
 
-class CollectorText(object):
-    def __init__(self, value=u''):
-        self.value = value
+class TextCollector(object):
+    interface.implements(collective.singing.interfaces.ICollector)
+    title = 'Rich text'
+    value = u''
+
+    def __init__(self, id, title):
+        self.id = id
+        self.title = title
 
     def get_items(self, cue=None, subscription=None):
         return [self.value], None
     
-class CollectorReference(object):
-    def __init__(self, reference=None):
-        self.reference = reference
+class ReferenceCollector(object):
+    interface.implements(collective.singing.interfaces.ICollector)
+    title = 'Reference'
+    refered = None
+
+    def __init__(self, id, title):
+        self.id = id
+        self.title = title
 
     def get_items(self, cue=None, subscription=None):
-        return [self.reference], None
+        if self.refered:
+            return [self.refered], None
+        else:
+            return [], None
 
 class Collector(OFS.Folder.Folder):
     interface.implements(collective.singing.interfaces.ICollector)
-    
+    title = 'Collector block'
+
     def __init__(self, id, title):
         self.id = id
         self.title = title
@@ -134,7 +148,7 @@ class Collector(OFS.Folder.Folder):
 
     def get_next_id(self):
         if self._objects:
-            return str(int(self._objects[-1]['id']) + 1)
+            return str(max([int(info['id']) for info in self._objects]) + 1)
         else:
             return '0'
 
@@ -166,18 +180,15 @@ class Collector(OFS.Folder.Folder):
     def add_topic(self):
         name = self.get_next_id()
         Products.CMFPlone.utils._createObjectByType(
-            'Topic', self, id=name, title=self.title)
+            'Topic', self, id=name, title='Collection for %s' % self.title)
         self[name].unmarkCreationFlag()
 
         workflow = Products.CMFCore.utils.getToolByName(self, 'portal_workflow')
         workflow.doActionFor(self[name], 'publish')
         return self[name]
 
-    def add_collector(self, title):
-        name = self.get_next_id()
-        self[name] = Collector(name, title)
-        return self[name]
-
 @component.adapter(Collector, zope.app.container.interfaces.IObjectAddedEvent)
 def sfc_added(sfc, event):
     sfc.add_topic()
+
+collectors = (Collector, TextCollector, ReferenceCollector)

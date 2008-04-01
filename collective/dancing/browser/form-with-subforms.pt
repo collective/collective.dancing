@@ -9,7 +9,7 @@
        tal:condition="view/status" tal:content="view/status">
   </div>
 
-  <div tal:attributes="class string:subform subform-level-${view/level}">
+  <div tal:attributes="class view/css_class">
 
     <h2 tal:replace="structure view/heading" />
     
