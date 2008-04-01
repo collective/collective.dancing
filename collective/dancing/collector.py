@@ -80,9 +80,13 @@ class Collector(OFS.Folder.Folder):
     
     def __init__(self, id, title):
         self.id = id
-        self.title = self.Title = title
+        self.title = title
         self.optional = False
         super(Collector, self).__init__()
+
+    @property
+    def Title(self):
+        return self.title
 
     def get_items(self, cue=None, subscription=None):
         now = DateTime.DateTime()

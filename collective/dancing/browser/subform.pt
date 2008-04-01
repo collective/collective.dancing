@@ -1,4 +1,6 @@
-<h3 tal:content="view/label"></h3>
-<div tal:content="structure view/contents_top|nothing" />
-<metal:use use-macro="context/@@singing-macros/fields" />
-<div tal:content="structure view/contents_bottom|nothing" />
+<div tal:attributes="class string:subform subform-level-${view/level}">
+  <h3 tal:replace="structure view/heading" />
+  <div tal:content="structure view/contents_top|nothing" />
+  <metal:use use-macro="context/@@singing-macros/fields" />
+  <div tal:content="structure view/contents_bottom|nothing" />
+</div>

@@ -9,21 +9,25 @@
        tal:condition="view/status" tal:content="view/status">
   </div>
 
-  <h2 tal:content="view/label"></h2>
-  
-  <form action="." method="post"
-        tal:attributes="action request/getURL"
-        tal:omit-tag="not:view/actions|nothing">
+  <div tal:attributes="class string:subform subform-level-${view/level}">
 
-    <metal:use use-macro="context/@@singing-macros/fields" />
+    <h2 tal:replace="structure view/heading" />
+    
+    <form action="." method="post"
+          tal:attributes="action request/getURL"
+          tal:omit-tag="not:view/actions|nothing">
 
-    <div tal:repeat="form view/subforms"
-         tal:content="structure form/render">
-    </div>
+      <metal:use use-macro="context/@@singing-macros/fields" />
 
-    <div class="action" tal:repeat="action view/actions/values|nothing">
-      <input type="submit" tal:replace="structure action/render" />
-    </div>
+      <div tal:repeat="form view/subforms"
+           tal:content="structure form/render">
+      </div>
 
-  </form>
+      <div class="action" tal:repeat="action view/actions/values|nothing">
+        <input type="submit" tal:replace="structure action/render" />
+      </div>
+
+    </form>
+
+  </div>
 </html>

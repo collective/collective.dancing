@@ -57,6 +57,10 @@ class CollectorAdministrationView(BrowserView):
 collector_fields = field.Fields(
     collective.singing.interfaces.ICollector).select('title', 'optional')
 
+def heading(self):
+    if self.label:
+        return "<h%s>%s</h%s>" % (self.level, self.label, self.level)
+
 class EditTopicForm(subform.EditSubForm):
     """Edit a single collector.
     """
@@ -80,8 +84,23 @@ class EditTopicForm(subform.EditSubForm):
         return u'<a href="%s/criterion_edit_form">Edit the Smart Folder</a>' % (
             self.context.absolute_url())
 
+    heading = heading
 
-class EditCollectorForm(subform.EditSubForm):
+class AbstractCollectorForm(object):
+    def update(self):
+        super(AbstractCollectorForm, self).update()
+        self.subforms = []
+        for item in self.context.objectValues():
+             subform = component.getMultiAdapter(
+                (item, self.request, self.parent_form),
+                z3c.form.interfaces.ISubForm)
+             subform.update()
+             subform.level = self.level + 1
+             self.subforms.append(subform)
+
+    heading = heading
+
+class EditCollectorForm(AbstractCollectorForm, subform.EditSubForm):
     """Edit a single collector.
     """
     component.adapts(collective.singing.interfaces.ICollector,
@@ -103,43 +122,20 @@ class EditCollectorForm(subform.EditSubForm):
     def parent_form(self):
         return self.parentForm
 
-    def update(self):
-        super(EditRootCollectorForm, self).update()
-        self.subforms = []
-        for item in self.context.objectValues():
-             subform = component.getMultiAdapter(
-                (item, self.request, self.parentForm),
-                z3c.form.interfaces.ISubForm)
-             subform.update()
-             self.subforms.append(subform)
-
-class EditRootCollectorForm(form.EditForm):
+class EditRootCollectorForm(AbstractCollectorForm, form.EditForm):
     """Edit a single collector.
     """
     template = viewpagetemplatefile.ViewPageTemplateFile(
         'form-with-subforms.pt')
     fields = collector_fields
-
-    @property
-    def label(self):
-        return u"Collector: %s" % self.context.title
+    level = 1
 
     @property
     def parent_form(self):
         return self
 
-    def update(self):
-        super(EditRootCollectorForm, self).update()
-        self.subforms = []
-        for item in self.context.objectValues():
-             subform = component.getMultiAdapter(
-                (item, self.request, self), z3c.form.interfaces.ISubForm)
-             subform.update()
-             self.subforms.append(subform)
-    
 class CollectorEditView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
-    contents_template = ViewPageTemplateFile('collector-edit-contents.pt')
 
     def label(self):
         return _(u'Edit ${collector}',
@@ -151,6 +147,5 @@ class CollectorEditView(BrowserView):
 
     def contents(self):
         collective.singing.z2.switch_on(self)
-        self.form = EditRootCollectorForm(self.context, self.request)
-        return self.contents_template()
-        
+        form = EditRootCollectorForm(self.context, self.request)
+        return '<div class="collector-form">' + form() + '</div>'
