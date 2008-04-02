@@ -27,9 +27,26 @@ div.crud-form td.error div.error {
     font-weight: bold;
 }
 
-.link-subscribers{
+.collector-form .subform {
+    margin: 0 0 1em 1.5em;
+    padding: 1em;
+    border: 1px dotted black;
+}
+
+.collector-form .subform-level-1 { 
+    margin-left: 0;
+    border: none;
+}
+
+.deleteform {
+    margin-left: 2.0em;
+    margin-bottom: 1.5em;
+}
+
+.link-subscribers {
     background-image: url(group.gif);
     background-repeat: no-repeat;
     background-position: left center;
     padding-left: 20px;
 }
+

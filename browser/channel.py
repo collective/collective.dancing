@@ -147,9 +147,6 @@ class ManageChannelsForm(crud.CrudForm):
         elif field == 'scheduler':
             if item.scheduler is not None:
                 return item.scheduler.absolute_url()
-                
-        
-
 
 class ChannelAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
