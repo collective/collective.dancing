@@ -192,4 +192,4 @@ class Collector(OFS.Folder.Folder):
 def sfc_added(sfc, event):
     sfc.add_topic()
 
-collectors = (Collector, TextCollector, ReferenceCollector)
+collectors = (Collector,) # TextCollector, ReferenceCollector)
