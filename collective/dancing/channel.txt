@@ -22,11 +22,13 @@ Give me a list of all channels
 
 The ``channels`` folder contains the list of ``IChannel`` available.
 These channels can be retrieved through the ``IChannelLookup``
+<MetaChannel at /plone/portal_newsletters/channels/mega_broadcast_channel>]
 utility, like so:
 
   >>> from collective.singing.interfaces import IChannelLookup
-  >>> component.getUtility(IChannelLookup)()
+  >>> component.getUtility(IChannelLookup)() # doctest: +NORMALIZE_WHITESPACE
   [<Channel at /plone/portal_newsletters/channels/default-channel>]
+   
 
 Let's create another channel and ask for the list of channels again:
 
@@ -34,6 +36,6 @@ Let's create another channel and ask for the list of channels again:
   >>> channels = self.portal['portal_newsletters']['channels']
   >>> channels['wq'] = Channel('wq')
   >>> component.getUtility(IChannelLookup)() # doctest: +NORMALIZE_WHITESPACE
-  [<Channel at /plone/portal_newsletters/channels/default-channel>, 
+  [<Channel at /plone/portal_newsletters/channels/default-channel>,
    <Channel at /plone/portal_newsletters/channels/wq>]
-
+  

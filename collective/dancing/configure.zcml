@@ -38,7 +38,7 @@
   <subscriber handler=".channel.tool_added" />
   <subscriber handler=".channel.channels_added" /> 
   <adapter factory=".channel.channel_subscriptions" />
-
+  <adapter factory=".channel.metachannel_subscriptions" />
   <utility component=".collector.collector_vocabulary"
            name="Collector Vocabulary" />
   <utility component=".collector.criterions_vocabulary"

@@ -114,6 +114,7 @@ class ManageChannelsForm(crud.CrudForm):
             required=False,
             vocabulary='Scheduler Vocabulary')
 
+
         fields += field.Fields(collector, scheduler)
         return fields
 

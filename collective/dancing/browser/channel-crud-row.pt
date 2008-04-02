@@ -23,9 +23,25 @@
 <tal:subscribers  tal:condition="python: niceTitles[idx] == 'Subscribers'">
 <span class="link-subscribers">
     <a href=""
+       title="Edit subscribers in this channel"
        tal:define="link python:view.context.context.link(view.getContent(), widget.field.__name__)"
        tal:omit-tag="python:widget.mode == 'input' or link is None"
-       tal:attributes="href link"><span i18n:translate="">Edit</span>
+       i18n:attributes="title"
+       tal:attributes="href link"><span>
+                                  <span i18n:translate="">Edit</span>
+                                  <tal:comment tal:replace="nothing">
+                                  <!-- 
+                                     the below <span> is hidden, since it's content is needed strictly
+                                     to satisfy accesability needs (keep link text different, when 
+                                     links point to different targets.
+                                  -->
+                                                        
+                                  <span class="hiddenStructure" style="background-image: none;"
+                                        tal:content="python:view.getContent().Title()">
+                                        this will not show</span>
+                                  </tal:comment> 
+                                  </span>  
+                                           
     </a>
     </span>
 </tal:subscribers>

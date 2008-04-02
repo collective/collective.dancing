@@ -74,6 +74,8 @@ class ChannelContainer(OFS.Folder.Folder):
 def channels_added(container, event):
     default_channel = Channel('default-channel', title=_(u"Newsletter"))
     container['default-channel'] = default_channel
+#    mega_broadcast_channel = MetaChannel('mega_broadcast_channel', title=_(u"Mega broadcast"))
+#    container['mega_broadcast_channel'] = mega_broadcast_channel
 
 class Channel(OFS.SimpleItem.SimpleItem):
     """
@@ -83,8 +85,9 @@ class Channel(OFS.SimpleItem.SimpleItem):
       True
       >>> channel.name
       'xs'
-    """
-    interface.implements(collective.singing.interfaces.IChannel)
+      """    
+    interface.implements(collective.singing.interfaces.IChannel, 
+                         collective.singing.interfaces.ISimpleChannel)
 
     def __init__(self, name, title=None,
                  composers=None, collector=None, scheduler=None):
@@ -106,8 +109,47 @@ class Channel(OFS.SimpleItem.SimpleItem):
         return self.name
 
     def Title(self):
-        return self.title
+        return self.title    
 
+
+class MetaChannel(OFS.SimpleItem.SimpleItem):
+    """
+      >>> metachannel =MetaChannel('mc')
+      >>> from zope.interface.verify import verifyObject
+      >>> verifyObject(collective.singing.interfaces.IMetaChannel, metachannel)
+      True
+      >>> metachannel.name
+      'mc'
+    """
+    interface.implements(collective.singing.interfaces.IChannel,
+                         collective.singing.interfaces.IMetaChannel)
+    def __init__(self, name, title=None,
+                 composers=None, collector=None, scheduler=None):
+        self.name = name
+        if title is None:
+            title = name
+        self.title = title
+        self.subscriptions = collective.singing.subscribe.MetaSubscriptions()
+        if composers is None:
+            composers = {'html': collective.dancing.composer.HTMLComposer()}
+        self.composers = composers
+        self.collector = collector
+        self.scheduler = scheduler
+        self.queue = collective.singing.message.MessageQueues()
+        super(MetaChannel, self).__init__(name)
+
+    @property
+    def id(self):
+        return self.name
+
+    def Title(self):
+        return self.title    
+    
+@component.adapter(MetaChannel)
+@interface.implementer(collective.singing.interfaces.ISubscriptions)
+def metachannel_subscriptions(channel):
+    return channel.subscriptions    
+        
 @component.adapter(Channel)
 @interface.implementer(collective.singing.interfaces.ISubscriptions)
 def channel_subscriptions(channel):
