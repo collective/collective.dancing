@@ -82,7 +82,7 @@ class EditTopicForm(subform.EditSubForm):
 
     @property
     def label(self):
-        return u"Topic: %s" % self.context.title
+        return u"Collection: %s" % self.context.title
 
     prefix = property(prefix)
 

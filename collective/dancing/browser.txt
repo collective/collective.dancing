@@ -1,4 +1,3 @@
-/'News
 Browser tests
 =============
 
@@ -125,24 +124,51 @@ collectors:
   >>> browser.getLink('Up to Collector administration').click()
   >>> "Collector administration" in browser.contents
   True
-
-Back at the collector edit screen for "Latest news", we'll find a link
-to the Smart Folder that's used to filter and sort the items that go
-into the channels.  We can visit the Smart Folder that defines the
-criteria of what goes into the channel here:
-
   >>> browser.getLink('Latest news').click()
-  >>> browser.getLink('Edit the Smart Folder').click()
 
-Let's say we wanted the channel to contain both News Items and Events.
-We'll add to the selection the Events type and save:
+Our collector currently contains one Collection.  But instead of this, we
+want it to contain two collectors, both of which contain one Collection.
+This way we can mark both of the contained collectors optional and
+have subscribers select from either.
 
-  >>> types = browser.getControl(
-  ...     name='crit__Type_ATPortalTypeCriterion_value:list')
-  >>> types.value = ['News Item', 'Event']
-  >>> browser.getControl(name='form.button.Save').click()
-  >>> "Changes saved" in browser.contents
+Let's remove the Collection before we add two new collector blocks:
+
+  >>> browser.getControl('Remove block').click()
+  >>> browser.getControl('Title', index=1).value = 'News'
+  >>> browser.getControl('Add').click()
+  >>> browser.getControl('Title', index=4).value = 'Events'
+  >>> browser.getControl('Add', index=-1).click()
+
+We should now have two collectors containing one Collection each:
+
+  >>> "Collection for News" in browser.contents
   True
+  >>> "Collection for Events" in browser.contents
+  True
+
+We'll configure the first Collection, the one belonging to the News
+Collector, to find us all News items:
+
+  >>> def add_type_criterion(url, content_types):
+  ...     browser.getLink(url=url).click()
+  ...     browser.getControl('Field name', index=0).displayValue = ['Item Type']
+  ...     browser.getControl('Criteria type').displayValue = ['Select content types']
+  ...     browser.getControl('Add criteria').click()
+  ...     types = browser.getControl(
+  ...         name='crit__Type_ATPortalTypeCriterion_value:list')
+  ...     types.value = content_types
+  ...     browser.getControl(name='form.button.Save').click()
+  ...     browser.getLink('Latest news').click()
+  >>> add_type_criterion('0/0/criterion_edit_form', ['News Item'])
+  >>> add_type_criterion('1/0/criterion_edit_form', ['Event'])
+
+Back at the main form, we'll make both 'News' and 'Events' blocks
+optional.  This will allow users to select out of the two when they
+subscribe.  The default is to subscribe to both:
+
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-0.widgets.optional:list').value = ['true']
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-1.widgets.optional:list').value = ['true']
+  >>> browser.getControl('Apply').click()
 
 Okay, so now we catch both events and news items throughout the site.
 To see if that's true, we'll create two items, one for each type:
@@ -161,28 +187,6 @@ To see if that's true, we'll create two items, one for each type:
   'super-bowl'
   >>> workflow.doActionFor(events['super-bowl'], 'publish')
 
-We can now expect these two items to show up when we look at the
-collector's Smart Folder's RSS view:
-
-  >>> browser.open(browser.url.rsplit('/', 1)[0] + '/RSS')
-  >>> 'Super Bowl XLII' in browser.contents, 'flu rising' in browser.contents
-  (True, True)
-
-For e-mail subscriptions to this channel, we'll allow subscribers to
-choose which content types they're interested in; whether it's news
-items, events, or both.  The default will be both.
-
-The default collector that's set up in the site after installation is
-"Latest news".  It contains exactly one Smart Folder.  First, we'll
-have to remove this Smart Folder, and create two container collectors:
-
-  >>> browser.goBack()
-  >>> browser.getLink('Latest news').click()
-  >>> criteria = browser.getControl("Select content types").click()
-  >>> browser.getControl('Apply').click()
-  >>> "Data successfully updated" in browser.contents
-  True
-
 Channel subscriptions
 ---------------------
 
@@ -191,7 +195,6 @@ channel's name to reach the channel subscriptions screen:
 
   >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
   >>> browser.getLink(url='http://nohost/plone/portal_newsletters/channels/my-other-channel').click()
-
 
 We can add new subscriptions here:
 
@@ -205,14 +208,14 @@ We can add new subscriptions here:
 We'll add another subscription.  This one filters on the content type:
 
   >>> browser.getControl('E-mail address').value = u"mailman@localhost"
-  >>> browser.getControl('News Item', index=1).click()
+  >>> browser.getControl('News', index=1).click()
   >>> browser.getControl('Add').click()
   >>> 'Item added successfully' in browser.contents
   True
 
   >>> print browser.contents # doctest: +ELLIPSIS
   <!DOCTYPE...daniel@localhost...
-  ...mailman@localhost...value="News Item" checked="checked" />...
+  ...mailman@localhost...value="default-latest-news/0" checked="checked" />...
 
 Stats
 -----
@@ -310,7 +313,7 @@ Every channel has a view that allows people to subscribe:
 We'll subscribe to events only:
 
   >>> browser.getControl('E-mail address').value = u"root@localhost"
-  >>> browser.getControl('Event').click()
+  >>> browser.getControl('Events').click()
   >>> browser.getControl('Finish').click() \
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *MyMailDelivery sending*:
@@ -647,7 +650,7 @@ test more compact:
   >>> from zope import schema
   >>> from zope.schema.vocabulary import SimpleVocabulary
   >>> from collective.dancing.channel import Channel
-  >>> from collective.dancing.collector import SmartFolderCollector
+  >>> from collective.dancing.collector import Collector
   >>> from collective.dancing.composer import HTMLComposer
 
   >>> class MyHTMLComposer(HTMLComposer):
@@ -659,7 +662,7 @@ test more compact:
   >>> __builtins__['MyHTMLComposer'] = MyHTMLComposer # make it persistable
 
   >>> selecta = portal.portal_newsletters.collectors['brand-new-selecta'] = \
-  ...     SmartFolderCollector('brand-new-selecta', 'Brand new selecta')
+  ...     Collector('brand-new-selecta', 'Brand new selecta')
   >>> new_channel = portal.portal_newsletters.channels['brand-new-channel'] = \
   ...     Channel('brand-new-channel', 'Brand new channel',
   ...             {'html': HTMLComposer(), 'html-fontsize': MyHTMLComposer()},
@@ -700,14 +703,14 @@ composers that we used:
 Let's use the form now to subscribe 'root' to both news items and events:
 
   >>> subscription = channel.subscriptions[secret][0]
-  >>> [t.value for t in subscription.collector_data['Type']]
-  [u'Event']
-  >>> browser.getControl('News Item').click()
+  >>> [c.title for c in subscription.collector_data['selected_collectors']]
+  [u'Events']
+  >>> browser.getControl('News').click()
   >>> browser.getControl('Apply').click()
   >>> 'Data successfully updated' in browser.contents
   True
-  >>> sorted([t.value for t in subscription.collector_data['Type']])
-  [u'Event', u'News Item']
+  >>> [c.title for c in subscription.collector_data['selected_collectors']]
+  [u'Events', u'News']
 
 Next, we'll subscribe to "Brand new channel".  We'll use the secretond
 format, which is Hypertext with variable font-size:

@@ -177,7 +177,7 @@ Now comes the interesting part.  We'll say that our subscriber chose
 to only see News:
 
   >>> subscription = Subscription()
-  >>> subscription.collector_data[field.__name__] = ['News']
+  >>> subscription.collector_data[field.__name__] = [news_collector]
   >>> collector.get_items(subscription=subscription)[0]
   [<ATNewsItem at /plone/news/mini>, <ATNewsItem at /plone/news/flu>]
 

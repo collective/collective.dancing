@@ -111,7 +111,7 @@ class Collector(OFS.Folder.Folder):
                 sdata = collective.singing.interfaces.ICollectorData(
                     subscription)
                 name = 'selected_collectors'
-                if name in sdata and self.title not in sdata[name]:
+                if name in sdata and sdata[name] and self not in sdata[name]:
                     return [], now
 
         items = []
@@ -160,7 +160,8 @@ class Collector(OFS.Folder.Folder):
         if optional_collectors:
             vocabulary = zope.schema.vocabulary.SimpleVocabulary(
                 [zope.schema.vocabulary.SimpleTerm(
-                    value=collector.getPhysicalPath(),
+                    value=collector,
+                    token='/'.join(collector.getPhysicalPath()),
                     title=collector.title)
                  for collector in optional_collectors])
 
