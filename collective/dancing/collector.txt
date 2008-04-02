@@ -85,8 +85,13 @@ part in its own collector, and then set the collectors to be optional
 later.
 
   >>> collector.manage_delObjects(['0'])
-  >>> events_collector = collector.add_collector(u'Events')
-  >>> news_collector = collector.add_collector(u'News')
+  >>> import collective.dancing.collector
+  >>> def add_collector(context, title):
+  ...     name = collector.get_next_id()
+  ...     collector[name] = collective.dancing.collector.Collector(name, title)
+  ...     return collector[name]
+  >>> events_collector = add_collector(collector, u'Events')
+  >>> news_collector = add_collector(collector, u'News')
 
   >>> def add_criterions(topic, type):
   ...     type_crit = topic.addCriterion('Type', 'ATPortalTypeCriterion')
