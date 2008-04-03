@@ -106,7 +106,11 @@ class Channel(OFS.SimpleItem.SimpleItem):
     def Title(self):
         return self.title
 
-@component.adapter(Channel)
-@interface.implementer(collective.singing.interfaces.ISubscriptions)
-def channel_subscriptions(channel):
-    return channel.subscriptions
+class Subscription(collective.singing.subscribe.SimpleSubscription):
+    @apply
+    def channel():
+        def get(self):
+            return collective.dancing.utils.aq_append(self._channel,
+                                                      self.REQUEST)
+        def set(self, channel):
+            self._channel = channel

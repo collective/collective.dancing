@@ -174,7 +174,7 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
             date=datetime.datetime.now(),
             pending=not secret_provided)
 
-        self.added = collective.singing.subscribe.SimpleSubscription(
+        self.added = collective.dancing.channel.Subscription(
             self.context, secret, comp_data, coll_data, metadata)
 
         if not secret_provided:
