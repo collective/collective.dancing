@@ -1,0 +1,190 @@
+Collector
+=========
+
+See ``collective.singing.interfaces.ICollector``
+
+  >>> from collective.dancing.tests import replace_with_fieldindex
+  >>> replace_with_fieldindex('created', portal)
+
+Give me a list of all collectors
+--------------------------------
+
+Collectors are stored separately from channels, since they can be
+useful for more than one channel at the same time.  The "Collector
+Vocabulary" provides us with a list of available collectors.  Luckily,
+some default collectors are created at install time:
+
+  >>> from zope import interface
+  >>> from zope import component
+  >>> from zope.schema.interfaces import IVocabularyFactory
+  >>> factory = component.getUtility(
+  ...     IVocabularyFactory, u"Collector Vocabulary")
+  >>> vocab = factory(None)
+  >>> for term in vocab: # doctest: +NORMALIZE_WHITESPACE
+  ...     print '%s: %r' % (term.token, term.value)
+  /plone/portal_newsletters/collectors/default-latest-news:
+    <Collector at /plone/portal_newsletters/collectors/default-latest-news>
+
+Getting items from a collector
+------------------------------
+
+Collectors implement the ``get_item`` method, which returns a tuple of
+the form ``(items, cue)``.  See
+``collective.singing.interfaces.ICollector``.
+
+  >>> collector = term.value
+  >>> items, cue = collector.get_items()
+  >>> len(items)
+  0
+
+To have this default collector return items, we'll need to add a news
+item in the site:
+
+  >>> from DateTime import DateTime
+  >>> news = self.portal.news
+  >>> workflow = self.portal.portal_workflow
+  >>> self.loginAsPortalOwner()
+  >>> news.invokeFactory(
+  ...     'News Item', id='flu', title='Drug-resistant flu rising, says WHO')
+  'flu'
+  >>> workflow.doActionFor(news['flu'], 'publish')
+
+  >>> items, cue = collector.get_items()
+  >>> items
+  [<ATNewsItem at /plone/news/flu>]
+
+By passing the retrieved cue to the ``get_items`` method, we restrict
+the results to items that are newer than the last time we called the
+method.  Let's create another news item to verify that:
+
+  >>> news.invokeFactory(
+  ...     'News Item', id='mini', title='The miniskirt is back again')
+  'mini'
+  >>> workflow.doActionFor(news['mini'], 'publish')
+
+Let's imagine we have a cue that we retrieved yesterday.  When using
+it, we'll get both items:
+
+  >>> items, cue = collector.get_items(cue=cue-1)
+  >>> items
+  [<ATNewsItem at /plone/news/mini>, <ATNewsItem at /plone/news/flu>]
+
+The collector also implements a ``schema`` attribute.  See the
+``ICollector`` interface.  Our default collector returns an empty
+schema:
+
+  >>> collector.schema.names()
+  []
+
+Criterions for everyone
+-----------------------
+
+The collector currently contains one topic.  To be able to make parts
+of the newsletter optional for subscribers, we'll need to have each
+part in its own collector, and then set the collectors to be optional
+later.
+
+  >>> collector.manage_delObjects(['0'])
+  >>> import collective.dancing.collector
+  >>> def add_collector(context, title):
+  ...     name = collector.get_next_id()
+  ...     collector[name] = collective.dancing.collector.Collector(name, title)
+  ...     return collector[name]
+  >>> events_collector = add_collector(collector, u'Events')
+  >>> news_collector = add_collector(collector, u'News')
+
+  >>> def add_criterions(topic, type):
+  ...     type_crit = topic.addCriterion('Type', 'ATPortalTypeCriterion')
+  ...     type_crit.setValue(type)
+  ...     sort_crit = topic.addCriterion('created', 'ATSortCriterion')
+  ...     state_crit = topic.addCriterion('review_state',
+  ...                                     'ATSimpleStringCriterion')
+  ...     state_crit.setValue('published')
+  ...     topic.setSortCriterion('created', True)
+
+  >>> add_criterions(events_collector['0'], 'Event')
+  >>> add_criterions(news_collector['0'], 'News Item')
+
+Let's see if a new event is returned by the collector now:
+
+  >>> events = self.portal.events
+  >>> events.invokeFactory(
+  ...     'Event', id='super-bowl',
+  ...     title='Super Bowl XLII')
+  'super-bowl'
+  >>> workflow.doActionFor(events['super-bowl'], 'publish')
+
+  >>> items, cue = collector.get_items()
+  >>> len(items)
+  3
+  >>> events['super-bowl'] in items 
+  True
+  
+We can signal that we want one or more collectors to be made available
+for further restriction by the user.  The ``optional`` attribute.
+Let's set it so that users can select out of the two available
+collectors the ones they'd like to have in their newsletter:
+
+  >>> [subcollector.optional for subcollector in collector.objectValues()]
+  [False, False]
+  >>> for subcollector in collector.objectValues():
+  ...     subcollector.optional = True
+
+The schema of our collector now includes a choice field for the
+collectors:
+
+  >>> field = collector.schema['selected_collectors']
+  >>> [t.title for t in field.value_type.vocabulary]
+  [u'Events', u'News']
+
+The ``collective.singing.interfaces.ICollectorData`` mapping gives us
+information about what choices a subscriber made.  See the interface
+for details.
+
+Let's first define a subscription class along with an adapter that
+gives us the data that the collector looks for to include subcollectors:
+
+  >>> class Subscription(object):
+  ...     def __init__(self):
+  ...         self.collector_data = {}
+  >>> import collective.singing.interfaces
+  >>> @component.adapter(Subscription)
+  ... @interface.implementer(collective.singing.interfaces.ICollectorData)
+  ... def collector_data(subscription):
+  ...     return subscription.collector_data
+  >>> component.provideAdapter(collector_data)
+
+First of all, it should be fine to call ``get_items`` with a
+subscriber that does *not* have any collector data, i.e. he hasn't
+made any choices.  This will return the same items as before:
+
+  >>> items, cue = collector.get_items(subscription=Subscription())
+  >>> items # doctest: +NORMALIZE_WHITESPACE
+  [<ATEvent at /plone/events/super-bowl>, <ATNewsItem at /plone/news/mini>,
+   <ATNewsItem at /plone/news/flu>]
+
+We can provide both a cue and a subscription:
+
+  >>> items, cue = collector.get_items(cue=cue-1, subscription=Subscription())
+  >>> items # doctest: +NORMALIZE_WHITESPACE
+  [<ATEvent at /plone/events/super-bowl>, <ATNewsItem at /plone/news/mini>,
+   <ATNewsItem at /plone/news/flu>]
+
+  >>> len(collector.get_items(cue=cue+1, subscription=Subscription())[0])
+  0
+
+Now comes the interesting part.  We'll say that our subscriber chose
+to only see News:
+
+  >>> subscription = Subscription()
+  >>> subscription.collector_data[field.__name__] = [news_collector]
+  >>> collector.get_items(subscription=subscription)[0]
+  [<ATNewsItem at /plone/news/mini>, <ATNewsItem at /plone/news/flu>]
+
+If we select no value, then we should get all items:
+
+  >>> subscription.collector_data[field.__name__] = []
+  >>> items, cue = collector.get_items(subscription=Subscription())
+  >>> items # doctest: +NORMALIZE_WHITESPACE
+  [<ATEvent at /plone/events/super-bowl>, <ATNewsItem at /plone/news/mini>,
+   <ATNewsItem at /plone/news/flu>]

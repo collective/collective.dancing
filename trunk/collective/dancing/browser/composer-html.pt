@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="collective.dancing">
+
+  <body>
+    <h1 tal:content="options/subject">Your daily book bite</h1>
+
+    <p tal:repeat="item options/contents"
+       tal:content="structure item">
+    </p>
+
+    <p i18n:translate="">
+      You're receiving this e-mail because you're registered for the
+      <span tal:replace="options/channel/title" i18n:name="channel" />
+      newsletter.
+    </p>
+    <p>
+      <a href="" tal:attributes="href options/unsubscribe_url">
+        Click here to unsubscribe.
+      </a>
+    </p>
+
+  </body>
+
+</html>
