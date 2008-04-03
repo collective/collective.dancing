@@ -581,7 +581,6 @@ To show this, we'll first create a new news item:
 Let's verify that a CMF action was added.
 
   >>> browser.open(portal.absolute_url())
-  >>> browser.contents
 
 This just checks that there's a link to the form, but it's good enough
 for now.
