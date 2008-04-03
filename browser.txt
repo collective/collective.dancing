@@ -710,7 +710,7 @@ Let's use the form now to subscribe 'root' to both news items and events:
   >>> browser.getControl('Apply').click()
   >>> 'Data successfully updated' in browser.contents
   True
-  >>> [c.title for c in subscription.collector_data['selected_collectors']]
+  >>> sorted([c.title for c in subscription.collector_data['selected_collectors']])
   [u'Events', u'News']
 
 Next, we'll subscribe to "Brand new channel".  We'll use the secretond
