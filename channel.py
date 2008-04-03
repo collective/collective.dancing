@@ -2,7 +2,6 @@ from zope import component
 from zope import interface
 import zope.app.container.interfaces
 
-from Acquisition import aq_base
 import OFS.event
 import OFS.Folder
 import OFS.SimpleItem
@@ -13,6 +12,8 @@ import collective.singing.message
 
 import collective.dancing.collector
 import collective.dancing.composer
+import collective.dancing.utils
+
 from collective.dancing import MessageFactory as _
 
 def channel_lookup():
@@ -25,10 +26,7 @@ def channel_vocabulary(context):
     terms = []
     for channel in channel_lookup():
         req = context.aq_chain[-1]
-        tmp = req
-        for item in reversed(channel.aq_chain):
-            tmp = aq_base(item).__of__(tmp)
-        channel = tmp
+        channel = collective.dancing.utils.fixAcquisitionChain(req, channel.aq_chain)
         terms.append(
             zope.schema.vocabulary.SimpleTerm(
                 value=channel,
