@@ -2,6 +2,7 @@ from zope import component
 from zope import interface
 import zope.app.container.interfaces
 
+from Acquisition import aq_base
 import OFS.event
 import OFS.Folder
 import OFS.SimpleItem
@@ -13,20 +14,19 @@ import collective.singing.message
 import collective.dancing.collector
 import collective.dancing.composer
 import collective.dancing.utils
-
 from collective.dancing import MessageFactory as _
 
-def channel_lookup():
+def channel_lookup(context=None):
     root = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
+    if context is not None:
+        root = collective.dancing.utils.aq_append(root, context.aq_chain[-1])
     return root['portal_newsletters']['channels'].objectValues()
 interface.directlyProvides(channel_lookup,
                            collective.singing.interfaces.IChannelLookup)
 
 def channel_vocabulary(context):
     terms = []
-    for channel in channel_lookup():
-        req = context.aq_chain[-1]
-        channel = collective.dancing.utils.fixAcquisitionChain(req, channel.aq_chain)
+    for channel in channel_lookup(context):
         terms.append(
             zope.schema.vocabulary.SimpleTerm(
                 value=channel,

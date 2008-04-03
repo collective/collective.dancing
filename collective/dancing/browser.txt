@@ -596,7 +596,8 @@ We'll now send the front page as a newsletter:
 When we click send, the newsletter(s) will be dispatched immediately.
 
   >>> browser.getControl('My other channel').click()
-  >>> browser.getControl('Send').click() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  >>> browser.getControl('Send').click() \
+  ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *MyMailDelivery sending*:
   ...
   To: root@localhost...To: daniel@localhost...To: mailman@localhost...
