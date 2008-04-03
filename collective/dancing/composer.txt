@@ -18,12 +18,15 @@ this test:
   >>> import collective.singing.message
 
   >>> class Channel(object):
-  ...     def __init__(self, title, url):
+  ...     def __init__(self, name, title, url):
+  ...         self.name = name
   ...         self.title = title
   ...         self.url = url
   ...         self.queue = collective.singing.message.MessageQueues()
   ...     def absolute_url(self):
   ...         return self.url
+  ...     def manage_fixupOwnershipAfterAdd(self):
+  ...         self.aq_base = self
 
   >>> class Subscription(object):
   ...     def __init__(self, channel):
@@ -60,7 +63,14 @@ The HTMLComposer implements both the ``IComposer`` and the
 
 That is, we can use it to retrieve a subscription's secret:
 
-  >>> channel = Channel('News for nerds', 'http://my.chann.el')
+  >>> channel = Channel('news-for-nerds', 'News for nerds', 'http://my.chann.el')
+
+Add channel to site:
+
+  >>> portal['portal_newsletters']['channels'][channel.name] = channel
+
+Continue with subscription...
+  
   >>> subscription = Subscription(channel)
   >>> subscription.composer_data['email'] = u'daniel@localhost'
   >>> secret = HTMLComposer.secret(subscription.composer_data)

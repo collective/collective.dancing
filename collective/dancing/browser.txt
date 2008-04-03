@@ -577,6 +577,16 @@ To show this, we'll first create a new news item:
   ...     title="Vickar's daughter foully murdered")
   'vdfm'
   >>> workflow.doActionFor(news['vdfm'], 'publish')
+
+Let's verify that a CMF action was added.
+
+  >>> browser.open(portal.absolute_url())
+
+This just checks that there's a link to the form, but it's good enough
+for now.
+  
+  >>> '/send-newsletter.html' in browser.contents
+  True
   
 We'll now send the front page as a newsletter:
   >>> previous_trigger_time = channel.scheduler.triggered_last

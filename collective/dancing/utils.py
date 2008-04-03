@@ -24,3 +24,11 @@ class LaxVocabulary(zope.schema.vocabulary.SimpleVocabulary):
             return same[0]
         else:
             raise LookupError(value)
+
+def fixAcquisitionChain(req, chain):
+    """Return object with proper aq context."""
+
+    for item in reversed(chain):
+        req = Acquisition.aq_base(item).__of__(req)
+        
+    return req        

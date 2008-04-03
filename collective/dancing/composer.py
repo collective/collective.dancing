@@ -14,6 +14,8 @@ import Products.CMFPlone.interfaces
 import collective.singing.interfaces
 import collective.singing.mail
 
+from Acquisition import aq_base
+
 from collective.dancing import MessageFactory as _
 from collective.dancing import utils
 
@@ -70,7 +72,21 @@ class HTMLComposer(object):
             subscription)
         channel = subscription.channel
         secret = self.secret(composer_data)
+
+        # XXX: Workaround for channels not being acquisition-wrapped
+        lookup = component.getUtility(collective.singing.interfaces.IChannelLookup)
+
+        base = getattr(channel, 'aq_base', channel) # compare apples with apples
         
+        for _channel in lookup():
+            
+            if _channel.aq_base is base:
+                channel = _channel
+                break
+        else:
+            # channel's on its own
+            pass
+            
         unsubscribe_url = (
             '%s/unsubscribe.html?secret=%s' %
             (channel.absolute_url(), subscription.secret))
