@@ -36,6 +36,7 @@ def test_suite():
 
         doctest.DocTestSuite('collective.dancing.channel'),
         doctest.DocTestSuite('collective.dancing.composer'),
+        doctest.DocTestSuite('collective.dancing.utils'),
 
         ztc.ZopeDocFileSuite(
             'channel.txt',
