@@ -185,8 +185,7 @@ class ManageSubscriptionsForm(crud.CrudForm):
         return fields
 
     def get_items(self):
-        subscriptions = collective.singing.interfaces.ISubscriptions(
-            self.context)
+        subscriptions = self.context.subscriptions
         items = []
         for secret, subscriptions in subscriptions.items():
             for subscription in subscriptions:
@@ -212,11 +211,9 @@ class ManageSubscriptionsForm(crud.CrudForm):
         metadata = dict(format=self.format,
                         date=datetime.datetime.now())
 
-        subscription = collective.singing.subscribe.SimpleSubscription(
+        subscription = collective.dancing.channel.Subscription(
             self.context, secret, composer_data, collector_data, metadata)
-
-        subscriptions = collective.singing.interfaces.ISubscriptions(
-            self.context)
+        subscriptions = self.context.subscriptions
         subscriptions[secret].append(subscription)
         return subscription
 
