@@ -10,6 +10,8 @@
   <adapter factory="collective.singing.mail.Dispatch" />
 
   <include package=".browser" />
+  
+  <include package=".portlets" />
 
   <include file="mail.zcml" />
 

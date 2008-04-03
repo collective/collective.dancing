@@ -1,0 +1,59 @@
+Portlet tests
+=============
+
+These are browser-driven tests for the functionality provided by the
+``collective.dancing`` package.
+
+Setup
+-----
+
+  >>> from Testing.ZopeTestCase import user_password
+  >>> from Products.Five.testbrowser import Browser
+  >>> def new_browser():
+  ...     browser = Browser()
+  ...     browser.handleErrors = False
+  ...     return browser
+  >>> browser = new_browser()
+
+We want messages to be printed out instead of sending them:
+
+  >>> from zope import interface, component
+  >>> import zope.sendmail.interfaces
+
+  >>> class MyMailDelivery(object):
+  ...     interface.implements(zope.sendmail.interfaces.IMailDelivery)
+  ...     sent = []
+  ...
+  ...     def send(self, from_, to, message):
+  ...         print '*MyMailDelivery sending*:'
+  ...         print 'From:', from_
+  ...         print 'To:', to
+  ...         print 'Message follows:'
+  ...         print message
+  ...         self.sent.append(message)
+
+  >>> component.provideUtility(MyMailDelivery())
+
+Create Channel subscribe portlet
+--------------------------------
+  >>> browser.addHeader('Authorization',
+  ...                   'Basic %s:%s' % ('portal_owner', user_password))
+  >>> browser.open(portal.absolute_url())
+  >>> browser.getLink('Manage portlets').click()
+  >>> 'Add portlet' in browser.contents
+  True
+  >>> browser.getControl('Add portlet', index=0).control.displayValue = ['Channel subscribe portlet']
+  >>> browser.getControl('Add portlet', index=1).click()
+  >>> 'Add Channel Subscribe Portlet' in browser.contents
+  True
+  >>> browser.getControl('Portlet header').value = 'Subscribe to News'
+  >>> browser.getControl('Portlet description').value = 'Enter your email to subscribe to our latest news.'
+  >>> browser.getControl('Save').click()
+  >>> 'Subscribe to News' in browser.contents
+  True
+  
+Subscribe via portlet
+---------------------
+  
+  >>> browser.open(portal.absolute_url())
+
