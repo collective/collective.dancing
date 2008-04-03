@@ -51,9 +51,16 @@ Create Channel subscribe portlet
   >>> browser.getControl('Save').click()
   >>> 'Subscribe to News' in browser.contents
   True
+
+Now lets edit it
+
+  >>> browser.getLink('Subscribe to News').click()
+  >>> 'Edit Channel Subscribe Portlet' in browser.contents
+  True
   
 Subscribe via portlet
 ---------------------
   
   >>> browser.open(portal.absolute_url())
 
+  

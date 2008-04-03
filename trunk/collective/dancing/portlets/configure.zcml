@@ -10,9 +10,9 @@
      assignment="collective.dancing.portlets.channelsubscribe.Assignment"
      renderer="collective.dancing.portlets.channelsubscribe.Renderer"
      addview="collective.dancing.portlets.channelsubscribe.AddForm"
-     editview="collective.dancing.portlets.channelsubscribe.EditForm" 
+     editview="collective.dancing.portlets.channelsubscribe.ChannelSubscribePortletEditView" 
      />
 
-  <adapter factory=".channelsubscribe.collectordata_from_assignment" />
+  <!--adapter factory=".channelsubscribe.collectordata_from_assignment" /-->
 
 </configure>
