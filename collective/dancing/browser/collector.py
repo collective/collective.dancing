@@ -21,6 +21,7 @@ import OFS.interfaces
 from collective.dancing import MessageFactory as _
 from collective.dancing import collector
 from collective.dancing.browser import controlpanel
+from collective.dancing.browser import widget
 
 class ManageCollectorsForm(crud.CrudForm):
     """Crud form for collectors.
@@ -91,6 +92,28 @@ class EditTopicForm(subform.EditSubForm):
             self.context.absolute_url())
 
     heading = heading
+
+class EditTextForm(subform.EditSubForm):
+    component.adapts(collector.ITextCollector,
+                     None,
+                     z3c.form.interfaces.IEditForm)
+    template = viewpagetemplatefile.ViewPageTemplateFile('subform.pt')
+
+    fields = z3c.form.field.Fields(collector.ITextCollector).select(
+        'title', 'value')
+    fields['value'].widgetFactory[
+        z3c.form.interfaces.INPUT_MODE] = widget.WysiwygFieldWidget
+
+    @property
+    def css_class(self):
+        return "subform subform-level-%s" % self.level
+
+    @property
+    def label(self):
+        return u"Rich text: %s" % self.context.title
+
+    prefix = property(prefix)
+
 
 class AddToCollectorForm(form.Form):
     ignoreContext = True

@@ -180,8 +180,17 @@ We can also move blocks around:
   >>> index('Collector block: News') < index('Collector block: Events')
   False
 
-Okay, so now we catch both events and news items throughout the site.
-For now, let's create one item for each type:
+We can also add a rich text field:
+
+  >>> browser.getControl('Type', index=-1).displayValue = ['Rich text']
+  >>> browser.getControl('Title', index=-1).value = 'Goodbye'
+  >>> browser.getControl('Add', index=-1).click()
+  >>> browser.getControl(
+  ...     name='EditTextForm-plone-portal_newsletters-collectors-default-latest-news-2.widgets.value').value = "Our newsletter rocks!"
+  >>> browser.getControl('Apply').click()
+
+Okay, so now that our collector catches both events and news items
+throughout the site.  For now, let's create one item for each type:
 
   >>> from DateTime import DateTime
   >>> news = portal.news
@@ -439,6 +448,8 @@ sent:
   Subject: Plone site: My other channel
   ...
   Super Bowl XLII
+  ...
+  Our newsletter rocks!
   ...
   To: daniel@localhost
   ...

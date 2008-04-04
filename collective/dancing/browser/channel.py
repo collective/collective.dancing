@@ -222,7 +222,7 @@ class ManageSubscriptionsForm(crud.CrudForm):
         user_subscriptions = self.context.subscriptions[secret]
         for_format = [s for s in user_subscriptions
                       if s.metadata['format'] == format]
-        assert len(for_format) == 1
+        #assert len(for_format) == 1
         for_format = for_format[0]
         user_subscriptions.remove(for_format)
 

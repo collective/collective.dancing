@@ -22,6 +22,10 @@
   <zope:adapter factory=".collector.EditTopicForm"
                 provides="z3c.form.interfaces.ISubForm" />
 
+  <zope:adapter factory=".collector.EditTextForm"
+                provides="z3c.form.interfaces.ISubForm" />
+
+
   <!-- Administration views -->
 
   <defaultView

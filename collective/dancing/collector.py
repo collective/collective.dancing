@@ -6,6 +6,7 @@ import zope.schema.vocabulary
 import zope.schema.interfaces
 import zope.app.container.interfaces
 import zope.i18nmessageid
+import Acquisition
 import DateTime
 import OFS.Folder
 
@@ -61,8 +62,11 @@ def collectordata_from_subscription(subscription):
     composer_data = collective.singing.interfaces.ICollectorData(subscription)
     return utils.AttributeToDictProxy(composer_data)
 
-class TextCollector(object):
-    interface.implements(collective.singing.interfaces.ICollector)
+class ITextCollector(collective.singing.interfaces.ICollector):
+    value = schema.Text(title=_(u'Rich text'))
+
+class TextCollector(OFS.SimpleItem.SimpleItem):
+    interface.implements(ITextCollector)
     title = 'Rich text'
     value = u''
 
@@ -138,10 +142,10 @@ class Collector(OFS.Folder.Folder):
             optional_collectors.append(self)
         for child in self.objectValues():
             if collective.singing.interfaces.ICollector.providedBy(child):
-                m = getattr(child, 'get_optional_collectors', None)
-                if m is not None:
-                    optional_collectors.extend(m())
-                elif child.optional:
+                if hasattr(
+                    Acquisition.aq_base(child), 'get_optional_collectors'):
+                    optional_collectors.extend(child.get_optional_collectors())
+                elif getattr(Acquisition.aq_base(child), 'optional', False):
                     optional_collectors.append(child)
                 
         return optional_collectors
@@ -192,4 +196,4 @@ class Collector(OFS.Folder.Folder):
 def sfc_added(sfc, event):
     sfc.add_topic()
 
-collectors = (Collector,) # TextCollector, ReferenceCollector)
+collectors = (Collector, TextCollector) #, ReferenceCollector)
