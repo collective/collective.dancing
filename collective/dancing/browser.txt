@@ -450,7 +450,7 @@ Let's take a closer look at the mail that's sent to mailman:
   >>> "Super Bowl" in msg
   False
   >>> msg # doctest: +ELLIPSIS
-  '...<a href="/plone/portal_newsletters/channels/my-other-channel/unsubscribe.html?secret=...">...Click here to unsubscribe...</a>...'
+  '...<a href="http://nohost/plone/portal_newsletters/channels/my-other-channel/unsubscribe.html?secret=...">...Click here to unsubscribe...</a>...'
 
 Ticking the scheduler a second time won't do anything:
 

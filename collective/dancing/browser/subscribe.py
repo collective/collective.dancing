@@ -15,10 +15,13 @@ import collective.singing.message
 import collective.singing.browser.subscribe
 
 from collective.dancing import MessageFactory as _
+from collective.dancing.channel import Subscription
+
+class SubscribeForm(collective.singing.browser.subscribe.Subscribe):
+    factory = Subscription
 
 class Subscribe(BrowserView):
     template = ViewPageTemplateFile('skeleton.pt')
-
     label = _(u"Subscribe")
 
     def __call__(self):
@@ -26,8 +29,7 @@ class Subscribe(BrowserView):
         return self.template()
 
     def contents(self):
-        subscribe = collective.singing.browser.subscribe.Subscribe(
-            self.context.aq_inner, self.request)
+        subscribe = SubscribeForm(self.context.aq_inner, self.request)
         return subscribe()
 
 class Confirm(BrowserView):
