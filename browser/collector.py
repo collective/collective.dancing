@@ -142,6 +142,47 @@ class DeleteFromCollectorForm(form.Form):
         self.context.aq_parent.manage_delObjects([self.context.id])
         self.status = _("Item successfully deleted.")
 
+class MoveBlockForm(form.Form):
+    template = viewpagetemplatefile.ViewPageTemplateFile('subform.pt')
+    css_class = "moveform"
+
+    prefix = property(prefix)
+
+    def _info_idx(self):
+        infos = list(self.context.aq_parent._objects)
+        info = None
+        for info in infos:
+            if info['id'] == self.context.id:
+                break
+        if info in infos:
+            return infos.index(info)
+        else:
+            return 0
+
+    def _move(self, delta):
+        prev_index = self._info_idx()
+        parent = self.context.aq_parent
+        infos = list(parent._objects)
+        my_info = infos[prev_index]
+        del infos[prev_index]
+        infos.insert(prev_index + delta, my_info)
+        parent._objects = tuple(infos)
+
+    @z3c.form.button.buttonAndHandler(
+        _('Move block up'), name='up',
+        condition=lambda form: form._info_idx() > 0)
+    def handle_moveup(self, action):
+        self._move(-1)
+        self.status = _("Item successfully moved.")
+
+    @z3c.form.button.buttonAndHandler(
+        _('Move block down'), name='down',
+        condition=lambda form: (form._info_idx() <
+                                len(form.context.aq_parent._objects) - 1))
+    def handle_moveup(self, action):
+        self._move(1)
+        self.status = _("Item successfully moved.")
+
 class AbstractEditCollectorForm(object):
     level = 1
     
@@ -157,12 +198,15 @@ class AbstractEditCollectorForm(object):
         addform.level = self.level
         addform.update()
 
-        deleteforms = []
+        actions = []
         for item in self.context.objectValues():
-             deleteform = DeleteFromCollectorForm(item, self.request)
-             deleteform.update()
-             deleteform.level = self.level + 1
-             deleteforms.append(deleteform)
+            acts = []
+            for factory in DeleteFromCollectorForm, MoveBlockForm:
+                form = factory(item, self.request)
+                form.update()
+                form.level = self.level + 1
+                acts.append(form)
+            actions.append(acts)
 
         editforms = []
         for item in self.context.objectValues():
@@ -174,8 +218,9 @@ class AbstractEditCollectorForm(object):
              editforms.append(subform)
 
         self.subforms = []
-        for editform, deleteform in zip(editforms, deleteforms):
-            self.subforms.extend((editform, deleteform))
+        for editform, acts in zip(editforms, actions):
+            self.subforms.append(editform)
+            self.subforms.extend(acts)
         self.subforms.append(addform)
 
 class EditCollectorForm(AbstractEditCollectorForm, subform.EditSubForm):
