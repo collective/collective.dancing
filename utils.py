@@ -2,7 +2,12 @@ import zope.schema.vocabulary
 import z3c.form.interfaces
 import Acquisition
 
-def aq_append(wrapped, item):
+def fix_request(wrapped, skip=1):
+    site = zope.app.component.hooks.getSite()
+    req = site.aq_chain[-1]
+    return aq_append(wrapped, req, skip)
+
+def aq_append(wrapped, item, skip=0):
     """Return wrapped with an aq chain that includes `item` at the
     end.
     
@@ -18,9 +23,11 @@ def aq_append(wrapped, item):
       [<AQ one>, <AQ two>]
       >>> aq_append(one_of_two, three).aq_chain
       [<AQ one>, <AQ two>, <AQ three>]
+      >>> aq_append(one_of_two, three, skip=1).aq_chain
+      [<AQ one>, <AQ three>]
     """
     value = item
-    for item in reversed(wrapped.aq_chain):
+    for item in tuple(reversed(wrapped.aq_chain))[skip:]:
         value = Acquisition.aq_base(item).__of__(value)
     return value
 

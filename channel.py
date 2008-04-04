@@ -16,17 +16,16 @@ import collective.dancing.composer
 import collective.dancing.utils
 from collective.dancing import MessageFactory as _
 
-def channel_lookup(context=None):
+def channel_lookup():
     root = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
-    if context is not None:
-        root = collective.dancing.utils.aq_append(root, context.aq_chain[-1])
+    root = collective.dancing.utils.fix_request(root, 0)
     return root['portal_newsletters']['channels'].objectValues()
 interface.directlyProvides(channel_lookup,
                            collective.singing.interfaces.IChannelLookup)
 
 def channel_vocabulary(context):
     terms = []
-    for channel in channel_lookup(context):
+    for channel in channel_lookup():
         terms.append(
             zope.schema.vocabulary.SimpleTerm(
                 value=channel,
@@ -107,10 +106,18 @@ class Channel(OFS.SimpleItem.SimpleItem):
         return self.title
 
 class Subscription(collective.singing.subscribe.SimpleSubscription):
+    _channel = None
     @apply
     def channel():
         def get(self):
-            return collective.dancing.utils.aq_append(self._channel,
-                                                      self.REQUEST)
+            if self._channel is not None:
+                # We want to get the same channel from the
+                # IChannelLookup, as that has the correct wrapping:
+                for channel in component.getUtility(
+                    collective.singing.interfaces.IChannelLookup)():
+                    if aq_base(channel) is aq_base(self._channel):
+                        return channel
+            return self._channel
         def set(self, channel):
             self._channel = channel
+        return property(get, set)
