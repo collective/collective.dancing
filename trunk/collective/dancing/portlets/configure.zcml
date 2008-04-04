@@ -13,6 +13,4 @@
      editview="collective.dancing.portlets.channelsubscribe.ChannelSubscribePortletEditView" 
      />
 
-  <!--adapter factory=".channelsubscribe.collectordata_from_assignment" /-->
-
 </configure>

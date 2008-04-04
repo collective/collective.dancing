@@ -1,5 +1,4 @@
-from zope.interface import implements
-from zope.component import queryUtility
+from Acquisition import aq_parent, aq_inner
 from zope import component
 from zope import event
 from zope import lifecycleevent
@@ -53,7 +52,7 @@ class Assignment(base.Assignment):
     with columns.
     """
 
-    implements(IChannelSubscribePortlet)
+    interface.implements(IChannelSubscribePortlet)
 
     header = u""
     descriptions = False
@@ -75,7 +74,7 @@ class Assignment(base.Assignment):
 
     @property
     def all_channels(self):
-        channels = queryUtility(collective.singing.interfaces.IChannelLookup)()
+        channels = component.queryUtility(collective.singing.interfaces.IChannelLookup)()
         if channels is None:
             return []
         return channels
@@ -130,21 +129,32 @@ class Renderer(base.Renderer):
                 'title':self.channel.name}
         return link
 
+def prefix(self):
+    return self.__class__.__name__ + '-'.join(self.context.getPhysicalPath())
+
+
 class EditCollectorOptionsForm(z3c.form.subform.EditSubForm):
     """Edit a single collectors options.
     """
 
     template = viewpagetemplatefile.ViewPageTemplateFile(
-        '../browser/form.pt')
+        '../browser/subform.pt')
 
     css_class = 'subForm subForm-level-1'
 
     ignoreContext = True
+
+    @property
+    def ignoreRequest(self):
+        return not self.selected_channel
+    
+    prefix = property(prefix)
     
     def __init__(self, context, request, parentForm):
         self.context = context
         self.request = request
         self.parentForm = self.__parent__ = parentForm
+        self.heading = 'Optional sections for %s'%context.Title()
 
     # TCM: we could maybe pass the portlet assignment object as
     #      context instead of the channel. And then pass
@@ -154,7 +164,7 @@ class EditCollectorOptionsForm(z3c.form.subform.EditSubForm):
 
     @z3c.form.button.handler(z3c.form.form.EditForm.buttons['apply'])
     def handleApply(self, action):
-        if self.context == self.parentForm.context.channel:
+        if self.selected_channel:
             data, errors = self.widgets.extract()
             if errors:
                 self.status = self.formErrorsMessage
@@ -176,21 +186,27 @@ class EditCollectorOptionsForm(z3c.form.subform.EditSubForm):
     
     @property
     def fields(self):
-        fields = []
-        for name in self.context.collector.schema.names():
-            field = self.context.collector.schema.get(name)
-            assignment_value = getattr(self.parentForm.context, name)
-            field.default = assignment_value
-            fields.append((name,field))
+        if self.selected_channel: 
+            fields = []
+            for name in self.context.collector.schema.names():
+                field = self.context.collector.schema.get(name)
+                assignment_value = getattr(self.parentForm.context, name)
+                field.default = assignment_value
+                fields.append((name,field))
+            return z3c.form.field.Fields(interface.interface.InterfaceClass(
+                'Schema', bases=(ICollectorSchema,),
+                attrs=dict(fields)))
+        return z3c.form.field.Fields(self.context.collector.schema)
 
-        return z3c.form.field.Fields(interface.interface.InterfaceClass(
-            'Schema', bases=(ICollectorSchema,),
-            attrs=dict(fields)))
     
     @property
     def label(self):
         return _(u"${channel} options", mapping={'channel':self.channel.Title()})
 
+    @property
+    def selected_channel(self):
+        return self.context == self.parentForm.context.channel
+    
 class ChannelSubscribePortletEditForm(z3c.form.form.EditForm):
     """
     """
@@ -214,10 +230,25 @@ class ChannelSubscribePortletEditForm(z3c.form.form.EditForm):
         
 
 class ChannelSubscribePortletEditView(BrowserView):
-    __call__ = ViewPageTemplateFile('../browser/controlpanel.pt')
+    __call__ = ViewPageTemplateFile('z3c.plone.portlet.pt')
 
     label = _(u"Edit Channel Subscribe Portlet")
     description = _(u"This portlet allows a visitor to subscribe to a specific newsletter channel.")
+
+    def referer(self):
+        return self.request.get('referer', '')
+
+    # eventually replace this with a referer and redirect like regular
+    # plone portlets. NB: this would require combining the status messages.
+    def back_link(self):
+        url = self.request.form.get('referer')
+        if not url:
+            addview = aq_parent(aq_inner(self.context))
+            context = aq_parent(aq_inner(addview))
+            url = str(component.getMultiAdapter((context, self.request),
+                        name=u"absolute_url")) + '/@@manage-portlets'
+        return dict(url=url,
+                    label=_(u"Back to portlets"))
 
     def contents(self):
         collective.singing.z2.switch_on(self)
@@ -241,41 +272,3 @@ class AddForm(base.AddForm):
     def update(self):
         super(AddForm, self).update()
 
-# class EditForm(base.EditForm):
-#     """Portlet edit form.
-    
-#     This is registered with configure.zcml. The form_fields variable tells
-#     zope.formlib which fields to display.
-#     """
-#     form_fields = form.Fields(IChannelSubscribePortlet)
-#     label = _(u"Edit Channel Subscribe Portlet")
-#     description = _(u"This portlet allows a visitor to subscribe to a specific newsletter channel.")
-
-# #     def __call__(self):
-# #         self.form_fields = self.form_fields + \
-# #             form.Fields(schema.Bool(__name__='newbool',
-# #                                     title=_('New bool'),
-# #                                     description=_('New bool'),
-# #                                     default=False))
-# #         if not hasattr(self.context, 'newbool'):
-# #             self.context.newbool = False
-# #         self.update()
-# #         return self.render()
-
-#     def update(self):
-#         vocab = schema.vocabulary.SimpleVocabulary.fromValues(range(5))
-#         for channel in self.context.all_channels:
-#             if channel.collector is not None:
-#                 collector_fields = form.Fields(channel.collector.schema,
-#                                                prefix='collector.%s'%channel.name)
-#                 self.form_fields += collector_fields
-#                 for field in collector_fields:
-#                     if not hasattr(self.context, field.__name__):
-#                         setattr(self.context, field.__name__, False)
-#         super(EditForm, self).update()
-
-# @component.adapter(Assignment)
-# @interface.implementer(collective.dancing.collector.ICollectorSchema)
-# def collectordata_from_assignment(assignment):
-#     collector_data = collective.singing.interfaces.ICollectorData(assignment)
-#     return utils.AttributeToDictProxy(collector_data)
