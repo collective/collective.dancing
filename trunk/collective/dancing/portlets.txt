@@ -48,7 +48,7 @@ Create Channel subscribe portlet
   True
   >>> browser.getControl('Portlet header').value = 'Subscribe to News'
   >>> browser.getControl('Portlet description').value = 'Enter your email to subscribe to our latest news.'
-  >>> browser.getControl('Save').click()
+  >>> browser.getControl('Add').click()
   >>> 'Subscribe to News' in browser.contents
   True
 

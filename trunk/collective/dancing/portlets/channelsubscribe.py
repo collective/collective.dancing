@@ -24,6 +24,8 @@ from collective.dancing import MessageFactory as _
 from collective.dancing.browser.subscribe import SubscriptionAddForm
 from collective.dancing.collector import ICollectorSchema
 from collective.dancing import utils
+
+test_vocab = schema.vocabulary.SimpleVocabulary.fromValues(range(5))
  
 class IChannelSubscribePortlet(IPortletDataProvider):
     """A portlet which renders the results of a collection object.
@@ -44,27 +46,34 @@ class IChannelSubscribePortlet(IPortletDataProvider):
                             description=_(u"Click here to select collector options to be automatically enabled, when subscribing from this portlet."),
                             required=True,
                             default=True)
-    
+    test = schema.Set(title=u"Test",
+                      description=u"Just to see how sets are stored on the assignment",
+                      value_type=schema.Choice(vocabulary=test_vocab))
+
 class Assignment(base.Assignment):
     """
     Portlet assignment.    
     This is what is actually managed through the portlets UI and associated
     with columns.
     """
-
-    interface.implements(IChannelSubscribePortlet)
-
+    interface.implements(IChannelSubscribePortlet, ICollectorSchema)
     header = u""
     descriptions = False
     channel=None
     show_options = True
 
-    def __init__(self, header=u"", description=u"", channel=None, show_options=True):
+    def __init__(self,
+                 header=u"",
+                 description=u"",
+                 channel=None,
+                 show_options=True,
+                 test=None):
         self.header = header
         self.description = description
         self.channel = channel
         self.show_options = show_options
-
+        self.test = test
+        self.selected_collectors = []
     @property
     def title(self):
         """This property is used to give the title of the portlet in the
@@ -82,7 +91,6 @@ class Assignment(base.Assignment):
 
 class PortletSubscriptionAddForm(SubscriptionAddForm):
     """ """
-
     template = viewpagetemplatefile.ViewPageTemplateFile('titlelessform.pt')
     
 class Renderer(base.Renderer):
@@ -103,7 +111,6 @@ class Renderer(base.Renderer):
         collective.singing.z2.switch_on(self)
         if self.channel is not None:
             self.form = PortletSubscriptionAddForm(self.channel, self.request)
-            #self.form.template = self.form_template
             self.form.format = 'html'
             self.form.update()
         
@@ -130,19 +137,16 @@ class Renderer(base.Renderer):
         return link
 
 def prefix(self):
-    return self.__class__.__name__ + '-'.join(self.context.getPhysicalPath())
+    return str(self.__class__.__name__ + '-'.join(self.context.getPhysicalPath()))
 
 
 class EditCollectorOptionsForm(z3c.form.subform.EditSubForm):
-    """Edit a single collectors options.
-    """
-
+    """Edit a single collectors options."""
     template = viewpagetemplatefile.ViewPageTemplateFile(
         '../browser/subform.pt')
 
     css_class = 'subForm subForm-level-1'
-
-    ignoreContext = True
+    ignoreContext = False
 
     @property
     def ignoreRequest(self):
@@ -150,55 +154,25 @@ class EditCollectorOptionsForm(z3c.form.subform.EditSubForm):
     
     prefix = property(prefix)
     
-    def __init__(self, context, request, parentForm):
+    def __init__(self, context, request, channel, parentForm):
         self.context = context
         self.request = request
+        self.channel = channel
         self.parentForm = self.__parent__ = parentForm
-        self.heading = 'Optional sections for %s'%context.Title()
-
-    # TCM: we could maybe pass the portlet assignment object as
-    #      context instead of the channel. And then pass
-    #      channel only for use in fields()
-    #      This would require a new adapter:
-    # TypeError: ('Could not adapt', <Assignment at /portal/++contextportlets++plone.leftcolumn/header>, <InterfaceClass collective.dancing.collector.Schema>)
-
-    @z3c.form.button.handler(z3c.form.form.EditForm.buttons['apply'])
-    def handleApply(self, action):
-        if self.selected_channel:
-            data, errors = self.widgets.extract()
-            if errors:
-                self.status = self.formErrorsMessage
-                return
-            assignment = self.parentForm.context
-            changed = False
-            for field, value in data.items():
-                if hasattr(assignment, field) and getattr(assignment, field) == value:
-                    continue
-                setattr(assignment, field, value)
-                changed = True
-                
-            if changed:
-                event.notify(
-                    lifecycleevent.ObjectModifiedEvent(assignment))
-                self.status = self.successMessage
-            else:
-                self.status = self.noChangesMessage
-    
+        self.heading = 'Options for %s'%channel.Title()
+        self.collector_schema = channel.collector.schema
+        #interface.directlyProvides(context, self.collector_schema)
+        #XXX:  Is this a memory leak?
+        @component.adapter(Assignment)
+        @interface.implementer(self.collector_schema)
+        def hack_for_dynamic_interface(assignment):
+            return assignment
+        component.provideAdapter(hack_for_dynamic_interface)
+        
     @property
     def fields(self):
-        if self.selected_channel: 
-            fields = []
-            for name in self.context.collector.schema.names():
-                field = self.context.collector.schema.get(name)
-                assignment_value = getattr(self.parentForm.context, name)
-                field.default = assignment_value
-                fields.append((name,field))
-            return z3c.form.field.Fields(interface.interface.InterfaceClass(
-                'Schema', bases=(ICollectorSchema,),
-                attrs=dict(fields)))
-        return z3c.form.field.Fields(self.context.collector.schema)
+        return z3c.form.field.Fields(self.collector_schema)
 
-    
     @property
     def label(self):
         return _(u"${channel} options", mapping={'channel':self.channel.Title()})
@@ -206,11 +180,10 @@ class EditCollectorOptionsForm(z3c.form.subform.EditSubForm):
     @property
     def selected_channel(self):
         return self.context == self.parentForm.context.channel
+
     
 class ChannelSubscribePortletEditForm(z3c.form.form.EditForm):
-    """
-    """
-
+    """  """
     template = viewpagetemplatefile.ViewPageTemplateFile('../browser/form-with-subforms.pt')
     fields = z3c.form.field.Fields(IChannelSubscribePortlet)
 
@@ -222,24 +195,23 @@ class ChannelSubscribePortletEditForm(z3c.form.form.EditForm):
         self.subforms = []
         for channel in self.context.all_channels:
             if channel.collector is not None:
-                option_form = EditCollectorOptionsForm(channel,
+                option_form = EditCollectorOptionsForm(self.context,
                                                        self.request,
+                                                       channel,
                                                        self)
                 option_form.update()
                 self.subforms.append(option_form)
         
 
-class ChannelSubscribePortletEditView(BrowserView):
+class ChannelSubscribePortletView(BrowserView):
     __call__ = ViewPageTemplateFile('z3c.plone.portlet.pt')
-
-    label = _(u"Edit Channel Subscribe Portlet")
-    description = _(u"This portlet allows a visitor to subscribe to a specific newsletter channel.")
 
     def referer(self):
         return self.request.get('referer', '')
 
     # eventually replace this with a referer and redirect like regular
-    # plone portlets. NB: this would require combining the status messages.
+    # plone portlets.
+    # NB: this would require combining status messages from subforms.
     def back_link(self):
         url = self.request.form.get('referer')
         if not url:
@@ -250,25 +222,91 @@ class ChannelSubscribePortletEditView(BrowserView):
         return dict(url=url,
                     label=_(u"Back to portlets"))
 
+
+class ChannelSubscribePortletEditView(ChannelSubscribePortletView):
+
+    label = _(u"Edit Channel Subscribe Portlet")
+    description = _(u"This portlet allows a visitor to subscribe to a specific newsletter channel.")
+
     def contents(self):
         collective.singing.z2.switch_on(self)
         return ChannelSubscribePortletEditForm(self.context, self.request)()
-     
-    
-class AddForm(base.AddForm):
-    """Portlet add form.
-    
-    This is registered in configure.zcml. The form_fields variable tells
-    zope.formlib which fields to display. The create() method actually
-    constructs the assignment that is being added.
-    """
-    form_fields = form.Fields(IChannelSubscribePortlet)
-    label = _(u"Add Channel Subscribe Portlet")
-    description = _(u"This portlet allows a visitor to subscribe to a specific newsletter channel.")
 
+
+class EditCollectorOptionsAddForm(z3c.form.form.Form):
+    """Edit a single collectors options.
+    """
+    template = viewpagetemplatefile.ViewPageTemplateFile(
+        '../browser/subform.pt')
+
+    css_class = 'subForm subForm-level-1'
+    ignoreContext = True    
+    prefix = property(prefix)
+    
+    def __init__(self, context, request, channel, parentForm):
+        super(EditCollectorOptionsAddForm, self).__init__(context, request)
+        self.context = context
+        self.request = request
+        self.channel = channel
+        self.parentForm = self.__parent__ = parentForm
+        self.heading = 'Options for %s'%channel.Title()
+    
+    @property
+    def fields(self):
+        return z3c.form.field.Fields(self.channel.collector.schema)
+
+    @property
+    def label(self):
+        return _(u"${channel} options", mapping={'channel':self.channel.Title()})
+
+    @property
+    def selected_channel(self):
+        return self.context == self.parentForm.context.channel
+
+    
+class ChannelSubscribePortletAddForm(z3c.form.form.AddForm):
+    """ """
+    template = viewpagetemplatefile.ViewPageTemplateFile('../browser/form-with-subforms.pt')
+    fields = z3c.form.field.Fields(IChannelSubscribePortlet)
+
+    css_class = 'addForm portletAddForm'
+    heading = _(u"Add Channel Subscribe Portlet")
+
+    subforms = []
+
+    def __init__(self, context, request):
+        super(ChannelSubscribePortletAddForm, self).__init__(context, request)
+        self.update_subforms()
+    
     def create(self, data):
         return Assignment(**data)
 
-    def update(self):
-        super(AddForm, self).update()
+    def add(self, object):
+        self.context.add(object)
+
+    def nextURL(self):
+        #XXX: this should be computed
+        return '../../@@manage-portlets'
+        
+    def update_subforms(self):
+        channels = component.queryUtility(collective.singing.interfaces.IChannelLookup)()
+        if channels is not None:
+            for channel in channels:
+                if channel.collector is not None:
+                    option_form = EditCollectorOptionsAddForm(self.context,
+                                                              self.request,
+                                                              channel,
+                                                              self)
+                    option_form.update()
+                    self.subforms.append(option_form)
+
+     
+class ChannelSubscribePortletAddView(ChannelSubscribePortletView):
+
+    label = _(u"Add Channel Subscribe Portlet")
+    description = _(u"This portlet allows a visitor to subscribe to a specific newsletter channel.")
+
+    def contents(self):
+        collective.singing.z2.switch_on(self)
+        return ChannelSubscribePortletAddForm(self.context, self.request)()
 

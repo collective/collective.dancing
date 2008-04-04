@@ -9,7 +9,7 @@
      interface="collective.dancing.portlets.channelsubscribe.IChannelSubscribePortlet"
      assignment="collective.dancing.portlets.channelsubscribe.Assignment"
      renderer="collective.dancing.portlets.channelsubscribe.Renderer"
-     addview="collective.dancing.portlets.channelsubscribe.AddForm"
+     addview="collective.dancing.portlets.channelsubscribe.ChannelSubscribePortletAddView" 
      editview="collective.dancing.portlets.channelsubscribe.ChannelSubscribePortletEditView" 
      />
 
