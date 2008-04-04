@@ -162,7 +162,7 @@ Collector, to find us all News items:
   >>> add_type_criterion('0/0/criterion_edit_form', ['News Item'])
   >>> add_type_criterion('1/0/criterion_edit_form', ['Event'])
 
-Back at the main form, we'll make both 'News' and 'Events' blocks
+Back at the collector form, we'll make both 'News' and 'Events' blocks
 optional.  This will allow users to select out of the two when they
 subscribe.  The default is to subscribe to both:
 
@@ -170,8 +170,18 @@ subscribe.  The default is to subscribe to both:
   >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-1.widgets.optional:list').value = ['true']
   >>> browser.getControl('Apply').click()
 
+We can also move blocks around:
+
+  >>> def index(s):
+  ...     return browser.contents.index(s)
+  >>> index('Collector block: News') < index('Collector block: Events')
+  True
+  >>> browser.getControl('Move block down').click()
+  >>> index('Collector block: News') < index('Collector block: Events')
+  False
+
 Okay, so now we catch both events and news items throughout the site.
-To see if that's true, we'll create two items, one for each type:
+For now, let's create one item for each type:
 
   >>> from DateTime import DateTime
   >>> news = portal.news

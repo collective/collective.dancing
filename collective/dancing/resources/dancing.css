@@ -38,10 +38,14 @@ div.crud-form td.error div.error {
     border: none;
 }
 
-.deleteform {
-    margin-left: 2.0em;
-    margin-bottom: 1.5em;
+.deleteform, .moveform {
+    margin-left: 2em;
 }
+
+.moveform {
+    margin-bottom: 2em;
+}
+
 
 .link-subscribers {
     background-image: url(group.gif);
