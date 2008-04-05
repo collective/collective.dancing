@@ -20,7 +20,7 @@
       <metal:use use-macro="context/@@singing-macros/fields" />
 
       <div tal:repeat="form view/subforms"
-           tal:content="structure form/render">
+           tal:replace="structure form/render">
       </div>
 
       <div class="action" tal:repeat="action view/actions/values|nothing">
