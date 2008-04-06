@@ -1,31 +1,41 @@
-  <dl>
-    <dt >
-      <a i18n:translate="label_channel_administration" href="./channels">
-        Channel administration
-      </a>
-    </dt>
-    <dd i18n:translate="description_channel_administration">
-        A Channel is a hub of configuration.  It doesn't do anything by
-        itself.  Rather, it provides a number of components to configure
-        and work with.  It is also the container of subscriptions to it.
-    </dd>
-    <dt>
-      <a href="./collectors"
-          i18n:translate="label_collector_administration">
-        Collector administration
-      </a>
-    </dt>
-    <dd i18n:translate="description_collector_administration">
-      Collectors are useful for automatic newsletters.  They are
-      responsible for assembling a list of items for publishing.
-    </dd>
-    <dt>
-      <a i18n:translate="label_statistics_administration"
-           href="./channels/newsletter-stats.html">
-         Statistics
-      </a>
-    </dt>
-    <dd i18n:translate="description_statistics_administration">
-    ...
-    </dd>
+<dl class="enableFormTabbing">
+ <!-- general information about the configuration -->
+ <dt id="fieldsetlegend-general-info">General info</dt>
+ <dd id="fieldset-general-info">
+     <h3>Channel</h3>
+	<p i18n:translate="description_channel_administration">
+      	A Channel is a hub of configuration.  It doesn't do anything by
+      	itself.  Rather, it provides a number of components to configure
+      	and work with.  It is also the container of subscriptions to it.
+       </p>
+     <h3>Collector</h3>
+	<p i18n:translate="description_collector_administration">
+     	Collectors are useful for automatic newsletters.  They are
+     	responsible for assembling a list of items for publishing.
+     	</p>
+     <h3>Statistics</h3>
+	<p i18n:translate="description_statistics_administration">
+  	Statistics give you an overview about data related to a newsletter. 
+	e.g. how many times it was send, ... etc.
+  	</p>
+ </dd>
+ <!-- channel information -->
+ <dt id="fieldsetlegend-channel">Channel</dt>
+ <dd id="fieldset-channel">
+     <tal:block replace="structure view/channelcontents" />
+ </dd>
+ <!-- collector information here I get a traversal error if enabled -->
+ <dt id="fieldsetlegend-collector">Collector</dt>
+ <dd id="fieldset-collector">
+     <code>
+	Here I get when I enable the collector view:
+	TypeError: ('Could not adapt', TemplateContainer at /sad/portal_newsletters/templates>, <InterfaceClass collective.singing.interfaces.ICollector>)> /home/wim/buildouts/dancing-trunk/eggs/z3c.form-1.8.0-py2.4.egg/z3c/form/datamanager.py(84)canWrite()
+     </code>
+     <!--<tal:block replace="structure view/collectorcontents" />-->     
+ </dd>
+ <!--statistics information -->
+ <dt id="fieldsetlegend-stats">Statistics</dt>
+ <dd id="fieldset-stats">
+     <tal:block replace="structure view/statscontents" />
+ </dd>
 </dl>
