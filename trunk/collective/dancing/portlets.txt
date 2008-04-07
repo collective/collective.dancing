@@ -4,7 +4,7 @@ Portlet tests
 These are browser-driven tests for the functionality provided by the
 ``collective.dancing`` package.
 
-Setup
+Test Setup
 -----
 
   >>> from Testing.ZopeTestCase import user_password
@@ -34,10 +34,62 @@ We want messages to be printed out instead of sending them:
 
   >>> component.provideUtility(MyMailDelivery())
 
-Create Channel subscribe portlet
---------------------------------
+First off, let's edit the default collector, delete the default Collection and add two optional blocks. These can later be set from our portlet.
+
   >>> browser.addHeader('Authorization',
   ...                   'Basic %s:%s' % ('portal_owner', user_password))
+  >>> browser.open(portal.absolute_url()+'/portal_newsletters/collectors')
+  >>> browser.getLink('Latest news').click()		
+  >>> browser.getControl('Remove block').click()
+  >>> browser.getControl('Title', index=1).value = 'News'
+  >>> browser.getControl('Add').click()
+  >>> browser.getControl('Title', index=4).value = 'Events'
+  >>> browser.getControl('Add', index=-1).click()
+  >>> print browser.contents # doctest +ELLIPSIS +NORMALIZE_WHITESPACE
+  <!DOCTYPE...
+  block: News...
+  block: Events...
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-0.widgets.optional:list').value = ['true']
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-1.widgets.optional:list').value = ['true'] 
+  >>> browser.getControl('Apply').click()
+
+  
+Let's add a second collector and channel pair with different options.
+
+  >>> browser.getLink('Up to Collector administration').click()
+  >>> browser.getControl('Title', index=0).value = 'Tales from the crypt'
+  >>> browser.getControl('Add').click()
+  >>> browser.getLink('Tales from the crypt').click()
+  >>> browser.getControl('Remove block').click()
+  >>> browser.getControl('Title', index=1).value = 'Creepy stories'
+  >>> browser.getControl('Add').click()
+  >>> browser.getControl('Title', index=4).value = 'Gory stories'
+  >>> browser.getControl('Add', index=-1).click()
+  >>> print browser.contents # doctest +ELLIPSIS +NORMALIZE_WHITESPACE
+  <!DOCTYPE...
+  block: Creepy stories...
+  block: Gory stories...
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-tales-from-the-crypt-0.widgets.optional:list').value = ['true']
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-tales-from-the-crypt-1.widgets.optional:list').value = ['true']
+  >>> browser.getControl('Apply').click()
+
+Create new channel and make sure we have a channel using each of our two collectors.
+First set default channel to use default collector:
+
+  >>> browser.open(portal.absolute_url()+'/portal_newsletters/channels')
+  >>> browser.getControl(name='crud-edit.default-channel.widgets.collector:list').displayValue = ['Latest news']
+  >>> browser.getControl('Apply changes').click()
+
+Then add new channel that uses our "Tales from.." collector:
+
+  >>> browser.getControl('Title').value = 'TFTC newsletter'
+  >>> browser.getControl('Collector (what)').displayValue = ['Tales from the crypt']
+  >>> browser.getControl('Add').click()
+  
+  
+Create Channel subscribe portlet
+--------------------------------
+
   >>> browser.open(portal.absolute_url())
   >>> browser.getLink('Manage portlets').click()
   >>> 'Add portlet' in browser.contents
@@ -50,9 +102,10 @@ Create Channel subscribe portlet
   >>> browser.getControl('Portlet description').value = 'Enter your email to subscribe to our latest news.'
   >>> browser.getControl('Add').click()
   >>> 'Subscribe to News' in browser.contents
-  True
+  True   
 
-Now lets edit it
+  
+Now lets edit it - setting subscriber options. 
 
   >>> browser.getLink('Subscribe to News').click()
   >>> 'Edit Channel Subscribe Portlet' in browser.contents
@@ -63,4 +116,12 @@ Subscribe via portlet
   
   >>> browser.open(portal.absolute_url())
 
-  
+
+What happens if we delete a collector that is used on a channel? This should go somewhere in browser.txt:
+
+#   >>> browser.open(portal.absolute_url()+'/portal_newsletters/collectors')
+#   >>> browser.getControl(name='crud-edit.default-latest-news.widgets.select:list').value = ['selected']
+#   >>> browser.getControl('Delete').click()
+#   >>> browser.open(portal.absolute_url()+'/portal_newsletters/channels')
+#   >>> 'Channel administration' in browser.contents
+#   True

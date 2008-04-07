@@ -17,6 +17,7 @@ from plone.memoize.instance import memoize
 from plone.memoize import ram
 from plone.memoize.compress import xhtml_compress
 
+from sets import Set
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 import collective.singing
@@ -42,13 +43,10 @@ class IChannelSubscribePortlet(IPortletDataProvider):
     description = schema.TextLine(title=_(u"Portlet description"),
                            description=_(u"Description of the rendered portlet"),
                            required=True)
-    show_options = schema.Bool(title=_(u"Set collector options"),
+    set_options = schema.Bool(title=_(u"Set collector options"),
                             description=_(u"Click here to select collector options to be automatically enabled, when subscribing from this portlet."),
                             required=True,
                             default=True)
-    test = schema.Set(title=u"Test",
-                      description=u"Just to see how sets are stored on the assignment",
-                      value_type=schema.Choice(vocabulary=test_vocab))
 
 class Assignment(base.Assignment):
     """
@@ -60,20 +58,20 @@ class Assignment(base.Assignment):
     header = u""
     descriptions = False
     channel=None
-    show_options = True
+    set_options = True
 
     def __init__(self,
                  header=u"",
                  description=u"",
                  channel=None,
-                 show_options=True,
+                 set_options=True,
                  test=None):
         self.header = header
         self.description = description
         self.channel = channel
-        self.show_options = show_options
-        self.test = test
-        self.selected_collectors = []
+        self.set_options = set_options
+        self.selected_collectors = Set()
+
     @property
     def title(self):
         """This property is used to give the title of the portlet in the
@@ -92,6 +90,44 @@ class Assignment(base.Assignment):
 class PortletSubscriptionAddForm(SubscriptionAddForm):
     """ """
     template = viewpagetemplatefile.ViewPageTemplateFile('titlelessform.pt')
+
+    assignment = None
+
+#     def updateWidgets(self):
+#         super(PortletSubscriptionAddForm, self).updateWidgets()
+#         if self.assignment.set_options:
+#             for name in self.context.collector.schema.names():
+#                 self.widgets[name].mode = z3c.form.interfaces.HIDDEN_MODE
+        
+    @property
+    def fields(self):
+        fields = z3c.form.field.Fields(self.context.composers[self.format].schema,
+                              prefix='composer.')
+        if self.context.collector is not None:
+            collector_schema = self.context.collector.schema
+
+            if self.assignment.set_options:
+                collector_fields = []
+                for name in collector_schema.names(): 
+                    field = collector_schema.get(name) 
+                    assignment_values = getattr(self.assignment, name)
+                    # Discard values that are no longer in the field vocabulary
+                    # I.e. do not fail simply because optional blocks are no longer there.
+                    discard = Set()
+                    for value in assignment_values:
+                        if value not in field.value_type.vocabulary:
+                            discard.add(value)
+                    values = assignment_values.difference(discard)
+                    field.default = values 
+                    collector_fields.append((name,field))
+               
+                    collector_schema = z3c.form.field.Fields(interface.interface.InterfaceClass( 
+                        'Schema', bases=(ICollectorSchema,), 
+                        attrs=dict(collector_fields))) 
+
+            fields += z3c.form.field.Fields(collector_schema,
+                                            prefix='collector.')
+        return fields
     
 class Renderer(base.Renderer):
     """Portlet renderer.
@@ -111,6 +147,7 @@ class Renderer(base.Renderer):
         collective.singing.z2.switch_on(self)
         if self.channel is not None:
             self.form = PortletSubscriptionAddForm(self.channel, self.request)
+            self.form.assignment = self.data
             self.form.format = 'html'
             self.form.update()
         
@@ -146,40 +183,80 @@ class EditCollectorOptionsForm(z3c.form.subform.EditSubForm):
         '../browser/subform.pt')
 
     css_class = 'subForm subForm-level-1'
-    ignoreContext = False
+    ignoreContext = True
 
     @property
     def ignoreRequest(self):
         return not self.selected_channel
-    
-    prefix = property(prefix)
-    
-    def __init__(self, context, request, channel, parentForm):
-        self.context = context
-        self.request = request
-        self.channel = channel
-        self.parentForm = self.__parent__ = parentForm
-        self.heading = 'Options for %s'%channel.Title()
-        self.collector_schema = channel.collector.schema
-        #interface.directlyProvides(context, self.collector_schema)
-        #XXX:  Is this a memory leak?
-        @component.adapter(Assignment)
-        @interface.implementer(self.collector_schema)
-        def hack_for_dynamic_interface(assignment):
-            return assignment
-        component.provideAdapter(hack_for_dynamic_interface)
-        
-    @property
-    def fields(self):
-        return z3c.form.field.Fields(self.collector_schema)
 
     @property
-    def label(self):
-        return _(u"${channel} options", mapping={'channel':self.channel.Title()})
+    def heading(self):
+        return _(u"${channel} options", mapping={'channel':self.context.Title()})
 
     @property
     def selected_channel(self):
         return self.context == self.parentForm.context.channel
+
+    prefix = property(prefix)
+    
+#     def __init__(self, context, request, channel, parentForm):
+#         self.context = context
+#         self.request = request
+#         self.channel = channel
+#         self.parentForm = self.__parent__ = parentForm
+#         self.heading = 'Options for %s'%channel.Title()
+#         self.collector_schema = channel.collector.schema
+#         #interface.directlyProvides(context, self.collector_schema)
+#         #XXX:  Is this a memory leak?
+#         @component.adapter(Assignment)
+#         @interface.implementer(self.collector_schema)
+#         def hack_for_dynamic_interface(assignment):
+#             return assignment
+#         component.provideAdapter(hack_for_dynamic_interface)
+        
+    @z3c.form.button.handler(z3c.form.form.EditForm.buttons['apply']) 
+    def handleApply(self, action): 
+        if self.selected_channel: 
+            data, errors = self.widgets.extract() 
+            if errors: 
+                self.status = self.formErrorsMessage 
+                return 
+            assignment = self.parentForm.context 
+            changed = False 
+            for field, value in data.items(): 
+                if hasattr(assignment, field) and getattr(assignment, field) == value: 
+                    continue 
+                setattr(assignment, field, value) 
+                changed = True 
+                
+            if changed: 
+                event.notify( 
+                    lifecycleevent.ObjectModifiedEvent(assignment)) 
+                self.status = self.successMessage 
+            else: 
+                self.status = self.noChangesMessage 
+
+    @property
+    def fields(self):
+        if self.selected_channel:
+            fields = [] 
+            for name in self.context.collector.schema.names(): 
+                field = self.context.collector.schema.get(name) 
+                assignment_values = getattr(self.parentForm.context, name)
+                # discard values that are not in this collectors vocabulary
+                # The collector may be changed or entirely different since
+                # last save.
+                discard = Set()
+                for value in assignment_values:
+                    if value not in field.value_type.vocabulary:
+                        discard.add(value)
+                values = assignment_values.difference(discard)
+                field.default = values 
+                fields.append((name,field)) 
+            return z3c.form.field.Fields(interface.interface.InterfaceClass( 
+                'Schema', bases=(ICollectorSchema,), 
+                attrs=dict(fields))) 
+        return z3c.form.field.Fields(self.context.collector.schema)
 
     
 class ChannelSubscribePortletEditForm(z3c.form.form.EditForm):
@@ -195,9 +272,8 @@ class ChannelSubscribePortletEditForm(z3c.form.form.EditForm):
         self.subforms = []
         for channel in self.context.all_channels:
             if channel.collector is not None:
-                option_form = EditCollectorOptionsForm(self.context,
+                option_form = EditCollectorOptionsForm(channel,
                                                        self.request,
-                                                       channel,
                                                        self)
                 option_form.update()
                 self.subforms.append(option_form)
@@ -274,9 +350,9 @@ class ChannelSubscribePortletAddForm(z3c.form.form.AddForm):
 
     subforms = []
 
-    def __init__(self, context, request):
-        super(ChannelSubscribePortletAddForm, self).__init__(context, request)
-        self.update_subforms()
+#     def __init__(self, context, request):
+#         super(ChannelSubscribePortletAddForm, self).__init__(context, request)
+#         self.update_subforms()
     
     def create(self, data):
         return Assignment(**data)
@@ -285,20 +361,24 @@ class ChannelSubscribePortletAddForm(z3c.form.form.AddForm):
         self.context.add(object)
 
     def nextURL(self):
-        #XXX: this should be computed
-        return '../../@@manage-portlets'
+        # XXX: this should be prettier/more stable
+        set_options = self.request.get('form.widgets.set_options', '') == [u'true']
+        if set_options:
+            return '../%s/edit' % (self.context.items()[-1][0])
+        else:
+            return '../../@@manage-portlets'
         
-    def update_subforms(self):
-        channels = component.queryUtility(collective.singing.interfaces.IChannelLookup)()
-        if channels is not None:
-            for channel in channels:
-                if channel.collector is not None:
-                    option_form = EditCollectorOptionsAddForm(self.context,
-                                                              self.request,
-                                                              channel,
-                                                              self)
-                    option_form.update()
-                    self.subforms.append(option_form)
+#     def update_subforms(self):
+#         channels = component.queryUtility(collective.singing.interfaces.IChannelLookup)()
+#         if channels is not None:
+#             for channel in channels:
+#                 if channel.collector is not None:
+#                     option_form = EditCollectorOptionsAddForm(self.context,
+#                                                               self.request,
+#                                                               channel,
+#                                                               self)
+#                     option_form.update()
+#                     self.subforms.append(option_form)
 
      
 class ChannelSubscribePortletAddView(ChannelSubscribePortletView):
