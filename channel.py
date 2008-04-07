@@ -105,6 +105,14 @@ class Channel(OFS.SimpleItem.SimpleItem):
     def Title(self):
         return self.title
 
+@component.adapter(collective.singing.interfaces.ICollector,
+                   zope.app.container.interfaces.IObjectRemovedEvent)
+def collector_removed(collector, event):
+    for channel in channel_lookup():
+        if isinstance(channel, Channel):
+            if aq_base(channel.collector) is aq_base(collector):
+                channel.collector = None
+
 class Subscription(collective.singing.subscribe.SimpleSubscription):
     _channel = None
     @apply
