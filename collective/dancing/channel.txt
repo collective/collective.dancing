@@ -37,3 +37,26 @@ Let's create another channel and ask for the list of channels again:
   [<Channel at /plone/portal_newsletters/channels/default-channel>, 
    <Channel at /plone/portal_newsletters/channels/wq>]
 
+Channels and collectors
+-----------------------
+
+Our default channel has no collector by default:
+
+  >>> channel = component.getUtility(IChannelLookup)()[0]
+  >>> channel.collector is None
+  True
+
+We can assign the default collector to our channel like this:
+
+  >>> collectors = self.portal['portal_newsletters']['collectors']
+  >>> collector = collectors['default-latest-news']
+  >>> channel.collector = collector
+
+Should we now decide to remove the collector, the channel's reference
+to the collector will be gone:
+
+  >>> channel.collector
+  <Collector at /plone/portal_newsletters/channels/default-channel/default-latest-news>
+  >>> collectors.manage_delObjects(['default-latest-news'])
+  >>> channel.collector is None
+  True

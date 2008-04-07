@@ -37,6 +37,7 @@
            name="Channel Vocabulary" />
   <subscriber handler=".channel.tool_added" />
   <subscriber handler=".channel.channels_added" /> 
+  <subscriber handler=".channel.collector_removed" /> 
 
   <utility component=".collector.collector_vocabulary"
            name="Collector Vocabulary" />
