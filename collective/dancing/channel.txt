@@ -60,3 +60,15 @@ to the collector will be gone:
   >>> collectors.manage_delObjects(['default-latest-news'])
   >>> channel.collector is None
   True
+
+Salt
+----
+
+An ISalt utility is created at install time.  It's available for us:
+
+  >>> from zope.app.component import hooks
+  >>> from collective.singing.interfaces import ISalt
+  >>> hooks.setSite(portal)
+  >>> salt = component.getUtility(ISalt)
+  >>> len(salt)
+  50

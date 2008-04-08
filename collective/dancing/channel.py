@@ -1,7 +1,11 @@
+import random
+import string
+from UserString import UserString
+
 from zope import component
 from zope import interface
 import zope.app.container.interfaces
-
+import zope.app.component.hooks
 from Acquisition import aq_base
 import OFS.event
 import OFS.Folder
@@ -35,6 +39,21 @@ def channel_vocabulary(context):
 interface.alsoProvides(channel_vocabulary,
                        zope.schema.interfaces.IVocabularyFactory)
 
+class Salt(UserString):
+    """
+      >>> len(Salt())
+      50
+    """
+    interface.implements(collective.singing.interfaces.ISalt)
+
+    def __init__(self, data=''):
+        if data:
+            UserString.__init__(self, data)
+            return
+        salt = ''.join([
+            random.choice(string.letters + string.digits) for i in range(50)])
+        UserString.__init__(self, salt)
+
 class IPortalNewsletters(interface.Interface):
     pass
 
@@ -45,12 +64,19 @@ class PortalNewsletters(OFS.Folder.Folder):
 @component.adapter(IPortalNewsletters,
                    zope.app.container.interfaces.IObjectAddedEvent)
 def tool_added(tool, event):
+    # Add children
     factories = dict(channels=ChannelContainer,
                      collectors=collective.dancing.collector.CollectorContainer)
     existing = tool.objectIds()
     for name, factory in factories.items():
         if name not in existing:
             tool[name] = factory(name)
+
+    # Create and register salt
+    salt = Salt()
+    sm = zope.app.component.hooks.getSite().getSiteManager()
+    tool.salt = salt
+    sm.registerUtility(salt, collective.singing.interfaces.ISalt)
 
 class IChannelContainer(interface.Interface):
     pass
