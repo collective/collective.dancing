@@ -20,6 +20,7 @@ Setup
 
 We want messages to be printed out instead of sending them:
 
+  >>> import re
   >>> from zope import interface, component
   >>> import zope.sendmail.interfaces
 
@@ -34,6 +35,15 @@ We want messages to be printed out instead of sending them:
   ...         print 'Message follows:'
   ...         print message
   ...         self.sent.append(message)
+  ... 
+  ...     @classmethod
+  ...     def last_messages(klass, purge=True):
+  ...         klass.sent = sorted(klass.sent,
+  ...             key=lambda msg: re.findall('To: .*$', msg, re.MULTILINE))
+  ...         value = '\n'.join(klass.sent)
+  ...         if purge:
+  ...             klass.sent = []
+  ...         return value
 
   >>> component.provideUtility(MyMailDelivery())
 
@@ -231,10 +241,6 @@ We'll add another subscription.  This one filters on the content type:
   >>> browser.getControl('Add').click()
   >>> 'Item added successfully' in browser.contents
   True
-
-  >>> print browser.contents # doctest: +ELLIPSIS
-  <!DOCTYPE...daniel@localhost...
-  ...mailman@localhost...value="default-latest-news/0" checked="checked" />...
 
 Stats
 -----
@@ -439,18 +445,18 @@ sent:
   >>> channel.scheduler.active = True
   >>> channel.scheduler.tick(channel)
   3
-  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  >>> channel.queue.dispatch()
   *MyMailDelivery sending*:
-  From: Site Administrator <>
-  To: root@localhost
-  Message follows:
+  ...
+  (3, 0)
+
+  >>> print MyMailDelivery.last_messages(purge=False) \
+  ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  Content-Type: multipart/alternative;
   ...
   Subject: Plone site: My other channel
   ...
-  Super Bowl XLII
-  ...
-  Our newsletter rocks!
-  ...
+  From: Site Administrator <>
   To: daniel@localhost
   ...
   Super Bowl XLII
@@ -461,17 +467,24 @@ sent:
   ...
   Drug-resistant flu rising, says WHO
   ...
-  (3, 0)
+  To: root@localhost
+  ...
+  ...
+  Super Bowl XLII
+  ...
+  Our newsletter rocks!
+  ...
 
 Let's take a closer look at the mail that's sent to mailman:
 
-  >>> msg = quopri.decodestring(MyMailDelivery.sent[-1])
+  >>> msg = quopri.decodestring(MyMailDelivery.sent[-2])
   >>> 'mailman@localhost' in msg
   True
   >>> "Super Bowl" in msg
   False
   >>> msg # doctest: +ELLIPSIS
   '...<a href="http://nohost/plone/portal_newsletters/channels/my-other-channel/unsubscribe.html?secret=...">...Click here to unsubscribe...</a>...'
+  >>> neglect = MyMailDelivery.last_messages(purge=True)
 
 Ticking the scheduler a second time won't do anything:
 
@@ -507,10 +520,9 @@ messages to be queued again:
   >>> channel.scheduler.tick(channel)
   3
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS
-  *MyMailDelivery sending*:
-  ...
-  To: root@localhost...To: daniel@localhost...To: mailman@localhost...
-  (3, 0)
+  *MyMailDelivery sending*:...(3, 0)
+  >>> print MyMailDelivery.last_messages() # doctest: +ELLIPSIS
+  Content-Type:...To: daniel@localhost...To: mailman@localhost...To: root@localhost...
 
 We can choose another scheduler for our channel by visiting the
 channel administration screen.  But for now, let's resubmit the form
@@ -563,10 +575,10 @@ The scheduler will send messages now:
   >>> channel.scheduler.tick(channel)
   3
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS
-  *MyMailDelivery sending*:
-  ...
-  To: root@localhost...To: daniel@localhost...To: mailman@localhost...
-  (3, 0)
+  *MyMailDelivery sending*:...(3, 0)
+  >>> print MyMailDelivery.last_messages() # doctest: +ELLIPSIS
+  Content-Type:...To: daniel@localhost...To: mailman@localhost...To: root@localhost...
+
 
 Now it's silent again:
 
@@ -581,10 +593,11 @@ check by using the "Trigger now" button:
   >>> "3 messages queued" in browser.contents
   True
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS
-  *MyMailDelivery sending*:
-  ...
-  To: root@localhost...To: daniel@localhost...To: mailman@localhost...
-  (3, 0)
+  *MyMailDelivery sending*:...(3, 0)
+
+  >>> print MyMailDelivery.last_messages() # doctest: +ELLIPSIS
+  Content-Type:...To: daniel@localhost...To: mailman@localhost...To: root@localhost...
+
 
 Sending newsletters from content objects
 ----------------------------------------
@@ -621,7 +634,6 @@ When we click send, the newsletter(s) will be dispatched immediately.
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *MyMailDelivery sending*:
   ...
-  To: root@localhost...To: daniel@localhost...To: mailman@localhost...
   Welcome to Plone...Vickar's daughter...
 
   >>> "3 messages queued" in browser.contents
