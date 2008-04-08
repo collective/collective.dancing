@@ -1,3 +1,4 @@
+import persistent.dict
 from Acquisition import aq_parent, aq_inner
 from zope import component
 from zope import event
@@ -87,47 +88,65 @@ class Assignment(base.Assignment):
         return channels
 
 
-class PortletSubscriptionAddForm(SubscriptionAddForm):
+class ValuesMixin(object):
+    """Mix-in class that allows convenient access to data stored on
+    the assignment."""
+
+    channel_id = None
+    assignment = None
+
+    @apply
+    def stored_values():
+        def get(self):
+            d = getattr(self.assignment, '_stored_values',
+                        persistent.dict.PersistentDict())
+            return d.setdefault(
+                self.channel_id, persistent.dict.PersistentDict())
+        def set(self, value):
+            d = getattr(self.assignment, '_stored_values',
+                        persistent.dict.PersistentDict())
+            d[self.channel_id] = value
+            self.assignment._stored_values = d
+        return property(get, set)
+    
+class PortletSubscriptionAddForm(ValuesMixin, SubscriptionAddForm):
     """ """
     template = viewpagetemplatefile.ViewPageTemplateFile('titlelessform.pt')
 
     assignment = None
 
-#     def updateWidgets(self):
-#         super(PortletSubscriptionAddForm, self).updateWidgets()
-#         if self.assignment.set_options:
-#             for name in self.context.collector.schema.names():
-#                 self.widgets[name].mode = z3c.form.interfaces.HIDDEN_MODE
-        
-    @property
-    def fields(self):
-        fields = z3c.form.field.Fields(self.context.composers[self.format].schema,
-                              prefix='composer.')
+    def update(self):
+        super(PortletSubscriptionAddForm, self).update()
+        self.channel_id = self.context.id
+
         if self.context.collector is not None:
+            stored_values = self.stored_values
             collector_schema = self.context.collector.schema
 
-            if self.assignment.set_options:
-                collector_fields = []
-                for name in collector_schema.names(): 
-                    field = collector_schema.get(name) 
-                    assignment_values = getattr(self.assignment, name)
-                    # Discard values that are no longer in the field vocabulary
-                    # I.e. do not fail simply because optional blocks are no longer there.
-                    discard = Set()
-                    for value in assignment_values:
-                        if value not in field.value_type.vocabulary:
-                            discard.add(value)
-                    values = assignment_values.difference(discard)
-                    field.default = values 
-                    collector_fields.append((name,field))
-               
-                    collector_schema = z3c.form.field.Fields(interface.interface.InterfaceClass( 
-                        'Schema', bases=(ICollectorSchema,), 
-                        attrs=dict(collector_fields))) 
+            for name in collector_schema.names():
+                field = collector_schema.get(name)
+                widget = self.widgets['collector.' + name]
+                stored_value = stored_values.get(name)
 
-            fields += z3c.form.field.Fields(collector_schema,
+                if stored_value is not None:
+                    vocabulary = field.value_type.vocabulary
+                    value = set([v for v in stored_value
+                                 if v in field.value_type.vocabulary])
+
+                    converter = z3c.form.interfaces.IDataConverter(widget)
+                    widget.value = converter.toWidgetValue(value)
+                    widget.update()
+
+    @property
+    def fields(self):
+        fields = z3c.form.field.Fields(
+            self.context.composers[self.format].schema,
+            prefix='composer.')
+        if self.context.collector is not None and self.assignment.set_options:
+            fields += z3c.form.field.Fields(self.context.collector.schema,
                                             prefix='collector.')
         return fields
+
     
 class Renderer(base.Renderer):
     """Portlet renderer.
@@ -177,7 +196,7 @@ def prefix(self):
     return str(self.__class__.__name__ + '-'.join(self.context.getPhysicalPath()))
 
 
-class EditCollectorOptionsForm(z3c.form.subform.EditSubForm):
+class EditCollectorOptionsForm(ValuesMixin, z3c.form.subform.EditSubForm):
     """Edit a single collectors options."""
     template = viewpagetemplatefile.ViewPageTemplateFile(
         '../browser/subform.pt')
@@ -186,78 +205,74 @@ class EditCollectorOptionsForm(z3c.form.subform.EditSubForm):
     ignoreContext = True
 
     @property
-    def ignoreRequest(self):
-        return not self.selected_channel
-
-    @property
     def heading(self):
         return _(u"${channel} options", mapping={'channel':self.context.Title()})
 
-    @property
-    def selected_channel(self):
-        return self.context == self.parentForm.context.channel
-
     prefix = property(prefix)
-    
-#     def __init__(self, context, request, channel, parentForm):
-#         self.context = context
-#         self.request = request
-#         self.channel = channel
-#         self.parentForm = self.__parent__ = parentForm
-#         self.heading = 'Options for %s'%channel.Title()
-#         self.collector_schema = channel.collector.schema
-#         #interface.directlyProvides(context, self.collector_schema)
-#         #XXX:  Is this a memory leak?
-#         @component.adapter(Assignment)
-#         @interface.implementer(self.collector_schema)
-#         def hack_for_dynamic_interface(assignment):
-#             return assignment
-#         component.provideAdapter(hack_for_dynamic_interface)
-        
-    @z3c.form.button.handler(z3c.form.form.EditForm.buttons['apply']) 
-    def handleApply(self, action): 
-        if self.selected_channel: 
-            data, errors = self.widgets.extract() 
-            if errors: 
-                self.status = self.formErrorsMessage 
-                return 
-            assignment = self.parentForm.context 
-            changed = False 
-            for field, value in data.items(): 
-                if hasattr(assignment, field) and getattr(assignment, field) == value: 
-                    continue 
-                setattr(assignment, field, value) 
-                changed = True 
-                
-            if changed: 
-                event.notify( 
-                    lifecycleevent.ObjectModifiedEvent(assignment)) 
-                self.status = self.successMessage 
-            else: 
-                self.status = self.noChangesMessage 
 
     @property
     def fields(self):
-        if self.selected_channel:
-            fields = [] 
-            for name in self.context.collector.schema.names(): 
-                field = self.context.collector.schema.get(name) 
-                assignment_values = getattr(self.parentForm.context, name)
+        return z3c.form.field.Fields(self.context.collector.schema)
+
+
+    @property
+    def channel_id(self):
+        return self.context.id
+
+    @property
+    def assignment(self):
+        return self.parentForm.context
+
+    @z3c.form.button.handler(z3c.form.form.EditForm.buttons['apply']) 
+    def handleApply(self, action): 
+        data, errors = self.extractData()
+        if errors: 
+            self.status = self.formErrorsMessage 
+            return
+
+        stored_values = self.stored_values
+        changed = False 
+
+        for name, widget_value in data.items():
+            if stored_values.get(name) == widget_value:
+                continue
+            else:
+                stored_values[name] = widget_value
+            changed = True 
+
+        if changed: 
+            self.stored_values = stored_values
+            self.status = self.successMessage 
+        else: 
+            self.status = self.noChangesMessage
+
+    def update(self):
+        super(EditCollectorOptionsForm, self).update()
+
+        # We add some logic here to set widget values from stored
+        # values if they weren't provided in the request.  Note that
+        # we have ``ignoreContext = True``.
+
+        stored_values = self.stored_values
+        for name in self.context.collector.schema.names(): 
+            field = self.context.collector.schema.get(name) 
+            widget = self.widgets[name]
+            stored_value = stored_values.get(name)
+            widget_value = widget.extract()
+
+            if (widget_value is z3c.form.interfaces.NOVALUE and
+                stored_value is not None):
+
                 # discard values that are not in this collectors vocabulary
                 # The collector may be changed or entirely different since
                 # last save.
-                discard = Set()
-                for value in assignment_values:
-                    if value not in field.value_type.vocabulary:
-                        discard.add(value)
-                values = assignment_values.difference(discard)
-                field.default = values 
-                fields.append((name,field)) 
-            return z3c.form.field.Fields(interface.interface.InterfaceClass( 
-                'Schema', bases=(ICollectorSchema,), 
-                attrs=dict(fields))) 
-        return z3c.form.field.Fields(self.context.collector.schema)
+                vocabulary = field.value_type.vocabulary
+                value = set([v for v in stored_value
+                             if v in field.value_type.vocabulary])
 
+                converter = z3c.form.interfaces.IDataConverter(widget)
+                widget.value = converter.toWidgetValue(value)
+                widget.update()
     
 class ChannelSubscribePortletEditForm(z3c.form.form.EditForm):
     """  """
