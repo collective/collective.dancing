@@ -48,7 +48,8 @@ class HTMLComposer(object):
 
     @staticmethod
     def secret(data):
-        return md5.new(data['email'] + 'XXX').hexdigest()
+        salt = component.getUtility(collective.singing.interfaces.ISalt)
+        return md5.new(data['email'] + str(salt)).hexdigest()
     
     context = None
     @property
