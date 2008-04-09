@@ -148,8 +148,33 @@ def plone_html_strip(html):
     second_index = html.find('<div class="visualClear"', first_index)
     return html[first_index:second_index]
 
-class HTMLFormatter(object):
-    """Format HTML for callable items.
+class CMFDublinCoreHTMLFormatter(object):
+    """Render a brief representation of an IBaseContent for HTML.
+    """
+    interface.implements(collective.singing.interfaces.IFormatItem)
+    component.adapts(Products.CMFCore.interfaces.IMinimalDublinCore)
+
+    template = """\
+    <div>
+      <h2><a href="%(url)s">%(title)s</a></h2>
+      <p>%(description)s</p>
+    </div>
+    """
+    
+    def __init__(self, item):
+        self.item = item
+
+    def __call__(self):
+        i = self.item
+        return self.template % dict(
+            url=i.absolute_url(), title=i.Title(), description=i.Description())
+
+class PloneCallHTMLFormatter(object):
+    """Assumes that item is callable and returns an HTML
+    representation.
+
+    If what ``item()`` returns looks like a rendered Plone page, this
+    formatter will try and strip away all irrelevant parts.
     """
     interface.implements(collective.singing.interfaces.IFormatItem)
 
@@ -158,7 +183,10 @@ class HTMLFormatter(object):
 
     def __call__(self):
         html = self.item()
-        return plone_html_strip(html)
+        if 'kss' in html:
+            return plone_html_strip(html)
+        else:
+            return html
 
 class SMTPMailer(object):
     """A mailer for use with zope.sendmail that fetches settings from

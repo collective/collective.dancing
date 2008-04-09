@@ -1,3 +1,5 @@
+import datetime
+
 from zope import schema
 from zope.app.pagetemplate import viewpagetemplatefile
 from z3c.form import form
@@ -7,9 +9,9 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 import collective.singing.z2
 import collective.singing.scheduler
-import datetime
 
 from collective.dancing import MessageFactory as _
+from collective.dancing.composer import PloneCallHTMLFormatter
 
 class SendAsNewsletterForm(form.Form):
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
@@ -41,7 +43,9 @@ class SendAsNewsletterForm(form.Form):
         queued = 0
         for channel in channels:
             queued += collective.singing.scheduler.assemble_messages(
-                channel, (self.context,), include_collector_items)
+                channel,
+                (PloneCallHTMLFormatter(self.context),),
+                include_collector_items)
             if channel.scheduler is not None and include_collector_items:
                 channel.scheduler.triggered_last = datetime.datetime.now()
             channel.queue.dispatch()

@@ -46,7 +46,11 @@
   <adapter factory=".collector.collectordata_from_subscription" />
 
   <adapter factory=".composer.composerdata_from_subscription" />
-  <adapter factory=".composer.HTMLFormatter"
-           for="Products.Archetypes.interfaces.IBaseObject" />
+  <adapter factory=".composer.CMFDublinCoreHTMLFormatter"
+           for="Products.CMFCore.interfaces.IDublinCore"
+           name="html" />
+  <five:implements
+      interface="Products.CMFCore.interfaces.IDublinCore"
+      class="Products.Archetypes.BaseContent.BaseContent" />
 
 </configure>

@@ -108,3 +108,30 @@ that it has the right settings:
   >>> cfg = smtp._fetch_settings()
   >>> cfg['username'], cfg['password'], cfg['hostname'], cfg['port']
   (None, None, 'localhost', 25)
+
+
+Formatters
+==========
+
+HTML formatters
+---------------
+
+  >>> from collective.dancing import composer
+
+The CMFDublinCoreHTMLFormatter renders objects providing the CMF
+Dublin Core interface:
+
+  >>> print composer.CMFDublinCoreHTMLFormatter(portal['front-page'])() \
+  ... # doctest: +NORMALIZE_WHITESPACE
+  <div>
+    <h2><a href="http://nohost/plone/front-page">Welcome to Plone</a></h2>
+    <p>Congratulations! You have successfully installed Plone.</p>
+  </div>
+
+The PloneCallHTMLFormatter assumes that the item passed to it is a
+Plone object that returns its Plone view when called:
+
+  >>> print composer.PloneCallHTMLFormatter(portal['front-page'])() \
+  ... # doctest: +ELLIPSIS
+  <h1 class="documentFirstHeading">...Welcome to Plone...
+  Congratulations! You have successfully installed Plone...
