@@ -188,6 +188,23 @@ class PloneCallHTMLFormatter(object):
         else:
             return html
 
+class IFullFormat(interface.Interface):
+    pass
+
+class IFullFormatter(collective.singing.interfaces.IFormatItem):
+    pass
+
+class FullFormat(object):
+    interface.implements(IFullFormat)
+    def __init__(self, item):
+        self.item = item
+
+@component.adapter(IFullFormat)
+@interface.implementer(collective.singing.interfaces.IFormatItem)
+def HTMLFormatItemFully(fullformat):
+    return component.getAdapter(
+        fullformat.item, IFullFormatter, name='html')
+
 class SMTPMailer(object):
     """A mailer for use with zope.sendmail that fetches settings from
     the Plone site's configuration.

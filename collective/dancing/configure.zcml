@@ -53,4 +53,13 @@
       interface="Products.CMFCore.interfaces.IDublinCore"
       class="Products.Archetypes.BaseContent.BaseContent" />
 
+  <adapter factory=".composer.HTMLFormatItemFully"
+           name="html" />
+
+  <!-- In the future, we'll want more than just this call formatter -->
+  <adapter factory=".composer.PloneCallHTMLFormatter"
+           for="Products.CMFCore.interfaces.IContentish"
+           provides=".composer.IFullFormatter"
+           name="html" />
+
 </configure>
