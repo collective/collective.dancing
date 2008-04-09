@@ -62,7 +62,7 @@ class HTMLComposer(object):
         properties = component.getUtility(
             Products.CMFCore.interfaces.IPropertiesTool)
         return collective.singing.mail.header(
-            '%s <%s>' %
+            u'%s <%s>' %
             (properties.email_from_name, properties.email_from_address),
             encoding='UTF-8')
 

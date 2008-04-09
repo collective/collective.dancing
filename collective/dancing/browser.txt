@@ -664,7 +664,6 @@ We create a new item again...:
   >>> browser.getControl('Send').click() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *MyMailDelivery sending*:
   ...
-  To: root@localhost...To: daniel@localhost...To: mailman@localhost...
 
   >>> "3 messages queued" in browser.contents
   True
