@@ -38,12 +38,17 @@ We want messages to be printed out instead of sending them:
   ... 
   ...     @classmethod
   ...     def last_messages(klass, purge=True):
-  ...         klass.sent = sorted(klass.sent,
-  ...             key=lambda msg: re.findall('To: .*$', msg, re.MULTILINE))
+  ...         klass.order()
   ...         value = '\n'.join(klass.sent)
   ...         if purge:
   ...             klass.sent = []
   ...         return value
+  ... 
+  ...     @classmethod
+  ...     def order(klass):
+  ...         klass.sent = sorted(
+  ...             klass.sent,
+  ...             key=lambda msg: re.findall('To: .*$', msg, re.MULTILINE))
 
   >>> component.provideUtility(MyMailDelivery())
 
@@ -670,7 +675,8 @@ We create a new item again...:
 
 ... so our new News Item is not sent out.
 
-  >>> msg = quopri.decodestring(MyMailDelivery.sent[-1])
+  >>> MyMailDelivery.order()
+  >>> msg = quopri.decodestring(MyMailDelivery.sent[-3])
   >>> 'mailman@localhost' in msg
   True
   >>> "All is quiet on the western front" in msg
