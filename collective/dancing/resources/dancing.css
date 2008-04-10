@@ -53,4 +53,33 @@ div.crud-form td.error div.error {
     background-position: left center;
     padding-left: 20px;
 }
+.horizontal{
+    display: inline;
+    float: left;
+    margin-right: 1em;
+    
+} 
+.rowlike .fieldRequired{
+    width: 0px;
+    overflow: hidden;
+    
+}
+.form{
+    display: block;
+    clear: both;
+    margin-top: 0.5em;
+    padding-bottom: 2em;
+    border-bottom: 1px dashed #cccccc;
+}
 
+.form h3{
+    font-size: 100%;
+    font-weight: bold;
+    border: none;
+}
+
+h2{
+    display: block;
+    clear: both;
+    margin-top: 1.2em;
+}

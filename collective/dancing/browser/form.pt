@@ -1,1 +1,1 @@
-<metal:use use-macro="context/@@singing-macros/form" />
+<metal:use use-macro="context/@@dancing-macros/form" />

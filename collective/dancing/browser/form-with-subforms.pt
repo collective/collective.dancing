@@ -8,7 +8,7 @@
   <div class="portalMessage"
        tal:condition="view/status" tal:content="view/status">
   </div>
-
+halli
   <div tal:attributes="class view/css_class">
 
     <h2 tal:replace="structure view/heading" />
