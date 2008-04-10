@@ -139,6 +139,7 @@
      class=".sendnewsletter.SendAsNewsletterView"
      permission="cmf.ManagePortal"
      />
+  
   <page
       name="dancing-macros"
       for="*"
@@ -147,5 +148,13 @@
       allowed_interface="zope.interface.common.mapping.IItemMapping"
       permission="zope.Public"
       />
+
+  <page
+     name="dancing.utils"
+     for="*"
+     class=".utils.DancingUtilsView"
+     permission="cmf.ManagePortal"
+     allowed_interface=".utils.IDancingUtilsView"
+     />
         
 </zope:configure>
