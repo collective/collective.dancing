@@ -60,9 +60,11 @@ class HTMLComposer(object):
     def _from_address(self):
         properties = component.getUtility(
             Products.CMFCore.interfaces.IPropertiesTool)
+        charset = properties.site_properties.getProperty('default_charset', 'utf-8')
         return collective.singing.mail.header(
-            '%s <%s>' %
-            (properties.email_from_name, properties.email_from_address),
+            u'%s <%s>' %
+            (properties.email_from_name.decode(charset),
+             properties.email_from_address.decode(charset)),
             encoding='UTF-8')
 
     def _render_html(self, subscription, items, subject):
