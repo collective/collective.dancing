@@ -6,6 +6,7 @@ from zope import component
 from zope import interface
 import zope.app.container.interfaces
 import zope.app.component.hooks
+import AccessControl
 from Acquisition import aq_base
 import OFS.event
 import OFS.Folder
@@ -21,9 +22,13 @@ import collective.dancing.utils
 from collective.dancing import MessageFactory as _
 
 def channel_lookup():
-    root = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
+    root = component.queryUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
+    if root is None:
+        return []
     root = collective.dancing.utils.fix_request(root, 0)
-    return root['portal_newsletters']['channels'].objectValues()
+    channels = root['portal_newsletters']['channels'].objectValues()
+    security = AccessControl.getSecurityManager()
+    return [c for c in channels if security.checkPermission('View', c)]
 interface.directlyProvides(channel_lookup,
                            collective.singing.interfaces.IChannelLookup)
 
