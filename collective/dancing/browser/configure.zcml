@@ -140,14 +140,6 @@
      permission="cmf.ManagePortal"
      />
   
-  <page
-      name="dancing-macros"
-      for="*"
-      class=".macros.Macros"
-      template="macros.pt"
-      allowed_interface="zope.interface.common.mapping.IItemMapping"
-      permission="zope.Public"
-      />
 
   <page
      name="dancing.utils"
