@@ -53,18 +53,22 @@ div.crud-form td.error div.error {
     background-position: left center;
     padding-left: 20px;
 }
-.horizontal{
+
+#subscription-editforms .horizontal,
+#subscription-addforms .horizontal{
     display: inline;
     float: left;
     margin-right: 1em;
     
 } 
-.rowlike .fieldRequired{
+#subscription-editforms  .rowlike .fieldRequired,
+#subscription-addforms .rowlike .fieldRequired{
     width: 0px;
     overflow: hidden;
     
 }
-.form{
+#subscription-editforms .form,
+#subscription-addforms .form{
     display: block;
     clear: both;
     margin-top: 0.5em;
@@ -72,13 +76,20 @@ div.crud-form td.error div.error {
     border-bottom: 1px dashed #cccccc;
 }
 
-.form h3{
+
+.portlet-dancing .action{
+    padding-top: 0.5em;
+}
+
+#subscription-editforms .form h3,
+#subscription-addforms .form h3{
     font-size: 100%;
     font-weight: bold;
     border: none;
 }
 
-h2{
+#subscription-editforms h2, 
+#subscription-addforms h2{
     display: block;
     clear: both;
     margin-top: 1.2em;
