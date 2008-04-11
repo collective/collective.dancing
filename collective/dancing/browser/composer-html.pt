@@ -17,7 +17,7 @@
       newsletter.
     </p>
     <p>
-      <a href="" tal:attributes="href options/unsubscribe_url">
+      <a href="" tal:attributes="href options/unsubscribe_url" i18n:translate="">
         Click here to unsubscribe.
       </a>
     </p>

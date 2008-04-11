@@ -11,7 +11,7 @@
 
       <h1 tal:content="view/label">Configuration</h1>
 
-      <a href="#"
+      <a href="#" i18n:translate=""
          class="link-parent"
          tal:define="link view/back_link | nothing"
          tal:condition="link"
