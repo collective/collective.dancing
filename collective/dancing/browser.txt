@@ -393,6 +393,15 @@ meaningful message:
   >>> "Your subscription isn't known to us" in browser.contents
   True
 
+Trying to subscribe to the same channel and format with the same
+e-mail address fails:
+
+  >>> browser.open(channel.absolute_url() + '/subscribe.html')
+  >>> browser.getControl('E-mail address').value = u"ROOT@localhost"
+  >>> browser.getControl('Finish').click()
+  >>> "You are already subscribed." in browser.contents
+  True
+
 Unsubscribe
 -----------
 

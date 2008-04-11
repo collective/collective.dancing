@@ -30,6 +30,10 @@ class PrimaryLabelTextLine(schema.TextLine):
     interface.implements(collective.singing.interfaces.ISubscriptionKey,
                          collective.singing.interfaces.ISubscriptionLabel)
 
+    def fromUnicode(self, str):
+        value = super(PrimaryLabelTextLine, self).fromUnicode(str)
+        return value.lower()
+
 class IHTMLComposerSchema(interface.Interface):
     email = PrimaryLabelTextLine(title=_(u"E-mail address"),
                                  constraint=check_email)
