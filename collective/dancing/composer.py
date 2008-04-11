@@ -26,9 +26,13 @@ def check_email(value):
         raise InvalidEmailAddress
     return True
 
+class PrimaryLabelTextLine(schema.TextLine):
+    interface.implements(collective.singing.interfaces.ISubscriptionKey,
+                         collective.singing.interfaces.ISubscriptionLabel)
+
 class IHTMLComposerSchema(interface.Interface):
-    email = schema.TextLine(title=_(u"E-mail address"),
-                            constraint=check_email)
+    email = PrimaryLabelTextLine(title=_(u"E-mail address"),
+                                 constraint=check_email)
 
 @component.adapter(collective.singing.interfaces.ISubscription)
 @interface.implementer(IHTMLComposerSchema)

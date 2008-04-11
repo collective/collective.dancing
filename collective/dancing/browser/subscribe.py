@@ -15,10 +15,9 @@ import collective.singing.message
 import collective.singing.browser.subscribe
 
 from collective.dancing import MessageFactory as _
-from collective.dancing.channel import Subscription
 
 class SubscribeForm(collective.singing.browser.subscribe.Subscribe):
-    factory = Subscription
+    pass
 
 class Subscribe(BrowserView):
     template = ViewPageTemplateFile('skeleton.pt')
@@ -176,7 +175,7 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
             date=datetime.datetime.now(),
             pending=not secret_provided)
 
-        self.added = collective.dancing.channel.Subscription(
+        self.added = self.context.subscriptions.subscription_factory(
             self.context, secret, comp_data, coll_data, metadata)
 
         if not secret_provided:
@@ -189,8 +188,13 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
                                 mapping=dict(error=status_msg))
                 return
 
-        self.context.subscriptions[secret].append(self.added)
-        self.status = _(u"You subscribed successfully.")
+        try:
+            self.context.subscriptions.add(self.added)
+        except ValueError:
+            self.added = None
+            self.status = _(u"You are already subscribed.")
+        else:
+            self.status = _(u"You subscribed successfully.")
 
 class Subscriptions(BrowserView):
     __call__ = ViewPageTemplateFile('skeleton.pt')
