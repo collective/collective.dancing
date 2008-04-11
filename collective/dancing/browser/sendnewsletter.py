@@ -22,7 +22,8 @@ class SendAsNewsletterForm(form.Form):
         schema.Set(
             __name__='channels',
             title=_(u"The channel to send this through"),
-            value_type=schema.Choice(vocabulary='Channel Vocabulary')
+            value_type=schema.Choice(
+                vocabulary='collective.singing.vocabularies.ChannelVocabulary')
             ),
         schema.Bool(
             __name__='include_collector_items',

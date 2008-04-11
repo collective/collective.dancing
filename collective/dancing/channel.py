@@ -27,18 +27,6 @@ def channel_lookup():
 interface.directlyProvides(channel_lookup,
                            collective.singing.interfaces.IChannelLookup)
 
-def channel_vocabulary(context):
-    terms = []
-    for channel in channel_lookup():
-        terms.append(
-            zope.schema.vocabulary.SimpleTerm(
-                value=channel,
-                token=channel.name,
-                title=channel.title))
-    return zope.schema.vocabulary.SimpleVocabulary(terms)
-interface.alsoProvides(channel_vocabulary,
-                       zope.schema.interfaces.IVocabularyFactory)
-
 class Salt(UserString):
     """
       >>> len(Salt())

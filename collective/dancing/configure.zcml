@@ -33,8 +33,6 @@
       />
 
   <utility component=".channel.channel_lookup" />
-  <utility component=".channel.channel_vocabulary"
-           name="Channel Vocabulary" />
   <subscriber handler=".channel.tool_added" />
   <subscriber handler=".channel.channels_added" /> 
   <subscriber handler=".channel.collector_removed" /> 
