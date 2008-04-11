@@ -1,4 +1,4 @@
-<div tal:attributes="class view/css_class">
+<div tal:attributes="class view/css_class|nothing">
   <h3 tal:replace="structure view/heading|nothing" />
   <div tal:replace="structure view/contents_top|nothing" />
   <metal:use use-macro="context/@@singing-macros/fields" />
