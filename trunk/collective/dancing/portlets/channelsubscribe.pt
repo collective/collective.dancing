@@ -6,7 +6,7 @@
       i18n:domain="collective.dancing"
       tal:omit-tag="">
 
-<dl class="portlet portletCollection"
+<dl class="portlet portlet-dancing"
     tal:define="plone_view context/@@plone;
                 toLocalizedTime nocall:plone_view/toLocalizedTime;
                 getIcon nocall:plone_view/getIcon;">
@@ -16,28 +16,29 @@
       <span tal:content="view/data/header" />
       <span class="portletTopRight"></span>
     </dt>
-
-      <div>
-	<span>
-	  <span tal:content="view/data/description">
+    
+   <dd class="portletItem">
+      <div tal:content="view/data/description">
 	    Portlet description
-	  </span>
-	</span> 
-      </div>
-      <div>
-	<span tal:define="channel_link view/channel_link">
-	  <a href=""
+	  </div>
+
+	
+   <div tal:content="structure view/form/render">
+	   Subscribe form here
+   </div> 
+   <div class="visualClear"></div>  
+   </dd>
+   <dd class="portletFooter"
+       tal:define="channel_link view/channel_link">
+	  <a class="tile" 
+	     href=""
 	     tal:attributes="href channel_link/url">
 	    <span tal:content="channel_link/title">
 	      Link to channel
 	    </span>
 	  </a>
-	</span> 
-      </div>
-      <div tal:content="structure view/form/render">
-	Subscribe form here
-      </div>
-    
+	  
+   </dd> 
 </dl>
 
 </html>
