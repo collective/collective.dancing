@@ -104,19 +104,66 @@ Create Channel subscribe portlet
   >>> 'Subscribe to News' in browser.contents
   True   
 
-  
-Now lets edit it - setting subscriber options. 
+Since this is a z3c.form base portlet, we are not taken back to manage_portlets (yet).
+We do this manually by clicking the back link.
+
+  >>> browser.getLink('Back to portlets').click()
+
+Now lets edit it - setting subscriber options. We will choose to let the portlet set options, and choose only the News option.
 
   >>> browser.getLink('Subscribe to News').click()
   >>> 'Edit Channel Subscribe Portlet' in browser.contents
   True
+  >>> browser.getControl('The channel to enable subscriptions to.').displayValue = ['Newsletter']
+  >>> browser.getControl(name='form.widgets.subscribe_directly:list').value = ['true']
+  >>> default_collector_options = browser.getControl('News').control
+  >>> default_collector_options.displayOptions
+  ['News', 'Events']
+  >>> default_collector_options.displayValue = ['News']
+  >>> browser.getControl('Apply').click()
+
+Portlet now has the News option hidden in the rendered subscribe form.
+However, it seems we do not have a widget for hidden mode ;-(
+
+  >>> browser.open(portal.absolute_url())
+  >>> print browser.contents # doctest +ELLIPSIS +NORMALIZE_WHITESPACE
+  <!DOCTYPE...
+      <input type="hidden"
+             id="default-channel-html-widgets-collector-selected_collectors-0"
+             name="default-channel.html.widgets.collector.selected_collectors:list"
+             class="checkbox-widget required set-field required set-field"
+             value="default-latest-news/0" checked="checked" />
+  ...
   
 Subscribe via portlet
 ---------------------
   
   >>> browser.open(portal.absolute_url())
+  >>> browser.getControl('E-mail address').value = u'tmog@localhost'
+  >>> browser.getControl('Subscribe').click()
+  *MyMailDelivery sending*:
+  From: Site Administrator <>
+  To: tmog@localhost
+  Message follows:
+  ...
+  >>> "You subscribed successfully" in browser.contents
+  True
+
+If the portlet option "Subscribe directly from portlet" is deselected, the portlet will instead redirect the user to the channels subscribe page.
+
+  >>> browser.getLink('Manage portlets').click()
+  >>> browser.getLink('Subscribe to News').click()
+  >>> browser.getControl(name='form.widgets.subscribe_directly:list').value = ['false']
+  >>> browser.getControl('Apply').click()
+  >>> browser.open(portal.absolute_url())
+  >>> browser.getControl('E-mail address').value = u'tmog@localhost'
+  >>> browser.getControl('Proceed').click()
+  >>> browser.url
+  'http://nohost/plone/portal_newsletters/channels/default-channel/subscribe.html?composer.widgets.email=tmog%40localhost'
+  
 
 
+NOTE:
 What happens if we delete a collector that is used on a channel? This should go somewhere in browser.txt:
 
 #   >>> browser.open(portal.absolute_url()+'/portal_newsletters/collectors')

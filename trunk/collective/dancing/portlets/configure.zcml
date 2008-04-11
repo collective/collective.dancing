@@ -1,5 +1,6 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:browser="http://namespaces.zope.org/browser"
+	   xmlns:z3c="http://namespaces.zope.org/z3c"
            xmlns:plone="http://namespaces.plone.org/plone">
 
   <include package="plone.app.portlets" />
@@ -12,5 +13,12 @@
      addview="collective.dancing.portlets.channelsubscribe.ChannelSubscribePortletAddView" 
      editview="collective.dancing.portlets.channelsubscribe.ChannelSubscribePortletEditView" 
      />
+
+  <z3c:widgetTemplate
+      mode="hidden"
+      widget="z3c.form.interfaces.ICheckBoxWidget"
+      layer="z3c.form.interfaces.IFormLayer"
+      template="../browser/checkbox_hidden.pt"
+      />
 
 </configure>

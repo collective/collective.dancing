@@ -4,13 +4,14 @@ from zope import component
 from zope import event
 from zope import lifecycleevent
 from zope import interface
-from zope import publisher  
+from zope import publisher
+from zope import schema
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
 from zope.app.pagetemplate import viewpagetemplatefile
-from zope import schema
 from zope.formlib import form
 
+from urllib import urlencode
 from Products.Five import BrowserView
 import z3c.form
 
@@ -44,7 +45,7 @@ class IChannelSubscribePortlet(IPortletDataProvider):
     description = schema.TextLine(title=_(u"Portlet description"),
                            description=_(u"Description of the rendered portlet"),
                            required=True)
-    set_options = schema.Bool(title=_(u"Set collector options"),
+    subscribe_directly = schema.Bool(title=_(u"Subscribe directly from portlet"),
                             description=_(u"Click here to select collector options to be automatically enabled, when subscribing from this portlet."),
                             required=True,
                             default=True)
@@ -59,19 +60,18 @@ class Assignment(base.Assignment):
     header = u""
     descriptions = False
     channel=None
-    set_options = True
+    subscribe_directly = True
 
     def __init__(self,
                  header=u"",
                  description=u"",
                  channel=None,
-                 set_options=True,
+                 subscribe_directly=True,
                  test=None):
         self.header = header
         self.description = description
         self.channel = channel
-        self.set_options = set_options
-        self.selected_collectors = Set()
+        self.subscribe_directly = subscribe_directly
 
     @property
     def title(self):
@@ -127,7 +127,6 @@ class PortletSubscriptionAddForm(ValuesMixin, SubscriptionAddForm):
                 field = collector_schema.get(name)
                 widget = self.widgets['collector.' + name]
                 stored_value = stored_values.get(name)
-
                 if stored_value is not None:
                     vocabulary = field.value_type.vocabulary
                     value = set([v for v in stored_value
@@ -135,18 +134,44 @@ class PortletSubscriptionAddForm(ValuesMixin, SubscriptionAddForm):
 
                     converter = z3c.form.interfaces.IDataConverter(widget)
                     widget.value = converter.toWidgetValue(value)
-                    widget.update()
+                widget.update()
 
     @property
     def fields(self):
         fields = z3c.form.field.Fields(
             self.context.composers[self.format].schema,
             prefix='composer.')
-        if self.context.collector is not None and self.assignment.set_options:
+        if self.context.collector is not None and self.assignment.subscribe_directly:
             fields += z3c.form.field.Fields(self.context.collector.schema,
-                                            prefix='collector.')
+                                            prefix='collector.',
+                                            mode=z3c.form.interfaces.HIDDEN_MODE)
         return fields
 
+class PortletSubscribeLinkForm(z3c.form.form.Form):
+    """ """
+    template = viewpagetemplatefile.ViewPageTemplateFile('titlelessform.pt')
+    ignoreContext = True
+    formErrorsMessage = _('There were some errors.')
+    
+    def __init__(self, context, request):
+        super(PortletSubscribeLinkForm, self).__init__(context, request)
+
+    @property
+    def fields(self):
+        return z3c.form.field.Fields(self.context.composers[self.format].schema)
+
+    @z3c.form.button.buttonAndHandler(_('Proceed'), name='preceed')
+    def handleAdd(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+        params = urlencode(dict([('composer.widgets.%s'%key, value)
+                                 for key, value in data.items()]))
+        subscribe_url = '%s/subscribe.html?%s' % (self.context.absolute_url(),
+                                                  params)
+        self.request.response.redirect(subscribe_url)
+        return 
     
 class Renderer(base.Renderer):
     """Portlet renderer.
@@ -165,8 +190,11 @@ class Renderer(base.Renderer):
     def setup_form(self):
         collective.singing.z2.switch_on(self)
         if self.channel is not None:
-            self.form = PortletSubscriptionAddForm(self.channel, self.request)
-            self.form.assignment = self.data
+            if self.data.subscribe_directly:
+                self.form = PortletSubscriptionAddForm(self.channel, self.request)
+                self.form.assignment = self.data
+            else:
+                self.form = PortletSubscribeLinkForm(self.channel, self.request)
             self.form.format = 'html'
             self.form.update()
         
@@ -364,10 +392,6 @@ class ChannelSubscribePortletAddForm(z3c.form.form.AddForm):
     heading = _(u"Add Channel Subscribe Portlet")
 
     subforms = []
-
-#     def __init__(self, context, request):
-#         super(ChannelSubscribePortletAddForm, self).__init__(context, request)
-#         self.update_subforms()
     
     def create(self, data):
         return Assignment(**data)
@@ -377,24 +401,13 @@ class ChannelSubscribePortletAddForm(z3c.form.form.AddForm):
 
     def nextURL(self):
         # XXX: this should be prettier/more stable
-        set_options = self.request.get('form.widgets.set_options', '') == [u'true']
-        if set_options:
+        subscribe_directly = self.request.get(
+            'form.widgets.subscribe_directly', '') == [u'true']
+        if subscribe_directly:
             return '../%s/edit' % (self.context.items()[-1][0])
         else:
             return '../../@@manage-portlets'
         
-#     def update_subforms(self):
-#         channels = component.queryUtility(collective.singing.interfaces.IChannelLookup)()
-#         if channels is not None:
-#             for channel in channels:
-#                 if channel.collector is not None:
-#                     option_form = EditCollectorOptionsAddForm(self.context,
-#                                                               self.request,
-#                                                               channel,
-#                                                               self)
-#                     option_form.update()
-#                     self.subforms.append(option_form)
-
      
 class ChannelSubscribePortletAddView(ChannelSubscribePortletView):
 
