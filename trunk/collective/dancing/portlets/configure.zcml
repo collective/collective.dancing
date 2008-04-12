@@ -14,11 +14,4 @@
      editview="collective.dancing.portlets.channelsubscribe.ChannelSubscribePortletEditView" 
      />
 
-  <z3c:widgetTemplate
-      mode="hidden"
-      widget="z3c.form.interfaces.ICheckBoxWidget"
-      layer="z3c.form.interfaces.IFormLayer"
-      template="../browser/checkbox_hidden.pt"
-      />
-
 </configure>

@@ -129,10 +129,9 @@ However, it seems we do not have a widget for hidden mode ;-(
   >>> print browser.contents # doctest +ELLIPSIS +NORMALIZE_WHITESPACE
   <!DOCTYPE...
       <input type="hidden"
-             id="default-channel-html-widgets-collector-selected_collectors-0"
              name="default-channel.html.widgets.collector.selected_collectors:list"
-             class="checkbox-widget required set-field required set-field"
-             value="default-latest-news/0" checked="checked" />
+             class="hidden-widget" value="default-latest-news/0"
+             id="default-channel-html-widgets-collector-selected_collectors-0" />
   ...
   
 Subscribe via portlet
