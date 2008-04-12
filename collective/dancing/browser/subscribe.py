@@ -175,26 +175,24 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
             date=datetime.datetime.now(),
             pending=not secret_provided)
 
-        self.added = self.context.subscriptions.subscription_factory(
-            self.context, secret, comp_data, coll_data, metadata)
+        try:
+            self.added = self.context.subscriptions.add_subscription(
+                self.context, secret, comp_data, coll_data, metadata)
+        except ValueError:
+            self.added = None
+            self.status = _(u"You are already subscribed.")
+            return
 
+        self.status = _(u"You subscribed successfully.")
         if not secret_provided:
             msg = composer.render_confirmation(self.added)
             status, status_msg = collective.singing.message.dispatch(msg)
             if status != u'sent':
-                self.status = _(u"We're sorry, but there seems to be an error. "
-                                u"Please try again later.\n"
-                                u"(${error})",
-                                mapping=dict(error=status_msg))
-                return
+                # This implicitely rolls back our transaction.
+                raise RuntimeError(
+                    "There was an error with sending your e-mail.  Please try "
+                    "again later.")
 
-        try:
-            self.context.subscriptions.add(self.added)
-        except ValueError:
-            self.added = None
-            self.status = _(u"You are already subscribed.")
-        else:
-            self.status = _(u"You subscribed successfully.")
 
 class Subscriptions(BrowserView):
     __call__ = ViewPageTemplateFile('skeleton.pt')

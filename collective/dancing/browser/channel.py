@@ -211,11 +211,8 @@ class ManageSubscriptionsForm(crud.CrudForm):
         metadata = dict(format=self.format,
                         date=datetime.datetime.now())
 
-        subscription = collective.dancing.channel.Subscription(
+        return self.context.subscriptions.add_subscription(
             self.context, secret, composer_data, collector_data, metadata)
-        subscriptions = self.context.subscriptions
-        subscriptions[secret].append(subscription)
-        return subscription
 
     def remove(self, (id, item)):
         secret, format = id.rsplit(':', 1)

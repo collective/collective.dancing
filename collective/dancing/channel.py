@@ -12,12 +12,12 @@ import OFS.event
 import OFS.Folder
 import OFS.SimpleItem
 import Products.CMFPlone.interfaces
-import collective.singing.subscribe
 import collective.singing.interfaces
 import collective.singing.message
 
 import collective.dancing.collector
 import collective.dancing.composer
+import collective.dancing.subscribe
 import collective.dancing.utils
 from collective.dancing import MessageFactory as _
 
@@ -108,7 +108,7 @@ class Channel(OFS.SimpleItem.SimpleItem):
         if title is None:
             title = name
         self.title = title
-        self.subscriptions = collective.singing.subscribe.SimpleSubscriptions()
+        self.subscriptions = collective.dancing.subscribe.Subscriptions()
         if composers is None:
             composers = {'html': collective.dancing.composer.HTMLComposer()}
         self.composers = composers
@@ -131,20 +131,3 @@ def collector_removed(collector, event):
         if isinstance(channel, Channel):
             if aq_base(channel.collector) is aq_base(collector):
                 channel.collector = None
-
-class Subscription(collective.singing.subscribe.SimpleSubscription):
-    _channel = None
-    @apply
-    def channel():
-        def get(self):
-            if self._channel is not None:
-                # We want to get the same channel from the
-                # IChannelLookup, as that has the correct wrapping:
-                for channel in component.getUtility(
-                    collective.singing.interfaces.IChannelLookup)():
-                    if aq_base(channel) is aq_base(self._channel):
-                        return channel
-            return self._channel
-        def set(self, channel):
-            self._channel = channel
-        return property(get, set)
