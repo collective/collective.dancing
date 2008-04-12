@@ -1,3 +1,6 @@
+import datetime
+import urllib
+
 from zope import interface
 from zope import schema
 from zope import component
@@ -6,31 +9,26 @@ from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 from z3c.form import form
 from z3c.form import field
 from z3c.form import button
-from z3c.form import term
+import z3c.form.interfaces
 from z3c.form.browser.checkbox import CheckBoxFieldWidget
 from z3c.form.interfaces import ISequenceWidget
-
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from z3c.formwidget.query.widget import QuerySourceFieldWidget
 
 import collective.singing.z2
 import collective.singing.scheduler
+import collective.singing.interfaces
+from collective.singing.vocabularies import SubscriptionQuerySourceBinder
 
 from collective.dancing import MessageFactory as _
-from collective.singing.interfaces import IChannel
-from collective.singing.subscribe import SubscriptionQuerySourceBinder
-
-from z3c.formwidget.query.widget import QuerySourceFieldWidget
-
-import datetime
-import urllib
 
 class ISendAsNewsletter(interface.Interface):
     channel = schema.Choice(
         title=_(u"Select channel"),
         description=_(u"This item will be send to the subscribers "
                       "of the selected channel."),
-        vocabulary='collective.dancing.vocabularies.ChannelVocabulary',
+        vocabulary='collective.singing.vocabularies.ChannelVocabulary',
         required=True,
         )
 
@@ -61,8 +59,6 @@ class SendAsNewsletterForm(form.Form):
         if channel.scheduler is not None and include_collector_items:
             channel.scheduler.triggered_last = datetime.datetime.now()
 
-        channel.queue.dispatch()
-
         self.status = _(u"${num} messages queued.", mapping=dict(num=queued))
 
     @button.buttonAndHandler(_('Preview...'), name='preview')
@@ -73,10 +69,10 @@ class SendAsNewsletterForm(form.Form):
             return
 
         # redirect to preview
-        prefix = self.prefix
-        parameters = {prefix+'channel': data['channel'].name,
-                      prefix+'include_collector_items': data['include_collector_items']}
-
+        prefix = self.prefix + self.widgets.prefix
+        parameters = {prefix + 'channel:list': data['channel'].name}
+        if data['include_collector_items']:
+            parameters[prefix + 'include_collector_items'] = 'true'
         self.request.response.redirect(self.context.absolute_url() + \
              '/preview-newsletter.html?%s' % urllib.urlencode(parameters))
 
@@ -95,26 +91,27 @@ class SendAsNewsletterPreviewForm(form.Form):
         A bit of hack.
         """
         
-        channel_names = self.request.form.get(
-            self.prefix+'widgets.channel')
-        
-        if channel_names is not None:
-            channel = component.getUtility(IChannel, name=channel_names[0])
+        channel_name = self.request.form.get('form.channel')
+        if channel_name is not None:
+            channels = component.getUtility(
+                collective.singing.interfaces.IChannelLookup)()
+            channel = [c for c in channels if c.name == channel_name]
+            source = SubscriptionQuerySourceBinder(channels=(channel,))
         else:
-            channel = None
+            source = SubscriptionQuerySourceBinder()
 
-        fields = field.Fields(
+        fields = z3c.form.field.Fields(
             ISendAsNewsletter,
-            schema.Choice(
-            __name__='subscription',
-            title=_(u"Subscriber"),
-            description=_(u"Search for a subscriber."),
-            source=SubscriptionQuerySourceBinder(channels=(channel,)),
-            required=False))
+            schema.Choice(__name__='subscription',
+                          title=_(u"Subscriber"),
+                          description=_(u"Search for a subscriber."),
+                          source=source,
+                          required=False))
 
-        # set query source widget
         fields['subscription'].widgetFactory = QuerySourceFieldWidget
 
+        for f in fields['channel'], fields['include_collector_items']:
+            f.mode = z3c.form.interfaces.HIDDEN_MODE
         return fields
     
     @button.buttonAndHandler(_('Send preview'), name='send')
@@ -124,8 +121,15 @@ class SendAsNewsletterPreviewForm(form.Form):
             self.status = form.EditForm.formErrorsMessage
             return
 
-        # TODO
-        
+        message = collective.singing.scheduler.render_message(
+            data['channel'],
+            data['subscription'].value, #XXX: Why are we getting a term here?
+            (self.context,),
+            data['include_collector_items'])
+
+        if message is not None:
+            self.status = _(u"Message queued.")
+
 class SendAsNewsletterView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
 
