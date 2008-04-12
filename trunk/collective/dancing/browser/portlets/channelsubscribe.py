@@ -1,10 +1,7 @@
 import persistent.dict
 from Acquisition import aq_parent, aq_inner
 from zope import component
-from zope import event
-from zope import lifecycleevent
 from zope import interface
-from zope import publisher
 from zope import schema
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
@@ -14,19 +11,18 @@ from zope.formlib import form
 from urllib import urlencode
 from Products.Five import BrowserView
 import z3c.form
+from z3c.form import subform
 
 from plone.memoize.instance import memoize
 from plone.memoize import ram
 from plone.memoize.compress import xhtml_compress
 
-from sets import Set
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 import collective.singing
 from collective.dancing import MessageFactory as _
 from collective.dancing.browser.subscribe import SubscriptionAddForm
 from collective.dancing.collector import ICollectorSchema
-from collective.dancing import utils
 
 test_vocab = schema.vocabulary.SimpleVocabulary.fromValues(range(5))
  
@@ -227,7 +223,7 @@ def prefix(self):
 class EditCollectorOptionsForm(ValuesMixin, z3c.form.subform.EditSubForm):
     """Edit a single collectors options."""
     template = viewpagetemplatefile.ViewPageTemplateFile(
-        '../browser/subform.pt')
+        '../subform.pt')
 
     css_class = 'subForm subForm-level-1'
     ignoreContext = True
@@ -304,7 +300,7 @@ class EditCollectorOptionsForm(ValuesMixin, z3c.form.subform.EditSubForm):
     
 class ChannelSubscribePortletEditForm(z3c.form.form.EditForm):
     """  """
-    template = viewpagetemplatefile.ViewPageTemplateFile('../browser/form-with-subforms.pt')
+    template = viewpagetemplatefile.ViewPageTemplateFile('../form-with-subforms.pt')
     fields = z3c.form.field.Fields(IChannelSubscribePortlet)
 
     css_class = 'editForm portletEditForm'
@@ -356,7 +352,7 @@ class EditCollectorOptionsAddForm(z3c.form.form.Form):
     """Edit a single collectors options.
     """
     template = viewpagetemplatefile.ViewPageTemplateFile(
-        '../browser/subform.pt')
+        '../subform.pt')
 
     css_class = 'subForm subForm-level-1'
     ignoreContext = True    
@@ -385,7 +381,7 @@ class EditCollectorOptionsAddForm(z3c.form.form.Form):
     
 class ChannelSubscribePortletAddForm(z3c.form.form.AddForm):
     """ """
-    template = viewpagetemplatefile.ViewPageTemplateFile('../browser/form-with-subforms.pt')
+    template = viewpagetemplatefile.ViewPageTemplateFile('../form-with-subforms.pt')
     fields = z3c.form.field.Fields(IChannelSubscribePortlet)
 
     css_class = 'addForm portletAddForm'

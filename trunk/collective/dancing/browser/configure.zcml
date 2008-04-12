@@ -3,6 +3,8 @@
    xmlns="http://namespaces.zope.org/browser">
 
   <include file="widget.zcml" />
+  
+  <include package=".portlets" />
 
   <!-- Vocabularies and field overrides -->
 
