@@ -5,9 +5,10 @@ from Products.Five import BrowserView
 from Products.Five.browser import pagetemplatefile
 
 from collective.dancing import MessageFactory as _
+from zope.app.component.hooks import getSite
 
 def back_to_controlpanel(self):
-    root = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
+    root = getSite()
     return dict(label=_(u"Up to Singing & Dancing configuration"),
                 url=root.absolute_url() + '/portal_newsletters')
 

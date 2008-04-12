@@ -84,6 +84,13 @@
       />
 
   <page
+      name="edit_html"
+      for="collective.singing.interfaces.IChannel"
+      class=".channel.ChannelEditView"
+      permission="cmf.ManagePortal"
+      />
+
+  <page
       name="index_html"
       for="collective.dancing.collector.CollectorContainer"
       class=".collector.CollectorAdministrationView"

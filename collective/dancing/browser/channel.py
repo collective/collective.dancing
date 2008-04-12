@@ -25,6 +25,7 @@ from collective.dancing import collector
 from collective.dancing import utils
 from collective.dancing.channel import Channel
 from collective.dancing.browser import controlpanel
+from collective.dancing.browser import widget
 
 def simpleitem_wrap(klass, name):
     class SimpleItemWrapper(klass, OFS.SimpleItem.SimpleItem):
@@ -265,3 +266,54 @@ class SubscriptionsAdministrationView(BrowserView):
             form.composer = composer
             forms.append(form)
         return '\n'.join([form() for form in forms])
+
+class EditChannelForm(z3c.form.form.EditForm):
+    """ """
+    template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
+    heading = _(u"Edit Channel")
+
+    @property
+    def fields(self):
+        fields = z3c.form.field.Fields(IChannel).select('title',
+                                                        'description')
+        fields['description'].widgetFactory[
+            z3c.form.interfaces.INPUT_MODE] = widget.WysiwygFieldWidget
+
+        collector = schema.Choice(
+            __name__='collector',
+            title=IChannel['collector'].title,
+            required=False,
+            vocabulary='Collector Vocabulary')
+
+        scheduler = FactoryChoice(
+            __name__='scheduler',
+            title=IChannel['scheduler'].title,
+            required=False,
+            vocabulary='Scheduler Vocabulary')
+        
+        fields += field.Fields(collector, scheduler)
+        return fields
+
+class ChannelEditView(BrowserView):
+    """Dedicated Edit page for channels
+       As opposed to the crud form this
+       allows editing of all channel settings
+       """
+    
+    __call__ = ViewPageTemplateFile('controlpanel.pt')
+
+    @property
+    def back_link(self):
+        return dict(label=_(u"Up to Channels administration"),
+                    url=self.context.aq_inner.aq_parent.absolute_url())
+
+
+    @property
+    def label(self):
+        return _(u'Edit Channel ${channel}',
+                 mapping={'channel':self.context.Title()})
+
+    def contents(self):
+        # A call to 'switch_on' is required before we can render z3c.forms.
+        z2.switch_on(self)
+        return EditChannelForm(self.context, self.request)()
