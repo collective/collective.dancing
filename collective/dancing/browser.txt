@@ -445,10 +445,6 @@ We're now no longer subscribed:
   >>> "You aren't subscribed to this channel" in browser.contents
   True
 
-Let's flush the message queue:
-
-  >>> channel.queue.dispatch() # doctest: +ELLIPSIS
-  *MyMailDelivery sending*:...
   >>> MyMailDelivery.sent = []
 
 Using a scheduler to send e-mails

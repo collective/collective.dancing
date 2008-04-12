@@ -139,8 +139,9 @@ class HTMLComposer(object):
             from_addr=self._from_address,
             to_addr=composer_data['email'])
 
+        # status=None prevents message from ending up in any queue
         return collective.singing.message.Message(
-            message, subscription)
+            message, subscription, status=None)
 
 def plone_html_strip(html):
     r"""
