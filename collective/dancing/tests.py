@@ -62,4 +62,8 @@ def test_suite():
             'browser.txt',
             test_class=ptc.FunctionalTestCase,
             ),
+        ztc.ZopeDocFileSuite(
+            'portlets.txt',
+            test_class=ptc.FunctionalTestCase,
+            ),
         ])

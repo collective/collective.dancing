@@ -124,6 +124,18 @@ channel:
   >>> scheduler.displayValue = ['Weekly scheduler']
 
   >>> browser.getControl('Apply changes').click()
+  >>> 'Successfully updated' in browser.contents
+  True
+  
+  >>> collector = browser.getControl(
+  ...     name='crud-edit.my-other-channel.widgets.collector:list')
+  >>> collector.displayValue
+  ['Latest news']
+  >>> scheduler = browser.getControl(
+  ...     name='crud-edit.my-other-channel.widgets.scheduler:list')
+  >>> scheduler.displayValue
+  ['Weekly scheduler']
+
 
 Configuring collectors
 ----------------------

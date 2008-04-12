@@ -32,16 +32,14 @@ class ManageCollectorsForm(crud.CrudForm):
 
     @property
     def add_schema(self):
-        if len(collector.standalone_collectors) > 1:
-            return self.update_schema + field.Fields(
-                schema.Choice(
-                  __name__='factory',
-                  title=_(u"Type"),
-                  vocabulary=zope.schema.vocabulary.SimpleVocabulary(
-                    [zope.schema.vocabulary.SimpleTerm(value=f, title=f.title)
-                     for f in collector.standalone_collectors])
-                ))
-        return self.update_schema
+        return self.update_schema + field.Fields(
+            schema.Choice(
+            __name__='factory',
+            title=_(u"Type"),
+            vocabulary=zope.schema.vocabulary.SimpleVocabulary(
+                [zope.schema.vocabulary.SimpleTerm(value=f, title=f.title)
+                 for f in collector.standalone_collectors])
+            ))
     
     def get_items(self):
         return [(ob.getId(), ob) for ob in self.context.objectValues()]
