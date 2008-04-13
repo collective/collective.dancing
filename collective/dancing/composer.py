@@ -135,7 +135,7 @@ class HTMLComposer(object):
             subscription)
         message = collective.singing.mail.create_html_mail(
             subject,
-            html.encode('UTF-8'),
+            html,
             from_addr=self._from_address,
             to_addr=composer_data['email'])
 
