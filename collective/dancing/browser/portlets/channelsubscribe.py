@@ -62,8 +62,7 @@ class Assignment(base.Assignment):
                  header=u"",
                  description=u"",
                  channel=None,
-                 subscribe_directly=True,
-                 test=None):
+                 subscribe_directly=True):
         self.header = header
         self.description = description
         self.channel = channel
@@ -213,7 +212,7 @@ class Renderer(base.Renderer):
     def channel_link(self):
 
         link = {'url':'%s/subscribe.html'%self.channel.absolute_url(),
-                'title':self.channel.name}
+                'title':self.channel.Title()}
         return link
 
 def prefix(self):
