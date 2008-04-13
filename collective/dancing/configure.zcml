@@ -7,7 +7,13 @@
    i18n_domain="collective.dancing">
 
   <include package="collective.singing" />
-  <adapter factory="collective.singing.mail.Dispatch" />
+  <include package="five.intid" />
+
+  <!-- Prevent scripts from being intid'ed.
+       XXX: Figure out what's going on here -->
+  <five:implements
+      interface="Products.CMFCore.interfaces.IDirectoryView"
+      class="Products.CMFCore.FSPythonScript.FSPythonScript" />
 
   <include package=".browser" />
 
@@ -32,17 +38,23 @@
       permission="zope2.Public"
       />
 
+  <!-- Channel and subscriptions registrations -->
   <utility component=".channel.channel_lookup" />
   <subscriber handler=".channel.tool_added" />
   <subscriber handler=".channel.channels_added" /> 
   <subscriber handler=".channel.collector_removed" /> 
+  <subscriber handler="collective.singing.subscribe.subscription_added" />
+  <subscriber handler="collective.singing.subscribe.subscription_modified" />
+  <subscriber handler="collective.singing.subscribe.subscription_removed" />
 
+  <!-- Collector registrations -->
   <utility component=".collector.collector_vocabulary"
            name="Collector Vocabulary" />
   <subscriber handler=".collector.container_added" />
   <subscriber handler=".collector.sfc_added" />
   <adapter factory=".collector.collectordata_from_subscription" />
 
+  <!-- Composer registrations-->
   <adapter factory=".composer.composerdata_from_subscription" />
   <adapter factory=".composer.CMFDublinCoreHTMLFormatter"
            for="Products.CMFCore.interfaces.IDublinCore"
@@ -50,14 +62,14 @@
   <five:implements
       interface="Products.CMFCore.interfaces.IDublinCore"
       class="Products.Archetypes.BaseContent.BaseContent" />
-
   <adapter factory=".composer.HTMLFormatItemFully"
            name="html" />
-
   <!-- In the future, we'll want more than just this call formatter -->
   <adapter factory=".composer.PloneCallHTMLFormatter"
            for="Products.CMFCore.interfaces.IContentish"
            provides=".composer.IFullFormatter"
            name="html" />
+
+  <adapter factory="collective.singing.mail.Dispatch" />
 
 </configure>

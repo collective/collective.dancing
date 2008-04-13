@@ -20,5 +20,5 @@ class Subscription(collective.singing.subscribe.SimpleSubscription):
             self._channel = channel
         return property(get, set)
 
-class Subscriptions(collective.singing.subscribe.SimpleSubscriptions):
+class Subscriptions(collective.singing.subscribe.Subscriptions):
     subscription_factory = Subscription

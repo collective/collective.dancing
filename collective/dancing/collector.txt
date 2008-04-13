@@ -147,12 +147,6 @@ gives us the data that the collector looks for to include subcollectors:
   >>> class Subscription(object):
   ...     def __init__(self):
   ...         self.collector_data = {}
-  >>> import collective.singing.interfaces
-  >>> @component.adapter(Subscription)
-  ... @interface.implementer(collective.singing.interfaces.ICollectorData)
-  ... def collector_data(subscription):
-  ...     return subscription.collector_data
-  >>> component.provideAdapter(collector_data)
 
 First of all, it should be fine to call ``get_items`` with a
 subscriber that does *not* have any collector data, i.e. he hasn't

@@ -276,7 +276,7 @@ We can create a message now and see how the statistics reflect this.
 First, let's get a hold of our subscription object:
 
   >>> channel = portal.portal_newsletters.channels.objectValues()[1]
-  >>> subscription = channel.subscriptions.values()[0][0]
+  >>> subscription = channel.subscriptions.values()[0]
   >>> subscription # doctest: +ELLIPSIS
   <SimpleSubscription to ...>
 
@@ -377,16 +377,18 @@ We'll subscribe to events only:
   >>> secret.startswith('secret=')
   True
 
-So now we've received an e-mail to confirm our subscription.  Snooping
-around in the list of subscribers, we can see that our subscription is
+So now we've received an e-mail to confirm our subscription.  Using
+the subscriptions query interface, we can see that our subscription is
 *pending*:
 
-  >>> from collective.singing.interfaces import (
-  ...     ISubscriptionMetadata, IComposerData)
-  >>> subscription = channel.subscriptions[secret.split('=')[1]][0]
-  >>> ISubscriptionMetadata(subscription)['pending']
+  >>> subscriptions = list(
+  ...     channel.subscriptions.query(secret=secret.split('=')[1]))
+  >>> len(subscriptions)
+  1
+  >>> subscription = subscriptions[0]
+  >>> subscription.metadata['pending']
   True
-  >>> dict(IComposerData(subscription))
+  >>> dict((subscription.composer_data))
   {'email': u'root@localhost'}
 
 After confirming our subscription, the subscription is no longer
@@ -395,7 +397,7 @@ pending:
   >>> browser.open(confirm_url + '?' + secret)
   >>> "You confirmed your subscription successfully" in browser.contents
   True
-  >>> ISubscriptionMetadata(subscription)['pending']
+  >>> subscription.metadata['pending']
   False
 
 Trying to confirm a subscription that doesn't exist will give us a
@@ -515,10 +517,8 @@ when it queued something the last time:
 Secondly, all our subscriptions have a "cue" set, which marks the time
 when they last received an item:
 
-  >>> subscriptions = []
-  >>> for subs in channel.subscriptions.values():
-  ...     subscriptions.extend(subs)
-  >>> [s.metadata['cue'] for s in subscriptions] # doctest: +ELLIPSIS
+  >>> [s.metadata['cue'] for s in channel.subscriptions.values()] \
+  ... # doctest: +ELLIPSIS
   [DateTime(...), DateTime(...), DateTime(...)]
 
 We have to reset *both* the cues and the ``triggered_last`` time for
@@ -760,7 +760,7 @@ composers that we used:
 
 Let's use the form now to subscribe 'root' to both news items and events:
 
-  >>> subscription = channel.subscriptions[secret][0]
+  >>> subscription = tuple(channel.subscriptions.query(secret=secret))[0]
   >>> [c.title for c in subscription.collector_data['selected_collectors']]
   [u'Events']
   >>> browser.getControl('News').click()
@@ -773,18 +773,20 @@ Let's use the form now to subscribe 'root' to both news items and events:
 Next, we'll subscribe to "Brand new channel".  We'll use the secretond
 format, which is Hypertext with variable font-size:
 
-  >>> len(new_channel.subscriptions[secret])
+  >>> len(new_channel.subscriptions.query(secret=secret))
   0
   >>> browser.getControl('E-mail address', index=1).value = u"root@localhost"
   >>> browser.getControl('Font size').getControl('16').click()
   >>> browser.getControl('Subscribe', index=1).click()
   >>> "You subscribed successfully" in browser.contents
   True
-  >>> len(new_channel.subscriptions[secret])
+  >>> len(new_channel.subscriptions.query(secret=secret))
   1
-  >>> new_channel.subscriptions[secret][0].composer_data['font_size']
+  >>> new_subscription = tuple(
+  ...     new_channel.subscriptions.query(secret=secret))[0]
+  >>> new_subscription.composer_data['font_size']
   16
-  >>> new_channel.subscriptions[secret][0].metadata.get('pending', False)
+  >>> new_subscription.metadata.get('pending', False)
   False
 
 No confirmation mail?  That's right.  Remember that we provided the
@@ -792,8 +794,6 @@ secret when we visited the subscriptions page.
 
 Now let's unsubscribe from "My other channel":
 
-  >>> len(new_channel.subscriptions[secret])
-  1
   >>> browser.getControl('Unsubscribe').click() # doctest: +ELLIPSIS
   Traceback (most recent call last):
   ...
@@ -801,7 +801,7 @@ Now let's unsubscribe from "My other channel":
   >>> browser.getControl('Unsubscribe', index=0).click()
   >>> "You unsubscribed successfully" in browser.contents
   True
-  >>> len(channel.subscriptions[secret])
+  >>> len(channel.subscriptions.query(secret=secret))
   0
 
 We could now subscribe to "My other channel" again:
@@ -827,8 +827,8 @@ This will trigger the confirmation mail to be sent out:
   True
 
   >>> secret = channel.composers['html'].secret(dict(email='daemon@localhost'))
-  >>> len(channel.subscriptions[secret])
+  >>> len(channel.subscriptions.query(secret=secret))
   1
-  >>> channel.subscriptions[secret][0].metadata['pending']
+  >>> tuple(channel.subscriptions.query(secret=secret))[0].metadata['pending']
   True
 

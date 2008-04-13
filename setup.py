@@ -32,6 +32,7 @@ setup(name='collective.dancing',
       install_requires=[
           'setuptools',
           'collective.singing',
+          'five.intid',
       ],
       
       entry_points="""
