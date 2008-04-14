@@ -121,21 +121,22 @@ class PortletSubscriptionAddForm(ValuesMixin, SubscriptionAddForm):
             for name in collector_schema.names():
                 field = collector_schema.get(name)
                 widget = self.widgets['collector.' + name]
-                stored_value = stored_values.get(name)
-                if stored_value is not None:
-                    subfield = field
-                    vocabulary = None
-                    while (not hasattr(subfield, 'vocabulary')) and \
-                              (hasattr(subfield, 'value_type')):
-                        subfield = subfield.value_type
-                    if hasattr(subfield, 'vocabulary'):                
-                        value = set([v for v in stored_value
-                                     if v in subfield.vocabulary])
-                    if len(value):
-                        converter = z3c.form.interfaces.IDataConverter(widget)
-                        widget.value = converter.toWidgetValue(value)
-                    else:
-                        widget.value = value
+                value = stored_value = stored_values.get(name)
+#                 if stored_value is not None:
+#                     subfield = field
+#                     vocabulary = None
+#                     while (not hasattr(subfield, 'vocabulary')) and \
+#                               (hasattr(subfield, 'value_type')):
+#                         subfield = subfield.value_type
+#                     if hasattr(subfield, 'vocabulary'):
+#                         if 
+#                         value = set([v for v in stored_value
+#                                      if v in subfield.vocabulary])
+                if value:
+                    converter = z3c.form.interfaces.IDataConverter(widget)
+                    widget.value = converter.toWidgetValue(stored_value)
+#                else:
+#                    widget.value = value
                 widget.update()
 
     @property

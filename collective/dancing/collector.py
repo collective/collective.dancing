@@ -175,6 +175,8 @@ class Collector(OFS.Folder.Folder):
                      title=_(u"Sections"),
                      value_type=zope.schema.Choice(vocabulary=vocabulary))
                  ))
+            interface.directlyProvides(fields[0][1],
+                    collective.singing.interfaces.IDynamicVocabularyCollection)
 
         return zope.interface.interface.InterfaceClass(
             'Schema', bases=(ICollectorSchema,),

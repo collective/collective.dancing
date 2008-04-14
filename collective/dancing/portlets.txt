@@ -134,7 +134,25 @@ However, it seems we do not have a widget for hidden mode ;-(
              class="hidden-widget" value="default-latest-news/0"
              id="default-channel-html-widgets-collector-selected_collectors-0" />
   ...
+
+
+What happens if we delete a collector option that is selected in the portlet? 
+
+  >>> browser.open(portal.absolute_url()+'/portal_newsletters/collectors')
+  >>> browser.getLink('Latest news').click()		
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-0.widgets.optional:list').value = ['true']
+  >>> browser.getControl('Apply', index=0).click()
+  >>> browser.open(portal.absolute_url())
+  >>> print browser.contents # doctest +ELLIPSIS +NORMALIZE_WHITESPACE
+  <!DOCTYPE...
+      <input type="hidden"
+             name="default-channel.html.widgets.collector.selected_collectors:list"
+             class="hidden-widget" value="default-latest-news/0"
+             id="default-channel-html-widgets-collector-selected_collectors-0" />
+  ...
+
   
+
 Subscribe via portlet
 ---------------------
   
@@ -162,13 +180,3 @@ If the portlet option "Subscribe directly from portlet" is deselected, the portl
   'http://nohost/plone/portal_newsletters/channels/default-channel/subscribe.html?composer.widgets.email=tmog%40localhost'
   
 
-
-NOTE:
-What happens if we delete a collector that is used on a channel? This should go somewhere in browser.txt:
-
-#   >>> browser.open(portal.absolute_url()+'/portal_newsletters/collectors')
-#   >>> browser.getControl(name='crud-edit.default-latest-news.widgets.select:list').value = ['selected']
-#   >>> browser.getControl('Delete').click()
-#   >>> browser.open(portal.absolute_url()+'/portal_newsletters/channels')
-#   >>> 'Channel administration' in browser.contents
-#   True
