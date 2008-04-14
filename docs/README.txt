@@ -29,11 +29,11 @@ Well tested
   Singing and Dancing is not gonna leave you in the lurch!
 
 Fully managable through the Plone interface
-  Singing and Dancing is fully usable out the web.  An extensive set
-  of forms reachable through the configuration panel let you as the
-  user configure many details of your newsletters, like *when* they're
-  sent (periodically or manually), *what* is sent (through the use of
-  the *Smart Folder* interface, or manually), and to whom.
+  Singing and Dancing is fully usable out of the box.  An extensive
+  set of forms reachable through the configuration panel let you as
+  the user configure many details of your newsletters, like *when*
+  they're sent (periodically or manually), *what* is sent (through the
+  use of the *Smart Folder* interface, or manually), and to whom.
 
 Subscriptions
   Singing and Dancing uses *confirmed subscription*, i.e. subscribers
