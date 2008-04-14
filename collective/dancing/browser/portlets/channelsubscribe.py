@@ -289,12 +289,20 @@ class EditCollectorOptionsForm(ValuesMixin, z3c.form.subform.EditSubForm):
                 # discard values that are not in this collectors vocabulary
                 # The collector may be changed or entirely different since
                 # last save.
-                vocabulary = field.value_type.vocabulary
-                value = set([v for v in stored_value
-                             if v in field.value_type.vocabulary])
-
-                converter = z3c.form.interfaces.IDataConverter(widget)
-                widget.value = converter.toWidgetValue(value)
+                subfield = field
+                vocabulary = None
+                while (not hasattr(subfield, 'vocabulary')) and \
+                          (hasattr(subfield, 'value_type')):
+                    subfield = subfield.value_type
+                if hasattr(subfield, 'vocabulary'):                
+                    value = set([v for v in stored_value
+                                 if v in subfield.vocabulary])
+                    
+                if value:
+                    converter = z3c.form.interfaces.IDataConverter(widget)
+                    widget.value = converter.toWidgetValue(value)
+                else:
+                    widget.value = value
                 widget.update()
     
 class ChannelSubscribePortletEditForm(z3c.form.form.EditForm):
