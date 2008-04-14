@@ -59,8 +59,7 @@ class ICollectorSchema(interface.Interface):
 @component.adapter(collective.singing.interfaces.ISubscription)
 @interface.implementer(ICollectorSchema)
 def collectordata_from_subscription(subscription):
-    composer_data = collective.singing.interfaces.ICollectorData(subscription)
-    return utils.AttributeToDictProxy(composer_data)
+    return utils.AttributeToDictProxy(subscription.collector_data)
 
 class ITextCollector(collective.singing.interfaces.ICollector):
     value = schema.Text(title=_(u'Rich text'))
@@ -112,8 +111,7 @@ class Collector(OFS.Folder.Folder):
         # Don't return items if we're optional and not selected:
         if self.optional:
             if subscription is not None:
-                sdata = collective.singing.interfaces.ICollectorData(
-                    subscription)
+                sdata = subscription.collector_data
                 name = 'selected_collectors'
                 if name in sdata and sdata[name] and self not in sdata[name]:
                     return [], now

@@ -188,13 +188,9 @@ class ManageSubscriptionsForm(crud.CrudForm):
     def get_items(self):
         subscriptions = self.context.subscriptions
         items = []
-        for secret, subscriptions in subscriptions.items():
-            for subscription in subscriptions:
-                md = collective.singing.interfaces.ISubscriptionMetadata(
-                    subscription)
-                if md['format'] == self.format:
-                    items.append(('%s:%s' %
-                                  (secret, self.format), subscription))
+        for name, subscription in subscriptions.items():
+            if subscription.metadata['format'] == self.format:
+                items.append((str(name), subscription))
         return items
 
     def add(self, data):

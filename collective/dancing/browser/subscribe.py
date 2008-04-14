@@ -39,13 +39,12 @@ class Confirm(BrowserView):
 
     def __call__(self):
         secret = self.request.form['secret']
-        subscriptions = self.context.aq_inner.subscriptions
+        query = self.context.aq_inner.subscriptions.query
 
-        if secret in subscriptions:
-            for subscription in subscriptions[secret]:
-                m = collective.singing.interfaces.ISubscriptionMetadata(
-                    subscription)
-                m['pending'] = False
+        subscriptions = query(secret=secret)
+        if len(subscriptions):
+            for sub in subscriptions:
+                sub.metadata['pending'] = False
             self.status = _(u"You confirmed your subscription successfully.")
         else:
             self.status = _(u"Your subscription isn't known to us.")
@@ -60,10 +59,12 @@ class Unsubscribe(BrowserView):
 
     def __call__(self):
         secret = self.request.form['secret']
-        subscriptions = self.context.aq_inner.subscriptions
+        subs = self.context.aq_inner.subscriptions
         
-        if secret in subscriptions:
-            del subscriptions[secret]
+        subscriptions = subs.query(secret=secret)
+        if len(subscriptions):
+            for sub in subscriptions:
+                subs.remove_subscription(sub)
             self.status = _(u"You unsubscribed successfully.")
         else:
             self.status = _(u"You aren't subscribed to this channel.")
@@ -112,7 +113,9 @@ class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
     @button.buttonAndHandler(_('Unsubscribe'), name='unsubscribe')
     def handle_unsubscribe(self, action):
         secret = self.request.form['secret']
-        del self.context.channel.subscriptions[secret]
+        subs = self.context.channel.subscriptions
+        for subscription in subs.query(secret=secret):
+            subs.remove_subscription(subscription)
         self.removed = self.context
         self.status = _(u"You unsubscribed successfully.")
 
@@ -258,10 +261,10 @@ class Subscriptions(BrowserView):
             channel_subs = channel.subscriptions
 
             subscribed_formats = []
-            if secret is not None and secret in channel_subs:
-                subs = channel_subs[secret]
-                subscriptions.extend(subs)
-                subscribed_formats = [s.metadata['format'] for s in subs]
+            if secret is not None:
+                for s in channel_subs.query(secret=secret):
+                    subscriptions.append(s)
+                    subscribed_formats.append(s.metadata['format'])
 
             for format in channel.composers.keys():
                 if format not in subscribed_formats:

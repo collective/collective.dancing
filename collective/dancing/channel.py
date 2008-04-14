@@ -109,7 +109,7 @@ class Channel(OFS.SimpleItem.SimpleItem):
             title = name
         self.title = title
         if description is None:
-            self.description = ''
+            self.description = u''
         self.subscriptions = collective.dancing.subscribe.Subscriptions()
         if composers is None:
             composers = {'html': collective.dancing.composer.HTMLComposer()}

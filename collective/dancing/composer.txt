@@ -30,12 +30,6 @@ this test:
   ...         self.channel = channel
   ...         self.composer_data = {}
 
-  >>> @component.adapter(Subscription)
-  ... @interface.implementer(collective.singing.interfaces.IComposerData)
-  ... def composer_data(subscription):
-  ...     return subscription.composer_data
-  >>> component.provideAdapter(composer_data)
-
 HTMLComposer
 ------------
 

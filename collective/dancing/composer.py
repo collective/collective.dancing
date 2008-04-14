@@ -41,8 +41,7 @@ class IHTMLComposerSchema(interface.Interface):
 @component.adapter(collective.singing.interfaces.ISubscription)
 @interface.implementer(IHTMLComposerSchema)
 def composerdata_from_subscription(subscription):
-    composer_data = collective.singing.interfaces.IComposerData(subscription)
-    return utils.AttributeToDictProxy(composer_data)
+    return utils.AttributeToDictProxy(subscription.composer_data)
 
 class HTMLComposer(object):
     interface.implements(collective.singing.interfaces.IComposer,
@@ -77,10 +76,8 @@ class HTMLComposer(object):
             encoding='UTF-8')
 
     def _render_html(self, subscription, items, subject):
-        composer_data = collective.singing.interfaces.IComposerData(
-            subscription)
         channel = subscription.channel
-        secret = self.secret(composer_data)
+        secret = self.secret(subscription.composer_data)
         
         unsubscribe_url = (
             '%s/unsubscribe.html?secret=%s' %
@@ -105,13 +102,11 @@ class HTMLComposer(object):
             target_language=language)
         html = self._render_html(subscription, items, subject)
 
-        composer_data = collective.singing.interfaces.IComposerData(
-            subscription)
         message = collective.singing.mail.create_html_mail(
             subject,
             html,
             from_addr=self._from_address,
-            to_addr=composer_data['email'])
+            to_addr=subscription.composer_data['email'])
 
         return collective.singing.message.Message(
             message, subscription)
@@ -131,13 +126,11 @@ class HTMLComposer(object):
               mapping={'channel-title': subscription.channel.title}),
             target_language=language)
 
-        composer_data = collective.singing.interfaces.IComposerData(
-            subscription)
         message = collective.singing.mail.create_html_mail(
             subject,
             html,
             from_addr=self._from_address,
-            to_addr=composer_data['email'])
+            to_addr=subscription.composer_data['email'])
 
         # status=None prevents message from ending up in any queue
         return collective.singing.message.Message(
