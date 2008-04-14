@@ -76,7 +76,36 @@ buildout or to your Repoze_ setup.  When using Buildout, make sure you
 use the fakezope2eggs_ recipe to avoid downloading incompatible
 versions of Zope 3 packages into your buildout.
 
+If you find a bug, please `let us know`_.
+
+Developers
+----------
+
+Singing & Dancing is built from scratch to be extensible.  All
+components described in the `interfaces.py`_ file in
+``collective.singing`` are pluggable.
+
+Developer documentation exists in the form of doctests and Zope 3
+interfaces in the source tree.  To check out the development buildout,
+type this in your terminal::
+
+  svn co http://svn.plone.org/svn/collective/collective.dancing/trunk-buildout singing-dancing-dev
+
+When the checkout is complete, you can find the doctests in ``*.txt``
+files in the ``src/collective.singing/collective/singing/`` and
+``src/collective.dancing/collective/dancing/`` directories.  There's
+also a documentation area for use cases and manuals in
+``src/collective.dancing/docs/``.
+
+Get in touch with us if you need help or have comments.  The `mailing
+list`_ and the IRC channel ``#singing-dancing`` on Freenode_ are good
+places for this.
+
 
 .. _buildout: http://pypi.python.org/pypi/zc.buildout
+.. _let us know: http://bugs.launchpad.net/singing-dancing/+filebug
 .. _Repoze: http://repoze.org
 .. _fakezope2eggs: http://danielnouri.org/blog/devel/zope/fakezope2eggs
+.. _interfaces.py: http://dev.plone.org/collective/browser/collective.singing/trunk/collective/singing/interfaces.py
+.. _mailing list: http://groups.google.com/group/singing-dancing
+.. _Freenode: http://freenode.net

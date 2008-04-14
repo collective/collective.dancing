@@ -1,21 +1,13 @@
 High priority
 =============
 
-- We want persistent composers where one can edit the template that's
+- We want persistent composers where one can choose the CSS that's
   used for sending out the message. (nouri)
-
-- We need to implement a secure secret hash.  An unsecure hash is
-  generated right now in ``collective.dancing.composer``. (nouri)
 
 - Add proper logging support. (nouri)
 
-- Help texts for the management screens. (stonor)
-
 Medium priority
 ===============
-
-- A catalog for subscriptions, so that the subscriptions admin page
-  scales. (nouri)
 
 - A plain text composer plus template.
 
@@ -25,13 +17,9 @@ Medium priority
   sense to commit back.  The relevant code is in
   ``collective.singing.message``.
 
-- We need a convenient way of calling each scheduler's ``tick`` and
-  the queues' ``dispatch`` methods periodically.
-
 - Make an ISubscription that holds reference to the member id.  This
   would allow us to implement collectors that filter based on
   subscribers' permissions.
 
 - Make the subscription form (``my-subscriptions.html``) more
-  configurable, e.g. to group subscriptions.  Also, use permissions on
-  channels to check who can subscribe (e.g. Anonymous vs. Members).
+  configurable, e.g. to group subscriptions.
