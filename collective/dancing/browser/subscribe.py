@@ -88,6 +88,10 @@ class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
     removed = False
 
     @property
+    def description(self):
+        return self.context.description
+
+    @property
     def prefix(self):
         return '%s.%s.' % (
             self.context.channel.name, self.context.metadata['format'])
@@ -127,6 +131,10 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
     format = None # set by parent form
 
     @property
+    def description(self):
+        return self.context.description
+        
+    @property
     def prefix(self):
         return '%s.%s.' % (self.context.name, self.format)
 
@@ -150,6 +158,7 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
     @button.buttonAndHandler(_('Subscribe'), name='subscribe')
     def handle_subscribe(self, action):
         data, errors = self.extractData()
+        
         if errors:
             self.status = form.AddForm.formErrorsMessage
             return
