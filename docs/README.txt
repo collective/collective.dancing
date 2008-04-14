@@ -76,7 +76,8 @@ buildout or to your Repoze_ setup.  When using Buildout, make sure you
 use the fakezope2eggs_ recipe to avoid downloading incompatible
 versions of Zope 3 packages into your buildout.
 
-If you find a bug, please `let us know`_.
+If you find a bug, please `let us know`_.  Also, feel free to ask any
+questions you might have through the `mailing list`_.
 
 Developers
 ----------
@@ -104,8 +105,8 @@ places for this.
 
 .. _buildout: http://pypi.python.org/pypi/zc.buildout
 .. _let us know: http://bugs.launchpad.net/singing-dancing/+filebug
+.. _mailing list: http://groups.google.com/group/singing-dancing
 .. _Repoze: http://repoze.org
 .. _fakezope2eggs: http://danielnouri.org/blog/devel/zope/fakezope2eggs
 .. _interfaces.py: http://dev.plone.org/collective/browser/collective.singing/trunk/collective/singing/interfaces.py
-.. _mailing list: http://groups.google.com/group/singing-dancing
 .. _Freenode: http://freenode.net
