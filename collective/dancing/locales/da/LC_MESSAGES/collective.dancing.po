@@ -41,7 +41,7 @@ msgstr "Tilføj"
 #: ./browser/channel.py:95
 msgid "Add or edit channels that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
 
-msgstr """Her kan du tilføje og redigere kanaler (abonnerbare nyhedsbreve). Hver kanal har en \"indsamler\", som er ansvarlig for at indsamle det indhold, der skal med i nyhedsbrevet. Du kan også styre, hvilke faste tidspunkter, et nyhedsbrev automatisk skal sendes ud på. """
+msgstr "Her kan du tilføje og redigere kanaler (abonnerbare nyhedsbreve). Hver kanal har en \"indsamler\", som er ansvarlig for at indsamle det indhold, der skal med i nyhedsbrevet. Du kan også styre, hvilke faste tidspunkter, et nyhedsbrev automatisk skal sendes ud på."
 
 #: ./browser/stats.py:112
 msgid "All sent and failed messages deleted"
@@ -193,6 +193,11 @@ msgstr "Wysiwyg-tekst"
 #: ./collector.py:177
 msgid "Sections"
 msgstr "Sektioner"
+
+#: ./collector.py:177
+msgid "Options"
+msgstr "Valgmulligheder"
+
 
 #: ./browser/sendnewsletter.py:34
 msgid "Send"
