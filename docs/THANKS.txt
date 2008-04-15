@@ -1,0 +1,12 @@
+Thanks to the following people for support, code, patches, etc:
+
+  - Alec Mitchell
+  - Anton Stonor
+  - Giuseppe Zizza
+  - Jakob Bartholdy Bruun
+  - Malthe Borch
+  - Russ Ferriday
+  - Sune Toft
+  - Vincenzo Barone
+  - Vincenzo Di Somma
+  - Wim Boucquaert
