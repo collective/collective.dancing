@@ -69,7 +69,7 @@
   <adapter factory=".composer.PloneCallHTMLFormatter"
            for="Products.CMFCore.interfaces.IContentish
                 zope.publisher.interfaces.browser.IBrowserRequest"
-           provides=".composer.IFullFormatter"
+           provides=".interfaces.IFullFormatter"
            name="html" />
 
   <adapter factory="collective.singing.mail.Dispatch" />

@@ -18,6 +18,8 @@ import collective.singing.mail
 from collective.dancing import MessageFactory as _
 from collective.dancing import utils
 
+from interfaces import IFullFormatter
+
 class InvalidEmailAddress(schema.ValidationError):
     _(u"Your e-mail address is invalid")
     regex = r"[a-zA-Z0-9._%-]+@([a-zA-Z0-9-]+\.)*[a-zA-Z]{2,4}"
@@ -195,15 +197,6 @@ class PloneCallHTMLFormatter(object):
             return plone_html_strip(html)
         else:
             return html
-
-class IFullFormatter(collective.singing.interfaces.IFormatItem):
-    """Format the item for use as main newsletter content.
-
-    This is used when newsletters are created from an existing content
-    object on the site.
-
-    The formatter should return a complete HTML document.
-    """
 
 class FullFormatWrapper(object):
     """Wraps an item for use with a full formatter."""
