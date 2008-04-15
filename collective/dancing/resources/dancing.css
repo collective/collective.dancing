@@ -75,6 +75,12 @@ div.crud-form td.error div.error {
     padding-bottom: 2em;
     border-bottom: 1px dashed #cccccc;
 }
+#subscription-editforms h2, 
+#subscription-addforms h2{
+    display: block;
+    clear: both;
+    margin-top: 1.2em;
+}
 */
 
 .portlet-dancing .action{
@@ -91,11 +97,3 @@ div.crud-form td.error div.error {
 .row .field .widget .option{
     display: block;
 }
-/*
-#subscription-editforms h2, 
-#subscription-addforms h2{
-    display: block;
-    clear: both;
-    margin-top: 1.2em;
-}
-*/
