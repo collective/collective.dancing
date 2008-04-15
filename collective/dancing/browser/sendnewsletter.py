@@ -78,7 +78,7 @@ class SendAsNewsletterForm(form.Form):
                 self.status = _(
                     u"${address} is not subscribed to ${channel}.",
                     mapping=dict(address=address, channel=channel.title))
-                break
+                continue
 
             for sub in subs:
                 collective.singing.scheduler.render_message(
