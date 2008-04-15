@@ -461,13 +461,16 @@ Calling the scheduler's ``tick`` method will send messages to all our
 subscribers.  Right now the scheduler is inactive though, i.e. it
 won't trigger, ever:
 
-  >>> channel.scheduler.tick(channel)
+  >>> from zope.publisher.browser import TestRequest
+  >>> request = TestRequest()
+  
+  >>> channel.scheduler.tick(channel, request)
 
 Let's make it active.  Now we can see that the messages are being
 sent:
 
   >>> channel.scheduler.active = True
-  >>> channel.scheduler.tick(channel)
+  >>> channel.scheduler.tick(channel, request)
   3
   >>> channel.queue.dispatch()
   *MyMailDelivery sending*:
@@ -502,7 +505,7 @@ Let's take a closer look at the mail that's sent to mailman:
 
 Ticking the scheduler a second time won't do anything:
 
-  >>> channel.scheduler.tick(channel)
+  >>> channel.scheduler.tick(channel, request)
 
 This has two reasons really: Firstly, the scheduler keeps track of
 when it queued something the last time:
@@ -526,10 +529,10 @@ messages to be queued again:
 
   >>> for subs in subscriptions:
   ...     del subs.metadata['cue']
-  >>> channel.scheduler.tick(channel)
+  >>> channel.scheduler.tick(channel, request)
 
   >>> channel.scheduler.triggered_last = datetime.datetime(1, 1, 1, 0, 0)
-  >>> channel.scheduler.tick(channel)
+  >>> channel.scheduler.tick(channel, request)
   3
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS
   *MyMailDelivery sending*:...(3, 0)
@@ -567,10 +570,10 @@ Let's select the daily scheduler now:
 Again, that scheduler is inactive by default.  Also, the subscriptions
 still have their cues set:
 
-  >>> channel.scheduler.tick(channel)
+  >>> channel.scheduler.tick(channel, request)
   >>> for subs in subscriptions:
   ...     del subs.metadata['cue']
-  >>> channel.scheduler.tick(channel)
+  >>> channel.scheduler.tick(channel, request)
 
 We can visit the scheduler's management screen to activate it:
 
@@ -584,7 +587,7 @@ We can visit the scheduler's management screen to activate it:
 
 The scheduler will send messages now:
 
-  >>> channel.scheduler.tick(channel)
+  >>> channel.scheduler.tick(channel, request)
   3
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS
   *MyMailDelivery sending*:...(3, 0)
@@ -596,7 +599,7 @@ Now it's silent again:
 
   >>> for subs in subscriptions:
   ...     del subs.metadata['cue']
-  >>> channel.scheduler.tick(channel)
+  >>> channel.scheduler.tick(channel, request)
 
 We can manually trigger the scheduler and thereby override the time
 check by using the "Trigger now" button:

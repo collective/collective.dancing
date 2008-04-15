@@ -9,6 +9,7 @@ import zope.annotation.interfaces
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 import zope.app.component.hooks
 import zope.sendmail.interfaces
+import zope.publisher.interfaces.browser
 import Products.CMFCore.interfaces
 import Products.CMFPlone.interfaces
 import collective.singing.interfaces
@@ -156,7 +157,8 @@ class CMFDublinCoreHTMLFormatter(object):
     """Render a brief representation of an IBaseContent for HTML.
     """
     interface.implements(collective.singing.interfaces.IFormatItem)
-    component.adapts(Products.CMFCore.interfaces.IMinimalDublinCore)
+    component.adapts(Products.CMFCore.interfaces.IMinimalDublinCore,
+                     zope.publisher.interfaces.browser.IBrowserRequest)
 
     template = """\
     <div>
@@ -165,8 +167,9 @@ class CMFDublinCoreHTMLFormatter(object):
     </div>
     """
     
-    def __init__(self, item):
+    def __init__(self, item, request):
         self.item = item
+        self.request = request
 
     def __call__(self):
         i = self.item
@@ -180,9 +183,10 @@ class PloneCallHTMLFormatter(object):
     If what ``item()`` returns looks like a rendered Plone page, this
     formatter will try and strip away all irrelevant parts.
     """
+    
     interface.implements(collective.singing.interfaces.IFormatItem)
 
-    def __init__(self, item):
+    def __init__(self, item, request):
         self.item = item
 
     def __call__(self):
@@ -192,22 +196,34 @@ class PloneCallHTMLFormatter(object):
         else:
             return html
 
-class IFullFormat(interface.Interface):
-    pass
-
 class IFullFormatter(collective.singing.interfaces.IFormatItem):
-    pass
+    """Format the item for use as main newsletter content.
 
-class FullFormat(object):
-    interface.implements(IFullFormat)
+    This is used when newsletters are created from an existing content
+    object on the site.
+
+    The formatter should return a complete HTML document.
+    """
+
+class FullFormatWrapper(object):
+    """Wraps an item for use with a full formatter."""
+    
     def __init__(self, item):
         self.item = item
 
-@component.adapter(IFullFormat)
-@interface.implementer(collective.singing.interfaces.IFormatItem)
-def HTMLFormatItemFully(fullformat):
-    return component.getAdapter(
-        fullformat.item, IFullFormatter, name='html')
+class HTMLFormatItemFully(object):
+    interface.implements(collective.singing.interfaces.IFormatItem)
+    component.adapts(FullFormatWrapper, zope.publisher.interfaces.browser.IBrowserRequest)
+    
+    def __init__(self, wrapper, request):
+        self.item = wrapper.item
+        self.request = request
+                 
+    def __call__(self):
+        view = component.getMultiAdapter(
+            (self.item, self.request), IFullFormatter, name='html')
+
+        return view()
 
 class SMTPMailer(object):
     """A mailer for use with zope.sendmail that fetches settings from

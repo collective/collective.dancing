@@ -11,7 +11,7 @@ import collective.singing.z2
 import collective.singing.scheduler
 
 from collective.dancing import MessageFactory as _
-from collective.dancing.composer import FullFormat
+from collective.dancing.composer import FullFormatWrapper
 
 class SendAsNewsletterForm(form.Form):
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
@@ -45,7 +45,8 @@ class SendAsNewsletterForm(form.Form):
         for channel in channels:
             queued += collective.singing.scheduler.assemble_messages(
                 channel,
-                (FullFormat(self.context),),
+                self.request,
+                (FullFormatWrapper(self.context),),                
                 include_collector_items)
             if channel.scheduler is not None and include_collector_items:
                 channel.scheduler.triggered_last = datetime.datetime.now()

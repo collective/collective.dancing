@@ -25,7 +25,7 @@ class EditSchedulerForm(form.EditForm):
 
     @button.buttonAndHandler(_('Trigger now'), name='trigger')
     def handle_trigger(self, action):
-        queued = self.context.trigger(self.context.aq_inner.aq_parent)
+        queued = self.context.trigger(self.context.aq_inner.aq_parent, self.request)
         if queued:
             self.status = _(u"${number} messages queued.",
                             mapping=dict(number=queued))

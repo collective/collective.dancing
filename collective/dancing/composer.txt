@@ -115,7 +115,10 @@ HTML formatters
 The CMFDublinCoreHTMLFormatter renders objects providing the CMF
 Dublin Core interface:
 
-  >>> print composer.CMFDublinCoreHTMLFormatter(portal['front-page'])() \
+  >>> from zope.publisher.browser import TestRequest
+  >>> request = TestRequest()
+  
+  >>> print composer.CMFDublinCoreHTMLFormatter(portal['front-page'], request)() \
   ... # doctest: +NORMALIZE_WHITESPACE
   <div>
     <h2><a href="http://nohost/plone/front-page">Welcome to Plone</a></h2>
@@ -125,7 +128,7 @@ Dublin Core interface:
 The PloneCallHTMLFormatter assumes that the item passed to it is a
 Plone object that returns its Plone view when called:
 
-  >>> print composer.PloneCallHTMLFormatter(portal['front-page'])() \
+  >>> print composer.PloneCallHTMLFormatter(portal['front-page'], request)() \
   ... # doctest: +ELLIPSIS
   <h1 class="documentFirstHeading">...Welcome to Plone...
   Congratulations! You have successfully installed Plone...

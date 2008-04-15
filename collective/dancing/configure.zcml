@@ -57,7 +57,8 @@
   <!-- Composer registrations-->
   <adapter factory=".composer.composerdata_from_subscription" />
   <adapter factory=".composer.CMFDublinCoreHTMLFormatter"
-           for="Products.CMFCore.interfaces.IDublinCore"
+           for="Products.CMFCore.interfaces.IDublinCore
+                zope.publisher.interfaces.browser.IBrowserRequest"
            name="html" />
   <five:implements
       interface="Products.CMFCore.interfaces.IDublinCore"
@@ -66,7 +67,8 @@
            name="html" />
   <!-- In the future, we'll want more than just this call formatter -->
   <adapter factory=".composer.PloneCallHTMLFormatter"
-           for="Products.CMFCore.interfaces.IContentish"
+           for="Products.CMFCore.interfaces.IContentish
+                zope.publisher.interfaces.browser.IBrowserRequest"
            provides=".composer.IFullFormatter"
            name="html" />
 
