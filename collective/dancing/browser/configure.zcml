@@ -148,7 +148,14 @@
      class=".sendnewsletter.SendAsNewsletterView"
      permission="cmf.ManagePortal"
      />
-  
+
+  <page
+     name="preview-newsletter.html"
+     for="*"
+     class=".preview.PreviewNewsletterView"
+     permission="cmf.ManagePortal"
+     />
+
 
   <page
      name="dancing.utils"

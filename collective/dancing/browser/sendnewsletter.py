@@ -61,6 +61,11 @@ class SendAsNewsletterForm(form.Form):
 
         self.status = _(u"${num} messages queued.", mapping=dict(num=queued))
 
+    @button.buttonAndHandler(_('Show preview'), name='show_preview')
+    def handle_show_preview(self, action):
+        self.request.response.redirect(self.context.absolute_url()+\
+                                       '/preview-newsletter.html')
+
     @button.buttonAndHandler(_('Send preview'), name='preview')
     def handle_preview(self, action):
         data, errors = self.extractData()

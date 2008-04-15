@@ -594,7 +594,6 @@ The scheduler will send messages now:
   >>> print MyMailDelivery.last_messages() # doctest: +ELLIPSIS
   Content-Type:...To: daniel@localhost...To: mailman@localhost...To: root@localhost...
 
-
 Now it's silent again:
 
   >>> for subs in subscriptions:
@@ -725,7 +724,13 @@ If we use an address that's unknown, we'll get a nice error message:
   >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
   >>> "nobody@localhost is not subscribed" in browser.contents
   True
-  
+
+Finally we may request an in-browser preview.
+
+  >>> browser.getControl('Show preview').click() # doctest: +ELLIPSIS
+  >>> "Previewing &quot;Welcome to Plone&quot;" in browser.contents
+  True
+
 The "My subscriptions" page
 ---------------------------
 

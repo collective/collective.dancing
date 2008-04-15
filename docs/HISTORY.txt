@@ -1,4 +1,4 @@
 collective.dancing 0.2
 
-  - Replace this text with your commit message.
-    [replace this text with your IRC nick]
+  - Added functionality to show a preview in the browser
+    [malthe]
