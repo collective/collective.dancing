@@ -18,6 +18,7 @@
     </dt>
     
    <dd class="portletItem">
+   
       <div tal:content="view/data/description">
 	    Portlet description
 	  </div>
@@ -30,8 +31,7 @@
    </dd>
    <dd class="portletFooter"
        tal:define="channel_link view/channel_link">
-	  <a class="tile" 
-	     href=""
+	  <a href=""
 	     tal:attributes="href channel_link/url">
 	    <span tal:content="channel_link/title">
 	      Link to channel
