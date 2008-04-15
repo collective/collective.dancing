@@ -18,10 +18,11 @@ class DancingUtilsView(BrowserView):
     def tick_and_dispatch(self): 
         """ Tick all schedulers of all channels.
             Then dispatch their queues. """
+        msg = u''
         for channel in channel_lookup():
             if channel.scheduler is not None:
-                channel.scheduler.tick(channel)
+                queued = channel.scheduler.tick(channel)
             if channel.queue is not None:
-                channel.queue.dispatch()
-           
-    
+                status = channel.queue.dispatch()
+            msg += u'%s: %d messages queued, dispatched: %s\n' % (channel.name, queued or 0, str(status))    
+        return msg
