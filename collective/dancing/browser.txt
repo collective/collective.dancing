@@ -645,15 +645,14 @@ We'll now send the front page as a newsletter:
 When we click send, the newsletter(s) will be dispatched immediately.
 
   >>> browser.getControl('My other channel').click()
-  >>> browser.getControl('Send').click() \
-  ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  >>> browser.getControl('Send', index=0).click()
+  >>> "3 messages queued" in browser.contents
+  True
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *MyMailDelivery sending*:
   ...
   Welcome to Plone...Are you doing something interesting with Plone?...
   Vickar's daughter...
-
-  >>> "3 messages queued" in browser.contents
-  True
 
 The scheduler last triggered time is also updated.
 
@@ -677,12 +676,12 @@ We create a new item again...:
 ... and this time we choose not to add collector items...
 
   >>> browser.getControl(name='form.widgets.include_collector_items:list').value = ['false']
-  >>> browser.getControl('Send').click() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-  *MyMailDelivery sending*:
-  ...
-
+  >>> browser.getControl('Send', index=0).click()
   >>> "3 messages queued" in browser.contents
   True
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *MyMailDelivery sending*:
+  ...
 
 ... so our new News Item is not sent out.
 
@@ -692,10 +691,39 @@ We create a new item again...:
   True
   >>> "All is quiet on the western front" in msg
   False
+  >>> MyMailDelivery.sent = []
 
-Since we did not include collector items the scheduler triggered time is not updated:
+Since we did not include collector items the scheduler triggered time
+is not updated:
 
   >>> previous_trigger_time == channel.scheduler.triggered_last
+  True
+
+We can also choose to send a preview of this item.  To do this, we'll
+fill in our e-mail address and click the Preview button.  Note that
+the cue time remains the same:
+
+  >>> root = tuple(channel.subscriptions.query(key=u'root@localhost'))[0]
+  >>> old_cue = root.metadata['cue']
+  >>> browser.getControl('Address').value = u'root@localhost'
+  >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
+  >>> "1 messages queued" in browser.contents
+  True
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *MyMailDelivery sending*:
+  ...
+  (1, 0)
+  >>> root = tuple(channel.subscriptions.query(key=u'root@localhost'))[0]
+  >>> root.metadata['cue'] == old_cue
+  True
+  >>> previous_trigger_time == channel.scheduler.triggered_last
+  True
+
+If we use an address that's unknown, we'll get a nice error message:
+
+  >>> browser.getControl('Address').value = u'nobody@localhost'
+  >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
+  >>> "nobody@localhost is not subscribed" in browser.contents
   True
   
 The "My subscriptions" page
