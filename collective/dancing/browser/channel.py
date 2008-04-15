@@ -212,13 +212,10 @@ class ManageSubscriptionsForm(crud.CrudForm):
             self.context, secret, composer_data, collector_data, metadata)
 
     def remove(self, (id, item)):
-        secret, format = id.rsplit(':', 1)
-        user_subscriptions = self.context.subscriptions[secret]
-        for_format = [s for s in user_subscriptions
-                      if s.metadata['format'] == format]
-        #assert len(for_format) == 1
-        for_format = for_format[0]
-        user_subscriptions.remove(for_format)
+        key, format = id.rsplit('-', 1)
+        subs = self.context.subscriptions.query(key=key, format=format)
+        for subscription in subs:
+            self.context.subscriptions.remove_subscription(subscription)
 
 class SubscriptionChoiceFieldDataManager(z3c.form.datamanager.AttributeField):
     # This nasty hack allows us to have the default IDataManager to
