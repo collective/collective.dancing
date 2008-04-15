@@ -1,9 +1,4 @@
-Changelog for collective.dancing
+collective.dancing 0.2
 
-    (name of developer listed in brackets)
-
-collective.dancing - 0.1 Unreleased
-
-    - Initial package structure.
-      [zopeskel]
-
+  - Replace this text with your commit message.
+    [replace this text with your IRC nick]
