@@ -103,13 +103,12 @@ class Channel(OFS.SimpleItem.SimpleItem):
     interface.implements(collective.singing.interfaces.IChannel)
 
     def __init__(self, name, title=None, composers=None,
-                 collector=None, scheduler=None, description=None):
+                 collector=None, scheduler=None, description=u""):
         self.name = name
         if title is None:
             title = name
         self.title = title
-        if description is None:
-            self.description = u''
+        self.description = description
         self.subscriptions = collective.dancing.subscribe.Subscriptions()
         if composers is None:
             composers = {'html': collective.dancing.composer.HTMLComposer()}

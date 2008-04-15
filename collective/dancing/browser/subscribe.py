@@ -89,7 +89,7 @@ class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
 
     @property
     def description(self):
-        return self.context.description
+        return self.context.channel.description
 
     @property
     def prefix(self):
