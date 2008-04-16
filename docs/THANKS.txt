@@ -5,6 +5,7 @@ Thanks to the following people for support, code, patches, etc:
   - Giuseppe Zizza
   - Jakob Bartholdy Bruun
   - Malthe Borch
+  - Peter Holzer
   - Russ Ferriday
   - Sune Toft
   - Vincenzo Barone
