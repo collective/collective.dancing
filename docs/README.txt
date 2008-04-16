@@ -1,41 +1,41 @@
-Singing and Dancing
-===================
+Singing & Dancing
+=================
 
 .. contents::
 
 What is it?
 -----------
 
-*Singing and Dancing* is the next generation newsletter Product for
+*Singing & Dancing* is the next generation newsletter Product for
 Plone.  It's an out of the box solution that works without
 modification for most of your use cases.  And should you find
-something that Singing and Dancing can't do, it's built to be easily
+something that Singing & Dancing can't do, it's built to be easily
 extended via plug-ins using the Zope 3 Component Architecture.
 
 Features
 --------
 
 Modern and extensible
-  Singing and Dancing builds on the latest and greatest efforts in the
+  Singing & Dancing builds on the latest and greatest efforts in the
   Zope and Plone world.  It makes heavy use of the excellent
   ``z3c.form`` library and the Zope 3 Component Architecture.  This
-  allows you to easily plug in and extend Singing and Dancing to fit
+  allows you to easily plug in and extend Singing & Dancing to fit
   your needs.
 
 Well tested
-  An extensive suite of automated tests make Singing and Dancing
+  An extensive suite of automated tests make Singing & Dancing
   exceptionally stable and reliable.  We currently have 200+ tests.
-  Singing and Dancing is not gonna leave you in the lurch!
+  Singing & Dancing is not gonna leave you in the lurch!
 
 Fully managable through the Plone interface
-  Singing and Dancing is fully usable out of the box.  An extensive
+  Singing & Dancing is fully usable out of the box.  An extensive
   set of forms reachable through the configuration panel let you as
   the user configure many details of your newsletters, like *when*
   they're sent (periodically or manually), *what* is sent (through the
   use of the *Smart Folder* interface, or manually), and to whom.
 
 Subscriptions
-  Singing and Dancing uses *confirmed subscription*, i.e. subscribers
+  Singing & Dancing uses *confirmed subscription*, i.e. subscribers
   receive an e-mail to confirm their subscription.  Users can
   subscribe via a standard subscription form that lists all available
   newsletters in the site, or through individual subscription forms,
@@ -48,7 +48,7 @@ A couple of features that we're going to implement in the near future:
 Newsletter templates
   Take complete control over how the newsletters look that are sent
   out.  Create your own template or one of the templates that come
-  pre-installed with the Singing and Dancing.  Manage newsletter
+  pre-installed with the Singing & Dancing.  Manage newsletter
   templates in a pool for easy reuse.
 
 .. image:: http://danielnouri.org/media/singing-dancing.jpg
