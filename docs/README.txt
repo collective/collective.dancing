@@ -1,6 +1,8 @@
 Singing and Dancing
 ===================
 
+.. contents::
+
 What is it?
 -----------
 
@@ -9,9 +11,6 @@ Plone.  It's an out of the box solution that works without
 modification for most of your use cases.  And should you find
 something that Singing and Dancing can't do, it's built to be easily
 extended via plug-ins using the Zope 3 Component Architecture.
-
-Singing and Dancing is still under heavy development.  We consider it
-stable, but there are going to be API changes in the future.
 
 Features
 --------
@@ -52,32 +51,132 @@ Newsletter templates
   pre-installed with the Singing and Dancing.  Manage newsletter
   templates in a pool for easy reuse.
 
+.. image:: http://danielnouri.org/media/singing-dancing.jpg
+   :alt: Singing & Dancing Logo by Giuseppe Zizza
+
 Installation
 ------------
 
-For deploying Singing and Dancing in production, you want to use a
-buildout_.  A buildout for the development of Singing and Dancing
-itself is available at:
+Singing & Dancing is available as `Python eggs on PyPI`_.  To install,
+you can simply depend_ on the ``collective.dancing`` package in your
+own site policy package, and add fakezope2eggs_ to your buildout_
+configuration, as explained below.
 
-  https://svn.plone.org/svn/collective/collective.dancing/trunk-buildout
+Alternatively, add ``collective.dancing`` to the list of eggs in your
+if you don't have your own package.  This is what we explain below.
 
-This buildout includes the development versions of the
-``collective.singing`` and ``collective.dancing`` packages.  For
-production use, you can start by copying the buildout.cfg from this
-development buildout, but modify it to not use development versions
-but eggs from the CheeseShop.  To do this, remove this section::
+Sadly, we don't support Repoze_ at this poiint.
 
-  develop =
-      src/collective.singing
-      src/collective.dancing
+Installing S&D with Buildout
+````````````````````````````
 
-Of course you can just add these two packages to your already existing
-buildout or to your Repoze_ setup.  When using Buildout, make sure you
-use the fakezope2eggs_ recipe to avoid downloading incompatible
-versions of Zope 3 packages into your buildout.
+If you don't know what buildout is or `how to create a buildout`_,
+`follow this tutorial`_ first.
 
-If you find a bug, please `let us know`_.  Also, feel free to ask any
-questions you might have through the `mailing list`_.
+These instructions assume that you already have a Plone 3 buildout
+that's built and ready to run.
+
+1) Edit your buildout.cfg file and look for the ``eggs`` key in the
+   ``instance`` section.  Add ``collective.dancing`` to that list.
+   Your list will look something like this::
+
+     eggs =
+         ${buildout:eggs}
+         ${plone:eggs}
+         collective.dancing
+
+   In the same section, look for the ``zcml`` key.  Add
+   ``collective.dancing`` here, too::
+
+     zcml = collective.dancing
+
+2) Still in your buildout configuration file, at the top of the file,
+   in the ``buildout`` section, you'll find the ``parts``.  Add to
+   these the ``fakezope2eggs`` part that we're about to create, like
+   this::
+
+     parts =
+         plone
+         zope2
+         fakezope2eggs
+         productdistros
+         instance
+         zopepy
+
+   We'll add the configuration for the actual part at the end of
+   ``buildout.cfg``::
+
+     [fakezope2eggs]
+     recipe = affinitic.recipe.fakezope2eggs
+     additional-fake-eggs = ZODB3
+
+3) Now that we're done editing the buildout configuration file, we can
+   run buildout again::
+
+     $ ./bin/buildout -v
+
+4) That's it!  You can now start up your Zope instance, and then
+   install Singing & Dancing in your Plone site by visiting the
+   *Add-on Products* site control panel.
+
+   Should these instructions not work for you, `contact us`_.
+
+It's installed.  What's next?
+`````````````````````````````
+
+You'll now have an entry in the control panel to *Singing & Dancing*.
+This will lead you to to the advanced configuration panel of S&D.
+
+Note that there's already a default newsletter set up for your
+convenience.  You can create a *Channel subscribe portlet* to enable
+your users to subscribe to this channel, or you can point them to
+http://yoursite/portal_newsletters/channels/default-channel/subscribe.html
+
+To send out a newsletter, go to any portal object, like the Plone
+front page, and click *Actions -> Send as newsletter*.
+
+The advanced configuration panel of S&D gives you many more ways to
+send newsletters, like periodically and from automatically collected
+content.
+
+Processing the message queue
+````````````````````````````
+
+One important thing to note is that S&D usually queues messages in its
+own message queue before sending them out.  You might have noticed
+that when you send out a newsletter, S&D tells you that it queued the
+messages.
+
+In a production setup, you would normally process the message queue
+periodically using the built-in Zope ClockServer_.  While you're
+testing, you can visit the *Statistics* screen in the S&D advanced
+configuration panel and manually flush the queues.  If your mail
+configuration in Plone is set up correctly, you should be sending mail
+out now.
+
+To set up ClockServer to trigger the processing automatically for you,
+add this stanza to the Zope 2 ``instance`` section of your buildout
+configuration and rerun ``bin/buildout -v``::
+
+  zope-conf-additional = 
+      <clock-server>
+        method /portal/@@dancing.utils/tick_and_dispatch
+        period 300
+        user admin
+        password admin
+        host localhost
+      </clock-server>
+
+This will process the message queue every five minutes.  It assumes
+that your Plone site is called ``portal`` and that your username and
+password are ``admin``.
+
+Contact us
+----------
+
+If you want to contact us, send a message to our `mailing list`_.  If
+you find a bug, please `let us know`_.  We also have an IRC channel
+called ``#singing-dancing`` on Freenode_.
 
 Developers
 ----------
@@ -88,7 +187,7 @@ components described in the `interfaces.py`_ file in
 
 Developer documentation exists in the form of doctests and Zope 3
 interfaces in the source tree.  To check out the development buildout,
-type this in your terminal::
+type this into your terminal::
 
   svn co http://svn.plone.org/svn/collective/collective.dancing/trunk-buildout singing-dancing-dev
 
@@ -98,15 +197,19 @@ files in the ``src/collective.singing/collective/singing/`` and
 also a documentation area for use cases and manuals in
 ``src/collective.dancing/docs/``.
 
-Get in touch with us if you need help or have comments.  The `mailing
-list`_ and the IRC channel ``#singing-dancing`` on Freenode_ are good
-places for this.
+Get in touch with us if you need help or have comments.  See the
+`Contact us`_ section.
 
 
+.. _Python eggs on PyPI: http://pypi.python.org/pypi/collective.dancing
+.. _depend: http://peak.telecommunity.com/DevCenter/setuptools#declaring-dependencies
+.. _fakezope2eggs: http://danielnouri.org/blog/devel/zope/fakezope2eggs
 .. _buildout: http://pypi.python.org/pypi/zc.buildout
+.. _Repoze: http://repoze.org
+.. _how to create a buildout: http://plone.org/documentation/tutorial/buildout/creating-a-buildout-for-your-project
+.. _follow this tutorial: http://plone.org/documentation/tutorial/buildout
+.. _ClockServer: http://plope.com/software/ClockServer/
 .. _let us know: http://bugs.launchpad.net/singing-dancing/+filebug
 .. _mailing list: http://groups.google.com/group/singing-dancing
-.. _Repoze: http://repoze.org
-.. _fakezope2eggs: http://danielnouri.org/blog/devel/zope/fakezope2eggs
-.. _interfaces.py: http://dev.plone.org/collective/browser/collective.singing/trunk/collective/singing/interfaces.py
 .. _Freenode: http://freenode.net
+.. _interfaces.py: http://dev.plone.org/collective/browser/collective.singing/trunk/collective/singing/interfaces.py
