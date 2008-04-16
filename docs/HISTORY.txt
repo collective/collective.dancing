@@ -1,5 +1,10 @@
 collective.dancing 0.2
 
+  - Don't use locale-dependent 'string.letters' when creating the
+    ISalt utility.  This fixes
+    https://bugs.launchpad.net/singing-dancing/+bug/217823
+    [nouri]
+
   - Extended portlet with optinal footertext
     [bartholdy]
 

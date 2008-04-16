@@ -44,7 +44,8 @@ class Salt(UserString):
             UserString.__init__(self, data)
             return
         salt = ''.join([
-            random.choice(string.letters + string.digits) for i in range(50)])
+            random.choice(string.ascii_letters + string.digits)
+            for i in range(50)])
         UserString.__init__(self, salt)
 
 class IPortalNewsletters(interface.Interface):
