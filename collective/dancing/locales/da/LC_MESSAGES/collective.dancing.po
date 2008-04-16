@@ -1,34 +1,36 @@
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2008-04-11 12:01+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"PO-Revision-Date: 2008-04-16 18:41+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: da\n"
-"Language-Name: Danish\n"
+"Language-Code: nl\n"
+"Language-Name: Dutch\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.dancing\n"
+"X-Is-Fallback-For: nl-be nl-nl\\n\n"
 
 #: ./browser/channel.py:255
 msgid "\"${channel}\" subscriptions administration"
-msgstr ""
+msgstr "\"${channel}\" inschrijvingen administratie"
 
 #: ./browser/scheduler.py:30
 msgid "${number} messages queued."
-msgstr "${number} beskeder lagt i kø"
+msgstr "${number} berichten in de wachtrij"
 
 #: ./browser/sendnewsletter.py:53
 msgid "${num} messages queued."
-msgstr "${num} lagt i kø."
+msgstr "${num} berichten in de wachtrij"
 
 #: ./browser/stats.py:93
 msgid "${sent} message(s) sent, ${failed} failure(s)."
-msgstr "${sent} besked(er) udsendt, fejl i ${failed} af dem."
+msgstr "${sent} bericht(en) verzonden, ${failed} gefaald."
 
 #: ./composer.py:92
 msgid "${site-title}: ${channel-title}"
@@ -36,7 +38,7 @@ msgstr "${site-title}: ${channel-title}"
 
 #: ./browser/collector.py:161
 msgid "Add"
-msgstr "Tilføj"
+msgstr "Toevoegen"
 
 #: ./browser/channel.py:95
 msgid "Add or edit channels that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
@@ -45,32 +47,32 @@ msgstr "Her kan du tilføje og redigere kanaler (abonnerbare nyhedsbreve). Hver 
 
 #: ./browser/stats.py:112
 msgid "All sent and failed messages deleted"
-msgstr "Alle "
+msgstr "Alle verzonden en gefaalde berichten verwijderd"
 
 #: ./browser/scheduler.py:22
 msgid "Apply"
-msgstr "Udfør"
+msgstr "Toepassen"
 
 #: ./browser/channel.py:154
 msgid "Channel administration"
-msgstr "Kanal-administration"
+msgstr "Kanaal administratie"
 
 #. Default: "Click here to unsubscribe."
 #: ./browser/composer-html.pt:20
 msgid "Click here to unsubscribe."
-msgstr "Klik her for at framelde dig"
+msgstr "Klik hier om uit te schrijven"
 
 #: ./browser/collector.py:66
 msgid "Collector administration"
-msgstr "Administration af indholdsindsamlere"
+msgstr "Collector administratie"
 
 #: ./composer.py:120
 msgid "Confirm your subscription with ${channel-title}"
-msgstr "Bekræft dit abonnement på ${channel-title}"
+msgstr "Bevestig je inschrijving op ${channel-title}"
 
 #: ./browser/subscribe.py:39
 msgid "Confirming your subscription"
-msgstr "Bekræfter dit abonnement"
+msgstr "Je inschrijving bevestigen"
 
 #. Default: "Displays a form that lets you send this content item as a newsletter."
 #: ./profiles/default/actions.xml
@@ -79,112 +81,112 @@ msgstr "Viser en formular, som lad dig udsende dette indhold som et nyhedsbrev."
 
 #: ./composer.py:30
 msgid "E-mail address"
-msgstr "Email-adresse"
+msgstr "E-mailadres"
 
 #: ./browser/collector.py:298
 msgid "Edit ${collector}"
-msgstr "Rediger ${collector}"
+msgstr "Wijzig ${collector}"
 
 #: ./browser/scheduler.py:39
 msgid "Edit ${selector} for ${channel}"
-msgstr "Rediger ${selector} for ${channel}"
+msgstr "Wijzig ${selector} voor ${channel}"
 
 #: ./browser/stats.py:38
 msgid "Failed messages"
-msgstr "Beskeder med fejl"
+msgstr "Gefaalde berichten"
 
 #: ./browser/stats.py:73
 msgid "Flush old messages"
-msgstr "Slet gamle beskeder"
+msgstr "Oude berichten opschonen"
 
 #: ./composer.py:43
 msgid "HTML E-Mail"
-msgstr "HTML email"
+msgstr "HTML e-mail"
 
 #: ./browser/sendnewsletter.py:29
 msgid "Include collector items"
-msgstr "Medtag automatisk indsamlet indhold"
+msgstr "Inclusief collector items"
 
 #: ./browser/collector.py:169
 msgid "Item added successfully."
-msgstr "Er nu tilføjet"
+msgstr "Item succesvol toegevoegd"
 
 #: ./browser/collector.py:180
 msgid "Item successfully deleted."
-msgstr "Er nu slettet"
+msgstr "Item succesvol verwijderd"
 
 #: ./browser/collector.py:213
 msgid "Item successfully moved."
-msgstr "Er flyttet"
+msgstr "Item succesvol verplaatst"
 
 #: ./browser/stats.py:29
 msgid "Last Change"
-msgstr "Seneste ændring"
+msgstr "Laatst gewijzigd"
 
 #: ./browser/stats.py:33
 msgid "Messages successfully sent"
-msgstr "Beskederne er nu sendt ud"
+msgstr "Bericht succesvol verzonden"
 
 #: ./browser/stats.py:27
 msgid "Messages waiting to be sent"
-msgstr "Beskeder der venter på at blive udsendt"
+msgstr "Berichtem in de wachtij om te verzenden"
 
 #: ./browser/stats.py:39
 msgid "Messages with errors"
-msgstr "Beskeder med fejl"
+msgstr "Berichten met fouten"
 
 #: ./browser/stats.py:45
 msgid "Messages with errors in the retry queue"
-msgstr "Beskeder med fejl som venter på et nyt forsøg"
+msgstr "Berichten met fouten in de wachtrij om opnieuw te verzenden"
 
 #: ./browser/collector.py:216
 msgid "Move block down"
-msgstr "Flyt blok ned"
+msgstr "Blok naar beneden verplaatsen"
 
 #: ./browser/collector.py:209
 msgid "Move block up"
-msgstr "Flyt blok op"
+msgstr "Blok naar boven verplaatsen"
 
 #: ./browser/subscribe.py:199
 msgid "My subscriptions"
-msgstr "Mine abonnementer"
+msgstr "Mijn inschrijvingen"
 
 #: ./browser/stats.py:26
 msgid "New messages"
-msgstr "Nye beskeder"
+msgstr "Nieuwe berichten"
 
 #: ./channel.py:98
 msgid "Newsletter"
-msgstr "Nyhedsbrev"
+msgstr "Nieuwsbrief"
 
 #: ./browser/stats.py:120
 msgid "Newsletter statistics"
-msgstr "Statistik for nyhedsbrev"
+msgstr "Nieuwbrief statistieken"
 
 #: ./browser/scheduler.py:33
 msgid "No messages queued."
-msgstr "Ingen beskeder i kø."
+msgstr "Geen berichten in de wachtij."
 
 #. Default: "Please confirm your subscription"
 #: ./browser/composer-html-confirm.pt:8
 msgid "Please confirm your subscription"
-msgstr "Bekræft dit abonnement"
+msgstr "Gelieve je inschrijving te bevestigen"
 
 #: ./browser/stats.py:75
 msgid "Please select items to flush."
-msgstr "Vælg hvad der skal slettes."
+msgstr "Selecteer de items die je wil opschonen."
 
 #: ./browser/stats.py:84
 msgid "Please select which channel you'd like to send queued e-mails of."
-msgstr "Vælg hvilken kanal, du ønsker at udsende nyhedsbreve fra køen."
+msgstr "Selecteer het kanaal waarvan je de e-mail wachtrij wil verzenden."
 
 #: ./browser/collector.py:177
 msgid "Remove block"
-msgstr "Slet blok"
+msgstr "Blok verwijderen"
 
 #: ./browser/stats.py:44
 msgid "Retry messages"
-msgstr "Prøv-igen beskeder"
+msgstr "Berichten opnieuw proberen"
 
 #: ./collector.py:66
 msgid "Rich text"
@@ -192,16 +194,16 @@ msgstr "Wysiwyg-tekst"
 
 #: ./collector.py:177
 msgid "Sections"
-msgstr "Sektioner"
+msgstr "Secties"
 
 #: ./collector.py:177
 msgid "Options"
-msgstr "Valgmulligheder"
+msgstr "Opties"
 
 
 #: ./browser/sendnewsletter.py:34
 msgid "Send"
-msgstr "Udsend"
+msgstr "Verzenden"
 
 #: ./browser/sendnewsletter.py:59
 msgid "Send ${item} as newsletter"
@@ -210,27 +212,27 @@ msgstr "Send ${item} som nyhedsbrev"
 #. Default: "Send as newsletter"
 #: ./profiles/default/actions.xml
 msgid "Send as newsletter"
-msgstr "Send som nyhedsbrev"
+msgstr "Als nieuwsbrief verzenden"
 
 #: ./browser/stats.py:82
 msgid "Send messages now"
-msgstr "Send beskeder nu"
+msgstr "Berichten nu verzenden"
 
 #: ./browser/stats.py:32
 msgid "Sent messages"
-msgstr "Beskeder nu sendt"
+msgstr "Verzonden berichten"
 
 #: ./browser/controlpanel.py:18
 msgid "Singing & Dancing configuration"
-msgstr "Administration af nyhedsbreve"
+msgstr "Singing & Dancing configuratie"
 
 #: ./browser/subscribe.py:25
 msgid "Subscribe"
-msgstr "Abonner"
+msgstr "Inschrijven"
 
 #: ./browser/stats.py:78
 msgid "Successfully flushed channels."
-msgstr "Alle kanaler nu tømt."
+msgstr "Alle kanalen succesvol opgeschoond."
 
 #: ./browser/sendnewsletter.py:24
 msgid "The channel to send this through"
@@ -238,7 +240,7 @@ msgstr "Kanalen sendte det gennem"
 
 #: ./browser/subscribe.py:170
 msgid "There seems to be an error with the information you entered."
-msgstr "Du har indtastet en fejl."
+msgstr "Er zit een fout in de informatie je invoerde."
 
 #: ./browser/collector.py:92
 msgid "Title"
@@ -247,19 +249,19 @@ msgstr "Titel"
 #. Default: "To confirm your subscription with ${channel}, please click here: ${url}"
 #: ./browser/composer-html-confirm.pt:14
 msgid "To confirm your subscription with ${channel}, please click here: ${url}"
-msgstr "Du kan bekræfte dit abonnement på  ${channel} ved at klikke her: ${url}"
+msgstr "Om je inschrijving voor ${channel} te bevestigen, klik hier: ${url}"
 
 #: ./browser/stats.py:21
 msgid "Total messages sent"
-msgstr "Udsendt i alt"
+msgstr "Totaal aantal berichten verzonden"
 
 #: ./browser/stats.py:22
 msgid "Total number of messages sent successsfully"
-msgstr "Udsendt i alt (med held)"
+msgstr "Totaal aantal berichten succesvol verzonden"
 
 #: ./browser/scheduler.py:26
 msgid "Trigger now"
-msgstr "Send nu"
+msgstr "Nu verzenden"
 
 #: ./browser/collector.py:39
 msgid "Type"
@@ -267,23 +269,23 @@ msgstr "Type"
 
 #: ./browser/subscribe.py:60
 msgid "Unsubscribe"
-msgstr "Afmeld"
+msgstr "Uitschrijven"
 
 #: ./browser/channel.py:259
 msgid "Up to Channels administration"
-msgstr "Til kanal-administration"
+msgstr "Naar kanaal configuratie"
 
 #: ./browser/collector.py:302
 msgid "Up to Collector administration"
-msgstr "Til administration af indsamlere"
+msgstr "Naar collector configuratie"
 
 #: ./browser/controlpanel.py:11
 msgid "Up to Singing & Dancing configuration"
-msgstr "Til nyhedsbrevs-administration"
+msgstr "Naar Singing and Dancing configuratie"
 
 #: ./browser/controlpanel.py:21
 msgid "Up to Site Setup"
-msgstr "Til Plones kontrolpanel"
+msgstr "Naar Website instellingen"
 
 #: ./browser/subscribe.py:186
 msgid "We're sorry, but there seems to be an error. Please try again later. (${error})"
