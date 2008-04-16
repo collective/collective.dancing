@@ -29,10 +29,11 @@
    </div> 
    <div class="visualClear"></div>  
    </dd>
-   <dd class="portletFooter"
+   <dd class="portletFooter" 
+       tal:condition="view/data/show_footer"
        tal:define="channel_link view/channel_link">
 	  <a href=""
-	     tal:attributes="href channel_link/url">
+	     tal:attributes="href channel_link/url" >
 	    <span tal:content="channel_link/title">
 	      Link to channel
 	    </span>

@@ -45,6 +45,14 @@ class IChannelSubscribePortlet(IPortletDataProvider):
                             description=_(u"Click here to select collector options to be automatically enabled, when subscribing from this portlet."),
                             required=True,
                             default=True)
+    footer_text = schema.TextLine(title=_(u"Footer text"),
+                             description=_(u"Text in footer - if omitted the channel title is used"),
+                             required=False)
+
+    show_footer = schema.Bool(title=_(u"Show footer"),
+                            description=_(u"Click here to show the portlet footer."),
+                            required=True,
+                            default=True)
 
 class Assignment(base.Assignment):
     """
@@ -62,11 +70,15 @@ class Assignment(base.Assignment):
                  header=u"",
                  description=u"",
                  channel=None,
-                 subscribe_directly=True):
+                 subscribe_directly=True,
+                 footer_text="",
+                 show_footer=True):
         self.header = header
         self.description = description
         self.channel = channel
         self.subscribe_directly = subscribe_directly
+        self.footer_text = footer_text
+        self.show_footer = show_footer
 
     @property
     def title(self):
@@ -220,9 +232,16 @@ class Renderer(base.Renderer):
     def channel_link(self):
 
         link = {'url':'%s/subscribe.html'%self.channel.absolute_url(),
-                'title':self.channel.Title()}
+                'title':self.getFooterText()}
         return link
 
+        
+    def getFooterText(self):
+        if bool(self.data.footer_text):
+            return self.data.footer_text
+        return self.channel.Title()
+ 
+            
 def prefix(self):
     return str(self.__class__.__name__ + '-'.join(self.context.getPhysicalPath()))
 

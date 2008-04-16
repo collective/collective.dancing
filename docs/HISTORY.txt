@@ -1,4 +1,7 @@
 collective.dancing 0.2
 
+  - Extended portlet with optinal footertext
+    [bartholdy]
+
   - Added functionality to show a preview in the browser
     [malthe]
