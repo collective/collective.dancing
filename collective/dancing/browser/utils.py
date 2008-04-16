@@ -20,9 +20,13 @@ class DancingUtilsView(BrowserView):
             Then dispatch their queues. """
         msg = u''
         for channel in channel_lookup():
+            queued = status = None
             if channel.scheduler is not None:
-                queued = channel.scheduler.tick(channel)
+                queued = channel.scheduler.tick(channel, self.request)
             if channel.queue is not None:
                 status = channel.queue.dispatch()
-            msg += u'%s: %d messages queued, dispatched: %s\n' % (channel.name, queued or 0, str(status))    
+            d = {'channel':channel.name,
+                 'queued':queued or 0,
+                 'status':str(status or (0,0))}
+            msg += u'%(channel)s: %(queued)d messages queued, dispatched: %(status)s\n' % d 
         return msg
