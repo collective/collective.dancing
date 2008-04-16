@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2008-04-11 12:01+0000\n"
-"PO-Revision-Date: 2008-04-16 18:41+0200\n"
+"PO-Revision-Date: 2008-04-16 21:56+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "Toevoegen"
 #: ./browser/channel.py:95
 msgid "Add or edit channels that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
 
-msgstr "Her kan du tilføje og redigere kanaler (abonnerbare nyhedsbreve). Hver kanal har en \"indsamler\", som er ansvarlig for at indsamle det indhold, der skal med i nyhedsbrevet. Du kan også styre, hvilke faste tidspunkter, et nyhedsbrev automatisk skal sendes ud på."
+msgstr "Toevoegen of wijzigen van kanalen die collectors zullen gebruiken om bepaalde informatie te verzamelen en te versturen via e-mail naar inschrijvers en dit op geplande tijstippen."
 
 #: ./browser/stats.py:112
 msgid "All sent and failed messages deleted"
@@ -129,7 +129,7 @@ msgstr "Bericht succesvol verzonden"
 
 #: ./browser/stats.py:27
 msgid "Messages waiting to be sent"
-msgstr "Berichtem in de wachtij om te verzenden"
+msgstr "Berichten in de wachtij om te verzenden"
 
 #: ./browser/stats.py:39
 msgid "Messages with errors"
@@ -190,7 +190,7 @@ msgstr "Berichten opnieuw proberen"
 
 #: ./collector.py:66
 msgid "Rich text"
-msgstr "Wysiwyg-tekst"
+msgstr "Wysiwyg tekst"
 
 #: ./collector.py:177
 msgid "Sections"
@@ -207,7 +207,7 @@ msgstr "Verzenden"
 
 #: ./browser/sendnewsletter.py:59
 msgid "Send ${item} as newsletter"
-msgstr "Send ${item} som nyhedsbrev"
+msgstr "Verzend ${item} items als nieuwsbrief"
 
 #. Default: "Send as newsletter"
 #: ./profiles/default/actions.xml
@@ -236,7 +236,7 @@ msgstr "Alle kanalen succesvol opgeschoond."
 
 #: ./browser/sendnewsletter.py:24
 msgid "The channel to send this through"
-msgstr "Kanalen sendte det gennem"
+msgstr "Kanaal waarmee dit te verzenden"
 
 #: ./browser/subscribe.py:170
 msgid "There seems to be an error with the information you entered."
@@ -289,44 +289,44 @@ msgstr "Naar Website instellingen"
 
 #: ./browser/subscribe.py:186
 msgid "We're sorry, but there seems to be an error. Please try again later. (${error})"
-msgstr "Der opstod en fejl. Prøv igen senere. (${error})"
+msgstr "Er trad een fout op. Gelieve ons hiervoor te excuseren. Gelieve later opnieuw te proberen. (${error})"
 
 #. Default: "You are currently subscribed to these newsletters:"
 #: ./browser/subscriptions.pt:12
 msgid "You are currently subscribed to these newsletters:"
-msgstr "Du abonnere nu på disse nyhedsbreve:"
+msgstr "Je bent momenteel ingeschreven op volgende nieuwsbrieven:"
 
 #: ./browser/subscribe.py:70
 msgid "You aren't subscribed to this channel."
-msgstr "Du abonnerer ikke på denne kanal."
+msgstr "Je bent niet ingeschreven op dit kanaal."
 
 #. Default: "You can subscribe to these newsletters:"
 #: ./browser/subscriptions.pt:19
 msgid "You can subscribe to these newsletters:"
-msgstr "Du kan abonnere på disse nyhedsbrve:"
+msgstr "Je kan je inschrijven op deze nieuwsbrieven:"
 
 #: ./browser/subscribe.py:50
 msgid "You confirmed your subscription successfully."
-msgstr "Din bekræftelse af abonnementet gik igennem."
+msgstr "Je inschrijving werd succesvol bevestigd."
 
 #: ./browser/subscribe.py:193
 msgid "You subscribed successfully."
-msgstr "Dit abonnement er nu tilmeldt."
+msgstr "Je bent succesvol ingeschreven."
 
 #: ./browser/subscribe.py:68
 msgid "You unsubscribed successfully."
-msgstr "Du er nu afmeldt."
+msgstr "Je bent succesvol uitgeschreven."
 
 #. Default: "You're receiving this e-mail because you're registered for the ${channel} newsletter."
 #: ./browser/composer-html.pt:16
 msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
-msgstr "Du modtager denne email, fordi du er oprettet som abonnent på ${channel}."
+msgstr "Je ontvangt deze e-mail omdat je ingeschreven bent op de ${channel} nieuwsbrief."
 
 #: ./composer.py:21
 msgid "Your e-mail address is invalid"
-msgstr "Din email-adresse er ugyldig"
+msgstr "Je e-mailadres is ongeldig"
 
 #: ./browser/subscribe.py:52
 msgid "Your subscription isn't known to us."
-msgstr "Dit abonnement findes ikke i systemet."
+msgstr "Je inschrijving is ons niet bekend."
 
