@@ -93,10 +93,7 @@ class ManageChannelsForm(crud.CrudForm):
     """Crud form for channels.
     """
     
-    description = _("""Add or edit channels that will use 
-      collectors to gather and email specific sets of information 
-      from your site, to subscribed email addresses, at 
-      scheduled times.""")
+    description = _("Add or edit channels that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times.")
     editform_factory = ChannelEditForm
     template = viewpagetemplatefile.ViewPageTemplateFile('channel-form-master.pt')
     @property
