@@ -63,6 +63,9 @@
   <five:implements
       interface="Products.CMFCore.interfaces.IDublinCore"
       class="Products.Archetypes.BaseContent.BaseContent" />
+  <five:implements
+      interface="Products.CMFCore.interfaces.IDublinCore"
+      class="Products.Archetypes.BaseFolder.BaseFolder" />
   <adapter factory=".composer.HTMLFormatItemFully"
            name="html" />
   <!-- In the future, we'll want more than just this call formatter -->
