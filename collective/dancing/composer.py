@@ -47,6 +47,12 @@ def composerdata_from_subscription(subscription):
     return utils.AttributeToDictProxy(subscription.composer_data)
 
 class HTMLComposer(object):
+    """
+      >>> from zope.interface.verify import verifyClass
+      >>> from collective.singing.interfaces import IComposer
+      >>> verifyClass(IComposer, HTMLComposer)
+      True
+    """
     interface.implements(collective.singing.interfaces.IComposer,
                          collective.singing.interfaces.IComposerBasedSecret)
 
@@ -55,6 +61,7 @@ class HTMLComposer(object):
 
     template = ViewPageTemplateFile('browser/composer-html.pt')
     confirm_template = ViewPageTemplateFile('browser/composer-html-confirm.pt')
+    forgot_template = ViewPageTemplateFile('browser/composer-html-forgot.pt')
 
     @staticmethod
     def secret(data):
@@ -78,62 +85,79 @@ class HTMLComposer(object):
              properties.email_from_address.decode(charset)),
             encoding='UTF-8')
 
-    def _render_html(self, subscription, items, subject):
+    def _vars(self, subscription):
+        vars = {}
         channel = subscription.channel
-        secret = self.secret(subscription.composer_data)
-        
-        unsubscribe_url = (
+        site = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
+        vars['language'] = self.request.get('LANGUAGE')
+        vars['channel'] = subscription.channel
+        vars['site_title'] = unicode(site.Title(), 'UTF-8')
+        vars['channel_title'] = subscription.channel.title
+        vars['from_addr'] = self._from_address
+        vars['to_addr'] = subscription.composer_data['email']
+        vars['confirm_url'] = (
+            '%s/confirm-subscription.html?secret=%s' %
+            (channel.absolute_url(), subscription.secret))
+        vars['unsubscribe_url'] = (
             '%s/unsubscribe.html?secret=%s' %
             (channel.absolute_url(), subscription.secret))
-
-        html = self.template(
-            subject=subject,
-            contents=items,
-            channel=channel,
-            unsubscribe_url=unsubscribe_url)
-        return html
+        vars['my_subscriptions_url'] = (
+            '%s/../../my-subscriptions.html?secret=%s' %
+            (channel.absolute_url(), subscription.secret))
+        return vars
 
     def render(self, subscription, items=()):
-        site = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
-        site_title = unicode(site.Title(), 'UTF-8')
+        vars = self._vars(subscription)
+        secret = self.secret(subscription.composer_data)
 
-        language = self.request.get('LANGUAGE')
         subject = zope.i18n.translate(
             _(u"${site-title}: ${channel-title}",
-              mapping={'site-title': site_title,
-                       'channel-title': subscription.channel.title}),
-            target_language=language)
-        html = self._render_html(subscription, items, subject)
-
+              mapping={'site-title': vars['site_title'],
+                       'channel-title': vars['channel_title']}),
+            target_language=vars['language'])
+        html = self.template(subject=subject, contents=items, **vars)
         message = collective.singing.mail.create_html_mail(
             subject,
             html,
-            from_addr=self._from_address,
-            to_addr=subscription.composer_data['email'])
+            from_addr=vars['from_addr'],
+            to_addr=vars['to_addr'])
 
         return collective.singing.message.Message(
             message, subscription)
 
     def render_confirmation(self, subscription):
-        channel = subscription.channel
+        vars = self._vars(subscription)
 
-        confirm_url = ('%s/confirm-subscription.html?secret=%s' %
-                       (subscription.channel.absolute_url(),
-                        subscription.secret))
+        html = self.confirm_template(**vars)
 
-        html = self.confirm_template(channel=channel,
-                                     confirm_url=confirm_url)
-        language = self.request.get('LANGUAGE')
         subject = zope.i18n.translate(
             _(u"Confirm your subscription with ${channel-title}",
               mapping={'channel-title': subscription.channel.title}),
-            target_language=language)
-
+            target_language=vars['language'])
         message = collective.singing.mail.create_html_mail(
             subject,
             html,
-            from_addr=self._from_address,
-            to_addr=subscription.composer_data['email'])
+            from_addr=vars['from_addr'],
+            to_addr=vars['to_addr'])
+
+        # status=None prevents message from ending up in any queue
+        return collective.singing.message.Message(
+            message, subscription, status=None)
+
+    def render_forgot_secret(self, subscription):
+        vars = self._vars(subscription)
+        
+        html = self.forgot_template(**vars)
+
+        subject = zope.i18n.translate(
+            _(u"Change your subscriptions with ${site-title}",
+              mapping={'site-title': vars['site_title']}),
+            target_language=vars['language'])
+        message = collective.singing.mail.create_html_mail(
+            subject,
+            html,
+            from_addr=vars['from_addr'],
+            to_addr=vars['to_addr'])
 
         # status=None prevents message from ending up in any queue
         return collective.singing.message.Message(
@@ -206,7 +230,8 @@ class FullFormatWrapper(object):
 
 class HTMLFormatItemFully(object):
     interface.implements(collective.singing.interfaces.IFormatItem)
-    component.adapts(FullFormatWrapper, zope.publisher.interfaces.browser.IBrowserRequest)
+    component.adapts(FullFormatWrapper,
+                     zope.publisher.interfaces.browser.IBrowserRequest)
     
     def __init__(self, wrapper, request):
         self.item = wrapper.item

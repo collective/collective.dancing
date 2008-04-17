@@ -416,6 +416,17 @@ e-mail address fails:
   >>> "You are already subscribed." in browser.contents
   True
 
+Users can also request an e-mail with their secret:
+
+  >>> browser.getControl('Send my subscription details').click() \
+  ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *MyMailDelivery sending*:
+  From: Site Administrator <>
+  To: root@localhost
+  Message follows:
+  ...
+  Click here to manage your subscriptions...
+
 Unsubscribe
 -----------
 

@@ -13,7 +13,7 @@
 
     <p i18n:translate="">
       You're receiving this e-mail because you're registered for the
-      <span tal:replace="options/channel/title" i18n:name="channel" />
+      <span tal:replace="options/channel_title" i18n:name="channel" />
       newsletter.
     </p>
     <p>
