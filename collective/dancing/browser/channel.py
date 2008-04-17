@@ -240,7 +240,7 @@ class SubscriptionsAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
 
     def label(self):
-        return _(u'${channel} subscriptions administration',
+        return _(u'"${channel}" subscriptions administration',
                  mapping=dict(channel=self.context.title))
 
     def back_link(self):
