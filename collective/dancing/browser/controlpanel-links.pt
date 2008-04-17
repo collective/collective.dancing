@@ -1,4 +1,4 @@
-  <dl>
+  <dl i18n:domain="collective.dancing">
     <dt >
       <a i18n:translate="label_channel_administration" href="./channels">
         Channel administration

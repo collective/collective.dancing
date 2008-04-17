@@ -10,9 +10,11 @@
   </div>
   
   <p class="crud-description"
-       tal:condition="view/description" 
-       tal:content="view/description">
+       tal:condition="view/description" >
+ 
+       <span tal:replace="view/description" />
   </p>
+  
   
   <div tal:repeat="form view/subforms"
        tal:content="structure form/render"
