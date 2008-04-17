@@ -213,11 +213,20 @@ class Subscriptions(BrowserView):
     label = _(u"My subscriptions")
     status = u""
 
+    def forgot_secret_form(self):
+        form = collective.singing.browser.subscribe.ForgotSecret(
+            self.context, self.request)
+        form.label = u''
+        return form()
+
+    @property
+    def secret(self):
+        return self.request.form.get('secret')
+
     def contents(self):
         collective.singing.z2.switch_on(self)
 
-        secret = self.request.form.get('secret')
-        subscriptions, channels = self._subscriptions_and_channels(secret)
+        subscriptions, channels = self._subscriptions_and_channels(self.secret)
 
         # Assemble the list of edit forms
         self.subscription_editforms = [
@@ -270,8 +279,8 @@ class Subscriptions(BrowserView):
             channel_subs = channel.subscriptions
 
             subscribed_formats = []
-            if secret is not None:
-                for s in channel_subs.query(secret=secret):
+            if self.secret is not None:
+                for s in channel_subs.query(secret=self.secret):
                     subscriptions.append(s)
                     subscribed_formats.append(s.metadata['format'])
 

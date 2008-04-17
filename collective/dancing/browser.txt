@@ -879,9 +879,26 @@ This will trigger the confirmation mail to be sent out:
   >>> tuple(channel.subscriptions.query(secret=secret))[0].metadata['pending']
   True
 
-Periodic tick'ing and dispatching happens from an outside time-source, i.e. cron
-or zope clock-server. Really, anything that can call our utility view as Manager.
-The view will return a status message for each channel.
+The unpersonalized version of "My subscription" contains a form that
+lets us retrieve an e-mail message with a link to the same page that
+contains our secret:
+
+  >>> browser.getControl("Address").value = "daemon@localhost"
+  >>> browser.getControl('Send').click()
+  *MyMailDelivery sending*:
+  From: Site Administrator <>
+  To: daemon@localhost
+  Message follows:
+  ...
+  Click here to manage your subscriptions...
+
+Periodic ticking
+----------------
+
+Periodic tick'ing and dispatching happens from an outside time-source,
+i.e. cron or zope clock-server. Really, anything that can call our
+utility view as Manager.  The view will return a status message for
+each channel.
 
   >>> browser.open(portal.absolute_url() + '/@@dancing.utils/tick_and_dispatch')
   >>> print browser.contents # doctest +NORMALIZE_WHITESPACE

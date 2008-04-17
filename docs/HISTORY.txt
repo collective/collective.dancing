@@ -1,4 +1,9 @@
 collective.dancing 0.2
+
+  - Add an 'Already subscribed?" section to the "My subscriptions"
+    page to retrieve your password.
+    [nouri]
+
   - added i18n:domain to browser/controlpanel-links.pt, removed extra quotes 
     from browser/channel.py, updated pot and danish translation
     [bartholdy]

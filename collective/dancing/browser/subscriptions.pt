@@ -20,4 +20,15 @@
   <div tal:repeat="form addforms" tal:content="structure form/render"></div>
 </div>
 
+<div tal:condition="python:view.secret is None">
+  <h2 i18n:translate="">Already subscribed?</h2>
+  <p i18n:translate="">
+    Should you be already subscribed to one of our lists, please use
+    this form to retrieve a link to your personalized subscription
+    page:
+  </p>
+  <tal:block replace="structure view/forgot_secret_form"></tal:block>
+
+</div>
+
 </html>
