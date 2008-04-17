@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2008-04-17 08:05+0000\n"
+"POT-Creation-Date: 2008-04-17 08:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -427,5 +427,35 @@ msgstr ""
 
 #: ../browser/subscribe.py:50
 msgid "Your subscription isn't known to us."
+msgstr ""
+
+#. Default: "A Channel is a hub of configuration.  It doesn't do anything by itself.  Rather, it provides a number of components to configure and work with.  It is also the container of subscriptions to it."
+#: ../browser/controlpanel-links.pt:7
+msgid "description_channel_administration"
+msgstr ""
+
+#. Default: "Collectors are useful for automatic newsletters.  They are responsible for assembling a list of items for publishing."
+#: ../browser/controlpanel-links.pt:18
+msgid "description_collector_administration"
+msgstr ""
+
+#. Default: "View newsletter statistics"
+#: ../browser/controlpanel-links.pt:28
+msgid "description_statistics_administration"
+msgstr ""
+
+#. Default: "Channel administration"
+#: ../browser/controlpanel-links.pt:3
+msgid "label_channel_administration"
+msgstr ""
+
+#. Default: "Collector administration"
+#: ../browser/controlpanel-links.pt:13
+msgid "label_collector_administration"
+msgstr ""
+
+#. Default: "Statistics"
+#: ../browser/controlpanel-links.pt:23
+msgid "label_statistics_administration"
 msgstr ""
 

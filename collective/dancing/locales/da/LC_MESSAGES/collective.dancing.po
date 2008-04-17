@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2008-04-17 08:05+0000\n"
+"POT-Creation-Date: 2008-04-17 08:50+0000\n"
 "PO-Revision-Date: 2008-04-17 HO:MI +ZONE\n"
 "Last-Translator: Jakob Bartholdy Bruun <jakob@headnet.dk>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 
 #: ../browser/channel.py:243
 msgid "${channel} subscriptions administration"
-msgstr "${channel} Administrer abonnenter"
+msgstr "Administration af abonneneter i ${channel}"
 
 #: ../browser/sendnewsletter.py:83
 msgid "${address} is not subscribed to ${channel}."
@@ -425,4 +425,36 @@ msgstr "Din email-adresse er ugyldig"
 #: ../browser/subscribe.py:50
 msgid "Your subscription isn't known to us."
 msgstr "Dit abonnement findes ikke i systemet."
+
+#. Default: "A Channel is a hub of configuration.  It doesn't do anything by itself.  
+#            Rather, it provides a number of components to configure and work with.  
+#            It is also the container of subscriptions to it."
+#: ../browser/controlpanel-links.pt:7
+msgid "description_channel_administration"
+msgstr "En kanal er en sammenføjning af de elementer der udgør en nyhedsbrevskonfiguration - den gør intet i sig selv, men giver mulighed for at konfigurere en række delkomponenenter"
+
+#. Default: "Collectors are useful for automatic newsletters.  They are responsible for assembling a list of items for publishing."
+#: ../browser/controlpanel-links.pt:18
+msgid "description_collector_administration"
+msgstr "Indsamlere er nyttige ved automatiske nyhedsbreve. De står for indsamling af objeketer, der skal udsendes."
+
+#. Default: "View newsletter statistics"
+#: ../browser/controlpanel-links.pt:28
+msgid "description_statistics_administration"
+msgstr "Se statistik for nyhedsbreve"
+
+#. Default: "Channel administration"
+#: ../browser/controlpanel-links.pt:3
+msgid "label_channel_administration"
+msgstr "Administration af kanaler"
+
+#. Default: "Collector administration"
+#: ../browser/controlpanel-links.pt:13
+msgid "label_collector_administration"
+msgstr "Administration af indsamlere"
+
+#. Default: "Statistics"
+#: ../browser/controlpanel-links.pt:23
+msgid "label_statistics_administration"
+msgstr "Statistik"
 

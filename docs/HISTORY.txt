@@ -1,4 +1,8 @@
 collective.dancing 0.2
+  - added i18n:domain to browser/controlpanel-links.pt, removed extra quotes 
+    from browser/channel.py, updated pot and danish translation
+    [bartholdy]
+
   - updated .pot and danish translation
     [bartholdy]
 
