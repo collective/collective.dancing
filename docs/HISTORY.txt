@@ -1,4 +1,6 @@
 collective.dancing 0.2
+  - updated .pot and danish translation
+    [bartholdy]
 
   - apparently triplequoted strings do not get translated .. 
     this takes care of 
