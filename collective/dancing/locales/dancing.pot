@@ -18,7 +18,7 @@ msgstr ""
 "Domain: collective.dancing\n"
 
 #: ../browser/channel.py:243
-msgid ""${channel}" subscriptions administration"
+msgid "\"${channel}\" subscriptions administration"
 msgstr ""
 
 #: ../browser/sendnewsletter.py:83
