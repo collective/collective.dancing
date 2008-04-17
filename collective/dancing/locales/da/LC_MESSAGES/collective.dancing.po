@@ -308,7 +308,7 @@ msgstr "Alle kanaler nu tømt."
 
 #: ../browser/portlets/channelsubscribe.py:49
 msgid "Text in footer - if omitted the channel title is used"
-msgstr "Tekst i footer - hvis udeladt bruges kanelens navn"
+msgstr "Tekst i footer - hvis udeladt bruges kanalens navn"
 
 #: ../browser/portlets/channelsubscribe.py:36
 msgid "The channel to enable subscriptions to."
@@ -399,7 +399,7 @@ msgstr "Du abonnerer ikke på denne kanal."
 #. Default: "You can subscribe to these newsletters:"
 #: ../browser/subscriptions.pt:19
 msgid "You can subscribe to these newsletters:"
-msgstr "Du kan abonnere på disse nyhedsbrve:"
+msgstr "Du kan abonnere på disse nyhedsbreve:"
 
 #: ../browser/subscribe.py:48
 msgid "You confirmed your subscription successfully."
