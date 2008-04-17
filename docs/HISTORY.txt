@@ -1,5 +1,10 @@
 collective.dancing 0.2
 
+  - apparently triplequoted strings do not get translated .. 
+    this takes care of 
+    https://bugs.launchpad.net/singing-dancing/+bug/218448
+    [bartholdy]
+
   - Don't use locale-dependent 'string.letters' when creating the
     ISalt utility.  This fixes
     https://bugs.launchpad.net/singing-dancing/+bug/217823
