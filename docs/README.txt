@@ -63,7 +63,8 @@ own site policy package, and add fakezope2eggs_ to your buildout_
 configuration, as explained below.
 
 Alternatively, add ``collective.dancing`` to the list of eggs in your
-if you don't have your own package.  This is what we explain below.
+``buildout.cfg`` if you don't have your own package.  This is what we
+explain below.
 
 Sadly, we don't support Repoze_ at this poiint.
 
@@ -174,9 +175,10 @@ password are ``admin``.
 Contact us
 ----------
 
-If you want to contact us, send a message to our `mailing list`_.  If
-you find a bug, please `let us know`_.  We also have an IRC channel
-called ``#singing-dancing`` on Freenode_.
+If you have a question, or comment, get in touch with us!  Our
+`mailing list`_ is a good place to do so. If you find a bug, please
+`let us know`_. We also have an IRC channel called
+``#singing-dancing`` on Freenode_.
 
 Developers
 ----------
