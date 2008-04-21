@@ -12,16 +12,16 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 import Products.CMFPlone.utils
 from collective.singing.interfaces import ICollector
-from collective.singing.browser import crud
+from plone.z3cform.crud import crud
+from plone.z3cform.wysiwyg import widget
+from plone.z3cform import z2
 import collective.singing.interfaces
-import collective.singing.z2
 
 import OFS.interfaces
 
 from collective.dancing import MessageFactory as _
 from collective.dancing import collector
 from collective.dancing.browser import controlpanel
-from collective.dancing.browser import widget
 
 
 class ManageCollectorsForm(crud.CrudForm):
@@ -65,7 +65,7 @@ class CollectorAdministrationView(BrowserView):
     back_link = controlpanel.back_to_controlpanel
 
     def contents(self):
-        collective.singing.z2.switch_on(self)
+        z2.switch_on(self)
         return ManageCollectorsForm(self.context, self.request)()
 
 collector_fields = field.Fields(
@@ -301,6 +301,6 @@ class CollectorEditView(BrowserView):
                     url=self.context.aq_inner.aq_parent.absolute_url())
 
     def contents(self):
-        collective.singing.z2.switch_on(self)
+        z2.switch_on(self)
         form = EditRootCollectorForm(self.context, self.request)
         return '<div class="collector-form">' + form() + '</div>'

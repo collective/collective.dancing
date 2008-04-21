@@ -9,8 +9,8 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form import button
 from z3c.form import field
 from z3c.form import form
+from plone.z3cform import z2
 import collective.singing.interfaces
-import collective.singing.z2
 import collective.singing.message
 import collective.singing.browser.subscribe
 
@@ -24,7 +24,7 @@ class Subscribe(BrowserView):
     label = _(u"Subscribe")
 
     def __call__(self):
-        collective.singing.z2.switch_on(self)
+        z2.switch_on(self)
         return self.template()
 
     def contents(self):
@@ -224,7 +224,7 @@ class Subscriptions(BrowserView):
         return self.request.form.get('secret')
 
     def contents(self):
-        collective.singing.z2.switch_on(self)
+        z2.switch_on(self)
 
         subscriptions, channels = self._subscriptions_and_channels(self.secret)
 

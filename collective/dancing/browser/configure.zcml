@@ -2,7 +2,7 @@
    xmlns:zope="http://namespaces.zope.org/zope"
    xmlns="http://namespaces.zope.org/browser">
 
-  <include file="widget.zcml" />
+  <include package="plone.z3cform.wysiwyg" />
   
   <include package=".portlets" />
 

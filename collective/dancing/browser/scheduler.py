@@ -5,7 +5,8 @@ from z3c.form import field
 from z3c.form import button
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-import collective.singing.z2
+from plone.z3cform import z2
+import collective.singing.interfaces
 
 from collective.dancing import MessageFactory as _
 
@@ -46,5 +47,5 @@ class SchedulerEditView(BrowserView):
             url=self.context.aq_inner.aq_parent.aq_parent.absolute_url())
 
     def contents(self):
-        collective.singing.z2.switch_on(self)
+        z2.switch_on(self)
         return EditSchedulerForm(self.context, self.request)()

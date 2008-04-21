@@ -17,7 +17,7 @@
           tal:attributes="action request/getURL"
           tal:omit-tag="not:view/actions|nothing">
 
-      <metal:use use-macro="context/@@singing-macros/fields" />
+      <metal:use use-macro="context/@@ploneform-macros/fields" />
 
       <div tal:repeat="form view/subforms"
            tal:replace="structure form/render">

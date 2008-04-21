@@ -8,8 +8,8 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form import button
 from z3c.form import field
 from collective.singing import interfaces
-from collective.singing import z2
-from collective.singing.browser import crud
+from plone.z3cform import z2
+from plone.z3cform.crud import crud
 
 from collective.dancing.browser import controlpanel
 from collective.dancing import MessageFactory as _

@@ -8,7 +8,7 @@ from z3c.form import field
 from z3c.form import button
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-import collective.singing.z2
+from plone.z3cform import z2
 import collective.singing.scheduler
 
 from collective.dancing import MessageFactory as _
@@ -105,5 +105,5 @@ class SendAsNewsletterView(BrowserView):
                  mapping=dict(item=self.context.title))
 
     def contents(self):
-        collective.singing.z2.switch_on(self)
+        z2.switch_on(self)
         return SendAsNewsletterForm(self.context, self.request)()

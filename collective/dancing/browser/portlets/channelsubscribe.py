@@ -12,6 +12,7 @@ from urllib import urlencode
 from Products.Five import BrowserView
 import z3c.form
 from z3c.form import subform
+from plone.z3cform import z2
 
 from plone.memoize.instance import memoize
 from plone.memoize import ram
@@ -203,7 +204,7 @@ class Renderer(base.Renderer):
         self.setup_form()
 
     def setup_form(self):
-        collective.singing.z2.switch_on(self)
+        z2.switch_on(self)
         if self.channel is not None:
             if self.data.subscribe_directly:
                 self.form = PortletSubscriptionAddForm(self.channel, self.request)
@@ -378,7 +379,7 @@ class ChannelSubscribePortletEditView(ChannelSubscribePortletView):
     description = _(u"This portlet allows a visitor to subscribe to a specific newsletter channel.")
 
     def contents(self):
-        collective.singing.z2.switch_on(self)
+        z2.switch_on(self)
         return ChannelSubscribePortletEditForm(self.context, self.request)()
 
 
@@ -445,6 +446,6 @@ class ChannelSubscribePortletAddView(ChannelSubscribePortletView):
     description = _(u"This portlet allows a visitor to subscribe to a specific newsletter channel.")
 
     def contents(self):
-        collective.singing.z2.switch_on(self)
+        z2.switch_on(self)
         return ChannelSubscribePortletAddForm(self.context, self.request)()
 

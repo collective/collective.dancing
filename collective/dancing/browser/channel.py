@@ -15,8 +15,9 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 import Products.CMFPlone.utils
 from collective.singing.interfaces import IChannel
-from collective.singing import z2
-from collective.singing.browser import crud
+from plone.z3cform import z2
+from plone.z3cform.crud import crud
+from plone.z3cform.wysiwyg import widget
 import collective.singing.scheduler
 import collective.singing.subscribe
 from zope.app.pagetemplate import viewpagetemplatefile
@@ -25,7 +26,6 @@ from collective.dancing import collector
 from collective.dancing import utils
 from collective.dancing.channel import Channel
 from collective.dancing.browser import controlpanel
-from collective.dancing.browser import widget
 
 def simpleitem_wrap(klass, name):
     class SimpleItemWrapper(klass, OFS.SimpleItem.SimpleItem):
