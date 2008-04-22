@@ -84,7 +84,7 @@ msgstr "Tilbage til portlets"
 #. Default: "Change your subscriptions with ${site-title}"
 #: ./browser/composer-html-forgot.pt:10
 msgid "Change your subscriptions with ${site-title}"
-msgstr "Rediger dine abonnementer på ${site-title}"
+msgstr "Rediger dine tilmeldinger på ${site-title}"
 
 #: ./browser/channel.py:152
 msgid "Channel administration"
@@ -93,7 +93,7 @@ msgstr "Kanal-administration"
 #. Default: "Click here to manage your subscriptions with ${site-title}:"
 #: ./browser/composer-html-forgot.pt:15
 msgid "Click here to manage your subscriptions with ${site-title}:"
-msgstr "Klik her for at redigere dine abonnementer på ${site-title}:"
+msgstr "Klik på nedenstående link for at redigere dine tilmeldinger på ${site-title}:"
 
 #: ./browser/portlets/channelsubscribe.py:45
 msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
@@ -196,7 +196,7 @@ msgstr "Seneste ændring"
 #. Default: "Manage your subscriptions"
 #: ./browser/composer-html-forgot.pt:18
 msgid "Manage your subscriptions"
-msgstr "Rediger dine abonnementer"
+msgstr "Rediger tilmeldinger"
 
 #: ./browser/stats.py:33
 msgid "Messages successfully sent"
