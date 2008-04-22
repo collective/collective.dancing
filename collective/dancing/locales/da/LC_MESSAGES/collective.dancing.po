@@ -442,7 +442,7 @@ msgstr ""
 
 #: /browser/subscriptions.pt:21
 msgid "You are currently subscribed to these newsletters:"
-msgstr "Du abonnere nu på disse nyhedsbreve:"
+msgstr "Du abonnerer nu på disse nyhedsbreve:"
 
 #: /browser/subscriptions.pt:28
 msgid "You can subscribe to these newsletters:"
