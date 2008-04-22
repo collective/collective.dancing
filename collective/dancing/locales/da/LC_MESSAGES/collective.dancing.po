@@ -108,11 +108,11 @@ msgstr "Administration af indholdsindsamlere"
 
 #: ./composer.py:134
 msgid "Confirm your subscription with ${channel-title}"
-msgstr "Bekræft dit abonnement på ${channel-title}"
+msgstr "Bekræft din tilmelding til ${channel-title}"
 
 #: ./browser/subscribe.py:38
 msgid "Confirming your subscription"
-msgstr "Bekræfter dit abonnement"
+msgstr "Bekræfter din tilmelding"
 
 #: ./browser/portlets/channelsubscribe.py:42
 msgid "Description of the rendered portlet"
@@ -239,7 +239,7 @@ msgstr "Ingen beskeder i kø."
 #. Default: "Please confirm your subscription"
 #: ./browser/composer-html-confirm.pt:8
 msgid "Please confirm your subscription"
-msgstr "Bekræft dit abonnement"
+msgstr "Bekræft din tilmelding"
 
 #: ./browser/stats.py:75
 msgid "Please select items to flush."
@@ -370,7 +370,7 @@ msgstr "Titel på den renderede portlet"
 #. Default: "To confirm your subscription with ${channel}, please click here: ${url}"
 #: ./browser/composer-html-confirm.pt:14
 msgid "To confirm your subscription with ${channel}, please click here: ${url}"
-msgstr "Du kan bekræfte dit abonnement på  ${channel} ved at klikke her: ${url}"
+msgstr "Du kan bekræfte din tilmelding til ${channel} ved at klikke her: ${url}"
 
 #: ./browser/stats.py:21
 msgid "Total messages sent"
