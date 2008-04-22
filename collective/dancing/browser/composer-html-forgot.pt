@@ -21,6 +21,8 @@
         Manage your subscriptions
       </a>
     </p>
+    <p i18n:translate="">Best regards</p>
+    <p tal:content="options/site_title">Site name</p>
   </body>
 
 </html>

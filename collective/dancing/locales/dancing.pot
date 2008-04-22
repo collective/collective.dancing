@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: Mon Apr 21 21:45:52 2008\n"
+"POT-Creation-Date: Tue Apr 22 15:05:36 2008\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Silva i18n team <walco@infrae.com>\n"
@@ -104,6 +104,10 @@ msgstr ""
 
 #: /browser/composer-html-forgot.pt:18
 msgid "Manage your subscriptions"
+msgstr ""
+
+#: /browser/composer-html-forgot.pt:24
+msgid "Best regards"
 msgstr ""
 
 #: /browser/composer-html.pt:16

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2008-04-21 13:20+0000\n"
+"POT-Creation-Date: Tue Apr 22 15:05:36 2008\n"
 "PO-Revision-Date: 2008-04-17 HO:MI +ZONE\n"
 "Last-Translator: Jakob Bartholdy Bruun <jakob@headnet.dk>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,6 +13,12 @@ msgstr ""
 "Language-Name: Danish\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.dancing\n"
+
+
+#. Default: ""
+#: /browser/channel.py:243
+msgid "\"${channel}\" subscriptions administration"
+msgstr "Administration af abonneneter i \"${channel}\""
 
 #: ./browser/channel.py:243
 msgid "${channel} subscriptions administration"
@@ -455,7 +461,6 @@ msgstr "Dit abonnement findes ikke i systemet."
 # It is also the container of subscriptions to it."
 #. Default: "A Channel is a hub of configuration.  It doesn't do anything by itself.  Rather, it provides a number of components to configure and work with.  It is also the container of subscriptions to it."
 #: ./browser/controlpanel-links.pt:7
-#, fuzzy
 msgid "description_channel_administration"
 msgstr "En kanal er en sammenføjning af de elementer der udgør en nyhedsbrevskonfiguration - den gør intet i sig selv, men giver mulighed for at konfigurere en række delkomponenenter"
 
@@ -483,4 +488,11 @@ msgstr "Administration af indsamlere"
 #: ./browser/controlpanel-links.pt:23
 msgid "label_statistics_administration"
 msgstr "Statistik"
+
+#: /browser/composer-html-forgot.pt:24
+msgid "Best regards"
+msgstr "Venlig hilsen"
+
+
+
 
