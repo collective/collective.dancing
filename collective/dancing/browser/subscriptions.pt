@@ -6,6 +6,15 @@
       i18n:domain="collective.dancing"
       tal:omit-tag="">
 
+<div>
+  <p i18n:translate="">
+    Below you see a list the newsletters we offer. If you are already
+    subscribed to some of these you can fill out the form at the end
+    of this page to be sent a link to where you can edit your existing
+    subscriptions.
+  </p>
+</div>
+  
 <div tal:define="editforms view/subscription_editforms"
      tal:condition="editforms"
      id="subscription-editforms">
