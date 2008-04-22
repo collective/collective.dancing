@@ -148,11 +148,13 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
 
     @property
     def fields(self):
-        fields = field.Fields(self.context.composers[self.format].schema,
-                              prefix='composer.')
         if self.context.collector is not None:
-            fields += field.Fields(self.context.collector.schema,
+            fields = field.Fields(self.context.collector.schema,
                                    prefix='collector.')
+        else:
+            fields = field.Fields()
+        fields += field.Fields(self.context.composers[self.format].schema,
+                               prefix='composer.')
         return fields
 
     @button.buttonAndHandler(_('Subscribe'), name='subscribe')
