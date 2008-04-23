@@ -8,6 +8,7 @@ from plone.app.portlets.portlets import base
 from zope.app.pagetemplate import viewpagetemplatefile
 from zope.formlib import form
 
+from Products.CMFCore.utils import getToolByName
 from urllib import urlencode
 from Products.Five import BrowserView
 import z3c.form
@@ -119,10 +120,20 @@ class ValuesMixin(object):
     
 class PortletSubscriptionAddForm(ValuesMixin, SubscriptionAddForm):
     """ """
-    template = viewpagetemplatefile.ViewPageTemplateFile('titlelessform.pt')
+    template = viewpagetemplatefile.ViewPageTemplateFile('htmlstatusform.pt')
 
     assignment = None
 
+    @property
+    def status_already_subscribed(self):
+        return _(u'You are already subscribed to this newsletter. Click here to <a href="${url}">edit your subscriptions</a>.',
+                 mapping={'url':
+                          '%s/sendsecret.html' % self.newslettertool.absolute_url()})
+
+    @property
+    def newslettertool(self):
+        return getToolByName(self.context, 'portal_newsletters')
+    
     def update(self):
         super(PortletSubscriptionAddForm, self).update()
         self.channel_id = self.context.id

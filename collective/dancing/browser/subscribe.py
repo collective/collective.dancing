@@ -163,7 +163,7 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
     
     added = None
     format = None # set by parent form
-
+    status_already_subscribed = _(u"You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription.")
     @property
     def description(self):
         return self.context.description
@@ -228,7 +228,7 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
                 self.context, secret, comp_data, coll_data, metadata)
         except ValueError:
             self.added = None
-            self.status = _(u"You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription.")
+            self.status = self.status_already_subscribed
             return
 
         self.status = _(u"You subscribed successfully.")

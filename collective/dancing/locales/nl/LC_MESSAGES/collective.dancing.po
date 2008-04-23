@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: Wed Apr 23 16:55:41 2008\n"
+"POT-Creation-Date: Wed Apr 23 20:35:30 2008\n"
 "PO-Revision-Date: 2008-04-22 23:37+0100\n"
 "Last-Translator: Wim Boucquaert <wim@infrae.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -161,70 +161,77 @@ msgstr "Singing & Dancing configuratie"
 msgid "Up to Site Setup"
 msgstr "Naar Website instellingen"
 
-#: /browser/portlets/channelsubscribe.py:170
+# Default: "url%s/sendsecret.html"
+#: /browser/portlets/channelsubscribe.py:129
+msgid ""
+"You are already subscribed to this newsletter. Click here to <a href=\"${url}"
+"\">edit your subscriptions</a>."
+msgstr ""
+
+#: /browser/portlets/channelsubscribe.py:181
 msgid "There were some errors."
 msgstr "Er waren fouten"
 
-#: /browser/portlets/channelsubscribe.py:179
+#: /browser/portlets/channelsubscribe.py:190
 msgid "Proceed"
 msgstr "Verder gaan"
 
-#: /browser/portlets/channelsubscribe.py:260
-#: /browser/portlets/channelsubscribe.py:410
+#: /browser/portlets/channelsubscribe.py:271
+#: /browser/portlets/channelsubscribe.py:421
 msgid "${channel} options"
 msgstr "${channel} opties"
 
-#: /browser/portlets/channelsubscribe.py:34
+#: /browser/portlets/channelsubscribe.py:35
 msgid "Portlet header"
 msgstr "Portlet header"
 
-#: /browser/portlets/channelsubscribe.py:342
-#: /browser/portlets/channelsubscribe.py:378
+#: /browser/portlets/channelsubscribe.py:353
+#: /browser/portlets/channelsubscribe.py:389
 msgid "Edit Channel Subscribe Portlet"
 msgstr "Kanaal inschrijving portlet wijzigen"
 
-#: /browser/portlets/channelsubscribe.py:35
+#: /browser/portlets/channelsubscribe.py:36
 msgid "Title of the rendered portlet"
 msgstr "Titel van de weergegeven portlet"
 
-#: /browser/portlets/channelsubscribe.py:37
+#: /browser/portlets/channelsubscribe.py:38
 msgid "The channel to enable subscriptions to."
 msgstr "Kanaal om inschrijvingen tot toe te laten."
 
-#: /browser/portlets/channelsubscribe.py:373
+#: /browser/portlets/channelsubscribe.py:384
 msgid "Back to portlets"
 msgstr "Terug naar portlets"
 
-#: /browser/portlets/channelsubscribe.py:379
-#: /browser/portlets/channelsubscribe.py:446
+#: /browser/portlets/channelsubscribe.py:39
+msgid "Find the channel you want to enable direct subscription to"
+msgstr "Kanaal zoeken waarop je rechtstreeks inschrijven wil toelaten"
+
+#: /browser/portlets/channelsubscribe.py:390
+#: /browser/portlets/channelsubscribe.py:457
 msgid ""
 "This portlet allows a visitor to subscribe to a specific newsletter channel."
 msgstr ""
 "Deze portlet laat bezoekers toe om zich in te schrijven op een specifiek "
 "kanaal"
 
-#: /browser/portlets/channelsubscribe.py:38
-msgid "Find the channel you want to enable direct subscription to"
-msgstr "Kanaal zoeken waarop je rechtstreeks inschrijven wil toelaten"
-
-#: /browser/portlets/channelsubscribe.py:42
+#: /browser/portlets/channelsubscribe.py:43
 msgid "Portlet description"
 msgstr "Portlet beschrijving"
 
-#: /browser/portlets/channelsubscribe.py:423
-#: /browser/portlets/channelsubscribe.py:445
+#: /browser/portlets/channelsubscribe.py:434
+#: /browser/portlets/channelsubscribe.py:456
 msgid "Add Channel Subscribe Portlet"
 msgstr "Inschrijvings portlet toevoegen"
 
-#: /browser/portlets/channelsubscribe.py:43
+#: /browser/portlets/channelsubscribe.py:44
 msgid "Description of the rendered portlet"
 msgstr "Beschrijving van de weergegeven portlet"
 
-#: /browser/portlets/channelsubscribe.py:45
+#: /browser/portlets/channelsubscribe.py:46
 msgid "Subscribe directly from portlet"
 msgstr "Rechtstreeks inschrijven met portlet"
 
-#: /browser/portlets/channelsubscribe.py:46
+#: /browser/portlets/channelsubscribe.py:47
 msgid ""
 "Click here to select collector options to be automatically enabled, when "
 "subscribing from this portlet."
@@ -232,19 +239,19 @@ msgstr ""
 "Klik hier om collector opties te selecteren die automatisch geactiveerd "
 "dienen te worden bij inschrijvingen van deze porlet."
 
-#: /browser/portlets/channelsubscribe.py:49
+#: /browser/portlets/channelsubscribe.py:50
 msgid "Footer text"
 msgstr "Footer tekst"
 
-#: /browser/portlets/channelsubscribe.py:50
+#: /browser/portlets/channelsubscribe.py:51
 msgid "Text in footer - if omitted the channel title is used"
 msgstr "Tekst van de footer - indien leeg wordt de kanaal titel gebruikt"
 
-#: /browser/portlets/channelsubscribe.py:53
+#: /browser/portlets/channelsubscribe.py:54
 msgid "Show footer"
 msgstr "Toon footer"
 
-#: /browser/portlets/channelsubscribe.py:54
+#: /browser/portlets/channelsubscribe.py:55
 msgid "Click here to show the portlet footer."
 msgstr "Hier klikken om de portlet footer weer te geven"
 
@@ -383,6 +390,14 @@ msgstr "Je bent succesvol uitgeschreven."
 msgid "You aren't subscribed to this channel."
 msgstr "Je bent niet ingeschreven op dit kanaal."
 
+#: /browser/subscribe.py:166
+msgid ""
+"You are already subscribed. Fill out the form at the end of this page to be "
+"sent a link from where you can edit your subscription."
+msgstr ""
+"Je bent reeds ingeschreven. Vul het formulier in op het einde van deze "
+"pagina om een link te versturen waarmee je je inschrijving kan bewerken."
+
 #: /browser/subscribe.py:194
 msgid "Subscribe"
 msgstr "Inschrijven"
@@ -390,14 +405,6 @@ msgstr "Inschrijven"
 #: /browser/subscribe.py:217
 msgid "There seems to be an error with the information you entered."
 msgstr "Er zit een fout in de informatie je invoerde."
-
-#: /browser/subscribe.py:231
-msgid ""
-"You are already subscribed. Fill out the form at the end of this page to be "
-"sent a link from where you can edit your subscription."
-msgstr ""
-"Je bent reeds ingeschreven. Vul het formulier in op het einde van deze "
-"pagina om een link te versturen waarmee je je inschrijving kan bewerken."
 
 #: /browser/subscribe.py:234 /browser/subscribe.py:303
 msgid "You subscribed successfully."
