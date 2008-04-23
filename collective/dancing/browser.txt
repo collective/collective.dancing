@@ -892,6 +892,24 @@ contains our secret:
   ...
   Click here to manage your subscriptions...
 
+This feature is also available from a separate view, which is linked for all subscribe
+pages. So the user is not forced to try subscribing first when she knows she already is.
+
+  >>> browser.open(portal.absolute_url() + 
+  ...              '/portal_newsletters/channels/default-channel/subscribe.html')
+  >>> browser.getLink('edit your subscriptions').click()
+  >>> 'portal_newsletters/sendsecret.html' in browser.address
+  True
+  >>> browser.getControl("Address").value = "daemon@localhost"
+  >>> browser.getControl('Send').click()
+  *MyMailDelivery sending*:
+  From: Site Administrator <>
+  To: daemon@localhost
+  Message follows:
+  ...
+  Click here to manage your subscriptions...
+ 
+  
 Periodic ticking
 ----------------
 
@@ -905,6 +923,3 @@ each channel.
   default-channel: 0 messages queued, dispatched: (0, 0)
   my-other-channel: 0 messages queued, dispatched: (0, 0)
   brand-new-channel: 0 messages queued, dispatched: (0, 0)
-  
-  
-  

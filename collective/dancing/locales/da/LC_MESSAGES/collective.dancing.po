@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: Tue Apr 22 16:42:06 2008\n"
+"POT-Creation-Date: Wed Apr 23 16:55:41 2008\n"
 "PO-Revision-Date: 2008-04-17 HO:MI +ZONE\n"
 "Last-Translator: Jakob Bartholdy Bruun <jakob@headnet.dk>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -382,11 +382,23 @@ msgstr "Send beskeder nu"
 msgid "Please select which channel you'd like to send queued e-mails of."
 msgstr "Vælg hvilken kanal, du ønsker at udsende nyhedsbreve fra køen."
 
-#: /browser/subscribe.py:183
+#: /browser/subscribe.py:102 /browser/subscribe.py:158
+msgid "You unsubscribed successfully."
+msgstr "Du er nu afmeldt."
+
+#: /browser/subscribe.py:104
+msgid "You aren't subscribed to this channel."
+msgstr "Du abonnerer ikke på denne kanal."
+
+#: /browser/subscribe.py:194
+msgid "Subscribe"
+msgstr "Abonner"
+
+#: /browser/subscribe.py:217
 msgid "There seems to be an error with the information you entered."
 msgstr "Du har indtastet en fejl."
 
-#: /browser/subscribe.py:197
+#: /browser/subscribe.py:231
 msgid ""
 "You are already subscribed. Fill out the form at the end of this page to be "
 "sent a link from where you can edit your subscription."
@@ -394,41 +406,59 @@ msgstr ""
 "Du abonnerer allerede. Udfyld formularen nederst på siden for at få tilsendt "
 "et link, hvorfra du kan redigere dit abonnement."
 
-#: /browser/subscribe.py:200 /browser/subscribe.py:269
+#: /browser/subscribe.py:234 /browser/subscribe.py:303
 msgid "You subscribed successfully."
 msgstr "Dit abonnement er nu tilmeldt."
 
-#: /browser/subscribe.py:215
+#: /browser/subscribe.py:249
 msgid "My subscriptions"
 msgstr "Mine abonnementer"
 
-#: /browser/subscribe.py:24 /browser/subscribe.py:160
-msgid "Subscribe"
-msgstr "Abonner"
+#: /browser/subscribe.py:27
+msgid "Edit existing subscriptions"
+msgstr "Rediger eksisterende abonnementer"
 
-#: /browser/subscribe.py:38
+#: /browser/subscribe.py:29
+msgid ""
+"Fill out the form below to receive an email with a link from which you can "
+"edit you subscriptions."
+msgstr ""
+"Udfyld denne formular for at få adgang til at redigere dine abonnementer. "
+"Du vil få tilsendt en e-mail med et link til en side hvor du kan fra- og tilmelde "
+"dig alle de nyhedsbreve sitet tilbyder."
+
+
+# Default: "channel"
+#: /browser/subscribe.py:50
+msgid ""
+"Fill out the form below to subscribe to ${channel}. Note that this is for "
+"new subscriptions. Click here to <a href=\"${url}\">edit your subscriptions</"
+"a>."
+msgstr ""
+"Udfyld denne formular for at abonnere på ${channel}. Bemærk at dette kun gælder "
+"for nye abonnenter. Klik istedet her for at "
+"<a href=\"${url}\">redigere dine abonnementer</a>"
+
+# Default: "channel"
+#: /browser/subscribe.py:56
+msgid "Subscribe to ${channel}"
+msgstr "Abonner på ${channel}"
+
+#: /browser/subscribe.py:72
 msgid "Confirming your subscription"
 msgstr "Bekræfter din tilmelding"
 
-#: /browser/subscribe.py:48
+#: /browser/subscribe.py:82
 msgid "You confirmed your subscription successfully."
 msgstr "Din bekræftelse af abonnementet gik igennem."
 
-#: /browser/subscribe.py:50
+#: /browser/subscribe.py:84
 msgid "Your subscription isn't known to us."
 msgstr "Dit abonnement findes ikke i systemet."
 
-#: /browser/subscribe.py:58 /browser/subscribe.py:117
+#: /browser/subscribe.py:92 /browser/subscribe.py:151
 msgid "Unsubscribe"
 msgstr "Afmeld"
-
-#: /browser/subscribe.py:68 /browser/subscribe.py:124
-msgid "You unsubscribed successfully."
-msgstr "Du er nu afmeldt."
-
-#: /browser/subscribe.py:70
-msgid "You aren't subscribed to this channel."
-msgstr "Du abonnerer ikke på denne kanal."
 
 #: /browser/subscriptions.pt:10
 msgid ""
@@ -436,9 +466,10 @@ msgid ""
 "to some of these you can fill out the form at the end of this page to be "
 "sent a link to where you can edit your existing subscriptions."
 msgstr ""
-"Nedenfor finder du listen over nyhedsbreve vi tilbyder. Abonnerer du allerede "
-"på et eller flere af disse, skal du udfylde formularen nederst på siden for "
-"at få tilsendt et link. Fra linket kan du redigere dine abonnementer."
+"Nedenfor finder du listen over nyhedsbreve vi tilbyder. Abonnerer du "
+"allerede på et eller flere af disse, skal du udfylde formularen nederst på "
+"siden for at få tilsendt et link. Fra linket kan du redigere dine "
+"abonnementer."
 
 #: /browser/subscriptions.pt:21
 msgid "You are currently subscribed to these newsletters:"

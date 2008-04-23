@@ -1,6 +1,7 @@
 import datetime
 
 from zope import component
+from zope.app.component.hooks import getSite
 from zope.app.pagetemplate import viewpagetemplatefile
 import Acquisition
 import Zope2.App.startup
@@ -19,17 +20,50 @@ from collective.dancing import MessageFactory as _
 class SubscribeForm(collective.singing.browser.subscribe.Subscribe):
     pass
 
-class Subscribe(BrowserView):
+class SendSecret(BrowserView):
     template = ViewPageTemplateFile('skeleton.pt')
-    label = _(u"Subscribe")
+    contents_template = ViewPageTemplateFile('sendsecret.pt')
+
+    label = _(u"Edit existing subscriptions")
+
+    description = _(u"Fill out the form below to receive an email with a link from which you can edit you subscriptions.")
+
+    def forgot_secret_form(self):
+        form = collective.singing.browser.subscribe.ForgotSecret(
+            self.context, self.request)
+        form.label = u''
+        return form()
 
     def __call__(self):
         z2.switch_on(self)
         return self.template()
 
     def contents(self):
-        subscribe = SubscribeForm(self.context.aq_inner, self.request)
-        return subscribe()
+        return self.contents_template()
+
+class Subscribe(BrowserView):
+    template = ViewPageTemplateFile('skeleton.pt')
+    contents_template = ViewPageTemplateFile('subscribe.pt')
+
+    @property
+    def send_secret_link(self):
+        return _(u'Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href="${url}">edit your subscriptions</a>.',
+                         mapping={'channel': self.context.Title(),
+                                  'url': '%s/portal_newsletters/sendsecret.html' % getSite().absolute_url()})
+    
+    @property
+    def label(self):
+        return _(u"Subscribe to ${channel}", mapping={'channel':
+                                                      self.context.Title()})
+
+    def __call__(self):
+        z2.switch_on(self)
+        return self.template()
+
+    def contents(self):
+        self.subscribeform = SubscribeForm(self.context.aq_inner, self.request)
+        return self.contents_template()
+
 
 class Confirm(BrowserView):
     template = ViewPageTemplateFile('skeleton.pt')

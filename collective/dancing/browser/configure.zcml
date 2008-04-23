@@ -119,6 +119,13 @@
       class=".subscribe.Subscriptions"
       permission="zope2.View"
       />
+  
+  <page
+      name="sendsecret.html"
+      for="collective.dancing.channel.IPortalNewsletters"
+      class=".subscribe.SendSecret"
+      permission="zope2.View"
+      />
 
   <page
       name="subscribe.html"
