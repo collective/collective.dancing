@@ -53,7 +53,10 @@ class IPortalNewsletters(interface.Interface):
 
 class PortalNewsletters(OFS.Folder.Folder):
     interface.implements(IPortalNewsletters)
-    Title = u"Newsletters"
+
+    def Title(self):
+        return u"Newsletters"
+
 
 @component.adapter(IPortalNewsletters,
                    zope.app.container.interfaces.IObjectAddedEvent)

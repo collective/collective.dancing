@@ -77,4 +77,10 @@
 
   <adapter factory="collective.singing.mail.Dispatch" />
 
+  <!-- We want to be able to make local portlet assignments on the tool -->
+  <five:implements
+     class=".channel.PortalNewsletters"
+     interface="plone.portlets.interfaces.ILocalPortletAssignable" />
+  
+  
 </configure>

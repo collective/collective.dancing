@@ -908,7 +908,7 @@ pages. So the user is not forced to try subscribing first when she knows she alr
   Message follows:
   ...
   Click here to manage your subscriptions...
- 
+
   
 Periodic ticking
 ----------------
