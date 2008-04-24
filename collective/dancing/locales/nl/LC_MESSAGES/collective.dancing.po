@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: Wed Apr 23 20:35:30 2008\n"
+"POT-Creation-Date: Thu Apr 24 11:43:08 2008\n"
 "PO-Revision-Date: 2008-04-22 23:37+0100\n"
 "Last-Translator: Wim Boucquaert <wim@infrae.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -382,7 +382,7 @@ msgstr "Berichten nu verzenden"
 msgid "Please select which channel you'd like to send queued e-mails of."
 msgstr "Selecteer het kanaal waarvan je de e-mail wachtrij wil verzenden."
 
-#: /browser/subscribe.py:102 /browser/subscribe.py:158
+#: /browser/subscribe.py:102 /browser/subscribe.py:175
 msgid "You unsubscribed successfully."
 msgstr "Je bent succesvol uitgeschreven."
 
@@ -390,7 +390,15 @@ msgstr "Je bent succesvol uitgeschreven."
 msgid "You aren't subscribed to this channel."
 msgstr "Je bent niet ingeschreven op dit kanaal."
 
-#: /browser/subscribe.py:166
+#: /browser/subscribe.py:156
+msgid "Apply changes"
+msgstr ""
+
+#: /browser/subscribe.py:168
+msgid "Unsubscribe from newsletter"
+msgstr ""
+
+#: /browser/subscribe.py:183
 msgid ""
 "You are already subscribed. Fill out the form at the end of this page to be "
 "sent a link from where you can edit your subscription."
@@ -398,19 +406,19 @@ msgstr ""
 "Je bent reeds ingeschreven. Vul het formulier in op het einde van deze "
 "pagina om een link te versturen waarmee je je inschrijving kan bewerken."
 
-#: /browser/subscribe.py:194
+#: /browser/subscribe.py:211
 msgid "Subscribe"
 msgstr "Inschrijven"
 
-#: /browser/subscribe.py:217
+#: /browser/subscribe.py:234
 msgid "There seems to be an error with the information you entered."
 msgstr "Er zit een fout in de informatie je invoerde."
 
-#: /browser/subscribe.py:234 /browser/subscribe.py:303
+#: /browser/subscribe.py:251 /browser/subscribe.py:320
 msgid "You subscribed successfully."
 msgstr "Je bent succesvol ingeschreven."
 
-#: /browser/subscribe.py:249
+#: /browser/subscribe.py:266
 msgid "My subscriptions"
 msgstr "Mijn inschrijvingen"
 
@@ -449,7 +457,7 @@ msgstr "Je inschrijving werd succesvol bevestigd."
 msgid "Your subscription isn't known to us."
 msgstr "Je inschrijving is ons niet bekend."
 
-#: /browser/subscribe.py:92 /browser/subscribe.py:151
+#: /browser/subscribe.py:92
 msgid "Unsubscribe"
 msgstr "Uitschrijven"
 
@@ -485,7 +493,7 @@ msgstr ""
 "formulier dan in te vullen om een link te ontvangen naar je persoonlijk "
 "inschrijvings pagina:"
 
-#: /channel.py:92
+#: /channel.py:95
 msgid "Newsletter"
 msgstr "Nieuwsbrief"
 

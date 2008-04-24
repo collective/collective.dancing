@@ -121,6 +121,8 @@ class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
 
     removed = False
 
+    handlers = form.EditForm.handlers
+
     @property
     def description(self):
         return self.context.channel.description
@@ -146,9 +148,24 @@ class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
             return field.Fields()
         return field.Fields(self.context.channel.collector.schema)
 
-    buttons, handlers = form.EditForm.buttons, form.EditForm.handlers
-    
-    @button.buttonAndHandler(_('Unsubscribe'), name='unsubscribe')
+    def update(self):
+        if len(self.fields) == 0:
+            self.buttons = self.buttons.omit('apply')
+        super(SubscriptionEditForm, self).update()
+
+    @button.buttonAndHandler(_('Apply changes'), name='apply')
+    def handleApply(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+        changes = self.applyChanges(data)
+        if changes:
+            self.status = self.successMessage
+        else:
+            self.status = self.noChangesMessage
+
+    @button.buttonAndHandler(_('Unsubscribe from newsletter'), name='unsubscribe')
     def handle_unsubscribe(self, action):
         secret = self.request.form['secret']
         subs = self.context.channel.subscriptions

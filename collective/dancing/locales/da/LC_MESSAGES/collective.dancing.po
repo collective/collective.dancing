@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: Wed Apr 23 20:35:30 2008\n"
+"POT-Creation-Date: Thu Apr 24 11:43:08 2008\n"
 "PO-Revision-Date: 2008-04-17 HO:MI +ZONE\n"
 "Last-Translator: Jakob Bartholdy Bruun <jakob@headnet.dk>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -175,8 +175,8 @@ msgid ""
 "You are already subscribed to this newsletter. Click here to <a href=\"${url}"
 "\">edit your subscriptions</a>."
 msgstr ""
-"Du abonnerer allerede på dette nyhedsbrev. Klik her for at "
-"<a href=\"${url}\">redigere dine abonnementer</a>."
+"Du abonnerer allerede på dette nyhedsbrev. Klik her for at <a href=\"${url}"
+"\">redigere dine abonnementer</a>."
 
 #: /browser/portlets/channelsubscribe.py:181
 msgid "There were some errors."
@@ -391,7 +391,7 @@ msgstr "Send beskeder nu"
 msgid "Please select which channel you'd like to send queued e-mails of."
 msgstr "Vælg hvilken kanal, du ønsker at udsende nyhedsbreve fra køen."
 
-#: /browser/subscribe.py:102 /browser/subscribe.py:158
+#: /browser/subscribe.py:102 /browser/subscribe.py:175
 msgid "You unsubscribed successfully."
 msgstr "Du er nu afmeldt."
 
@@ -399,7 +399,15 @@ msgstr "Du er nu afmeldt."
 msgid "You aren't subscribed to this channel."
 msgstr "Du abonnerer ikke på denne kanal."
 
-#: /browser/subscribe.py:166
+#: /browser/subscribe.py:156
+msgid "Apply changes"
+msgstr "Udfør ændringer"
+
+#: /browser/subscribe.py:168
+msgid "Unsubscribe from newsletter"
+msgstr "Afmeld nyhedsbrev"
+
+#: /browser/subscribe.py:183
 msgid ""
 "You are already subscribed. Fill out the form at the end of this page to be "
 "sent a link from where you can edit your subscription."
@@ -407,19 +415,19 @@ msgstr ""
 "Du abonnerer allerede. Udfyld formularen nederst på siden for at få tilsendt "
 "et link, hvorfra du kan redigere dit abonnement."
 
-#: /browser/subscribe.py:194
+#: /browser/subscribe.py:211
 msgid "Subscribe"
 msgstr "Abonner"
 
-#: /browser/subscribe.py:217
+#: /browser/subscribe.py:234
 msgid "There seems to be an error with the information you entered."
 msgstr "Du har indtastet en fejl."
 
-#: /browser/subscribe.py:234 /browser/subscribe.py:303
+#: /browser/subscribe.py:251 /browser/subscribe.py:320
 msgid "You subscribed successfully."
 msgstr "Dit abonnement er nu tilmeldt."
 
-#: /browser/subscribe.py:249
+#: /browser/subscribe.py:266
 msgid "My subscriptions"
 msgstr "Mine abonnementer"
 
@@ -464,7 +472,7 @@ msgstr "Din bekræftelse af abonnementet gik igennem."
 msgid "Your subscription isn't known to us."
 msgstr "Dit abonnement findes ikke i systemet."
 
-#: /browser/subscribe.py:92 /browser/subscribe.py:151
+#: /browser/subscribe.py:92
 msgid "Unsubscribe"
 msgstr "Afmeld"
 
@@ -500,7 +508,7 @@ msgstr ""
 "formular til at få tilsendt et link til en side, hvor du kan ændre dit "
 "abonnement:"
 
-#: /channel.py:92
+#: /channel.py:95
 msgid "Newsletter"
 msgstr "Nyhedsbrev"
 

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: Wed Apr 23 20:35:30 2008\n"
+"POT-Creation-Date: Thu Apr 24 11:43:08 2008\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Silva i18n team <walco@infrae.com>\n"
@@ -383,7 +383,7 @@ msgid "Please select which channel you'd like to send queued e-mails of."
 msgstr ""
 
 #: /browser/subscribe.py:102
-#: /browser/subscribe.py:158
+#: /browser/subscribe.py:175
 msgid "You unsubscribed successfully."
 msgstr ""
 
@@ -391,24 +391,32 @@ msgstr ""
 msgid "You aren't subscribed to this channel."
 msgstr ""
 
-#: /browser/subscribe.py:166
+#: /browser/subscribe.py:156
+msgid "Apply changes"
+msgstr ""
+
+#: /browser/subscribe.py:168
+msgid "Unsubscribe from newsletter"
+msgstr ""
+
+#: /browser/subscribe.py:183
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
 msgstr ""
 
-#: /browser/subscribe.py:194
+#: /browser/subscribe.py:211
 msgid "Subscribe"
 msgstr ""
 
-#: /browser/subscribe.py:217
+#: /browser/subscribe.py:234
 msgid "There seems to be an error with the information you entered."
 msgstr ""
 
-#: /browser/subscribe.py:234
-#: /browser/subscribe.py:303
+#: /browser/subscribe.py:251
+#: /browser/subscribe.py:320
 msgid "You subscribed successfully."
 msgstr ""
 
-#: /browser/subscribe.py:249
+#: /browser/subscribe.py:266
 msgid "My subscriptions"
 msgstr ""
 
@@ -443,7 +451,6 @@ msgid "Your subscription isn't known to us."
 msgstr ""
 
 #: /browser/subscribe.py:92
-#: /browser/subscribe.py:151
 msgid "Unsubscribe"
 msgstr ""
 
@@ -467,7 +474,7 @@ msgstr ""
 msgid "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
 msgstr ""
 
-#: /channel.py:92
+#: /channel.py:95
 msgid "Newsletter"
 msgstr ""
 
