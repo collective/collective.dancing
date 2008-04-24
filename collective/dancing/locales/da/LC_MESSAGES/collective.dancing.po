@@ -543,7 +543,7 @@ msgstr "Bekræft din tilmelding til ${channel-title}"
 
 #: /composer.py:153 /browser/composer-html-forgot.pt:10
 msgid "Change your subscriptions with ${site-title}"
-msgstr "Rediger dine tilmeldinger på ${site-title}"
+msgstr "${site-title}: Rediger dine tilmeldinger"
 
 #: /composer.py:24
 msgid "Your e-mail address is invalid"
