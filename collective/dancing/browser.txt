@@ -413,7 +413,7 @@ e-mail address fails:
   >>> browser.open(channel.absolute_url() + '/subscribe.html')
   >>> browser.getControl('E-mail address').value = u"ROOT@localhost"
   >>> browser.getControl('Finish').click()
-  >>> "You are already subscribed." in browser.contents
+  >>> "Your email address is already subscribed." in browser.contents
   True
 
 Users can also request an e-mail with their secret:
@@ -870,7 +870,7 @@ This will trigger the confirmation mail to be sent out:
   Message follows:
   ...
   To confirm your subscription with My other channel, please click here:...
-  >>> "You subscribed successfully." in browser.contents
+  >>> "Information on how to confirm your subscription has been sent to you." in browser.contents
   True
 
   >>> secret = channel.composers['html'].secret(dict(email='daemon@localhost'))

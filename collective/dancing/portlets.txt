@@ -164,7 +164,7 @@ Subscribe via portlet
   To: tmog@localhost
   Message follows:
   ...
-  >>> "You subscribed successfully" in browser.contents
+  >>> "Information on how to confirm your subscription has been sent to you." in browser.contents
   True
 
 If the portlet option "Subscribe directly from portlet" is deselected, the portlet will instead redirect the user to the channels subscribe page.

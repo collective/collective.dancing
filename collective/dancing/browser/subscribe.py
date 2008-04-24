@@ -18,7 +18,8 @@ import collective.singing.browser.subscribe
 from collective.dancing import MessageFactory as _
 
 class SubscribeForm(collective.singing.browser.subscribe.Subscribe):
-    pass
+    already_subscribed_message = _(
+        u'Your email address is already subscribed. Click the "Send my subscription details" button below.')
 
 class SendSecret(BrowserView):
     template = ViewPageTemplateFile('skeleton.pt')
@@ -26,7 +27,8 @@ class SendSecret(BrowserView):
 
     label = _(u"Edit existing subscriptions")
 
-    description = _(u"Fill out the form below to receive an email with a link from which you can edit you subscriptions.")
+    description = _(
+        u"Fill out the form below to receive an email with a link from which you can edit you subscriptions.")
 
     def forgot_secret_form(self):
         form = collective.singing.browser.subscribe.ForgotSecret(
@@ -47,7 +49,8 @@ class Subscribe(BrowserView):
 
     @property
     def send_secret_link(self):
-        return _(u'Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href="${url}">edit your subscriptions</a>.',
+        return _(
+            u'Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href="${url}">edit your subscriptions</a>.',
                          mapping={'channel': self.context.Title(),
                                   'url': '%s/portal_newsletters/sendsecret.html' % getSite().absolute_url()})
     
@@ -252,7 +255,10 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
         if not secret_provided:
             msg = composer.render_confirmation(self.added)
             status, status_msg = collective.singing.message.dispatch(msg)
-            if status != u'sent':
+            if status == u'sent':
+                self.status = _(
+                    u"Information on how to confirm your subscription has been sent to you.")
+            else:
                 # This implicitely rolls back our transaction.
                 raise RuntimeError(
                     "There was an error with sending your e-mail.  Please try "

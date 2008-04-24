@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: Thu Apr 24 11:43:08 2008\n"
+"POT-Creation-Date: Thu Apr 24 13:15:39 2008\n"
 "PO-Revision-Date: 2008-04-17 HO:MI +ZONE\n"
 "Last-Translator: Jakob Bartholdy Bruun <jakob@headnet.dk>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -391,23 +391,23 @@ msgstr "Send beskeder nu"
 msgid "Please select which channel you'd like to send queued e-mails of."
 msgstr "Vælg hvilken kanal, du ønsker at udsende nyhedsbreve fra køen."
 
-#: /browser/subscribe.py:102 /browser/subscribe.py:175
+#: /browser/subscribe.py:105 /browser/subscribe.py:178
 msgid "You unsubscribed successfully."
 msgstr "Du er nu afmeldt."
 
-#: /browser/subscribe.py:104
+#: /browser/subscribe.py:107
 msgid "You aren't subscribed to this channel."
 msgstr "Du abonnerer ikke på denne kanal."
 
-#: /browser/subscribe.py:156
+#: /browser/subscribe.py:159
 msgid "Apply changes"
 msgstr "Udfør ændringer"
 
-#: /browser/subscribe.py:168
+#: /browser/subscribe.py:171
 msgid "Unsubscribe from newsletter"
 msgstr "Afmeld nyhedsbrev"
 
-#: /browser/subscribe.py:183
+#: /browser/subscribe.py:186
 msgid ""
 "You are already subscribed. Fill out the form at the end of this page to be "
 "sent a link from where you can edit your subscription."
@@ -415,27 +415,39 @@ msgstr ""
 "Du abonnerer allerede. Udfyld formularen nederst på siden for at få tilsendt "
 "et link, hvorfra du kan redigere dit abonnement."
 
-#: /browser/subscribe.py:211
+#: /browser/subscribe.py:21
+msgid ""
+"Your email address is already subscribed. Click the \"Send my subscription "
+"details\" button below."
+msgstr ""
+"Din email-adresse er allerede tilmeldt. "
+"Klik på knappen \"Send link til mine abonnementer\" nedenfor."
+
+#: /browser/subscribe.py:214
 msgid "Subscribe"
 msgstr "Abonner"
 
-#: /browser/subscribe.py:234
+#: /browser/subscribe.py:237
 msgid "There seems to be an error with the information you entered."
 msgstr "Du har indtastet en fejl."
 
-#: /browser/subscribe.py:251 /browser/subscribe.py:320
+#: /browser/subscribe.py:254 /browser/subscribe.py:326
 msgid "You subscribed successfully."
 msgstr "Dit abonnement er nu tilmeldt."
 
-#: /browser/subscribe.py:266
+#: /browser/subscribe.py:259
+msgid "Information on how to confirm your subscription has been sent to you."
+msgstr "Bekræft venligst din tilmelding i tilsendt e-mail."
+
+#: /browser/subscribe.py:272
 msgid "My subscriptions"
 msgstr "Mine abonnementer"
 
-#: /browser/subscribe.py:27
+#: /browser/subscribe.py:28
 msgid "Edit existing subscriptions"
 msgstr "Rediger eksisterende abonnementer"
 
-#: /browser/subscribe.py:29
+#: /browser/subscribe.py:30
 msgid ""
 "Fill out the form below to receive an email with a link from which you can "
 "edit you subscriptions."
@@ -445,7 +457,7 @@ msgstr ""
 "tilmelde dig alle de nyhedsbreve sitet tilbyder."
 
 # Default: "channel"
-#: /browser/subscribe.py:50
+#: /browser/subscribe.py:52
 msgid ""
 "Fill out the form below to subscribe to ${channel}. Note that this is for "
 "new subscriptions. Click here to <a href=\"${url}\">edit your subscriptions</"
@@ -456,23 +468,23 @@ msgstr ""
 "\">redigere dine abonnementer</a>"
 
 # Default: "channel"
-#: /browser/subscribe.py:56
+#: /browser/subscribe.py:59
 msgid "Subscribe to ${channel}"
 msgstr "Abonner på ${channel}"
 
-#: /browser/subscribe.py:72
+#: /browser/subscribe.py:75
 msgid "Confirming your subscription"
 msgstr "Bekræfter din tilmelding"
 
-#: /browser/subscribe.py:82
+#: /browser/subscribe.py:85
 msgid "You confirmed your subscription successfully."
 msgstr "Din bekræftelse af abonnementet gik igennem."
 
-#: /browser/subscribe.py:84
+#: /browser/subscribe.py:87
 msgid "Your subscription isn't known to us."
 msgstr "Dit abonnement findes ikke i systemet."
 
-#: /browser/subscribe.py:92
+#: /browser/subscribe.py:95
 msgid "Unsubscribe"
 msgstr "Afmeld"
 
@@ -544,6 +556,9 @@ msgstr "Email-adresse"
 #: /composer.py:59
 msgid "HTML E-Mail"
 msgstr "HTML email"
+
+#~ msgid "Your email address is already subscribed."
+#~ msgstr "Din email-adresse er allerede tilmeldt."
 
 #~ msgid "${channel} subscriptions administration"
 #~ msgstr "Administration af abonneneter i ${channel}"
