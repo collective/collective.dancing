@@ -494,18 +494,20 @@ msgid ""
 "to some of these you can fill out the form at the end of this page to be "
 "sent a link to where you can edit your existing subscriptions."
 msgstr ""
-"Nedenfor finder du listen over nyhedsbreve vi tilbyder. Abonnerer du "
-"allerede på et eller flere af disse, skal du udfylde formularen nederst på "
-"siden for at få tilsendt et link. Fra linket kan du redigere dine "
-"abonnementer."
+"Øverst på denne side kan du se de nyhedsbreve du er tilmeldt "
+"og du kan redigere indstillinger for dem.\n"
+"\n"
+"Nederst på siden finder du flere nyhedsbreve du kan tilmelde dig. "
+"For hvert nyhedsbrev skal du indtaste din email-adresse og klikke på "
+"knappen \"Abonner\"."
 
 #: /browser/subscriptions.pt:21
 msgid "You are currently subscribed to these newsletters:"
-msgstr "Du abonnerer nu på disse nyhedsbreve:"
+msgstr "Rediger dine tilmeldinger:"
 
 #: /browser/subscriptions.pt:28
 msgid "You can subscribe to these newsletters:"
-msgstr "Du kan abonnere på disse nyhedsbreve:"
+msgstr "Tilmeld dig flere nyhedsbreve:"
 
 #: /browser/subscriptions.pt:33
 msgid "Already subscribed?"
