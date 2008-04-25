@@ -128,9 +128,8 @@ class IncludeHiddenSecret(object):
 
 class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')    
-
+    successMessage = _('Your subscription was updated.')
     removed = False
-
     handlers = form.EditForm.handlers
 
     @property

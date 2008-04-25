@@ -812,7 +812,7 @@ Let's use the form now to subscribe 'root' to both news items and events:
   [u'Events']
   >>> browser.getControl('News').click()
   >>> browser.getControl('Apply').click()
-  >>> 'Data successfully updated' in browser.contents
+  >>> 'Your subscription was updated' in browser.contents
   True
   >>> sorted([c.title for c in subscription.collector_data['selected_collectors']])
   [u'Events', u'News']
