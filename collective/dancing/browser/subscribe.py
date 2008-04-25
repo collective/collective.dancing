@@ -111,13 +111,20 @@ class Unsubscribe(BrowserView):
 class IncludeHiddenSecret(object):
     def render(self):
         html = super(IncludeHiddenSecret, self).render()
-        secret = self.request.get('secret')
+        secret = self.secret
         if secret is not None:
             index = html.find('</form>')
             html = (html[:index] +
                     '<input type="hidden" name="secret" value="%s"' % secret +
                     html[index:])
         return html
+
+    @property
+    def secret(self):
+        secret = self.request.form.get('secret')
+        if isinstance(secret, list):
+            return secret[0]
+        return secret
 
 class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')    
@@ -170,7 +177,7 @@ class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
 
     @button.buttonAndHandler(_('Unsubscribe from newsletter'), name='unsubscribe')
     def handle_unsubscribe(self, action):
-        secret = self.request.form['secret']
+        secret = self.secret
         subs = self.context.channel.subscriptions
         for subscription in subs.query(secret=secret):
             subs.remove_subscription(subscription)
@@ -232,7 +239,7 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
             composer,
             comp_data,
             self.request)
-        secret_provided = self.request.form.get('secret')
+        secret_provided = self.secret
         if secret_provided and secret != secret_provided:
             self.status = _(
                 u"There seems to be an error with the information you entered.")
@@ -279,8 +286,19 @@ class Subscriptions(BrowserView):
         return form()
 
     @property
+    def addforms(self):
+        return [f for f in self.subscription_addforms if not f.added]
+
+    @property
+    def editforms(self):
+        return [f for f in self.subscription_editforms if not f.removed]
+
+    @property
     def secret(self):
-        return self.request.form.get('secret')
+        secret = self.request.form.get('secret')
+        if isinstance(secret, list):
+            return secret[0]
+        return secret
 
     def contents(self):
         z2.switch_on(self)
@@ -310,6 +328,7 @@ class Subscriptions(BrowserView):
                 addform.format = subscription.metadata['format']
                 addform.update()
                 self.subscription_addforms.append(addform)
+                addform.status = form.status
             elif form.status != form.noChangesMessage:
                 self.status = form.status
 
@@ -323,9 +342,9 @@ class Subscriptions(BrowserView):
                     subscription, self.request)
                 editform.update()
                 self.subscription_editforms.append(editform)
-                self.status = _(u"You subscribed successfully.")
-            elif form.status:
-                self.status = form.status
+                editform.status = form.status#_(u"You subscribed successfully.")
+            #elif form.status:
+            #    self.status = form.status
 
         return self.contents_template()
 
@@ -348,3 +367,10 @@ class Subscriptions(BrowserView):
                     channels_and_formats.append((format, channel))
 
         return subscriptions, channels_and_formats
+
+def get_secret(request):
+    
+    secret = request.form.get('secret')
+    if isinstance(secret, list):
+        return secret[0]
+    return secret
