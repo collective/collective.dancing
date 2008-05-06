@@ -19,7 +19,8 @@ from collective.dancing import MessageFactory as _
 
 class SubscribeForm(collective.singing.browser.subscribe.Subscribe):
     already_subscribed_message = _(
-        u'Your email address is already subscribed. Click the "Send my subscription details" button below.')
+        u'Your email address is already subscribed. Click the '
+        '"Send my subscription details" button below.')
 
 class SendSecret(BrowserView):
     template = ViewPageTemplateFile('skeleton.pt')
@@ -28,7 +29,8 @@ class SendSecret(BrowserView):
     label = _(u"Edit existing subscriptions")
 
     description = _(
-        u"Fill out the form below to receive an email with a link from which you can edit you subscriptions.")
+        u"Fill out the form below to receive an email with a link from which "
+        "you can edit you subscriptions.")
 
     def forgot_secret_form(self):
         form = collective.singing.browser.subscribe.ForgotSecret(
@@ -50,14 +52,16 @@ class Subscribe(BrowserView):
     @property
     def send_secret_link(self):
         return _(
-            u'Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href="${url}">edit your subscriptions</a>.',
-                         mapping={'channel': self.context.Title(),
-                                  'url': '%s/portal_newsletters/sendsecret.html' % getSite().absolute_url()})
+            u'Fill out the form below to subscribe to ${channel}. Note that '
+            'this is for new subscriptions. Click here to '
+            '<a href="${url}">edit your subscriptions</a>.',
+            mapping={'channel': self.context.Title(),
+                     'url': '%s/portal_newsletters/sendsecret.html' % getSite().absolute_url()})
     
     @property
     def label(self):
-        return _(u"Subscribe to ${channel}", mapping={'channel':
-                                                      self.context.Title()})
+        return _(u"Subscribe to ${channel}",
+                 mapping={'channel': self.context.Title()})
 
     def __call__(self):
         z2.switch_on(self)
@@ -342,8 +346,6 @@ class Subscriptions(BrowserView):
                 editform.update()
                 self.subscription_editforms.append(editform)
                 editform.status = form.status#_(u"You subscribed successfully.")
-            #elif form.status:
-            #    self.status = form.status
 
         return self.contents_template()
 
@@ -366,10 +368,3 @@ class Subscriptions(BrowserView):
                     channels_and_formats.append((format, channel))
 
         return subscriptions, channels_and_formats
-
-def get_secret(request):
-    
-    secret = request.form.get('secret')
-    if isinstance(secret, list):
-        return secret[0]
-    return secret
