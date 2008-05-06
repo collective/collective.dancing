@@ -1,10 +1,11 @@
+=================
 Singing & Dancing
 =================
 
 .. contents::
 
 What is it?
------------
+===========
 
 *Singing & Dancing* is the next generation newsletter Product for
 Plone.  It's an out of the box solution that works without
@@ -13,7 +14,7 @@ something that Singing & Dancing can't do, it's built to be easily
 extended via plug-ins using the Zope 3 Component Architecture.
 
 Features
---------
+========
 
 Modern and extensible
   Singing & Dancing builds on the latest and greatest efforts in the
@@ -42,7 +43,8 @@ Subscriptions
   e.g. in portlets.
 
 Future
-``````
+------
+
 A couple of features that we're going to implement in the near future:
 
 Newsletter templates
@@ -55,7 +57,7 @@ Newsletter templates
    :alt: Singing & Dancing Logo by Giuseppe Zizza
 
 Installation
-------------
+============
 
 Singing & Dancing is available as `Python eggs on PyPI`_.  To install,
 you can simply depend_ on the ``collective.dancing`` package in your
@@ -69,7 +71,7 @@ explain below.
 Sadly, we don't support Repoze_ at this poiint.
 
 Installing S&D with Buildout
-````````````````````````````
+----------------------------
 
 If you don't know what buildout is or `how to create a buildout`_,
 `follow this tutorial`_ first.
@@ -123,7 +125,7 @@ that's built and ready to run.
    Should these instructions not work for you, `contact us`_.
 
 It's installed.  What's next?
-`````````````````````````````
+-----------------------------
 
 You'll now have an entry in the control panel to *Singing & Dancing*.
 This will lead you to to the advanced configuration panel of S&D.
@@ -141,7 +143,7 @@ send newsletters, like periodically and from automatically collected
 content.
 
 Processing the message queue
-````````````````````````````
+----------------------------
 
 One important thing to note is that S&D usually queues messages in its
 own message queue before sending them out.  You might have noticed
@@ -173,7 +175,7 @@ that your Plone site is called ``portal`` and that your username and
 password are ``admin``.
 
 Contact us
-----------
+==========
 
 If you have a question, or comment, get in touch with us!  Our
 `mailing list`_ is a good place to do so. If you find a bug, please
@@ -181,7 +183,7 @@ If you have a question, or comment, get in touch with us!  Our
 ``#singing-dancing`` on Freenode_.
 
 Developers
-----------
+==========
 
 Singing & Dancing is built from scratch to be extensible.  All
 components described in the `interfaces.py`_ file in

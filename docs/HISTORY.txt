@@ -1,28 +1,35 @@
-collective.dancing 0.2
+History
+=======
 
-  - Add an 'Already subscribed?" section to the "My subscriptions"
-    page to retrieve your password.
-    [nouri]
+Version 0.3
+-----------
 
-  - added i18n:domain to browser/controlpanel-links.pt, removed extra quotes 
-    from browser/channel.py, updated pot and danish translation
-    [bartholdy]
+Version 0.2
+-----------
 
-  - updated .pot and danish translation
-    [bartholdy]
+- Add an 'Already subscribed?" section to the "My subscriptions"
+  page to retrieve your password.
+  [nouri]
 
-  - apparently triplequoted strings do not get translated .. 
-    this takes care of 
-    https://bugs.launchpad.net/singing-dancing/+bug/218448
-    [bartholdy]
+- added i18n:domain to browser/controlpanel-links.pt, removed extra quotes 
+  from browser/channel.py, updated pot and danish translation
+  [bartholdy]
 
-  - Don't use locale-dependent 'string.letters' when creating the
-    ISalt utility.  This fixes
-    https://bugs.launchpad.net/singing-dancing/+bug/217823
-    [nouri]
+- updated .pot and danish translation
+  [bartholdy]
 
-  - Extended portlet with optinal footertext
-    [bartholdy]
+- apparently triplequoted strings do not get translated .. 
+  this takes care of 
+  https://bugs.launchpad.net/singing-dancing/+bug/218448
+  [bartholdy]
 
-  - Added functionality to show a preview in the browser
-    [malthe]
+- Don't use locale-dependent 'string.letters' when creating the
+  ISalt utility.  This fixes
+  https://bugs.launchpad.net/singing-dancing/+bug/217823
+  [nouri]
+
+- Extended portlet with optinal footertext
+  [bartholdy]
+
+- Added functionality to show a preview in the browser
+  [malthe]
