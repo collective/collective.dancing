@@ -4,6 +4,9 @@ History
 Version 0.3
 -----------
 
+- added Czech translation
+  [naro]
+
 Version 0.2
 -----------
 
