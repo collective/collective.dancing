@@ -2,14 +2,15 @@ import datetime
 from zope import component
 from zope import interface
 from zope import schema
-from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from z3c.form import button
 from z3c.form import field
-from collective.singing import interfaces
+
+from plone.z3cform import base
 from plone.z3cform import z2
 from plone.z3cform.crud import crud
+from collective.singing import interfaces
 
 from collective.dancing.browser import controlpanel
 from collective.dancing import MessageFactory as _
@@ -114,13 +115,8 @@ class StatsForm(crud.CrudForm):
         else:
             raise KeyError(id)
 
-class StatsView(BrowserView):
-    __call__ = ViewPageTemplateFile('controlpanel.pt')
-
+class StatsView(base.FormWrapper):
+    index = ViewPageTemplateFile('controlpanel.pt')
+    form = StatsForm
     label = _(u"Newsletter statistics")
     back_link = controlpanel.back_to_controlpanel
-
-    def contents(self):
-        # A call to 'switch_on' is required before we can render z3c.forms.
-        z2.switch_on(self)
-        return StatsForm(None, self.request)()
