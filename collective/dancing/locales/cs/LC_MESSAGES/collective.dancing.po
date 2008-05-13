@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "POT-Creation-Date: Fri Apr 25 14:19:18 2008\n"
-"PO-Revision-Date: 2008-05-07 10:22+0100\n"
+"PO-Revision-Date: 2008-05-13 10:18+0100\n"
 "Last-Translator: Radim Novotny <novotny.radim@gmail.com>\n"
 "Language-Team: CoreNet <info@corenet.cz>\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr "Úprava kanálu ${channel}"
 
 #: /browser/channel.py:96
 msgid "Add or edit channels that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
-msgstr "Zde je možné přidat nebo změnit nastavení kanálů, které budou používat sběrače dat aby mohly shromáždit a odeslat příslušné informace z tohoto portálu na přihlášené email adresy v nastaveném čase."
+msgstr "Zde je možné přidat nebo změnit nastavení kanálů, které budou používat nástroje sběru dat aby mohly shromáždit a odeslat příslušné informace z tohoto portálu na přihlášené email adresy v nastaveném čase."
 
 #: /browser/collector.py:159
 msgid "Add"
@@ -74,7 +74,7 @@ msgstr "Nastavení ${collector}"
 
 #: /browser/collector.py:300
 msgid "Up to Collector administration"
-msgstr "Zpět na správu sběračů dat"
+msgstr "Zpět na správu nástrojů sběru dat"
 
 #: /browser/collector.py:38
 #: /browser/collector.py:147
@@ -83,7 +83,7 @@ msgstr "Typ"
 
 #: /browser/collector.py:64
 msgid "Collector administration"
-msgstr "Správa sběračů dat"
+msgstr "Správa sběru dat"
 
 #: /browser/collector.py:90
 #: /browser/collector.py:155
@@ -122,14 +122,14 @@ msgstr "Pro odhlášení klepněte zde."
 # Default: "Collector administration"
 #: /browser/controlpanel-links.pt:13
 msgid "label_collector_administration"
-msgstr "Správa sběrače dat"
+msgstr "Správa nástroje pro sběr dat"
 
 # Default: ""
 # "Collectors are useful for automatic newsletters.  They are\n"
 # "      responsible for assembling a list of items for publishing."
 #: /browser/controlpanel-links.pt:18
 msgid "description_collector_administration"
-msgstr "Sběrače dat jsou vhodné pro automatické odesílání. Zajišťují sběr informací, které budou odeslány."
+msgstr "Nástroj pro sběr dat jse vhodný pro automatické odesílání. Zajišťuje sběr informací, které budou odeslány."
 
 # Default: "Statistics"
 #: /browser/controlpanel-links.pt:23
@@ -234,7 +234,7 @@ msgstr "Přihlásit se přímo z portletu"
 
 #: /browser/portlets/channelsubscribe.py:47
 msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
-msgstr "Zaškrtněte, pokud chcete v případě přihlášení z portletu zpřístupnit nastavení sběrače dat."
+msgstr "Zaškrtněte, pokud chcete v případě přihlášení z portletu zpřístupnit nastavení nástroje pro sběr dat."
 
 #: /browser/portlets/channelsubscribe.py:50
 msgid "Footer text"
@@ -280,7 +280,7 @@ msgstr "Kanál, přes který se má položka odeslat"
 
 #: /browser/sendnewsletter.py:31
 msgid "Include collector items"
-msgstr "Včetně položek příslušného sběrače dat"
+msgstr "Včetně položek příslušného nástroje sběru dat"
 
 #: /browser/sendnewsletter.py:36
 msgid "Address to send the preview to"
