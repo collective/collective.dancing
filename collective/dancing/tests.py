@@ -6,6 +6,11 @@ from Products.Five import fiveconfigure
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
 
+from email.Parser import Parser
+from email.Header import Header, decode_header
+from email.Charset import Charset, QP, SHORTEST
+from copy import deepcopy
+
 import collective.dancing
 
 def setup_error_log(site):
@@ -30,6 +35,32 @@ def setUp():
 
 setUp()
 ptc.setupPloneSite(products=['collective.dancing'])
+
+def decodeMessageAsString( msg):
+    """ This helper method takes Message object or string and returns 
+        string which does not contain base64 encoded parts
+        Returns message without any encoding in parts
+    """
+    if isinstance(msg, str):
+        msg = Parser().parsestr(msg)
+    
+    new = deepcopy(msg)
+    # From is utf8 encoded: '=?utf-8?q?Site_Administrator_=3C=3E?='
+    new.replace_header('From', decode_header(new['From'])[0][0])
+    new.replace_header('Subject', decode_header(new['Subject'])[0][0])
+    charset = Charset('utf-8')
+    charset.header_encoding = SHORTEST
+    charset.body_encoding   = QP
+    charset.output_charset  = 'utf-8'
+
+    for part in new.walk():
+        if part.get_content_maintype()=="multipart":
+            continue
+        decoded = part.get_payload(decode=1)
+        del part['Content-Transfer-Encoding']
+        part.set_payload(decoded, charset)
+
+    return new.as_string()        
 
 def test_suite():
     return unittest.TestSuite([

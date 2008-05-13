@@ -4,6 +4,9 @@ History
 Version 0.3
 -----------
 
+- Use email.Header module for message header formatting
+  [naro]
+  
 - added Czech translation
   [naro]
 

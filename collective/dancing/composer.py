@@ -1,6 +1,7 @@
 import md5
 import re
 import smtplib
+import email 
 
 from zope import interface
 from zope import component
@@ -79,11 +80,13 @@ class HTMLComposer(object):
         properties = component.getUtility(
             Products.CMFCore.interfaces.IPropertiesTool)
         charset = properties.site_properties.getProperty('default_charset', 'utf-8')
-        return collective.singing.mail.header(
-            u'%s <%s>' %
-            (properties.email_from_name.decode(charset),
-             properties.email_from_address.decode(charset)),
-            encoding='UTF-8')
+        name = properties.email_from_name
+        mail = properties.email_from_address
+        if isinstance(name, unicode):
+            name = name.encode(charset)
+        if isinstance(mail, unicode):
+            mail = mail.encode(charset)
+        return str(email.Header.Header('%s <%s>' % (name, mail), charset))
 
     def _vars(self, subscription):
         vars = {}
