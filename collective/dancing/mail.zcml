@@ -17,7 +17,7 @@
 
   <mail:queuedDelivery
       queuePath="./queue"
-      mailer="plone.smtp"
+      mailer="smtp"
       permission="zope.SendMail"
       />
 
