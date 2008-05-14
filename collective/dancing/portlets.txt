@@ -19,18 +19,21 @@ We want messages to be printed out instead of sending them:
 
   >>> from zope import interface, component
   >>> import zope.sendmail.interfaces
+  >>> from email.Header import decode_header
+  >>> from collective.dancing.tests import decodeMessageAsString
 
   >>> class MyMailDelivery(object):
   ...     interface.implements(zope.sendmail.interfaces.IMailDelivery)
   ...     sent = []
-  ...
+  ...   
   ...     def send(self, from_, to, message):
   ...         print '*MyMailDelivery sending*:'
-  ...         print 'From:', from_
+  ...         print 'From:', decode_header(from_)[0][0]
   ...         print 'To:', to
   ...         print 'Message follows:'
-  ...         print message
-  ...         self.sent.append(message)
+  ...         decoded = decodeMessageAsString(message)
+  ...         print decoded
+  ...         self.sent.append(decoded)
 
   >>> component.provideUtility(MyMailDelivery())
 

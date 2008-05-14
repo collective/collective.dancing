@@ -35,8 +35,9 @@ We want messages to be printed out instead of sending them:
   ...         print 'From:', decode_header(from_)[0][0]
   ...         print 'To:', to
   ...         print 'Message follows:'
-  ...         print decodeMessageAsString(message)
-  ...         self.sent.append(message)
+  ...         decoded = decodeMessageAsString(message)
+  ...         print decoded
+  ...         self.sent.append(decoded)
   ... 
   ...     @classmethod
   ...     def last_messages(klass, purge=True):
@@ -492,7 +493,7 @@ sent:
 
   >>> print MyMailDelivery.last_messages(purge=False) \
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-  Content-Type: multipart/alternative;
+  Content-Type: multipart/mixed;
   ...
   Subject: Plone site: My other channel...
   From: Site Administrator <>
