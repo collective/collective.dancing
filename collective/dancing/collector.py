@@ -9,8 +9,12 @@ import zope.i18nmessageid
 import Acquisition
 import DateTime
 import OFS.Folder
+import persistent
+import persistent.wref
+import persistent.list
 
 import z3c.form.field
+import z3c.formwidget.query.interfaces
 import Products.CMFCore.utils
 import Products.CMFPlone.interfaces
 import Products.CMFPlone.utils
@@ -75,22 +79,43 @@ class TextCollector(OFS.SimpleItem.SimpleItem):
 
     def get_items(self, cue=None, subscription=None):
         return [self.value], None
-    
-class ReferenceCollector(object):
-    interface.implements(collective.singing.interfaces.ICollector)
-    title = 'Reference'
-    refered = None
+
+class IReferenceCollector(collective.singing.interfaces.ICollector):
+    items = interface.Attribute(
+        """Weak references.""")
+
+class ReferenceCollector(OFS.SimpleItem.SimpleItem):
+    interface.implements(IReferenceCollector)
+    title = 'Content selection'
+    items = ()
 
     def __init__(self, id, title):
         self.id = id
         self.title = title
 
     def get_items(self, cue=None, subscription=None):
-        if self.refered:
-            return [self.refered], None
-        else:
-            return [], None
+        items = self._rebuild_items()        
+        return tuple(items), None
 
+    def _rebuild_items(self):
+        catalog = Products.CMFCore.utils.getToolByName(self, 'portal_catalog')
+
+        for ref in self.items:
+            if not isinstance(ref, persistent.wref.WeakRef):
+                raise ValueError("Must be a weak reference (got %s)" % repr(ref))
+                
+            item = ref()
+
+            if item is not None:
+                uid = item.UID()
+
+                try:
+                    brain = catalog(UID=uid)[0]
+                except IndexError:
+                    continue
+                
+                yield brain.getObject()
+    
 class Collector(OFS.Folder.Folder):
     interface.implements(collective.singing.interfaces.ICollector)
     title = 'Collector block'
@@ -196,5 +221,5 @@ class Collector(OFS.Folder.Folder):
 def sfc_added(sfc, event):
     sfc.add_topic()
 
-collectors = [Collector, TextCollector] #, ReferenceCollector)
-standalone_collectors = [Collector]
+collectors = (Collector, TextCollector, ReferenceCollector)
+standalone_collectors = (Collector,)

@@ -219,6 +219,13 @@ We can also add a rich text field:
   ...     name='EditTextForm-plone-portal_newsletters-collectors-default-latest-news-2.widgets.value').value = "Our newsletter rocks!"
   >>> browser.getControl('Apply').click()
 
+Or a reference collector field:
+
+  >>> browser.getControl('Type', index=-1).displayValue = ['Content selection']
+  >>> browser.getControl('Title', index=-1).value = 'A selection of site content'
+  >>> browser.getControl('Add', index=-1).click()
+  >>> browser.getControl('Apply').click()
+  
 Okay, so now that our collector catches both events and news items
 throughout the site.  For now, let's create one item for each type:
 

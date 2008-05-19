@@ -182,3 +182,33 @@ If we select no value, then we should get all items:
   >>> items # doctest: +NORMALIZE_WHITESPACE
   [<ATEvent at /plone/events/super-bowl>, <ATNewsItem at /plone/news/mini>,
    <ATNewsItem at /plone/news/flu>]
+
+Reference collector
+-------------------
+
+The reference collector is able to keep a list of references to
+content items.
+
+  >>> from collective.dancing.collector import ReferenceCollector
+  >>> rc = ReferenceCollector(
+  ...     'example', u"Example reference collector").__of__(portal)
+
+Let's set references to the items created above.
+
+  >>> from persistent.wref import WeakRef
+  >>> rc.items = map(WeakRef, items)
+
+We can get back the items using the ``get_items`` method of the
+collector.
+  
+  >>> items, cue = rc.get_items()
+  >>> items
+  (<ATEvent at /plone/events/super-bowl>,
+   <ATNewsItem at /plone/news/mini>,
+   <ATNewsItem at /plone/news/flu>)
+
+Make sure the items are properly acquisition-wrapped:
+
+  >>> event = items[0]
+  >>> event.aq_chain[-1]
+  <ZPublisher.BaseRequest.RequestContainer object at ...>

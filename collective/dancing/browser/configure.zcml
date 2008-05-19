@@ -27,7 +27,12 @@
   <zope:adapter factory=".collector.EditTextForm"
                 provides="z3c.form.interfaces.ISubForm" />
 
+  <zope:adapter factory=".collector.EditReferenceForm"
+                provides="z3c.form.interfaces.ISubForm" />
 
+  <zope:adapter factory=".query.ReferenceSelection"
+                for="..collector.IReferenceCollector" />
+  
   <!-- Administration views -->
 
   <defaultView

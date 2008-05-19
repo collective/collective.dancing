@@ -8,6 +8,7 @@ from z3c.form import field
 from z3c.form import form, subform
 import z3c.form.interfaces
 import z3c.form.browser.select
+import z3c.formwidget.query.widget
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 import Products.CMFPlone.utils
@@ -22,7 +23,7 @@ import OFS.interfaces
 from collective.dancing import MessageFactory as _
 from collective.dancing import collector
 from collective.dancing.browser import controlpanel
-
+from collective.dancing.browser import query
 
 class ManageCollectorsForm(crud.CrudForm):
     """Crud form for collectors.
@@ -126,6 +127,29 @@ class EditTextForm(subform.EditSubForm):
 
     prefix = property(prefix)
 
+class EditReferenceForm(subform.EditSubForm):
+    component.adapts(collector.IReferenceCollector,
+                     None,
+                     z3c.form.interfaces.IEditForm)
+    template = viewpagetemplatefile.ViewPageTemplateFile('subform.pt')
+
+    fields = z3c.form.field.Fields(
+        collector.IReferenceCollector,
+        query.IReferenceSelection).select('title', 'items')
+
+    fields['items'].widgetFactory[
+        z3c.form.interfaces.INPUT_MODE] = \
+        z3c.formwidget.query.widget.QuerySourceFieldCheckboxWidget
+
+    @property
+    def css_class(self):
+        return "subform subform-level-%s" % self.level
+
+    @property
+    def label(self):
+        return u"Rich text: %s" % self.context.title
+
+    prefix = property(prefix)
 
 class AddToCollectorForm(form.Form):
     ignoreContext = True

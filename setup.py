@@ -33,6 +33,7 @@ setup(name='collective.dancing',
           'setuptools',
           'collective.singing',
           'five.intid',
+          'plone.z3cform',
       ],
       
       entry_points="""

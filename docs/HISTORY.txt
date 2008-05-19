@@ -4,6 +4,9 @@ History
 Version 0.3
 -----------
 
+- Implemented reference collector based on the query-select widget in
+  ``plone.z3cform``.
+
 - In-browser preview is now adapted directly from the message that
   would have been dispatched as e-mail.
 
