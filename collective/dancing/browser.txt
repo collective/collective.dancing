@@ -741,6 +741,7 @@ If we use an address that's unknown, we'll get a nice error message:
 
 Finally we may request an in-browser preview.
 
+  >>> browser.getControl('Newsletter').click()
   >>> browser.getControl('Show preview').click() # doctest: +ELLIPSIS
   >>> "Previewing &quot;Welcome to Plone&quot;" in browser.contents
   True
