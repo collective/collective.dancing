@@ -20,6 +20,7 @@ from plone.z3cform.crud import crud
 from plone.z3cform.wysiwyg import widget
 import collective.singing.scheduler
 import collective.singing.subscribe
+import collective.singing.channel
 from zope.app.pagetemplate import viewpagetemplatefile
 from collective.dancing import MessageFactory as _
 from collective.dancing import collector
@@ -69,10 +70,10 @@ class ChannelEditForm(crud.EditForm):
     template = viewpagetemplatefile.ViewPageTemplateFile('channel-crud-table.pt')
     def _update_subforms(self):
         self.subforms = []
-        for id, item in self.context.get_items():
+        for channel in collective.singing.channel.channel_lookup():
             subform = ChannelEditSubForm(self, self.request)
-            subform.content = item
-            subform.content_id = id
+            subform.content = channel
+            subform.content_id = channel.name
             subform.update()
             self.subforms.append(subform)
 
@@ -120,7 +121,7 @@ class ManageChannelsForm(crud.CrudForm):
         return self.update_schema.copy()
     
     def get_items(self):
-        return [(ob.getId(), ob) for ob in self.context.objectValues()]
+        return collective.singing.channel.channel_lookup()
     
     def add(self, data):
         name = Products.CMFPlone.utils.normalizeString(
