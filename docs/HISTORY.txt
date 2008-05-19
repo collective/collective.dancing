@@ -4,6 +4,9 @@ History
 Version 0.3
 -----------
 
+- In-browser preview is now adapted directly from the message that
+  would have been dispatched as e-mail.
+
 - Use email.Header module for message header formatting
   [naro]
   
