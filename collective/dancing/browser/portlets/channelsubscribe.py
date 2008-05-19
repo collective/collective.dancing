@@ -22,9 +22,11 @@ from plone.memoize.compress import xhtml_compress
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 import collective.singing
+from collective.singing.channel import channel_lookup
 from collective.dancing import MessageFactory as _
 from collective.dancing.browser.subscribe import SubscriptionAddForm
 from collective.dancing.collector import ICollectorSchema
+
 
 test_vocab = schema.vocabulary.SimpleVocabulary.fromValues(range(5))
  
@@ -91,12 +93,8 @@ class Assignment(base.Assignment):
 
     @property
     def all_channels(self):
-        channels = component.queryUtility(collective.singing.interfaces.IChannelLookup)()
-        if channels is None:
-            return []
-        return channels
-
-
+        return channel_lookup()
+        
 class ValuesMixin(object):
     """Mix-in class that allows convenient access to data stored on
     the assignment."""

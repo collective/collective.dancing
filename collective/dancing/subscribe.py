@@ -2,6 +2,7 @@ from Acquisition import aq_base
 from zope import component
 
 import collective.singing.subscribe
+import collective.singing.channel
 
 class Subscription(collective.singing.subscribe.SimpleSubscription):
     _channel = None
@@ -10,9 +11,8 @@ class Subscription(collective.singing.subscribe.SimpleSubscription):
         def get(self):
             if self._channel is not None:
                 # We want to get the same channel from the
-                # IChannelLookup, as that has the correct wrapping:
-                for channel in component.getUtility(
-                    collective.singing.interfaces.IChannelLookup)():
+                # ``channel_lookup`` as that has the correct wrapping:
+                for channel in collective.singing.channel.channel_lookup():
                     if aq_base(channel) is aq_base(self._channel):
                         return channel
             return self._channel

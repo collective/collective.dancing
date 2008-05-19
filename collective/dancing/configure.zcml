@@ -39,7 +39,7 @@
       />
 
   <!-- Channel and subscriptions registrations -->
-  <utility component=".channel.channel_lookup" />
+  <utility component=".channel.portal_newsletters" name="portal-newsletters" />
   <subscriber handler=".channel.tool_added" />
   <subscriber handler=".channel.channels_added" /> 
   <subscriber handler=".channel.collector_removed" /> 

@@ -14,14 +14,16 @@ import OFS.SimpleItem
 import Products.CMFPlone.interfaces
 import collective.singing.interfaces
 import collective.singing.message
-
+import collective.singing.channel
 import collective.dancing.collector
 import collective.dancing.composer
 import collective.dancing.subscribe
 import collective.dancing.utils
 from collective.dancing import MessageFactory as _
 
-def channel_lookup():
+def portal_newsletters():
+    """Return channels created with the newsletter tool."""
+
     root = component.queryUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
     if root is None:
         return []
@@ -29,7 +31,8 @@ def channel_lookup():
     channels = root['portal_newsletters']['channels'].objectValues()
     security = AccessControl.getSecurityManager()
     return [c for c in channels if security.checkPermission('View', c)]
-interface.directlyProvides(channel_lookup,
+
+interface.directlyProvides(portal_newsletters,
                            collective.singing.interfaces.IChannelLookup)
 
 class Salt(UserString):
@@ -132,7 +135,7 @@ class Channel(OFS.SimpleItem.SimpleItem):
 @component.adapter(collective.singing.interfaces.ICollector,
                    zope.app.container.interfaces.IObjectRemovedEvent)
 def collector_removed(collector, event):
-    for channel in channel_lookup():
+    for channel in collective.singing.channel.channel_lookup():
         if isinstance(channel, Channel):
             if aq_base(channel.collector) is aq_base(collector):
                 channel.collector = None

@@ -21,11 +21,11 @@ Give me a list of all channels
 ------------------------------
 
 The ``channels`` folder contains the list of ``IChannel`` available.
-These channels can be retrieved through the ``IChannelLookup``
-utility, like so:
+These channels can be retrieved through the ``channel_lookup``
+function, like so:
 
-  >>> from collective.singing.interfaces import IChannelLookup
-  >>> component.getUtility(IChannelLookup)()
+  >>> from collective.singing.channel import channel_lookup
+  >>> channel_lookup()
   [<Channel at /plone/portal_newsletters/channels/default-channel>]
 
 Let's create another channel and ask for the list of channels again:
@@ -33,7 +33,7 @@ Let's create another channel and ask for the list of channels again:
   >>> from collective.dancing.channel import Channel
   >>> channels = self.portal['portal_newsletters']['channels']
   >>> channels['wq'] = Channel('wq')
-  >>> component.getUtility(IChannelLookup)() # doctest: +NORMALIZE_WHITESPACE
+  >>> channel_lookup() # doctest: +NORMALIZE_WHITESPACE
   [<Channel at /plone/portal_newsletters/channels/default-channel>, 
    <Channel at /plone/portal_newsletters/channels/wq>]
 
@@ -42,7 +42,7 @@ Channels and collectors
 
 Our default channel has no collector by default:
 
-  >>> channel = component.getUtility(IChannelLookup)()[0]
+  >>> channel = channel_lookup()[0]
   >>> channel.collector is None
   True
 

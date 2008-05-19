@@ -14,7 +14,7 @@ from plone.z3cform import z2
 import collective.singing.interfaces
 import collective.singing.message
 import collective.singing.browser.subscribe
-
+from collective.singing.channel import channel_lookup
 from collective.dancing import MessageFactory as _
 
 class SubscribeForm(collective.singing.browser.subscribe.Subscribe):
@@ -353,8 +353,7 @@ class Subscriptions(BrowserView):
         subscriptions = []
         channels_and_formats = []
 
-        for channel in component.getUtility(
-            collective.singing.interfaces.IChannelLookup)():
+        for channel in channel_lookup():
             channel_subs = channel.subscriptions
 
             subscribed_formats = []

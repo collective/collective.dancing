@@ -11,6 +11,7 @@ from plone.z3cform import base
 from plone.z3cform import z2
 from plone.z3cform.crud import crud
 from collective.singing import interfaces
+from collective.singing.channel import channel_lookup
 
 from collective.dancing.browser import controlpanel
 from collective.dancing import MessageFactory as _
@@ -103,8 +104,8 @@ class StatsForm(crud.CrudForm):
     view_schema = IQueueStatistics
 
     def get_items(self):
-        return [(channel.name, ChannelStatistics(channel)) for channel in
-                component.getUtility(interfaces.IChannelLookup)()]
+        return [(channel.name, ChannelStatistics(channel)) \
+                for channel in channel_lookup()]
 
     def remove(self, (id, item)):
         for name, stats in self.get_items():

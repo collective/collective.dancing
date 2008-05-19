@@ -1,6 +1,6 @@
 from zope.interface import Interface
 from Products.Five import BrowserView
-from collective.dancing.channel import channel_lookup
+from collective.singing.channel import channel_lookup
 
 class IDancingUtilsView(Interface):
     
