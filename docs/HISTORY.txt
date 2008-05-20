@@ -4,6 +4,8 @@ History
 Version 0.3
 -----------
 
+- Added StoneageHTML-filter to handle stylesheets.
+
 - Implemented reference collector based on the query-select widget in
   ``plone.z3cform``.
 

@@ -1,3 +1,5 @@
+from zope import schema
+
 import collective.singing.interfaces
 
 class IFullFormatter(collective.singing.interfaces.IFormatItem):
@@ -9,3 +11,11 @@ class IFullFormatter(collective.singing.interfaces.IFormatItem):
     The formatter should only return the actual content markup, not a
     complete HTML document.
     """
+
+class IHTMLComposer(collective.singing.interfaces.IComposer,
+                    collective.singing.interfaces.IComposerBasedSecret):
+    """An HTML composer."""
+
+    stylesheet = schema.Text(
+        title=u"CSS Stylesheet",
+        description=u"The stylesheet will be applied to the document.")

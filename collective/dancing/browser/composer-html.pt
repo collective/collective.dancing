@@ -4,6 +4,10 @@
       lang="en"
       i18n:domain="collective.dancing">
 
+  <head>
+    <style tal:content="structure options/stylesheet" />
+  </head>
+  
   <body>
     <h1 tal:content="options/subject">Your daily book bite</h1>
 

@@ -20,6 +20,9 @@ from collective.dancing import MessageFactory as _
 from collective.dancing import utils
 
 from interfaces import IFullFormatter
+from interfaces import IHTMLComposer
+
+import stoneagehtml
 
 class InvalidEmailAddress(schema.ValidationError):
     _(u"Your e-mail address is invalid")
@@ -50,16 +53,18 @@ def composerdata_from_subscription(subscription):
 class HTMLComposer(object):
     """
       >>> from zope.interface.verify import verifyClass
-      >>> from collective.singing.interfaces import IComposer
-      >>> verifyClass(IComposer, HTMLComposer)
+      >>> from collective.dancing.interfaces import IHTMLComposer
+      >>> verifyClass(IHTMLComposer, HTMLComposer)
       True
     """
-    interface.implements(collective.singing.interfaces.IComposer,
-                         collective.singing.interfaces.IComposerBasedSecret)
+
+    interface.implements(IHTMLComposer)
 
     title = _(u'HTML E-Mail')
     schema = IHTMLComposerSchema
 
+    stylesheet = u""
+    
     template = ViewPageTemplateFile('browser/composer-html.pt')
     confirm_template = ViewPageTemplateFile('browser/composer-html-confirm.pt')
     forgot_template = ViewPageTemplateFile('browser/composer-html-forgot.pt')
@@ -118,7 +123,12 @@ class HTMLComposer(object):
               mapping={'site-title': vars['site_title'],
                        'channel-title': vars['channel_title']}),
             target_language=vars['language'])
-        html = self.template(subject=subject, contents=items, **vars)
+        
+        html = self.template(
+            subject=subject, contents=items, stylesheet=self.stylesheet, **vars)
+
+        html = stoneagehtml.compactify(html).decode('utf-8')
+
         message = collective.singing.mail.create_html_mail(
             subject,
             html,

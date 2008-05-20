@@ -34,6 +34,7 @@ setup(name='collective.dancing',
           'collective.singing',
           'five.intid',
           'plone.z3cform',
+          'StoneageHTML',
       ],
       
       entry_points="""
