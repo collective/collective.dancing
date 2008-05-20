@@ -64,6 +64,18 @@ That is, we can use it to retrieve a subscription's secret:
   >>> subscription.secret = secret
 
   >>> composer = HTMLComposer()
+
+  Test _from_address
+  >>> from Products.CMFCore.interfaces import IPropertiesTool
+  >>> properties = component.getUtility(IPropertiesTool)
+  >>> old_name = properties.email_from_name
+  >>> properties.email_from_name = u'Ko\u010dka'.encode('utf8')
+  >>> composer._from_address
+  '=?utf-8?b?S2/EjWth?= <>'
+  >>> properties.email_from_name = old_name
+
+  Rendering
+
   >>> msg = composer.render(subscription, items=(
   ...     'My bonnie lies over the ocean',
   ...     'My bonnie lies over the sea',

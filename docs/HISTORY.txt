@@ -4,6 +4,10 @@ History
 Version 0.3
 -----------
 
+- Fixed email From header. This fixes 
+  https://bugs.launchpad.net/singing-dancing/+bug/231958
+  [naro]
+  
 - Added StoneageHTML-filter to handle stylesheets.
 
 - Implemented reference collector based on the query-select widget in

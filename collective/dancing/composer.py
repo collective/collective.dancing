@@ -1,7 +1,8 @@
 import md5
 import re
 import smtplib
-import email 
+from email.Utils import formataddr
+from email.Header import Header
 
 from zope import interface
 from zope import component
@@ -87,11 +88,12 @@ class HTMLComposer(object):
         charset = properties.site_properties.getProperty('default_charset', 'utf-8')
         name = properties.email_from_name
         mail = properties.email_from_address
-        if isinstance(name, unicode):
-            name = name.encode(charset)
-        if isinstance(mail, unicode):
-            mail = mail.encode(charset)
-        return str(email.Header.Header('%s <%s>' % (name, mail), charset))
+        if not isinstance(name, unicode):
+            name = name.decode(charset)
+        if not isinstance(mail, unicode):
+            # mail has to be be ASCII!!
+            mail = mail.decode(charset).encode('us-ascii', 'replace')
+        return formataddr((str(Header(name, charset)), mail))
 
     def _vars(self, subscription):
         vars = {}
