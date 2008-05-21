@@ -1,29 +1,56 @@
 History
 =======
 
-Version 0.3
------------
+Version 0.3 - unreleased
+------------------------
 
-- Fixed email From header. This fixes 
-  https://bugs.launchpad.net/singing-dancing/+bug/231958
+New features
+~~~~~~~~~~~~
+
+- Added capability to embed stylesheets in outgoing mail.  Right now,
+  this is a simple text field that can be set on the channel's composer.
+  We're now making use of the StoneAgeHTML library to embed styles in
+  the individual HTML elements instead of providing styles in the
+  ``<head>`` of the HTML document.  This gives us much better support
+  with quirky e-mail clients out there.
+  [malthe]
+
+  In the future, we want to extend this to allow administrators to
+  select themes for individual channels by browsing and selecting from a
+  list of registered styles.
+
+- Added Czech translation.
   [naro]
-  
-- Added StoneageHTML-filter to handle stylesheets.
 
-- Implemented reference collector based on the query-select widget in
-  ``plone.z3cform``.
-
-- In-browser preview is now adapted directly from the message that
-  would have been dispatched as e-mail.
-
-- Use email.Header module for message header formatting
-  [naro]
-  
-- added Czech translation
+- Refactored ``mail.py`` to create ``MIMEMultipart`` based messages.
+  This allows us to easily adapt the mail sending process to embed
+  images and the like.
   [naro]
 
-Version 0.2
------------
+- Added a "reference collector".  This allows you to select individual
+  portal items to be sent out, as opposed to items collected by a Smart
+  Folder or the like.
+  [malthe]
+
+Bugfixes
+~~~~~~~~
+
+- Use ``zc.lockfile`` to lock the queue processing (sending out of mail)
+  instead of excessively using ``transaction.commit()``, which caused
+  massive ZODB bloat when a lot of messages were involved.
+  [nouri]
+
+- Use ``email.Header`` for message header formatting.  This allows for
+  better internationalization in headers of outgoing e-mails.
+  [naro]
+
+- In-browser preview now displays what would really be sent out,
+  i.e. after collectors and transforms could do their thing.  Before, it
+  used to only display the context item as mail.
+  [malthe]
+
+Version 0.2 - 2008-05-06
+------------------------
 
 - Add an 'Already subscribed?" section to the "My subscriptions"
   page to retrieve your password.

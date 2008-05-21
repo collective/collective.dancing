@@ -175,8 +175,8 @@ that your Plone site is called ``portal`` and that your username and
 password are ``admin``.
 
 **Note**: You must not set up this ClockServer on more than one
-instance.  The processing makes sure it's not invoked twice by using
-file locking.
+instance.  The processing makes sure it's not invoked twice at the
+same time by using file locking.
 
 Contact us
 ==========
