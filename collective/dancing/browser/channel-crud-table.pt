@@ -16,8 +16,9 @@
   <form action="." method="post" tal:attributes="action request/getURL">
 
     <table class="crud-table" tal:define="rows view/subforms">
-        <thead tal:define="row1 python:len(rows) and rows[0] or None"
-               tal:condition="python:row1 is not None">
+      <thead tal:define="row1 python:len(rows) and rows[0] or None"
+             tal:condition="python:row1 is not None">
+        <tr>
           <th tal:define="widgetsForTitles row1/getTitleWidgets;
                           niceTitles row1/getNiceTitles"
               tal:repeat="widget widgetsForTitles">
@@ -36,14 +37,15 @@
             </span>
 
           </th>
-        </thead>
-        <tbody>
-          <tal:block repeat="row view/subforms">
-            <a name="" tal:attributes="name string:edit-${row/content_id}" />
-            <tr tal:content="structure row/render"
-                tal:attributes="class python:repeat['row'].odd() and 'odd' or 'even'" />
-          </tal:block>
-        </tbody>
+        </tr>
+      </thead>
+      <tbody>
+        <tal:block repeat="row view/subforms">
+          <a name="" tal:attributes="name string:edit-${row/content_id}" />
+          <tr tal:content="structure row/render"
+              tal:attributes="class python:repeat['row'].odd() and 'odd' or 'even'" />
+        </tal:block>
+      </tbody>
     </table>
 
     <div class="action" tal:repeat="action view/actions/values">
