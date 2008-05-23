@@ -8,7 +8,7 @@ import zope.interface
 import zope.schema.interfaces
 import zope.schema.vocabulary
 import zope.i18n
-from z3c.form import field
+from z3c.form import field, form
 import z3c.form.interfaces
 import z3c.form.datamanager
 import z3c.form.term
@@ -17,7 +17,7 @@ import OFS.SimpleItem
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 import Products.CMFPlone.utils
-from collective.singing.interfaces import IChannel
+from collective.singing.interfaces import IChannel, IFormLayer
 from plone.z3cform import z2
 from plone.z3cform.crud import crud
 from plone.z3cform.wysiwyg import widget
@@ -245,7 +245,8 @@ class SubscriptionsAdministrationView(BrowserView):
                     url=self.context.aq_inner.aq_parent.absolute_url())
 
     def contents(self):
-        z2.switch_on(self)
+        z2.switch_on(self,
+                     request_layer=collective.singing.interfaces.IFormLayer)
         forms = []
         for format, composer in self.context.composers.items():
             form = ManageSubscriptionsForm(self.context, self.request)
@@ -341,7 +342,8 @@ class ManageChannelView(BrowserView):
 
     def contents(self):
         # A call to 'switch_on' is required before we can render z3c.forms.
-        z2.switch_on(self)
+        z2.switch_on(self,
+                     request_layer=collective.singing.interfaces.IFormLayer)
 
         fieldsets = []
 

@@ -64,7 +64,8 @@ class Subscribe(BrowserView):
                  mapping={'channel': self.context.Title()})
 
     def __call__(self):
-        z2.switch_on(self)
+        z2.switch_on(self,
+                     request_layer=collective.singing.interfaces.IFormLayer)
         return self.template()
 
     def contents(self):
@@ -304,7 +305,8 @@ class Subscriptions(BrowserView):
         return secret
 
     def contents(self):
-        z2.switch_on(self)
+        z2.switch_on(self,
+                     request_layer=collective.singing.interfaces.IFormLayer)
 
         subscriptions, channels = self._subscriptions_and_channels(self.secret)
 
