@@ -7,6 +7,12 @@ Version 0.3 - unreleased
 New features
 ~~~~~~~~~~~~
 
+- Added preview to channel view.
+  [malthe]
+
+- Refactored channels management view and the dedicated channel view.
+  [malthe]
+  
 - Added capability to embed stylesheets in outgoing mail.  Right now,
   this is a simple text field that can be set on the channel's composer.
   We're now making use of the StoneAgeHTML library to embed styles in

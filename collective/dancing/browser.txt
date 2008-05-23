@@ -750,7 +750,9 @@ Finally we may request an in-browser preview.
 
   >>> browser.getControl('Newsletter').click()
   >>> browser.getControl('Show preview').click() # doctest: +ELLIPSIS
-  >>> "Previewing &quot;Welcome to Plone&quot;" in browser.contents
+  >>> "Previewing &quot;My other channel&quot;" in browser.contents
+  True
+  >>> "Click here to unsubscribe." in browser.contents
   True
 
 The "My subscriptions" page

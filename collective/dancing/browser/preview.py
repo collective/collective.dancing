@@ -8,6 +8,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from collective.dancing.composer import FullFormatWrapper
 from collective.singing.channel import lookup
 from collective.singing.interfaces import ISubscription
+from collective.singing.interfaces import IChannel
 from collective.singing.scheduler import render_message
 
 class PreviewSubscription(object):
@@ -36,16 +37,21 @@ class PreviewNewsletterView(BrowserView):
     template = ViewPageTemplateFile("preview.pt")
     
     def __call__(self, name=None, include_collector_items=False):
-        assert name is not None
-
-        channel = lookup(name)
+        if IChannel.providedBy(self.context):
+            channel = self.context
+            items = ()
+        else:
+            assert name is not None
+            channel = lookup(name)
+            items = (FullFormatWrapper(self.context),)
+            
         sub = PreviewSubscription(channel)
-        
+
         message = render_message(
             channel,
             self.request,
             sub,
-            (FullFormatWrapper(self.context),),                
+            items,
             bool(include_collector_items))
 
         # pull message out of hat
@@ -59,4 +65,4 @@ class PreviewNewsletterView(BrowserView):
         else:
             raise ValueErrorr("Message does not contain a 'text/html' part.")
             
-        return self.template(content=html, title=self.context.title_or_id())
+        return self.template(content=html, title=channel.title)

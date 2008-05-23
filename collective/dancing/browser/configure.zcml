@@ -82,16 +82,16 @@
       />
 
   <page
-      name="index_html"
+      name="manage_subscriptions_html"
       for="collective.singing.interfaces.IChannel"
       class=".channel.SubscriptionsAdministrationView"
       permission="cmf.ManagePortal"
       />
 
   <page
-      name="edit_html"
+      name="index_html"
       for="collective.singing.interfaces.IChannel"
-      class=".channel.ChannelEditView"
+      class=".channel.ManageChannelView"
       permission="cmf.ManagePortal"
       />
 

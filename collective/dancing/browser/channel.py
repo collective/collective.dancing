@@ -1,15 +1,18 @@
 import datetime
 import sys
 
+from zope import interface
 from zope import component
 from zope import schema
 import zope.interface
 import zope.schema.interfaces
 import zope.schema.vocabulary
+import zope.i18n
 from z3c.form import field
 import z3c.form.interfaces
 import z3c.form.datamanager
 import z3c.form.term
+import z3c.form.button
 import OFS.SimpleItem
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -27,6 +30,7 @@ from collective.dancing import collector
 from collective.dancing import utils
 from collective.dancing.channel import Channel
 from collective.dancing.browser import controlpanel
+from collective.dancing.browser.interfaces import ISendAndPreviewForm
 
 def simpleitem_wrap(klass, name):
     class SimpleItemWrapper(klass, OFS.SimpleItem.SimpleItem):
@@ -67,36 +71,25 @@ zope.interface.alsoProvides(scheduler_vocabulary,
                             zope.schema.interfaces.IVocabularyFactory)
 
 class ChannelEditForm(crud.EditForm):
-    template = viewpagetemplatefile.ViewPageTemplateFile('channel-crud-table.pt')
     def _update_subforms(self):
         self.subforms = []
         for channel in collective.singing.channel.channel_lookup():
-            subform = ChannelEditSubForm(self, self.request)
+            subform = crud.EditSubForm(self, self.request)
             subform.content = channel
             subform.content_id = channel.name
             subform.update()
             self.subforms.append(subform)
 
-class ChannelEditSubForm(crud.EditSubForm):
-    """special version of get titles for channel"""
-    template = viewpagetemplatefile.ViewPageTemplateFile('channel-crud-row.pt')
-    def getNiceTitles(self):
-        widgetsForTitles = self.getTitleWidgets()        
-
-        freakList = []
-        for item in widgetsForTitles:
-            freakList.append(item.field.title)
-        if len(freakList)> 2:
-            freakList[2] = u'Subscribers'
-        return freakList
-
 class ManageChannelsForm(crud.CrudForm):
-    """Crud form for channels.
-    """
+    """Crud form for channels."""
     
-    description = _("Add or edit channels that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times.")
+    description = _("Add or edit channels that will use collectors to "
+                    "gather and email specific sets of information from "
+                    "your site, to subscribed email addresses, at scheduled "
+                    "times.")
+    
     editform_factory = ChannelEditForm
-    template = viewpagetemplatefile.ViewPageTemplateFile('channel-form-master.pt')
+
     @property
     def update_schema(self):
         fields = field.Fields(IChannel).select('title')
@@ -114,6 +107,7 @@ class ManageChannelsForm(crud.CrudForm):
             vocabulary='Scheduler Vocabulary')
 
         fields += field.Fields(collector, scheduler)
+
         return fields
 
     @property
@@ -136,17 +130,17 @@ class ManageChannelsForm(crud.CrudForm):
         self.context.manage_delObjects([id])
 
     def link(self, item, field):
-        if field == 'title':
-            return item.absolute_url()
-        elif field == 'collector' and item.collector is not None:
-            collector_id = item.collector.getId()
-            collector = getattr(self.context.aq_inner.aq_parent.collectors,
-                                collector_id)
-            return collector.absolute_url()
-        elif field == 'scheduler':
-            if item.scheduler is not None:
-                return item.scheduler.absolute_url()
-
+       if field == 'title':
+           return item.absolute_url()
+       elif field == 'collector' and item.collector is not None:
+           collector_id = item.collector.getId()
+           collector = getattr(self.context.aq_inner.aq_parent.collectors,
+                               collector_id)
+           return collector.absolute_url()
+       elif field == 'scheduler':
+           if item.scheduler is not None:
+               return item.scheduler.absolute_url()
+            
 class ChannelAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
     
@@ -164,6 +158,8 @@ class ManageSubscriptionsForm(crud.CrudForm):
     # These are set by the SubscriptionsAdministrationView
     format = None 
     composer = None
+
+    description = _(u"Manage or add subscriptions.")
 
     @property
     def prefix(self):
@@ -258,11 +254,51 @@ class SubscriptionsAdministrationView(BrowserView):
             forms.append(form)
         return '\n'.join([form() for form in forms])
 
-class EditChannelForm(z3c.form.form.EditForm):
-    """ """
-    template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
-    heading = _(u"Edit Channel")
+class ChannelPreviewForm(z3c.form.form.Form):
+    """Channel preview form.
 
+    Currently only allows an in-browser preview.
+    """
+
+    interface.implements(ISendAndPreviewForm)
+
+    template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
+    description = _(u"See an in-browser preview of the newsletter.")
+
+    fields = z3c.form.field.Fields(ISendAndPreviewForm).select(
+        'include_collector_items')
+
+    include_collector_items = True
+    
+    def getContent(self):
+        return self
+    
+    @z3c.form.button.buttonAndHandler(_(u"Generate"), name='preview')
+    def handle_preview(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = form.EditForm.formErrorsMessage
+            return
+
+        collector_items = int(bool(data['include_collector_items']))
+        
+        return self.request.response.redirect(
+            self.context.absolute_url()+\
+            '/preview-newsletter.html?include_collector_items=%d' % collector_items)
+
+class EditChannelForm(z3c.form.form.EditForm):
+    """Channel edit form.
+
+    As opposed to the crud form, this allows editing of all channel
+    settings.
+
+    Actions are also provided to preview and send the newsletter.
+    """
+
+    template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
+
+    description = _(u"Edit the properties of the channel.")
+    
     @property
     def fields(self):
         fields = z3c.form.field.Fields(IChannel).select('title',
@@ -285,11 +321,11 @@ class EditChannelForm(z3c.form.form.EditForm):
         fields += field.Fields(collector, scheduler)
         return fields
 
-class ChannelEditView(BrowserView):
-    """Dedicated Edit page for channels
-       As opposed to the crud form this
-       allows editing of all channel settings
-       """
+class ManageChannelView(BrowserView):
+    """Manage channel view.
+
+    Shows subscription, preview and edit options.
+    """
     
     __call__ = ViewPageTemplateFile('controlpanel.pt')
 
@@ -298,13 +334,42 @@ class ChannelEditView(BrowserView):
         return dict(label=_(u"Up to Channels administration"),
                     url=self.context.aq_inner.aq_parent.absolute_url())
 
-
     @property
     def label(self):
         return _(u'Edit Channel ${channel}',
-                 mapping={'channel':self.context.Title()})
+                 mapping={'channel':self.context.title})
 
     def contents(self):
         # A call to 'switch_on' is required before we can render z3c.forms.
         z2.switch_on(self)
-        return EditChannelForm(self.context, self.request)()
+
+        fieldsets = []
+
+        fieldsets.append((_(u"Preview"), ChannelPreviewForm(self.context, self.request)()))
+        fieldsets.append((_(u"Edit"), EditChannelForm(self.context, self.request)()))
+
+        forms = []
+        for format, composer in self.context.composers.items():
+            form = ManageSubscriptionsForm(self.context, self.request)
+            form.format = format
+            form.composer = composer
+            forms.append(form)
+
+        fieldsets.append((_(u"Subscriptions"), '\n'.join([form() for form in forms])))
+
+        wrapper = """\
+        <dl class="enableFormTabbing">
+          %s
+        </dl>"""
+        
+        template = """\
+        <dt id="fieldsetlegend-%d">%s</dt>
+        <dd id="fieldset-%d">
+          %s
+        </dd>"""
+        
+        return wrapper % \
+               ("\n".join((template % (id(msg), zope.i18n.translate(msg), id(msg), html)
+                           for (msg, html) in fieldsets)))
+
+        

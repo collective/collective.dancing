@@ -17,32 +17,14 @@ import collective.singing.scheduler
 
 from collective.dancing import MessageFactory as _
 from collective.dancing.composer import FullFormatWrapper
+from collective.dancing.browser.interfaces import ISendAndPreviewForm
 
 class SendAsNewsletterForm(form.Form):
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
     
     ignoreContext = True
 
-    fields = field.Fields(
-        schema.Set(
-            __name__='channels',
-            title=_(u"The channel to send this through"),
-            value_type=schema.Choice(
-                vocabulary='collective.singing.vocabularies.ChannelVocabulary')
-            ),
-        schema.Bool(
-            __name__='include_collector_items',
-            title=_(u"Include collector items"),
-            default=True,
-            ),
-        schema.TextLine(
-            __name__='address',
-            title=_(u"Address to send the preview to"),
-            description=_(
-                u"This is only required if you click 'Send preview' below"),
-            required=False,
-            ),
-        )
+    fields = field.Fields(ISendAndPreviewForm)
 
     @button.buttonAndHandler(_('Send'), name='send')
     def handle_send(self, action):
