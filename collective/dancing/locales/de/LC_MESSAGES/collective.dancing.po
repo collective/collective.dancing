@@ -173,7 +173,7 @@ msgstr "Singing & Dancing Konfiguration"
 
 #: /browser/controlpanel.py:22
 msgid "Up to Site Setup"
-msgstr "Zurück zur Konfiguration"
+msgstr "Zurück zur Website-Konfiguration"
 
 # Default: "url%s/sendsecret.html"
 #: /browser/portlets/channelsubscribe.py:129
@@ -456,7 +456,7 @@ msgstr "Bitte füllen Sie untenstehendes Formular aus um sich zum Themenbereich 
 # Default: "channel"
 #: /browser/subscribe.py:59
 msgid "Subscribe to ${channel}"
-msgstr ""
+msgstr "Zu ${channel} anmelden"
 
 #: /browser/subscribe.py:75
 msgid "Confirming your subscription"
@@ -476,7 +476,7 @@ msgstr "Abmelden"
 
 #: /browser/subscriptions.pt:10
 msgid "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
-msgstr "Hier sehen Sie eine Liste aller Themenbereiche die wir als Newsletter anbieten. Falls Sie bereits zu einem dieser Themenbereiche angemeldet sind können Sie das untenstehende Formular ausfüllen und wir senden Ihnen eine Adresse zu, wo Sie ihre Abonnements bearbeiten können."
+msgstr "Hier sehen Sie eine Liste aller Themenbereiche die wir anbieten. Falls Sie bereits zu einem dieser Themenbereiche bereits angemeldet sind können Sie das untenstehende Formular ausfüllen und wir senden Ihnen eine Adresse zu, um Ihre Abonnements zu bearbeiten."
 
 #: /browser/subscriptions.pt:21
 msgid "You are currently subscribed to these newsletters:"
