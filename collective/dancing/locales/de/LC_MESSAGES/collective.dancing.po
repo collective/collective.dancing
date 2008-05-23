@@ -418,7 +418,7 @@ msgstr "Sie sind bereits angemeldet. Füllen Sie das untenstehende Formular aus 
 
 #: /browser/subscribe.py:21
 msgid "Your email address is already subscribed. Click the \"Send my subscription details\" button below."
-msgstr ""
+msgstr "Diese E-Mail Adresse ist bereits angemeldet. Klicken Sie auf den \"Abonnementdetails zusenden\" Button."
 
 #: /browser/subscribe.py:220
 msgid "Subscribe"
