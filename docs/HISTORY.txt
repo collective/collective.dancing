@@ -7,6 +7,9 @@ Version 0.3 - unreleased
 New features
 ~~~~~~~~~~~~
 
+- Add translations to German.
+  [saily]
+
 - Added preview also to channel view.  This was previously only
   available for the "send as newsletter" action.
   [malthe]
@@ -42,6 +45,13 @@ New features
 
 Bugfixes
 ~~~~~~~~
+
+- Add ``metadata.xml`` to make QuickInstaller happy with version
+  numbers.
+  [naro]
+
+- Back to using checkboxes for multi selection instead of ``<select>``.
+  [nouri]
 
 - Make HTMLComposer and channel.composers persistent so that changes
   to template and composers are conveniently persisted.
