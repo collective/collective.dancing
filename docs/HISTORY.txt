@@ -7,10 +7,12 @@ Version 0.3 - unreleased
 New features
 ~~~~~~~~~~~~
 
-- Added preview to channel view.
+- Added preview also to channel view.  This was previously only
+  available for the "send as newsletter" action.
   [malthe]
 
 - Refactored channels management view and the dedicated channel view.
+  Big improvements to usability of the channel view.
   [malthe]
   
 - Added capability to embed stylesheets in outgoing mail.  Right now,
@@ -40,6 +42,10 @@ New features
 
 Bugfixes
 ~~~~~~~~
+
+- Make HTMLComposer and channel.composers persistent so that changes
+  to template and composers are conveniently persisted.
+  [nouri]
 
 - Use ``zc.lockfile`` to lock the queue processing (sending out of mail)
   instead of excessively using ``transaction.commit()``, which caused

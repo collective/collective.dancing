@@ -4,6 +4,7 @@ import smtplib
 from email.Utils import formataddr
 from email.Header import Header
 
+import persistent
 from zope import interface
 from zope import component
 from zope import schema
@@ -51,7 +52,7 @@ class IHTMLComposerSchema(interface.Interface):
 def composerdata_from_subscription(subscription):
     return utils.AttributeToDictProxy(subscription.composer_data)
 
-class HTMLComposer(object):
+class HTMLComposer(persistent.Persistent):
     """
       >>> from zope.interface.verify import verifyClass
       >>> from collective.dancing.interfaces import IHTMLComposer

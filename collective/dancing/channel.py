@@ -2,6 +2,7 @@ import random
 import string
 from UserString import UserString
 
+import persistent.dict
 from zope import component
 from zope import interface
 import zope.app.container.interfaces
@@ -118,7 +119,8 @@ class Channel(OFS.SimpleItem.SimpleItem):
         self.description = description
         self.subscriptions = collective.dancing.subscribe.Subscriptions()
         if composers is None:
-            composers = {'html': collective.dancing.composer.HTMLComposer()}
+            composers = persistent.dict.PersistentDict()
+            composers['html'] = collective.dancing.composer.HTMLComposer()
         self.composers = composers
         self.collector = collector
         self.scheduler = scheduler
