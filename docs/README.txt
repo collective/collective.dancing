@@ -178,6 +178,14 @@ password are ``admin``.
 instance.  The processing makes sure it's not invoked twice at the
 same time by using file locking.
 
+Upgrade
+=======
+
+After you upgrade Singing & Dancing from an older version to a newer
+one, you'll need to visit the *Upgrades* tab in the ``portal_setup``
+tool in the ZMI, and run any available new upgrades for the
+``collective.dancing:default`` profile.
+
 Contact us
 ==========
 

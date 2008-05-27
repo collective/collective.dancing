@@ -46,6 +46,19 @@ New features
 Bugfixes
 ~~~~~~~~
 
+- S&D 0.3b2 introduced an incompatible change with channels created in
+  0.3b1 and earlier.  I added a GenericSetup upgrade step to fix this.
+  The relevant code is in the ``collective.dancing.upgrade`` module.
+
+  If you're using a legacy database with channels that were created
+  before version 0.3b2, you'll need to run this upgrade step, or
+  you'll see this error::
+
+    TypeError: ('object.__new__(HTMLComposer) is not safe, use persistent.Persistent.__new__()', <function _reconstructor at ...>, (<class 'collective.dancing.composer.HTMLComposer'>, <type 'object'>, None))
+
+  Refer to the Upgrade_ section for details on how to run upgrades.
+  [nouri]
+
 - Add ``metadata.xml`` to make QuickInstaller happy with version
   numbers.
   [naro]
