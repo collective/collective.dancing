@@ -2,8 +2,11 @@ Thanks to the following people for support, code, patches, etc:
 
   - Alec Mitchell
   - Anton Stonor
+  - Daniel Widerin
+  - David Picó
   - Giuseppe Zizza
   - Jakob Bartholdy Bruun
+  - Katja Süss
   - Malthe Borch
   - Peter Holzer
   - Russ Ferriday
@@ -11,3 +14,4 @@ Thanks to the following people for support, code, patches, etc:
   - Vincenzo Barone
   - Vincenzo Di Somma
   - Wim Boucquaert
+  - Wouter Vanden Hove
