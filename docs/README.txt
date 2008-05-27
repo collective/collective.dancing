@@ -181,10 +181,11 @@ same time by using file locking.
 Upgrade
 =======
 
-After you upgrade Singing & Dancing from an older version to a newer
-one, you'll need to visit the *Upgrades* tab in the ``portal_setup``
-tool in the ZMI, and run any available new upgrades for the
-``collective.dancing:default`` profile.
+If you're upgrading your version of Singing & Dancing, it might be
+that you need to run an upgrade of the database.  In the
+``portal_setup`` tool in the ZMI, visit the *Upgrades* tab and run any
+available new upgrades for the ``collective.dancing:default`` profile.
+
 
 Contact us
 ==========
