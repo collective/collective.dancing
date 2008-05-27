@@ -61,7 +61,6 @@ class PortalNewsletters(OFS.Folder.Folder):
     def Title(self):
         return u"Newsletters"
 
-
 @component.adapter(IPortalNewsletters,
                    zope.app.container.interfaces.IObjectAddedEvent)
 def tool_added(tool, event):
@@ -90,8 +89,8 @@ class ChannelContainer(OFS.Folder.Folder):
       >>> container.objectIds()
       ['your-channel']
     """
-
-    Title = u"Channels"
+    def Title(self):
+        return u"Channels"
 
 @component.adapter(IChannelContainer,
                    zope.app.container.interfaces.IObjectAddedEvent)
