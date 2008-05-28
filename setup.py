@@ -9,8 +9,10 @@ def read(*pathnames):
 setup(name='collective.dancing',
       version=version,
       description="The all-singing all-dancing newsletter product for Plone.",
-      long_description=read('docs', 'README.txt'),
-
+      long_description='\n'.join([
+          read('docs', 'README.txt'),
+          read('docs', 'HISTORY.txt'),
+          ]),
       classifiers=[
         "Framework :: Plone",
         "Framework :: Zope2",
