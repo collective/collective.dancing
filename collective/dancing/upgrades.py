@@ -12,15 +12,16 @@ def _reconstructor(cls, base, state):
     else:
         return safe_reconstructor(cls, base, state)
 
-def fix_legacy_htmlcomposers(site):
+def fix_legacy_htmlcomposers(tool):
     """collective.dancing.composer.HTMLComposer used to derive from
     object.  We need to update all pickles of composers with this
     little brute force function.
     """
+    site = tool.aq_parent
     copy_reg._reconstructor = _reconstructor
     try:
         if 'portal_newsletters' in site.objectIds():
             for channel in site['portal_newsletters'].channels.values():
-                channel._p_changed = True
+                channel.composers = channel.composers
     finally:
         copy_reg._reconstructor = _reconstructor
