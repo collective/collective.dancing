@@ -195,16 +195,16 @@ msgstr "${channel} Einstellungen"
 
 #: /browser/portlets/channelsubscribe.py:35
 msgid "Portlet header"
-msgstr ""
+msgstr "Kopfzeile des Portlets"
 
 #: /browser/portlets/channelsubscribe.py:353
 #: /browser/portlets/channelsubscribe.py:389
 msgid "Edit Channel Subscribe Portlet"
-msgstr ""
+msgstr "Portlet für direkte Anmeldung zu einem Newsletterthema bearbeiten"
 
 #: /browser/portlets/channelsubscribe.py:36
 msgid "Title of the rendered portlet"
-msgstr ""
+msgstr "Geben Sie den Titel des Portlets."
 
 #: /browser/portlets/channelsubscribe.py:38
 msgid "The channel to enable subscriptions to."
@@ -212,7 +212,7 @@ msgstr "Das Thema zu dem Anmeldungen möglich sind."
 
 #: /browser/portlets/channelsubscribe.py:384
 msgid "Back to portlets"
-msgstr ""
+msgstr "Zurück zur Portletverwaltung"
 
 #: /browser/portlets/channelsubscribe.py:39
 msgid "Find the channel you want to enable direct subscription to"
@@ -225,40 +225,40 @@ msgstr ""
 
 #: /browser/portlets/channelsubscribe.py:43
 msgid "Portlet description"
-msgstr ""
+msgstr "Beschreibung des Portlets"
 
 #: /browser/portlets/channelsubscribe.py:434
 #: /browser/portlets/channelsubscribe.py:456
 msgid "Add Channel Subscribe Portlet"
-msgstr ""
+msgstr "Portlet für direkte Anmeldung zu einem Newsletterthema hinzufügen"
 
 #: /browser/portlets/channelsubscribe.py:44
 msgid "Description of the rendered portlet"
-msgstr ""
+msgstr "Geben Sie eine kurze Beschreibung des Portlets an."
 
 #: /browser/portlets/channelsubscribe.py:46
 msgid "Subscribe directly from portlet"
-msgstr ""
+msgstr "Direktes Anmelden ermöglichen?"
 
 #: /browser/portlets/channelsubscribe.py:47
 msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
-msgstr ""
+msgstr "Bestimmen Sie, ob ein direktes Anmelden über das Portlet möglich sein soll - falls nicht werden Sie zum Anmeldeformular weitergeleitet und die eingegebenen Daten werden dort eingetragen."
 
 #: /browser/portlets/channelsubscribe.py:50
 msgid "Footer text"
-msgstr ""
+msgstr "Fusszeile des Portlets"
 
 #: /browser/portlets/channelsubscribe.py:51
 msgid "Text in footer - if omitted the channel title is used"
-msgstr ""
+msgstr "Text der in der Fusszeile dargestellt wird - falls leer wird der Titel des Newsletterthemas verwendet."
 
 #: /browser/portlets/channelsubscribe.py:54
 msgid "Show footer"
-msgstr ""
+msgstr "Fusszeile anzeigen?"
 
 #: /browser/portlets/channelsubscribe.py:55
 msgid "Click here to show the portlet footer."
-msgstr ""
+msgstr "Bestimmen Sie, ob die Fusszeile des Portlets angezeigt werden soll."
 
 #: /browser/scheduler.py:23
 msgid "Apply"
@@ -271,11 +271,11 @@ msgstr ""
 # Default: ""
 #: /browser/scheduler.py:31
 msgid "${number} messages queued."
-msgstr "${number} Nachrichten in der Warteschleife"
+msgstr "${number} Nachrichten auf der Warteliste"
 
 #: /browser/scheduler.py:34
 msgid "No messages queued."
-msgstr "Keine Nachrichten in der Warteschleife"
+msgstr "Keine Nachrichten auf der Warteliste"
 
 # Default: ""
 #: /browser/sendnewsletter.py:104
@@ -306,7 +306,7 @@ msgstr "Senden"
 #: /browser/sendnewsletter.py:62
 #: /browser/sendnewsletter.py:97
 msgid "${num} messages queued."
-msgstr "${num} Nachrichten in der Warteschleife"
+msgstr "${num} Nachrichten auf der Warteliste"
 
 #: /browser/sendnewsletter.py:64
 msgid "Show preview"
@@ -326,11 +326,11 @@ msgstr "Newsletterstatistik"
 
 #: /browser/stats.py:21
 msgid "Total messages sent"
-msgstr ""
+msgstr "Anzahl der gesendeten Nachrichten"
 
 #: /browser/stats.py:22
 msgid "Total number of messages sent successsfully"
-msgstr ""
+msgstr "Anzahl der erfolgreich gesendeten Nachrichten"
 
 #: /browser/stats.py:26
 msgid "New messages"
@@ -338,7 +338,7 @@ msgstr ""
 
 #: /browser/stats.py:27
 msgid "Messages waiting to be sent"
-msgstr ""
+msgstr "Wartende Nachrichten"
 
 #: /browser/stats.py:29
 #: /browser/stats.py:35
@@ -369,7 +369,7 @@ msgstr ""
 
 #: /browser/stats.py:45
 msgid "Messages with errors in the retry queue"
-msgstr ""
+msgstr "Nachrichten mit Fehlern auf der Warteliste"
 
 #: /browser/stats.py:73
 msgid "Flush old messages"
