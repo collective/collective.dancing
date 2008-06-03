@@ -131,7 +131,7 @@ msgstr "Falls Sie in Zukunft auf unseren Newsletter zu diesem Themenbereich verz
 # Default: "Collector administration"
 #: /browser/controlpanel-links.pt:13
 msgid "label_collector_administration"
-msgstr "Verwaltund der Sammlerdienste"
+msgstr "Verwaltung der Sammlerdienste"
 
 # Default: ""
 # "Collectors are useful for automatic newsletters.  They are\n"
