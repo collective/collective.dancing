@@ -70,6 +70,7 @@ class ITextCollector(collective.singing.interfaces.ICollector):
 
 class TextCollector(OFS.SimpleItem.SimpleItem):
     interface.implements(ITextCollector)
+    significant = False
     title = 'Rich text'
     value = u''
 
@@ -141,14 +142,24 @@ class Collector(OFS.Folder.Folder):
                 if name in sdata and sdata[name] and self not in sdata[name]:
                     return [], now
 
+        # If no ``significant`` children return any items, we'll
+        # return the empty list.
+        significant = False
         items = []
+
         for child in self.objectValues():
             if isinstance(child, ATTopic):
-                items.extend(self.get_items_for_topic(child, cue))
+                l = self.get_items_for_topic(child, cue)
+                if l:
+                    significant = True
+                items.extend(l)
             else:
-                items.extend(child.get_items(cue, subscription)[0])
+                l = child.get_items(cue, subscription)[0]
+                if l and getattr(child, 'significant', True):
+                    significant = True
+                items.extend(l)
 
-        return items, now
+        return significant and items or [], now
 
     @staticmethod
     def get_items_for_topic(topic, cue):

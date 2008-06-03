@@ -183,6 +183,50 @@ If we select no value, then we should get all items:
   [<ATEvent at /plone/events/super-bowl>, <ATNewsItem at /plone/news/mini>,
    <ATNewsItem at /plone/news/flu>]
 
+Significant items
+-----------------
+
+Collectors may be marked ``significant``.  This means that items from
+the collector should always be included.  If significant is set to
+``False``, we're signalling that the collector's items should only be
+included if there are significant sibling collectors that returned
+items.
+
+Let's add to the events collector a bit of text:
+
+  >>> name = events_collector.get_next_id()
+  >>> events_collector[name] = collective.dancing.collector.TextCollector(
+  ...     'text', 'Some text')
+  >>> text_collector = events_collector[name]
+  >>> text_collector.value = u"You just read our events section."
+
+By default, this bit of text is not included if there are no events:
+
+  >>> collector.get_items(subscription=Subscription())[0] \
+  ... # doctest: +NORMALIZE_WHITESPACE
+  [<ATEvent at /plone/events/super-bowl>,
+   u'You just read our events section.',
+   <ATNewsItem at /plone/news/mini>,
+   <ATNewsItem at /plone/news/flu>]
+
+  >>> collector.get_items(cue=cue+1, subscription=Subscription())[0]
+  []
+
+We'll now mark the text collector ``significant``.  With the effect
+that the text is included now even if there are no events:
+
+  >>> text_collector.significant = True
+
+  >>> collector.get_items(subscription=Subscription())[0] \
+  ... # doctest: +NORMALIZE_WHITESPACE
+  [<ATEvent at /plone/events/super-bowl>,
+   u'You just read our events section.',
+   <ATNewsItem at /plone/news/mini>,
+   <ATNewsItem at /plone/news/flu>]
+
+  >>> collector.get_items(cue=cue+1, subscription=Subscription())[0]
+  [u'You just read our events section.']
+
 Reference collector
 -------------------
 

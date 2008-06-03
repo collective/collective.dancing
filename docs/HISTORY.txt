@@ -4,6 +4,15 @@ History
 Version 0.4 - unreleased
 ------------------------
 
+New features
+~~~~~~~~~~~~
+
+- Text fields will now per default not be included in the resulting
+  message if there are no sibling collectors that produced items.
+  E.g. if you have a heading text and a sibling topic collector, the
+  heading won't appear if the topic didn't return any items.
+  [nouri]
+
 Version 0.3 - 2008-06-03
 ------------------------
 
