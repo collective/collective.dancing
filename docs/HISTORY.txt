@@ -7,6 +7,12 @@ Version 0.4 - unreleased
 New features
 ~~~~~~~~~~~~
 
+- Added SubjectsCollectorBase template class that you can use to
+  create a collector based on a vocabulary.  This vocabulary may come
+  from anywhere, like from ATVocabularyManager or from the list of all
+  subjects/tags available in your site.
+  [nouri]
+
 - Text fields will now per default not be included in the resulting
   message if there are no sibling collectors that produced items.
   E.g. if you have a heading text and a sibling topic collector, the
