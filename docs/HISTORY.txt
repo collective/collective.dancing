@@ -7,6 +7,13 @@ Version 0.4 - unreleased
 New features
 ~~~~~~~~~~~~
 
+- The confirmation view will now confirm pending subscriptions to any
+  channel.  This saves us from having to send a separate confirmation
+  e-mail for every channel a user subscribes to.  This feature isn't
+  used anywhere in S&D core at this point, but it's useful if you're
+  writing custom subscription forms.
+  [nouri]
+
 - Added SubjectsCollectorBase template class that you can use to
   create a collector based on a vocabulary.  This vocabulary may come
   from anywhere, like from ATVocabularyManager or from the list of all

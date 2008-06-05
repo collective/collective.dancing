@@ -81,12 +81,17 @@ class Confirm(BrowserView):
 
     def __call__(self):
         secret = self.request.form['secret']
-        query = self.context.aq_inner.subscriptions.query
+        exists = False
 
-        subscriptions = query(secret=secret)
-        if len(subscriptions):
-            for sub in subscriptions:
-                sub.metadata['pending'] = False
+        for channel in channel_lookup():
+            subscriptions = channel.subscriptions.query(secret=secret)
+            if len(subscriptions):
+                exists = True
+                for sub in subscriptions:
+                    if sub.metadata.get('pending', False):
+                        sub.metadata['pending'] = False
+
+        if exists:
             self.status = _(u"You confirmed your subscription successfully.")
         else:
             self.status = _(u"Your subscription isn't known to us.")

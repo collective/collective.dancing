@@ -380,7 +380,7 @@ We'll subscribe to events only:
 
   >>> import quopri
   >>> msg = quopri.decodestring(MyMailDelivery.sent[-1])
-  >>> confirm_url = "http://nohost/plone/portal_newsletters/channels/my-other-channel/confirm-subscription.html"
+  >>> confirm_url = "http://nohost/plone/portal_newsletters/confirm-subscription.html"
   >>> confirm_url + "?secret=" in msg
   True
   >>> secret = msg[msg.rindex('secret='):msg.index('</a')]

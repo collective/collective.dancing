@@ -141,10 +141,23 @@
 
   <page
      name="confirm-subscription.html"
+     for="collective.dancing.channel.IPortalNewsletters"
+     class=".subscribe.Confirm"
+     permission="zope2.View"
+     />
+
+  <!-- BBB: The confirm view used to be registered for IChannel, we'll
+       keep this registration here for subscribers that received their
+       request for confirmation before a site update.  Let's remove
+       this in version 0.5.
+  -->
+  <page
+     name="confirm-subscription.html"
      for="collective.singing.interfaces.IChannel"
      class=".subscribe.Confirm"
      permission="zope2.View"
      />
+
 
   <page
      name="unsubscribe.html"

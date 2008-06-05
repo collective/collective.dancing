@@ -100,6 +100,8 @@ class HTMLComposer(persistent.Persistent):
         vars = {}
         channel = subscription.channel
         site = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
+        site = utils.fix_request(site, 0)
+        
         vars['language'] = self.request.get('LANGUAGE')
         vars['channel'] = subscription.channel
         vars['site_title'] = unicode(site.Title(), 'UTF-8')
@@ -108,7 +110,7 @@ class HTMLComposer(persistent.Persistent):
         vars['to_addr'] = subscription.composer_data['email']
         vars['confirm_url'] = (
             '%s/confirm-subscription.html?secret=%s' %
-            (channel.absolute_url(), subscription.secret))
+            (site.portal_newsletters.absolute_url(), subscription.secret))
         vars['unsubscribe_url'] = (
             '%s/unsubscribe.html?secret=%s' %
             (channel.absolute_url(), subscription.secret))
