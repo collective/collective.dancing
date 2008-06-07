@@ -25,7 +25,7 @@ import collective.singing
 from collective.singing.channel import channel_lookup
 from collective.dancing import MessageFactory as _
 from collective.dancing.browser.subscribe import SubscriptionAddForm
-from collective.dancing.collector import ICollectorSchema
+from collective.singing.interfaces import ICollectorSchema
 
 
 test_vocab = schema.vocabulary.SimpleVocabulary.fromValues(range(5))

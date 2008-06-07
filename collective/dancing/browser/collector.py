@@ -313,6 +313,17 @@ class EditRootCollectorForm(AbstractEditCollectorForm, form.EditForm):
     def parent_form(self):
         return self
 
+class EditFilteredSubjectsCollector(form.EditForm):
+    template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
+
+    @property
+    def fields(self):
+        schema = self.context.schema
+        field = schema[self.context.field_name]
+        field.__name__ = 'filtered_items'
+        field.interface = None
+        return z3c.form.field.Fields(schema)
+
 class CollectorEditView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
 

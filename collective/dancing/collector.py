@@ -57,11 +57,8 @@ def container_added(container, event):
     topic.setSortCriterion('created', True)
     topic.setLayout('folder_summary_view')
 
-class ICollectorSchema(interface.Interface):
-    pass
-
 @component.adapter(collective.singing.interfaces.ISubscription)
-@interface.implementer(ICollectorSchema)
+@interface.implementer(collective.singing.interfaces.ICollectorSchema)
 def collectordata_from_subscription(subscription):
     return utils.AttributeToDictProxy(subscription.collector_data)
 
@@ -215,7 +212,7 @@ class Collector(OFS.Folder.Folder):
                     collective.singing.interfaces.IDynamicVocabularyCollection)
 
         return zope.interface.interface.InterfaceClass(
-            'Schema', bases=(ICollectorSchema,),
+            'Schema', bases=(collective.singing.interfaces.ICollectorSchema,),
             attrs=dict(fields))
 
     def add_topic(self):
@@ -227,65 +224,6 @@ class Collector(OFS.Folder.Folder):
         workflow = Products.CMFCore.utils.getToolByName(self, 'portal_workflow')
         workflow.doActionFor(self[name], 'publish')
         return self[name]
-
-class SubjectsCollectorBase(OFS.Folder.Folder):
-    """A template class that allows you to create a simple collector
-    that presents one field with a vocabulary to the user.
-
-    You can provide the vocabulary and the title of the field by
-    overriding methods and attributes.
-    """
-    interface.implements(collective.singing.interfaces.ICollector)
-
-    field_name = 'subjects'
-    field_title = _(u"Subjects")
-
-    def __init__(self, id, title):
-        self.id = id
-        self.title = title
-        super(SubjectsCollectorBase, self).__init__()
-
-    @property
-    def Title(self):
-        return self.title
-
-    @property
-    def schema(self):
-        vocabulary = self.vocabulary()
-        field = schema.Set(
-            __name__=self.field_name,
-            title=self.field_title,
-            value_type=zope.schema.Choice(vocabulary=vocabulary))
-
-        interface.directlyProvides(
-            field, collective.singing.interfaces.IDynamicVocabularyCollection)
-
-        return zope.interface.interface.InterfaceClass(
-            'Schema',
-            bases=(ICollectorSchema,),
-            attrs={field.__name__: field})
-
-    def get_items(self, cue=None, subscription=None):
-        if subscription is not None:
-            data = subscription.collector_data.get(
-                self.field_name, set())
-        else:
-            data = set()
-
-        return self.get_items_for_selection(cue, data), DateTime.DateTime()
-
-    def get_items_for_selection(self, cue, data):
-        """Override this method and return a list of items that match
-        the set of choices from the vocabulary given in ``data``.  Do
-        not return items that are older than ``cue``.
-        """
-        raise NotImplementedError()
-
-    def vocabulary(self):
-        """Override this method and return a zope.schema.vocabulary
-        vocabulary.
-        """
-        raise NotImplementedError()
 
 @component.adapter(Collector, zope.app.container.interfaces.IObjectAddedEvent)
 def sfc_added(sfc, event):

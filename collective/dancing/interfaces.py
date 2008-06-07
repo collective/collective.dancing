@@ -14,7 +14,8 @@ class IFullFormatter(collective.singing.interfaces.IFormatItem):
 
 class IHTMLComposer(collective.singing.interfaces.IComposer,
                     collective.singing.interfaces.IComposerBasedSecret):
-    """An HTML composer."""
+    """An HTML composer.
+    """
 
     stylesheet = schema.Text(
         title=u"CSS Stylesheet",

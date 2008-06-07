@@ -17,7 +17,7 @@ import OFS.SimpleItem
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 import Products.CMFPlone.utils
-from collective.singing.interfaces import IChannel, IFormLayer
+from collective.singing.interfaces import IChannel, IFormLayer, ICollectorSchema
 from plone.z3cform import z2
 from plone.z3cform.crud import crud
 from plone.z3cform.wysiwyg import widget
@@ -228,8 +228,8 @@ class SubscriptionChoiceFieldDataManager(z3c.form.datamanager.AttributeField):
     def __init__(self, context, field):
         super(SubscriptionChoiceFieldDataManager, self).__init__(context, field)
         if self.field.interface is not None:
-            if issubclass(self.field.interface, collector.ICollectorSchema):
-                self.field.interface = collector.ICollectorSchema
+            if issubclass(self.field.interface, ICollectorSchema):
+                self.field.interface = ICollectorSchema
 
 class SubscriptionsAdministrationView(BrowserView):
     """Manage subscriptions in a channel.
