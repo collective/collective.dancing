@@ -106,5 +106,6 @@ class SendAsNewsletterView(BrowserView):
                  mapping=dict(item=self.context.title))
 
     def contents(self):
-        z2.switch_on(self)
+        z2.switch_on(self,
+                     request_layer=collective.singing.interfaces.IFormLayer)
         return SendAsNewsletterForm(self.context, self.request)()
