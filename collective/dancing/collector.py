@@ -39,7 +39,11 @@ interface.alsoProvides(collector_vocabulary,
                        zope.schema.interfaces.IVocabularyFactory)
 
 class CollectorContainer(OFS.Folder.Folder):
-    Title = u"Collectors"
+    title = u"Collectors"
+    
+    def Title(self):
+        return self.title
+
 
 @component.adapter(CollectorContainer,
                    zope.app.container.interfaces.IObjectAddedEvent)
