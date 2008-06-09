@@ -658,11 +658,12 @@ for now.
   True
   
 We'll now send the front page as a newsletter:
+
   >>> previous_trigger_time = channel.scheduler.triggered_last
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
   >>> browser.getControl('Newsletter').click()
 
-When we click send, the newsletter(s) will be dispatched immediately.
+When we click send, messages for the newsletter(s) will be queued:
 
   >>> browser.getControl('My other channel').click()
   >>> browser.getControl('Send', index=0).click()
@@ -679,8 +680,8 @@ The scheduler last triggered time is also updated.
   >>> previous_trigger_time < channel.scheduler.triggered_last
   True
   
-If we want we can avoid adding the collector items for selected channels,
-We create a new item again...:
+If we want we can avoid adding the collector items for selected
+channels:
 
   >>> news.invokeFactory(
   ...     'News Item', id='allisquiet',
@@ -693,9 +694,10 @@ We create a new item again...:
   >>> browser.getControl('Newsletter').click()
   >>> browser.getControl('My other channel').click()
 
-... and this time we choose not to add collector items...
+This time we won't add the collector items:
 
-  >>> browser.getControl(name='form.widgets.include_collector_items:list').value = ['false']
+  >>> browser.getControl(
+  ...     name='form.widgets.include_collector_items:list').value = ['false']
   >>> browser.getControl('Send', index=0).click()
   >>> "3 messages queued" in browser.contents
   True
@@ -703,7 +705,7 @@ We create a new item again...:
   *MyMailDelivery sending*:
   ...
 
-... so our new News Item is not sent out.
+... so our new News Item is not sent out:
 
   >>> MyMailDelivery.order()
   >>> msg = quopri.decodestring(MyMailDelivery.sent[-3])

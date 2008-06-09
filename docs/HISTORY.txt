@@ -7,6 +7,12 @@ Version 0.4 - unreleased
 New features
 ~~~~~~~~~~~~
 
+- Added another time of scheduler: TimedScheduler.  This one allows to
+  schedule a number of send-outs with an exact datetime.  Its main use
+  is for the "send newsletter" form on a context where we want to
+  specify a send-out date in the future.
+  [nouri]
+
 - The confirmation view will now confirm pending subscriptions to any
   channel.  This saves us from having to send a separate confirmation
   e-mail for every channel a user subscribes to.  This feature isn't

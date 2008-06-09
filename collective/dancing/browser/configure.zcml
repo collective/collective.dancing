@@ -104,15 +104,29 @@
 
   <page
       name="index_html"
-      for="collective.singing.interfaces.ICollector"
-      class=".collector.CollectorEditView"
+      for="collective.dancing.collector.Collector"
+      class=".collector.RootCollectorEditView"
+      permission="cmf.ManagePortal"
+      />
+
+  <page
+      name="index_html"
+      for="collective.singing.collector.IFilteredSubjectsCollectorBase"
+      class=".collector.FilteredCollectorEditView"
       permission="cmf.ManagePortal"
       />
 
   <page
       name="index_html"
       for="collective.singing.interfaces.IScheduler"
-      class=".scheduler.SchedulerEditView"
+      class=".scheduler.PeriodicSchedulerEditView"
+      permission="cmf.ManagePortal"
+      />
+
+  <page
+      name="index_html"
+      for="collective.singing.scheduler.TimedScheduler"
+      class=".scheduler.TimedSchedulerEditView"
       permission="cmf.ManagePortal"
       />
 

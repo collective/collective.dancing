@@ -313,7 +313,7 @@ class EditRootCollectorForm(AbstractEditCollectorForm, form.EditForm):
     def parent_form(self):
         return self
 
-class EditFilteredSubjectsCollector(form.EditForm):
+class EditFilteredSubjectsCollectorForm(form.EditForm):
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
 
     @property
@@ -337,5 +337,11 @@ class CollectorEditView(BrowserView):
 
     def contents(self):
         z2.switch_on(self)
-        form = EditRootCollectorForm(self.context, self.request)
+        form = self.form(self.context, self.request)
         return '<div class="collector-form">' + form() + '</div>'
+
+class RootCollectorEditView(CollectorEditView):
+    form = EditRootCollectorForm
+
+class FilteredCollectorEditView(CollectorEditView):
+    form = EditFilteredSubjectsCollectorForm
