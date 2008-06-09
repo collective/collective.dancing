@@ -302,10 +302,7 @@ class EditChannelForm(z3c.form.form.EditForm):
     
     @property
     def fields(self):
-        fields = z3c.form.field.Fields(IChannel).select('title',
-                                                        'description')
-        fields['description'].widgetFactory[
-            z3c.form.interfaces.INPUT_MODE] = widget.WysiwygFieldWidget
+        fields = z3c.form.field.Fields(IChannel).select('title')
 
         collector = schema.Choice(
             __name__='collector',
@@ -320,6 +317,10 @@ class EditChannelForm(z3c.form.form.EditForm):
             vocabulary='Scheduler Vocabulary')
         
         fields += field.Fields(collector, scheduler)
+        fields += field.Fields(IChannel).select('description')
+        fields['description'].widgetFactory[
+            z3c.form.interfaces.INPUT_MODE] = widget.WysiwygFieldWidget
+
         return fields
 
 class ManageChannelView(BrowserView):
