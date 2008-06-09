@@ -214,6 +214,9 @@ files in the ``src/collective.singing/collective/singing/`` and
 also a documentation area for use cases and manuals in
 ``src/collective.dancing/docs/``.
 
+The latest version of collective.dancing itself can also be found in
+the `Subversion repository`_.
+
 Get in touch with us if you need help or have comments.  See the
 `Contact us`_ section.
 
@@ -230,3 +233,4 @@ Get in touch with us if you need help or have comments.  See the
 .. _mailing list: http://groups.google.com/group/singing-dancing
 .. _Freenode: http://freenode.net
 .. _interfaces.py: http://dev.plone.org/collective/browser/collective.singing/trunk/collective/singing/interfaces.py
+.. _Subversion repository: http://svn.plone.org/svn/collective/collective.dancing/trunk#egg=collective.dancing-dev
