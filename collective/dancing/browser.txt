@@ -748,7 +748,7 @@ If we use an address that's unknown, we'll get a nice error message:
   >>> "nobody@localhost is not subscribed" in browser.contents
   True
 
-Finally we may request an in-browser preview.
+We may request an in-browser preview:
 
   >>> browser.getControl('Newsletter').click()
   >>> browser.getControl('Show preview').click() # doctest: +ELLIPSIS
@@ -756,6 +756,49 @@ Finally we may request an in-browser preview.
   True
   >>> "Click here to unsubscribe." in browser.contents
   True
+
+We can also choose to schedule a send-out instead of sending it right
+now.  This is only possible though if one of our channels has what we
+call a "timed scheduler":
+
+  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
+  >>> "Schedule distribution" in browser.contents
+  False
+
+  >>> from collective.singing.scheduler import TimedScheduler
+  >>> channel.scheduler = TimedScheduler()
+
+  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
+  >>> "Schedule distribution" in browser.contents
+  True
+  >>> browser.getControl("Newsletter").click()
+  >>> browser.getControl("Schedule distribution").click()
+  >>> "Newsletter does not support scheduling" in browser.contents
+  True
+
+  >>> browser.getControl("Newsletter").click()
+  >>> browser.getControl("My other channel").click()
+  >>> browser.getControl("Schedule distribution").click()
+  >>> "Please fill in a date" in browser.contents
+  True
+
+  >>> browser.getControl("Scheduled time").value = "6/10/08 11:00 AM"
+  >>> browser.getControl("Schedule distribution").click()
+  >>> "Successfully scheduled distribution" in browser.contents
+  True
+  >>> len(channel.scheduler.items)
+  1
+
+When we now tick the scheduler, we expect mail to be sent out:
+
+  >>> channel.scheduler.tick(channel, channel.REQUEST) # doctest: +ELLIPSIS
+  3
+  >>> len(channel.scheduler.items)
+  0
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *MyMailDelivery sending*:
+  ...
+  (3, 0)
 
 The "My subscriptions" page
 ---------------------------

@@ -7,7 +7,7 @@ Version 0.4 - unreleased
 New features
 ~~~~~~~~~~~~
 
-- Added another time of scheduler: TimedScheduler.  This one allows to
+- Added another type of scheduler: TimedScheduler.  This one allows to
   schedule a number of send-outs with an exact datetime.  Its main use
   is for the "send newsletter" form on a context where we want to
   specify a send-out date in the future.

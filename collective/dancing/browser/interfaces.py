@@ -21,3 +21,10 @@ class ISendAndPreviewForm(interface.Interface):
         u"This is only required if you click 'Send preview' below"),
         required=False,
         )
+
+    datetime = schema.Datetime(
+        title=_(u"Scheduled time"),
+        description=_(u"This is only required if you click "
+                      "'Schedule distribution' below"),
+        required=False,
+        )
