@@ -3,9 +3,11 @@ from zope import schema
 from z3c.form import form
 from z3c.form import field
 from z3c.form import button
+import z3c.form.interfaces
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.z3cform import z2
+from plone.z3cform.widget import singlecheckboxwidget_factory
 import collective.singing.interfaces
 
 from collective.dancing import MessageFactory as _
@@ -39,9 +41,16 @@ class EditTimedSchedulerEntryForm(form.Form):
 
     @property
     def fields(self):
-        return field.Fields(
+        f = field.Field(
             schema.Bool(__name__='selected',
-                        title=_(self.context[0])))
+                        title=unicode(self.context[0]),
+                        required=False))
+        f.widgetFactory[z3c.form.interfaces.INPUT_MODE] = (
+            singlecheckboxwidget_factory)
+        return field.Fields(f)
+
+    def update(self):
+        super(EditTimedSchedulerEntryForm, self).update()
 
 class EditTimedSchedulerForm(form.EditForm):
     template = viewpagetemplatefile.ViewPageTemplateFile(
@@ -54,15 +63,25 @@ class EditTimedSchedulerForm(form.EditForm):
 
     def update(self):
         self.subforms = []
-        for entry in self.context.items:
-            self.subforms.append(
-                EditTimedSchedulerEntryForm(entry, self.request))
+        for index, entry in enumerate(self.context.items):
+            sub = EditTimedSchedulerEntryForm(entry, self.request)
+            sub.prefix = '%s.' % index
+            sub.update()
+            self.subforms.append(sub)
+        super(EditTimedSchedulerForm, self).update()
+
+    @button.buttonAndHandler(_('Apply'), name='apply')
+    def handle_apply(self, action):
+        return super(
+            EditTimedSchedulerForm, self).handleApply.func(self, action)
 
     @button.buttonAndHandler(_('Remove entries'), name='remove')
     def handle_remove(self, action):
-        for subform in self.subforms:
-            pass #XXX
-
+        for subform in tuple(self.subforms):
+            data, errors = subform.extractData()
+            if data.get('selected'):
+                self.context.items.remove(subform.context)
+                self.subforms.remove(subform)
 
 class SchedulerEditView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
@@ -85,5 +104,5 @@ class PeriodicSchedulerEditView(SchedulerEditView):
     form = EditPeriodicSchedulerForm
 
 class TimedSchedulerEditView(SchedulerEditView):
-    form = EditPeriodicSchedulerForm
+    form = EditTimedSchedulerForm
 

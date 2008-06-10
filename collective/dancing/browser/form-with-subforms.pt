@@ -9,9 +9,9 @@
        tal:condition="view/status" tal:content="view/status">
   </div>
 
-  <div tal:attributes="class view/css_class">
+  <div tal:attributes="class view/css_class|nothing">
 
-    <h2 tal:replace="structure view/heading" />
+    <h2 tal:replace="structure view/heading|nothing" />
     
     <form action="." method="post"
           tal:attributes="action request/getURL"
