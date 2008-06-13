@@ -7,6 +7,9 @@ Version 0.4 - unreleased
 New features
 ~~~~~~~~~~~~
 
+- Added Polish translation by Barbara Struk
+  [naro]
+
 - Added another type of scheduler: TimedScheduler.  This one allows to
   schedule a number of send-outs with an exact datetime.  Its main use
   is for the "send newsletter" form on a context where we want to
