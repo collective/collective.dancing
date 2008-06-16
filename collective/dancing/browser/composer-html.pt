@@ -5,14 +5,16 @@
       i18n:domain="collective.dancing">
 
   <head>
+    <title tal:content="options/subject">Subject</title>
     <style tal:content="structure options/stylesheet" />
   </head>
   
   <body>
-    <h1 tal:content="options/subject">Your daily book bite</h1>
+    <h1 tal:content="options/subject">Subject</h1>
 
-    <p tal:repeat="item options/contents"
-       tal:content="structure item">
+    <p tal:repeat="html options/contents"
+       tal:content="structure html">
+      Contents
     </p>
 
     <p i18n:translate="">

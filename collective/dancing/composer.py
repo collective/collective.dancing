@@ -130,7 +130,11 @@ class HTMLComposer(persistent.Persistent):
             target_language=vars['language'])
         
         html = self.template(
-            subject=subject, contents=items, stylesheet=self.stylesheet, **vars)
+            subject=subject,
+            contents=[i[0] for i in items],
+            items=[dict(formatted=i[0], original=i[1]) for i in items],
+            stylesheet=self.stylesheet,
+            **vars)
 
         html = stoneagehtml.compactify(html).decode('utf-8')
 

@@ -7,6 +7,17 @@ Version 0.4 - unreleased
 New features
 ~~~~~~~~~~~~
 
+- Pass on raw item as received from the collector to the composer
+  (template).  Making use of this raw item will obviously bind the
+  implementation of the composer to that of the collector.  However,
+  it's considered useful for custom implementations that need total
+  control and that know what collector they'll be using.
+
+  This required an API change in IComposer.render(); the ``items``
+  argument is now a list of 2-tuples instead of a list of formatted
+  items.
+  [nouri]
+
 - Added Polish translation by Barbara Struk
   [naro]
 
@@ -34,6 +45,9 @@ New features
   E.g. if you have a heading text and a sibling topic collector, the
   heading won't appear if the topic didn't return any items.
   [nouri]
+
+Bugfixes
+~~~~~~~~
 
 Version 0.3 - 2008-06-03
 ------------------------
