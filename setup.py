@@ -33,7 +33,7 @@ setup(name='collective.dancing',
       # 2 environment, try the `fakezope2eggs` recipe
       install_requires=[
           'setuptools',
-          'collective.singing>=0.4b1',
+          'collective.singing>=0.4dev',
           'five.intid',
           'plone.z3cform',
           'StoneageHTML',
