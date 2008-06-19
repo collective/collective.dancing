@@ -54,6 +54,9 @@ Bugfixes
   avoid errors when using workflows other than the default one.
   [nouri]
 
+- Don't bail if no items are available for preview.
+  [malthe]
+
 Version 0.3 - 2008-06-03
 ------------------------
 
