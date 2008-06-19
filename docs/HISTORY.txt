@@ -49,6 +49,11 @@ New features
 Bugfixes
 ~~~~~~~~
 
+- Don't attempt to do any workflow transition with ATTopic items
+  created in the collector; the default workflow will do fine, and we
+  avoid errors when using workflows other than the default one.
+  [nouri]
+
 Version 0.3 - 2008-06-03
 ------------------------
 
