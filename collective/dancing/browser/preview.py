@@ -4,12 +4,16 @@ from zope import schema
 
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile 
+from Products.statusmessages.interfaces import IStatusMessage
+from zope.app.publisher.browser import getDefaultViewName
 
 from collective.dancing.composer import FullFormatWrapper
 from collective.singing.channel import lookup
 from collective.singing.interfaces import ISubscription
 from collective.singing.interfaces import IChannel
 from collective.singing.scheduler import render_message
+
+from collective.dancing import MessageFactory as _
 
 class PreviewSubscription(object):
     interface.implements(ISubscription)
@@ -54,18 +58,21 @@ class PreviewNewsletterView(BrowserView):
             items,
             bool(include_collector_items))
 
-        if message is not None:
-            # pull message out of hat
-            channel.queue[message.status].pull(-1)
+        if message is None:
+            IStatusMessage(self.request).addStatusMessage(
+                _(u"No items found."))
+
+            return self.request.response.redirect(self.context.absolute_url())
         
-            # walk message, decoding HTML payload
-            for part in message.payload.walk():
-                if part.get_content_type() == 'text/html':
-                    html = part.get_payload(decode=True)
-                    break
-            else:
-                raise ValueErrorr("Message does not contain a 'text/html' part.")
+        # pull message out of hat
+        channel.queue[message.status].pull(-1)
+        
+        # walk message, decoding HTML payload
+        for part in message.payload.walk():
+            if part.get_content_type() == 'text/html':
+                html = part.get_payload(decode=True)
+                break
         else:
-            html = u""
+            raise ValueErrorr("Message does not contain a 'text/html' part.")
             
         return self.template(content=html, title=channel.title)
