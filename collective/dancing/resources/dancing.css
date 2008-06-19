@@ -28,13 +28,19 @@ div.crud-form td.error div.error {
 }
 
 .collector-form .subform {
-    margin: 0 0 1em 1.5em;
+    margin: 0 0 1em 0.5em;
+    padding: 1em;
+    border: 1px dotted black;
+}
+
+fieldset.subforms {
     padding: 1em;
     border: 1px dotted black;
 }
 
 .collector-form .subform-level-1 { 
     margin-left: 0;
+    padding-left: 0;
     border: none;
 }
 
