@@ -54,15 +54,18 @@ class PreviewNewsletterView(BrowserView):
             items,
             bool(include_collector_items))
 
-        # pull message out of hat
-        channel.queue[message.status].pull(-1)
+        if message is not None:
+            # pull message out of hat
+            channel.queue[message.status].pull(-1)
         
-        # walk message, decoding HTML payload
-        for part in message.payload.walk():
-            if part.get_content_type() == 'text/html':
-                html = part.get_payload(decode=True)
-                break
+            # walk message, decoding HTML payload
+            for part in message.payload.walk():
+                if part.get_content_type() == 'text/html':
+                    html = part.get_payload(decode=True)
+                    break
+            else:
+                raise ValueErrorr("Message does not contain a 'text/html' part.")
         else:
-            raise ValueErrorr("Message does not contain a 'text/html' part.")
+            html = u""
             
         return self.template(content=html, title=channel.title)
