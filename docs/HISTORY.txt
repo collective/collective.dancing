@@ -49,6 +49,11 @@ New features
 Bugfixes
 ~~~~~~~~
 
+- Use ``CompositeQueue`` instead of the simple zc.queue.Queue for
+  queueing and archiving mails.  This should help with memory bloat
+  when there's a lot of messages in the queue.
+  [nouri]
+
 - Don't attempt to do any workflow transition with ATTopic items
   created in the collector; the default workflow will do fine, and we
   avoid errors when using workflows other than the default one.
