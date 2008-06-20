@@ -15,21 +15,20 @@ from collective.singing.scheduler import render_message
 
 from collective.dancing import MessageFactory as _
 
+import transaction
+
 class PreviewSubscription(object):
     interface.implements(ISubscription)
 
     secret = u""
-
-    collector_data = {}
     format = 'html'
     
-    metadata = {
-        'format': format,
-        }
-
     def __init__(self, channel):
         self.channel = channel
 
+        self.collector_data = {}
+        self.metadata = dict(format=self.format)
+        
         composer = self.channel.composers[self.format]
         
         # set default composer data
@@ -51,6 +50,9 @@ class PreviewNewsletterView(BrowserView):
             
         sub = PreviewSubscription(channel)
 
+        # begin subtransaction
+        sp = transaction.savepoint()
+
         message = render_message(
             channel,
             self.request,
@@ -63,10 +65,13 @@ class PreviewNewsletterView(BrowserView):
                 _(u"No items found."))
 
             return self.request.response.redirect(self.context.absolute_url())
-        
+
         # pull message out of hat
         channel.queue[message.status].pull(-1)
-        
+
+        # rollback savepoint
+        sp.rollback()
+
         # walk message, decoding HTML payload
         for part in message.payload.walk():
             if part.get_content_type() == 'text/html':
