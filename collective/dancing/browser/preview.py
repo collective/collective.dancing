@@ -51,6 +51,10 @@ class PreviewNewsletterView(BrowserView):
         sub = PreviewSubscription(channel)
 
         # begin subtransaction
+
+        # malthe: I couldn't seem to put the message into the hat
+        # without setting some persistence-flag that I can't seem to
+        # remove; so, I do it in a subtx and abort it
         sp = transaction.savepoint()
 
         message = render_message(
@@ -78,6 +82,6 @@ class PreviewNewsletterView(BrowserView):
                 html = part.get_payload(decode=True)
                 break
         else:
-            raise ValueErrorr("Message does not contain a 'text/html' part.")
+            raise ValueError("Message does not contain a 'text/html' part.")
             
         return self.template(content=html, title=channel.title)
