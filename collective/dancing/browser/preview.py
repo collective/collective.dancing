@@ -50,11 +50,9 @@ class PreviewNewsletterView(BrowserView):
             
         sub = PreviewSubscription(channel)
 
-        # begin subtransaction
-
-        # malthe: I couldn't seem to put the message into the hat
-        # without setting some persistence-flag that I can't seem to
-        # remove; so, I do it in a subtx and abort it
+        # We don't want to commit a transaction just for the preview;
+        # this would happen if we were to simply add and remove from
+        # the queue.
         sp = transaction.savepoint()
 
         message = render_message(
