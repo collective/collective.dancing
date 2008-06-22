@@ -61,8 +61,8 @@ Installation
 
 Singing & Dancing is available as `Python eggs on PyPI`_.  To install,
 you can simply depend_ on the ``collective.dancing`` package in your
-own site policy package, and add fakezope2eggs_ to your buildout_
-configuration, as explained below.
+own site policy package, and add *fake zope eggs* to your zope2
+install section in your buildout_ configuration, as explained below.
 
 Alternatively, add ``collective.dancing`` to the list of eggs in your
 ``buildout.cfg`` if you don't have your own package.  This is what we
@@ -214,7 +214,6 @@ Get in touch with us if you need help or have comments.  See the
 
 .. _Python eggs on PyPI: http://pypi.python.org/pypi/collective.dancing
 .. _depend: http://peak.telecommunity.com/DevCenter/setuptools#declaring-dependencies
-.. _fakezope2eggs: http://danielnouri.org/blog/devel/zope/fakezope2eggs
 .. _buildout: http://pypi.python.org/pypi/zc.buildout
 .. _Repoze: http://repoze.org
 .. _how to create a buildout: http://plone.org/documentation/tutorial/buildout/creating-a-buildout-for-your-project
