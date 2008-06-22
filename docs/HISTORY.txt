@@ -49,6 +49,11 @@ New features
 Bugfixes
 ~~~~~~~~
 
+- Updated installation instructions to use the ``fake-zope-eggs``
+  feature of the ``plone.recipe.zope2install`` instead of
+  ``fakezope2eggs``.  Also, added ``skip-fake-eggs`` to accommodate
+  latest changes in ``plone.z3cform``.
+
 - Use ``CompositeQueue`` instead of the simple zc.queue.Queue for
   queueing and archiving mails.  This should help with memory bloat
   when there's a lot of messages in the queue.
