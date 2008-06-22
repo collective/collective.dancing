@@ -93,25 +93,16 @@ that's built and ready to run.
 
      zcml = collective.dancing
 
-2) Still in your buildout configuration file, at the top of the file,
-   in the ``buildout`` section, you'll find the ``parts``.  Add to
-   these the ``fakezope2eggs`` part that we're about to create, like
-   this::
+2) Still in your buildout configuration file, look for the ``[zope2]``
+   section (which uses the ``plone.recipe.zope2install`` recipe), and
+   add the following lines to it::
 
-     parts =
-         plone
-         zope2
-         fakezope2eggs
-         productdistros
-         instance
-         zopepy
-
-   We'll add the configuration for the actual part at the end of
-   ``buildout.cfg``::
-
-     [fakezope2eggs]
-     recipe = affinitic.recipe.fakezope2eggs
+     fake-zope-eggs = true
      additional-fake-eggs = ZODB3
+     skip-fake-eggs =
+         zope.testing
+         zope.component
+         zope.i18n
 
 3) Now that we're done editing the buildout configuration file, we can
    run buildout again::
