@@ -252,8 +252,6 @@ class FullFormatWrapper(object):
 
 class HTMLFormatItemFully(object):
     interface.implements(collective.singing.interfaces.IFormatItem)
-    component.adapts(FullFormatWrapper,
-                     zope.publisher.interfaces.browser.IBrowserRequest)
     
     def __init__(self, wrapper, request):
         self.item = wrapper.item
