@@ -6,6 +6,12 @@ Version 0.4 - unreleased
 
 New features
 ~~~~~~~~~~~~
+- Made adding thirdparty Channels possible. This works the same as
+  with Collectors - you simply implement you custom channel and add
+  a factory to the collective.dancing.channel.channels list.
+  Preview and edit forms are now class methods on ManageChannelView
+  to make it easier to subclass for your custom channels.
+  [tmog]
 
 - Pass on raw item as received from the collector to the composer
   (template).  Making use of this raw item will obviously bind the

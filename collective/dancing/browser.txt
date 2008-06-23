@@ -139,6 +139,67 @@ channel:
   >>> scheduler.displayValue
   ['Weekly scheduler']
 
+  
+Adding new types of Channels can be done very easily from external code.
+Simpy add to the list of factories.
+
+  >>> import collective.dancing.channel
+  >>> import collective.singing.interfaces
+  >>> import persistent
+
+  >>> class MyCustomChannel(collective.dancing.channel.Channel, persistent.Persistent):
+  ... 	  interface.implements(collective.singing.interfaces.IChannel)
+  ...     type_name = u"Awesome Channel"
+  >>> collective.dancing.channel.MyCustomChannel = MyCustomChannel
+  >>> collective.dancing.channel.MyCustomChannel.__module__ = \
+  ... 					 'collective.dancing.channel'
+  
+  >>> collective.dancing.channel.channels.append(
+  ...		collective.dancing.channel.MyCustomChannel)
+
+We now have the option to add one of these ;-)
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> browser.getControl('Type').displayOptions
+  ['Standard Channel', 'Awesome Channel']
+
+  >>> browser.getControl('Type').displayValue = ['Awesome Channel']
+  >>> browser.getControl('Title').value = 'My awesome channel'
+  >>> browser.getControl('Add').click()
+  >>> 'Item added successfully' in browser.contents
+  True
+  >>> 'My awesome channel' in browser.contents
+  True 
+  
+Let's check that a MyCustomChannel instance was really created.
+
+  >>> portal.portal_newsletters.channels.values()[-1]
+  ... # doctest: +ELLIPSIS
+  <MyCustomChannel at ...>
+
+Let's remove it since it does nothing we want to test.
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> btn = browser.getControl(name='crud-edit.my-awesome-channel.widgets.select:list')
+  >>> btn.value = ['selected']
+  >>> browser.getControl(name='crud-edit.buttons.delete').click()
+  >>> "Successfully deleted items" in browser.contents
+  True
+  >>> 'My awesome channel' in browser.contents
+  False
+
+When only one kind of channel is available, we don't need to specify one when
+creating new channels.
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> 'crud-add-widgets-factory' in browser.contents
+  True
+  >>> del collective.dancing.channel.channels[1]
+  >>> browser.reload()
+  >>> 'crud-add-widgets-factory' in browser.contents
+  False
+
+
 
 Configuring collectors
 ----------------------

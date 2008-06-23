@@ -31,7 +31,9 @@ def portal_newsletters():
     root = collective.dancing.utils.fix_request(root, 0)
     channels = root['portal_newsletters']['channels'].objectValues()
     security = AccessControl.getSecurityManager()
-    return [c for c in channels if security.checkPermission('View', c)]
+    return [c for c in channels if \
+            security.checkPermission('View', c) and \
+            collective.singing.interfaces.IChannel.providedBy(c)]
 
 interface.directlyProvides(portal_newsletters,
                            collective.singing.interfaces.IChannelLookup)
@@ -109,6 +111,8 @@ class Channel(OFS.SimpleItem.SimpleItem):
     """
     interface.implements(collective.singing.interfaces.IChannel)
 
+    type_name = _("Standard Channel")
+    
     def __init__(self, name, title=None, composers=None,
                  collector=None, scheduler=None, description=u""):
         self.name = name
@@ -140,3 +144,6 @@ def collector_removed(collector, event):
         if isinstance(channel, Channel):
             if aq_base(channel.collector) is aq_base(collector):
                 channel.collector = None
+
+# This lists of factories is mutable: You can add to it:
+channels = [Channel,]

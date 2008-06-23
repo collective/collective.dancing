@@ -28,7 +28,7 @@ from zope.app.pagetemplate import viewpagetemplatefile
 from collective.dancing import MessageFactory as _
 from collective.dancing import collector
 from collective.dancing import utils
-from collective.dancing.channel import Channel
+from collective.dancing import channel 
 from collective.dancing.browser import controlpanel
 from collective.dancing.browser.interfaces import ISendAndPreviewForm
 
@@ -91,6 +91,19 @@ class ManageChannelsForm(crud.CrudForm):
     editform_factory = ChannelEditForm
 
     @property
+    def add_schema(self):
+        if len(channel.channels) > 1:
+            return self.update_schema + field.Fields(
+                schema.Choice(
+                __name__='factory',
+                title=_(u"Type"),
+                vocabulary=zope.schema.vocabulary.SimpleVocabulary(
+                    [zope.schema.vocabulary.SimpleTerm(value=c, title=c.type_name)
+                     for c in channel.channels])
+                ))
+        return self.update_schema
+
+    @property
     def update_schema(self):
         fields = field.Fields(IChannel).select('title')
 
@@ -120,7 +133,8 @@ class ManageChannelsForm(crud.CrudForm):
     def add(self, data):
         name = Products.CMFPlone.utils.normalizeString(
             data['title'].encode('utf-8'), encoding='utf-8')
-        self.context[name] = Channel(
+        factory = data.get('factory', None) or channel.channels[0]
+        self.context[name] = factory(
             name, data['title'],
             collector=data['collector'],
             scheduler=data['scheduler'])
@@ -330,7 +344,9 @@ class ManageChannelView(BrowserView):
     """
     
     __call__ = ViewPageTemplateFile('controlpanel.pt')
-
+    preview_form = ChannelPreviewForm
+    edit_form = EditChannelForm
+    
     @property
     def back_link(self):
         return dict(label=_(u"Up to Channels administration"),
@@ -348,8 +364,8 @@ class ManageChannelView(BrowserView):
 
         fieldsets = []
 
-        fieldsets.append((_(u"Preview"), ChannelPreviewForm(self.context, self.request)()))
-        fieldsets.append((_(u"Edit"), EditChannelForm(self.context, self.request)()))
+        fieldsets.append((_(u"Preview"), self.preview_form(self.context, self.request)()))
+        fieldsets.append((_(u"Edit"), self.edit_form(self.context, self.request)()))
 
         forms = []
         for format, composer in self.context.composers.items():
