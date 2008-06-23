@@ -68,7 +68,7 @@
       interface="Products.CMFCore.interfaces.IDublinCore"
       class="Products.Archetypes.BaseFolder.BaseFolder" />
   <adapter factory=".composer.HTMLFormatItemFully"
-           for="collective.dancing.composer.FullFormatWrapper,
+           for=".composer.FullFormatWrapper
                 zope.publisher.interfaces.browser.IBrowserRequest" 
            name="html" />
   <!-- In the future, we'll want more than just this call formatter -->
