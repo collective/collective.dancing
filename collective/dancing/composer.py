@@ -96,18 +96,36 @@ class HTMLComposer(persistent.Persistent):
             mail = mail.decode(charset).encode('us-ascii', 'replace')
         return formataddr((str(Header(name, charset)), mail))
 
+    @property
+    def language(self):
+        return self.request.get('LANGUAGE')        
+
     def _vars(self, subscription):
+        """Provide variables for the template.
+
+        Feel free to override this to pass more variables to your
+        template when you make a custom subclass of HTMLComposer."""
         vars = {}
-        channel = subscription.channel
         site = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
         site = utils.fix_request(site, 0)
         
-        vars['language'] = self.request.get('LANGUAGE')
         vars['channel'] = subscription.channel
         vars['site_title'] = unicode(site.Title(), 'UTF-8')
         vars['channel_title'] = subscription.channel.title
         vars['from_addr'] = self._from_address
         vars['to_addr'] = subscription.composer_data['email']
+
+        vars.update(self._more_vars(subscription))
+        return vars
+
+    def _more_vars(self, subscription):
+        """Less generic variables.
+        """
+        vars = {}
+        channel = subscription.channel
+        site = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
+        site = utils.fix_request(site, 0)
+
         vars['confirm_url'] = (
             '%s/confirm-subscription.html?secret=%s' %
             (site.portal_newsletters.absolute_url(), subscription.secret))
@@ -123,14 +141,14 @@ class HTMLComposer(persistent.Persistent):
         vars = self._vars(subscription)
         secret = self.secret(subscription.composer_data)
 
-        subject = zope.i18n.translate(
-            _(u"${site-title}: ${channel-title}",
-              mapping={'site-title': vars['site_title'],
-                       'channel-title': vars['channel_title']}),
-            target_language=vars['language'])
+        if 'subject' not in vars:
+            vars['subject'] = zope.i18n.translate(
+                _(u"${site-title}: ${channel-title}",
+                  mapping={'site-title': vars['site_title'],
+                           'channel-title': vars['channel_title']}),
+                target_language=self.language)
         
         html = self.template(
-            subject=subject,
             contents=[i[0] for i in items],
             items=[dict(formatted=i[0], original=i[1]) for i in items],
             stylesheet=self.stylesheet,
@@ -139,7 +157,7 @@ class HTMLComposer(persistent.Persistent):
         html = stoneagehtml.compactify(html).decode('utf-8')
 
         message = collective.singing.mail.create_html_mail(
-            subject,
+            vars['subject'],
             html,
             from_addr=vars['from_addr'],
             to_addr=vars['to_addr'])
@@ -155,7 +173,7 @@ class HTMLComposer(persistent.Persistent):
         subject = zope.i18n.translate(
             _(u"Confirm your subscription with ${channel-title}",
               mapping={'channel-title': subscription.channel.title}),
-            target_language=vars['language'])
+            target_language=self.language)
         message = collective.singing.mail.create_html_mail(
             subject,
             html,
@@ -174,7 +192,7 @@ class HTMLComposer(persistent.Persistent):
         subject = zope.i18n.translate(
             _(u"Change your subscriptions with ${site-title}",
               mapping={'site-title': vars['site_title']}),
-            target_language=vars['language'])
+            target_language=self.language)
         message = collective.singing.mail.create_html_mail(
             subject,
             html,

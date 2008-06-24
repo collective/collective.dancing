@@ -6,6 +6,11 @@ Version 0.4 - unreleased
 
 New features
 ~~~~~~~~~~~~
+
+- Allow for easier subclassing of HTMLComposer.  The ``_vars()``
+  method is now more generally applicable and easily to override.
+  [nouri]
+
 - Made adding thirdparty Channels possible. This works the same as
   with Collectors - you simply implement you custom channel and add
   a factory to the collective.dancing.channel.channels list.
