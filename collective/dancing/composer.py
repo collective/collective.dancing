@@ -268,6 +268,9 @@ class FullFormatWrapper(object):
     def __init__(self, item):
         self.item = item
 
+    def __getattr__(self, key):
+        return getattr(self.item, key)
+
 class HTMLFormatItemFully(object):
     interface.implements(collective.singing.interfaces.IFormatItem)
     
