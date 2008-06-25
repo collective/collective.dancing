@@ -3,6 +3,8 @@ from zope import schema
 
 from collective.dancing import MessageFactory as _
 
+import datetime
+
 class ISendAndPreviewForm(interface.Interface):
     channels = schema.Set(
         title=_(u"The channel to send this through"),
@@ -26,5 +28,6 @@ class ISendAndPreviewForm(interface.Interface):
         title=_(u"Scheduled time"),
         description=_(u"This is only required if you click "
                       "'Schedule distribution' below"),
+        default=datetime.datetime.now(),
         required=False,
         )
