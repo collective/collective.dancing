@@ -839,6 +839,8 @@ call a "timed scheduler":
 
   >>> browser.getControl("Newsletter").click()
   >>> browser.getControl("My other channel").click()
+
+  >>> browser.getControl("Scheduled time").value = ""
   >>> browser.getControl("Schedule distribution").click()
   >>> "Please fill in a date" in browser.contents
   True
