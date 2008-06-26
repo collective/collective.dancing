@@ -7,6 +7,11 @@ Version 0.4 - unreleased
 New features
 ~~~~~~~~~~~~
 
+- Added sender name, sender address and reply-to address as per
+  composer configuration. Composer configuration is now available
+  in the new Composers fieldset of the channel edit view.
+  [tmog]
+
 - Allow for easier subclassing of HTMLComposer.  The ``_vars()``
   method is now more generally applicable and easily to override.
   [nouri]

@@ -32,6 +32,13 @@
 
   <zope:adapter factory=".query.ReferenceSelection"
                 for="..collector.IReferenceCollector" />
+
+  <zope:adapter
+     factory=".composer.EditComposerForm"
+     provides="z3c.form.interfaces.ISubForm" />
+  <zope:adapter
+     factory=".composer.EditHTMLComposerForm"
+     provides="z3c.form.interfaces.ISubForm" />
   
   <!-- Administration views -->
 
@@ -54,7 +61,7 @@
       for="collective.singing.interfaces.ICollector"
       name="index_html"
       />
-
+    
   <defaultView
       for="collective.singing.interfaces.IScheduler"
       name="index_html"
@@ -108,7 +115,7 @@
       class=".collector.RootCollectorEditView"
       permission="cmf.ManagePortal"
       />
-
+  
   <page
       name="index_html"
       for="collective.singing.collector.IFilteredSubjectsCollectorBase"
@@ -203,5 +210,6 @@
      permission="cmf.ManagePortal"
      allowed_interface=".utils.IDancingUtilsView"
      />
-        
+
+
 </zope:configure>

@@ -1,6 +1,7 @@
 import md5
 import re
 import smtplib
+import OFS
 from email.Utils import formataddr
 from email.Header import Header
 
@@ -43,6 +44,7 @@ class PrimaryLabelTextLine(schema.TextLine):
         value = super(PrimaryLabelTextLine, self).fromUnicode(str)
         return value.lower()
 
+
 class IHTMLComposerSchema(interface.Interface):
     email = PrimaryLabelTextLine(title=_(u"E-mail address"),
                                  constraint=check_email)
@@ -66,6 +68,9 @@ class HTMLComposer(persistent.Persistent):
     schema = IHTMLComposerSchema
 
     stylesheet = u""
+    from_name = u""
+    from_address = u""
+    replyto_address = u""
     
     template = ViewPageTemplateFile('browser/composer-html.pt')
     confirm_template = ViewPageTemplateFile('browser/composer-html-confirm.pt')
@@ -87,13 +92,16 @@ class HTMLComposer(persistent.Persistent):
         properties = component.getUtility(
             Products.CMFCore.interfaces.IPropertiesTool)
         charset = properties.site_properties.getProperty('default_charset', 'utf-8')
-        name = properties.email_from_name
-        mail = properties.email_from_address
+
+        name = self.from_name or properties.email_from_name
+        mail = self.from_address or properties.email_from_address
+
         if not isinstance(name, unicode):
             name = name.decode(charset)
         if not isinstance(mail, unicode):
             # mail has to be be ASCII!!
             mail = mail.decode(charset).encode('us-ascii', 'replace')
+
         return formataddr((str(Header(name, charset)), mail))
 
     @property
@@ -114,6 +122,7 @@ class HTMLComposer(persistent.Persistent):
         vars['channel_title'] = subscription.channel.title
         vars['from_addr'] = self._from_address
         vars['to_addr'] = subscription.composer_data['email']
+        vars['replyto_addr'] = self.replyto_address
 
         vars.update(self._more_vars(subscription))
         return vars

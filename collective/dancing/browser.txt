@@ -304,6 +304,7 @@ throughout the site.  For now, let's create one item for each type:
   'super-bowl'
   >>> workflow.doActionFor(events['super-bowl'], 'publish')
 
+  
 Channel subscriptions
 ---------------------
 
@@ -413,6 +414,7 @@ If sending the message fails, we'll get notified:
   >>> "0 message(s) sent" in browser.contents
   True
 
+  
 Subscribe
 ---------
 
@@ -496,8 +498,8 @@ Users can also request an e-mail with their secret:
   To: root@localhost
   Message follows:
   ...
-  Click here to manage your subscriptions...
-
+  Click here to manage your subscriptions...  
+  
 Unsubscribe
 -----------
 
@@ -1029,6 +1031,86 @@ pages. So the user is not forced to try subscribing first when she knows she alr
   Message follows:
   ...
   Click here to manage your subscriptions...
+
+
+Configuring composers
+---------------------
+
+The composers fieldset of the channel edit view allows configuration of
+that channels composers.
+
+For the default HTMLComposer we can specify sender name and address
+as well as reply-to address.
+
+  >>> browser.open(portal.absolute_url() +
+  ...  	'/portal_newsletters/channels/my-other-channel')
+  >>> from_name = browser.getControl(name="composers.html.widgets.from_name")
+  >>> from_addr = browser.getControl(name="composers.html.widgets.from_address")
+  >>> replyto = browser.getControl(name="composers.html.widgets.replyto_address")
+
+All these values are initially empty. Meaning that values are taken from
+the plone mail configuration as we've seen above.
+  
+  >>> from_name.value == from_addr.value == replyto.value == ''
+  True
+
+Let's set some values.
+  
+  >>> from_name.value = 'Portal Master'
+  >>> from_addr.value = 'master@domain.tld'
+  >>> replyto.value = 'noreply@domain.tld'
+  >>> browser.getControl('Save').click()
+  >>> 'Data successfully updated.' in browser.contents
+  True
+
+And see that they've stuck.
+  
+  >>> browser.open(portal.absolute_url() +
+  ...  	'/portal_newsletters/channels/my-other-channel')
+  >>> browser.getControl(name="composers.html.widgets.from_name").value
+  'Portal Master'
+  >>> browser.getControl(name="composers.html.widgets.from_address").value
+  'master@domain.tld'
+  >>> browser.getControl(name="composers.html.widgets.replyto_address").value
+  'noreply@domain.tld'
+
+Now let's send out a frontpage preview to see the new composer values
+have taken effect.
+  
+  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
+  >>> browser.getControl('My other channel').click()
+  >>> browser.getControl('Address').value = u'daniel@localhost'
+  >>> browser.getControl(
+  ...     name='form.widgets.include_collector_items:list').value = ['false']
+  >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
+
+  >>> "1 messages queued" in browser.contents
+  True
+
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *MyMailDelivery sending*:
+  From: Portal Master <master@domain.tld>
+  ...
+  (1, 0)
+
+If a channel has more formats, they will of course all be editable
+from this page.
+
+  >>> browser.open(portal.absolute_url() +
+  ...  	'/portal_newsletters/channels/my-other-channel')
+  >>> 'composers.html.widgets.from_name' in browser.contents
+  True
+  >>> 'composers.text.widgets.from_name' in browser.contents
+  False
+
+  >>> channel.composers['text'] = HTMLComposer()
+
+  >>> browser.open(portal.absolute_url() +
+  ...  	'/portal_newsletters/channels/my-other-channel')
+  >>> 'composers.html.widgets.from_name' in browser.contents
+  True
+  >>> 'composers.text.widgets.from_name' in browser.contents
+  True
 
   
 Periodic ticking

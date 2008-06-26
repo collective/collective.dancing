@@ -28,7 +28,7 @@ from zope.app.pagetemplate import viewpagetemplatefile
 from collective.dancing import MessageFactory as _
 from collective.dancing import collector
 from collective.dancing import utils
-from collective.dancing import channel 
+from collective.dancing import channel
 from collective.dancing.browser import controlpanel
 from collective.dancing.browser.interfaces import ISendAndPreviewForm
 
@@ -337,6 +337,54 @@ class EditChannelForm(z3c.form.form.EditForm):
 
         return fields
 
+class EditComposersForm(z3c.form.form.EditForm):
+    """
+    """
+    template = viewpagetemplatefile.ViewPageTemplateFile(
+        'form-with-subforms.pt')
+    subforms = []
+    ignoreContext = True
+    semiSuccesMessage = _(u"Only some of your changes were saved")
+    
+    def update(self):
+        super(EditComposersForm, self).update()
+        self.update_subforms()
+        
+    def update_subforms(self):
+        self.subforms = []
+        for format, item in self.context.composers.items():
+             subform = component.getMultiAdapter(
+                (item, self.request, self),
+                z3c.form.interfaces.ISubForm)
+             subform.format = format
+             subform.update()
+             self.subforms.append(subform)
+
+    @z3c.form.button.buttonAndHandler(_('Save'), name='save')
+    def handleSave(self, action):
+        self.status = ''
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+        changes = self.applyChanges(data)
+        if not changes:
+            self.update_subforms()
+            stati = [f.status for f in self.subforms]
+            if self.successMessage in stati:
+                if self.formErrorsMessage not in stati:
+                    self.status = self.successMessage
+                else:
+                    self.status = self.semiSuccesMessage
+            elif self.formErrorsMessage in stati:
+                self.status = self.formErrorsMessage
+        if not self.status:
+            if changes: 
+                self.status = self.successMessage
+            else:
+                self.status = self.noChangesMessage
+
+
 class ManageChannelView(BrowserView):
     """Manage channel view.
 
@@ -346,6 +394,7 @@ class ManageChannelView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
     preview_form = ChannelPreviewForm
     edit_form = EditChannelForm
+    composers_form = EditComposersForm
     
     @property
     def back_link(self):
@@ -372,9 +421,10 @@ class ManageChannelView(BrowserView):
             form = ManageSubscriptionsForm(self.context, self.request)
             form.format = format
             form.composer = composer
-            forms.append(form)
-
+            forms.append(form)            
         fieldsets.append((_(u"Subscriptions"), '\n'.join([form() for form in forms])))
+        
+        fieldsets.append((_(u"Composers"), self.composers_form(self.context, self.request)()))
 
         wrapper = """\
         <dl class="enableFormTabbing">
