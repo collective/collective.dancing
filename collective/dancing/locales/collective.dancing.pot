@@ -525,3 +525,7 @@ msgstr ""
 msgid "HTML E-Mail"
 msgstr ""
 
+#: portal_actions/object_buttons
+# Default: "Send as newsletter"
+msgid "Send as newsletter"
+msgstr ""
