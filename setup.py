@@ -35,7 +35,7 @@ setup(name='collective.dancing',
           'setuptools',
           'collective.singing>=0.4dev',
           'five.intid',
-          'plone.z3cform',
+          'plone.z3cform>=0.2',
           'StoneageHTML',
       ],
       
