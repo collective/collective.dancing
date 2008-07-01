@@ -318,7 +318,7 @@ class EditFilteredSubjectsCollectorForm(form.EditForm):
 
     @property
     def fields(self):
-        schema = self.context.schema
+        schema = self.context.full_schema
         field = schema[self.context.field_name]
         field.__name__ = 'filtered_items'
         field.interface = None
