@@ -1,8 +1,6 @@
 from Acquisition import aq_base
-from zope import component
 
 import collective.singing.subscribe
-import collective.singing.channel
 
 class Subscription(collective.singing.subscribe.SimpleSubscription):
     _channel = None
