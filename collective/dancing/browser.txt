@@ -105,7 +105,7 @@ Let's delete the first of the two channels:
 
   >>> btn = browser.getControl(name='crud-edit.my-channel.widgets.select:list')
   >>> btn.value = ['selected']
-  >>> browser.getControl(name='crud-edit.buttons.delete').click()
+  >>> browser.getControl("Delete").click()
   >>> "Successfully deleted items" in browser.contents
   True
   >>> 'My channel' in browser.contents, 'My other channel' in browser.contents
@@ -182,7 +182,7 @@ Let's remove it since it does nothing we want to test.
   >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
   >>> btn = browser.getControl(name='crud-edit.my-awesome-channel.widgets.select:list')
   >>> btn.value = ['selected']
-  >>> browser.getControl(name='crud-edit.buttons.delete').click()
+  >>> browser.getControl("Delete").click()
   >>> "Successfully deleted items" in browser.contents
   True
   >>> 'My awesome channel' in browser.contents
@@ -192,14 +192,12 @@ When only one kind of channel is available, we don't need to specify one when
 creating new channels.
 
   >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
-  >>> 'crud-add-widgets-factory' in browser.contents
+  >>> 'Standard Channel' in browser.contents
   True
   >>> del collective.dancing.channel.channels[1]
   >>> browser.reload()
-  >>> 'crud-add-widgets-factory' in browser.contents
+  >>> 'Standard Channel' in browser.contents
   False
-
-
 
 Configuring collectors
 ----------------------
