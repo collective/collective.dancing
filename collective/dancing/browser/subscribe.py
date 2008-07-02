@@ -79,6 +79,9 @@ class Confirm(BrowserView):
 
     label = _(u"Confirming your subscription")
 
+    successMessage = _(u"You confirmed your subscription successfully.")
+    notKnownMessage = _(u"Your subscription isn't known to us.")
+
     def __call__(self):
         secret = self.request.form['secret']
         exists = False
@@ -92,9 +95,9 @@ class Confirm(BrowserView):
                         sub.metadata['pending'] = False
 
         if exists:
-            self.status = _(u"You confirmed your subscription successfully.")
+            self.status = self.successMessage
         else:
-            self.status = _(u"Your subscription isn't known to us.")
+            self.status = self.notKnownMessage
 
         return self.template()
 
