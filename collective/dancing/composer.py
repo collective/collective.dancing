@@ -177,14 +177,16 @@ class HTMLComposer(persistent.Persistent):
     def render_confirmation(self, subscription):
         vars = self._vars(subscription)
 
-        html = self.confirm_template(**vars)
+        if 'confirmation_subject' not in vars:
+            vars['confirmation_subject'] = zope.i18n.translate(
+                _(u"Confirm your subscription with ${channel-title}",
+                  mapping={'channel-title': subscription.channel.title}),
+                target_language=self.language)
 
-        subject = zope.i18n.translate(
-            _(u"Confirm your subscription with ${channel-title}",
-              mapping={'channel-title': subscription.channel.title}),
-            target_language=self.language)
+        html = self.confirm_template(**vars)
+        
         message = collective.singing.mail.create_html_mail(
-            subject,
+            vars['confirmation_subject'],
             html,
             from_addr=vars['from_addr'],
             to_addr=vars['to_addr'])
@@ -196,14 +198,16 @@ class HTMLComposer(persistent.Persistent):
     def render_forgot_secret(self, subscription):
         vars = self._vars(subscription)
         
+        if 'forgot_secret_subject' not in vars:
+            vars['forgot_secret_subject'] = zope.i18n.translate(
+                _(u"Change your subscriptions with ${site-title}",
+                  mapping={'site-title': vars['site_title']}),
+                target_language=self.language)
+
         html = self.forgot_template(**vars)
 
-        subject = zope.i18n.translate(
-            _(u"Change your subscriptions with ${site-title}",
-              mapping={'site-title': vars['site_title']}),
-            target_language=self.language)
         message = collective.singing.mail.create_html_mail(
-            subject,
+            vars['forgot_secret_subject'],
             html,
             from_addr=vars['from_addr'],
             to_addr=vars['to_addr'])
