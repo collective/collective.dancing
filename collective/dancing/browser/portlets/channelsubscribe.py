@@ -107,7 +107,7 @@ class Assignment(base.Assignment):
 
     @property
     def all_channels(self):
-        return channel_lookup()
+        return channel_lookup(only_subscribeable=True)
         
 class ValuesMixin(object):
     """Mix-in class that allows convenient access to data stored on

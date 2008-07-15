@@ -173,10 +173,29 @@ We now have the option to add one of these ;-)
   
 Let's check that a MyCustomChannel instance was really created.
 
-  >>> portal.portal_newsletters.channels.values()[-1]
-  ... # doctest: +ELLIPSIS
+  >>> custom_channel = portal.portal_newsletters.channels.values()[-1]
+  >>> custom_channel # doctest: +ELLIPSIS
   <MyCustomChannel at ...>
 
+In some cases we may want channels to not be subscribeable.
+We can do this simply by setting their subscribeable attr:
+We generally use the channel_lookup function to list our channels,
+this function support ignoring unsubscribeable channels
+The subscribe portlet already does this:
+
+  >>> custom_channel in collective.singing.channel.channel_lookup()
+  True
+  >>> custom_channel in collective.singing.channel.channel_lookup(only_subscribeable=True)
+  True
+  
+  >>> custom_channel.subscribeable = False
+
+  >>> custom_channel in collective.singing.channel.channel_lookup()
+  True
+  >>> custom_channel in collective.singing.channel.channel_lookup(only_subscribeable=True)
+  False
+  
+  
 Let's remove it since it does nothing we want to test.
 
   >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')

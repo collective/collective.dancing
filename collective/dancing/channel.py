@@ -112,6 +112,8 @@ class Channel(OFS.SimpleItem.SimpleItem):
     interface.implements(collective.singing.interfaces.IChannel)
 
     type_name = _("Standard Channel")
+
+    subscribeable = True
     
     def __init__(self, name, title=None, composers=None,
                  collector=None, scheduler=None, description=u""):

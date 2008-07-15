@@ -86,7 +86,7 @@ class Confirm(BrowserView):
         secret = self.request.form['secret']
         exists = False
 
-        for channel in channel_lookup():
+        for channel in channel_lookup(only_subscribeable=True):
             subscriptions = channel.subscriptions.query(secret=secret)
             if len(subscriptions):
                 exists = True
@@ -363,7 +363,7 @@ class Subscriptions(BrowserView):
         subscriptions = []
         channels_and_formats = []
 
-        for channel in channel_lookup():
+        for channel in channel_lookup(only_subscribeable=True):
             channel_subs = channel.subscriptions
 
             subscribed_formats = []
