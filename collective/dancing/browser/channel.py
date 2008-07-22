@@ -20,7 +20,7 @@ import Products.CMFPlone.utils
 from collective.singing.interfaces import IChannel, IFormLayer, ICollectorSchema
 from plone.z3cform import z2
 from plone.z3cform.crud import crud
-from plone.z3cform.wysiwyg import widget
+from plone.app.z3cform import wysiwyg
 import collective.singing.scheduler
 import collective.singing.subscribe
 import collective.singing.channel
@@ -333,7 +333,7 @@ class EditChannelForm(z3c.form.form.EditForm):
         fields += field.Fields(collector, scheduler)
         fields += field.Fields(IChannel).select('description')
         fields['description'].widgetFactory[
-            z3c.form.interfaces.INPUT_MODE] = widget.WysiwygFieldWidget
+            z3c.form.interfaces.INPUT_MODE] = wysiwyg.WysiwygFieldWidget
 
         return fields
 

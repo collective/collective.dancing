@@ -7,7 +7,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form import button
 from z3c.form import field
 
-from plone.z3cform import base
+from plone.app.z3cform import layout
 from plone.z3cform import z2
 from plone.z3cform.crud import crud
 from collective.singing import interfaces
@@ -125,8 +125,8 @@ class StatsForm(crud.CrudForm):
         else:
             raise KeyError(id)
 
-class StatsView(base.FormWrapper):
-    index = ViewPageTemplateFile('controlpanel.pt')
-    form = StatsForm
-    label = _(u"Newsletter statistics")
-    back_link = controlpanel.back_to_controlpanel
+StatsView = layout.wrap_form(
+    StatsForm,
+    index=ViewPageTemplateFile('controlpanel.pt'),
+    label = _(u"Newsletter statistics"),
+    back_link = controlpanel.back_to_controlpanel)

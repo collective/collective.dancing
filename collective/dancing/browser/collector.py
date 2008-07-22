@@ -14,7 +14,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 import Products.CMFPlone.utils
 from collective.singing.interfaces import ICollector
 from plone.z3cform.crud import crud
-from plone.z3cform.wysiwyg import widget
+from plone.app.z3cform import wysiwyg
 from plone.z3cform import z2
 import collective.singing.interfaces
 
@@ -115,7 +115,7 @@ class EditTextForm(subform.EditSubForm):
     fields = z3c.form.field.Fields(collector.ITextCollector).select(
         'title', 'value')
     fields['value'].widgetFactory[
-        z3c.form.interfaces.INPUT_MODE] = widget.WysiwygFieldWidget
+        z3c.form.interfaces.INPUT_MODE] = wysiwyg.WysiwygFieldWidget
 
     @property
     def css_class(self):
