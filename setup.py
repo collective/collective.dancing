@@ -1,7 +1,7 @@
 import os
 from setuptools import setup, find_packages
 
-version = '0.4b5'
+version = '0.5.0'
 
 def read(*pathnames):
     return open(os.path.join(os.path.dirname(__file__), *pathnames)).read()
@@ -33,9 +33,8 @@ setup(name='collective.dancing',
       # 2 environment, try the `fakezope2eggs` recipe
       install_requires=[
           'setuptools',
-          'collective.singing>=0.4dev',
+          'collective.singing>=0.4dev,<0.5dev',
           'five.intid',
-          'plone.z3cform>=0.2',
           'StoneageHTML',
       ],
       

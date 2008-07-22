@@ -1,11 +1,18 @@
 History
 =======
 
-Version 0.4 - unreleased
+Version 0.5.0 - unreleased
+--------------------------
+
+Version 0.4 - 2008-07-23
 ------------------------
 
 New features
 ~~~~~~~~~~~~
+
+- Added subject, confirmation_subject and forgot_secret_subject to
+  vars of composer for easy customization.  Defaults are unchanged.
+  [tmog]
 
 - Added sender name, sender address and reply-to address as per
   composer configuration. Composer configuration is now available
