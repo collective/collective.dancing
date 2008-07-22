@@ -7,6 +7,15 @@ Version 0.5.0 - unreleased
 - Depend on 0.3 or higher of plone.app.z3cform.
   [nouri]
 
+Version 0.4.1 - 2008-07-23
+--------------------------
+
+- Fix ``RuntimeError: maximum recursion depth exceeded`` error in
+  ``Module collective.dancing.browser.portlets.channelsubscribe, line
+  253, in channel`` when displaying portlets that were created prior
+  to 0.4b4.
+  [nouri]
+
 Version 0.4 - 2008-07-23
 ------------------------
 

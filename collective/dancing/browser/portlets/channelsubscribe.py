@@ -88,9 +88,14 @@ class Assignment(base.Assignment):
     @apply
     def channel():
         def get(self):
-            if self._channel:
+            # BBB: Versions prior to r67243 used to have an attribute
+            # called 'channel'; then it's become a property
+            channel = self.__dict__.get('channel')
+            if channel is None:
+                channel = self._channel
+            if channel is not None:
                 for c in self.all_channels:
-                    if c.name == self._channel.name:
+                    if c.name == channel.name:
                         return c
             return None
         def set(self, value):
