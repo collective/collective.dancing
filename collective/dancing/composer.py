@@ -1,6 +1,7 @@
 import md5
 import re
 import smtplib
+import OFS
 from email.Utils import formataddr
 from email.Header import Header
 
@@ -43,6 +44,7 @@ class PrimaryLabelTextLine(schema.TextLine):
         value = super(PrimaryLabelTextLine, self).fromUnicode(str)
         return value.lower()
 
+
 class IHTMLComposerSchema(interface.Interface):
     email = PrimaryLabelTextLine(title=_(u"E-mail address"),
                                  constraint=check_email)
@@ -66,6 +68,9 @@ class HTMLComposer(persistent.Persistent):
     schema = IHTMLComposerSchema
 
     stylesheet = u""
+    from_name = u""
+    from_address = u""
+    replyto_address = u""
     
     template = ViewPageTemplateFile('browser/composer-html.pt')
     confirm_template = ViewPageTemplateFile('browser/composer-html-confirm.pt')
@@ -87,27 +92,49 @@ class HTMLComposer(persistent.Persistent):
         properties = component.getUtility(
             Products.CMFCore.interfaces.IPropertiesTool)
         charset = properties.site_properties.getProperty('default_charset', 'utf-8')
-        name = properties.email_from_name
-        mail = properties.email_from_address
+
+        name = self.from_name or properties.email_from_name
+        mail = self.from_address or properties.email_from_address
+
         if not isinstance(name, unicode):
             name = name.decode(charset)
         if not isinstance(mail, unicode):
             # mail has to be be ASCII!!
             mail = mail.decode(charset).encode('us-ascii', 'replace')
+
         return formataddr((str(Header(name, charset)), mail))
 
+    @property
+    def language(self):
+        return self.request.get('LANGUAGE')        
+
     def _vars(self, subscription):
+        """Provide variables for the template.
+
+        Feel free to override this to pass more variables to your
+        template when you make a custom subclass of HTMLComposer."""
         vars = {}
-        channel = subscription.channel
         site = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
         site = utils.fix_request(site, 0)
         
-        vars['language'] = self.request.get('LANGUAGE')
         vars['channel'] = subscription.channel
         vars['site_title'] = unicode(site.Title(), 'UTF-8')
         vars['channel_title'] = subscription.channel.title
         vars['from_addr'] = self._from_address
         vars['to_addr'] = subscription.composer_data['email']
+        vars['replyto_addr'] = self.replyto_address
+
+        vars.update(self._more_vars(subscription))
+        return vars
+
+    def _more_vars(self, subscription):
+        """Less generic variables.
+        """
+        vars = {}
+        channel = subscription.channel
+        site = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
+        site = utils.fix_request(site, 0)
+
         vars['confirm_url'] = (
             '%s/confirm-subscription.html?secret=%s' %
             (site.portal_newsletters.absolute_url(), subscription.secret))
@@ -123,19 +150,23 @@ class HTMLComposer(persistent.Persistent):
         vars = self._vars(subscription)
         secret = self.secret(subscription.composer_data)
 
-        subject = zope.i18n.translate(
-            _(u"${site-title}: ${channel-title}",
-              mapping={'site-title': vars['site_title'],
-                       'channel-title': vars['channel_title']}),
-            target_language=vars['language'])
+        if 'subject' not in vars:
+            vars['subject'] = zope.i18n.translate(
+                _(u"${site-title}: ${channel-title}",
+                  mapping={'site-title': vars['site_title'],
+                           'channel-title': vars['channel_title']}),
+                target_language=self.language)
         
         html = self.template(
-            subject=subject, contents=items, stylesheet=self.stylesheet, **vars)
+            contents=[i[0] for i in items],
+            items=[dict(formatted=i[0], original=i[1]) for i in items],
+            stylesheet=self.stylesheet,
+            **vars)
 
         html = stoneagehtml.compactify(html).decode('utf-8')
 
         message = collective.singing.mail.create_html_mail(
-            subject,
+            vars['subject'],
             html,
             from_addr=vars['from_addr'],
             to_addr=vars['to_addr'])
@@ -146,14 +177,16 @@ class HTMLComposer(persistent.Persistent):
     def render_confirmation(self, subscription):
         vars = self._vars(subscription)
 
-        html = self.confirm_template(**vars)
+        if 'confirmation_subject' not in vars:
+            vars['confirmation_subject'] = zope.i18n.translate(
+                _(u"Confirm your subscription with ${channel-title}",
+                  mapping={'channel-title': subscription.channel.title}),
+                target_language=self.language)
 
-        subject = zope.i18n.translate(
-            _(u"Confirm your subscription with ${channel-title}",
-              mapping={'channel-title': subscription.channel.title}),
-            target_language=vars['language'])
+        html = self.confirm_template(**vars)
+        
         message = collective.singing.mail.create_html_mail(
-            subject,
+            vars['confirmation_subject'],
             html,
             from_addr=vars['from_addr'],
             to_addr=vars['to_addr'])
@@ -165,14 +198,16 @@ class HTMLComposer(persistent.Persistent):
     def render_forgot_secret(self, subscription):
         vars = self._vars(subscription)
         
+        if 'forgot_secret_subject' not in vars:
+            vars['forgot_secret_subject'] = zope.i18n.translate(
+                _(u"Change your subscriptions with ${site-title}",
+                  mapping={'site-title': vars['site_title']}),
+                target_language=self.language)
+
         html = self.forgot_template(**vars)
 
-        subject = zope.i18n.translate(
-            _(u"Change your subscriptions with ${site-title}",
-              mapping={'site-title': vars['site_title']}),
-            target_language=vars['language'])
         message = collective.singing.mail.create_html_mail(
-            subject,
+            vars['forgot_secret_subject'],
             html,
             from_addr=vars['from_addr'],
             to_addr=vars['to_addr'])
@@ -246,10 +281,11 @@ class FullFormatWrapper(object):
     def __init__(self, item):
         self.item = item
 
+    def __getattr__(self, key):
+        return getattr(self.item, key)
+
 class HTMLFormatItemFully(object):
     interface.implements(collective.singing.interfaces.IFormatItem)
-    component.adapts(FullFormatWrapper,
-                     zope.publisher.interfaces.browser.IBrowserRequest)
     
     def __init__(self, wrapper, request):
         self.item = wrapper.item

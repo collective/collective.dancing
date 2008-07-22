@@ -76,11 +76,13 @@ That is, we can use it to retrieve a subscription's secret:
 
   Rendering
 
-  >>> msg = composer.render(subscription, items=(
+  >>> items = (
   ...     'My bonnie lies over the ocean',
   ...     'My bonnie lies over the sea',
   ...     'My bonnie lies over the ocean',
-  ...     'Oh bring back my bonnie to me'))
+  ...     'Oh bring back my bonnie to me')
+
+  >>> msg = composer.render(subscription, items=zip(items, items))
   >>> msg # doctest: +ELLIPSIS
   <collective.singing.message.Message object ...>
   >>> msg.payload # doctest: +ELLIPSIS

@@ -61,8 +61,8 @@ Installation
 
 Singing & Dancing is available as `Python eggs on PyPI`_.  To install,
 you can simply depend_ on the ``collective.dancing`` package in your
-own site policy package, and add fakezope2eggs_ to your buildout_
-configuration, as explained below.
+own site policy package, and add *fake zope eggs* to your zope2
+install section in your buildout_ configuration, as explained below.
 
 Alternatively, add ``collective.dancing`` to the list of eggs in your
 ``buildout.cfg`` if you don't have your own package.  This is what we
@@ -93,25 +93,16 @@ that's built and ready to run.
 
      zcml = collective.dancing
 
-2) Still in your buildout configuration file, at the top of the file,
-   in the ``buildout`` section, you'll find the ``parts``.  Add to
-   these the ``fakezope2eggs`` part that we're about to create, like
-   this::
+2) Still in your buildout configuration file, look for the ``[zope2]``
+   section (which uses the ``plone.recipe.zope2install`` recipe), and
+   add the following lines to it::
 
-     parts =
-         plone
-         zope2
-         fakezope2eggs
-         productdistros
-         instance
-         zopepy
-
-   We'll add the configuration for the actual part at the end of
-   ``buildout.cfg``::
-
-     [fakezope2eggs]
-     recipe = affinitic.recipe.fakezope2eggs
+     fake-zope-eggs = true
      additional-fake-eggs = ZODB3
+     skip-fake-eggs =
+         zope.testing
+         zope.component
+         zope.i18n
 
 3) Now that we're done editing the buildout configuration file, we can
    run buildout again::
@@ -223,7 +214,6 @@ Get in touch with us if you need help or have comments.  See the
 
 .. _Python eggs on PyPI: http://pypi.python.org/pypi/collective.dancing
 .. _depend: http://peak.telecommunity.com/DevCenter/setuptools#declaring-dependencies
-.. _fakezope2eggs: http://danielnouri.org/blog/devel/zope/fakezope2eggs
 .. _buildout: http://pypi.python.org/pypi/zc.buildout
 .. _Repoze: http://repoze.org
 .. _how to create a buildout: http://plone.org/documentation/tutorial/buildout/creating-a-buildout-for-your-project

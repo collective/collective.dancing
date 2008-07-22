@@ -21,6 +21,7 @@ from plone.memoize.compress import xhtml_compress
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
+import zope.app.container
 import collective.singing
 from collective.singing.channel import channel_lookup
 from collective.dancing import MessageFactory as _
@@ -39,7 +40,7 @@ class IChannelSubscribePortlet(IPortletDataProvider):
                              required=True)
     channel = schema.Choice(title=_(u"The channel to enable subscriptions to."),
                             description=_(u"Find the channel you want to enable direct subscription to"),
-                            required=True,
+                            required=False,
                             vocabulary='collective.singing.vocabularies.ChannelVocabulary'
                             )
     description = schema.TextLine(title=_(u"Portlet description"),
@@ -79,10 +80,23 @@ class Assignment(base.Assignment):
                  show_footer=True):
         self.header = header
         self.description = description
-        self.channel = channel
+        self._channel = channel
         self.subscribe_directly = subscribe_directly
         self.footer_text = footer_text
         self.show_footer = show_footer
+
+    @apply
+    def channel():
+        def get(self):
+            if self._channel:
+                for c in self.all_channels:
+                    if c.name == self._channel.name:
+                        return c
+            return None
+        def set(self, value):
+            self._channel = value
+        return property(get, set)
+
 
     @property
     def title(self):
@@ -93,7 +107,7 @@ class Assignment(base.Assignment):
 
     @property
     def all_channels(self):
-        return channel_lookup()
+        return channel_lookup(only_subscribeable=True)
         
 class ValuesMixin(object):
     """Mix-in class that allows convenient access to data stored on
@@ -227,17 +241,17 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
-        return bool(self.channel)
+        return bool(self.data.channel)
 
     @property
     def channel(self):
+        return self.data.channel
         channels = self.data.all_channels
-        if channels is None:
-            return channels
-        for channel in channels:
-            if channel.name == self.data.channel.name:
-                return channel
-        return channels[0]                 
+        if channels and self.data.channel:
+            for channel in channels:
+                if channel.name == self.data.channel.name:
+                    return channel
+        return None                 
 
     def channel_link(self):
 

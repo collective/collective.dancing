@@ -81,6 +81,15 @@ class EditForm(crud.EditForm):
             for id, stats in selected:
                 stats.channel.queue.flush()
 
+    @button.buttonAndHandler(_('Flush new messages'), name='flushnew')
+    def handle_flushnew(self, action):
+        self.status = _(u"Please select items with new messages to flush.")
+        selected = self.selected_items()
+        if selected:
+            self.status = _(u"Successfully flushed new in channels.")
+            for id, stats in selected:
+                stats.channel.queue.flush(queue_names=('new',))
+
     @button.buttonAndHandler(_('Send messages now'), name='send')
     def handle_send(self, action):
         self.status = _(u"Please select which channel you'd like to send "

@@ -105,7 +105,7 @@ Let's delete the first of the two channels:
 
   >>> btn = browser.getControl(name='crud-edit.my-channel.widgets.select:list')
   >>> btn.value = ['selected']
-  >>> browser.getControl(name='crud-edit.buttons.delete').click()
+  >>> browser.getControl("Delete").click()
   >>> "Successfully deleted items" in browser.contents
   True
   >>> 'My channel' in browser.contents, 'My other channel' in browser.contents
@@ -139,6 +139,84 @@ channel:
   >>> scheduler.displayValue
   ['Weekly scheduler']
 
+  
+Adding new types of Channels can be done very easily from external code.
+Simpy add to the list of factories.
+
+  >>> import collective.dancing.channel
+  >>> import collective.singing.interfaces
+  >>> import persistent
+
+  >>> class MyCustomChannel(collective.dancing.channel.Channel, persistent.Persistent):
+  ... 	  interface.implements(collective.singing.interfaces.IChannel)
+  ...     type_name = u"Awesome Channel"
+  >>> collective.dancing.channel.MyCustomChannel = MyCustomChannel
+  >>> collective.dancing.channel.MyCustomChannel.__module__ = \
+  ... 					 'collective.dancing.channel'
+  
+  >>> collective.dancing.channel.channels.append(
+  ...		collective.dancing.channel.MyCustomChannel)
+
+We now have the option to add one of these ;-)
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> browser.getControl('Type').displayOptions
+  ['Standard Channel', 'Awesome Channel']
+
+  >>> browser.getControl('Type').displayValue = ['Awesome Channel']
+  >>> browser.getControl('Title').value = 'My awesome channel'
+  >>> browser.getControl('Add').click()
+  >>> 'Item added successfully' in browser.contents
+  True
+  >>> 'My awesome channel' in browser.contents
+  True 
+  
+Let's check that a MyCustomChannel instance was really created.
+
+  >>> custom_channel = portal.portal_newsletters.channels.values()[-1]
+  >>> custom_channel # doctest: +ELLIPSIS
+  <MyCustomChannel at ...>
+
+In some cases we may want channels to not be subscribeable.
+We can do this simply by setting their subscribeable attr:
+We generally use the channel_lookup function to list our channels,
+this function support ignoring unsubscribeable channels
+The subscribe portlet already does this:
+
+  >>> custom_channel in collective.singing.channel.channel_lookup()
+  True
+  >>> custom_channel in collective.singing.channel.channel_lookup(only_subscribeable=True)
+  True
+  
+  >>> custom_channel.subscribeable = False
+
+  >>> custom_channel in collective.singing.channel.channel_lookup()
+  True
+  >>> custom_channel in collective.singing.channel.channel_lookup(only_subscribeable=True)
+  False
+  
+  
+Let's remove it since it does nothing we want to test.
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> btn = browser.getControl(name='crud-edit.my-awesome-channel.widgets.select:list')
+  >>> btn.value = ['selected']
+  >>> browser.getControl("Delete").click()
+  >>> "Successfully deleted items" in browser.contents
+  True
+  >>> 'My awesome channel' in browser.contents
+  False
+
+When only one kind of channel is available, we don't need to specify one when
+creating new channels.
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> 'Standard Channel' in browser.contents
+  True
+  >>> del collective.dancing.channel.channels[1]
+  >>> browser.reload()
+  >>> 'Standard Channel' in browser.contents
+  False
 
 Configuring collectors
 ----------------------
@@ -243,6 +321,7 @@ throughout the site.  For now, let's create one item for each type:
   'super-bowl'
   >>> workflow.doActionFor(events['super-bowl'], 'publish')
 
+  
 Channel subscriptions
 ---------------------
 
@@ -352,6 +431,7 @@ If sending the message fails, we'll get notified:
   >>> "0 message(s) sent" in browser.contents
   True
 
+  
 Subscribe
 ---------
 
@@ -435,8 +515,8 @@ Users can also request an e-mail with their secret:
   To: root@localhost
   Message follows:
   ...
-  Click here to manage your subscriptions...
-
+  Click here to manage your subscriptions...  
+  
 Unsubscribe
 -----------
 
@@ -778,6 +858,8 @@ call a "timed scheduler":
 
   >>> browser.getControl("Newsletter").click()
   >>> browser.getControl("My other channel").click()
+
+  >>> browser.getControl("Scheduled time").value = ""
   >>> browser.getControl("Schedule distribution").click()
   >>> "Please fill in a date" in browser.contents
   True
@@ -966,6 +1048,86 @@ pages. So the user is not forced to try subscribing first when she knows she alr
   Message follows:
   ...
   Click here to manage your subscriptions...
+
+
+Configuring composers
+---------------------
+
+The composers fieldset of the channel edit view allows configuration of
+that channels composers.
+
+For the default HTMLComposer we can specify sender name and address
+as well as reply-to address.
+
+  >>> browser.open(portal.absolute_url() +
+  ...  	'/portal_newsletters/channels/my-other-channel')
+  >>> from_name = browser.getControl(name="composers.html.widgets.from_name")
+  >>> from_addr = browser.getControl(name="composers.html.widgets.from_address")
+  >>> replyto = browser.getControl(name="composers.html.widgets.replyto_address")
+
+All these values are initially empty. Meaning that values are taken from
+the plone mail configuration as we've seen above.
+  
+  >>> from_name.value == from_addr.value == replyto.value == ''
+  True
+
+Let's set some values.
+  
+  >>> from_name.value = 'Portal Master'
+  >>> from_addr.value = 'master@domain.tld'
+  >>> replyto.value = 'noreply@domain.tld'
+  >>> browser.getControl('Save').click()
+  >>> 'Data successfully updated.' in browser.contents
+  True
+
+And see that they've stuck.
+  
+  >>> browser.open(portal.absolute_url() +
+  ...  	'/portal_newsletters/channels/my-other-channel')
+  >>> browser.getControl(name="composers.html.widgets.from_name").value
+  'Portal Master'
+  >>> browser.getControl(name="composers.html.widgets.from_address").value
+  'master@domain.tld'
+  >>> browser.getControl(name="composers.html.widgets.replyto_address").value
+  'noreply@domain.tld'
+
+Now let's send out a frontpage preview to see the new composer values
+have taken effect.
+  
+  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
+  >>> browser.getControl('My other channel').click()
+  >>> browser.getControl('Address').value = u'daniel@localhost'
+  >>> browser.getControl(
+  ...     name='form.widgets.include_collector_items:list').value = ['false']
+  >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
+
+  >>> "1 messages queued" in browser.contents
+  True
+
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *MyMailDelivery sending*:
+  From: Portal Master <master@domain.tld>
+  ...
+  (1, 0)
+
+If a channel has more formats, they will of course all be editable
+from this page.
+
+  >>> browser.open(portal.absolute_url() +
+  ...  	'/portal_newsletters/channels/my-other-channel')
+  >>> 'composers.html.widgets.from_name' in browser.contents
+  True
+  >>> 'composers.text.widgets.from_name' in browser.contents
+  False
+
+  >>> channel.composers['text'] = HTMLComposer()
+
+  >>> browser.open(portal.absolute_url() +
+  ...  	'/portal_newsletters/channels/my-other-channel')
+  >>> 'composers.html.widgets.from_name' in browser.contents
+  True
+  >>> 'composers.text.widgets.from_name' in browser.contents
+  True
 
   
 Periodic ticking

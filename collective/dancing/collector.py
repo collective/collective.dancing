@@ -224,9 +224,6 @@ class Collector(OFS.Folder.Folder):
         Products.CMFPlone.utils._createObjectByType(
             'Topic', self, id=name, title='Collection for %s' % self.title)
         self[name].unmarkCreationFlag()
-
-        workflow = Products.CMFCore.utils.getToolByName(self, 'portal_workflow')
-        workflow.doActionFor(self[name], 'publish')
         return self[name]
 
 @component.adapter(Collector, zope.app.container.interfaces.IObjectAddedEvent)

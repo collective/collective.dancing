@@ -17,9 +17,6 @@ msgstr ""
 "X-Poedit-Country: AUSTRIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-msgid "Edit"
-msgstr "Bearbeiten"
-
 #: /browser/channel.py:152
 msgid "Channel administration"
 msgstr "Verwaltung Themenbereiche"
@@ -534,6 +531,13 @@ msgstr "E-Mail Adresse"
 msgid "HTML E-Mail"
 msgstr "HTML E-Mail"
 
+# Default: ""
+#: portal_actions/object_buttons
+msgid "Send as newsletter"
+msgstr "Als Newsletter versenden"
+
+#~ msgid "Edit"
+#~ msgstr "Bearbeiten"
 #~ msgid "Thanks.  We sent you a message."
 #~ msgstr "Vielen Dank, wir haben Ihnen eine E-Mail gesendet."
 #~ msgid "Filters"

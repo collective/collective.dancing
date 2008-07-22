@@ -17,12 +17,16 @@
           tal:attributes="action request/getURL"
           tal:omit-tag="not:view/actions|nothing">
 
-      <metal:use use-macro="context/@@ploneform-macros/fields" />
+      <fieldset class="subforms">
+        
+        <metal:use use-macro="context/@@ploneform-macros/fields" />
+        
+        <div tal:repeat="form view/subforms"
+             tal:replace="structure form/render">
+        </div>
 
-      <div tal:repeat="form view/subforms"
-           tal:replace="structure form/render">
-      </div>
-
+      </fieldset>
+      
       <div class="action" tal:repeat="action view/actions/values|nothing">
         <input type="submit" tal:replace="structure action/render" />
       </div>

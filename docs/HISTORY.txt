@@ -1,11 +1,45 @@
 History
 =======
 
-Version 0.4 - unreleased
+Version 0.4 - 2008-07-23
 ------------------------
 
 New features
 ~~~~~~~~~~~~
+
+- Added subject, confirmation_subject and forgot_secret_subject to
+  vars of composer for easy customization.  Defaults are unchanged.
+  [tmog]
+
+- Added sender name, sender address and reply-to address as per
+  composer configuration. Composer configuration is now available
+  in the new Composers fieldset of the channel edit view.
+  [tmog]
+
+- Allow for easier subclassing of HTMLComposer.  The ``_vars()``
+  method is now more generally applicable and easily to override.
+  [nouri]
+
+- Made adding thirdparty Channels possible. This works the same as
+  with Collectors - you simply implement you custom channel and add
+  a factory to the collective.dancing.channel.channels list.
+  Preview and edit forms are now class methods on ManageChannelView
+  to make it easier to subclass for your custom channels.
+  [tmog]
+
+- Pass on raw item as received from the collector to the composer
+  (template).  Making use of this raw item will obviously bind the
+  implementation of the composer to that of the collector.  However,
+  it's considered useful for custom implementations that need total
+  control and that know what collector they'll be using.
+
+  This required an API change in IComposer.render(); the ``items``
+  argument is now a list of 2-tuples instead of a list of formatted
+  items.
+  [nouri]
+
+- Added Polish translation by Barbara Struk
+  [naro]
 
 - Added another type of scheduler: TimedScheduler.  This one allows to
   schedule a number of send-outs with an exact datetime.  Its main use
@@ -31,6 +65,27 @@ New features
   E.g. if you have a heading text and a sibling topic collector, the
   heading won't appear if the topic didn't return any items.
   [nouri]
+
+Bugfixes
+~~~~~~~~
+
+- Updated installation instructions to use the ``fake-zope-eggs``
+  feature of the ``plone.recipe.zope2install`` instead of
+  ``fakezope2eggs``.  Also, added ``skip-fake-eggs`` to accommodate
+  latest changes in ``plone.z3cform``.
+
+- Use ``CompositeQueue`` instead of the simple zc.queue.Queue for
+  queueing and archiving mails.  This should help with memory bloat
+  when there's a lot of messages in the queue.
+  [nouri]
+
+- Don't attempt to do any workflow transition with ATTopic items
+  created in the collector; the default workflow will do fine, and we
+  avoid errors when using workflows other than the default one.
+  [nouri]
+
+- Don't bail if no items are available for preview.
+  [malthe]
 
 Version 0.3 - 2008-06-03
 ------------------------
