@@ -359,9 +359,9 @@ We upload a list of subscribers from a csv-file.
   0 
 
   >>> import cStringIO
-  >>> ctrl = browser.getControl(name='crud-add.widgets.subscriberdata')
+  >>> ctrl = browser.getControl(name='crud-add.html.widgets.subscriberdata')
   >>> ctrl
-  <Control name='crud-add.widgets.subscriberdata' type='file'>
+  <Control name='crud-add.html.widgets.subscriberdata' type='file'>
   >>> ctrl.add_file(cStringIO.StringIO('pia@localhost\nlars@localhost'),
   ...               'text/plain', 'test.txt')
   >>> browser.getControl('Upload').click()
@@ -372,7 +372,7 @@ We upload a list of subscribers from a csv-file.
 
  We upload a list of subscribers with valid and invalid email addresses
 
-  >>> ctrl = browser.getControl(name='crud-add.widgets.subscriberdata')
+  >>> ctrl = browser.getControl(name='crud-add.html.widgets.subscriberdata')
   >>> ctrl.add_file(cStringIO.StringIO('pia@localhost\nlars'),
   ...              'text/plain', 'test.txt')
   >>> browser.getControl('Upload').click()
