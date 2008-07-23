@@ -7,7 +7,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: zope/app/translation_files/extract.py\n"
 
 #: /browser/channel.py:152
 msgid "Channel administration"
@@ -497,19 +496,12 @@ msgstr ""
 msgid "Rich text"
 msgstr ""
 
-#: /composer.py:114
-# Default: "channel-titlechannel_title"
-msgid "site-titlesite_title"
-msgstr ""
-
 #: /composer.py:134
-# Default: "channel-title"
 msgid "Confirm your subscription with ${channel-title}"
 msgstr ""
 
 #: /composer.py:153
 #: /browser/composer-html-forgot.pt:10
-# Default: "site-titlesite_title"
 msgid "Change your subscriptions with ${site-title}"
 msgstr ""
 
@@ -528,4 +520,48 @@ msgstr ""
 #: portal_actions/object_buttons
 # Default: "Send as newsletter"
 msgid "Send as newsletter"
+msgstr ""
+
+#: ./browser/channel.py:423
+msgid "${numberadded} subscriptions updated successfully. ${numbernotadded} could not be added. (${errorcandidates})"
+msgstr ""
+
+#: ./browser/channel.py:428
+msgid "${numberadded} subscriptions updated successfully. No errors."
+msgstr ""
+
+#: ./browser/channel.py:367
+msgid "Error importing subscriber file."
+msgstr ""
+
+#: ./browser/channel.py:431
+msgid "File has not correct format."
+msgstr ""
+
+#: ./browser/channel.py:376
+msgid "Subscribers"
+msgstr ""
+
+#: ./browser/channel.py:549
+msgid "Subscriptions"
+msgstr ""
+
+#: ./browser/channel.py:420
+msgid "Unknown"
+msgstr ""
+
+#: ./browser/channel.py:371
+msgid "Upload"
+msgstr ""
+
+#: ./browser/channel.py:446
+msgid "Upload list of subscribers."
+msgstr ""
+
+#: ./browser/channel.py:377
+msgid "Upload your csv-file. Subscribers will be added to existing ones. Subscribers found both in file and s&d will be overwritten from file. Lines should contain:"
+msgstr ""
+
+#: /browser/channel.py:469
+msgid "Subscribers exported."
 msgstr ""

@@ -4,6 +4,9 @@ History
 Version 0.5.0 - unreleased
 --------------------------
 
+- Upload and download of subscribers list.
+  [skatja]
+  
 - Depend on 0.3 or higher of plone.app.z3cform.
   [nouri]
 

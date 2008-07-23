@@ -1,4 +1,7 @@
+import csv
+import cStringIO
 import datetime
+from DateTime import DateTime
 import sys
 
 from zope import interface
@@ -16,6 +19,7 @@ import z3c.form.button
 import OFS.SimpleItem
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.CMFCore.interfaces import IPropertiesTool
 import Products.CMFPlone.utils
 from collective.singing.interfaces import IChannel, IFormLayer, ICollectorSchema
 from plone.z3cform import z2
@@ -29,6 +33,7 @@ from collective.dancing import MessageFactory as _
 from collective.dancing import collector
 from collective.dancing import utils
 from collective.dancing import channel
+from collective.dancing.composer import check_email
 from collective.dancing.browser import controlpanel
 from collective.dancing.browser.interfaces import ISendAndPreviewForm
 
@@ -225,6 +230,7 @@ class ManageSubscriptionsForm(crud.CrudForm):
         for subscription in subs:
             self.context.subscriptions.remove_subscription(subscription)
 
+
 class SubscriptionChoiceFieldDataManager(z3c.form.datamanager.AttributeField):
     # This nasty hack allows us to have the default IDataManager to
     # use a different schema for adapting the context.  This is
@@ -337,6 +343,146 @@ class EditChannelForm(z3c.form.form.EditForm):
 
         return fields
 
+
+def parseSubscriberCSVFile(subscriberdata, composer):
+    """parses file containing subscriber data
+
+    returns list of dictionaries with subscriber data according to composer"""
+    properties = component.getUtility(IPropertiesTool)
+    charset = properties.site_properties.getProperty('default_charset', 'utf-8').upper()    
+    try:
+        data = cStringIO.StringIO(subscriberdata)
+        reader = csv.reader(data, delimiter=";")
+        subscriberslist = []
+        errorcandidates = []
+        for parsedline in reader:
+            if len(parsedline)<len(field.Fields(composer.schema)):
+                pass                
+            else:
+                try:
+                    subscriber = dict(zip(field.Fields(composer.schema).keys(),\
+                       map(lambda x:x.decode(charset),parsedline)))
+                    check_email(subscriber['email'])
+                except:
+                    errorcandidates.append(subscriber['email'])
+                else:
+                    subscriberslist.append(subscriber)
+        return subscriberslist, errorcandidates
+    except:
+        return _(u"Error importing subscriber file."), []
+
+class ExportCSV(BrowserView):
+
+    def __call__(self):
+        properties = component.getUtility(IPropertiesTool)
+        charset = properties.site_properties.getProperty('default_charset', 'utf-8').upper()
+        self.request.response.setHeader('Content-Type', 'text/csv; charset=%s' % charset)
+        self.request.response.setHeader('Content-disposition',
+            'attachment; filename=subscribers_%s_%s.csv' % (self.context.id, datetime.date.today().strftime("%Y%m%d")))
+        res = cStringIO.StringIO()
+        writer = csv.writer(res, dialect=csv.excel)
+        for format in self.context.composers.keys():
+            for subscription in tuple(self.context.subscriptions.query(format=format)):
+                row = [v.encode(charset) for v in subscription.composer_data.values()]
+                writer.writerow(row)
+        return res.getvalue()
+                                
+class UploadForm(crud.AddForm):
+    label = _(u"Upload")
+    
+    @property
+    def fields(self):
+        subscriberdata = schema.Bytes(__name__ = 'subscriberdata',
+            title=_(u"Subscribers"),
+            description=_(u"Upload your csv-file. Subscribers will be added to existing ones. Subscribers found both in file and s&d will be overwritten from file. Lines should contain:") + ' ' + \
+                ';'.join(field.Fields(self.context.composer.schema).keys())
+            ) 
+        return field.Fields(subscriberdata,)
+   
+    @property
+    def mychannel(self):
+        return self.context.context
+        
+    def _releaseSubscribers(self):
+        subs = self.mychannel.subscriptions.query(format=self.context.format)
+        for subscription in subs:
+            self.mychannel.subscriptions.remove_subscription(subscription)
+
+    def _addItem(self, data):
+        """add item and return message
+        
+        if a subscription with same email is found, we delete this first
+        but keep selection of options"""
+
+        metadata = dict(format=self.context.format,
+                        date=datetime.datetime.now())
+
+        subscriberdata = data.get('subscriberdata', None)
+        if subscriberdata:  
+            subscribers, errorcandidates = parseSubscriberCSVFile(subscriberdata, self.context.composer)
+            if type(subscribers)==type([]):
+                added = 0
+                notadded = len(errorcandidates)
+                for subscriber_data in subscribers:
+                    secret = collective.singing.subscribe.secret(self.mychannel, self.context.composer, subscriber_data, self.context.request)
+                    try:
+                        old_subscription = self.mychannel.subscriptions.query(format=self.context.format, secret=secret)
+                        if len(old_subscription):
+                            old_collector_data = tuple(old_subscription)[0].collector_data                        
+                        for sub in old_subscription:
+                            self.mychannel.subscriptions.remove_subscription(sub)
+                        item = self.mychannel.subscriptions.add_subscription(self.mychannel, secret, subscriber_data, [], metadata)
+                        # restore section selection
+                        if len(old_subscription):
+                            if 'selected_collectors' in old_collector_data and old_collector_data['selected_collectors']:
+                                item.collector_data = old_collector_data
+                        added += 1
+                    except:
+                        errorcandidates.append(subscriber_data.get('email', _(u'Unknown')))
+                        notadded += 1 
+                if notadded:
+                    msg = _(u"${numberadded} subscriptions updated successfully. ${numbernotadded} could not be added. (${errorcandidates})",
+                                mapping=dict(numbernotadded=str(notadded),
+                                errorcandidates=','.join(errorcandidates),
+                                numberadded=str(added)))
+                else:
+                    msg = _(u"${numberadded} subscriptions updated successfully. No errors.", mapping=dict(numberadded=str(added),))
+                    
+                return msg
+        return _(u"File has not correct format.")
+
+    @z3c.form.button.buttonAndHandler(_('Upload'), name='upload')
+    def handle_add(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = form.EditForm.formErrorsMessage
+            return
+        try:
+            self.status = self._addItem(data)
+        except Exception, e:
+            self.status = e
+            return
+            
+            
+    @z3c.form.button.buttonAndHandler(_('Download'), name='download')
+    def handle_download(self, action):
+        self.status = _(u"Subscribers exported.")
+        return self.request.response.redirect(self.mychannel.absolute_url() + '/export')            
+            
+class ManageUploadForm(crud.CrudForm): 
+    description = _(u"Upload list of subscribers.")
+    
+    format = None 
+    composer = None
+    
+    editform_factory = crud.NullForm
+    addform_factory = UploadForm
+
+    @property
+    def prefix(self):
+        return self.format
+    
+
 class EditComposersForm(z3c.form.form.EditForm):
     """
     """
@@ -418,6 +564,11 @@ class ManageChannelView(BrowserView):
 
         forms = []
         for format, composer in self.context.composers.items():
+            form = ManageUploadForm(self.context, self.request)
+            form.format = format
+            form.composer = composer
+            forms.append(form)
+            
             form = ManageSubscriptionsForm(self.context, self.request)
             form.format = format
             form.composer = composer

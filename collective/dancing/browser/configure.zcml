@@ -134,6 +134,13 @@
       class=".scheduler.TimedSchedulerEditView"
       permission="cmf.ManagePortal"
       />
+      
+  <page
+       name="export"
+       for="collective.singing.interfaces.IChannel"
+       permission="cmf.ModifyPortalContent"
+       class=".channel.ExportCSV"
+   />
 
   <!-- Subscription views -->
 

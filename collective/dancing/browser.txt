@@ -348,6 +348,58 @@ We'll add another subscription.  This one filters on the content type:
   >>> 'Item added successfully' in browser.contents
   True
 
+
+We upload a list of subscribers from a csv-file.
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> browser.getLink(url='http://nohost/plone/portal_newsletters/channels/my-other-channel').click()
+
+  >>> my_channel = collective.singing.channel.lookup('my-other-channel')
+  >>> len(my_channel.subscriptions.query(key=u'pia@localhost'))
+  0 
+
+  >>> import cStringIO
+  >>> ctrl = browser.getControl(name='crud-add.widgets.subscriberdata')
+  >>> ctrl
+  <Control name='crud-add.widgets.subscriberdata' type='file'>
+  >>> ctrl.add_file(cStringIO.StringIO('pia@localhost\nlars@localhost'),
+  ...               'text/plain', 'test.txt')
+  >>> browser.getControl('Upload').click()
+  >>> '2 subscriptions updated successfully' in browser.contents
+  True
+  >>> len(my_channel.subscriptions.query(key=u'pia@localhost'))
+  1
+
+ We upload a list of subscribers with valid and invalid email addresses
+
+  >>> ctrl = browser.getControl(name='crud-add.widgets.subscriberdata')
+  >>> ctrl.add_file(cStringIO.StringIO('pia@localhost\nlars'),
+  ...              'text/plain', 'test.txt')
+  >>> browser.getControl('Upload').click()
+  >>> '1 subscriptions updated successfully' in browser.contents
+  True
+  >>> '1 could not be added. (lars)' in browser.contents
+  True
+  
+
+  Subscriptions can be downloaded as csv:
+
+  >>> browser.getControl('Download').click()
+  >>> browser.headers['content-type']
+  'text/csv; charset=UTF-8'
+  >>> browser.contents
+  'daniel@localhost\r\nmailman@localhost\r\nlars@localhost\r\npia@localhost\r\n'
+
+ Cleanup: remove subscriptions
+
+  >>> subs = my_channel.subscriptions.query(key=u'pia@localhost')
+  >>> for subscription in subs:
+  ...       my_channel.subscriptions.remove_subscription(subscription)
+  >>> subs = my_channel.subscriptions.query(key=u'lars@localhost')
+  >>> for subscription in subs:
+  ...       my_channel.subscriptions.remove_subscription(subscription)
+
+
 Stats
 -----
 
