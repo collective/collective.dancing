@@ -387,9 +387,15 @@ We upload a list of subscribers from a csv-file.
   >>> browser.getControl('Download').click()
   >>> browser.headers['content-type']
   'text/csv; charset=UTF-8'
-  >>> browser.contents
-  'daniel@localhost\r\nmailman@localhost\r\nlars@localhost\r\npia@localhost\r\n'
-
+  >>> 'daniel@localhost\r\n' in browser.contents
+  True
+  >>> 'mailman@localhost\r\n' in browser.contents
+  True
+  >>> 'lars@localhost\r\n' in browser.contents
+  True
+  >>> 'pia@localhost\r\n' in browser.contents
+  True
+  
  Cleanup: remove subscriptions
 
   >>> subs = my_channel.subscriptions.query(key=u'pia@localhost')
