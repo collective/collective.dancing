@@ -4,6 +4,10 @@ History
 Version 0.5.0 - unreleased
 --------------------------
 
+- Display a more user friendly error message when the user attempts to
+  add duplicate subscriptions.
+  [miziodel, nouri]
+
 - Upload and download of subscribers list.
   [skatja]
   

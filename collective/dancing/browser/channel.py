@@ -221,8 +221,11 @@ class ManageSubscriptionsForm(crud.CrudForm):
         metadata = dict(format=self.format,
                         date=datetime.datetime.now())
 
-        return self.context.subscriptions.add_subscription(
-            self.context, secret, composer_data, collector_data, metadata)
+        try:
+            return self.context.subscriptions.add_subscription(
+                self.context, secret, composer_data, collector_data, metadata)
+        except ValueError, e:
+            raise schema.ValidationError(e.args[0])
 
     def remove(self, (id, item)):
         key, format = id.rsplit('-', 1)

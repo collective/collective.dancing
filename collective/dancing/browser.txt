@@ -340,6 +340,16 @@ We can add new subscriptions here:
   >>> 'daniel@localhost' in browser.contents
   True
 
+We'll get a nice error message when we try to add a subscription with
+the same e-mail address:
+
+  >>> browser.getControl('E-mail address').value = u"daniel@localhost"
+  >>> browser.getControl('Add').click()
+  >>> 'Item added successfully' in browser.contents
+  False
+  >>> "There's already a subscription" in browser.contents
+  True
+
 We'll add another subscription.  This one filters on the content type:
 
   >>> browser.getControl('E-mail address').value = u"mailman@localhost"
@@ -348,6 +358,8 @@ We'll add another subscription.  This one filters on the content type:
   >>> 'Item added successfully' in browser.contents
   True
 
+CSV Upload and Download of subscriptions
+----------------------------------------
 
 We upload a list of subscribers from a csv-file.
 
@@ -370,7 +382,7 @@ We upload a list of subscribers from a csv-file.
   >>> len(my_channel.subscriptions.query(key=u'pia@localhost'))
   1
 
- We upload a list of subscribers with valid and invalid email addresses
+We upload a list of subscribers with valid and invalid email addresses
 
   >>> ctrl = browser.getControl(name='crud-add.html.widgets.subscriberdata')
   >>> ctrl.add_file(cStringIO.StringIO('pia@localhost\nlars'),
@@ -380,9 +392,8 @@ We upload a list of subscribers from a csv-file.
   True
   >>> '1 could not be added. (lars)' in browser.contents
   True
-  
 
-  Subscriptions can be downloaded as csv:
+Subscriptions can be downloaded as csv:
 
   >>> browser.getControl('Download').click()
   >>> browser.headers['content-type']
@@ -396,7 +407,7 @@ We upload a list of subscribers from a csv-file.
   >>> 'pia@localhost\r\n' in browser.contents
   True
   
- Cleanup: remove subscriptions
+Cleanup: remove subscriptions
 
   >>> subs = my_channel.subscriptions.query(key=u'pia@localhost')
   >>> for subscription in subs:

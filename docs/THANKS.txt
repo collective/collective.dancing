@@ -8,6 +8,7 @@ Thanks to the following people for support, code, patches, etc:
   - Jakob Bartholdy Bruun
   - Katja Süss
   - Malthe Borch
+  - Maurizio Delmonte
   - Peter Holzer
   - Russ Ferriday
   - Sune Toft
