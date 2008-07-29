@@ -11,7 +11,7 @@ Version 0.5.0 - 2008-07-29
   add duplicate subscriptions.
   [miziodel, nouri]
 
-- Upload and download of subscribers list.
+- List of subscribers can now be uploaded and downloaded in CSV format!
   [skatja]
   
 - Depend on 0.3 or higher of plone.app.z3cform.
