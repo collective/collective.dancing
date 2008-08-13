@@ -8,11 +8,9 @@
       <property
          name="url_expr">string:${object/absolute_url}/send-newsletter.html</property>
       <property name="icon_expr"></property>
-      <property
-         name="available_expr">python:checkPermission("Manage Portal", object)
-      </property>
+      <property name="available_expr"></property>
       <property name="permissions">
-        <element value="Manage portal"/>
+        <element value="collective.dancing: Preview newsletter"/>
       </property>
       <property name="visible">True</property>
     </object>

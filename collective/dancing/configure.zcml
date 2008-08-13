@@ -85,6 +85,5 @@
   <five:implements
      class=".channel.PortalNewsletters"
      interface="plone.portlets.interfaces.ILocalPortletAssignable" />
-  
-  
+
 </configure>
