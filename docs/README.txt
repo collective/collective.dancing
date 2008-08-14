@@ -56,6 +56,15 @@ Newsletter templates
 .. image:: http://danielnouri.org/media/singing-dancing.jpg
    :alt: Singing & Dancing Logo by Giuseppe Zizza
 
+Screenshots
+===========
+
+A `walk-through with more than 30 screenshots is available online
+<http://groups.google.com/group/singing-dancing/web/singing-dancing-screenshots>`_.
+This should give you a good idea of what Singing & Dancing is capable
+of, and also guide you through the steps necessary to get you set up
+and dancing!
+
 Installation
 ============
 
