@@ -11,6 +11,7 @@
       <property name="available_expr"></property>
       <property name="permissions">
         <element value="collective.dancing: Preview newsletter"/>
+        <element value="collective.dancing: Manage newsletters"/>
       </property>
       <property name="visible">True</property>
     </object>
