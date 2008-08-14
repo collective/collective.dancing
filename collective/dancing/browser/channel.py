@@ -395,11 +395,14 @@ class UploadForm(crud.AddForm):
     
     @property
     def fields(self):
-        subscriberdata = schema.Bytes(__name__ = 'subscriberdata',
+        subscriberdata = schema.Bytes(
+            __name__ = 'subscriberdata',
             title=_(u"Subscribers"),
-            description=_(u"Upload your csv-file. Subscribers will be added to existing ones. Subscribers found both in file and s&d will be overwritten from file. Lines should contain:") + ' ' + \
-                ';'.join(field.Fields(self.context.composer.schema).keys())
-            ) 
+            description=_(u"""\
+Upload a CSV file with a list of subscribers here.  Subscribers
+already present in the database will be overwritten.  Each line should
+contain: """ +  '; '.join(field.Fields(self.context.composer.schema).keys())
+            ))
         return field.Fields(subscriberdata,)
    
     @property
