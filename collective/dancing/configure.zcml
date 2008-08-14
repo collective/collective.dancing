@@ -16,10 +16,11 @@
       interface="Products.CMFCore.interfaces.IDirectoryView"
       class="Products.CMFCore.FSPythonScript.FSPythonScript" />
 
-  <include package=".browser" />
-
   <include file="mail.zcml" />
+  <include file="permissions.zcml" />
   <include file="upgrades.zcml" />
+
+  <include package=".browser" />
 
   <!-- Make this package a Zope 2 product -->
   <five:registerPackage package="." initialize=".initialize" />

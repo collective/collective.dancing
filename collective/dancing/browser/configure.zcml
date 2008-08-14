@@ -69,70 +69,70 @@
       name="index_html"
       for="collective.dancing.channel.IPortalNewsletters"
       class=".controlpanel.ControlPanelView"
-      permission="cmf.ManagePortal"
+      permission="dancing.ManageNewsletters"
       />
 
   <page
       name="newsletter-stats.html"
       for="collective.dancing.channel.ChannelContainer"
       class=".stats.StatsView"
-      permission="cmf.ManagePortal"
+      permission="dancing.ManageNewsletters"
       />
 
   <page
       name="index_html"
       for="collective.dancing.channel.ChannelContainer"
       class=".channel.ChannelAdministrationView"
-      permission="cmf.ManagePortal"
+      permission="dancing.ManageNewsletters"
       />
 
   <page
       name="manage_subscriptions_html"
       for="collective.singing.interfaces.IChannel"
       class=".channel.SubscriptionsAdministrationView"
-      permission="cmf.ManagePortal"
+      permission="dancing.ManageNewsletters"
       />
 
   <page
       name="index_html"
       for="collective.singing.interfaces.IChannel"
       class=".channel.ManageChannelView"
-      permission="cmf.ManagePortal"
+      permission="dancing.ManageNewsletters"
       />
 
   <page
       name="index_html"
       for="collective.dancing.collector.CollectorContainer"
       class=".collector.CollectorAdministrationView"
-      permission="cmf.ManagePortal"
+      permission="dancing.ManageNewsletters"
       />
 
   <page
       name="index_html"
       for="collective.dancing.collector.Collector"
       class=".collector.RootCollectorEditView"
-      permission="cmf.ManagePortal"
+      permission="dancing.ManageNewsletters"
       />
   
   <page
       name="index_html"
       for="collective.singing.collector.IFilteredSubjectsCollectorBase"
       class=".collector.FilteredCollectorEditView"
-      permission="cmf.ManagePortal"
+      permission="dancing.ManageNewsletters"
       />
 
   <page
       name="index_html"
       for="collective.singing.interfaces.IScheduler"
       class=".scheduler.PeriodicSchedulerEditView"
-      permission="cmf.ManagePortal"
+      permission="dancing.ManageNewsletters"
       />
 
   <page
       name="index_html"
       for="collective.singing.scheduler.TimedScheduler"
       class=".scheduler.TimedSchedulerEditView"
-      permission="cmf.ManagePortal"
+      permission="dancing.ManageNewsletters"
       />
       
   <page
@@ -197,14 +197,14 @@
      name="send-newsletter.html"
      for="*"
      class=".sendnewsletter.SendAsNewsletterView"
-     permission="cmf.ManagePortal"
+     permission="dancing.SendAsNewsletter"
      />
 
   <page
      name="preview-newsletter.html"
      for="*"
      class=".preview.PreviewNewsletterView"
-     permission="cmf.ManagePortal"
+     permission="dancing.PreviewNewsletter"
      />
 
 
@@ -212,7 +212,7 @@
      name="dancing.utils"
      for="*"
      class=".utils.DancingUtilsView"
-     permission="cmf.ManagePortal"
+     permission="dancing.ManageNewsletters"
      allowed_interface=".utils.IDancingUtilsView"
      />
 
