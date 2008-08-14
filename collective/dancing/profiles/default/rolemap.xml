@@ -8,10 +8,12 @@
     
         <permission name="collective.dancing: Preview newsletter" acquire="False">
             <role name="Reviewer" />
+            <role name="Manager" />
         </permission>
     
         <permission name="collective.dancing: Send as newsletter" acquire="False">
             <role name="Reviewer" />
+            <role name="Manager" />
         </permission>
     
     </permissions>
