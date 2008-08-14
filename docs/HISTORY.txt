@@ -4,6 +4,11 @@ History
 Version 0.5.1 - Unreleased
 --------------------------
 
+- Added permissions to send, preview and manage newsletter. No upgrade
+  steps required - just reinstall. By default - send and preview is 
+  allowed to reviewer and manager role, manage newsletters for 
+  managers only. [saily]
+
 Version 0.5.0 - 2008-07-29
 --------------------------
 
