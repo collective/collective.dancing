@@ -1,13 +1,19 @@
 import os
 from setuptools import setup, find_packages
+from xml.dom.minidom import parse
 
-version = '0.5.1'
+def readversion():
+    mdfile = os.path.join(os.path.dirname(__file__), 'collective', 'dancing', 
+                          'profiles', 'default', 'metadata.xml')
+    metadata = parse(mdfile)
+    assert metadata.documentElement.tagName == "metadata"
+    return metadata.getElementsByTagName("version")[0].childNodes[0].data
 
 def read(*pathnames):
     return open(os.path.join(os.path.dirname(__file__), *pathnames)).read()
 
 setup(name='collective.dancing',
-      version=version,
+      version=readversion().strip(),
       description="The all-singing all-dancing newsletter product for Plone.",
       long_description='\n'.join([
           read('docs', 'README.txt'),
