@@ -515,7 +515,7 @@ class UploadForm(crud.AddForm):
                 
         if notadded:
             msg = _(u"${numberadded} subscriptions updated successfully. "
-                    u"${numberremoved} were removed. "
+                    u"${numberremoved} removed. "
                     u"${numbernotadded} could not be added. "
                     u"(${errorcandidates})",
                     mapping=dict(numbernotadded=str(notadded),
@@ -525,7 +525,7 @@ class UploadForm(crud.AddForm):
                     )
         elif removed > 0:
             msg = _(u"${numberadded} subscriptions updated successfully, "
-                    u"${numberremoved} were removed!", 
+                    u"${numberremoved} removed!", 
                     mapping=dict(numberadded=str(added),
                                  numberremoved=str(removed))
                     )
