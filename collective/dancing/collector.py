@@ -128,7 +128,6 @@ class Collector(OFS.Folder.Folder):
         self.optional = False
         super(Collector, self).__init__()
 
-    @property
     def Title(self):
         return self.title
 
