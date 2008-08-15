@@ -3,7 +3,7 @@ import cStringIO
 import datetime
 from DateTime import DateTime
 import sys
-
+import sets
 from zope import interface
 from zope import component
 from zope import schema
@@ -360,7 +360,7 @@ def parseSubscriberCSVFile(subscriberdata, composer):
         errorcandidates = []
         for parsedline in reader:
             if len(parsedline)<len(field.Fields(composer.schema)):
-                pass                
+                pass
             else:
                 try:
                     subscriber = dict(zip(field.Fields(composer.schema).keys(),\
@@ -378,10 +378,13 @@ class ExportCSV(BrowserView):
 
     def __call__(self):
         properties = component.getUtility(IPropertiesTool)
-        charset = properties.site_properties.getProperty('default_charset', 'utf-8').upper()
-        self.request.response.setHeader('Content-Type', 'text/csv; charset=%s' % charset)
+        charset = properties.site_properties.getProperty('default_charset', 
+                                                         'utf-8').upper()
+        self.request.response.setHeader('Content-Type', 
+                                        'text/csv; charset=%s' % charset)
         self.request.response.setHeader('Content-disposition',
-            'attachment; filename=subscribers_%s_%s.csv' % (self.context.id, datetime.date.today().strftime("%Y%m%d")))
+            'attachment; filename=subscribers_%s_%s.csv' % (self.context.id, 
+                                      datetime.date.today().strftime("%Y%m%d")))
         res = cStringIO.StringIO()
         writer = csv.writer(res, dialect=csv.excel)
         for format in self.context.composers.keys():
@@ -398,64 +401,138 @@ class UploadForm(crud.AddForm):
         subscriberdata = schema.Bytes(
             __name__ = 'subscriberdata',
             title=_(u"Subscribers"),
-            description=_(u"""\
-Upload a CSV file with a list of subscribers here.  Subscribers
-already present in the database will be overwritten.  Each line should
-contain: """ +  '; '.join(field.Fields(self.context.composer.schema).keys())
-            ))
-        return field.Fields(subscriberdata,)
+            description=_(u"Upload a CSV file with a list of subscribers here. "
+                          u"Subscribers already present in the database will "
+                          u"be overwritten. Each line should contain:") + ' ' + \
+                     ';'.join(field.Fields(self.context.composer.schema).keys())
+        ) 
+        remove = schema.Bool(__name__ = 'removenonexisting',
+            title=_(u"Remove non-existing"),
+            description=_(u"If selected and a subscriber exists in the "
+                          u"database, but is not part of the uploaded file, "
+                          u"the subscriber will be removed from the list."),
+            default = False
+        ) 
+        return field.Fields(subscriberdata, remove)
    
     @property
     def mychannel(self):
         return self.context.context
         
     def _releaseSubscribers(self):
+        # UNUSED CODE?
         subs = self.mychannel.subscriptions.query(format=self.context.format)
         for subscription in subs:
             self.mychannel.subscriptions.remove_subscription(subscription)
+            
+    def _removeSubscription(self, secret):
+        current = self.mychannel.subscriptions
+        """Removes subscription based on secret.
+        """
+        old_subscription = current.query(format=self.context.format, 
+                                        secret=secret)                
+        if not len(old_subscription):
+            return None
+        old_subscription = tuple(old_subscription)
+        old_collector_data = old_subscription[0].collector_data
+        for sub in old_subscription:
+            current.remove_subscription(sub)
+        return old_subscription
 
     def _addItem(self, data):
         """add item and return message
+
+        @param data: the form data        
+        @return status as i18n aware unicode
         
         if a subscription with same email is found, we delete this first
-        but keep selection of options"""
+        but keep selection of options.
+        
+        if remove-non-existing in the form was found, all existing subscriptions
+        not found in the CSV file are removed.
+        """
 
         metadata = dict(format=self.context.format,
                         date=datetime.datetime.now())
 
         subscriberdata = data.get('subscriberdata', None)
-        if subscriberdata:  
-            subscribers, errorcandidates = parseSubscriberCSVFile(subscriberdata, self.context.composer)
-            if type(subscribers)==type([]):
-                added = 0
-                notadded = len(errorcandidates)
-                for subscriber_data in subscribers:
-                    secret = collective.singing.subscribe.secret(self.mychannel, self.context.composer, subscriber_data, self.context.request)
-                    try:
-                        old_subscription = self.mychannel.subscriptions.query(format=self.context.format, secret=secret)
-                        if len(old_subscription):
-                            old_collector_data = tuple(old_subscription)[0].collector_data                        
-                        for sub in old_subscription:
-                            self.mychannel.subscriptions.remove_subscription(sub)
-                        item = self.mychannel.subscriptions.add_subscription(self.mychannel, secret, subscriber_data, [], metadata)
-                        # restore section selection
-                        if len(old_subscription):
-                            if 'selected_collectors' in old_collector_data and old_collector_data['selected_collectors']:
-                                item.collector_data = old_collector_data
-                        added += 1
-                    except:
-                        errorcandidates.append(subscriber_data.get('email', _(u'Unknown')))
-                        notadded += 1 
-                if notadded:
-                    msg = _(u"${numberadded} subscriptions updated successfully. ${numbernotadded} could not be added. (${errorcandidates})",
-                                mapping=dict(numbernotadded=str(notadded),
-                                errorcandidates=','.join(errorcandidates),
-                                numberadded=str(added)))
-                else:
-                    msg = _(u"${numberadded} subscriptions updated successfully. No errors.", mapping=dict(numberadded=str(added),))
-                    
-                return msg
-        return _(u"File has not correct format.")
+        remove = data.get('removenonexisting', False)
+        errormessage = _(u"File has not correct format.")
+        if not subscriberdata:              
+            return errormessage
+        subscribers, errorcandidates = parseSubscriberCSVFile(subscriberdata, 
+                                                          self.context.composer)
+        if not type(subscribers)==type([]):
+            return errormessage
+        added = 0
+        new_and_updated = sets.Set()
+        notadded = len(errorcandidates)
+        current = self.mychannel.subscriptions
+        if remove:
+            old = sets.Set([sub.composer_data['email'] \
+                            for sub in current.values()])
+        for subscriber_data in subscribers:
+            secret = collective.singing.subscribe.secret(self.mychannel, 
+                                                         self.context.composer, 
+                                                         subscriber_data, 
+                                                         self.context.request)
+            try:
+                old_subscription = self._removeSubscription(secret)
+                item = current.add_subscription(self.mychannel, secret, 
+                                                subscriber_data, [], metadata)
+                new_and_updated.update([subscriber_data['email']])
+                # restore section selection                
+                if old_subscription is not None:
+                    old_collector_data = old_subscription[0].collector_data  
+                    if 'selected_collectors' in old_collector_data \
+                       and old_collector_data['selected_collectors']:
+                        item.collector_data = old_collector_data
+                added += 1
+            except Exception, e: # XXX refine which exceptions we want to catch
+                # TODO; put some information about error e into the message
+                errorcandidates.append(subscriber_data.get('email', 
+                                                           _(u'Unknown')))
+                notadded += 1 
+        removed = 0
+        if remove:
+            remove = old.difference(new_and_updated)
+            for email in tuple(remove):
+                subscriber_data = { 'email': email, }
+                cdata = tuple(old_subscription)[0].composer_data
+                if 'name' in cdata:
+                    subscriber_data['name'] = cdata['name']
+                secret = collective.singing.subscribe.secret(self.mychannel, 
+                                                         self.context.composer, 
+                                                         subscriber_data, 
+                                                         self.context.request)
+                old_subscription = current.query(format=self.context.format, 
+                                                 secret=secret)                
+                if not len(old_subscription):
+                    continue
+                state = self._removeSubscription(secret)
+                if state is not None:
+                    removed += 1
+                
+        if notadded:
+            msg = _(u"${numberadded} subscriptions updated successfully. "
+                    u"${numberremoved} were removed. "
+                    u"${numbernotadded} could not be added. "
+                    u"(${errorcandidates})",
+                    mapping=dict(numbernotadded=str(notadded),
+                                 numberremoved=str(removed),
+                                 errorcandidates=','.join(errorcandidates),
+                                 numberadded=str(added))
+                    )
+        elif removed > 0:
+            msg = _(u"${numberadded} subscriptions updated successfully, "
+                    u"${numberremoved} were removed!", 
+                    mapping=dict(numberadded=str(added),
+                                 numberremoved=str(removed))
+                    )
+        else:
+            msg = _(u"${numberadded} subscriptions updated successfully!",
+                    mapping=dict(numberadded=str(added),))        
+        return msg
 
     @z3c.form.button.buttonAndHandler(_('Upload'), name='upload')
     def handle_add(self, action):
@@ -473,7 +550,8 @@ contain: """ +  '; '.join(field.Fields(self.context.composer.schema).keys())
     @z3c.form.button.buttonAndHandler(_('Download'), name='download')
     def handle_download(self, action):
         self.status = _(u"Subscribers exported.")
-        return self.request.response.redirect(self.mychannel.absolute_url() + '/export')            
+        return self.request.response.redirect(self.mychannel.absolute_url() + \
+                                              '/export')            
             
 class ManageUploadForm(crud.CrudForm): 
     description = _(u"Upload list of subscribers.")
