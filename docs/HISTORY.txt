@@ -1,8 +1,14 @@
 History
 =======
 
-Version 0.5.1 - Unreleased
+Version 0.5.2 - Unreleased
 --------------------------
+
+Version 0.5.1 - 2008-08-15
+--------------------------
+
+- Fixed a bug where a collector would have a ``Title`` property; this
+  should be a method. [malthe]
 
 - Added permissions to send, preview and manage newsletter. No upgrade
   steps required - just reinstall. By default - send and preview is 
