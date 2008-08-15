@@ -59,11 +59,9 @@ Newsletter templates
 Screenshots
 ===========
 
-A `walk-through with more than 30 screenshots is available online
-<http://groups.google.com/group/singing-dancing/web/singing-dancing-screenshots>`_.
-This should give you a good idea of what Singing & Dancing is capable
-of, and also guide you through the steps necessary to get you set up
-and dancing!
+A `walk-through with screenshots`_ is available online, which should
+give you a good idea of what Singing & Dancing is capable of, and also
+guide you through the steps necessary to get you set up and dancing!
 
 Installation
 ============
@@ -221,6 +219,7 @@ Get in touch with us if you need help or have comments.  See the
 `Contact us`_ section.
 
 
+.. _walk-through with screenshots: http://groups.google.com/group/singing-dancing/web/singing-dancing-screenshots
 .. _Python eggs on PyPI: http://pypi.python.org/pypi/collective.dancing
 .. _depend: http://peak.telecommunity.com/DevCenter/setuptools#declaring-dependencies
 .. _buildout: http://pypi.python.org/pypi/zc.buildout
