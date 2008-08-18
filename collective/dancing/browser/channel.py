@@ -1,9 +1,9 @@
-import csv
 import cStringIO
 import datetime
 from DateTime import DateTime
 import sys
 import sets
+import csv
 from zope import interface
 from zope import component
 from zope import schema
@@ -17,6 +17,7 @@ import z3c.form.datamanager
 import z3c.form.term
 import z3c.form.button
 import OFS.SimpleItem
+from Globals import DevelopmentMode
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.interfaces import IPropertiesTool
@@ -308,7 +309,8 @@ class ChannelPreviewForm(z3c.form.form.Form):
         
         return self.request.response.redirect(
             self.context.absolute_url()+\
-            '/preview-newsletter.html?include_collector_items=%d' % collector_items)
+            '/preview-newsletter.html?include_collector_items=%d' % \
+            collector_items)
 
 class EditChannelForm(z3c.form.form.EditForm):
     """Channel edit form.
@@ -352,7 +354,8 @@ def parseSubscriberCSVFile(subscriberdata, composer):
 
     returns list of dictionaries with subscriber data according to composer"""
     properties = component.getUtility(IPropertiesTool)
-    charset = properties.site_properties.getProperty('default_charset', 'utf-8').upper()    
+    charset = properties.site_properties.getProperty('default_charset', 
+                                                     'utf-8').upper()    
     try:
         data = cStringIO.StringIO(subscriberdata)
         reader = csv.reader(data, delimiter=";")
@@ -364,7 +367,7 @@ def parseSubscriberCSVFile(subscriberdata, composer):
             else:
                 try:
                     subscriber = dict(zip(field.Fields(composer.schema).keys(),\
-                       map(lambda x:x.decode(charset),parsedline)))
+                       map(lambda x:x.decode(charset), parsedline)))
                     check_email(subscriber['email'])
                 except:
                     errorcandidates.append(subscriber['email'])
@@ -403,7 +406,7 @@ class UploadForm(crud.AddForm):
             title=_(u"Subscribers"),
             description=_(u"Upload a CSV file with a list of subscribers here. "
                           u"Subscribers already present in the database will "
-                          u"be overwritten. Each line should contain:") + ' ' + \
+                          u"be overwritten. Each line should contain:") + ' ' +\
                      ';'.join(field.Fields(self.context.composer.schema).keys())
         ) 
         remove = schema.Bool(__name__ = 'removenonexisting',
@@ -426,9 +429,9 @@ class UploadForm(crud.AddForm):
             self.mychannel.subscriptions.remove_subscription(subscription)
             
     def _removeSubscription(self, secret):
-        current = self.mychannel.subscriptions
         """Removes subscription based on secret.
         """
+        current = self.mychannel.subscriptions
         old_subscription = current.query(format=self.context.format, 
                                         secret=secret)                
         if not len(old_subscription):
@@ -440,7 +443,7 @@ class UploadForm(crud.AddForm):
         return old_subscription
 
     def _addItem(self, data):
-        """add item and return message
+        """imports csv and returns message
 
         @param data: the form data        
         @return status as i18n aware unicode
@@ -457,15 +460,14 @@ class UploadForm(crud.AddForm):
 
         subscriberdata = data.get('subscriberdata', None)
         remove = data.get('removenonexisting', False)
-        errormessage = _(u"File has not correct format.")
-        if not subscriberdata:              
-            return errormessage
+        if subscriberdata is None: 
+            return _(u"File was not given.")        
         subscribers, errorcandidates = parseSubscriberCSVFile(subscriberdata, 
                                                           self.context.composer)
         if not type(subscribers)==type([]):
-            return errormessage
+            return _(u"File has not correct format.")
         added = 0
-        new_and_updated = sets.Set()
+        new_and_updated = []
         notadded = len(errorcandidates)
         current = self.mychannel.subscriptions
         if remove:
@@ -480,7 +482,7 @@ class UploadForm(crud.AddForm):
                 old_subscription = self._removeSubscription(secret)
                 item = current.add_subscription(self.mychannel, secret, 
                                                 subscriber_data, [], metadata)
-                new_and_updated.update([subscriber_data['email']])
+                new_and_updated.append(subscriber_data['email'])
                 # restore section selection                
                 if old_subscription is not None:
                     old_collector_data = old_subscription[0].collector_data  
@@ -495,24 +497,12 @@ class UploadForm(crud.AddForm):
                 notadded += 1 
         removed = 0
         if remove:
-            remove = old.difference(new_and_updated)
-            for email in tuple(remove):
-                subscriber_data = { 'email': email, }
-                cdata = tuple(old_subscription)[0].composer_data
-                if 'name' in cdata:
-                    subscriber_data['name'] = cdata['name']
-                secret = collective.singing.subscribe.secret(self.mychannel, 
-                                                         self.context.composer, 
-                                                         subscriber_data, 
-                                                         self.context.request)
-                old_subscription = current.query(format=self.context.format, 
-                                                 secret=secret)                
-                if not len(old_subscription):
-                    continue
-                state = self._removeSubscription(secret)
-                if state is not None:
-                    removed += 1
-                
+            for email in old.difference(sets.Set(new_and_updated)):
+                for key in current.keys():
+                    if key.startswith(email):
+                        current.remove_subscription(current[key])
+                        removed += 1                                    
+                        break
         if notadded:
             msg = _(u"${numberadded} subscriptions updated successfully. "
                     u"${numberremoved} removed. "
@@ -543,9 +533,9 @@ class UploadForm(crud.AddForm):
         try:
             self.status = self._addItem(data)
         except Exception, e:
-            self.status = e
-            return
-            
+            if DevelopmentMode:
+                raise
+            self.status = e            
             
     @z3c.form.button.buttonAndHandler(_('Download'), name='download')
     def handle_download(self, action):
