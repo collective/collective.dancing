@@ -4,6 +4,11 @@ History
 Version 0.5.2 - Unreleased
 --------------------------
 
+- Use batching for the subscriptions management view.  Also, reshuffle
+  the order of tabs in the channel administration view.  Most notably:
+  move the "Subscriptions" tab to the first position to allow more
+  comfortable editing. [nouri]
+
 Version 0.5.1 - 2008-08-15
 --------------------------
 

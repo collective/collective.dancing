@@ -179,6 +179,7 @@ class ManageSubscriptionsForm(crud.CrudForm):
     format = None 
     composer = None
 
+    batch_size = 10
     description = _(u"Manage or add subscriptions.")
 
     @property
@@ -633,34 +634,32 @@ class ManageChannelView(BrowserView):
 
         fieldsets = []
 
-        fieldsets.append((_(u"Preview"), self.preview_form(self.context, self.request)()))
-        fieldsets.append((_(u"Edit"), self.edit_form(self.context, self.request)()))
-
+        # Add the subscriptions tab:
         forms = []
         for format, composer in self.context.composers.items():
-            form = ManageUploadForm(self.context, self.request)
-            form.format = format
-            form.composer = composer
-            forms.append(form)
-            
             form = ManageSubscriptionsForm(self.context, self.request)
             form.format = format
             form.composer = composer
             forms.append(form)            
-        fieldsets.append((_(u"Subscriptions"), '\n'.join([form() for form in forms])))
-        
-        fieldsets.append((_(u"Composers"), self.composers_form(self.context, self.request)()))
 
-        wrapper = """\
-        <dl class="enableFormTabbing">
-          %s
-        </dl>"""
-        
-        template = """\
+            form = ManageUploadForm(self.context, self.request)
+            form.format = format
+            form.composer = composer
+            forms.append(form)
+        fieldsets.append((_(u"Subscriptions"), '\n'.join([form() for form in forms])))
+
+        # Add edit, composers and preview tabs:
+        fieldsets.append((_(u"Edit"), self.edit_form(self.context, self.request)()))
+        fieldsets.append((_(u"Composers"), self.composers_form(self.context, self.request)()))
+        fieldsets.append((_(u"Preview"), self.preview_form(self.context, self.request)()))
+
+        wrapper = """<dl class="enableFormTabbing">%s</dl>"""
+        template = """
         <dt id="fieldsetlegend-%d">%s</dt>
         <dd id="fieldset-%d">
           %s
-        </dd>"""
+        </dd>
+        """
         
         return wrapper % \
                ("\n".join((template % (id(msg), zope.i18n.translate(msg), id(msg), html)

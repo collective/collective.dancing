@@ -102,3 +102,11 @@ fieldset.subforms {
 .row .field .widget .option{
     display: block;
 }
+
+.batch-navigation {
+    text-align: center;
+}
+
+.batch-navigation li {
+    display: inline;
+}
