@@ -41,7 +41,7 @@ setup(name='collective.dancing',
       install_requires=[
           'setuptools',
           'collective.singing>=0.6dev',
-          'plone.z3cform>=0.4dev',
+          'plone.z3cform>=0.5.2dev',
           'plone.app.z3cform>=0.3dev',
           'five.intid',
           'StoneageHTML',
