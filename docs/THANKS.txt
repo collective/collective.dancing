@@ -1,3 +1,6 @@
+Thanks
+======
+
 Thanks to the following people for support, code, patches, etc:
 
   - Alec Mitchell
@@ -6,10 +9,12 @@ Thanks to the following people for support, code, patches, etc:
   - David Picó
   - Giuseppe Zizza
   - Jakob Bartholdy Bruun
+  - Jens W. Klein
   - Katja Süss
   - Malthe Borch
   - Maurizio Delmonte
   - Peter Holzer
+  - Ross Patterson
   - Russ Ferriday
   - Sune Toft
   - Vincenzo Barone

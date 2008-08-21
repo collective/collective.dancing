@@ -1,8 +1,10 @@
 History
 =======
 
-Version 0.5.2 - Unreleased
+Version 0.6.0 - Unreleased
 --------------------------
+
+- Update to use Singing's new IMessageAssemble API. [nouri]
 
 - Use batching for the subscriptions management view.  Also, reshuffle
   the order of tabs in the channel administration view.  Most notably:

@@ -17,6 +17,7 @@ setup(name='collective.dancing',
       description="The all-singing all-dancing newsletter product for Plone.",
       long_description='\n'.join([
           read('docs', 'README.txt'),
+          read('docs', 'THANKS.txt'),
           read('docs', 'HISTORY.txt'),
           ]),
       classifiers=[
@@ -39,7 +40,7 @@ setup(name='collective.dancing',
       # 2 environment, try the `fakezope2eggs` recipe
       install_requires=[
           'setuptools',
-          'collective.singing>=0.5dev',
+          'collective.singing>=0.6dev',
           'plone.z3cform>=0.4dev',
           'plone.app.z3cform>=0.3dev',
           'five.intid',

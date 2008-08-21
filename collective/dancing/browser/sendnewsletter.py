@@ -19,7 +19,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone.z3cform import z2
 import collective.singing.channel
-import collective.singing.scheduler
+import collective.singing.interfaces
 
 from collective.dancing.composer import FullFormatWrapper
 from collective.dancing.browser.interfaces import ISendAndPreviewForm
@@ -56,8 +56,8 @@ class SendAsNewsletterForm(form.Form):
 
         queued = 0
         for channel in channels:
-            queued += collective.singing.scheduler.assemble_messages(
-                channel,
+            assembler = collective.singing.interfaces.IMessageAssemble(channel)
+            queued += assembler(
                 self.request,
                 (FullFormatWrapper(self.context),),                
                 include_collector_items)
@@ -98,6 +98,7 @@ class SendAsNewsletterForm(form.Form):
 
         queued = 0
         for channel in channels:
+            assembler = collective.singing.interfaces.IMessageAssemble(channel)
             subs = channel.subscriptions.query(key=address)
             if len(subs) == 0:
                 self.status = _(
@@ -106,8 +107,7 @@ class SendAsNewsletterForm(form.Form):
                 continue
 
             for sub in subs:
-                collective.singing.scheduler.render_message(
-                    channel,
+                assembler.render_message(
                     self.request,
                     sub,
                     (FullFormatWrapper(self.context),),                

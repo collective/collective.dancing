@@ -11,7 +11,7 @@ from collective.dancing.composer import FullFormatWrapper
 from collective.singing.channel import lookup
 from collective.singing.interfaces import ISubscription
 from collective.singing.interfaces import IChannel
-from collective.singing.scheduler import render_message
+from collective.singing.interfaces import IMessageAssemble
 
 from collective.dancing import MessageFactory as _
 
@@ -55,8 +55,7 @@ class PreviewNewsletterView(BrowserView):
         # the queue.
         sp = transaction.savepoint()
 
-        message = render_message(
-            channel,
+        message = IMessageAssemble(channel).render_message(
             self.request,
             sub,
             items,
