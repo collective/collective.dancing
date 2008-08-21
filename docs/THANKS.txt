@@ -6,11 +6,11 @@ Thanks to the following people for support, code, patches, etc:
   - Alec Mitchell
   - Anton Stonor
   - Daniel Widerin
-  - David Picó
+  - David Pico
   - Giuseppe Zizza
   - Jakob Bartholdy Bruun
   - Jens W. Klein
-  - Katja Süss
+  - Katja Suess
   - Malthe Borch
   - Maurizio Delmonte
   - Peter Holzer
