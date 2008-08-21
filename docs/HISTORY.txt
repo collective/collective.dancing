@@ -1,7 +1,10 @@
 History
 =======
 
-Version 0.6.0 - Unreleased
+Version 0.6.1 - Unreleased
+--------------------------
+
+Version 0.6.0 - 2008-08-21
 --------------------------
 
 - Update to use Singing's new IMessageAssemble API. [nouri]
