@@ -10,7 +10,7 @@ Version 0.6.1 - 2008-08-22
 - On reinstall, advise QuickInstaller not to delete the five.intid
   tool that we set up during installation.  This fixes the brokenness
   of the subscription catalogs after a reinstall.  A typical error
-  you'd look like::
+  you'd see would look like::
 
     ...
      Module collective.singing.subscribe, line 227, in subscription_modified
