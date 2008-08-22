@@ -511,7 +511,7 @@ class UploadForm(crud.AddForm):
                     u"(${errorcandidates})",
                     mapping=dict(numbernotadded=str(notadded),
                                  numberremoved=str(removed),
-                                 errorcandidates=','.join(errorcandidates),
+                                 errorcandidates=', '.join(errorcandidates),
                                  numberadded=str(added))
                     )
         elif removed > 0:
