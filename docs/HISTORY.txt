@@ -1,7 +1,10 @@
 History
 =======
 
-Version 0.6.1 - Unreleased
+Version 0.6.2 - Unreleased
+--------------------------
+
+Version 0.6.1 - 2008-08-22
 --------------------------
 
 - On reinstall, advise QuickInstaller not to delete the five.intid
@@ -17,7 +20,7 @@ Version 0.6.1 - Unreleased
     KeyError: <SimpleSubscription ...
 
   No migration is available at this point.  Contact us if you need
-  help with writing one.  Note that the use of QuickInstaller
+  help writing one.  Note that the use of QuickInstaller
   reinstallation isn't required with Singing & Dancing.  For how to
   run upgrades from one version to the next, please see the
   `Upgrades`_ section.  A QuickInstaller reinstallation will not run
