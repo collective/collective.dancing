@@ -17,14 +17,14 @@ Version 0.6.1 - 2008-08-22
      Module collective.singing.subscribe, line 214, in _catalog_subscription
      Module five.intid.intid, line 36, in getId
      Module zope.app.intid, line 86, in getId
-    KeyError: <SimpleSubscription ...
+    KeyError: SimpleSubscription ...
 
   No migration is available at this point.  Contact us if you need
   help writing one.  Note that the use of QuickInstaller
   reinstallation isn't required with Singing & Dancing.  For how to
-  run upgrades from one version to the next, please see the
-  `Upgrades`_ section.  A QuickInstaller reinstallation will not run
-  these upgrades for you.  [nouri]
+  run upgrades from one version to the next, please see the Upgrade_
+  section.  A QuickInstaller reinstallation will not run these
+  upgrades for you.  [nouri]
 
 Version 0.6.0 - 2008-08-21
 --------------------------
