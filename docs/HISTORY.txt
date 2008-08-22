@@ -4,6 +4,15 @@ History
 Version 0.6.2 - Unreleased
 --------------------------
 
+- changed batch_size in browser/channel.py to 30 to stay at plone's 
+  default. [saily]
+
+- german translation updated. [saily]
+
+- rebuild of collective.dancing.pot using i18ndude. Some translation
+  updates needed. [saily]
+
+
 Version 0.6.1 - 2008-08-22
 --------------------------
 
