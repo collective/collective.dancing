@@ -397,7 +397,7 @@ msgstr "Kopfzeile des Portlets"
 
 #: browser/channel.py:654
 msgid "Preview"
-msgstr "Vorschau versenden"
+msgstr "Vorschau senden"
 
 #: browser/portlets/channelsubscribe.py:207
 msgid "Proceed"
