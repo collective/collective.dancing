@@ -179,7 +179,7 @@ class ManageSubscriptionsForm(crud.CrudForm):
     format = None 
     composer = None
 
-    batch_size = 10
+    batch_size = 30
     description = _(u"Manage or add subscriptions.")
 
     @property
