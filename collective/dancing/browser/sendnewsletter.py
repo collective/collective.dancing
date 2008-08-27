@@ -151,8 +151,9 @@ class SendAsNewsletterView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
 
     def label(self):
+        site_encoding = self.context.plone_utils.getSiteEncoding()
         return _(u'Send ${item} as newsletter',
-                 mapping=dict(item=self.context.title))
+                 mapping=dict(item=self.context.title.decode(site_encoding)))
 
     def contents(self):
         z2.switch_on(self,
