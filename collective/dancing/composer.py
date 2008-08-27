@@ -276,7 +276,12 @@ class PloneCallHTMLFormatter(object):
         self.item = item
 
     def __call__(self):
-        html = self.item()
+        try:
+            html = self.item()
+        except:
+            # Simple calling does not work if layout
+            # is a view, we can try a little harder...
+            html = self.item.unrestrictedTraverse(self.item.getLayout())()
         if 'kss' in html:
             return plone_html_strip(html)
         else:
