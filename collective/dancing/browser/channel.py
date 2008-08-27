@@ -172,6 +172,39 @@ class ChannelAdministrationView(BrowserView):
         z2.switch_on(self)
         return ManageChannelsForm(self.context.channels, self.request)()
 
+class SearchForm(crud.AddForm):
+    """Search form for subscriptions.
+    """
+    
+    @property
+    def fields(self):
+        keyword = schema.TextLine(
+                        __name__ = 'keyword',
+                        required=0,
+                        title=_(u"E-mail address"),
+                        )
+
+        return field.Fields(keyword)
+   
+    @z3c.form.button.buttonAndHandler(_('Search'), name='search')
+    def handle_search(self, action):
+        # nothing to do here
+        pass
+
+class ManageSearchForm(crud.CrudForm):
+    label = _(u"Search")
+    description = _(u"search for subscribed e-mail addresses.")
+    
+    format = None 
+    composer = None
+    
+    editform_factory = crud.NullForm
+    addform_factory = SearchForm
+
+    @property
+    def prefix(self):
+        return self.format
+
 class ManageSubscriptionsForm(crud.CrudForm):
     """Crud form for subscriptions.
     """
@@ -202,8 +235,26 @@ class ManageSubscriptionsForm(crud.CrudForm):
 
     def get_items(self):
         subscriptions = self.context.subscriptions
+        # TODO: this should be done more pretty
+        search_keyword = self.request.form.get('crud-add.html.widgets.keyword')
+        
+        subscribers = tuple()
+        
+        if search_keyword:
+            try:
+                # i've tried to use fulltext, but did not get any result on 
+                # fulltext search. the adapter should index all composer fields
+                # but for me the catalog query always returned an empty tuple.
+                subscribers = [(item.composer_data['email'], item) for 
+                                item in subscriptions.query(key=str(search_keyword))]
+            except ParseError:
+                self.status = _(u"Please provide more than one letter.")
+        
+        if not subscribers:
+            subscribers = subscriptions.items()
+        
         items = []
-        for name, subscription in subscriptions.items():
+        for name, subscription in subscribers:
             if subscription.metadata['format'] == self.format:
                 items.append((str(name), subscription))
         return items
@@ -278,6 +329,7 @@ class SubscriptionsAdministrationView(BrowserView):
             form.format = format
             form.composer = composer
             forms.append(form)
+            
         return '\n'.join([form() for form in forms])
 
 class ChannelPreviewForm(z3c.form.form.Form):
@@ -393,7 +445,7 @@ class ExportCSV(BrowserView):
         writer = csv.writer(res, dialect=csv.excel)
         for format in self.context.composers.keys():
             for subscription in tuple(self.context.subscriptions.query(format=format)):
-                row = [v.encode(charset) for v in subscription.composer_data.values()]
+                row = [(v and v.encode(charset) or '') for v in subscription.composer_data.values()]
                 writer.writerow(row)
         return res.getvalue()
                                 
@@ -556,8 +608,7 @@ class ManageUploadForm(crud.CrudForm):
     @property
     def prefix(self):
         return self.format
-    
-
+   
 class EditComposersForm(z3c.form.form.EditForm):
     """
     """
@@ -637,15 +688,22 @@ class ManageChannelView(BrowserView):
         # Add the subscriptions tab:
         forms = []
         for format, composer in self.context.composers.items():
+
+            form = ManageSearchForm(self.context, self.request)
+            form.format = format
+            form.composer = composer
+            forms.append(form)
+
             form = ManageSubscriptionsForm(self.context, self.request)
             form.format = format
             form.composer = composer
             forms.append(form)            
-
+            
             form = ManageUploadForm(self.context, self.request)
             form.format = format
             form.composer = composer
             forms.append(form)
+            
         fieldsets.append((_(u"Subscriptions"), '\n'.join([form() for form in forms])))
 
         # Add edit, composers and preview tabs:
