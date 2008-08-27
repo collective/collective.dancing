@@ -4,6 +4,9 @@ History
 Version 0.6.2 - Unreleased
 --------------------------
 
+- Fixed a bug in csv-export if you use more composer_data than just
+  email address. [saily]
+
 - Some people have reported that S&D is sending out duplicate mails on
   high-traffic newsletters.  I've added a ``StubSMTPMailer`` utility,
   which you can register conveniently in

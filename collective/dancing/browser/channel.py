@@ -393,7 +393,8 @@ class ExportCSV(BrowserView):
         writer = csv.writer(res, dialect=csv.excel)
         for format in self.context.composers.keys():
             for subscription in tuple(self.context.subscriptions.query(format=format)):
-                row = [v.encode(charset) for v in subscription.composer_data.values()]
+                row = [v and v.encode(charset) or '' for v in 
+                            subscription.composer_data.values()]
                 writer.writerow(row)
         return res.getvalue()
                                 
