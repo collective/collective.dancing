@@ -4,6 +4,14 @@ History
 Version 0.6.2 - Unreleased
 --------------------------
 
+- Some people have reported that S&D is sending out duplicate mails on
+  high-traffic newsletters.  I've added a ``StubSMTPMailer`` utility,
+  which you can register conveniently in
+  ``collective/dancing/mail.zcml``.  No mail will be sent out when
+  it's configured instead of the default one.  This allows you to
+  debug and fine-tune settings, e.g. those of your configured
+  ``mail:queuedDelivery`` component. [nouri]
+
 - changed batch_size in browser/channel.py to 30 to stay at plone's 
   default. [saily]
 
@@ -11,7 +19,6 @@ Version 0.6.2 - Unreleased
 
 - rebuild of collective.dancing.pot using i18ndude. Some translation
   updates needed. [saily]
-
 
 Version 0.6.1 - 2008-08-22
 --------------------------

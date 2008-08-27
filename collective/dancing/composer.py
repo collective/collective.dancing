@@ -1,9 +1,15 @@
+import atexit
+import datetime
+import logging
 import md5
 import re
+import os
 import smtplib
-import OFS
+import tempfile
 from email.Utils import formataddr
 from email.Header import Header
+
+import stoneagehtml
 
 import persistent
 from zope import interface
@@ -13,6 +19,7 @@ import zope.annotation.interfaces
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 import zope.app.component.hooks
 import zope.sendmail.interfaces
+import zope.sendmail.mailer
 import zope.publisher.interfaces.browser
 import Products.CMFCore.interfaces
 import Products.CMFPlone.interfaces
@@ -25,7 +32,7 @@ from collective.dancing import utils
 from interfaces import IFullFormatter
 from interfaces import IHTMLComposer
 
-import stoneagehtml
+logger = logging.getLogger('collective.singing')
 
 class InvalidEmailAddress(schema.ValidationError):
     _(u"Your e-mail address is invalid")
@@ -321,3 +328,39 @@ class SMTPMailer(object):
             connection.login(cfg['username'], cfg['password'])
         connection.sendmail(fromaddr, toaddrs, message)
         connection.quit()
+
+class StubSMTPMailer(zope.sendmail.mailer.SMTPMailer):
+    """An ISMPTMailer that'll only log what it would do.
+    """
+    logfile = None
+    sent = 0
+    recipients = set()
+
+    def __init__(self, *args, **kwargs):
+        super(StubSMTPMailer, self).__init__(*args, **kwargs)
+        path = os.path.join(tempfile.gettempdir(),
+                            'collective.dancing.StubSMTPMailer.log')
+        StubSMTPMailer.logfile = logfile = open(path, 'a')
+        
+        logger.info("%r logging to %s" % (self, path))
+        self.log("StubSMTPMailer starting to log.")
+
+    def send(self, fromaddr, toaddrs, message):
+        self.log("StubSMTPMailer.send From: %s, To: %s\n" % (fromaddr, toaddrs))
+        StubSMTPMailer.sent += 1
+        self.recipients.add(toaddrs)
+
+    @staticmethod
+    def log(msg):
+        StubSMTPMailer.logfile.write(
+            "%s: %s\n" % (datetime.datetime.now(), msg))
+        StubSMTPMailer.logfile.flush()
+
+@atexit.register
+def at_exit():
+    if StubSMTPMailer.logfile is None:
+        return
+    StubSMTPMailer.log(
+        "StubSMTPMailer shutting down, sent %s messages to %s recipients.\n" %
+        (StubSMTPMailer.sent, len(StubSMTPMailer.recipients)))
+    StubSMTPMailer.logfile.close()

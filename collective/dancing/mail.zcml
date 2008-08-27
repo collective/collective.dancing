@@ -10,6 +10,11 @@
   <!-- We define our own ISMTPMailer utility that fetches settings
        from the portal -->
   <utility name="plone.smtp" factory=".composer.SMTPMailer" />
+
+  <!-- This mailer will only log to a file instead of sending out mail. 
+       Use this for debugging:
+  <utility name="plone.smtp" factory=".composer.StubSMTPMailer" />
+  -->
   
   <!--  For mail delivery in deployment, consider using the
   ``queuedDeliver``.  ``./queue`` has to be a ``Maildir`` folder.
