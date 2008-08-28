@@ -1,7 +1,10 @@
 History
 =======
 
-Version 0.6.2 - Unreleased
+Version 0.6.3 - Unreleased
+--------------------------
+
+Version 0.6.2 - 2008-08-28
 --------------------------
 
 - Updated docs with information on how to configure
