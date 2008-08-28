@@ -110,6 +110,7 @@ that's built and ready to run.
          zope.testing
          zope.component
          zope.i18n
+         zope.sendmail
 
 3) Now that we're done editing the buildout configuration file, we can
    run buildout again::
@@ -176,6 +177,19 @@ password are ``admin``.
 instance.  The processing makes sure it's not invoked twice at the
 same time by using file locking.
 
+Configuring zope.sendmail to send out messages
+----------------------------------------------
+
+Singing & Dancing uses `zope.sendmail`_ to send out its mail.  S&D
+comes with a default configuration for ``zope.sendmail`` in its
+``collective/dancing/mail.zcml`` file.  This configuration will read
+SMTP parameters from your Plone site.
+
+Be warned however, that this default configuration is not suitable for
+high-volume newsletters.  The aforementioned configuration file
+contains an example configuration using ``mail:queuedDelivery`` that
+works much more reliable when dealing with a large number of mails.
+
 Upgrade
 =======
 
@@ -228,6 +242,7 @@ Get in touch with us if you need help or have comments.  See the
 .. _follow this tutorial: http://plone.org/documentation/tutorial/buildout
 .. _ClockServer: http://plope.com/software/ClockServer/
 .. _let us know: http://bugs.launchpad.net/singing-dancing/+filebug
+.. _zope.sendmail: http://pypi.python.org/pypi/zope.sendmail
 .. _mailing list: http://groups.google.com/group/singing-dancing
 .. _Freenode: http://freenode.net
 .. _interfaces.py: http://dev.plone.org/collective/browser/collective.singing/trunk/collective/singing/interfaces.py

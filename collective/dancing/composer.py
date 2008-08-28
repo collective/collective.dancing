@@ -12,6 +12,7 @@ from email.Header import Header
 import stoneagehtml
 
 import persistent
+from ZODB.POSException import ConflictError
 from zope import interface
 from zope import component
 from zope import schema
@@ -278,6 +279,8 @@ class PloneCallHTMLFormatter(object):
     def __call__(self):
         try:
             html = self.item()
+        except ConflictError:
+            raise
         except:
             # Simple calling does not work if layout
             # is a view, we can try a little harder...

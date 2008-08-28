@@ -5,7 +5,7 @@ These are browser-driven tests for the functionality provided by the
 ``collective.dancing`` package.
 
 Test Setup
------
+----------
 
   >>> from Testing.ZopeTestCase import user_password
   >>> from Products.Five.testbrowser import Browser
@@ -29,7 +29,7 @@ We want messages to be printed out instead of sending them:
   ...     def send(self, from_, to, message):
   ...         print '*MyMailDelivery sending*:'
   ...         print 'From:', decode_header(from_)[0][0]
-  ...         print 'To:', to
+  ...         print 'To:', ', '.join(to)
   ...         print 'Message follows:'
   ...         decoded = decodeMessageAsString(message)
   ...         print decoded

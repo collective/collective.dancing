@@ -4,6 +4,14 @@ History
 Version 0.6.2 - Unreleased
 --------------------------
 
+- Updated docs with information on how to configure
+  ``mail:queuedDelivery`` of ``zope.sendmail``. [nouri]
+
+- Make the ``PloneCallHTMLFormatter`` which is the fallback formatter
+  for all objects more robust. [tmog]
+
+- Improve internationalization with newsletter object titles. [tmog]
+
 - Fixed a bug in csv-export if you use more composer_data than just
   email address. [saily]
 
@@ -15,12 +23,12 @@ Version 0.6.2 - Unreleased
   debug and fine-tune settings, e.g. those of your configured
   ``mail:queuedDelivery`` component. [nouri]
 
-- changed batch_size in browser/channel.py to 30 to stay at plone's 
+- Changed batch_size in browser/channel.py to 30 to stay at Plone's
   default. [saily]
 
-- german translation updated. [saily]
+- German translation updated. [saily]
 
-- rebuild of collective.dancing.pot using i18ndude. Some translation
+- Rebuild of collective.dancing.pot using i18ndude. Some translation
   updates needed. [saily]
 
 Version 0.6.1 - 2008-08-22
