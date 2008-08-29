@@ -121,7 +121,22 @@ that's built and ready to run.
    install Singing & Dancing in your Plone site by visiting the
    *Add-on Products* site control panel.
 
-   Should these instructions not work for you, `contact us`_.
+Troubleshooting
+---------------
+
+Should these instructions not work for you, `contact us`_.
+
+Here's a list of the most common stumbling blocks:
+
+   - `ValueError: too many values to unpack <https://bugs.launchpad.net/singing-dancing/+bug/253377>`_
+
+   - `Products/Five/i18n.zcml uses namespace package in configure package directive <https://bugs.launchpad.net/zope2/+bug/228254>`_
+
+   - Should you see ``ImportError: Module
+     zope.app.component.metaconfigure has no global defaultLayer``
+     when starting up, make sure you have
+     ``plone.recipe.zope2install`` >= 2.2.  You may use buildout's
+     ``versions`` feature to tell it which version to use.
 
 It's installed.  What's next?
 -----------------------------
