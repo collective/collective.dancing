@@ -1,7 +1,10 @@
 History
 =======
 
-Version 0.6.3 - Unreleased
+Version 0.6.4 - Unreleased
+--------------------------
+
+Version 0.6.3 - 2008-09-01
 --------------------------
 
 - Have the S&D SMTPMailer subclass from zope.sendmail's.  This allows
