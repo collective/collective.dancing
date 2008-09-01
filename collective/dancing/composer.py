@@ -4,7 +4,6 @@ import logging
 import md5
 import re
 import os
-import smtplib
 import tempfile
 from email.Utils import formataddr
 from email.Header import Header
@@ -19,7 +18,6 @@ from zope import schema
 import zope.annotation.interfaces
 from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 import zope.app.component.hooks
-import zope.sendmail.interfaces
 import zope.sendmail.mailer
 import zope.publisher.interfaces.browser
 import Products.CMFCore.interfaces
@@ -312,14 +310,10 @@ class HTMLFormatItemFully(object):
 
         return view()
 
-class SMTPMailer(object):
+class SMTPMailer(zope.sendmail.mailer.SMTPMailer):
     """A mailer for use with zope.sendmail that fetches settings from
     the Plone site's configuration.
     """
-    interface.implements(zope.sendmail.interfaces.ISMTPMailer)
-
-    SMTP = smtplib.SMTP
-
     def _fetch_settings(self):
         root = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
         m = root.MailHost
@@ -329,13 +323,8 @@ class SMTPMailer(object):
                     password=m.smtp_pass or m.smtp_pwd or None,)
 
     def send(self, fromaddr, toaddrs, message):
-        cfg = self._fetch_settings()
-
-        connection = self.SMTP(cfg['hostname'], str(cfg['port']))
-        if cfg['username'] is not None and cfg['password'] is not None:
-            connection.login(cfg['username'], cfg['password'])
-        connection.sendmail(fromaddr, toaddrs, message)
-        connection.quit()
+        self.__dict__.update(self._fetch_settings())
+        return super(SMTPMailer, self).send(fromaddr, toaddrs, message)
 
 class StubSMTPMailer(zope.sendmail.mailer.SMTPMailer):
     """An ISMPTMailer that'll only log what it would do.

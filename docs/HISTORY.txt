@@ -4,6 +4,9 @@ History
 Version 0.6.3 - Unreleased
 --------------------------
 
+- Have the S&D SMTPMailer subclass from zope.sendmail's.  This allows
+  the use of TLS with the standard configuration and fixes #263271.
+
 Version 0.6.2 - 2008-08-28
 --------------------------
 
