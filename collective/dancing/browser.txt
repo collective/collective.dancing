@@ -1175,9 +1175,14 @@ have taken effect.
 
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *MyMailDelivery sending*:
-  From: Portal Master <master@domain.tld>
   ...
   (1, 0)
+
+  >>> msg = quopri.decodestring(MyMailDelivery.sent[-1])
+  >>> "From: Portal Master <master@domain.tld>" in msg
+  True
+  >>> "Reply-To: noreply@domain.tld" in msg
+  True
 
 If a channel has more formats, they will of course all be editable
 from this page.

@@ -128,7 +128,9 @@ class HTMLComposer(persistent.Persistent):
         vars['channel_title'] = subscription.channel.title
         vars['from_addr'] = self._from_address
         vars['to_addr'] = subscription.composer_data['email']
-        vars['replyto_addr'] = self.replyto_address
+        headers = vars['more_headers'] = {}
+        if self.replyto_address:
+            headers['Reply-To'] = self.replyto_address
 
         vars.update(self._more_vars(subscription))
         return vars
@@ -175,7 +177,8 @@ class HTMLComposer(persistent.Persistent):
             vars['subject'],
             html,
             from_addr=vars['from_addr'],
-            to_addr=vars['to_addr'])
+            to_addr=vars['to_addr'],
+            headers=vars.get('more_headers'))
 
         return collective.singing.message.Message(
             message, subscription)
@@ -195,7 +198,8 @@ class HTMLComposer(persistent.Persistent):
             vars['confirmation_subject'],
             html,
             from_addr=vars['from_addr'],
-            to_addr=vars['to_addr'])
+            to_addr=vars['to_addr'],
+            headers=vars.get('more_headers'))
 
         # status=None prevents message from ending up in any queue
         return collective.singing.message.Message(
@@ -216,7 +220,8 @@ class HTMLComposer(persistent.Persistent):
             vars['forgot_secret_subject'],
             html,
             from_addr=vars['from_addr'],
-            to_addr=vars['to_addr'])
+            to_addr=vars['to_addr'],
+            headers=vars.get('more_headers'))
 
         # status=None prevents message from ending up in any queue
         return collective.singing.message.Message(

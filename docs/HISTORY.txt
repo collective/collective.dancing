@@ -4,6 +4,8 @@ History
 Version 0.6.4 - Unreleased
 --------------------------
 
+- Fix #262612: The Reply-To field is not included as message header.
+
 Version 0.6.3 - 2008-09-01
 --------------------------
 
