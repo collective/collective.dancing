@@ -45,6 +45,7 @@ setup(name='collective.dancing',
           'plone.app.z3cform>=0.3dev',
           'five.intid',
           'StoneageHTML',
+          'BeautifulSoup',
       ],
       
       entry_points="""

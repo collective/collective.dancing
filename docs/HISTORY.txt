@@ -4,6 +4,15 @@ History
 Version 0.6.4 - Unreleased
 --------------------------
 
+- Added a default ITransform adapter for S&D called
+  ``dancing.transform.URL``.  This will rewrite relative links and the
+  like automatically.  Relative links were the cause of broken links
+  and images in the outgoing messages.  This fixes #262633.
+
+  What this transform also allows is the definition of one or more
+  backend URLs that it should replace by a canonical URL.  See
+  ``transform.txt`` for details. [tmog, nouri]
+
 - Fix #262612: The Reply-To field is not included as message header.
 
 Version 0.6.3 - 2008-09-01

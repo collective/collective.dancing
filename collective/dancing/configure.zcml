@@ -82,6 +82,18 @@
 
   <adapter factory="collective.singing.mail.Dispatch" />
 
+  <!-- Transforms -->
+  <adapter factory=".transform.URL"
+           for="OFS.interfaces.ITraversable"
+           provides="collective.singing.interfaces.ITransform"
+           name="collective.dancing.transform.url"
+           />
+  <adapter factory=".transform.URL"
+           for=".composer.FullFormatWrapper"
+           provides="collective.singing.interfaces.ITransform"
+           name="collective.dancing.transform.url"
+           />
+
   <!-- We want to be able to make local portlet assignments on the tool -->
   <five:implements
      class=".channel.PortalNewsletters"

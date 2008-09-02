@@ -69,6 +69,8 @@ def test_suite():
         doctest.DocTestSuite('collective.dancing.composer'),
         doctest.DocTestSuite('collective.dancing.utils'),
 
+        doctest.DocFileSuite('transform.txt'),
+
         ztc.ZopeDocFileSuite(
             'channel.txt',
             test_class=ptc.PloneTestCase,
