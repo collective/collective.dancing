@@ -40,9 +40,9 @@ setup(name='collective.dancing',
       # 2 environment, try the `fakezope2eggs` recipe
       install_requires=[
           'setuptools',
-          'collective.singing>=0.6.2dev',
+          'collective.singing>=0.6.2',
           'plone.z3cform>=0.5.1dev',
-          'plone.app.z3cform>=0.3dev',
+          'plone.app.z3cform>=0.4.0',
           'five.intid',
           'StoneageHTML',
           'BeautifulSoup',
