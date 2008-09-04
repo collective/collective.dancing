@@ -243,6 +243,8 @@ def plone_html_strip(html):
       >>> html = '<div>' + plone_html_strip(html) + '</div>'
       >>> plone_html_strip(html)
       u'<h1 class="documentFirstHeading">Hi, it\'s me!</h1><p>Wannabe the son of Frankenstein</p>'
+      >>> plone_html_strip('<div id="region-content">Hello, World!</div>')
+      u'Hello, World!'
     """
     if not isinstance(html, unicode):
         html = unicode(html, 'UTF-8')
@@ -250,8 +252,11 @@ def plone_html_strip(html):
     soup = BeautifulSoup(html)
     content = soup.find('div', attrs={'id': 'content'})
     if content is None:
-        content = soup.find('h1', attrs=dict({'class': "documentFirstHeading"}))
-        content = content.parent
+        content = soup.find('h1', attrs=dict({'class': 'documentFirstHeading'}))
+        if content is not None:
+            content = content.parent
+    if content is None:
+        content = soup.find('div', attrs=dict({'id': 'region-content'}))
     return content.renderContents(encoding=None)
 
 class CMFDublinCoreHTMLFormatter(object):
