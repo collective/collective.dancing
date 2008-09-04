@@ -152,7 +152,7 @@ class SendAsNewsletterView(plone.z3cform.layout.FormWrapper):
     def label(self):
         site_encoding = self.context.plone_utils.getSiteEncoding()
         return _(u'Send ${item} as newsletter',
-                 mapping=dict(item=self.context.title.decode(site_encoding)))
+                 mapping=dict(item=self.context.Title().decode(site_encoding)))
 
     def contents(self):
         z2.switch_on(self,

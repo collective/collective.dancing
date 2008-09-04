@@ -4,6 +4,9 @@ History
 Version 0.6.5 - Unreleased
 --------------------------
 
+- Fix #264694: Using non ASCII characters in context title
+  of send-newsletter raises UnicodeEncodeError. [saily]
+
 - Make ``PloneCallHTMLFormatter`` even more robust by switching to
   using ``BeautifulSoup`` instead of ``str.find`` to parse the
   contents. [nouri]
