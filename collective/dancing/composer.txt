@@ -143,7 +143,10 @@ Dublin Core interface:
 The PloneCallHTMLFormatter assumes that the item passed to it is a
 Plone object that returns its Plone view when called:
 
-  >>> print composer.PloneCallHTMLFormatter(portal['front-page'], request)() \
-  ... # doctest: +ELLIPSIS
-  <h1 class="documentFirstHeading">...Welcome to Plone...
-  Congratulations! You have successfully installed Plone...
+  >>> html = composer.PloneCallHTMLFormatter(portal['front-page'], request)()
+  >>> '<h1 class="documentFirstHeading">' in html
+  True
+  >>> 'Welcome to Plone' in html
+  True
+  >>> 'Congratulations! You have successfully installed Plone' in html
+  True

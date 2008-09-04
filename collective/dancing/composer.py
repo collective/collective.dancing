@@ -9,6 +9,7 @@ from email.Utils import formataddr
 from email.Header import Header
 
 import stoneagehtml
+from BeautifulSoup import BeautifulSoup
 
 import persistent
 from ZODB.POSException import ConflictError
@@ -228,20 +229,30 @@ class HTMLComposer(persistent.Persistent):
             message, subscription, status=None)
 
 def plone_html_strip(html):
-    r"""
+    r"""Tries to strip the relevant parts from a Plone HTML page.
+
+    Looks for ``<div id="content">``, and, as a fallback, for all siblings of
+    ``<h1 class="documentFirstHeading">``.
+
       >>> html = (
-      ...     '<html><body><h1 class="documentFirstHeading">'
+      ...     '<html><body><div id="content"><h1 class="documentFirstHeading">'
       ...     'Hi, it\'s me!</h1><p>Wannabe the son of Frankenstein</p>'
-      ...     '<div class="visualClear"></div></body></html>')
+      ...     '</div></body></html>')
+      >>> plone_html_strip(html)
+      u'<h1 class="documentFirstHeading">Hi, it\'s me!</h1><p>Wannabe the son of Frankenstein</p>'
+      >>> html = '<div>' + plone_html_strip(html) + '</div>'
       >>> plone_html_strip(html)
       u'<h1 class="documentFirstHeading">Hi, it\'s me!</h1><p>Wannabe the son of Frankenstein</p>'
     """
     if not isinstance(html, unicode):
         html = unicode(html, 'UTF-8')
 
-    first_index = html.find('<h1 class="documentFirstHeading">')
-    second_index = html.find('<div class="visualClear"', first_index)
-    return html[first_index:second_index]
+    soup = BeautifulSoup(html)
+    content = soup.find('div', attrs={'id': 'content'})
+    if content is None:
+        content = soup.find('h1', attrs=dict({'class': "documentFirstHeading"}))
+        content = content.parent
+    return content.renderContents(encoding=None)
 
 class CMFDublinCoreHTMLFormatter(object):
     """Render a brief representation of an IBaseContent for HTML.
