@@ -78,6 +78,8 @@ class HTMLComposer(persistent.Persistent):
     from_name = u""
     from_address = u""
     replyto_address = u""
+    header_text = u""
+    footer_text = u""
     
     template = ViewPageTemplateFile('browser/composer-html.pt')
     confirm_template = ViewPageTemplateFile('browser/composer-html-confirm.pt')
@@ -129,6 +131,8 @@ class HTMLComposer(persistent.Persistent):
         vars['channel_title'] = subscription.channel.title
         vars['from_addr'] = self._from_address
         vars['to_addr'] = subscription.composer_data['email']
+        vars['header_text'] = self.header_text
+        vars['footer_text'] = self.footer_text
         headers = vars['more_headers'] = {}
         if self.replyto_address:
             headers['Reply-To'] = self.replyto_address

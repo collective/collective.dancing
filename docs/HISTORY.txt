@@ -4,8 +4,12 @@ History
 Version 0.6.5 - Unreleased
 --------------------------
 
+- Add header and footer fields for the composer and its form.  This
+  allows us to add text at the beginning and at the end of messages in
+  an easy and consistent way. [nouri]
+
 - Fix #264694: Using non ASCII characters in context title
-  of send-newsletter raises UnicodeEncodeError. [saily]
+  of send-newsletter raises ``UnicodeEncodeError``. [saily]
 
 - Make ``PloneCallHTMLFormatter`` even more robust by switching to
   using ``BeautifulSoup`` instead of ``str.find`` to parse the

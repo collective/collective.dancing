@@ -12,9 +12,23 @@
   <body>
     <h1 tal:content="options/subject">Subject</h1>
 
+    <p class="header"
+       tal:define="header options/header_text|nothing"
+       tal:condition="header"
+       tal:content="structure header">
+      Header text
+    </p>
+
     <p tal:repeat="html options/contents"
        tal:content="structure html">
       Contents
+    </p>
+
+    <p class="footer"
+       tal:define="footer options/footer_text|nothing"
+       tal:condition="footer"
+       tal:content="structure footer">
+      Footer text
     </p>
 
     <p i18n:translate="">

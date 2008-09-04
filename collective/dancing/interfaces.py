@@ -19,11 +19,6 @@ class IHTMLComposer(collective.singing.interfaces.IComposer,
     """An HTML composer.
     """
 
-    stylesheet = schema.Text(
-        title=_(u"CSS Stylesheet"),
-        description=_(u"The stylesheet will be applied to the document."),
-        required=False,
-        )
     from_name = schema.TextLine(
         title=_(u"From name"),
         description=_(u"The sender name that will appear in messages sent from this composer."),
@@ -37,5 +32,20 @@ class IHTMLComposer(collective.singing.interfaces.IComposer,
     replyto_address = schema.TextLine(
         title=_(u"Reply-to address"),
         description=_(u"The reply-to addess that will appear in messages sent from this composer."),
+        required=False,
+        )
+    header_text = schema.Text(
+        title=_(u"Header text"),
+        description=_(u"Text to appear at the beginning of every message"),
+        required=False,
+        )
+    footer_text = schema.Text(
+        title=_(u"Footer text"),
+        description=_(u"Text to appear at the end of every message"),
+        required=False,
+        )
+    stylesheet = schema.Text(
+        title=_(u"CSS Stylesheet"),
+        description=_(u"The stylesheet will be applied to the document."),
         required=False,
         )

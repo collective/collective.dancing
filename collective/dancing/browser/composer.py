@@ -8,6 +8,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 import Products.CMFPlone.utils
 from collective.singing.interfaces import IComposer
 from plone.z3cform.crud import crud
+from plone.app.z3cform import wysiwyg
 
 from plone.z3cform import z2
 from zope import component
@@ -69,5 +70,10 @@ class EditHTMLComposerForm(EditComposerForm):
 
     @property
     def fields(self):
-        return z3c.form.field.Fields(IHTMLComposer).omit('name', 'schema', 'title')    
-
+        fields = z3c.form.field.Fields(IHTMLComposer).omit(
+            'name', 'schema', 'title')    
+        fields['header_text'].widgetFactory[
+            z3c.form.interfaces.INPUT_MODE] = wysiwyg.WysiwygFieldWidget
+        fields['footer_text'].widgetFactory[
+            z3c.form.interfaces.INPUT_MODE] = wysiwyg.WysiwygFieldWidget
+        return fields
