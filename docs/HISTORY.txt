@@ -1,7 +1,10 @@
 History
 =======
 
-Version 0.6.5 - Unreleased
+Version 0.6.6 - Unreleased
+--------------------------
+
+Version 0.6.5 - 2008-09-04
 --------------------------
 
 - Add header and footer fields for the composer and its form.  This
