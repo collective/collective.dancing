@@ -18,6 +18,7 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone.z3cform import z2
+import plone.z3cform.layout
 import collective.singing.channel
 import collective.singing.interfaces
 
@@ -147,9 +148,7 @@ class SendAsNewsletterForm(form.Form):
 
         self.status = _("Successfully scheduled distribution.")
 
-class SendAsNewsletterView(BrowserView):
-    __call__ = ViewPageTemplateFile('controlpanel.pt')
-
+class SendAsNewsletterView(plone.z3cform.layout.FormWrapper):
     def label(self):
         site_encoding = self.context.plone_utils.getSiteEncoding()
         return _(u'Send ${item} as newsletter',
