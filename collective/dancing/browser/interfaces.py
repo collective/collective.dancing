@@ -14,6 +14,8 @@ class ISendAndPreviewForm(interface.Interface):
     
     include_collector_items = schema.Bool(
         title=_(u"Include collector items"),
+        description=_(u"Append automatically collected content in this "
+                      "send-out"),
         default=True,
         )
     
