@@ -4,6 +4,9 @@ History
 Version 0.7.1 - Unreleased
 --------------------------
 
+- Added workaround for a bug in the composer where ``header_text`` or
+  ``footer_text`` are ``None``.  No idea why they're ``None``, though.
+
 Version 0.7.0 - 2008-09-05
 --------------------------
 

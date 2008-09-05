@@ -135,8 +135,8 @@ class HTMLComposer(persistent.Persistent):
         vars['from_addr'] = self._from_address
         vars['to_addr'] = subscription.composer_data['email']
         vars['subject'] = self.subject
-        vars['header_text'] = self.header_text
-        vars['footer_text'] = self.footer_text
+        vars['header_text'] = self.header_text or u"" # Why would these
+        vars['footer_text'] = self.footer_text or u"" # ever be None?
         vars['stylesheet'] = self.stylesheet
         headers = vars['more_headers'] = {}
         if self.replyto_address:
