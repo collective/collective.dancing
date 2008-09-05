@@ -6,7 +6,8 @@
 
   <head>
     <title tal:content="options/subject">Subject</title>
-    <style tal:content="structure options/stylesheet" />
+    <style type="text/css"
+           tal:content="structure options/stylesheet" />
   </head>
   
   <body>
