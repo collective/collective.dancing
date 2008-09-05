@@ -1,8 +1,24 @@
 History
 =======
 
-Version 0.6.6 - Unreleased
+Version 0.7.0 - Unreleased
 --------------------------
+
+- Added a new field ``subject`` for the composer.  This allows more
+  control over what subject outgoing messages have, using string
+  templates.  The default is ``${site_title}: ${channel_title}``.
+
+  Removed the ``<h1>`` from the default composer template.  You can
+  now use the ``header text`` of the composer to the same effect.  The
+  default header text has now become ``<h1>${subject}</h1>`` to mimic
+  the old behaviour.
+
+  On the API side of things, I changed the signature of
+  ``dancing.composer.HTMLComposer._vars``.  Since overriding this is
+  the recommended way of providing your own variables, this warrants a
+  0.7.0 release.  I'm thinking about adding a little variable provider
+  component as an alternative to subclassing.
+  [nouri]
 
 - Added missing header with containing style and title tag in 
   ``composer-html-forgot.pt`` and ``composer-html-confirm.pt``. 

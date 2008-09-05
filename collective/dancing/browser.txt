@@ -1161,12 +1161,15 @@ And see that they've stuck.
   'noreply@domain.tld'
 
 We can also add some header and footer text for the messages with the
-composer:
+composer.  Also a subject, for which we'll use a variable substitution
+with ``${item0_title}``.  This will be replaced with the title of the
+content that we're sending out:
 
   >>> browser.getControl(name='composers.html.widgets.header_text').value = \
   ... 'Our little header'
   >>> browser.getControl(name='composers.html.widgets.footer_text').value = \
   ... 'Our little footer'
+  >>> browser.getControl("Message subject").value = '${item0_title}'
   >>> browser.getControl('Save').click()
   >>> 'Data successfully updated.' in browser.contents
   True
@@ -1193,6 +1196,8 @@ have taken effect.
   >>> "From: Portal Master <master@domain.tld>" in msg
   True
   >>> "Reply-To: noreply@domain.tld" in msg
+  True
+  >>> "Subject: Welcome to Plone" in msg
   True
 
 If a channel has more formats, they will of course all be editable

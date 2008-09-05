@@ -4,6 +4,7 @@ import logging
 import md5
 import re
 import os
+import string
 import tempfile
 from email.Utils import formataddr
 from email.Header import Header
@@ -78,7 +79,8 @@ class HTMLComposer(persistent.Persistent):
     from_name = u""
     from_address = u""
     replyto_address = u""
-    header_text = u""
+    subject = u"${site_title}: ${channel_title}"
+    header_text = u"<h1>${subject}</h1>"
     footer_text = u""
     
     template = ViewPageTemplateFile('browser/composer-html.pt')
@@ -117,11 +119,12 @@ class HTMLComposer(persistent.Persistent):
     def language(self):
         return self.request.get('LANGUAGE')        
 
-    def _vars(self, subscription):
+    def _vars(self, subscription, items=()):
         """Provide variables for the template.
 
-        Feel free to override this to pass more variables to your
-        template when you make a custom subclass of HTMLComposer."""
+        Override this or '_more_vars' in your custom HTMLComposer to
+        pass different variables to the templates.
+        """
         vars = {}
         site = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
         site = utils.fix_request(site, 0)
@@ -131,16 +134,34 @@ class HTMLComposer(persistent.Persistent):
         vars['channel_title'] = subscription.channel.title
         vars['from_addr'] = self._from_address
         vars['to_addr'] = subscription.composer_data['email']
+        vars['subject'] = self.subject
         vars['header_text'] = self.header_text
         vars['footer_text'] = self.footer_text
         headers = vars['more_headers'] = {}
         if self.replyto_address:
             headers['Reply-To'] = self.replyto_address
+        
+        # This is so brittle, it hurts my eyes.  Someone convince me
+        # that this needs to become another component:
+        for index, item in enumerate(items):
+            formatted, original = item
+            title = getattr(original, 'Title', lambda: formatted)()
+            vars['item%s_title' % index] = title
 
-        vars.update(self._more_vars(subscription))
+        vars.update(self._more_vars(subscription, items))
+
+        def subs(name):
+            vars[name] = string.Template(vars[name]).substitute(vars)
+        for name in 'subject', 'header_text', 'footer_text':
+            subs(name)
+
+        # It'd be nice if we could use an adapter here to override
+        # variables.  We'd probably want to pass 'items' along to that
+        # adapter.
+
         return vars
 
-    def _more_vars(self, subscription):
+    def _more_vars(self, subscription, items):
         """Less generic variables.
         """
         vars = {}
@@ -160,16 +181,9 @@ class HTMLComposer(persistent.Persistent):
         return vars
 
     def render(self, subscription, items=()):
-        vars = self._vars(subscription)
+        vars = self._vars(subscription, items)
         secret = self.secret(subscription.composer_data)
 
-        if 'subject' not in vars:
-            vars['subject'] = zope.i18n.translate(
-                _(u"${site-title}: ${channel-title}",
-                  mapping={'site-title': vars['site_title'],
-                           'channel-title': vars['channel_title']}),
-                target_language=self.language)
-        
         html = self.template(
             contents=[i[0] for i in items],
             items=[dict(formatted=i[0], original=i[1]) for i in items],

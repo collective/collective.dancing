@@ -11,8 +11,6 @@
   </head>
   
   <body>
-    <h1 tal:content="options/subject">Subject</h1>
-
     <p class="header"
        tal:define="header options/header_text|nothing"
        tal:condition="header"
