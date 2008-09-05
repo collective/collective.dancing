@@ -4,6 +4,10 @@ History
 Version 0.6.6 - Unreleased
 --------------------------
 
+- Added missing header with containing style and title tag in 
+  ``composer-html-forgot.pt`` and ``composer-html-confirm.pt``. 
+  [saily] 
+
 Version 0.6.5 - 2008-09-04
 --------------------------
 

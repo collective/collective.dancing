@@ -4,6 +4,12 @@
       lang="en"
       i18n:domain="collective.dancing">
 
+  <head>
+    <title tal:content="options/subject">Subject</title>
+    <style type="text/css"
+           tal:content="structure options/stylesheet" />
+  </head>
+  
   <body>
     <h1 i18n:translate="">Please confirm your subscription</h1>
 
