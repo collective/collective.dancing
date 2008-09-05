@@ -543,7 +543,7 @@ msgstr "Text der in der Fusszeile dargestellt wird - falls leer wird der Titel d
 
 #: collective/dancing/interfaces.py:45
 msgid "Text to appear at the beginning of every message. You may use a number of variables here including ${subject}."
-msgstr "Dieser Text wird automatisch zum Beginn jeder Nachricht angezeigt. Sie können hier Variablen wie ${subject} verwenden ."
+msgstr "Dieser Text wird automatisch zum Beginn jeder Nachricht angezeigt. Sie können hier Variablen wie ${subject} verwenden."
 
 #: collective/dancing/interfaces.py:52
 msgid "Text to appear at the end of every message"
