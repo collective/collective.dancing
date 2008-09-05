@@ -1,7 +1,10 @@
 History
 =======
 
-Version 0.7.1 - Unreleased
+Version 0.7.2 - Unreleased
+--------------------------
+
+Version 0.7.1 - 2008-09-05
 --------------------------
 
 - Added workaround for a bug in the composer where ``header_text`` or
