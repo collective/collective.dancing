@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2008-09-05 10:07+0000\n"
+"POT-Creation-Date: 2008-09-05 16:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,10 +57,6 @@ msgstr ""
 msgid "${sent} message(s) sent, ${failed} failure(s)."
 msgstr ""
 
-#: ./collective/dancing/composer.py:168
-msgid "${site-title}: ${channel-title}"
-msgstr ""
-
 #: ./collective/dancing/browser/collector.py:183
 msgid "Add"
 msgstr ""
@@ -108,16 +104,16 @@ msgid "Below you see a list the newsletters we offer. If you are already subscri
 msgstr ""
 
 #. Default: "Best regards"
-#: ./collective/dancing/browser/composer-html-forgot.pt:24
+#: ./collective/dancing/browser/composer-html-forgot.pt:30
 msgid "Best regards"
 msgstr ""
 
-#: ./collective/dancing/interfaces.py:48
+#: ./collective/dancing/interfaces.py:56
 msgid "CSS Stylesheet"
 msgstr ""
 
 #. Default: "Change your subscriptions with ${site-title}"
-#: ./collective/dancing/browser/composer-html-forgot.pt:10
+#: ./collective/dancing/browser/composer-html-forgot.pt:16
 msgid "Change your subscriptions with ${site-title}"
 msgstr ""
 
@@ -126,7 +122,7 @@ msgid "Channel administration"
 msgstr ""
 
 #. Default: "Click here to manage your subscriptions with ${site-title}:"
-#: ./collective/dancing/browser/composer-html-forgot.pt:15
+#: ./collective/dancing/browser/composer-html-forgot.pt:21
 msgid "Click here to manage your subscriptions with ${site-title}:"
 msgstr ""
 
@@ -139,7 +135,7 @@ msgid "Click here to show the portlet footer."
 msgstr ""
 
 #. Default: "Click here to unsubscribe."
-#: ./collective/dancing/browser/composer-html.pt:40
+#: ./collective/dancing/browser/composer-html.pt:39
 msgid "Click here to unsubscribe."
 msgstr ""
 
@@ -155,7 +151,7 @@ msgstr ""
 msgid "Composers"
 msgstr ""
 
-#: ./collective/dancing/composer.py:196
+#: ./collective/dancing/composer.py:210
 msgid "Confirm your subscription with ${channel-title}"
 msgstr ""
 
@@ -176,7 +172,7 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: ./collective/dancing/composer.py:56
+#: ./collective/dancing/composer.py:57
 msgid "E-mail address"
 msgstr ""
 
@@ -268,11 +264,11 @@ msgstr ""
 msgid "Generate"
 msgstr ""
 
-#: ./collective/dancing/composer.py:74
+#: ./collective/dancing/composer.py:75
 msgid "HTML E-Mail"
 msgstr ""
 
-#: ./collective/dancing/interfaces.py:38
+#: ./collective/dancing/interfaces.py:44
 msgid "Header text"
 msgstr ""
 
@@ -313,8 +309,12 @@ msgid "Manage or add subscriptions."
 msgstr ""
 
 #. Default: "Manage your subscriptions"
-#: ./collective/dancing/browser/composer-html-forgot.pt:18
+#: ./collective/dancing/browser/composer-html-forgot.pt:24
 msgid "Manage your subscriptions"
+msgstr ""
+
+#: ./collective/dancing/interfaces.py:33
+msgid "Message subject"
 msgstr ""
 
 #: ./collective/dancing/browser/stats.py:35
@@ -370,7 +370,7 @@ msgid "Only some of your changes were saved"
 msgstr ""
 
 #. Default: "Please confirm your subscription"
-#: ./collective/dancing/browser/composer-html-confirm.pt:8
+#: ./collective/dancing/browser/composer-html-confirm.pt:14
 msgid "Please confirm your subscription"
 msgstr ""
 
@@ -422,7 +422,7 @@ msgstr ""
 msgid "Remove non-existing"
 msgstr ""
 
-#: ./collective/dancing/interfaces.py:33
+#: ./collective/dancing/interfaces.py:39
 msgid "Reply-to address"
 msgstr ""
 
@@ -540,11 +540,11 @@ msgstr ""
 msgid "Text in footer - if omitted the channel title is used"
 msgstr ""
 
-#: ./collective/dancing/interfaces.py:39
-msgid "Text to appear at the beginning of every message"
+#: ./collective/dancing/interfaces.py:45
+msgid "Text to appear at the beginning of every message. You may use a number of variables here including ${subject}."
 msgstr ""
 
-#: ./collective/dancing/interfaces.py:44
+#: ./collective/dancing/interfaces.py:52
 msgid "Text to appear at the end of every message"
 msgstr ""
 
@@ -560,7 +560,7 @@ msgstr ""
 msgid "The from addess that will appear in messages sent from this composer."
 msgstr ""
 
-#: ./collective/dancing/interfaces.py:34
+#: ./collective/dancing/interfaces.py:40
 msgid "The reply-to addess that will appear in messages sent from this composer."
 msgstr ""
 
@@ -568,7 +568,7 @@ msgstr ""
 msgid "The sender name that will appear in messages sent from this composer."
 msgstr ""
 
-#: ./collective/dancing/interfaces.py:49
+#: ./collective/dancing/interfaces.py:57
 msgid "The stylesheet will be applied to the document."
 msgstr ""
 
@@ -601,7 +601,7 @@ msgid "Title of the rendered portlet"
 msgstr ""
 
 #. Default: "To confirm your subscription with ${channel}, please click here: ${url}"
-#: ./collective/dancing/browser/composer-html-confirm.pt:14
+#: ./collective/dancing/browser/composer-html-confirm.pt:20
 msgid "To confirm your subscription with ${channel}, please click here: ${url}"
 msgstr ""
 
@@ -687,6 +687,10 @@ msgstr ""
 msgid "You confirmed your subscription successfully."
 msgstr ""
 
+#: ./collective/dancing/interfaces.py:34
+msgid "You may use a number of variables here, like ${site-title}."
+msgstr ""
+
 #: ./collective/dancing/browser/subscribe.py:273
 msgid "You subscribed successfully."
 msgstr ""
@@ -696,11 +700,11 @@ msgid "You unsubscribed successfully."
 msgstr ""
 
 #. Default: "You're receiving this e-mail because you're registered for the ${channel} newsletter."
-#: ./collective/dancing/browser/composer-html.pt:36
+#: ./collective/dancing/browser/composer-html.pt:35
 msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
 msgstr ""
 
-#: ./collective/dancing/composer.py:38
+#: ./collective/dancing/composer.py:39
 msgid "Your e-mail address is invalid"
 msgstr ""
 

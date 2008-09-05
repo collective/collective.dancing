@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Singing & Dancing\n"
-"POT-Creation-Date: 2008-09-05 10:07+0000\n"
+"POT-Creation-Date: 2008-09-05 16:25+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Daniel Widerin <daniel.widerin@kombinat.at>\n"
 "Language-Team: David Picó Vila <david.pico.vila@gmail.com>\n"
@@ -32,7 +32,7 @@ msgstr "${channel} Einstellungen"
 
 #: collective/dancing/browser/sendnewsletter.py:136
 msgid "${name} does not support scheduling."
-msgstr ""
+msgstr "${name} unterstützt keinen Zeitplan!"
 
 #: collective/dancing/browser/channel.py:524
 msgid "${numberadded} subscriptions updated successfully!"
@@ -57,10 +57,6 @@ msgstr "${num} Nachrichten auf der Warteliste"
 #: collective/dancing/browser/stats.py:104
 msgid "${sent} message(s) sent, ${failed} failure(s)."
 msgstr "${sent} Nachricht(en) gesendet, ${failed} fehlgeschlagen."
-
-#: collective/dancing/composer.py:168
-msgid "${site-title}: ${channel-title}"
-msgstr ""
 
 #: collective/dancing/browser/collector.py:183
 msgid "Add"
@@ -109,16 +105,16 @@ msgid "Below you see a list the newsletters we offer. If you are already subscri
 msgstr "Hier sehen Sie eine Liste aller Themenbereiche die wir anbieten. Falls Sie bereits zu einem dieser Themenbereiche bereits angemeldet sind können Sie das untenstehende Formular ausfüllen und wir senden Ihnen eine Adresse zu, um Ihre Abonnements zu bearbeiten."
 
 #. Default: "Best regards"
-#: collective/dancing/browser/composer-html-forgot.pt:24
+#: collective/dancing/browser/composer-html-forgot.pt:30
 msgid "Best regards"
 msgstr "mit freundlichen Grüßen"
 
-#: collective/dancing/interfaces.py:48
+#: collective/dancing/interfaces.py:56
 msgid "CSS Stylesheet"
 msgstr ""
 
 #. Default: "Change your subscriptions with ${site-title}"
-#: collective/dancing/browser/composer-html-forgot.pt:10
+#: collective/dancing/browser/composer-html-forgot.pt:16
 msgid "Change your subscriptions with ${site-title}"
 msgstr "Ändern Sie Ihre Abonnements für ${site-title}"
 
@@ -127,7 +123,7 @@ msgid "Channel administration"
 msgstr "Verwaltung Themenbereiche"
 
 #. Default: "Click here to manage your subscriptions with ${site-title}:"
-#: collective/dancing/browser/composer-html-forgot.pt:15
+#: collective/dancing/browser/composer-html-forgot.pt:21
 msgid "Click here to manage your subscriptions with ${site-title}:"
 msgstr "Klicken Sie auf folgenden Link um Ihre Abonnements für ${site-title} zu verwalten."
 
@@ -140,7 +136,7 @@ msgid "Click here to show the portlet footer."
 msgstr "Bestimmen Sie, ob die Fusszeile des Portlets angezeigt werden soll."
 
 #. Default: "Click here to unsubscribe."
-#: collective/dancing/browser/composer-html.pt:40
+#: collective/dancing/browser/composer-html.pt:39
 msgid "Click here to unsubscribe."
 msgstr "Falls Sie in Zukunft auf unseren Newsletter zu diesem Themenbereich verzichten möchten - Klicken Sie bitte hier."
 
@@ -156,7 +152,7 @@ msgstr "Vorlage für folgendes Format: ${format}"
 msgid "Composers"
 msgstr "Vorlagen"
 
-#: collective/dancing/composer.py:196
+#: collective/dancing/composer.py:210
 msgid "Confirm your subscription with ${channel-title}"
 msgstr "Sie müssen Ihre Anmeldung zum Thema '${channel-title}' bestätigen"
 
@@ -177,7 +173,7 @@ msgstr "Zeigt ein Formular an, welches Sie diesen Inhalt als Newsletter versende
 msgid "Download"
 msgstr "Herunterladen"
 
-#: collective/dancing/composer.py:56
+#: collective/dancing/composer.py:57
 msgid "E-mail address"
 msgstr "E-Mail Adresse"
 
@@ -269,11 +265,11 @@ msgstr "Absender"
 msgid "Generate"
 msgstr "Erstellen"
 
-#: collective/dancing/composer.py:74
+#: collective/dancing/composer.py:75
 msgid "HTML E-Mail"
 msgstr "HTML E-Mail"
 
-#: collective/dancing/interfaces.py:38
+#: collective/dancing/interfaces.py:44
 msgid "Header text"
 msgstr "Einleitender Text"
 
@@ -314,9 +310,13 @@ msgid "Manage or add subscriptions."
 msgstr "Verwalten Sie ihre Abonnements"
 
 #. Default: "Manage your subscriptions"
-#: collective/dancing/browser/composer-html-forgot.pt:18
+#: collective/dancing/browser/composer-html-forgot.pt:24
 msgid "Manage your subscriptions"
 msgstr "Bearbeiten Sie ihre Abonnements"
+
+#: collective/dancing/interfaces.py:33
+msgid "Message subject"
+msgstr "Betreff"
 
 #: collective/dancing/browser/stats.py:35
 msgid "Messages successfully sent"
@@ -371,7 +371,7 @@ msgid "Only some of your changes were saved"
 msgstr "Nur einige Änderungen wurden gespeichert."
 
 #. Default: "Please confirm your subscription"
-#: collective/dancing/browser/composer-html-confirm.pt:8
+#: collective/dancing/browser/composer-html-confirm.pt:14
 msgid "Please confirm your subscription"
 msgstr "Bitte bestätigen Sie ihre Anmeldung"
 
@@ -423,7 +423,7 @@ msgstr "Einträge entfernen"
 msgid "Remove non-existing"
 msgstr "Entferne nicht existierende Elemente"
 
-#: collective/dancing/interfaces.py:33
+#: collective/dancing/interfaces.py:39
 msgid "Reply-to address"
 msgstr "Antwort E-Mail Adresse"
 
@@ -541,11 +541,11 @@ msgstr "Zustellzeitpunkt erfolgreich geplant."
 msgid "Text in footer - if omitted the channel title is used"
 msgstr "Text der in der Fusszeile dargestellt wird - falls leer wird der Titel des Newsletterthemas verwendet."
 
-#: collective/dancing/interfaces.py:39
-msgid "Text to appear at the beginning of every message"
-msgstr "Dieser Text wird automatisch zum Beginn jeder Nachricht angezeigt."
+#: collective/dancing/interfaces.py:45
+msgid "Text to appear at the beginning of every message. You may use a number of variables here including ${subject}."
+msgstr "Dieser Text wird automatisch zum Beginn jeder Nachricht angezeigt. Sie können hier Variablen wie ${subject} verwenden ."
 
-#: collective/dancing/interfaces.py:44
+#: collective/dancing/interfaces.py:52
 msgid "Text to appear at the end of every message"
 msgstr "Dieser Text wird automatisch am Ende jeder Nachricht angezeigt."
 
@@ -561,7 +561,7 @@ msgstr "Themenbereiche an welche gesendet werden soll"
 msgid "The from addess that will appear in messages sent from this composer."
 msgstr "Die Absendeadresse die in jeder Nachricht mit dieser Vorlage angezeigt wird."
 
-#: collective/dancing/interfaces.py:34
+#: collective/dancing/interfaces.py:40
 msgid "The reply-to addess that will appear in messages sent from this composer."
 msgstr "Die Antwortadresse die in jeder Nachricht mit dieser Vorlage angezeigt wird."
 
@@ -569,7 +569,7 @@ msgstr "Die Antwortadresse die in jeder Nachricht mit dieser Vorlage angezeigt w
 msgid "The sender name that will appear in messages sent from this composer."
 msgstr "Der Absendename der in jeder Nachricht mit dieser Vorlage angezeigt wird."
 
-#: collective/dancing/interfaces.py:49
+#: collective/dancing/interfaces.py:57
 msgid "The stylesheet will be applied to the document."
 msgstr "Diese CSS-Style Definitionen werden in jede Nachricht eingefügt."
 
@@ -602,7 +602,7 @@ msgid "Title of the rendered portlet"
 msgstr "Geben Sie den Titel des Portlets."
 
 #. Default: "To confirm your subscription with ${channel}, please click here: ${url}"
-#: collective/dancing/browser/composer-html-confirm.pt:14
+#: collective/dancing/browser/composer-html-confirm.pt:20
 msgid "To confirm your subscription with ${channel}, please click here: ${url}"
 msgstr "Um die Anmeldung zum Themenbereich '${channel}' zu bestätigen, klicken Sie bitte hier: ${url}."
 
@@ -688,6 +688,10 @@ msgstr "Sie können sich zu folgenden Themenbereichen anmelden:"
 msgid "You confirmed your subscription successfully."
 msgstr "Sie haben Ihre Anmeldung erfolgreich bestätigt."
 
+#: collective/dancing/interfaces.py:34
+msgid "You may use a number of variables here, like ${site-title}."
+msgstr "Sie können hier Variablen verwenden wie ${site-title}."
+
 #: collective/dancing/browser/subscribe.py:273
 msgid "You subscribed successfully."
 msgstr "Sie haben sich erfolgreich angemeldet."
@@ -697,11 +701,11 @@ msgid "You unsubscribed successfully."
 msgstr "Sie haben sich erfolgreich abgemeldet."
 
 #. Default: "You're receiving this e-mail because you're registered for the ${channel} newsletter."
-#: collective/dancing/browser/composer-html.pt:36
+#: collective/dancing/browser/composer-html.pt:35
 msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
 msgstr "Sie erhalten diese E-Mail weil Sie sich für den Themenbereich '${channel}' angemeldet haben."
 
-#: collective/dancing/composer.py:38
+#: collective/dancing/composer.py:39
 msgid "Your e-mail address is invalid"
 msgstr "Ihre E-Mail Adresse ist ungültig"
 
