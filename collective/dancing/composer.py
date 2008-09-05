@@ -137,6 +137,7 @@ class HTMLComposer(persistent.Persistent):
         vars['subject'] = self.subject
         vars['header_text'] = self.header_text
         vars['footer_text'] = self.footer_text
+        vars['stylesheet'] = self.stylesheet
         headers = vars['more_headers'] = {}
         if self.replyto_address:
             headers['Reply-To'] = self.replyto_address
@@ -187,7 +188,6 @@ class HTMLComposer(persistent.Persistent):
         html = self.template(
             contents=[i[0] for i in items],
             items=[dict(formatted=i[0], original=i[1]) for i in items],
-            stylesheet=self.stylesheet,
             **vars)
 
         html = stoneagehtml.compactify(html).decode('utf-8')
@@ -212,7 +212,8 @@ class HTMLComposer(persistent.Persistent):
                 target_language=self.language)
 
         html = self.confirm_template(**vars)
-        
+        html = stoneagehtml.compactify(html).decode('utf-8')
+
         message = collective.singing.mail.create_html_mail(
             vars['confirmation_subject'],
             html,
@@ -234,6 +235,7 @@ class HTMLComposer(persistent.Persistent):
                 target_language=self.language)
 
         html = self.forgot_template(**vars)
+        html = stoneagehtml.compactify(html).decode('utf-8')
 
         message = collective.singing.mail.create_html_mail(
             vars['forgot_secret_subject'],
