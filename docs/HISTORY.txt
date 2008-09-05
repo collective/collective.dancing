@@ -1,7 +1,10 @@
 History
 =======
 
-Version 0.7.0 - Unreleased
+Version 0.7.1 - Unreleased
+--------------------------
+
+Version 0.7.0 - 2008-09-05
 --------------------------
 
 - Added a new field ``subject`` for the composer.  This allows more
