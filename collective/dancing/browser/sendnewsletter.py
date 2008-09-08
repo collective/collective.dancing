@@ -108,12 +108,13 @@ class SendAsNewsletterForm(form.Form):
                 continue
 
             for sub in subs:
-                assembler.render_message(
+                msg = assembler.render_message(
                     self.request,
                     sub,
                     (FullFormatWrapper(self.context),),                
                     include_collector_items)
-                queued += 1
+                if msg is not None:
+                    queued += 1
         if queued:
             self.status = _(
                 u"${num} messages queued.", mapping=dict(num=queued))
