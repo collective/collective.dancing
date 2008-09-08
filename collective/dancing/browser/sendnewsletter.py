@@ -115,9 +115,9 @@ class SendAsNewsletterForm(form.Form):
                     include_collector_items)
                 if msg is not None:
                     queued += 1
-        if queued:
-            self.status = _(
-                u"${num} messages queued.", mapping=dict(num=queued))
+
+        self.status = _(
+            u"${num} messages queued.", mapping=dict(num=queued))
 
     def _have_timed_scheduler(self):
         for channel in collective.singing.channel.channel_lookup():
