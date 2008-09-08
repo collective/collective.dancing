@@ -130,6 +130,7 @@ class HTMLComposer(persistent.Persistent):
         site = utils.fix_request(site, 0)
         
         vars['channel'] = subscription.channel
+        vars['site_url'] = site.absolute_url()
         vars['site_title'] = unicode(site.Title(), 'UTF-8')
         vars['channel_title'] = subscription.channel.title
         vars['from_addr'] = self._from_address
