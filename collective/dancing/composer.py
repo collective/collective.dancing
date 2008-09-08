@@ -249,11 +249,12 @@ class HTMLComposer(persistent.Persistent):
         return collective.singing.message.Message(
             message, subscription, status=None)
 
-def plone_html_strip(html):
+plone_html_strip_not_likey = [{'id': 'review-history'}]
+def plone_html_strip(html, not_likey=plone_html_strip_not_likey):
     r"""Tries to strip the relevant parts from a Plone HTML page.
 
-    Looks for ``<div id="content">``, and, as a fallback, for all siblings of
-    ``<h1 class="documentFirstHeading">``.
+    Looks for ``<div id="content">`` and ``<div id="region-content">`` as
+    a fallback.
 
       >>> html = (
       ...     '<html><body><div id="content"><h1 class="documentFirstHeading">'
@@ -261,11 +262,17 @@ def plone_html_strip(html):
       ...     '</div></body></html>')
       >>> plone_html_strip(html)
       u'<h1 class="documentFirstHeading">Hi, it\'s me!</h1><p>Wannabe the son of Frankenstein</p>'
-      >>> html = '<div>' + plone_html_strip(html) + '</div>'
-      >>> plone_html_strip(html)
-      u'<h1 class="documentFirstHeading">Hi, it\'s me!</h1><p>Wannabe the son of Frankenstein</p>'
       >>> plone_html_strip('<div id="region-content">Hello, World!</div>')
       u'Hello, World!'
+
+    Will also strip away any ``<div id="review-history">``:
+
+      >>> html = (
+      ...     '<div id="region-content">'
+      ...     '<div id="review-history">Yesterday</div>Tomorrow</div>')
+      >>> plone_html_strip(html)
+      u'Tomorrow'
+
     """
     if not isinstance(html, unicode):
         html = unicode(html, 'UTF-8')
@@ -273,11 +280,11 @@ def plone_html_strip(html):
     soup = BeautifulSoup(html)
     content = soup.find('div', attrs={'id': 'content'})
     if content is None:
-        content = soup.find('h1', attrs=dict({'class': 'documentFirstHeading'}))
-        if content is not None:
-            content = content.parent
-    if content is None:
         content = soup.find('div', attrs=dict({'id': 'region-content'}))
+
+    for attrs in not_likey:
+        for item in content.findAll(attrs=attrs):
+            item.extract() # meaning .bye()
     return content.renderContents(encoding=None)
 
 class CMFDublinCoreHTMLFormatter(object):

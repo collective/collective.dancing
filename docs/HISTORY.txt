@@ -4,6 +4,9 @@ History
 Version 0.7.2 - Unreleased
 --------------------------
 
+- More fine-tuning of the ``PloneCallHTMLFormatter``: Strip unwanted
+  content like the review history in a configurable way.  [nouri]
+
 Version 0.7.1 - 2008-09-05
 --------------------------
 
