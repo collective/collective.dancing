@@ -33,13 +33,13 @@
 
       This is an example configuration that uses queuedDelivery:
 
+  <mail:smtpMailer name="smtp" hostname="localhost" port="25" />
+
   <mail:queuedDelivery
       queuePath="./queue"
       mailer="smtp"
       permission="zope.SendMail"
       />
-
-  <mail:smtpMailer name="smtp" hostname="localhost" port="25" />
   -->
   
   <!--
