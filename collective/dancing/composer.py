@@ -284,8 +284,8 @@ def plone_html_strip(html, not_likey=plone_html_strip_not_likey):
 
     for attrs in not_likey:
         for item in content.findAll(attrs=attrs):
-            item.extract() # meaning .bye()
-    return content.renderContents(encoding=None)
+            item.extract() # meaning: item.bye()
+    return content.renderContents(encoding=None) # meaning: as unicode
 
 class CMFDublinCoreHTMLFormatter(object):
     """Render a brief representation of an IBaseContent for HTML.
