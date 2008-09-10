@@ -584,8 +584,21 @@ Users can also request an e-mail with their secret:
   To: root@localhost
   Message follows:
   ...
-  Click here to manage your subscriptions...  
-  
+  Click here to manage your subscriptions...my-subscriptions.html...
+
+What if we never received the message to confirm?  We can then still
+rely on the "Send my subscriptions details" function to update the
+'pending' state:
+
+  >>> subscription.metadata['pending'] = True
+  >>> url = '%s/../../my-subscriptions.html?secret=%s' % (
+  ...     channel.absolute_url(), subscription.secret)
+  >>> browser.open(url)
+  >>> "You are currently subscribed to these newsletters" in browser.contents
+  True
+  >>> subscription.metadata['pending']
+  False
+
 Unsubscribe
 -----------
 

@@ -318,6 +318,11 @@ class Subscriptions(BrowserView):
 
         subscriptions, channels = self._subscriptions_and_channels(self.secret)
 
+        # Let's set convert any 'pending' subscriptions to non-pending:
+        for sub in subscriptions:
+            if sub.metadata['pending']:
+                sub.metadata['pending'] = False
+
         # Assemble the list of edit forms
         self.subscription_editforms = [
             SubscriptionEditForm(s, self.request) for s in subscriptions]
