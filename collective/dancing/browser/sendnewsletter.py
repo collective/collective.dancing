@@ -101,11 +101,6 @@ class SendAsNewsletterForm(form.Form):
         for channel in channels:
             assembler = collective.singing.interfaces.IMessageAssemble(channel)
             subs = channel.subscriptions.query(key=address)
-            if len(subs) == 0:
-                self.status = _(
-                    u"${address} is not subscribed to ${channel}.",
-                    mapping=dict(address=address, channel=channel.title))
-                continue
 
             for sub in subs:
                 msg = assembler.render_message(

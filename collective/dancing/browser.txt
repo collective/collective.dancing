@@ -890,11 +890,12 @@ the cue time remains the same:
   >>> previous_trigger_time == channel.scheduler.triggered_last
   True
 
-If we use an address that's unknown, we'll get a nice error message:
+If we use an address that's unknown, it'll tell us that no messages
+were queued:
 
   >>> browser.getControl('Address').value = u'nobody@localhost'
   >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
-  >>> "nobody@localhost is not subscribed" in browser.contents
+  >>> "0 messages queued" in browser.contents
   True
 
 We may request an in-browser preview:
