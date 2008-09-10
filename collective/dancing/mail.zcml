@@ -36,6 +36,7 @@
   <mail:smtpMailer name="smtp" hostname="localhost" port="25" />
 
   <mail:queuedDelivery
+      name=""
       queuePath="./queue"
       mailer="smtp"
       permission="zope.SendMail"
