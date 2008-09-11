@@ -256,30 +256,6 @@ class SubscriptionChoiceFieldDataManager(z3c.form.datamanager.AttributeField):
             if issubclass(self.field.interface, ICollectorSchema):
                 self.field.interface = ICollectorSchema
 
-class SubscriptionsAdministrationView(BrowserView):
-    """Manage subscriptions in a channel.
-    """
-    __call__ = ViewPageTemplateFile('controlpanel.pt')
-
-    def label(self):
-        return _(u'"${channel}" subscriptions administration',
-                 mapping=dict(channel=self.context.title))
-
-    def back_link(self):
-        return dict(label=_(u"Up to Channels administration"),
-                    url=self.context.aq_inner.aq_parent.absolute_url())
-
-    def contents(self):
-        z2.switch_on(self,
-                     request_layer=collective.singing.interfaces.IFormLayer)
-        forms = []
-        for format, composer in self.context.composers.items():
-            form = ManageSubscriptionsForm(self.context, self.request)
-            form.format = format
-            form.composer = composer
-            forms.append(form)
-        return '\n'.join([form() for form in forms])
-
 class ChannelPreviewForm(z3c.form.form.Form):
     """Channel preview form.
 

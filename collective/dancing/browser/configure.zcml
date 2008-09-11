@@ -87,13 +87,6 @@
       />
 
   <page
-      name="manage_subscriptions_html"
-      for="collective.singing.interfaces.IChannel"
-      class=".channel.SubscriptionsAdministrationView"
-      permission="dancing.ManageNewsletters"
-      />
-
-  <page
       name="index_html"
       for="collective.singing.interfaces.IChannel"
       class=".channel.ManageChannelView"
