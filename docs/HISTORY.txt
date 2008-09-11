@@ -4,6 +4,15 @@ History
 Version 0.7.2 - Unreleased
 --------------------------
 
+- Add a search box to the subscriptions administration view.
+
+  Prior versions of S&D didn't populate the subscribers fulltext index
+  correctly.  This version adds an upgrade step that you'll need to
+  run in order to reindex all your subscription objects.
+
+  Refer to the Upgrade_ section for details on how to run upgrades.
+  [nouri]
+
 - Allow pending subscriptions to be conformed by visiting the "My
   subscriptions" page.  This allows users to confirm their
   subscriptions even if they've lost or never received their message

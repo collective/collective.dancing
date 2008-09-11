@@ -3,8 +3,6 @@ import datetime
 from zope import component
 from zope.app.component.hooks import getSite
 from zope.app.pagetemplate import viewpagetemplatefile
-import Acquisition
-import Zope2.App.startup
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form import button
@@ -275,8 +273,8 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
             msg = composer.render_confirmation(self.added)
             status, status_msg = collective.singing.message.dispatch(msg)
             if status == u'sent':
-                self.status = _(
-                    u"Information on how to confirm your subscription has been sent to you.")
+                self.status = _(u"Information on how to confirm your "
+                                "subscription has been sent to you.")
             else:
                 # This implicitely rolls back our transaction.
                 raise RuntimeError(

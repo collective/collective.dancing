@@ -172,6 +172,39 @@ class ChannelAdministrationView(BrowserView):
         z2.switch_on(self)
         return ManageChannelsForm(self.context.channels, self.request)()
 
+class SubscriptionsSearchForm(z3c.form.form.Form):
+    prefix = 'search.'
+
+    @property
+    def fields(self):
+        search = schema.TextLine(
+            __name__='fulltext',
+            title=_(u"Search subscribers"),
+            )
+        return field.Fields(search)
+
+    @z3c.form.button.buttonAndHandler(_('Search'), name='search')
+    def handle_search(self, action):
+        pass
+
+class ManageSubscriptionsFormEdit(crud.EditForm):
+    def update(self):
+        super(ManageSubscriptionsFormEdit, self).update()
+        self.search = SubscriptionsSearchForm(self.context, self.request)
+        self.search.update()
+
+    def render(self):
+        table = super(ManageSubscriptionsFormEdit, self).render()
+        name = self.search.widgets['fulltext'].name
+        search = self.request.form.get(name)
+        if search and table.strip():
+            idx = table.find('</form>')
+            hidden = ('<input type="hidden" name="%s" value="%s" />' %
+                      (name, search))
+            table = table[:idx] + hidden + table[idx:]
+        return ('<div id="subscriber-search">%s</div>' % self.search.render() +
+                table)
+
 class ManageSubscriptionsForm(crud.CrudForm):
     """Crud form for subscriptions.
     """
@@ -179,8 +212,17 @@ class ManageSubscriptionsForm(crud.CrudForm):
     format = None 
     composer = None
 
-    batch_size = 30
     description = _(u"Manage or add subscriptions.")
+
+    editform_factory = ManageSubscriptionsFormEdit
+    
+    @property
+    def batch_size(self):
+        if self._fulltext_query():
+            # We don't support batching when we search
+            return 0
+        else:
+            return 30
 
     @property
     def prefix(self):
@@ -194,6 +236,9 @@ class ManageSubscriptionsForm(crud.CrudForm):
             return field.Fields(self.context.collector.schema)
         return field.Fields()
 
+    def _fulltext_query(self):
+        return self.request.form.get('search.widgets.fulltext')
+
     @property
     def update_schema(self):
         fields = self._composer_fields()
@@ -201,11 +246,16 @@ class ManageSubscriptionsForm(crud.CrudForm):
         return fields
 
     def get_items(self):
-        subscriptions = self.context.subscriptions
         items = []
-        for name, subscription in subscriptions.items():
+        
+        query = dict(format=self.format)
+        search = self._fulltext_query()
+        if search:
+            query['fulltext'] = search
+
+        for subscription in self.context.subscriptions.query(**query):
             if subscription.metadata['format'] == self.format:
-                items.append((str(name), subscription))
+                items.append((str(subscription.secret), subscription))
         return items
 
     def add(self, data):
@@ -234,7 +284,6 @@ class ManageSubscriptionsForm(crud.CrudForm):
         subs = self.context.subscriptions.query(key=key, format=format)
         for subscription in subs:
             self.context.subscriptions.remove_subscription(subscription)
-
 
 class SubscriptionChoiceFieldDataManager(z3c.form.datamanager.AttributeField):
     # This nasty hack allows us to have the default IDataManager to

@@ -350,12 +350,25 @@ the same e-mail address:
   >>> "There's already a subscription" in browser.contents
   True
 
-We'll add another subscription.  This one filters on the content type:
+We'll add another subscription:
 
   >>> browser.getControl('E-mail address').value = u"mailman@localhost"
-  >>> browser.getControl('News', index=1).click()
   >>> browser.getControl('Add').click()
   >>> 'Item added successfully' in browser.contents
+  True
+
+We can also search in the list of subscriptions.  Searching for
+"mailman" will show us only one entry.  We'll modify this entry to
+filter on the content type:
+
+  >>> browser.getControl('Search subscribers').value = 'mailman'
+  >>> browser.getControl('Search', index=3).click()
+  >>> 'mailman' in browser.contents, 'daniel' in browser.contents
+  (True, False)
+
+  >>> browser.getControl('News', index=0).click()
+  >>> browser.getControl('Apply changes').click()
+  >>> "Successfully updated" in browser.contents
   True
 
 CSV Upload and Download of subscriptions

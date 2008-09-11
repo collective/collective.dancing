@@ -1,7 +1,9 @@
 import copy_reg
 import persistent
 import zc.queue
+
 import collective.singing.channel
+import collective.singing.subscribe
 import collective.dancing.composer
 
 safe_reconstructor = copy_reg._reconstructor
@@ -39,3 +41,12 @@ def upgrade_to_compositequeue(tool):
             for item in channel.queue[key]:
                 new.put(item)
             channel.queue[key] = new
+
+def reindex_subscriptions(tool):
+    """The fulltext index for subscriptions wasn't populated before
+    version 0.7.2.  This upgrade step will reindex all subscriptions
+    that it can find.
+    """
+    for channel in collective.singing.channel.channel_lookup():
+        for sub in channel.subscriptions.values():
+            collective.singing.subscribe._catalog_subscription(sub)

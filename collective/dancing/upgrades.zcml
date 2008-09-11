@@ -27,4 +27,17 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+     profile="collective.dancing:default"
+     source="0.7.1"
+     destination="0.7.2">
+
+    <genericsetup:upgradeStep
+       handler=".upgrades.reindex_subscriptions"
+       title="Recatalog all subscriptions"
+       description=""
+       />
+
+  </genericsetup:upgradeSteps>
+
 </configure>
