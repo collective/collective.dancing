@@ -55,6 +55,8 @@ def simpleitem_wrap(klass, name):
 schedulers = [
     simpleitem_wrap(klass, 'scheduler')
     for klass in collective.singing.scheduler.schedulers]
+    
+csv_delimiter = ";"
 
 class FactoryChoice(schema.Choice):
     def _validate(self, value):
@@ -384,7 +386,7 @@ def parseSubscriberCSVFile(subscriberdata, composer):
                                                      'utf-8').upper()    
     try:
         data = cStringIO.StringIO(subscriberdata)
-        reader = csv.reader(data, delimiter=";")
+        reader = csv.reader(data, delimiter = csv_delimiter)
         subscriberslist = []
         errorcandidates = []
         for parsedline in reader:
@@ -415,11 +417,14 @@ class ExportCSV(BrowserView):
             'attachment; filename=subscribers_%s_%s.csv' % (self.context.id, 
                                       datetime.date.today().strftime("%Y%m%d")))
         res = cStringIO.StringIO()
-        writer = csv.writer(res, dialect=csv.excel)
+        writer = csv.writer(res, dialect=csv.excel, delimiter=csv_delimiter)
         for format in self.context.composers.keys():
             for subscription in tuple(self.context.subscriptions.query(format=format)):
-                row = [v and v.encode(charset) or '' for v in 
-                            subscription.composer_data.values()]
+                row = []
+                for item in field.Fields(self.context.composers[format].schema).keys():
+                    v = subscription.composer_data.get(item) or ''
+                    row.append(v.encode(charset))
+
                 writer.writerow(row)
         return res.getvalue()
                                 

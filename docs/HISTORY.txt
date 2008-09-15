@@ -4,6 +4,13 @@ History
 Version 0.7.3 - Unreleased
 --------------------------
 
+- removed bug on csv-export. export must have same ordered fields or
+  columns as expected on import. we have to look into the schema for 
+  that. [saily]
+  
+- make csv export and import use the same delimiter.
+  [saily]
+
 Version 0.7.2 - 2008-09-15
 --------------------------
 
