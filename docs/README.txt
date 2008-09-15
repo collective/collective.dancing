@@ -42,17 +42,6 @@ Subscriptions
   newsletters in the site, or through individual subscription forms,
   e.g. in portlets.
 
-Future
-------
-
-A couple of features that we're going to implement in the near future:
-
-Newsletter templates
-  Take complete control over how the newsletters look that are sent
-  out.  Create your own template or one of the templates that come
-  pre-installed with the Singing & Dancing.  Manage newsletter
-  templates in a pool for easy reuse.
-
 .. image:: http://danielnouri.org/media/singing-dancing.jpg
    :alt: Singing & Dancing Logo by Giuseppe Zizza
 
