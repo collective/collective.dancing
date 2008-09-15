@@ -975,7 +975,7 @@ When we now tick the scheduler, we expect mail to be sent out:
   0
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *MyMailDelivery sending*:
-  ...
+  ...Are you doing something interesting with Plone?...
   (3, 0)
 
 The "My subscriptions" page

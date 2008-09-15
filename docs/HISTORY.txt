@@ -4,6 +4,9 @@ History
 Version 0.7.2 - Unreleased
 --------------------------
 
+- Fix an issue where the scheduled send-out would send out items in
+  their short form, i.e. only title and description.  [nouri]
+
 - Add a search box to the subscriptions administration view.
 
   Prior versions of S&D didn't populate the subscribers fulltext index

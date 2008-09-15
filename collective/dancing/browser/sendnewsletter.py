@@ -32,7 +32,7 @@ class UIDResolver(object):
 
     def __call__(self):
         rc = getToolByName(getSite(), 'reference_catalog')
-        return rc.lookupObject(self.uid)
+        return FullFormatWrapper(rc.lookupObject(self.uid))
 
 class SendAsNewsletterForm(form.Form):
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
