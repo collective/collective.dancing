@@ -1,7 +1,10 @@
 History
 =======
 
-Version 0.7.3 - Unreleased
+Version 0.7.4 - Unreleased
+--------------------------
+
+Version 0.7.3 - 2008-09-16
 --------------------------
 
 - Rebuild ``collective.dancing.pot`` and updated German
