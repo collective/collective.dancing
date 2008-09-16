@@ -286,8 +286,7 @@ class ManageSubscriptionsForm(crud.CrudForm):
                                                 format=item.metadata['format'])
         for subscription in subs:
             self.context.subscriptions.remove_subscription(subscription)
-            
-        
+
 
 class SubscriptionChoiceFieldDataManager(z3c.form.datamanager.AttributeField):
     # This nasty hack allows us to have the default IDataManager to
