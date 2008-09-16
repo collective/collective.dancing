@@ -440,8 +440,10 @@ class UploadForm(crud.AddForm):
             title=_(u"Subscribers"),
             description=_(u"Upload a CSV file with a list of subscribers here. "
                           u"Subscribers already present in the database will "
-                          u"be overwritten. Each line should contain:") + ' ' +\
-                     ';'.join(field.Fields(self.context.composer.schema).keys())
+                          u"be overwritten. Each line should contain: "
+                          u"${colums}.",
+                          mapping=dict(columns=';'.join(field.Fields(
+                                         self.context.composer.schema).keys())))
         ) 
         remove = schema.Bool(__name__ = 'removenonexisting',
             title=_(u"Remove non-existing"),
