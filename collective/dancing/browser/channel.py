@@ -281,11 +281,13 @@ class ManageSubscriptionsForm(crud.CrudForm):
         except ValueError, e:
             raise schema.ValidationError(e.args[0])
 
-    def remove(self, (id, item)):
-        key, format = id.rsplit('-', 1)
-        subs = self.context.subscriptions.query(key=key, format=format)
+    def remove(self, (secret, item)):
+        subs = self.context.subscriptions.query(secret=secret, 
+                                                format=item.metadata['format'])
         for subscription in subs:
             self.context.subscriptions.remove_subscription(subscription)
+            
+        
 
 class SubscriptionChoiceFieldDataManager(z3c.form.datamanager.AttributeField):
     # This nasty hack allows us to have the default IDataManager to

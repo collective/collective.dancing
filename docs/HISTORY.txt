@@ -4,9 +4,14 @@ History
 Version 0.7.3 - Unreleased
 --------------------------
 
-- removed bug on csv-export. export must have same ordered fields or
-  columns as expected on import. we have to look into the schema for 
-  that. [saily]
+- removed bug in ``ManageSubscriptionsForm.remove``. When the search box
+  was added we also changed the ``ManageSubscriptionsForm.get_items`` method
+  to return the secret instead of the name. The remove method was not updated, 
+  and delete of subscriptions did not work. [saily]
+
+- removed bug in csv-export. Export must have same ordered fields or columns as 
+  expected on import. As we are using the composer schema for import, we 
+  should use this for export too. [saily]
   
 - make csv export and import use the same delimiter.
   [saily]
