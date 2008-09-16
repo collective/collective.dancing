@@ -4,6 +4,9 @@ History
 Version 0.7.3 - Unreleased
 --------------------------
 
+- rebuild ``collective.dancing.pot`` and updated german translation. 
+  [saily]
+
 - removed bug in ``ManageSubscriptionsForm.remove``. When the search box
   was added we also changed the ``ManageSubscriptionsForm.get_items`` method
   to return the secret instead of the name. The remove method was not updated, 
