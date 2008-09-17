@@ -318,7 +318,7 @@ class Subscriptions(BrowserView):
 
         # Let's set convert any 'pending' subscriptions to non-pending:
         for sub in subscriptions:
-            if sub.metadata['pending']:
+            if sub.metadata.get('pending'):
                 sub.metadata['pending'] = False
 
         # Assemble the list of edit forms

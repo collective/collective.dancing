@@ -4,6 +4,10 @@ History
 Version 0.7.4 - Unreleased
 --------------------------
 
+- Fix an issue where confirming pending subscriptions by visiting the "My 
+  subscriptions" page.  If a subscription is already confirmed the dictionary
+  ``subscription.metadata`` does not have a key ``pending``.  [saily]
+
 Version 0.7.3 - 2008-09-16
 --------------------------
 
