@@ -1,7 +1,10 @@
 History
 =======
 
-Version 0.7.4 - Unreleased
+Version 0.7.5 - Unreleased
+--------------------------
+
+Version 0.7.4 - 2008-09-19
 --------------------------
 
 - Fix an issue where confirming pending subscriptions by visiting the "My 
