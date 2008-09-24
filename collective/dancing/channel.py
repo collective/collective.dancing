@@ -76,7 +76,7 @@ def tool_added(tool, event):
 
     # Create and register salt
     salt = Salt()
-    sm = zope.app.component.hooks.getSite().getSiteManager()
+    sm = zope.component.getSiteManager(tool)
     tool.salt = salt
     sm.registerUtility(salt, collective.singing.interfaces.ISalt)
 
