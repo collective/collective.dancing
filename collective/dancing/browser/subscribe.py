@@ -28,7 +28,7 @@ class SendSecret(BrowserView):
 
     description = _(
         u"Fill out the form below to receive an email with a link from which "
-        "you can edit you subscriptions.")
+        "you can edit your subscriptions.")
 
     def forgot_secret_form(self):
         form = collective.singing.browser.subscribe.ForgotSecret(
