@@ -9,7 +9,7 @@ class ISendAndPreviewForm(interface.Interface):
     channels = schema.Set(
         title=_(u"The channel to send this through"),
         value_type=schema.Choice(
-        vocabulary='collective.singing.vocabularies.ChannelVocabulary')
+        vocabulary='collective.singing.vocabularies.SendableChannelVocabulary')
         )
     
     include_collector_items = schema.Bool(

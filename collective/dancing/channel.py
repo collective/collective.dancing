@@ -115,6 +115,8 @@ class Channel(OFS.SimpleItem.SimpleItem):
 
     subscribeable = True
     
+    sendable = True
+    
     def __init__(self, name, title=None, composers=None,
                  collector=None, scheduler=None, description=u""):
         self.name = name
