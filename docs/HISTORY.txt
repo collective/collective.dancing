@@ -4,6 +4,9 @@ History
 Version 0.7.5 - Unreleased
 --------------------------
 
+- Fix #280338: Images in header and footer text were sent with
+  relative URLs. [nouri]
+
 - It's now possible to filter channels from the sendnewsletter view.
   Simple by setting channel.sendable=False.
   [tmog]

@@ -28,6 +28,7 @@ import collective.singing.interfaces
 import collective.singing.mail
 
 from collective.dancing import MessageFactory as _
+from collective.dancing import transform
 from collective.dancing import utils
 
 from interfaces import IFullFormatter
@@ -128,6 +129,7 @@ class HTMLComposer(persistent.Persistent):
         vars = {}
         site = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
         site = utils.fix_request(site, 0)
+        fix_urls = lambda t: transform.URL(site).__call__(t, subscription)
         
         vars['channel'] = subscription.channel
         vars['site_url'] = site.absolute_url()
@@ -136,8 +138,9 @@ class HTMLComposer(persistent.Persistent):
         vars['from_addr'] = self._from_address
         vars['to_addr'] = subscription.composer_data['email']
         vars['subject'] = self.subject
-        vars['header_text'] = self.header_text or u"" # Why would these
-        vars['footer_text'] = self.footer_text or u"" # ever be None?
+        # Why would header_text or footer_text ever be None?
+        vars['header_text'] = fix_urls(self.header_text or u"")
+        vars['footer_text'] = fix_urls(self.footer_text or u"")
         vars['stylesheet'] = self.stylesheet
         headers = vars['more_headers'] = {}
         if self.replyto_address:
