@@ -45,9 +45,9 @@ class URL(object):
                        tag[attr].startswith('/%s/' % curl_parts[3]):
                     tag[attr] = '/'+'/'.join(tag[attr].split('/')[2:])
 
-                    # Kupu makes absolute links without the domain,
-                    # which include the Plone site, so let's try and
-                    # strip the Plone site's id out:
+                # Kupu makes absolute links without the domain, which
+                # include the Plone site, so let's try and strip the
+                # Plone site's id out:
                 site_id = component.getUtility(IPloneSiteRoot).getId()
                 if tag[attr].startswith('/%s/' % site_id):
                     tag[attr] = tag[attr].replace('/%s/' % site_id, '/', 1)
