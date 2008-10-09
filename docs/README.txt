@@ -170,16 +170,18 @@ configuration and rerun ``bin/buildout -v``::
         period 300
         user admin
         password admin
-        host localhost
+        host www.mysite.com
       </clock-server>
 
 This will process the message queue every five minutes.  It assumes
-that your Plone site is called ``portal`` and that your username and
-password are ``admin``.
+that your Plone site's ID is ``portal``, that your username and
+password are ``admin``, and that your site is called
+``www.mysite.com``.
 
 **Note**: You must not set up this ClockServer on more than one
 instance.  The processing makes sure it's not invoked twice at the
-same time by using file locking.
+same time by using file locking.  This file locking won't work if you
+configure the clock server on two different servers.
 
 Configuring zope.sendmail to send out messages
 ----------------------------------------------
