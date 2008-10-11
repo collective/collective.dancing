@@ -166,12 +166,29 @@ configuration and rerun ``bin/buildout -v``::
 
   zope-conf-additional = 
       <clock-server>
-        method /portal/@@dancing.utils/tick_and_dispatch
+        # plonesite is your plone path
+        method /plonesite/@@dancing.utils/tick_and_dispatch
         period 300
         user admin
         password admin
-        host www.mysite.com
+        # You need your *real* host here
+        host www.mysite.com 
       </clock-server>
+      
+Or, if your site is behind Apache using a Virtual Host, 
+the zope.conf clock server configuration would be ::
+
+  zope-conf-additional = 
+      <clock-server>
+        # plonesite is your plone path
+        # www.mysite.com your site url
+        method /VirtualHostBase/http/www.mysite.com:80/plonesite/VirtualHostRoot/@@dancing.utils/tick_and_dispatch
+        period 300
+        user admin
+        password admin
+      </clock-server>
+
+    
 
 This will process the message queue every five minutes.  It assumes
 that your Plone site's ID is ``portal``, that your username and
