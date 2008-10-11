@@ -14,6 +14,9 @@ Version 0.7.5 - Unreleased
 - Fixed an issue with installing collective.dancing from python.
   The event-listener registering ISalt on creation of a new tool
   no longer depends upon having a request. [tmog]
+  
+- zope.conf configuration with Virtual Host added in 
+  documentation [macadames]  
 
 Version 0.7.4 - 2008-09-19
 --------------------------
