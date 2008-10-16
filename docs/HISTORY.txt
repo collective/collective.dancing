@@ -4,6 +4,10 @@ History
 Version 0.7.5 - Unreleased
 --------------------------
 
+- Added ``encoding`` attribute on the ``HTMLComposer`` class to make
+  it possible to either subclass and provide a different default
+  encoding, or set a persistent attribute. [malthe]
+
 - Fix #280338: Images in header and footer text were sent with
   relative URLs. [nouri]
 

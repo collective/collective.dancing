@@ -76,6 +76,7 @@ class HTMLComposer(persistent.Persistent):
     title = _(u'HTML E-Mail')
     schema = IHTMLComposerSchema
 
+    encoding = 'utf-8'
     stylesheet = u""
     from_name = u""
     from_address = u""
@@ -201,7 +202,8 @@ class HTMLComposer(persistent.Persistent):
             html,
             from_addr=vars['from_addr'],
             to_addr=vars['to_addr'],
-            headers=vars.get('more_headers'))
+            headers=vars.get('more_headers'),
+            encoding=self.encoding)
 
         return collective.singing.message.Message(
             message, subscription)
@@ -223,7 +225,8 @@ class HTMLComposer(persistent.Persistent):
             html,
             from_addr=vars['from_addr'],
             to_addr=vars['to_addr'],
-            headers=vars.get('more_headers'))
+            headers=vars.get('more_headers'),
+            encoding=self.encoding)
 
         # status=None prevents message from ending up in any queue
         return collective.singing.message.Message(
@@ -246,7 +249,8 @@ class HTMLComposer(persistent.Persistent):
             html,
             from_addr=vars['from_addr'],
             to_addr=vars['to_addr'],
-            headers=vars.get('more_headers'))
+            headers=vars.get('more_headers'),
+            encoding=self.encoding)
 
         # status=None prevents message from ending up in any queue
         return collective.singing.message.Message(
