@@ -595,10 +595,11 @@ meaningful message:
   True
 
 Trying to subscribe to the same channel and format with the same
-e-mail address fails:
+e-mail address fails.  Note that e-mail addresses are case insensitive
+and that whitespace is stripped off:
 
   >>> browser.open(channel.absolute_url() + '/subscribe.html')
-  >>> browser.getControl('E-mail address').value = u"ROOT@localhost"
+  >>> browser.getControl('E-mail address').value = u" ROOT@localhost "
   >>> browser.getControl('Finish').click()
   >>> "Your email address is already subscribed." in browser.contents
   True

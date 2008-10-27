@@ -51,7 +51,7 @@ class PrimaryLabelTextLine(schema.TextLine):
 
     def fromUnicode(self, str):
         value = super(PrimaryLabelTextLine, self).fromUnicode(str)
-        return value.lower()
+        return value.strip().lower()
 
 
 class IHTMLComposerSchema(interface.Interface):
