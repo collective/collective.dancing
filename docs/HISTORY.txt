@@ -1,7 +1,10 @@
 History
 =======
 
-Version 0.7.5 - Unreleased
+Version 0.7.6 - Unreleased
+--------------------------
+
+Version 0.7.5 - 2008-10-27
 --------------------------
 
 - Move file locking from queue dispatch to the ``tick_and_dispatch``
