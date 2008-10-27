@@ -4,6 +4,12 @@ History
 Version 0.7.5 - Unreleased
 --------------------------
 
+- Move file locking from queue dispatch to the ``tick_and_dispatch``
+  browser view.  This is to make sure that we don't put duplicates
+  into the queue.  This is because the underlying queue implementation
+  will actually work against us here by allowing simultaneous adds in
+  one ZODB- write. [nouri]
+
 - Fix #289779: Strip whitespace from e-mail addresses. [nouri]
 
 - Added ``encoding`` attribute on the ``HTMLComposer`` class to make

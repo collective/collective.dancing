@@ -64,8 +64,6 @@ Alternatively, add ``collective.dancing`` to the list of eggs in your
 ``buildout.cfg`` if you don't have your own package.  This is what we
 explain below.
 
-Sadly, we don't support Repoze_ at this poiint.
-
 Installing S&D with Buildout
 ----------------------------
 
@@ -260,7 +258,6 @@ Get in touch with us if you need help or have comments.  See the
 .. _Python eggs on PyPI: http://pypi.python.org/pypi/collective.dancing
 .. _depend: http://peak.telecommunity.com/DevCenter/setuptools#declaring-dependencies
 .. _buildout: http://pypi.python.org/pypi/zc.buildout
-.. _Repoze: http://repoze.org
 .. _how to create a buildout: http://plone.org/documentation/tutorial/buildout/creating-a-buildout-for-your-project
 .. _follow this tutorial: http://plone.org/documentation/tutorial/buildout
 .. _ClockServer: http://plope.com/software/ClockServer/
