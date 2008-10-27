@@ -50,8 +50,8 @@ class PrimaryLabelTextLine(schema.TextLine):
                          collective.singing.interfaces.ISubscriptionLabel)
 
     def fromUnicode(self, str):
-        value = super(PrimaryLabelTextLine, self).fromUnicode(str)
-        return value.strip().lower()
+        str = str.lower().strip()
+        return super(PrimaryLabelTextLine, self).fromUnicode(str)
 
 
 class IHTMLComposerSchema(interface.Interface):
