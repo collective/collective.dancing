@@ -72,28 +72,28 @@ class ChannelStatistics(object):
         return msg_count, last_modified
 
 class EditForm(crud.EditForm):
-    @button.buttonAndHandler(_('Flush old messages'), name='flush')
-    def handle_flush(self, action):
-        self.status = _(u"Please select items to flush.")
+    @button.buttonAndHandler(_('Remove old messages'), name='removeold')
+    def handle_clear(self, action):
+        self.status = _(u"Please select items to remove.")
         selected = self.selected_items()
         if selected:
-            self.status = _(u"Successfully flushed channels.")
+            self.status = _(u"Successfully removed old messages from channels.")
             for id, stats in selected:
-                stats.channel.queue.flush()
+                stats.channel.queue.clear()
 
-    @button.buttonAndHandler(_('Flush new messages'), name='flushnew')
-    def handle_flushnew(self, action):
-        self.status = _(u"Please select items with new messages to flush.")
+    @button.buttonAndHandler(_('Clear queued messages'), name='clearnew')
+    def handle_clearnew(self, action):
+        self.status = _(u"Please select items with new messages to clear.")
         selected = self.selected_items()
         if selected:
-            self.status = _(u"Successfully flushed new in channels.")
+            self.status = _(u"Successfully cleared queued messages in channels.")
             for id, stats in selected:
-                stats.channel.queue.flush(queue_names=('new',))
+                stats.channel.queue.clear(queue_names=('new','retry'))
 
-    @button.buttonAndHandler(_('Send messages now'), name='send')
+    @button.buttonAndHandler(_('Send queued messages now'), name='send')
     def handle_send(self, action):
-        self.status = _(u"Please select which channel you'd like to send "
-                        "queued e-mails of.")
+        self.status = _(u"Please select which channel's queued e-mails"
+                        " you'd like to send.")
         selected = self.selected_items()
         if selected:
             sent, failed = 0, 0
@@ -119,7 +119,7 @@ class StatsForm(crud.CrudForm):
     def remove(self, (id, item)):
         for name, stats in self.get_items():
             if name == id:
-                stats.channel.queue.flush()
+                stats.channel.queue.clear()
                 self.status = _(u"All sent and failed messages deleted")
                 return
         else:

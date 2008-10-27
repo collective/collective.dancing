@@ -156,7 +156,7 @@ messages.
 In a production setup, you would normally process the message queue
 periodically using the built-in Zope ClockServer_.  While you're
 testing, you can visit the *Statistics* screen in the S&D advanced
-configuration panel and manually flush the queues.  If your mail
+configuration panel and manually clear the queues.  If your mail
 configuration in Plone is set up correctly, you should be sending mail
 out now.
 

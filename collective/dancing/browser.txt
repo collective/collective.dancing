@@ -502,12 +502,12 @@ created.  We'll register an adapter to do that for us:
 
   >>> component.provideAdapter(MyTextDispatch)
 
-Now we can select our channel and click the "Send messages now" button:
+Now we can select our channel and click the "Send queued messages now" button:
 
   >>> btn = browser.getControl(
   ...     name='crud-edit.my-other-channel.widgets.select:list')
   >>> btn.value = ['selected']
-  >>> browser.getControl('Send messages now').click()
+  >>> browser.getControl('Send queued messages now').click()
   Sending u'Hello, World!'
   >>> "1 message(s) sent" in browser.contents
   True
@@ -522,7 +522,7 @@ If sending the message fails, we'll get notified:
   >>> btn = browser.getControl(
   ...     name='crud-edit.my-other-channel.widgets.select:list')
   >>> btn.value = ['selected']
-  >>> browser.getControl('Send messages now').click()
+  >>> browser.getControl('Send queued messages now').click()
   >>> "1 failure(s)" in browser.contents
   True
   >>> "0 message(s) sent" in browser.contents
