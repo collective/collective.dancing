@@ -440,7 +440,7 @@ class UploadForm(crud.AddForm):
             description=_(u"Upload a CSV file with a list of subscribers here. "
                           u"Subscribers already present in the database will "
                           u"be overwritten. Each line should contain: "
-                          u"${colums}.",
+                          u"${columns}.",
                           mapping=dict(columns=';'.join(field.Fields(
                                          self.context.composer.schema).keys())))
         ) 
