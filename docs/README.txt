@@ -209,7 +209,7 @@ SMTP parameters from your Plone site.
 Be warned however, that this default configuration is not suitable for
 high-volume newsletters.  The aforementioned configuration file
 contains an example configuration using ``mail:queuedDelivery`` that
-works much more reliable when dealing with a large number of mails.
+works much more reliably when dealing with a large number of mails.
 
 Upgrade
 =======
