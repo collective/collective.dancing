@@ -4,6 +4,14 @@ History
 Version 0.7.6 - Unreleased
 --------------------------
 
+- Fixed a bug where when sending a preview we were incorrectly setting
+  the ``cue`` of the subscription that the preview is sent to. [nouri]
+
+- Fix #264990: When sending out a newsletter from a content item
+  manually, we no longer assemble all message in the course of the
+  browser request.  Instead, we schedule a job that's executed
+  asynchronously on ``tick_and_dispatch`` time. [nouri]
+
 Version 0.7.5 - 2008-10-27
 --------------------------
 
@@ -11,7 +19,7 @@ Version 0.7.5 - 2008-10-27
   browser view.  This is to make sure that we don't put duplicates
   into the queue.  This is because the underlying queue implementation
   will actually work against us here by allowing simultaneous adds in
-  one ZODB- write. [nouri]
+  parallel ZODB- writes. [nouri]
 
 - Fix #289779: Strip whitespace from e-mail addresses. [nouri]
 

@@ -853,18 +853,40 @@ We'll now send the front page as a newsletter:
   >>> previous_trigger_time = channel.scheduler.triggered_last
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
   >>> browser.getControl('Newsletter').click()
-
-When we click send, messages for the newsletter(s) will be queued:
-
   >>> browser.getControl('My other channel').click()
   >>> browser.getControl('Send', index=0).click()
-  >>> "3 messages queued" in browser.contents
+  >>> "Messages queued for delivery" in browser.contents
   True
-  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+
+When we click send, our action will be queued in a job queue.
+Information about the job queue is available through the Statistics
+screen.  The job queue can also be processed from there:
+
+  >>> browser.open('http://nohost/plone/portal_newsletters')
+  >>> browser.getLink('Statistics').click()
+  >>> 'Send "Welcome to Plone"' in browser.contents
+  True
+  >>> browser.getControl("Process jobs").click()
+  >>> "3 message(s) queued for delivery" in browser.contents
+  True
+
+  >>> browser.getControl(name="crud-edit.my-other-channel.widgets.select:list"
+  ...     ).value = ['selected']
+  >>> browser.getControl(name="crud-edit.default-channel.widgets.select:list"
+  ...     ).value = ['selected']
+  >>> browser.getControl('Send queued messages now').click()
   *MyMailDelivery sending*:
   ...
   Welcome to Plone...Are you doing something interesting with Plone?...
   Vickar's daughter...
+  >>> "3 message(s) sent" in browser.contents
+  True
+
+While we're at the Statistics screen, let's also clear the old jobs:
+
+  >>> browser.getControl("Clear finished jobs").click()
+  >>> "All finished jobs cleared" in browser.contents
+  True
 
 The scheduler last triggered time is also updated.
 
@@ -890,13 +912,23 @@ This time we won't add the collector items:
   >>> browser.getControl(
   ...     name='form.widgets.include_collector_items:list').value = ['false']
   >>> browser.getControl('Send', index=0).click()
-  >>> "3 messages queued" in browser.contents
+  >>> "Messages queued for delivery" in browser.contents
   True
-  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+
+To send out the queued messages this time, we'll use the
+``@@tick_and_dispatch`` view this time.  This view will be covered in
+more depth later:
+
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/tick_and_dispatch')
   *MyMailDelivery sending*:
   ...
+  >>> print browser.contents # doctest +NORMALIZE_WHITESPACE
+  3 message(s) queued for delivery.
+  default-channel: 0 messages queued, dispatched: (0, 0)
+  my-other-channel: 0 messages queued, dispatched: (3, 0)
 
-... so our new News Item is not sent out:
+Because we didn't add the collector items, our News Item is not sent
+out:
 
   >>> MyMailDelivery.order()
   >>> msg = quopri.decodestring(MyMailDelivery.sent[-3])
@@ -912,15 +944,17 @@ is not updated:
   >>> previous_trigger_time == channel.scheduler.triggered_last
   True
 
-We can also choose to send a preview of this item.  To do this, we'll
-fill in our e-mail address and click the Preview button.  Note that
-the cue time remains the same:
+We can also choose to send a preview of the same item.  To do this,
+we'll fill in our e-mail address and click the Preview button.  Note
+that the cue time remains the same:
 
+  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
   >>> root = tuple(channel.subscriptions.query(key=u'root@localhost'))[0]
   >>> old_cue = root.metadata['cue']
   >>> browser.getControl('Address').value = u'root@localhost'
+  >>> browser.getControl('My other channel').click()
   >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
-  >>> "1 messages queued" in browser.contents
+  >>> "1 message(s) queued" in browser.contents
   True
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *MyMailDelivery sending*:
@@ -937,12 +971,11 @@ were queued:
 
   >>> browser.getControl('Address').value = u'nobody@localhost'
   >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
-  >>> "0 messages queued" in browser.contents
+  >>> "0 message(s) queued" in browser.contents
   True
 
 We may request an in-browser preview:
 
-  >>> browser.getControl('Newsletter').click()
   >>> browser.getControl('Show preview').click() # doctest: +ELLIPSIS
   >>> "Previewing &quot;My other channel&quot;" in browser.contents
   True
@@ -1226,8 +1259,7 @@ have taken effect.
   >>> browser.getControl(
   ...     name='form.widgets.include_collector_items:list').value = ['false']
   >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
-
-  >>> "1 messages queued" in browser.contents
+  >>> "1 message(s) queued" in browser.contents
   True
 
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE

@@ -2,10 +2,18 @@ import zope.schema.vocabulary
 import z3c.form.interfaces
 import Acquisition
 
-def fix_request(wrapped, skip=1):
+import collective.singing.async
+
+def get_queue():
+    """Get the job queue"""
+    return collective.singing.async.get_queue('collective.dancing.jobs')
+
+def get_request_container():
     site = zope.app.component.hooks.getSite()
-    req = site.aq_chain[-1]
-    return aq_append(wrapped, req, skip)
+    return site.aq_chain[-1]
+
+def fix_request(wrapped, skip=1):
+    return aq_append(wrapped, get_request_container(), skip)
 
 def aq_append(wrapped, item, skip=0):
     """Return wrapped with an aq chain that includes `item` at the

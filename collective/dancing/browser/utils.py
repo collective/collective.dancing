@@ -5,6 +5,7 @@ from zope.interface import Interface
 import zc.lockfile
 from Products.Five import BrowserView
 from collective.singing.channel import channel_lookup
+from collective.dancing import utils
 
 LOCKFILE_NAME = os.path.join(tempfile.gettempdir(),
                              __name__ + '.tick_and_dispatch')
@@ -38,6 +39,13 @@ class DancingUtilsView(BrowserView):
 
     def _tick_and_dispatch(self):
         msg = u''
+
+        queue = utils.get_queue()
+        num = queue.process()
+        if num:
+            for job in queue.finished[-num:]:
+                msg += job.value + '\n'
+
         for channel in channel_lookup():
             queued = status = None
             if channel.scheduler is not None:

@@ -19,11 +19,13 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone.z3cform import z2
 import plone.z3cform.layout
+import collective.singing.async
 import collective.singing.channel
 import collective.singing.interfaces
 
 from collective.dancing.composer import FullFormatWrapper
 from collective.dancing.browser.interfaces import ISendAndPreviewForm
+from collective.dancing import utils
 from collective.dancing import MessageFactory as _
 
 class UIDResolver(object):
@@ -33,6 +35,20 @@ class UIDResolver(object):
     def __call__(self):
         rc = getToolByName(getSite(), 'reference_catalog')
         return FullFormatWrapper(rc.lookupObject(self.uid))
+
+def _assemble_messages(channel_paths, context_path, include_collector_items):
+    queued = 0
+    site = getSite()
+    request = site.REQUEST
+    context = site.restrictedTraverse(context_path)
+    for path in channel_paths:
+        channel = site.restrictedTraverse(path)
+        assembler = collective.singing.interfaces.IMessageAssemble(channel)
+        queued += assembler(
+            request, (FullFormatWrapper(context),), include_collector_items)
+        if channel.scheduler is not None and include_collector_items:
+            channel.scheduler.triggered_last = datetime.datetime.now()
+    return "%s message(s) queued for delivery." % queued
 
 class SendAsNewsletterForm(form.Form):
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
@@ -53,19 +69,21 @@ class SendAsNewsletterForm(form.Form):
             self.status = form.EditForm.formErrorsMessage
             return
         channels = data['channels']
+        channel_paths = ['/'.join(c.getPhysicalPath()) for c in channels]
+        context_path = '/'.join(self.context.getPhysicalPath())
         include_collector_items = data['include_collector_items']
 
-        queued = 0
-        for channel in channels:
-            assembler = collective.singing.interfaces.IMessageAssemble(channel)
-            queued += assembler(
-                self.request,
-                (FullFormatWrapper(self.context),),                
-                include_collector_items)
-            if channel.scheduler is not None and include_collector_items:
-                channel.scheduler.triggered_last = datetime.datetime.now()
+        job = collective.singing.async.Job(
+            _assemble_messages,
+            channel_paths, context_path, include_collector_items)
+        title = _(u'Send "${context}" through ${channels}.',
+                  mapping=dict(
+            context=self.context.Title(),
+            channels=', '.join(['"%s"' % c.title for c in channels])))
+        job.title = title
+        utils.get_queue().pending.append(job)
 
-        self.status = _(u"${num} messages queued.", mapping=dict(num=queued))
+        self.status = _(u"Messages queued for delivery.")
 
     @button.buttonAndHandler(_('Show preview'), name='show_preview')
     def handle_show_preview(self, action):
@@ -100,6 +118,7 @@ class SendAsNewsletterForm(form.Form):
         queued = 0
         for channel in channels:
             assembler = collective.singing.interfaces.IMessageAssemble(channel)
+            assembler.update_cue = False
             subs = channel.subscriptions.query(key=address)
 
             for sub in subs:
@@ -112,7 +131,7 @@ class SendAsNewsletterForm(form.Form):
                     queued += 1
 
         self.status = _(
-            u"${num} messages queued.", mapping=dict(num=queued))
+            u"${num} message(s) queued.", mapping=dict(num=queued))
 
     def _have_timed_scheduler(self):
         for channel in collective.singing.channel.channel_lookup():

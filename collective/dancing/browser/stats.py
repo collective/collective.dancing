@@ -3,6 +3,7 @@ from zope import component
 from zope import interface
 from zope import schema
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.app.pagetemplate import viewpagetemplatefile
 
 from z3c.form import button
 from z3c.form import field
@@ -14,6 +15,7 @@ from collective.singing import interfaces
 from collective.singing.channel import channel_lookup
 
 from collective.dancing.browser import controlpanel
+from collective.dancing import utils
 from collective.dancing import MessageFactory as _
 
 class IQueueStatistics(interface.Interface):
@@ -72,6 +74,17 @@ class ChannelStatistics(object):
         return msg_count, last_modified
 
 class EditForm(crud.EditForm):
+    jobs_template = viewpagetemplatefile.ViewPageTemplateFile('jobs.pt')
+
+    def render(self):
+        # In addition to rendering the usual crud table, we'll add a
+        # table with information about jobs at the top:
+        html = u''
+        if self.pending_jobs() or self.finished_jobs():
+            html = self.jobs_template()
+
+        return html + super(EditForm, self).render()
+
     @button.buttonAndHandler(_('Remove old messages'), name='removeold')
     def handle_clear(self, action):
         self.status = _(u"Please select items to remove.")
@@ -104,6 +117,31 @@ class EditForm(crud.EditForm):
             self.status = _(u"${sent} message(s) sent, ${failed} failure(s).",
                             mapping=dict(sent=sent, failed=failed))
 
+    @button.buttonAndHandler(_('Process jobs'), name='process_jobs',
+                             condition=lambda form: form.pending_jobs())
+    def handle_process_jobs(self, action):
+        queue = utils.get_queue()
+        num = queue.process()
+        finished = queue.finished[-num:]
+        if len(finished) == 1:
+            self.status = finished[0].value
+        else:
+            self.status = _(u"All pending jobs processed")
+
+    @button.buttonAndHandler(_('Clear finished jobs'), name='clear_jobs',
+                             condition=lambda form: form.finished_jobs())
+    def handle_clear_jobs(self, action):
+        queue = utils.get_queue()
+        while queue.finished:
+            queue.finished.pop()
+        self.status = _("All finished jobs cleared")
+
+    def pending_jobs(self):
+        return utils.get_queue().pending
+
+    def finished_jobs(self):
+        return utils.get_queue().finished
+
 class StatsForm(crud.CrudForm):
     """View list of queues and last modification dates for all
     available channels.
@@ -113,7 +151,7 @@ class StatsForm(crud.CrudForm):
     view_schema = IQueueStatistics
 
     def get_items(self):
-        return [(channel.name, ChannelStatistics(channel)) \
+        return [(channel.name, ChannelStatistics(channel))
                 for channel in channel_lookup()]
 
     def remove(self, (id, item)):
