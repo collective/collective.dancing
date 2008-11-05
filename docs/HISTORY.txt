@@ -4,6 +4,11 @@ History
 Version 0.7.7 - Unreleased
 --------------------------
 
+- Set ``ignoreContext = True`` for SubscriptionsSearchForm.  Before
+  I'd get ``AttributeError: 'ManageSubscriptionsForm' object has no
+  attribute 'fulltext'``, but strangely enough not in the tests and
+  only in one installation that I know of.  [nouri]
+
 Version 0.7.6 - 2008-11-05
 --------------------------
 

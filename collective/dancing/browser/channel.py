@@ -176,14 +176,13 @@ class ChannelAdministrationView(BrowserView):
 
 class SubscriptionsSearchForm(z3c.form.form.Form):
     prefix = 'search.'
+    ignoreContext = True
 
-    @property
-    def fields(self):
-        search = schema.TextLine(
-            __name__='fulltext',
-            title=_(u"Search subscribers"),
-            )
-        return field.Fields(search)
+    fields = field.Fields(
+        schema.TextLine(
+        __name__='fulltext',
+        title=_(u"Search subscribers"),
+        ))
 
     @z3c.form.button.buttonAndHandler(_('Search'), name='search')
     def handle_search(self, action):
