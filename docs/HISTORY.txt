@@ -1,7 +1,10 @@
 History
 =======
 
-Version 0.7.6 - Unreleased
+Version 0.7.7 - Unreleased
+--------------------------
+
+Version 0.7.6 - 2008-11-05
 --------------------------
 
 - German translation has been updated.
