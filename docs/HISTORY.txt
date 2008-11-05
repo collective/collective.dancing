@@ -4,6 +4,13 @@ History
 Version 0.7.6 - Unreleased
 --------------------------
 
+- German translation has been updated.
+  [saily]
+
+- Used i18ndude to find all untranslated msgid's. There were some updates in 
+  collective.dancing queue-button-naming, so all guy's please help updating 
+  collective.dancing's po files.  [saily]
+
 - Fixed a bug where when sending a preview we were incorrectly setting
   the ``cue`` of the subscription that the preview is sent to. [nouri]
 
