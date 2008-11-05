@@ -64,11 +64,11 @@ msgstr "Hier können Sie Themenbereiche hinzufügen und/oder bearbeiten. Diese T
 
 #: collective/dancing/browser/interfaces.py:23
 msgid "Address to send the preview to"
-msgstr "Adresse an den die Vorschau gesendet werden soll"
+msgstr "Vorschau an diese E-Mail Adresse senden"
 
 #: collective/dancing/browser/stats.py:137
 msgid "All finished jobs cleared"
-msgstr "Alle erledigten Aufgaben entfernt"
+msgstr "Alle erledigten Aufgaben gelöscht"
 
 #: collective/dancing/browser/stats.py:129
 msgid "All pending jobs processed"
@@ -102,7 +102,7 @@ msgstr "Zurück zur Portletverwaltung"
 #. Default: "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
 #: collective/dancing/browser/subscriptions.pt:10
 msgid "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
-msgstr "Hier sehen Sie eine Liste aller Themenbereiche die wir anbieten. Falls Sie bereits zu einem dieser Themenbereiche bereits angemeldet sind können Sie das untenstehende Formular ausfüllen und wir senden Ihnen eine Adresse zu, um Ihre Abonnements zu bearbeiten."
+msgstr "Hier sehen Sie eine Liste aller Themenbereiche die wir anbieten. Falls Sie bereits zu einem dieser Themenbereiche bereits angemeldet sind können Sie das untenstehende Formular ausfüllen und wir senden Ihnen einen Link  zu, um Ihre Abonnements zu bearbeiten."
 
 #. Default: "Best regards"
 #: collective/dancing/browser/composer-html-forgot.pt:30
@@ -128,7 +128,7 @@ msgstr "Erledigte Aufgaben entfernen"
 
 #: collective/dancing/browser/stats.py:97
 msgid "Clear queued messages"
-msgstr "Warteliste geleert"
+msgstr "Wartende Nachrichten löschen"
 
 #. Default: "Click here to manage your subscriptions with ${site-title}:"
 #: collective/dancing/browser/composer-html-forgot.pt:21
@@ -385,11 +385,11 @@ msgstr "Bitte geben Sie ein gültiges Datum an."
 
 #: collective/dancing/browser/stats.py:90
 msgid "Please select items to remove."
-msgstr "Bitte wählen Sie ein Element zum Entfernen aus."
+msgstr "Bitte wählen Sie einen Themenbereich dessen alte bzw. gesendete Nachrichten gelöscht werden sollen."
 
 #: collective/dancing/browser/stats.py:99
 msgid "Please select items with new messages to clear."
-msgstr "Bitte wählen Sie eine Warteschleife die geleert werden soll."
+msgstr "Bitte wählen Sie einen Themenbereich dessen wartende Nachrichten gelöscht werden sollen."
 
 #: collective/dancing/browser/sendnewsletter.py:97
 msgid "Please select precisely one channel for preview."
@@ -498,7 +498,7 @@ msgstr "Vorschau versenden"
 
 #: collective/dancing/browser/stats.py:106
 msgid "Send queued messages now"
-msgstr "wartende Nachrichten jetzt verschicken"
+msgstr "Wartende Nachrichten jetzt verschicken"
 
 #: collective/dancing/browser/stats.py:36
 msgid "Sent messages"
@@ -507,7 +507,7 @@ msgstr "Gesendete Nachrichten"
 #. Default: "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
 #: collective/dancing/browser/subscriptions.pt:34
 msgid "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
-msgstr "Wenn Sie bereits zu mindestens einem unserer Themenbereiche angemeldet sind, können Sie über ihre E-Mail Adresse die Adresse für Ihre Abonnement-Verwaltungsseite anfordern:"
+msgstr "Wenn Sie bereits zu mindestens einem unserer Themenbereiche angemeldet sind, können Sie über ihre E-Mail Adresse einen Link für Ihre Abonnementverwaltung anfordern:"
 
 #: collective/dancing/browser/portlets/channelsubscribe.py:57
 msgid "Show footer"
@@ -551,7 +551,7 @@ msgstr "Abonnements"
 
 #: collective/dancing/browser/stats.py:102
 msgid "Successfully cleared queued messages in channels."
-msgstr "Warteschleife wurde erfolgreich geleert."
+msgstr "Warteliste wurde erfolgreich geleert."
 
 #: collective/dancing/browser/stats.py:93
 msgid "Successfully removed old messages from channels."
@@ -611,7 +611,7 @@ msgstr "Dies ist nur erforderlich, falls Sie auf 'Plane Zustellung' klicken."
 
 #: collective/dancing/browser/interfaces.py:24
 msgid "This is only required if you click 'Send preview' below"
-msgstr "Dies ist nur erforderlich, falls Sie auf 'Vorschau senden' klicken."
+msgstr "Dies ist nur erforderlich, falls Sie auf 'Vorschau versenden' klicken."
 
 #: collective/dancing/browser/portlets/channelsubscribe.py:407
 msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
@@ -692,7 +692,7 @@ msgstr "Sie sind bereits zu diesem Newsletter angemeldet.Klicken Sie hier <a hre
 
 #: collective/dancing/browser/subscribe.py:203
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
-msgstr "Sie sind bereits angemeldet. Füllen Sie das untenstehende Formular aus und wir senden Ihnen eine Adresse zu, wo Sie ihre Abonnements bearbeiten können."
+msgstr "Sie sind bereits angemeldet. Füllen Sie das untenstehende Formular aus und wir senden Ihnen einen Link zu, um Ihre Abonnements zu bearbeiten."
 
 #. Default: "You are currently subscribed to these newsletters:"
 #: collective/dancing/browser/subscriptions.pt:21
