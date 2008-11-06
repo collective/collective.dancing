@@ -4,6 +4,24 @@ History
 Version 0.7.8 - Unreleased
 --------------------------
 
+- Added caching to composer rendering.
+  Caching is done based on _vars and collected items.
+  Notice that composer._vars has been split into two;
+  _vars and _subscription_vars. The latter containing
+  variables that are likely to be unique to the subscription,
+  and the former those that are likely shared across multiple
+  subscriptions.
+  Rendering is now broken into two step.
+  1) Rendering the composer-html template and compacting the
+     resulting html with stonagehtml. _vars and collected
+     items is available in the template.
+     This step is cached on _vars and items.
+  2) string.Template variable replacement on the html of
+     variables in _subscription_vars. In the default implementation
+     only the subscribers secret in the subscription management
+     urls is replaced.
+  [tmog]
+
 Version 0.7.7 - 2008-11-05
 --------------------------
 

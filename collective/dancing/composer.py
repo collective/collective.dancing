@@ -1,6 +1,7 @@
 import atexit
 import datetime
 import logging
+import inspect
 import md5
 import re
 import os
@@ -34,6 +35,8 @@ from collective.dancing import utils
 from interfaces import IFullFormatter
 from interfaces import IHTMLComposer
 
+from plone.memoize import volatile 
+
 logger = logging.getLogger('collective.singing')
 
 class InvalidEmailAddress(schema.ValidationError):
@@ -53,6 +56,17 @@ class PrimaryLabelTextLine(schema.TextLine):
         str = str.lower().strip()
         return super(PrimaryLabelTextLine, self).fromUnicode(str)
 
+def _render_cachekey(method, self, vars, items):
+    return (vars, items)
+
+def template_var(varname):
+    """Should return a string that is unlikely to
+    occur in the rendered newsletter.
+    This could be made a lot more unlikely.
+    Remember the result must be a valid, single
+    string.Template variable name.
+    """
+    return '%s%s' % ('composervariable', varname)
 
 class IHTMLComposerSchema(interface.Interface):
     email = PrimaryLabelTextLine(title=_(u"E-mail address"),
@@ -136,19 +150,19 @@ class HTMLComposer(persistent.Persistent):
         vars['site_url'] = site.absolute_url()
         vars['site_title'] = unicode(site.Title(), 'UTF-8')
         vars['channel_title'] = subscription.channel.title
-        vars['from_addr'] = self._from_address
-        vars['to_addr'] = subscription.composer_data['email']
         vars['subject'] = self.subject
         # Why would header_text or footer_text ever be None?
         vars['header_text'] = fix_urls(self.header_text or u"")
         vars['footer_text'] = fix_urls(self.footer_text or u"")
         vars['stylesheet'] = self.stylesheet
+        vars['from_addr'] = self._from_address
         headers = vars['more_headers'] = {}
         if self.replyto_address:
             headers['Reply-To'] = self.replyto_address
         
         # This is so brittle, it hurts my eyes.  Someone convince me
         # that this needs to become another component:
+        # tmog : Also, this appears to only be used in tests?!
         for index, item in enumerate(items):
             formatted, original = item
             title = getattr(original, 'Title', lambda: formatted)()
@@ -165,8 +179,7 @@ class HTMLComposer(persistent.Persistent):
         # variables.  We'd probably want to pass 'items' along to that
         # adapter.
 
-        return vars
-
+        return vars    
     def _more_vars(self, subscription, items):
         """Less generic variables.
         """
@@ -174,34 +187,48 @@ class HTMLComposer(persistent.Persistent):
         channel = subscription.channel
         site = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
         site = utils.fix_request(site, 0)
-
+        secret_var = '$%s' % template_var('secret')
         vars['confirm_url'] = (
             '%s/confirm-subscription.html?secret=%s' %
-            (site.portal_newsletters.absolute_url(), subscription.secret))
+            (site.portal_newsletters.absolute_url(), secret_var))
         vars['unsubscribe_url'] = (
             '%s/unsubscribe.html?secret=%s' %
-            (channel.absolute_url(), subscription.secret))
+            (channel.absolute_url(), '$%s' % secret_var))
         vars['my_subscriptions_url'] = (
             '%s/../../my-subscriptions.html?secret=%s' %
-            (channel.absolute_url(), subscription.secret))
+            (channel.absolute_url(), secret_var))
+        vars['to_addr'] = '$%s' % template_var('to_addr')
         return vars
 
-    def render(self, subscription, items=()):
-        vars = self._vars(subscription, items)
-        secret = self.secret(subscription.composer_data)
+    def _subscription_vars(self, subscription):
+        """Variables that are expected to be unique
+        to every subscription.
+        """
+        vars = {}
+        vars[template_var('secret')] = self.secret(subscription.composer_data)
+        vars[template_var('to_addr')] = subscription.composer_data['email']
+        return vars
 
+    @volatile.cache(_render_cachekey)
+    def _render(self, vars, items):
         html = self.template(
             contents=[i[0] for i in items],
             items=[dict(formatted=i[0], original=i[1]) for i in items],
             **vars)
+        return stoneagehtml.compactify(html).decode('utf-8')
 
-        html = stoneagehtml.compactify(html).decode('utf-8')
+    def render(self, subscription, items=()):
+        vars = self._vars(subscription, items)
+        subscription_vars = self._subscription_vars(subscription)
+
+        html = self._render(vars, items)
+        html = string.Template(html).substitute(subscription_vars)
 
         message = collective.singing.mail.create_html_mail(
             vars['subject'],
             html,
             from_addr=vars['from_addr'],
-            to_addr=vars['to_addr'],
+            to_addr=subscription_vars[template_var('to_addr')],
             headers=vars.get('more_headers'),
             encoding=self.encoding)
 
@@ -210,7 +237,8 @@ class HTMLComposer(persistent.Persistent):
 
     def render_confirmation(self, subscription):
         vars = self._vars(subscription)
-
+        subscription_vars = self._subscription_vars(subscription)
+        
         if 'confirmation_subject' not in vars:
             vars['confirmation_subject'] = zope.i18n.translate(
                 _(u"Confirm your subscription with ${channel-title}",
@@ -219,12 +247,13 @@ class HTMLComposer(persistent.Persistent):
 
         html = self.confirm_template(**vars)
         html = stoneagehtml.compactify(html).decode('utf-8')
-
+        html = string.Template(html).substitute(subscription_vars)
+        
         message = collective.singing.mail.create_html_mail(
             vars['confirmation_subject'],
             html,
             from_addr=vars['from_addr'],
-            to_addr=vars['to_addr'],
+            to_addr=subscription_vars[template_var('to_addr')],
             headers=vars.get('more_headers'),
             encoding=self.encoding)
 
@@ -234,6 +263,7 @@ class HTMLComposer(persistent.Persistent):
 
     def render_forgot_secret(self, subscription):
         vars = self._vars(subscription)
+        subscription_vars = self._subscription_vars(subscription)
         
         if 'forgot_secret_subject' not in vars:
             vars['forgot_secret_subject'] = zope.i18n.translate(
@@ -243,12 +273,13 @@ class HTMLComposer(persistent.Persistent):
 
         html = self.forgot_template(**vars)
         html = stoneagehtml.compactify(html).decode('utf-8')
+        html = string.Template(html).substitute(subscription_vars)
 
         message = collective.singing.mail.create_html_mail(
             vars['forgot_secret_subject'],
             html,
             from_addr=vars['from_addr'],
-            to_addr=vars['to_addr'],
+            to_addr=subscription_vars[template_var('to_addr')],
             headers=vars.get('more_headers'),
             encoding=self.encoding)
 
