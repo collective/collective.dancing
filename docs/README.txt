@@ -74,7 +74,7 @@ These instructions assume that you already have a Plone 3 buildout
 that's built and ready to run.
 
 1) Edit your buildout.cfg file and look for the ``eggs`` key in the
-   ``instance`` section.  Add ``collective.dancing`` to that list.
+   ``[instance]`` section.  Add ``collective.dancing`` to that list.
    Your list will look something like this::
 
      eggs =
@@ -159,7 +159,7 @@ configuration in Plone is set up correctly, you should be sending mail
 out now.
 
 To set up ClockServer to trigger the processing automatically for you,
-add this stanza to the Zope 2 ``instance`` section of your buildout
+add this stanza to the Zope 2 ``[instance]`` section of your buildout
 configuration and rerun ``bin/buildout -v``::
 
   zope-conf-additional = 
