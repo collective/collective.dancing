@@ -1,0 +1,749 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: collective.dancing\n"
+"POT-Creation-Date: 2008-09-16 09:38+0000\n"
+"PO-Revision-Date: 2008-11-12 17:26+0200\n"
+"Last-Translator: G. Gozadinos <ggozad@qiweb.net>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: el\n"
+"Language-Name: Ελληνικά\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.dancing\n"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:288
+msgid "${channel} options"
+msgstr "${channel} επιλογές"
+
+#: ./collective/dancing/browser/sendnewsletter.py:132
+msgid "${name} does not support scheduling."
+msgstr "${name} δεν υποστηρίζει προγραμματισμό ημερολογίου."
+
+#: ./collective/dancing/browser/channel.py:559
+msgid "${numberadded} subscriptions updated successfully!"
+msgstr "${numberadded} εγγραφές ενημερώθηκαν επιτυχώς!"
+
+#: ./collective/dancing/browser/channel.py:553
+msgid "${numberadded} subscriptions updated successfully, ${numberremoved} removed!"
+msgstr "${numberadded} εγγραφές ενημερώθηκαν επιτυχώς, ${numberremoved} απομακρύνθηκαν!"
+
+#: ./collective/dancing/browser/channel.py:543
+msgid "${numberadded} subscriptions updated successfully. ${numberremoved} removed. ${numbernotadded} could not be added. (${errorcandidates})"
+msgstr "${numberadded} εγγραφές ενημερώθηκαν επιτυχώς. ${numberremoved} απομακρύνθηκαν. ${numbernotadded} δεν μπορούσαν να προστεθούν. (${errorcandidates})"
+
+#: ./collective/dancing/browser/scheduler.py:33
+msgid "${number} messages queued."
+msgstr "${number} μηνύματα μπήκαν στην ουρά"
+
+#: ./collective/dancing/browser/sendnewsletter.py:68
+msgid "${num} messages queued."
+msgstr "${num} μηνύματα μπήκαν στην ουρά"
+
+#: ./collective/dancing/browser/stats.py:104
+msgid "${sent} message(s) sent, ${failed} failure(s)."
+msgstr "${sent} μηνύμα(τα) στάλθηκε/καν, ${failed} απέτυχε/αν."
+
+#: ./collective/dancing/browser/collector.py:183
+msgid "Add"
+msgstr "Προσθήκη"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:451
+msgid "Add Channel Subscribe Portlet"
+msgstr "Προσθέσθε Πλαίσιο Εγγραφής Καναλιού"
+
+#: ./collective/dancing/browser/channel.py:94
+msgid "Add or edit channels that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
+msgstr "Προσθέσθε ή επεξεργαστείτε κανάλια που θα χρησιμοποιούν συλλέκτες για τη συλλογή και αποστολή ενοτήτων πληροφοριών από την ιστοσελίδα σας, σε εγγεγραμμένες διευθύνσεις email, σε προγραμματισμένους χρόνους."
+
+#: ./collective/dancing/browser/interfaces.py:23
+msgid "Address to send the preview to"
+msgstr "Διεύθυνση για την αποστολή της προεπισκόπησης"
+
+#: ./collective/dancing/browser/stats.py:123
+msgid "All sent and failed messages deleted"
+msgstr "Όλα τα απεσταλμένα και τα αποτυχημένα μηνύματα διαγράφηκαν"
+
+#. Default: "Already subscribed?"
+#: ./collective/dancing/browser/subscriptions.pt:33
+msgid "Already subscribed?"
+msgstr "Ήδη εγγεγραμμένος/η;"
+
+#: ./collective/dancing/browser/interfaces.py:17
+msgid "Append automatically collected content in this send-out"
+msgstr "Προσαρτήστε το αυτόματα συλλεγόμενο περιεχόμενο σε αυτή την αποστολή"
+
+#: ./collective/dancing/browser/scheduler.py:23
+msgid "Apply"
+msgstr "Εφαρμογή"
+
+#: ./collective/dancing/browser/subscribe.py:176
+msgid "Apply changes"
+msgstr "Εφαρμογή αλλαγών"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:401
+msgid "Back to portlets"
+msgstr "Πίσω στα πλαίσια"
+
+#. Default: "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
+#: ./collective/dancing/browser/subscriptions.pt:10
+msgid "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
+msgstr "Παρακάτω βλέπετε ένα κατάλογο των ενημερωτικών δελτίων που διαθέτουμε. Αν έχετε ήδη εγγραφεί σε κάποια από αυτά μπορείτε να συμπληρώσετε τη φόρμα στο τέλος αυτής της σελίδας για να σας σταλεί ένας σύνδεσμος σε μια σελίδα από όπου μπορείτε να επεξεργαστείτε τις υπάρχουσες εγγραφές σας."
+
+#. Default: "Best regards"
+#: ./collective/dancing/browser/composer-html-forgot.pt:30
+msgid "Best regards"
+msgstr "Χαιρετισμούς"
+
+#: ./collective/dancing/interfaces.py:56
+msgid "CSS Stylesheet"
+msgstr "CSS Stylesheet"
+
+#. Default: "Change your subscriptions with ${site-title}"
+#: ./collective/dancing/browser/composer-html-forgot.pt:16
+msgid "Change your subscriptions with ${site-title}"
+msgstr "Αλλάξτε τις εγγραφές σας στην ${site-title}"
+
+#: ./collective/dancing/browser/channel.py:169
+msgid "Channel administration"
+msgstr "Διαχείριση καναλιού"
+
+#. Default: "Click here to manage your subscriptions with ${site-title}:"
+#: ./collective/dancing/browser/composer-html-forgot.pt:21
+msgid "Click here to manage your subscriptions with ${site-title}:"
+msgstr "Κλικάρετε εδώ για να διαχειριστείτε τις εγγραφές σας στην ${site-title}:"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:50
+msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
+msgstr "Κλικάρετε εδώ για να διαλέξετε τις επιλογές του συλλέκτη που ενεργοποιούνται αυτόματα, με την εγγραφή από αυτό το πλαίσιο."
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:58
+msgid "Click here to show the portlet footer."
+msgstr "Κλικάρετε εδώ για να εμφανίζεται το υποσέλιδο του πλαισίου"
+
+#. Default: "Click here to unsubscribe."
+#: ./collective/dancing/browser/composer-html.pt:39
+msgid "Click here to unsubscribe."
+msgstr "Κλικάρετε εδώ για να διαγραφείτε"
+
+#: ./collective/dancing/browser/collector.py:65
+msgid "Collector administration"
+msgstr "Διαχείριση συλλέκτη"
+
+#: ./collective/dancing/browser/composer.py:42
+msgid "Composer for format : ${format}"
+msgstr "Συνθέτης για το φορμάτ : ${format}"
+
+#: ./collective/dancing/browser/channel.py:688
+msgid "Composers"
+msgstr "Συνθέτες"
+
+#: ./collective/dancing/composer.py:211
+msgid "Confirm your subscription with ${channel-title}"
+msgstr "Επιβεβαιώστε την εγγραφή σας στο ${channel-title}"
+
+#: ./collective/dancing/browser/subscribe.py:78
+msgid "Confirming your subscription"
+msgstr "Επιβεβαιώνεται η εγγραφή σας"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:47
+msgid "Description of the rendered portlet"
+msgstr "Περιγραφή του πλαισίου"
+
+#. Default: "Displays a form that lets you send this content item as a newsletter."
+#: ./collective/dancing/profiles/default/actions.xml
+msgid "Displays a form that lets you send this content item as a newsletter."
+msgstr "Εμφανίζει μια φόρμα που σας επιτρέπει να στείλετε αυτό το περιεχόμενο σαν ενημερωτικό δελτίο"
+
+#: ./collective/dancing/browser/channel.py:576
+msgid "Download"
+msgstr "Μεταφόρτωση"
+
+#: ./collective/dancing/composer.py:57
+msgid "E-mail address"
+msgstr "Διεύθυνση Ε-mail"
+
+#: ./collective/dancing/browser/channel.py:687
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#: ./collective/dancing/browser/collector.py:331
+msgid "Edit ${collector}"
+msgstr "Επεξεργασία ${collector}"
+
+#: ./collective/dancing/browser/scheduler.py:90
+msgid "Edit ${selector} for ${channel}"
+msgstr "Επεξεργασία ${selector} για το ${channel}"
+
+#: ./collective/dancing/browser/channel.py:662
+msgid "Edit Channel ${channel}"
+msgstr "Επεξεργασία καναλιού ${channel}"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:370
+msgid "Edit Channel Subscribe Portlet"
+msgstr "Επεξεργασία Πλαίσιου Εγγραφής Καναλιού"
+
+#: ./collective/dancing/browser/subscribe.py:27
+msgid "Edit existing subscriptions"
+msgstr "Επεξεργασία υπαρχόντων εγγραφών"
+
+#: ./collective/dancing/browser/channel.py:356
+msgid "Edit the properties of the channel."
+msgstr "Επεξεργασία ιδιοτήτων του καναλιού"
+
+#: ./collective/dancing/browser/composer.py:33
+msgid "Edit the properties of the composer."
+msgstr "Επεξεργασία ιδιοτήτων του συνθέτη"
+
+#: ./collective/dancing/browser/query.py:12
+msgid "Enter a search query to find content."
+msgstr "Εισάγετε μια αναζήτηση για την εύρεση περιεχομένου"
+
+#: ./collective/dancing/browser/channel.py:408
+msgid "Error importing subscriber file."
+msgstr "Σφάλμα στην εισαγωγή φακέλου εγγεγραμμένων"
+
+#: ./collective/dancing/browser/stats.py:40
+msgid "Failed messages"
+msgstr "Αποτυχημένα μηνύματα"
+
+#: ./collective/dancing/browser/channel.py:504
+msgid "File has not correct format."
+msgstr "Το αρχείο δεν έχει τη σωστή μορφή"
+
+#: ./collective/dancing/browser/channel.py:500
+msgid "File was not given."
+msgstr "Δεν δώθηκε αρχείο"
+
+#: ./collective/dancing/browser/subscribe.py:29
+msgid "Fill out the form below to receive an email with a link from which you can edit you subscriptions."
+msgstr "Συμπληρώστε τη φόρμα παρακάτω για να λάβετε email με ένα σύνδεσμο από τον οποίο θα επεξεργαστείτε τις εγγραφές σας"
+
+#: ./collective/dancing/browser/subscribe.py:52
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgstr "Συμπληρώστε τη φόρμα παρακάτω για να εγγραφείτε στο ${channel}. Σημειώστε ότι αυτό αφορά μόνο νέες εγγραφές. Κλικάρετε εδώ για να <a href=\"${url}\">επεξεργαστείτε τις εγγραφές σας</a>."
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:42
+msgid "Find the channel you want to enable direct subscription to"
+msgstr "Βρείτε το κανάλι για το οποίο θέλετε να ενεργοποιήσετε την άμεση εγγραφή"
+
+#: ./collective/dancing/browser/stats.py:84
+msgid "Flush new messages"
+msgstr "Στείλτε τα νέα μηνύματα"
+
+#: ./collective/dancing/browser/stats.py:75
+msgid "Flush old messages"
+msgstr "Στείλτε τα παλιά μηνύματα"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:53
+msgid "Footer text"
+msgstr "Κείμενο υποσέλιδου"
+
+#: ./collective/dancing/interfaces.py:28
+msgid "From address"
+msgstr "Από διεύθυνση"
+
+#: ./collective/dancing/interfaces.py:23
+msgid "From name"
+msgstr "Από όνομα"
+
+#: ./collective/dancing/browser/channel.py:331
+msgid "Generate"
+msgstr "Δημιουργία"
+
+#: ./collective/dancing/composer.py:75
+msgid "HTML E-Mail"
+msgstr "HTML E-Mail"
+
+#: ./collective/dancing/interfaces.py:44
+msgid "Header text"
+msgstr "Κείμενο επικεφαλίδας"
+
+#: ./collective/dancing/browser/channel.py:450
+msgid "If selected and a subscriber exists in the database, but is not part of the uploaded file, the subscriber will be removed from the list."
+msgstr "Εάν επιλεγεί και υπάρχει κάποιος εγγεγραμμένος στη βάση δεδομένων που δεν υπάρχει στο αρχείο που μεταφορτώνεται, ο εγγεγραμμένος θα διαγραφεί από τη λίστα"
+
+#: ./collective/dancing/browser/interfaces.py:16
+msgid "Include collector items"
+msgstr "Συμπερίληψη αντικειμένων συλλέκτη"
+
+#: ./collective/dancing/browser/subscribe.py:276
+msgid "Information on how to confirm your subscription has been sent to you."
+msgstr "Σας στάλθηκαν πληροφορίες για το πως θα επιβεβαιώσετε τη συνδρομή σας"
+
+#: ./collective/dancing/browser/collector.py:191
+msgid "Item added successfully."
+msgstr "Το αντικείμενο προστέθηκε με επιτυχία"
+
+#: ./collective/dancing/browser/collector.py:202
+msgid "Item successfully deleted."
+msgstr "Το αντικείμενο διαγράφτηκε με επιτυχία"
+
+#: ./collective/dancing/browser/collector.py:235
+msgid "Item successfully moved."
+msgstr "Το αντικείμενο μετακινήθηκε με επιτυχία"
+
+#: ./collective/dancing/browser/query.py:11
+msgid "Items"
+msgstr "Αντικείμενα"
+
+#: ./collective/dancing/browser/stats.py:31
+msgid "Last Change"
+msgstr "Τελευταία αλλαγή"
+
+#: ./collective/dancing/browser/channel.py:217
+msgid "Manage or add subscriptions."
+msgstr "Διαχειριστείτε ή προσθέστε εγγραφές"
+
+#. Default: "Manage your subscriptions"
+#: ./collective/dancing/browser/composer-html-forgot.pt:24
+msgid "Manage your subscriptions"
+msgstr "Διαχειριστείτε τις εγγραφές σας"
+
+#: ./collective/dancing/interfaces.py:33
+msgid "Message subject"
+msgstr "Θέμα μηνύματος"
+
+#: ./collective/dancing/browser/stats.py:35
+msgid "Messages successfully sent"
+msgstr "Μηνύματα στάλθηκαν με επιτυχία"
+
+#: ./collective/dancing/browser/stats.py:29
+msgid "Messages waiting to be sent"
+msgstr "Μηνύματα αναμένουν αποστολή"
+
+#: ./collective/dancing/browser/stats.py:41
+msgid "Messages with errors"
+msgstr "Μηνύματα με σφάλματα"
+
+#: ./collective/dancing/browser/stats.py:47
+msgid "Messages with errors in the retry queue"
+msgstr "Μηνύματα με σφάλματα σε αναμονή επαναδοκιμής"
+
+#: ./collective/dancing/browser/collector.py:238
+msgid "Move block down"
+msgstr "Μετακινήστε το μπλοκ κάτω"
+
+#: ./collective/dancing/browser/collector.py:231
+msgid "Move block up"
+msgstr "Μετακινήστε το μπλοκ πάνω"
+
+#: ./collective/dancing/browser/subscribe.py:289
+msgid "My subscriptions"
+msgstr "Οι εγγραφές μου"
+
+#: ./collective/dancing/browser/stats.py:28
+msgid "New messages"
+msgstr "Νέα μηνύματα"
+
+#: ./collective/dancing/channel.py:100
+msgid "Newsletter"
+msgstr "Ενημερωτικό δελτίο"
+
+#: ./collective/dancing/browser/stats.py:131
+msgid "Newsletter statistics"
+msgstr "Στατιστικά ενημερωτικού δελτίου"
+
+#: ./collective/dancing/browser/preview.py:66
+msgid "No items found."
+msgstr "Δεν βρέθηκαν αντικείμενα."
+
+#: ./collective/dancing/browser/scheduler.py:36
+msgid "No messages queued."
+msgstr "Δεν υπάρχουν μηνύματα στην αναμονή"
+
+#: ./collective/dancing/browser/channel.py:603
+msgid "Only some of your changes were saved"
+msgstr "Μόνο ορισμένες από τις αλλαγές σας αποθηκεύτηκαν"
+
+#. Default: "Please confirm your subscription"
+#: ./collective/dancing/browser/composer-html-confirm.pt:14
+msgid "Please confirm your subscription"
+msgstr "Παρακαλούμε επιβεβαιώστε την εγγραφή σας"
+
+#: ./collective/dancing/browser/sendnewsletter.py:136
+msgid "Please fill in a date."
+msgstr "Παρακαλούμε συμπληρώστε μια ημερομηνία."
+
+#: ./collective/dancing/browser/stats.py:77
+msgid "Please select items to flush."
+msgstr "Παρακαλούμε επιλέξτε τα αντικείμενα προς αποστολή"
+
+#: ./collective/dancing/browser/stats.py:86
+msgid "Please select items with new messages to flush."
+msgstr "Παρακαλούμε επιλέξτε τα αντικείμενα με νέα μηνύματα προς αποστολή"
+
+#: ./collective/dancing/browser/sendnewsletter.py:79
+msgid "Please select precisely one channel for preview."
+msgstr "Παρακαλούμε επιλέξτε ακριβώς ένα κανάλι για προεπισκόπηση"
+
+#: ./collective/dancing/browser/stats.py:95
+msgid "Please select which channel you'd like to send queued e-mails of."
+msgstr "Παρακαλούμε επιλέξτε το κανάλι από το οποίο θα σταλούν τα μηνύματα σε αναμονή"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:46
+msgid "Portlet description"
+msgstr "Περιγραφή πλαισίου"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:38
+msgid "Portlet header"
+msgstr "Επικεφαλίδα πλαισίου"
+
+#: ./collective/dancing/browser/channel.py:689
+msgid "Preview"
+msgstr "Προεπισκόπηση"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:207
+msgid "Proceed"
+msgstr "Προχωρήστε"
+
+#: ./collective/dancing/browser/collector.py:199
+msgid "Remove block"
+msgstr "Απομακρύνετε το μπλοκ"
+
+#: ./collective/dancing/browser/scheduler.py:78
+msgid "Remove entries"
+msgstr "Απομακρύνετε τις εισαγωγές"
+
+#: ./collective/dancing/browser/channel.py:449
+msgid "Remove non-existing"
+msgstr "Απομακρύνετε τα μη-υπάρχοντα"
+
+#: ./collective/dancing/interfaces.py:39
+msgid "Reply-to address"
+msgstr "Διεύθυνση αποστολής απαντήσεων"
+
+#: ./collective/dancing/browser/stats.py:46
+msgid "Retry messages"
+msgstr "Μηνύματα επαναπροσπάθειας"
+
+#: ./collective/dancing/collector.py:70
+msgid "Rich text"
+msgstr "Πλούσιο κείμενο"
+
+#: ./collective/dancing/browser/channel.py:619
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#: ./collective/dancing/browser/sendnewsletter.py:124
+msgid "Schedule distribution"
+msgstr "Προγραμματισμός διανομής"
+
+#: ./collective/dancing/browser/interfaces.py:30
+msgid "Scheduled time"
+msgstr "Προγραμματισμένη ώρα"
+
+#: ./collective/dancing/browser/channel.py:188
+msgid "Search"
+msgstr "Αναζήτηση"
+
+#: ./collective/dancing/browser/channel.py:184
+msgid "Search subscribers"
+msgstr "Αναζήτηση εγγεγραμμένων"
+
+#: ./collective/dancing/collector.py:211
+msgid "Sections"
+msgstr "Τμήματα"
+
+#: ./collective/dancing/browser/channel.py:321
+msgid "See an in-browser preview of the newsletter."
+msgstr "Δείτε μια προεπισκόπηση του ενημερωτικού δελτίου μέσα στο φυλλομετρητή"
+
+#: ./collective/dancing/browser/sendnewsletter.py:49
+msgid "Send"
+msgstr "Αποστολή"
+
+#: ./collective/dancing/browser/sendnewsletter.py:150
+msgid "Send ${item} as newsletter"
+msgstr "Αποστολή του ${item} σαν ενημερωτικό δελτίο"
+
+#. Default: "Send as newsletter"
+#: ./collective/dancing/profiles/default/actions.xml
+msgid "Send as newsletter"
+msgstr "Αποστολή σαν ενημερωτικό δελτίο"
+
+#: ./collective/dancing/browser/stats.py:93
+msgid "Send messages now"
+msgstr "Αποστολή μηνυμάτων τώρα"
+
+#: ./collective/dancing/browser/sendnewsletter.py:90
+msgid "Send preview"
+msgstr "Προεπισκόπηση αποστολής"
+
+#: ./collective/dancing/browser/stats.py:34
+msgid "Sent messages"
+msgstr "Απεσταλμένα μηνύματα"
+
+#. Default: "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
+#: ./collective/dancing/browser/subscriptions.pt:34
+msgid "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
+msgstr "Εάν έχετε ήδη εγγραφεί σε κάποια από τις λίστες μας, παρακαλούμε χρησιμοποιήστε αυτή τη φόρμα για να ανακτήσετε ένα σύνδεσμο προς την προσωπική σελίδα εγγραφών σας"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:57
+msgid "Show footer"
+msgstr "Προβολή υποσέλιδου"
+
+#: ./collective/dancing/browser/sendnewsletter.py:70
+msgid "Show preview"
+msgstr "Προβολή προεπισκόπησης"
+
+#: ./collective/dancing/browser/controlpanel.py:19
+msgid "Singing & Dancing configuration"
+msgstr "Ρυθμίσεις Singing & Dancing"
+
+#: ./collective/dancing/channel.py:114
+msgid "Standard Channel"
+msgstr "Κανονικό κανάλι"
+
+#: ./collective/dancing/browser/subscribe.py:231
+msgid "Subscribe"
+msgstr "Εγγραφή"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:49
+msgid "Subscribe directly from portlet"
+msgstr "Εγγραφή κατευθείαν από το πλαίσιο"
+
+#: ./collective/dancing/browser/subscribe.py:61
+msgid "Subscribe to ${channel}"
+msgstr "Εγγραφή στο ${channel}"
+
+#: ./collective/dancing/browser/channel.py:440
+msgid "Subscribers"
+msgstr "Εγγεγραμμένοι"
+
+#: ./collective/dancing/browser/channel.py:578
+msgid "Subscribers exported."
+msgstr "Εγγεγραμμένοι εξήχθησαν"
+
+#: ./collective/dancing/browser/channel.py:684
+msgid "Subscriptions"
+msgstr "Εγγραφές"
+
+#: ./collective/dancing/browser/stats.py:80
+msgid "Successfully flushed channels."
+msgstr "Κανάλια που στάλθηκαν με επιτυχία"
+
+#: ./collective/dancing/browser/stats.py:89
+msgid "Successfully flushed new in channels."
+msgstr "Κανάλια που στάλθηκαν νέα με επιτυχία"
+
+#: ./collective/dancing/browser/sendnewsletter.py:145
+msgid "Successfully scheduled distribution."
+msgstr "Διανομή που προγραμματίστηκε με επιτυχία"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:54
+msgid "Text in footer - if omitted the channel title is used"
+msgstr "Κείμενο στο υποσέλιδο - αν παραλειφθεί θα χρησιμοποιηθεί ο τίτλος του καναλιού"
+
+#: ./collective/dancing/interfaces.py:45
+msgid "Text to appear at the beginning of every message. You may use a number of variables here including ${subject}."
+msgstr "Κείμενο που εμφανίζεται στην αρχή κάθε μηνύματος. Μπορείτε να χρησιμοποιήσετε έναν αριθμό μεταβλητών εδώ, συμπεριλαμβανομένου ${subject}"
+
+#: ./collective/dancing/interfaces.py:52
+msgid "Text to appear at the end of every message"
+msgstr "Κείμενο που εμφανίζεται στο τέλος κάθε μηνύματος"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:41
+msgid "The channel to enable subscriptions to."
+msgstr "Το κανάλι για το οποίο ενεργοποιείτε τις εγγραφές"
+
+#: ./collective/dancing/browser/interfaces.py:10
+msgid "The channel to send this through"
+msgstr "Το κανάλι από το οποίο θα σταλεί αυτό"
+
+#: ./collective/dancing/interfaces.py:29
+msgid "The from addess that will appear in messages sent from this composer."
+msgstr "Η διεύθυνση αποστολέα που θα εμφανίζεται στα μηνύματα που στέλνονται από αυτό το συνθέτη"
+
+#: ./collective/dancing/interfaces.py:40
+msgid "The reply-to addess that will appear in messages sent from this composer."
+msgstr "Η διεύθυνση απαντήσεων που θα εμφανίζεται στα μηνύματα που στέλνονται από αυτό το συνθέτη"
+
+#: ./collective/dancing/interfaces.py:24
+msgid "The sender name that will appear in messages sent from this composer."
+msgstr "Το όνομα αποστολέα που θα εμφανίζεται στα μηνύματα που στέλνονται από αυτό το συνθέτη"
+
+#: ./collective/dancing/interfaces.py:57
+msgid "The stylesheet will be applied to the document."
+msgstr "Το στυλ σελίδας που θα εφαρμόζεται στο έγγραφο"
+
+#: ./collective/dancing/browser/subscribe.py:254
+msgid "There seems to be an error with the information you entered."
+msgstr "Μάλλον υπάρχει κάποιο λάθος σε πληροφορίες που εισάγατε"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:198
+msgid "There were some errors."
+msgstr "Υπήρξαν κάποια λάθη"
+
+#: ./collective/dancing/browser/interfaces.py:31
+msgid "This is only required if you click 'Schedule distribution' below"
+msgstr "Αυτό απαιτείται μόνο αν επιλέξετε 'Προγραμματισμένη διανομή' παρακάτω"
+
+#: ./collective/dancing/browser/interfaces.py:24
+msgid "This is only required if you click 'Send preview' below"
+msgstr "Αυτό απαιτείται μόνο αν επιλέξετε 'Αποστολή προεπισκόπησης' παρακάτω"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:407
+msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
+msgstr "Αυτό το πλαίσιο επιτρέπει σε έναν επισκέπτη να εγγραφεί σε ένα συγκεκριμένο κανάλι ενημερωτικού δελτίου."
+
+#: ./collective/dancing/browser/collector.py:91
+msgid "Title"
+msgstr "Τίτλος"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:39
+msgid "Title of the rendered portlet"
+msgstr "Τίτλος του εισαγώμενου πλαισίου"
+
+#. Default: "To confirm your subscription with ${channel}, please click here: ${url}"
+#: ./collective/dancing/browser/composer-html-confirm.pt:20
+msgid "To confirm your subscription with ${channel}, please click here: ${url}"
+msgstr "Για να επιβεβαιώσετε την εγγραφή σας στο ${channel}, παρακαλούμε πατήστε εδώ: ${url}"
+
+#: ./collective/dancing/browser/stats.py:23
+msgid "Total messages sent"
+msgstr "Συνολικός αριθμός απεσταλμένων μηνυμάτων"
+
+#: ./collective/dancing/browser/stats.py:24
+msgid "Total number of messages sent successsfully"
+msgstr "Συνολικός αριθμός απεσταλμένων μηνυμάτων με επιτυχία"
+
+#: ./collective/dancing/browser/scheduler.py:28
+msgid "Trigger now"
+msgstr "Ενεργοποίηση τώρα"
+
+#: ./collective/dancing/browser/channel.py:107
+msgid "Type"
+msgstr "Τύπος"
+
+#: ./collective/dancing/browser/channel.py:532
+msgid "Unknown"
+msgstr "Άγνωστο"
+
+#: ./collective/dancing/browser/subscribe.py:106
+msgid "Unsubscribe"
+msgstr "Διαγραφή"
+
+#: ./collective/dancing/browser/subscribe.py:188
+msgid "Unsubscribe from newsletter"
+msgstr "Διαγραφή από το ενημερωτικό δελτίο"
+
+#: ./collective/dancing/browser/channel.py:657
+msgid "Up to Channels administration"
+msgstr "Πάνω προς τη διαχείριση Καναλιών"
+
+#: ./collective/dancing/browser/collector.py:335
+msgid "Up to Collector administration"
+msgstr "Πάνω προς τη διαχείριση Συλλεκτών"
+
+#: ./collective/dancing/browser/controlpanel.py:12
+msgid "Up to Singing & Dancing configuration"
+msgstr "Πάνω προς τις ρυθμίσεις Singing & Dancing"
+
+#: ./collective/dancing/browser/controlpanel.py:22
+msgid "Up to Site Setup"
+msgstr "Πάνω προς την εγκατάσταση της ιστοσελίδας"
+
+#: ./collective/dancing/browser/channel.py:434
+msgid "Upload"
+msgstr "Μεταφόρτωση"
+
+#: ./collective/dancing/browser/channel.py:441
+msgid "Upload a CSV file with a list of subscribers here. Subscribers already present in the database will be overwritten. Each line should contain: ${colums}."
+msgstr "Μεταφορτώστε ένα αρχείο CSV με μια λίστα εγγεγραμμένων. Οι εγγεγραμμένοι που ήδη υπάρχουν στη βάση δεδομένων θα διαγραφούν. Κάθε γραμμή θα πρέπει να περιέχει: ${colums}."
+
+#: ./collective/dancing/browser/channel.py:583
+msgid "Upload list of subscribers."
+msgstr "Μεταφορτώστε μια λίστα εγγεγραμμένων"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:146
+msgid "You are already subscribed to this newsletter. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgstr "Είστε ήδη εγγεγραμμένος/η σε αυτό το ενημερωτικό δελτίο. Κλικάρετε εδώ για να <a href=\"${url}\">επεξεργαστείτε τις εγγραφές σας</a>."
+
+#: ./collective/dancing/browser/subscribe.py:203
+msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
+msgstr "Είστε ήδη εγγεγραμμένος/η. Συμπληρώστε τη φόρμα στο τέλος αυτής της σελίδας για να σταλεί ένας σύνδεσμος από όπου μπορείτε να επεξεργαστείτε την εγγραφή σας."
+
+#. Default: "You are currently subscribed to these newsletters:"
+#: ./collective/dancing/browser/subscriptions.pt:21
+msgid "You are currently subscribed to these newsletters:"
+msgstr "Είστε ήδη εγγεγραμμένος/η σε αυτά τα ενημερωτικά δελτία:"
+
+#: ./collective/dancing/browser/subscribe.py:118
+msgid "You aren't subscribed to this channel."
+msgstr "Δεν είστε εγγεγραμμένος/η σε αυτό το κανάλι."
+
+#. Default: "You can subscribe to these newsletters:"
+#: ./collective/dancing/browser/subscriptions.pt:28
+msgid "You can subscribe to these newsletters:"
+msgstr "Μπορείτε να εγγραφείτε σε αυτά τα ενημρωτικά δελτία:"
+
+#: ./collective/dancing/browser/subscribe.py:80
+msgid "You confirmed your subscription successfully."
+msgstr "Επιβεβαιώσατε την εγγραφή σας με επιτυχία."
+
+#: ./collective/dancing/interfaces.py:34
+msgid "You may use a number of variables here, like ${site-title}."
+msgstr "Μπορείτε να χρησιμοποιήσετε έναν αριθμό μεταβλητών εδώ, όπως ${site-title}."
+
+#: ./collective/dancing/browser/subscribe.py:271
+msgid "You subscribed successfully."
+msgstr "Εγγραφήκατε με επιτυχία."
+
+#: ./collective/dancing/browser/subscribe.py:116
+msgid "You unsubscribed successfully."
+msgstr "Διαγραφήκατε με επιτυχία."
+
+#. Default: "You're receiving this e-mail because you're registered for the ${channel} newsletter."
+#: ./collective/dancing/browser/composer-html.pt:35
+msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
+msgstr "Λαμβάνετε αυτό το e-mail γιατί είστε εγγεγραμμένος/η στο ενημερωτικό δελτίο ${channel}."
+
+#: ./collective/dancing/composer.py:39
+msgid "Your e-mail address is invalid"
+msgstr "Η διεύθυνση e-mail σας δεν είναι έγκυρη"
+
+#: ./collective/dancing/browser/subscribe.py:19
+msgid "Your email address is already subscribed. Click the \"Send my subscription details\" button below."
+msgstr "Η διεύθυνση e-mail σας είναι ήδη εγγεγραμμένη. Κλικάρετε το κουμπί \"Send my subscription details\" παρακάτω."
+
+#: ./collective/dancing/browser/subscribe.py:81
+msgid "Your subscription isn't known to us."
+msgstr "Η εγγραφή σας δεν υπάρχει."
+
+#: ./collective/dancing/browser/subscribe.py:142
+msgid "Your subscription was updated."
+msgstr "Η εγγραφή σας ενημερώθηκε."
+
+#. Default: "A Channel is a hub of configuration.  It doesn't do anything by itself.  Rather, it provides a number of components to configure and work with.  It is also the container of subscriptions to it."
+#: ./collective/dancing/browser/controlpanel-links.pt:7
+msgid "description_channel_administration"
+msgstr "Ένα Κανάλι είναι κόμβος ρυθμίσεων. Δεν κάνει κάτι μόνο του. Παρέχει έναν αριθμό συνιστωσών που ρυθμίζονται. Είναι επίσης ο συλλέκτης των εγγραφών σε αυτό."
+
+#. Default: "Collectors are useful for automatic newsletters.  They are responsible for assembling a list of items for publishing."
+#: ./collective/dancing/browser/controlpanel-links.pt:18
+msgid "description_collector_administration"
+msgstr "Οι Συλλέκτες είναι χρήσιμοι για αυτόματα ενημερωτικά δελτία. Είναι υπεύθυνοι για τη συναρμολόγηση μια σειράς αντικειμένων προς δημοσίευση."
+
+#. Default: "View newsletter statistics"
+#: ./collective/dancing/browser/controlpanel-links.pt:28
+msgid "description_statistics_administration"
+msgstr "Δείτε τα στατιστικά του ενημερωτικού δελτίου"
+
+#. Default: "Channel administration"
+#: ./collective/dancing/browser/controlpanel-links.pt:3
+msgid "label_channel_administration"
+msgstr "Διαχείριση Καναλιού"
+
+#. Default: "Collector administration"
+#: ./collective/dancing/browser/controlpanel-links.pt:13
+msgid "label_collector_administration"
+msgstr "Διαχείριση Συλλέκτη"
+
+#. Default: "Statistics"
+#: ./collective/dancing/browser/controlpanel-links.pt:23
+msgid "label_statistics_administration"
+msgstr "Στατιστικά"
+
