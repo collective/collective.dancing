@@ -32,6 +32,7 @@ Version 0.8.0 - 2008-11-12
      in ``_subscription_vars``.  In the default implementation only
      the subscribers secret in the subscription management urls is
      replaced.
+
   [tmog]
 
 Version 0.7.7 - 2008-11-05
