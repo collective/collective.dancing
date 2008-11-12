@@ -1,7 +1,10 @@
 History
 =======
 
-Version 0.8.0 - Unreleased
+Version 0.8.1 - Unreleased
+--------------------------
+
+Version 0.8.0 - 2008-11-12
 --------------------------
 
 - Added bouncing support: The new utility view
