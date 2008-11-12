@@ -13,19 +13,26 @@ LOCKFILE_NAME = os.path.join(tempfile.gettempdir(),
 class IDancingUtilsView(Interface):
     
     def tick_and_dispatch(self):
-        """ Tick all schedulers of all channels.
-            Then dispatch their queues.
+        """Tick all schedulers of all channels.  Then dispatch their
+        queues.
             
-            This is what you call from cron or
-            zope clock server to get periodic
-            sending.
-            """
-    
+        This is what you call from cron or zope clock server to get
+        periodic sending.
+        """
+
+    def handle_bounce(self):
+        """Process a list of bouncing e-mail addresses.
+
+        Expects a list of e-mail addresses in the ``addrs`` request
+        variable.
+        """
+
 class DancingUtilsView(BrowserView):
 
+    bounce_limit = 2
+
     def tick_and_dispatch(self):
-        """ Tick all schedulers of all channels.
-            Then dispatch their queues. """
+        """ """
         try:
             lock = zc.lockfile.LockFile(LOCKFILE_NAME)
         except zc.lockfile.LockError:
@@ -57,3 +64,24 @@ class DancingUtilsView(BrowserView):
                  'status':str(status or (0,0))}
             msg += u'%(channel)s: %(queued)d messages queued, dispatched: %(status)s\n' % d 
         return msg
+
+    def handle_bounce(self):
+        """ """
+        count = 0
+        addrs = self.request['addrs']
+        if isinstance(addrs, (str, unicode)):
+            addrs = [addrs]
+        for channel in channel_lookup(only_subscribeable=True):
+            for addr in addrs:
+                subscriptions = channel.subscriptions.query(key=addr)
+                for sub in subscriptions:
+                    md = sub.metadata
+                    bounces = md.get('bounces', 0)
+                    if bounces >= self.bounce_limit:
+                        md['pending'] = True
+                        bounces = 0
+                        count += 1
+                    else:
+                        bounces += 1
+                    md['bounces'] = bounces
+        return "%d addresses received, %d deactivated" % (len(addrs), count)

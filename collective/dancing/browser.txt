@@ -1308,3 +1308,26 @@ each channel.
   default-channel: 0 messages queued, dispatched: (0, 0)
   my-other-channel: 0 messages queued, dispatched: (0, 0)
   brand-new-channel: 0 messages queued, dispatched: (0, 0)
+
+Bounces
+-------
+
+Looking for addresses that bounce is not within S&D's scope.  For that
+kind of functionality, please take a look at the ``mailprocess``
+package, for which S&D has a compatible interface called
+``handle_bounce``.
+
+``handle_bounce`` expects to be passed a list of email addresses.  S&D
+will require to get a bounce notification three times before it
+deactivates an email address:
+
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/handle_bounce?' +
+  ...              'addrs=root@localhost')
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/handle_bounce?' +
+  ...              'addrs=root@localhost&addrs=daniel@localhost')
+  >>> browser.contents
+  '2 addresses received, 0 deactivated'
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/handle_bounce?' +
+  ...              'addrs=root@localhost&addrs=daniel@localhost')
+  >>> browser.contents
+  '2 addresses received, 1 deactivated'

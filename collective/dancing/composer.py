@@ -60,11 +60,10 @@ def _render_cachekey(method, self, vars, items):
     return (vars, items)
 
 def template_var(varname):
-    """Should return a string that is unlikely to
-    occur in the rendered newsletter.
-    This could be made a lot more unlikely.
-    Remember the result must be a valid, single
-    string.Template variable name.
+    """Should return a string that is unlikely to occur in the
+    rendered newsletter.  This could be made a lot more unlikely.
+    Remember the result must be a valid, single string.Template
+    variable name.
     """
     return '%s%s' % ('composervariable', varname)
 
@@ -162,7 +161,6 @@ class HTMLComposer(persistent.Persistent):
         
         # This is so brittle, it hurts my eyes.  Someone convince me
         # that this needs to become another component:
-        # tmog : Also, this appears to only be used in tests?!
         for index, item in enumerate(items):
             formatted, original = item
             title = getattr(original, 'Title', lambda: formatted)()
@@ -180,6 +178,7 @@ class HTMLComposer(persistent.Persistent):
         # adapter.
 
         return vars    
+
     def _more_vars(self, subscription, items):
         """Less generic variables.
         """
