@@ -20,40 +20,8 @@ Setup
 
 We want messages to be printed out instead of sending them:
 
-  >>> import re
-  >>> from zope import interface, component
-  >>> import zope.sendmail.interfaces
-  >>> from email.Header import decode_header
-  >>> from collective.dancing.tests import decodeMessageAsString
-
-  >>> class MyMailDelivery(object):
-  ...     interface.implements(zope.sendmail.interfaces.IMailDelivery)
-  ...     sent = []
-  ...
-  ...     def send(self, from_, to, message):
-  ...         print '*MyMailDelivery sending*:'
-  ...         print 'From:', decode_header(from_)[0][0]
-  ...         print 'To:', ', '.join(to)
-  ...         print 'Message follows:'
-  ...         decoded = decodeMessageAsString(message)
-  ...         print decoded
-  ...         self.sent.append(decoded)
-  ... 
-  ...     @classmethod
-  ...     def last_messages(klass, purge=True):
-  ...         klass.order()
-  ...         value = '\n'.join(klass.sent)
-  ...         if purge:
-  ...             klass.sent = []
-  ...         return value
-  ... 
-  ...     @classmethod
-  ...     def order(klass):
-  ...         klass.sent = sorted(
-  ...             klass.sent,
-  ...             key=lambda msg: re.findall('To: .*$', msg, re.MULTILINE))
-
-  >>> component.provideUtility(MyMailDelivery())
+  >>> from collective.dancing.tests import setup_testing_maildelivery
+  >>> delivery = setup_testing_maildelivery()
 
 Control panel
 -------------
@@ -145,6 +113,7 @@ Simpy add to the list of factories.
 
   >>> import collective.dancing.channel
   >>> import collective.singing.interfaces
+  >>> from zope import interface
   >>> import persistent
 
   >>> class MyCustomChannel(collective.dancing.channel.Channel, persistent.Persistent):
@@ -484,6 +453,7 @@ now, noone knows how to send text messages like the one we just
 created.  We'll register an adapter to do that for us:
 
   >>> import collective.singing.interfaces
+  >>> from zope import component
 
   >>> class MyTextDispatch(object):
   ...     interface.implements(collective.singing.interfaces.IDispatch)
@@ -545,7 +515,7 @@ We'll subscribe to events only:
   >>> browser.getControl('Events').click()
   >>> browser.getControl('Finish').click() \
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-  *MyMailDelivery sending*:
+  *TestingMailDelivery sending*:
   From: Site Administrator <>
   To: root@localhost
   Message follows:
@@ -556,7 +526,7 @@ We'll subscribe to events only:
   True
 
   >>> import quopri
-  >>> msg = quopri.decodestring(MyMailDelivery.sent[-1])
+  >>> msg = quopri.decodestring(delivery.sent[-1])
   >>> confirm_url = "http://nohost/plone/portal_newsletters/confirm-subscription.html"
   >>> confirm_url + "?secret=" in msg
   True
@@ -608,7 +578,7 @@ Users can also request an e-mail with their secret:
 
   >>> browser.getControl('Send my subscription details').click() \
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-  *MyMailDelivery sending*:
+  *TestingMailDelivery sending*:
   From: Site Administrator <>
   To: root@localhost
   Message follows:
@@ -637,11 +607,11 @@ For this, we'll quickly add another subscription:
   >>> browser.getControl('E-mail address').value = u"daemon@localhost"
   >>> browser.getControl('Finish').click() \
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-  *MyMailDelivery sending*:
+  *TestingMailDelivery sending*:
   From: Site Administrator <>
   To: daemon@localhost...
 
-  >>> msg = quopri.decodestring(MyMailDelivery.sent[-1])
+  >>> msg = quopri.decodestring(delivery.sent[-1])
   >>> secret = msg[msg.rindex('secret='):msg.index('</a')]
   >>> browser.open(confirm_url + '?' + secret)
   >>> "You confirmed your subscription successfully" in browser.contents
@@ -659,7 +629,7 @@ We're now no longer subscribed:
   >>> "You aren't subscribed to this channel" in browser.contents
   True
 
-  >>> MyMailDelivery.sent = []
+  >>> delivery.sent = []
 
 Using a scheduler to send e-mails
 ---------------------------------
@@ -685,11 +655,11 @@ sent:
   >>> channel.scheduler.tick(channel, request)
   3
   >>> channel.queue.dispatch()
-  *MyMailDelivery sending*:
+  *TestingMailDelivery sending*:
   ...
   (3, 0)
 
-  >>> print MyMailDelivery.last_messages(purge=False) \
+  >>> print delivery.last_messages(purge=False) \
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   Content-Type: multipart/mixed;
   ...
@@ -706,14 +676,14 @@ sent:
 
 Let's take a closer look at the mail that's sent to mailman:
 
-  >>> msg = quopri.decodestring(MyMailDelivery.sent[-2])
+  >>> msg = quopri.decodestring(delivery.sent[-2])
   >>> 'mailman@localhost' in msg
   True
   >>> "Super Bowl" in msg
   False
   >>> msg # doctest: +ELLIPSIS
   '...<a href="http://nohost/plone/portal_newsletters/channels/my-other-channel/unsubscribe.html?secret=...">...Click here to unsubscribe...</a>...'
-  >>> neglect = MyMailDelivery.last_messages(purge=True)
+  >>> neglect = delivery.last_messages(purge=True)
 
 Ticking the scheduler a second time won't do anything:
 
@@ -747,8 +717,8 @@ messages to be queued again:
   >>> channel.scheduler.tick(channel, request)
   3
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS
-  *MyMailDelivery sending*:...(3, 0)
-  >>> print MyMailDelivery.last_messages() # doctest: +ELLIPSIS
+  *TestingMailDelivery sending*:...(3, 0)
+  >>> print delivery.last_messages() # doctest: +ELLIPSIS
   Content-Type:...To: daniel@localhost...To: mailman@localhost...To: root@localhost...
 
 We can choose another scheduler for our channel by visiting the
@@ -802,8 +772,8 @@ The scheduler will send messages now:
   >>> channel.scheduler.tick(channel, request)
   3
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS
-  *MyMailDelivery sending*:...(3, 0)
-  >>> print MyMailDelivery.last_messages() # doctest: +ELLIPSIS
+  *TestingMailDelivery sending*:...(3, 0)
+  >>> print delivery.last_messages() # doctest: +ELLIPSIS
   Content-Type:...To: daniel@localhost...To: mailman@localhost...To: root@localhost...
 
 Now it's silent again:
@@ -819,9 +789,9 @@ check by using the "Trigger now" button:
   >>> "3 messages queued" in browser.contents
   True
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS
-  *MyMailDelivery sending*:...(3, 0)
+  *TestingMailDelivery sending*:...(3, 0)
 
-  >>> print MyMailDelivery.last_messages() # doctest: +ELLIPSIS
+  >>> print delivery.last_messages() # doctest: +ELLIPSIS
   Content-Type:...To: daniel@localhost...To: mailman@localhost...To: root@localhost...
 
 
@@ -875,7 +845,7 @@ screen.  The job queue can also be processed from there:
   >>> browser.getControl(name="crud-edit.default-channel.widgets.select:list"
   ...     ).value = ['selected']
   >>> browser.getControl('Send queued messages now').click()
-  *MyMailDelivery sending*:
+  *TestingMailDelivery sending*:
   ...
   Welcome to Plone...Are you doing something interesting with Plone?...
   Vickar's daughter...
@@ -920,7 +890,7 @@ To send out the queued messages this time, we'll use the
 more depth later:
 
   >>> browser.open(portal.absolute_url() + '/@@dancing.utils/tick_and_dispatch')
-  *MyMailDelivery sending*:
+  *TestingMailDelivery sending*:
   ...
   >>> print browser.contents # doctest +NORMALIZE_WHITESPACE
   3 message(s) queued for delivery.
@@ -930,13 +900,13 @@ more depth later:
 Because we didn't add the collector items, our News Item is not sent
 out:
 
-  >>> MyMailDelivery.order()
-  >>> msg = quopri.decodestring(MyMailDelivery.sent[-3])
+  >>> delivery.order()
+  >>> msg = quopri.decodestring(delivery.sent[-3])
   >>> 'mailman@localhost' in msg
   True
   >>> "All is quiet on the western front" in msg
   False
-  >>> MyMailDelivery.sent = []
+  >>> delivery.sent = []
 
 Since we did not include collector items the scheduler triggered time
 is not updated:
@@ -957,7 +927,7 @@ that the cue time remains the same:
   >>> "1 message(s) queued" in browser.contents
   True
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-  *MyMailDelivery sending*:
+  *TestingMailDelivery sending*:
   ...
   (1, 0)
   >>> root = tuple(channel.subscriptions.query(key=u'root@localhost'))[0]
@@ -1023,7 +993,7 @@ When we now tick the scheduler, we expect mail to be sent out:
   >>> len(channel.scheduler.items)
   0
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-  *MyMailDelivery sending*:
+  *TestingMailDelivery sending*:
   ...Are you doing something interesting with Plone?...
   (3, 0)
 
@@ -1149,7 +1119,7 @@ This will trigger the confirmation mail to be sent out:
   ...              '/portal_newsletters/my-subscriptions.html')
   >>> browser.getControl('E-mail address', index=1).value = "daemon@localhost"
   >>> browser.getControl('Subscribe', index=1).click()
-  *MyMailDelivery sending*:
+  *TestingMailDelivery sending*:
   From: Site Administrator <>
   To: daemon@localhost
   Message follows:
@@ -1170,7 +1140,7 @@ contains our secret:
 
   >>> browser.getControl("Address").value = "daemon@localhost"
   >>> browser.getControl('Send').click()
-  *MyMailDelivery sending*:
+  *TestingMailDelivery sending*:
   From: Site Administrator <>
   To: daemon@localhost
   Message follows:
@@ -1187,7 +1157,7 @@ pages. So the user is not forced to try subscribing first when she knows she alr
   True
   >>> browser.getControl("Address").value = "daemon@localhost"
   >>> browser.getControl('Send').click()
-  *MyMailDelivery sending*:
+  *TestingMailDelivery sending*:
   From: Site Administrator <>
   To: daemon@localhost
   Message follows:
@@ -1263,11 +1233,11 @@ have taken effect.
   True
 
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-  *MyMailDelivery sending*:
+  *TestingMailDelivery sending*:
   ...Our little header...Welcome to Plone...Our little footer...
   (1, 0)
 
-  >>> msg = quopri.decodestring(MyMailDelivery.sent[-1])
+  >>> msg = quopri.decodestring(delivery.sent[-1])
   >>> "From: Portal Master <master@domain.tld>" in msg
   True
   >>> "Reply-To: noreply@domain.tld" in msg

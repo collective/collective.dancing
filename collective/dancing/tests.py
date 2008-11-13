@@ -1,4 +1,7 @@
+import re
 import unittest
+from zope import interface, component
+import zope.sendmail.interfaces
 from zope.testing import doctest
 from Testing import ZopeTestCase as ztc
 from Products.Five import zcml
@@ -36,7 +39,7 @@ def setUp():
 setUp()
 ptc.setupPloneSite(products=['collective.dancing'])
 
-def decodeMessageAsString( msg):
+def decodeMessageAsString(msg):
     """ This helper method takes Message object or string and returns 
         string which does not contain base64 encoded parts
         Returns message without any encoding in parts
@@ -61,6 +64,39 @@ def decodeMessageAsString( msg):
         part.set_payload(decoded, charset)
 
     return new.as_string()        
+
+def setup_testing_maildelivery():
+    class TestingMailDelivery(object):
+
+        interface.implements(zope.sendmail.interfaces.IMailDelivery)
+        sent = []
+
+        def send(self, from_, to, message):
+            print '*TestingMailDelivery sending*:'
+            print 'From:', decode_header(from_)[0][0]
+            print 'To:', ', '.join(to)
+            print 'Message follows:'
+            decoded = decodeMessageAsString(message)
+            print decoded
+            self.sent.append(decoded)
+
+        @classmethod
+        def last_messages(klass, purge=True):
+            klass.order()
+            value = '\n'.join(klass.sent)
+            if purge:
+                klass.sent = []
+            return value
+
+        @classmethod
+        def order(klass):
+            klass.sent = sorted(
+                klass.sent,
+                key=lambda msg: re.findall('To: .*$', msg, re.MULTILINE))
+
+    delivery = TestingMailDelivery()
+    component.provideUtility(delivery)
+    return TestingMailDelivery
 
 def test_suite():
     return unittest.TestSuite([
