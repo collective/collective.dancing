@@ -1,8 +1,14 @@
 History
 =======
 
-Version 0.8.1 - Unreleased
+Version 0.8.2 - Unreleased
 --------------------------
+
+Version 0.8.1 - 2008-11-14
+--------------------------
+
+- Small refactoring of tests to allow for reuse of test infrastructure
+  in third party tests. [nouri]
 
 Version 0.8.0 - 2008-11-12
 --------------------------
