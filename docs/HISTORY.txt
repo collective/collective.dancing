@@ -4,6 +4,9 @@ History
 Version 0.8.2 - Unreleased
 --------------------------
 
+- Fixed a bug in ``HTMLComposer`` where unsubscribe_url could not be substituted
+  by template engine because of double dollars in variable name.  [saily]
+
 Version 0.8.1 - 2008-11-14
 --------------------------
 

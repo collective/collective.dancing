@@ -192,7 +192,7 @@ class HTMLComposer(persistent.Persistent):
             (site.portal_newsletters.absolute_url(), secret_var))
         vars['unsubscribe_url'] = (
             '%s/unsubscribe.html?secret=%s' %
-            (channel.absolute_url(), '$%s' % secret_var))
+            (channel.absolute_url(), secret_var))
         vars['my_subscriptions_url'] = (
             '%s/../../my-subscriptions.html?secret=%s' %
             (channel.absolute_url(), secret_var))
