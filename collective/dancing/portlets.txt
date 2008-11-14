@@ -17,25 +17,8 @@ Test Setup
 
 We want messages to be printed out instead of sending them:
 
-  >>> from zope import interface, component
-  >>> import zope.sendmail.interfaces
-  >>> from email.Header import decode_header
-  >>> from collective.dancing.tests import decodeMessageAsString
-
-  >>> class MyMailDelivery(object):
-  ...     interface.implements(zope.sendmail.interfaces.IMailDelivery)
-  ...     sent = []
-  ...   
-  ...     def send(self, from_, to, message):
-  ...         print '*MyMailDelivery sending*:'
-  ...         print 'From:', decode_header(from_)[0][0]
-  ...         print 'To:', ', '.join(to)
-  ...         print 'Message follows:'
-  ...         decoded = decodeMessageAsString(message)
-  ...         print decoded
-  ...         self.sent.append(decoded)
-
-  >>> component.provideUtility(MyMailDelivery())
+  >>> from collective.dancing.tests import setup_testing_maildelivery
+  >>> delivery = setup_testing_maildelivery()
 
 First off, let's edit the default collector, delete the default Collection and add two optional blocks. These can later be set from our portlet.
 
@@ -162,7 +145,7 @@ Subscribe via portlet
   >>> browser.open(portal.absolute_url())
   >>> browser.getControl('E-mail address').value = u'tmog@localhost'
   >>> browser.getControl('Subscribe').click()
-  *MyMailDelivery sending*:
+  *TestingMailDelivery sending*:
   From: Site Administrator <>
   To: tmog@localhost
   Message follows:
@@ -170,7 +153,17 @@ Subscribe via portlet
   >>> "Information on how to confirm your subscription has been sent to you." in browser.contents
   True
 
-If the portlet option "Subscribe directly from portlet" is deselected, the portlet will instead redirect the user to the channels subscribe page.
+If that e-mail address is already subscribed, we'll get a message:
+
+  >>> browser.open(portal.absolute_url())
+  >>> browser.getControl('E-mail address').value = u'tmog@localhost'
+  >>> browser.getControl('Subscribe').click()
+  >>> "You are already subscribed to this newsletter" in browser.contents
+  True
+
+If the portlet option "Subscribe directly from portlet" is deselected,
+the portlet will instead redirect the user to the channels subscribe
+page.
 
   >>> browser.getLink('Manage portlets').click()
   >>> browser.getLink('Subscribe to News').click()
@@ -182,4 +175,3 @@ If the portlet option "Subscribe directly from portlet" is deselected, the portl
   >>> browser.url
   'http://nohost/plone/portal_newsletters/channels/default-channel/subscribe.html?composer.widgets.email=tmog%40localhost'
   
-
