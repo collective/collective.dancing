@@ -418,11 +418,25 @@ class ExportCSV(BrowserView):
                                       datetime.date.today().strftime("%Y%m%d")))
         res = cStringIO.StringIO()
         writer = csv.writer(res, dialect=csv.excel, delimiter=csv_delimiter)
+        
+        wrote_column_names = 0
+        
         for format in self.context.composers.keys():
             for subscription in tuple(self.context.subscriptions.query(format=format)):
+            
+                if not wrote_column_names:
+                    writer.writerow(
+                        field.Fields(self.context.composers[format].schema)\
+                            .keys() + subscription.metadata.keys())
+                    wrote_column_names = 1
+            
                 row = []
                 for item in field.Fields(self.context.composers[format].schema).keys():
                     v = subscription.composer_data.get(item) or ''
+                    row.append(v.encode(charset))
+                
+                for item in subscription.metadata.keys():
+                    v = str(subscription.metadata.get(item)) or ''
                     row.append(v.encode(charset))
 
                 writer.writerow(row)
