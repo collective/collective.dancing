@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<import-steps>
+  <import-step id="dancing_various" version="2008-04-13"
+               handler="collective.dancing.setuphandlers.importVarious"
+               title="Various Singing &amp; Dancing Settings">
+  </import-step>
+</import-steps>

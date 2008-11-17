@@ -1,0 +1,528 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: Fri Apr 25 14:19:18 2008\n"
+"PO-Revision-Date: 2008-05-13 10:18+0100\n"
+"Last-Translator: Radim Novotny <novotny.radim@gmail.com>\n"
+"Language-Team: CoreNet <info@corenet.cz>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: zope/app/translation_files/extract.py\n"
+"Project-Id-Version: \n"
+
+#: /browser/channel.py:152
+msgid "Channel administration"
+msgstr "Správa kanálů"
+
+# Default: ""
+#: /browser/channel.py:243
+msgid "\"${channel}\" subscriptions administration"
+msgstr "Správa odběru kanálu \"${channel}\""
+
+#: /browser/channel.py:247
+#: /browser/channel.py:297
+#: /browser/scheduler.py:46
+msgid "Up to Channels administration"
+msgstr "Zpět na správu kanálů"
+
+#: /browser/channel.py:263
+msgid "Edit Channel"
+msgstr "Úprava kanálu"
+
+# Default: "channel"
+#: /browser/channel.py:303
+msgid "Edit Channel ${channel}"
+msgstr "Úprava kanálu ${channel}"
+
+#: /browser/channel.py:96
+msgid "Add or edit channels that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
+msgstr "Zde je možné přidat nebo změnit nastavení kanálů, které budou používat nástroje sběru dat aby mohly shromáždit a odeslat příslušné informace z tohoto portálu na přihlášené email adresy v nastaveném čase."
+
+#: /browser/collector.py:159
+msgid "Add"
+msgstr "Přidat"
+
+#: /browser/collector.py:167
+msgid "Item added successfully."
+msgstr "Položka byla přidána."
+
+#: /browser/collector.py:175
+msgid "Remove block"
+msgstr "Odebrat"
+
+#: /browser/collector.py:178
+msgid "Item successfully deleted."
+msgstr "Položka byla odebrána."
+
+#: /browser/collector.py:207
+msgid "Move block up"
+msgstr "Přesunout nahoru"
+
+#: /browser/collector.py:211
+#: /browser/collector.py:219
+msgid "Item successfully moved."
+msgstr "Položka byla přesunuta."
+
+#: /browser/collector.py:214
+msgid "Move block down"
+msgstr "Přesunout dolů"
+
+# Default: ""
+#: /browser/collector.py:296
+msgid "Edit ${collector}"
+msgstr "Nastavení ${collector}"
+
+#: /browser/collector.py:300
+msgid "Up to Collector administration"
+msgstr "Zpět na správu nástrojů sběru dat"
+
+#: /browser/collector.py:38
+#: /browser/collector.py:147
+msgid "Type"
+msgstr "Typ"
+
+#: /browser/collector.py:64
+msgid "Collector administration"
+msgstr "Správa sběru dat"
+
+#: /browser/collector.py:90
+#: /browser/collector.py:155
+#: /browser/stats.py:18
+msgid "Title"
+msgstr "Nadpis"
+
+#: /browser/composer-html-confirm.pt:14
+msgid "To confirm your subscription with ${channel}, please click here: ${url}"
+msgstr "Pro potvrzení přihlášení kanálu ${channel} klepněte prosím zde: ${url}"
+
+#: /browser/composer-html-confirm.pt:8
+msgid "Please confirm your subscription"
+msgstr "Potvrďte prosím vaše přihlášení k odběru"
+
+#: /browser/composer-html-forgot.pt:15
+msgid "Click here to manage your subscriptions with ${site-title}:"
+msgstr "Klepněte zde pro nastavení a správu vašich odběrů na ${site-title}:"
+
+#: /browser/composer-html-forgot.pt:18
+msgid "Manage your subscriptions"
+msgstr "Správa odběrů"
+
+#: /browser/composer-html-forgot.pt:24
+msgid "Best regards"
+msgstr "Děkujeme"
+
+#: /browser/composer-html.pt:16
+msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
+msgstr "Tento email dostáváte, protože jste registrován(a) k odběru informací ${channel}."
+
+#: /browser/composer-html.pt:20
+msgid "Click here to unsubscribe."
+msgstr "Pro odhlášení klepněte zde."
+
+# Default: "Collector administration"
+#: /browser/controlpanel-links.pt:13
+msgid "label_collector_administration"
+msgstr "Správa nástroje pro sběr dat"
+
+# Default: ""
+# "Collectors are useful for automatic newsletters.  They are\n"
+# "      responsible for assembling a list of items for publishing."
+#: /browser/controlpanel-links.pt:18
+msgid "description_collector_administration"
+msgstr "Nástroj pro sběr dat jse vhodný pro automatické odesílání. Zajišťuje sběr informací, které budou odeslány."
+
+# Default: "Statistics"
+#: /browser/controlpanel-links.pt:23
+msgid "label_statistics_administration"
+msgstr "Statistiky"
+
+# Default: "View newsletter statistics"
+#: /browser/controlpanel-links.pt:28
+msgid "description_statistics_administration"
+msgstr "Zobrazení statistik"
+
+# Default: "Channel administration"
+#: /browser/controlpanel-links.pt:3
+msgid "label_channel_administration"
+msgstr "Správa kanálů"
+
+# Default: ""
+# "A Channel is a hub of configuration.  It doesn't do anything by\n"
+# "        itself.  Rather, it provides a number of components to configure\n"
+# "        and work with.  It is also the container of subscriptions to it."
+#: /browser/controlpanel-links.pt:7
+msgid "description_channel_administration"
+msgstr "Kanál je konfigurační uzel. Sám o sobě nedělá nic, ale poskytuje sadu komponent, které je možné konfigurovat a pracovat s nimi. Zároveň spravuje i přihlášení k odběru uvedených informací."
+
+#: /browser/controlpanel.py:12
+msgid "Up to Singing & Dancing configuration"
+msgstr "Zpet na nastavení produktu Singing & Dancing"
+
+#: /browser/controlpanel.py:19
+msgid "Singing & Dancing configuration"
+msgstr "Nastavení produktu Singing & Dancing"
+
+#: /browser/controlpanel.py:22
+msgid "Up to Site Setup"
+msgstr "Zpět na nastavení portálu"
+
+# Default: "url%s/sendsecret.html"
+#: /browser/portlets/channelsubscribe.py:129
+msgid "You are already subscribed to this newsletter. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgstr "Takové přihlášení k odběru zpráv již existuje. Klepněte zde pro <a href=\"${url}\">nastavení odběru</a>."
+
+#: /browser/portlets/channelsubscribe.py:181
+msgid "There were some errors."
+msgstr "Opravte prosím vyznačené chyby."
+
+#: /browser/portlets/channelsubscribe.py:190
+msgid "Proceed"
+msgstr "Odeslat"
+
+# Default: "channel"
+#: /browser/portlets/channelsubscribe.py:271
+#: /browser/portlets/channelsubscribe.py:421
+msgid "${channel} options"
+msgstr "Nastavení ${channel}"
+
+#: /browser/portlets/channelsubscribe.py:35
+msgid "Portlet header"
+msgstr "Nadpis portletu"
+
+#: /browser/portlets/channelsubscribe.py:353
+#: /browser/portlets/channelsubscribe.py:389
+msgid "Edit Channel Subscribe Portlet"
+msgstr "Nastavení portletu pro správu přihlášení"
+
+#: /browser/portlets/channelsubscribe.py:36
+msgid "Title of the rendered portlet"
+msgstr "Nadpis portletu"
+
+#: /browser/portlets/channelsubscribe.py:38
+msgid "The channel to enable subscriptions to."
+msgstr "Kanál, ke kterému se uživatel bude přihlašovat."
+
+#: /browser/portlets/channelsubscribe.py:384
+msgid "Back to portlets"
+msgstr "Zpět na správu portletů"
+
+#: /browser/portlets/channelsubscribe.py:39
+msgid "Find the channel you want to enable direct subscription to"
+msgstr "Vyhledejte prosím kanál, ke kterému chcete zpřístupnit přihlášení."
+
+#: /browser/portlets/channelsubscribe.py:390
+#: /browser/portlets/channelsubscribe.py:457
+msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
+msgstr "Tento portlet umožňuje návštěvníkům přihlásit se k odběru informací určitého kanálu."
+
+#: /browser/portlets/channelsubscribe.py:43
+msgid "Portlet description"
+msgstr "Popis portletu"
+
+#: /browser/portlets/channelsubscribe.py:434
+#: /browser/portlets/channelsubscribe.py:456
+msgid "Add Channel Subscribe Portlet"
+msgstr "Přidat portlet přihlášení"
+
+#: /browser/portlets/channelsubscribe.py:44
+msgid "Description of the rendered portlet"
+msgstr "Popis portletu"
+
+#: /browser/portlets/channelsubscribe.py:46
+msgid "Subscribe directly from portlet"
+msgstr "Přihlásit se přímo z portletu"
+
+#: /browser/portlets/channelsubscribe.py:47
+msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
+msgstr "Zaškrtněte, pokud chcete v případě přihlášení z portletu zpřístupnit nastavení nástroje pro sběr dat."
+
+#: /browser/portlets/channelsubscribe.py:50
+msgid "Footer text"
+msgstr "Patička"
+
+#: /browser/portlets/channelsubscribe.py:51
+msgid "Text in footer - if omitted the channel title is used"
+msgstr "Text v patičce portletu. Není-li vyplněno, bude moužit nadpis kanálu."
+
+#: /browser/portlets/channelsubscribe.py:54
+msgid "Show footer"
+msgstr "Zobrazit patičku"
+
+#: /browser/portlets/channelsubscribe.py:55
+msgid "Click here to show the portlet footer."
+msgstr "Zaškrtněte, pokud chcete zonrazit patičku portletu."
+
+#: /browser/scheduler.py:23
+msgid "Apply"
+msgstr "Použít"
+
+#: /browser/scheduler.py:27
+msgid "Trigger now"
+msgstr "Spustit teď"
+
+# Default: ""
+#: /browser/scheduler.py:31
+msgid "${number} messages queued."
+msgstr "Počet zpráv ve frontě: ${number}."
+
+#: /browser/scheduler.py:34
+msgid "No messages queued."
+msgstr "Ve frontě nejsou žádné zprávy."
+
+# Default: ""
+#: /browser/sendnewsletter.py:104
+msgid "Send ${item} as newsletter"
+msgstr "Odeslat ${item} jako zpravodaj"
+
+#: /browser/sendnewsletter.py:25
+msgid "The channel to send this through"
+msgstr "Kanál, přes který se má položka odeslat"
+
+#: /browser/sendnewsletter.py:31
+msgid "Include collector items"
+msgstr "Včetně položek příslušného nástroje sběru dat"
+
+#: /browser/sendnewsletter.py:36
+msgid "Address to send the preview to"
+msgstr "Adresa na kterou se má odeslat náhled"
+
+#: /browser/sendnewsletter.py:37
+msgid "This is only required if you click 'Send preview' below"
+msgstr "Vyplňte pouze v případě, že chcete použít funkci \"Odeslat náhled\" níže."
+
+#: /browser/sendnewsletter.py:43
+msgid "Send"
+msgstr "Odeslat"
+
+# Default: ""
+#: /browser/sendnewsletter.py:62
+#: /browser/sendnewsletter.py:97
+msgid "${num} messages queued."
+msgstr "Počet zpráv, přidaných do fronty: ${num}."
+
+#: /browser/sendnewsletter.py:64
+msgid "Show preview"
+msgstr "Zobrazit náhled"
+
+#: /browser/sendnewsletter.py:69
+msgid "Send preview"
+msgstr "Odeslat náhled"
+
+#: /browser/stats.py:112
+msgid "All sent and failed messages deleted"
+msgstr "Všechny odeslané a neúspěšně odeslané zprávy byly vymazány"
+
+#: /browser/stats.py:120
+msgid "Newsletter statistics"
+msgstr "Statistika zpravodaje"
+
+#: /browser/stats.py:21
+msgid "Total messages sent"
+msgstr "Celkový počet odeslaných zpráv"
+
+#: /browser/stats.py:22
+msgid "Total number of messages sent successsfully"
+msgstr "Celkový počet úspěšně odeslaných zpráv"
+
+#: /browser/stats.py:26
+msgid "New messages"
+msgstr "Nové zprávy"
+
+#: /browser/stats.py:27
+msgid "Messages waiting to be sent"
+msgstr "Zprávy čekající na odeslání"
+
+#: /browser/stats.py:29
+#: /browser/stats.py:35
+#: /browser/stats.py:41
+#: /browser/stats.py:47
+msgid "Last Change"
+msgstr "Poslední změna"
+
+#: /browser/stats.py:32
+msgid "Sent messages"
+msgstr "Odeslané zprávy"
+
+#: /browser/stats.py:33
+msgid "Messages successfully sent"
+msgstr "Úspěšně odesláno"
+
+#: /browser/stats.py:38
+msgid "Failed messages"
+msgstr "Neúspěšně odesláno"
+
+#: /browser/stats.py:39
+msgid "Messages with errors"
+msgstr "Zprávy s chybami"
+
+#: /browser/stats.py:44
+msgid "Retry messages"
+msgstr "Opakované zprávy"
+
+#: /browser/stats.py:45
+msgid "Messages with errors in the retry queue"
+msgstr "Zpráv s chybami v opravné frontě"
+
+#: /browser/stats.py:73
+msgid "Flush old messages"
+msgstr "Zrušit staré zprávy"
+
+#: /browser/stats.py:75
+msgid "Please select items to flush."
+msgstr "Vyberte prosím položky k vyprázdnění."
+
+#: /browser/stats.py:78
+msgid "Successfully flushed channels."
+msgstr "Úspěšně vyprázdněné kanály."
+
+#: /browser/stats.py:82
+msgid "Send messages now"
+msgstr "Odeslat zprávy teď"
+
+#: /browser/stats.py:84
+msgid "Please select which channel you'd like to send queued e-mails of."
+msgstr "Vyberte prosím, ze kterých kanálů si přejete odeslat zprávy ve frontě."
+
+#: /browser/subscribe.py:105
+#: /browser/subscribe.py:184
+msgid "You unsubscribed successfully."
+msgstr "Odhlášení úspěšně provedeno."
+
+#: /browser/subscribe.py:107
+msgid "You aren't subscribed to this channel."
+msgstr "Nejste přihlášen(a) k tomuto kanálu."
+
+#: /browser/subscribe.py:131
+msgid "Your subscription was updated."
+msgstr "Vaše přihlášení bylo aktualizováno."
+
+#: /browser/subscribe.py:165
+msgid "Apply changes"
+msgstr "Použít změny"
+
+#: /browser/subscribe.py:177
+msgid "Unsubscribe from newsletter"
+msgstr "Odhlásit z odběru zpravodaje"
+
+#: /browser/subscribe.py:192
+msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
+msgstr "Takové přihlášení již existuje. Klepněte prosím na odkaz na konci této stránky a bude vám odeslána zpráva, ve které najdete odkaz na nastavení vašeho přihlášení."
+
+#: /browser/subscribe.py:21
+msgid "Your email address is already subscribed. Click the \"Send my subscription details\" button below."
+msgstr "Vaše email adresa je již přihlášená. Klepněte prosím na tlačítko \"Odeslat mé přihlašovací údaje\" níže."
+
+#: /browser/subscribe.py:220
+msgid "Subscribe"
+msgstr "Přihlásit"
+
+#: /browser/subscribe.py:243
+msgid "There seems to be an error with the information you entered."
+msgstr "Vámi zadané údaje nesouhlasí."
+
+#: /browser/subscribe.py:260
+msgid "You subscribed successfully."
+msgstr "Přihlášení proběhlo úspěšně."
+
+#: /browser/subscribe.py:265
+msgid "Information on how to confirm your subscription has been sent to you."
+msgstr "Byly vám odeslány informace nutné k dokončení vašeho přihlášení."
+
+#: /browser/subscribe.py:278
+msgid "My subscriptions"
+msgstr "Mé přihlášení"
+
+#: /browser/subscribe.py:28
+msgid "Edit existing subscriptions"
+msgstr "Nastavení existujících přihlášení"
+
+#: /browser/subscribe.py:30
+msgid "Fill out the form below to receive an email with a link from which you can edit you subscriptions."
+msgstr "Vyplňte prosím formulář a bude vám odeslán email s informacemi nutnými k nastavení vašich přihlášení."
+
+# Default: "channel"
+#: /browser/subscribe.py:52
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgstr "Pro přihlášení k ${channel} vyplňte prosím níže uvedený formulář. Tento formulář slouží pouze pro nové přihlášení. Pokud již jste přihlášen(a), klepněte prosím na odkaz pro <a href=\"${url}\">nastavení existujícího přihlášení</a>."
+
+# Default: "channel"
+#: /browser/subscribe.py:59
+msgid "Subscribe to ${channel}"
+msgstr "Přihlášení k ${channel}"
+
+#: /browser/subscribe.py:75
+msgid "Confirming your subscription"
+msgstr "Potvrzení přihlášení"
+
+#: /browser/subscribe.py:85
+msgid "You confirmed your subscription successfully."
+msgstr "Vaše přihlášení bylo úspěšně potvrzeno."
+
+#: /browser/subscribe.py:87
+msgid "Your subscription isn't known to us."
+msgstr "Takové přihlášení neexistuje."
+
+#: /browser/subscribe.py:95
+msgid "Unsubscribe"
+msgstr "Odhlásit"
+
+#: /browser/subscriptions.pt:10
+msgid "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
+msgstr "Níže je uvedený seznam zpravodajů které nabízíme. Pokud jste již k některému z nich přihlášen(a), vyplňte prosím formulář na konci stránky a bude vám odeslán email s informacemi, které vám umožní spravovat vaše přihlášení."
+
+#: /browser/subscriptions.pt:21
+msgid "You are currently subscribed to these newsletters:"
+msgstr "V současné době jste přihlášen(a) k těmto zpravodajům:"
+
+#: /browser/subscriptions.pt:28
+msgid "You can subscribe to these newsletters:"
+msgstr "Můžete se přihlást k těmto zpravodajům:"
+
+#: /browser/subscriptions.pt:33
+msgid "Already subscribed?"
+msgstr "Existující přihlášení?"
+
+#: /browser/subscriptions.pt:34
+msgid "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
+msgstr "Pravděpodobně již existuje vaše přihlášení k některému ze zpravodajů. Použijte prosím následující formulář a bude vám odeslán email s odkazem na vaši stránku s nastavením přihlášení."
+
+#: /channel.py:95
+msgid "Newsletter"
+msgstr "Zpravodaj"
+
+#: /collector.py:175
+msgid "Sections"
+msgstr "Sekce"
+
+#: /collector.py:65
+msgid "Rich text"
+msgstr "Formátovaný text"
+
+# Default: "channel-titlechannel_title"
+#: /composer.py:114
+msgid "site-titlesite_title"
+msgstr "channel-titlechannel_title"
+
+# Default: "channel-title"
+#: /composer.py:134
+msgid "Confirm your subscription with ${channel-title}"
+msgstr "Potvrďte prosím vaše přihlášení k ${channel-title}"
+
+# Default: "site-titlesite_title"
+#: /composer.py:153
+#: /browser/composer-html-forgot.pt:10
+msgid "Change your subscriptions with ${site-title}"
+msgstr "Nastavení vašeho přihlášení na ${site-title}"
+
+#: /composer.py:24
+msgid "Your e-mail address is invalid"
+msgstr "Vaše e-mail adresa není platná"
+
+#: /composer.py:41
+msgid "E-mail address"
+msgstr "E-mail adresa"
+
+#: /composer.py:59
+msgid "HTML E-Mail"
+msgstr "HTML E-mail"
+

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<rolemap>
+    <permissions>
+        
+        <permission name="collective.dancing: Manage newsletters" acquire="False">
+            <role name="Manager" />
+        </permission>
+    
+        <permission name="collective.dancing: Preview newsletter" acquire="False">
+            <role name="Reviewer" />
+            <role name="Manager" />
+        </permission>
+    
+        <permission name="collective.dancing: Send as newsletter" acquire="False">
+            <role name="Reviewer" />
+            <role name="Manager" />
+        </permission>
+    
+    </permissions>
+</rolemap>

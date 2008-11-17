@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="collective.dancing">
+  
+
+<metal:block fill-slot="top_slot"
+                 tal:define="dummy python:request.set('disable_border',1)" />
+                 
+<div metal:fill-slot="portlets_one_slot">&nbsp;</div>
+<div metal:fill-slot="portlets_two_slot">&nbsp;</div>
+
+<body>
+  <div metal:fill-slot="main">
+    
+  <h1 tal:content="view/label">Portlet setup</h1>
+
+  <a href="#"
+     class="link-parent"
+     tal:define="link view/back_link"
+     tal:condition="link"
+     tal:content="link/label"
+     tal:attributes="href link/url">
+    Up to Site Setup
+  </a>
+
+  <div class="portalMessage"
+       tal:condition="view/status | nothing" tal:content="view/status">
+  </div>
+
+  <div id="skel-contents">
+    <span tal:replace="structure view/contents" />
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,593 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: Fri Apr 25 14:18:36 2008\n"
+"PO-Revision-Date: 2008-04-17 HO:MI +ZONE\n"
+"Last-Translator: Jakob Bartholdy Bruun <jakob@headnet.dk>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: da\n"
+"Language-Name: Danish\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.dancing\n"
+
+#: /browser/channel.py:152
+msgid "Channel administration"
+msgstr "Kanal-administration"
+
+#: /browser/channel.py:243
+msgid "\"${channel}\" subscriptions administration"
+msgstr "Administration af abonneneter i \"${channel}\""
+
+#: /browser/channel.py:247 /browser/channel.py:297 /browser/scheduler.py:46
+msgid "Up to Channels administration"
+msgstr "Til kanal-administration"
+
+#: /browser/channel.py:263
+msgid "Edit Channel"
+msgstr "Rediger kanal"
+
+#: /browser/channel.py:303
+msgid "Edit Channel ${channel}"
+msgstr "Rediger kanal ${channel}"
+
+#: /browser/channel.py:96
+msgid ""
+"Add or edit channels that will use collectors to gather and email specific "
+"sets of information from your site, to subscribed email addresses, at "
+"scheduled times."
+msgstr ""
+"Her kan du tilføje og redigere kanaler (abonnerbare nyhedsbreve). Hver kanal "
+"har en \"indsamler\", som er ansvarlig for at indsamle det indhold, der skal "
+"med i nyhedsbrevet. Du kan også styre, hvilke faste tidspunkter, et "
+"nyhedsbrev automatisk skal sendes ud på."
+
+#: /browser/collector.py:159
+msgid "Add"
+msgstr "Tilføj"
+
+#: /browser/collector.py:167
+msgid "Item added successfully."
+msgstr "Er nu tilføjet"
+
+#: /browser/collector.py:175
+msgid "Remove block"
+msgstr "Slet blok"
+
+#: /browser/collector.py:178
+msgid "Item successfully deleted."
+msgstr "Er nu slettet"
+
+#: /browser/collector.py:207
+msgid "Move block up"
+msgstr "Flyt blok op"
+
+#: /browser/collector.py:211 /browser/collector.py:219
+msgid "Item successfully moved."
+msgstr "Er flyttet"
+
+#: /browser/collector.py:214
+msgid "Move block down"
+msgstr "Flyt blok ned"
+
+#: /browser/collector.py:296
+msgid "Edit ${collector}"
+msgstr "Rediger ${collector}"
+
+#: /browser/collector.py:300
+msgid "Up to Collector administration"
+msgstr "Til administration af indsamlere"
+
+#: /browser/collector.py:38 /browser/collector.py:147
+msgid "Type"
+msgstr "Type"
+
+#: /browser/collector.py:64
+msgid "Collector administration"
+msgstr "Administration af indholdsindsamlere"
+
+#: /browser/collector.py:90 /browser/collector.py:155 /browser/stats.py:18
+msgid "Title"
+msgstr "Titel"
+
+#: /browser/composer-html-confirm.pt:14
+msgid "To confirm your subscription with ${channel}, please click here: ${url}"
+msgstr ""
+"Du kan bekræfte din tilmelding til ${channel} ved at klikke her: ${url}"
+
+#: /browser/composer-html-confirm.pt:8
+msgid "Please confirm your subscription"
+msgstr "Bekræft din tilmelding"
+
+#: /browser/composer-html-forgot.pt:15
+msgid "Click here to manage your subscriptions with ${site-title}:"
+msgstr ""
+"Klik på nedenstående link for at redigere dine tilmeldinger på ${site-title}:"
+
+#: /browser/composer-html-forgot.pt:18
+msgid "Manage your subscriptions"
+msgstr "Rediger tilmeldinger"
+
+#: /browser/composer-html-forgot.pt:24
+msgid "Best regards"
+msgstr "Venlig hilsen"
+
+#: /browser/composer-html.pt:16
+msgid ""
+"You're receiving this e-mail because you're registered for the ${channel} "
+"newsletter."
+msgstr ""
+"Du modtager denne email, fordi du er oprettet som abonnent på ${channel}."
+
+#: /browser/composer-html.pt:20
+msgid "Click here to unsubscribe."
+msgstr "Klik her for at framelde dig"
+
+#: /browser/controlpanel-links.pt:13
+msgid "label_collector_administration"
+msgstr "Administration af indsamlere"
+
+#: /browser/controlpanel-links.pt:18
+msgid "description_collector_administration"
+msgstr ""
+"Indsamlere er nyttige ved automatiske nyhedsbreve. De står for indsamling af "
+"objeketer, der skal udsendes."
+
+#: /browser/controlpanel-links.pt:23
+msgid "label_statistics_administration"
+msgstr "Statistik"
+
+#: /browser/controlpanel-links.pt:28
+msgid "description_statistics_administration"
+msgstr "Se statistik for nyhedsbreve"
+
+#: /browser/controlpanel-links.pt:3
+msgid "label_channel_administration"
+msgstr "Administration af kanaler"
+
+# Rather, it provides a number of components to configure and work with.
+# It is also the container of subscriptions to it."
+#: /browser/controlpanel-links.pt:7
+msgid "description_channel_administration"
+msgstr ""
+"En kanal er en sammenføjning af de elementer der udgør en "
+"nyhedsbrevskonfiguration - den gør intet i sig selv, men giver mulighed for "
+"at konfigurere en række delkomponenenter"
+
+#: /browser/controlpanel.py:12
+msgid "Up to Singing & Dancing configuration"
+msgstr "Til nyhedsbrevs-administration"
+
+#: /browser/controlpanel.py:19
+msgid "Singing & Dancing configuration"
+msgstr "Administration af nyhedsbreve"
+
+#: /browser/controlpanel.py:22
+msgid "Up to Site Setup"
+msgstr "Til Plones kontrolpanel"
+
+# Default: "url%s/sendsecret.html"
+#: /browser/portlets/channelsubscribe.py:129
+msgid ""
+"You are already subscribed to this newsletter. Click here to <a href=\"${url}"
+"\">edit your subscriptions</a>."
+msgstr ""
+"Du abonnerer allerede på dette nyhedsbrev. Klik her for at <a href=\"${url}"
+"\">redigere dine abonnementer</a>."
+
+#: /browser/portlets/channelsubscribe.py:181
+msgid "There were some errors."
+msgstr "Der opstod fejl"
+
+#: /browser/portlets/channelsubscribe.py:190
+msgid "Proceed"
+msgstr "Fortsæt"
+
+#: /browser/portlets/channelsubscribe.py:271
+#: /browser/portlets/channelsubscribe.py:421
+msgid "${channel} options"
+msgstr "${channel} indstillinger"
+
+#: /browser/portlets/channelsubscribe.py:35
+msgid "Portlet header"
+msgstr "Portlet overskrift"
+
+#: /browser/portlets/channelsubscribe.py:353
+#: /browser/portlets/channelsubscribe.py:389
+msgid "Edit Channel Subscribe Portlet"
+msgstr "Rediger Abonneringsportlet"
+
+#: /browser/portlets/channelsubscribe.py:36
+msgid "Title of the rendered portlet"
+msgstr "Titel på den renderede portlet"
+
+#: /browser/portlets/channelsubscribe.py:38
+msgid "The channel to enable subscriptions to."
+msgstr "Kanalen, der skal kunne abonneres på."
+
+#: /browser/portlets/channelsubscribe.py:384
+msgid "Back to portlets"
+msgstr "Tilbage til portlets"
+
+#: /browser/portlets/channelsubscribe.py:39
+msgid "Find the channel you want to enable direct subscription to"
+msgstr "Find den kanal, du vil gøre direkte abonnerbar"
+
+#: /browser/portlets/channelsubscribe.py:390
+#: /browser/portlets/channelsubscribe.py:457
+msgid ""
+"This portlet allows a visitor to subscribe to a specific newsletter channel."
+msgstr ""
+"Denne portlet gør det muligt for en besøgende at abonnere på en specifik "
+"nyhedsbrevskanal."
+
+#: /browser/portlets/channelsubscribe.py:43
+msgid "Portlet description"
+msgstr "Beskrivelse af portlet"
+
+#: /browser/portlets/channelsubscribe.py:434
+#: /browser/portlets/channelsubscribe.py:456
+msgid "Add Channel Subscribe Portlet"
+msgstr "Tilføj abonneringsportlet"
+
+#: /browser/portlets/channelsubscribe.py:44
+msgid "Description of the rendered portlet"
+msgstr "Beskrivelse af portletten"
+
+#: /browser/portlets/channelsubscribe.py:46
+msgid "Subscribe directly from portlet"
+msgstr "Abonner direkte fra portlet"
+
+#: /browser/portlets/channelsubscribe.py:47
+msgid ""
+"Click here to select collector options to be automatically enabled, when "
+"subscribing from this portlet."
+msgstr ""
+"Klik her for at vælge de abonnements-mulighed, som abonnenten automatisk "
+"skal have slået til, når han abonnerer fra denne portlet."
+
+#: /browser/portlets/channelsubscribe.py:50
+msgid "Footer text"
+msgstr "Footertekst"
+
+#: /browser/portlets/channelsubscribe.py:51
+msgid "Text in footer - if omitted the channel title is used"
+msgstr "Tekst i footer - hvis udeladt bruges kanalens navn"
+
+#: /browser/portlets/channelsubscribe.py:54
+msgid "Show footer"
+msgstr "Vis footer"
+
+#: /browser/portlets/channelsubscribe.py:55
+msgid "Click here to show the portlet footer."
+msgstr "Klik her for at vise portlettens footer"
+
+#: /browser/scheduler.py:23
+msgid "Apply"
+msgstr "Udfør"
+
+#: /browser/scheduler.py:27
+msgid "Trigger now"
+msgstr "Send nu"
+
+#: /browser/scheduler.py:31
+msgid "${number} messages queued."
+msgstr "${number} beskeder lagt i kø"
+
+#: /browser/scheduler.py:34
+msgid "No messages queued."
+msgstr "Ingen beskeder i kø."
+
+#: /browser/sendnewsletter.py:104
+msgid "Send ${item} as newsletter"
+msgstr "Send ${item} som nyhedsbrev"
+
+#: /browser/sendnewsletter.py:25
+msgid "The channel to send this through"
+msgstr "Kanalen sendte det gennem"
+
+#: /browser/sendnewsletter.py:31
+msgid "Include collector items"
+msgstr "Medtag automatisk indsamlet indhold"
+
+#: /browser/sendnewsletter.py:36
+msgid "Address to send the preview to"
+msgstr "Adresse, der modtager forhåndsvisning"
+
+#: /browser/sendnewsletter.py:37
+msgid "This is only required if you click 'Send preview' below"
+msgstr ""
+"Dette er kun nødvendigt hvis du klikker på 'Send forhåndsvisning' herunder"
+
+#: /browser/sendnewsletter.py:43
+msgid "Send"
+msgstr "Udsend"
+
+#: /browser/sendnewsletter.py:62 /browser/sendnewsletter.py:97
+msgid "${num} messages queued."
+msgstr "${num} lagt i kø."
+
+#: /browser/sendnewsletter.py:64
+msgid "Show preview"
+msgstr "Vis forhåndsvisning"
+
+#: /browser/sendnewsletter.py:69
+msgid "Send preview"
+msgstr "Send forhåndsvisning"
+
+#: /browser/stats.py:112
+msgid "All sent and failed messages deleted"
+msgstr "Alle "
+
+#: /browser/stats.py:120
+msgid "Newsletter statistics"
+msgstr "Statistik for nyhedsbrev"
+
+#: /browser/stats.py:21
+msgid "Total messages sent"
+msgstr "Udsendt i alt"
+
+#: /browser/stats.py:22
+msgid "Total number of messages sent successsfully"
+msgstr "Udsendt i alt (med held)"
+
+#: /browser/stats.py:26
+msgid "New messages"
+msgstr "Nye beskeder"
+
+#: /browser/stats.py:27
+msgid "Messages waiting to be sent"
+msgstr "Beskeder der venter på at blive udsendt"
+
+#: /browser/stats.py:29 /browser/stats.py:35 /browser/stats.py:41
+#: /browser/stats.py:47
+msgid "Last Change"
+msgstr "Seneste ændring"
+
+#: /browser/stats.py:32
+msgid "Sent messages"
+msgstr "Beskeder nu sendt"
+
+#: /browser/stats.py:33
+msgid "Messages successfully sent"
+msgstr "Beskederne er nu sendt ud"
+
+#: /browser/stats.py:38
+msgid "Failed messages"
+msgstr "Beskeder med fejl"
+
+#: /browser/stats.py:39
+msgid "Messages with errors"
+msgstr "Beskeder med fejl"
+
+#: /browser/stats.py:44
+msgid "Retry messages"
+msgstr "Prøv-igen beskeder"
+
+#: /browser/stats.py:45
+msgid "Messages with errors in the retry queue"
+msgstr "Beskeder med fejl som venter på et nyt forsøg"
+
+#: /browser/stats.py:73
+msgid "Flush old messages"
+msgstr "Slet gamle beskeder"
+
+#: /browser/stats.py:75
+msgid "Please select items to flush."
+msgstr "Vælg hvad der skal slettes."
+
+#: /browser/stats.py:78
+msgid "Successfully flushed channels."
+msgstr "Alle kanaler nu tømt."
+
+#: /browser/stats.py:82
+msgid "Send messages now"
+msgstr "Send beskeder nu"
+
+#: /browser/stats.py:84
+msgid "Please select which channel you'd like to send queued e-mails of."
+msgstr "Vælg hvilken kanal, du ønsker at udsende nyhedsbreve fra køen."
+
+#: /browser/subscribe.py:105 /browser/subscribe.py:184
+msgid "You unsubscribed successfully."
+msgstr "Du er nu afmeldt."
+
+#: /browser/subscribe.py:107
+msgid "You aren't subscribed to this channel."
+msgstr "Du abonnerer ikke på denne kanal."
+
+#: /browser/subscribe.py:131
+msgid "Your subscription was updated."
+msgstr "Dine abonnementændringer blev gemt"
+
+#: /browser/subscribe.py:165
+msgid "Apply changes"
+msgstr "Udfør ændringer"
+
+#: /browser/subscribe.py:177
+msgid "Unsubscribe from newsletter"
+msgstr "Afmeld nyhedsbrev"
+
+#: /browser/subscribe.py:192
+msgid ""
+"You are already subscribed. Fill out the form at the end of this page to be "
+"sent a link from where you can edit your subscription."
+msgstr ""
+"Du abonnerer allerede. Udfyld formularen nederst på siden for at få tilsendt "
+"et link, hvorfra du kan redigere dit abonnement."
+
+#: /browser/subscribe.py:21
+msgid ""
+"Your email address is already subscribed. Click the \"Send my subscription "
+"details\" button below."
+msgstr ""
+"Din email-adresse er allerede tilmeldt. Klik på knappen \"Send link til mine "
+"abonnementer\" nedenfor."
+
+#: /browser/subscribe.py:220
+msgid "Subscribe"
+msgstr "Abonner"
+
+#: /browser/subscribe.py:243
+msgid "There seems to be an error with the information you entered."
+msgstr "Du har indtastet en fejl."
+
+#: /browser/subscribe.py:260
+msgid "You subscribed successfully."
+msgstr "Dit abonnement er nu tilmeldt."
+
+#: /browser/subscribe.py:265
+msgid "Information on how to confirm your subscription has been sent to you."
+msgstr "Bekræft venligst din tilmelding i tilsendt e-mail."
+
+#: /browser/subscribe.py:278
+msgid "My subscriptions"
+msgstr "Mine abonnementer"
+
+#: /browser/subscribe.py:28
+msgid "Edit existing subscriptions"
+msgstr "Rediger eksisterende abonnementer"
+
+#: /browser/subscribe.py:30
+msgid ""
+"Fill out the form below to receive an email with a link from which you can "
+"edit you subscriptions."
+msgstr ""
+"Udfyld denne formular for at få adgang til at redigere dine abonnementer. Du "
+"vil få tilsendt en e-mail med et link til en side hvor du kan fra- og "
+"tilmelde dig alle de nyhedsbreve sitet tilbyder."
+
+# Default: "channel"
+#: /browser/subscribe.py:52
+msgid ""
+"Fill out the form below to subscribe to ${channel}. Note that this is for "
+"new subscriptions. Click here to <a href=\"${url}\">edit your subscriptions</"
+"a>."
+msgstr ""
+"Udfyld denne formular for at abonnere på ${channel}. Bemærk at dette kun "
+"gælder for nye abonnenter. Klik istedet her for at <a href=\"${url}"
+"\">redigere dine abonnementer</a>"
+
+# Default: "channel"
+#: /browser/subscribe.py:59
+msgid "Subscribe to ${channel}"
+msgstr "Abonner på ${channel}"
+
+#: /browser/subscribe.py:75
+msgid "Confirming your subscription"
+msgstr "Bekræfter din tilmelding"
+
+#: /browser/subscribe.py:85
+msgid "You confirmed your subscription successfully."
+msgstr "Din bekræftelse af abonnementet gik igennem."
+
+#: /browser/subscribe.py:87
+msgid "Your subscription isn't known to us."
+msgstr "Dit abonnement findes ikke i systemet."
+
+#: /browser/subscribe.py:95
+msgid "Unsubscribe"
+msgstr "Afmeld"
+
+#: /browser/subscriptions.pt:10
+msgid ""
+"Below you see a list the newsletters we offer. If you are already subscribed "
+"to some of these you can fill out the form at the end of this page to be "
+"sent a link to where you can edit your existing subscriptions."
+msgstr ""
+"Øverst på denne side kan du se de nyhedsbreve du er tilmeldt og du kan "
+"redigere indstillinger for dem.\n"
+"\n"
+"Nederst på siden finder du flere nyhedsbreve du kan tilmelde dig. For hvert "
+"nyhedsbrev skal du indtaste din email-adresse og klikke på knappen \"Abonner"
+"\"."
+
+#: /browser/subscriptions.pt:21
+msgid "You are currently subscribed to these newsletters:"
+msgstr "Rediger dine tilmeldinger:"
+
+#: /browser/subscriptions.pt:28
+msgid "You can subscribe to these newsletters:"
+msgstr "Tilmeld dig flere nyhedsbreve:"
+
+#: /browser/subscriptions.pt:33
+msgid "Already subscribed?"
+msgstr "Er du allerede abonnent?"
+
+#: /browser/subscriptions.pt:34
+msgid ""
+"Should you be already subscribed to one of our lists, please use this form "
+"to retrieve a link to your personalized subscription page:"
+msgstr ""
+"Hvis du allerede abonnerer til en af vores nyhedsbreve, kan du bruge denne "
+"formular til at få tilsendt et link til en side, hvor du kan ændre dit "
+"abonnement:"
+
+#: /channel.py:95
+msgid "Newsletter"
+msgstr "Nyhedsbrev"
+
+#: /collector.py:175
+msgid "Sections"
+msgstr "Sektioner"
+
+#: /collector.py:65
+msgid "Rich text"
+msgstr "Wysiwyg-tekst"
+
+# Default: "channel-titlechannel_title"
+#: /composer.py:114
+msgid "site-titlesite_title"
+msgstr ""
+
+#: /composer.py:134
+msgid "Confirm your subscription with ${channel-title}"
+msgstr "Bekræft din tilmelding til ${channel-title}"
+
+#: /composer.py:153 /browser/composer-html-forgot.pt:10
+msgid "Change your subscriptions with ${site-title}"
+msgstr "${site-title}: Rediger dine tilmeldinger"
+
+#: /composer.py:24
+msgid "Your e-mail address is invalid"
+msgstr "Din email-adresse er ugyldig"
+
+#: /composer.py:41
+msgid "E-mail address"
+msgstr "Email-adresse"
+
+#: /composer.py:59
+msgid "HTML E-Mail"
+msgstr "HTML email"
+
+#~ msgid "Your email address is already subscribed."
+#~ msgstr "Din email-adresse er allerede tilmeldt."
+
+#~ msgid "${channel} subscriptions administration"
+#~ msgstr "Administration af abonneneter i ${channel}"
+
+#~ msgid "${address} is not subscribed to ${channel}."
+#~ msgstr "${address} abonnerer ikke på ${channel}."
+
+#~ msgid "${sent} message(s) sent, ${failed} failure(s)."
+#~ msgstr "${sent} besked(er) udsendt, fejl i ${failed} af dem."
+
+#~ msgid "${site-title}: ${channel-title}"
+#~ msgstr "${site-title}: ${channel-title}"
+
+#~ msgid ""
+#~ "Displays a form that lets you send this content item as a newsletter."
+#~ msgstr ""
+#~ "Viser en formular, som lad dig udsende dette indhold som et nyhedsbrev."
+
+#~ msgid "Edit ${selector} for ${channel}"
+#~ msgstr "Rediger ${selector} for ${channel}"
+
+#~ msgid "Send as newsletter"
+#~ msgstr "Send som nyhedsbrev"
+
+#~ msgid "You are already subscribed."
+#~ msgstr "Du abonnerer allerede"

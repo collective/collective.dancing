@@ -1,0 +1,112 @@
+div.crud-form {
+    padding-right: 1em;
+    margin-bottom: 2em;
+}
+
+div.crud-form div.action {
+    display: inline;
+    margin-right: 1em;
+}
+
+div.crud-form table {
+    margin-bottom: 1em;
+}
+
+div.crud-form table td {
+    padding: 0.5em;
+}
+
+div.crud-form td.error {
+    background-color: #FFDDCC;
+}
+
+div.crud-form td.error div.error {
+    border-width: 0;
+    margin: 0;
+    padding: 0.2em;
+    font-weight: bold;
+}
+
+.collector-form .subform {
+    margin: 0 0 1em 0.5em;
+    padding: 1em;
+    border: 1px dotted black;
+}
+
+fieldset.subforms {
+    padding: 1em;
+    border: 1px dotted black;
+}
+
+.collector-form .subform-level-1 { 
+    margin-left: 0;
+    padding-left: 0;
+    border: none;
+}
+
+.deleteform, .moveform {
+    margin-left: 2em;
+}
+
+.moveform {
+    margin-bottom: 2em;
+}
+
+
+.link-subscribers {
+    background-image: url(group.gif);
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 20px;
+}
+/*
+#subscription-editforms .horizontal,
+#subscription-addforms .horizontal{
+    display: inline;
+    float: left;
+    margin-right: 1em;
+    
+} 
+#subscription-editforms  .rowlike .fieldRequired,
+#subscription-addforms .rowlike .fieldRequired{
+    width: 0px;
+    overflow: hidden;
+    
+}
+#subscription-editforms .form,
+#subscription-addforms .form{
+    display: block;
+    clear: both;
+    margin-top: 0.5em;
+    padding-bottom: 2em;
+    border-bottom: 1px dashed #cccccc;
+}
+#subscription-editforms h2, 
+#subscription-addforms h2{
+    display: block;
+    clear: both;
+    margin-top: 1.2em;
+}
+*/
+
+.portlet-dancing .action{
+    padding-top: 0.5em;
+}
+
+#subscription-editforms .form h3,
+#subscription-addforms .form h3{
+    font-weight: bold;
+    border: none;
+}
+
+.row .field .widget .option{
+    display: block;
+}
+
+.batch-navigation {
+    text-align: center;
+}
+
+.batch-navigation li {
+    display: inline;
+}

@@ -1,0 +1,213 @@
+<zope:configure
+   xmlns:zope="http://namespaces.zope.org/zope"
+   xmlns="http://namespaces.zope.org/browser">
+
+  <include package=".portlets" />
+
+  <!-- Vocabularies and field overrides -->
+
+  <zope:utility component=".channel.scheduler_vocabulary"
+                name="Scheduler Vocabulary" />
+
+  <zope:adapter factory=".channel.SubscriptionChoiceFieldDataManager" />
+
+  <zope:adapter factory="z3c.form.browser.checkbox.CheckBoxFieldWidget"
+                for="zope.schema.interfaces.IUnorderedCollection
+                     collective.singing.interfaces.IFormLayer"
+                />
+
+  <zope:adapter factory=".collector.EditCollectorForm"
+                provides="z3c.form.interfaces.ISubForm" />
+
+  <zope:adapter factory=".collector.EditTopicForm"
+                provides="z3c.form.interfaces.ISubForm" />
+
+  <zope:adapter factory=".collector.EditTextForm"
+                provides="z3c.form.interfaces.ISubForm" />
+
+  <zope:adapter factory=".collector.EditReferenceForm"
+                provides="z3c.form.interfaces.ISubForm" />
+
+  <zope:adapter factory=".query.ReferenceSelection"
+                for="..collector.IReferenceCollector" />
+
+  <zope:adapter
+     factory=".composer.EditComposerForm"
+     provides="z3c.form.interfaces.ISubForm" />
+  <zope:adapter
+     factory=".composer.EditHTMLComposerForm"
+     provides="z3c.form.interfaces.ISubForm" />
+  
+  <!-- Administration views -->
+
+  <defaultView
+      for="collective.dancing.channel.IPortalNewsletters"
+      name="index_html"
+      />
+
+  <defaultView
+      for="collective.dancing.channel.IChannelContainer"
+      name="index_html"
+      />
+
+  <defaultView
+      for="collective.singing.interfaces.IChannel"
+      name="index_html"
+      />
+
+  <defaultView
+      for="collective.singing.interfaces.ICollector"
+      name="index_html"
+      />
+    
+  <defaultView
+      for="collective.singing.interfaces.IScheduler"
+      name="index_html"
+      />
+
+  <page
+      name="index_html"
+      for="collective.dancing.channel.IPortalNewsletters"
+      class=".controlpanel.ControlPanelView"
+      permission="dancing.ManageNewsletters"
+      />
+
+  <page
+      name="newsletter-stats.html"
+      for="collective.dancing.channel.ChannelContainer"
+      class=".stats.StatsView"
+      permission="dancing.ManageNewsletters"
+      />
+
+  <page
+      name="index_html"
+      for="collective.dancing.channel.ChannelContainer"
+      class=".channel.ChannelAdministrationView"
+      permission="dancing.ManageNewsletters"
+      />
+
+  <page
+      name="index_html"
+      for="collective.singing.interfaces.IChannel"
+      class=".channel.ManageChannelView"
+      permission="dancing.ManageNewsletters"
+      />
+
+  <page
+      name="index_html"
+      for="collective.dancing.collector.CollectorContainer"
+      class=".collector.CollectorAdministrationView"
+      permission="dancing.ManageNewsletters"
+      />
+
+  <page
+      name="index_html"
+      for="collective.dancing.collector.Collector"
+      class=".collector.RootCollectorEditView"
+      permission="dancing.ManageNewsletters"
+      />
+  
+  <page
+      name="index_html"
+      for="collective.singing.collector.IFilteredSubjectsCollectorBase"
+      class=".collector.FilteredCollectorEditView"
+      permission="dancing.ManageNewsletters"
+      />
+
+  <page
+      name="index_html"
+      for="collective.singing.interfaces.IScheduler"
+      class=".scheduler.PeriodicSchedulerEditView"
+      permission="dancing.ManageNewsletters"
+      />
+
+  <page
+      name="index_html"
+      for="collective.singing.scheduler.TimedScheduler"
+      class=".scheduler.TimedSchedulerEditView"
+      permission="dancing.ManageNewsletters"
+      />
+      
+  <page
+       name="export"
+       for="collective.singing.interfaces.IChannel"
+       permission="cmf.ModifyPortalContent"
+       class=".channel.ExportCSV"
+   />
+
+  <!-- Subscription views -->
+
+  <page
+      name="my-subscriptions.html"
+      for="collective.dancing.channel.IPortalNewsletters"
+      class=".subscribe.Subscriptions"
+      permission="zope2.View"
+      />
+  
+  <page
+      name="sendsecret.html"
+      for="collective.dancing.channel.IPortalNewsletters"
+      class=".subscribe.SendSecret"
+      permission="zope2.View"
+      />
+
+  <page
+      name="subscribe.html"
+      for="collective.singing.interfaces.IChannel"
+      class=".subscribe.Subscribe"
+      permission="zope2.View"
+      />
+
+  <page
+     name="confirm-subscription.html"
+     for="collective.dancing.channel.IPortalNewsletters"
+     class=".subscribe.Confirm"
+     permission="zope2.View"
+     />
+
+  <!-- BBB: The confirm view used to be registered for IChannel, we'll
+       keep this registration here for subscribers that received their
+       request for confirmation before a site update.  Let's remove
+       this in version 0.5.
+  -->
+  <page
+     name="confirm-subscription.html"
+     for="collective.singing.interfaces.IChannel"
+     class=".subscribe.Confirm"
+     permission="zope2.View"
+     />
+
+
+  <page
+     name="unsubscribe.html"
+     for="collective.singing.interfaces.IChannel"
+     class=".subscribe.Unsubscribe"
+     permission="zope2.View"
+     />
+
+  <!-- Stuff -->
+  <page
+     name="send-newsletter.html"
+     for="*"
+     class=".sendnewsletter.SendAsNewsletterView"
+     permission="dancing.SendAsNewsletter"
+     />
+
+  <page
+     name="preview-newsletter.html"
+     for="*"
+     class=".preview.PreviewNewsletterView"
+     permission="dancing.PreviewNewsletter"
+     />
+
+
+  <page
+     name="dancing.utils"
+     for="*"
+     class=".utils.DancingUtilsView"
+     permission="dancing.ManageNewsletters"
+     allowed_interface=".utils.IDancingUtilsView"
+     />
+
+
+</zope:configure>

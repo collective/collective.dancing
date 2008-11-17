@@ -1,0 +1,1303 @@
+Browser tests
+=============
+
+These are browser-driven tests for the functionality provided by the
+``collective.dancing`` package.
+
+Setup
+-----
+
+  >>> from Testing.ZopeTestCase import user_password
+  >>> from Products.Five.testbrowser import Browser
+  >>> def new_browser():
+  ...     browser = Browser()
+  ...     browser.handleErrors = False
+  ...     return browser
+  >>> browser = new_browser()
+
+  >>> from collective.dancing.tests import setup_error_log
+  >>> print_error = setup_error_log(portal)
+
+We want messages to be printed out instead of sending them:
+
+  >>> from collective.dancing.tests import setup_testing_maildelivery
+  >>> delivery = setup_testing_maildelivery()
+
+Control panel
+-------------
+
+The ``collective.dancing`` package registers a control panel; we can
+reach it as an administrator through the 'Site Setup' link:
+
+  >>> browser.addHeader('Authorization',
+  ...                   'Basic %s:%s' % ('portal_owner', user_password))
+  >>> browser.open(portal.absolute_url())
+  >>> browser.getLink('Site Setup').click()
+  >>> browser.getLink('Singing & Dancing').click()
+  >>> browser.url
+  'http://nohost/plone/portal_newsletters'
+  >>> "Singing &amp; Dancing configuration" in browser.contents
+  True
+
+Channels administration
+-----------------------
+
+The admistration screen can be reached through Plone control panel:
+
+  >>> browser.getLink('Channel administration').click()
+
+Through this administration screen we can add and delete channels:
+
+  >>> browser.getControl('Title').value = 'My channel'
+  >>> browser.getControl('Add').click()
+  >>> 'Item added successfully' in browser.contents
+  True
+  >>> 'My channel' in browser.contents
+  True 
+  >>> browser.getControl('Title').value = 'My other channel'
+  >>> browser.getControl('Add').click()
+  >>> 'Item added successfully' in browser.contents
+  True
+
+Trying to rename a channel to the empty string will trigger a form
+error:
+
+  >>> browser.getControl(name='crud-edit.my-channel.widgets.title').value = ''
+  >>> browser.getControl('Apply changes').click()
+  >>> "There were some errors" in browser.contents
+  True
+  >>> "Required input is missing" in browser.contents
+  True
+
+Let's delete the first of the two channels:
+
+  >>> btn = browser.getControl(name='crud-edit.my-channel.widgets.select:list')
+  >>> btn.value = ['selected']
+  >>> browser.getControl("Delete").click()
+  >>> "Successfully deleted items" in browser.contents
+  True
+  >>> 'My channel' in browser.contents, 'My other channel' in browser.contents
+  (False, True)
+
+The default is not to have a collector or a scheduler, let's select some for our
+channel:
+
+  >>> collector = browser.getControl(
+  ...     name='crud-edit.my-other-channel.widgets.collector:list')
+  >>> collector.displayValue
+  ['no value']
+  >>> collector.displayValue = ['Latest news']
+
+  >>> scheduler = browser.getControl(
+  ...     name='crud-edit.my-other-channel.widgets.scheduler:list')
+  >>> scheduler.displayValue
+  ['no value']
+  >>> scheduler.displayValue = ['Weekly scheduler']
+
+  >>> browser.getControl('Apply changes').click()
+  >>> 'Successfully updated' in browser.contents
+  True
+  
+  >>> collector = browser.getControl(
+  ...     name='crud-edit.my-other-channel.widgets.collector:list')
+  >>> collector.displayValue
+  ['Latest news']
+  >>> scheduler = browser.getControl(
+  ...     name='crud-edit.my-other-channel.widgets.scheduler:list')
+  >>> scheduler.displayValue
+  ['Weekly scheduler']
+
+  
+Adding new types of Channels can be done very easily from external code.
+Simpy add to the list of factories.
+
+  >>> import collective.dancing.channel
+  >>> import collective.singing.interfaces
+  >>> from zope import interface
+  >>> import persistent
+
+  >>> class MyCustomChannel(collective.dancing.channel.Channel, persistent.Persistent):
+  ... 	  interface.implements(collective.singing.interfaces.IChannel)
+  ...     type_name = u"Awesome Channel"
+  >>> collective.dancing.channel.MyCustomChannel = MyCustomChannel
+  >>> collective.dancing.channel.MyCustomChannel.__module__ = \
+  ... 					 'collective.dancing.channel'
+  
+  >>> collective.dancing.channel.channels.append(
+  ...		collective.dancing.channel.MyCustomChannel)
+
+We now have the option to add one of these ;-)
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> browser.getControl('Type').displayOptions
+  ['Standard Channel', 'Awesome Channel']
+
+  >>> browser.getControl('Type').displayValue = ['Awesome Channel']
+  >>> browser.getControl('Title').value = 'My awesome channel'
+  >>> browser.getControl('Add').click()
+  >>> 'Item added successfully' in browser.contents
+  True
+  >>> 'My awesome channel' in browser.contents
+  True 
+  
+Let's check that a MyCustomChannel instance was really created.
+
+  >>> custom_channel = portal.portal_newsletters.channels.values()[-1]
+  >>> custom_channel # doctest: +ELLIPSIS
+  <MyCustomChannel at ...>
+
+In some cases we may want channels to not be subscribeable.
+We can do this simply by setting their subscribeable attr:
+We generally use the channel_lookup function to list our channels,
+this function support ignoring unsubscribeable channels
+The subscribe portlet already does this:
+
+  >>> custom_channel in collective.singing.channel.channel_lookup()
+  True
+  >>> custom_channel in collective.singing.channel.channel_lookup(only_subscribeable=True)
+  True
+  
+  >>> custom_channel.subscribeable = False
+
+  >>> custom_channel in collective.singing.channel.channel_lookup()
+  True
+  >>> custom_channel in collective.singing.channel.channel_lookup(only_subscribeable=True)
+  False
+  
+  
+Let's remove it since it does nothing we want to test.
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> btn = browser.getControl(name='crud-edit.my-awesome-channel.widgets.select:list')
+  >>> btn.value = ['selected']
+  >>> browser.getControl("Delete").click()
+  >>> "Successfully deleted items" in browser.contents
+  True
+  >>> 'My awesome channel' in browser.contents
+  False
+
+When only one kind of channel is available, we don't need to specify one when
+creating new channels.
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> 'Standard Channel' in browser.contents
+  True
+  >>> del collective.dancing.channel.channels[1]
+  >>> browser.reload()
+  >>> 'Standard Channel' in browser.contents
+  False
+
+Configuring collectors
+----------------------
+
+We can click on "Latest news" to configure what items go into the
+channel:
+
+  >>> browser.getLink('Latest news').click()
+
+The collector administration screen shows an overview of all available
+collectors:
+
+  >>> browser.getLink('Up to Collector administration').click()
+  >>> "Collector administration" in browser.contents
+  True
+  >>> browser.getLink('Latest news').click()
+
+Our collector currently contains one Collection.  But instead of this, we
+want it to contain two collectors, both of which contain one Collection.
+This way we can mark both of the contained collectors optional and
+have subscribers select from either.
+
+Let's remove the Collection before we add two new collector blocks:
+
+  >>> browser.getControl('Remove block').click()
+  >>> browser.getControl('Title', index=1).value = 'News'
+  >>> browser.getControl('Add').click()
+  >>> browser.getControl('Title', index=4).value = 'Events'
+  >>> browser.getControl('Add', index=-1).click()
+
+We should now have two collectors containing one Collection each:
+
+  >>> "Collection for News" in browser.contents
+  True
+  >>> "Collection for Events" in browser.contents
+  True
+
+We'll configure the first Collection, the one belonging to the News
+Collector, to find us all News items:
+
+  >>> def add_type_criterion(url, content_types):
+  ...     browser.getLink(url=url).click()
+  ...     browser.getControl('Field name', index=0).displayValue = ['Item Type']
+  ...     browser.getControl('Criteria type').displayValue = ['Select content types']
+  ...     browser.getControl('Add criteria').click()
+  ...     types = browser.getControl(
+  ...         name='crit__Type_ATPortalTypeCriterion_value:list')
+  ...     types.value = content_types
+  ...     browser.getControl(name='form.button.Save').click()
+  ...     browser.getLink('Latest news').click()
+  >>> add_type_criterion('0/0/criterion_edit_form', ['News Item'])
+  >>> add_type_criterion('1/0/criterion_edit_form', ['Event'])
+
+Back at the collector form, we'll make both 'News' and 'Events' blocks
+optional.  This will allow users to select out of the two when they
+subscribe.  The default is to subscribe to both:
+
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-0.widgets.optional:list').value = ['true']
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-1.widgets.optional:list').value = ['true']
+  >>> browser.getControl('Apply').click()
+
+We can also move blocks around:
+
+  >>> def index(s):
+  ...     return browser.contents.index(s)
+  >>> index('Collector block: News') < index('Collector block: Events')
+  True
+  >>> browser.getControl('Move block down').click()
+  >>> index('Collector block: News') < index('Collector block: Events')
+  False
+
+We can also add a rich text field:
+
+  >>> browser.getControl('Type', index=-1).displayValue = ['Rich text']
+  >>> browser.getControl('Title', index=-1).value = 'Goodbye'
+  >>> browser.getControl('Add', index=-1).click()
+  >>> browser.getControl(
+  ...     name='EditTextForm-plone-portal_newsletters-collectors-default-latest-news-2.widgets.value').value = "Our newsletter rocks!"
+  >>> browser.getControl('Apply').click()
+
+Or a reference collector field:
+
+  >>> browser.getControl('Type', index=-1).displayValue = ['Content selection']
+  >>> browser.getControl('Title', index=-1).value = 'A selection of site content'
+  >>> browser.getControl('Add', index=-1).click()
+  >>> browser.getControl('Apply').click()
+  
+Okay, so now that our collector catches both events and news items
+throughout the site.  For now, let's create one item for each type:
+
+  >>> from DateTime import DateTime
+  >>> news = portal.news
+  >>> workflow = portal.portal_workflow
+  >>> self.loginAsPortalOwner()
+  >>> news.invokeFactory(
+  ...     'News Item', id='flu', title='Drug-resistant flu rising, says WHO')
+  'flu'
+  >>> workflow.doActionFor(news['flu'], 'publish')
+
+  >>> events = portal.events
+  >>> events.invokeFactory('Event', id='super-bowl', title='Super Bowl XLII')
+  'super-bowl'
+  >>> workflow.doActionFor(events['super-bowl'], 'publish')
+
+  
+Channel subscriptions
+---------------------
+
+Going back to the channel administration screen, we can click on the
+channel's name to reach the channel subscriptions screen:
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> browser.getLink(url='http://nohost/plone/portal_newsletters/channels/my-other-channel').click()
+
+We can add new subscriptions here:
+
+  >>> browser.getControl('E-mail address').value = u"daniel@localhost"
+  >>> browser.getControl('Add').click()
+  >>> 'Item added successfully' in browser.contents
+  True
+  >>> 'daniel@localhost' in browser.contents
+  True
+
+We'll get a nice error message when we try to add a subscription with
+the same e-mail address:
+
+  >>> browser.getControl('E-mail address').value = u"daniel@localhost"
+  >>> browser.getControl('Add').click()
+  >>> 'Item added successfully' in browser.contents
+  False
+  >>> "There's already a subscription" in browser.contents
+  True
+
+Let's delete and re-add:
+
+  >>> select = browser.getControl(" ", index=5) # XXX: breaks too easily
+  >>> select.optionValue
+  'selected'
+  >>> select.click()
+  >>> browser.getControl("Delete").click()
+  >>> "daniel@localhost" in browser.contents
+  False
+
+  >>> browser.getControl('E-mail address').value = u"daniel@localhost"
+  >>> browser.getControl('Add').click()
+  >>> 'Item added successfully' in browser.contents
+  True
+
+We'll add another subscription:
+
+  >>> browser.getControl('E-mail address').value = u"mailman@localhost"
+  >>> browser.getControl('Add').click()
+  >>> 'Item added successfully' in browser.contents
+  True
+
+We can also search in the list of subscriptions.  Searching for
+"mailman" will show us only one entry.  We'll modify this entry to
+filter on the content type:
+
+  >>> browser.getControl('Search subscribers').value = 'mailman'
+  >>> browser.getControl('Search', index=3).click()
+  >>> 'mailman' in browser.contents, 'daniel' in browser.contents
+  (True, False)
+
+  >>> browser.getControl('News', index=0).click()
+  >>> browser.getControl('Apply changes').click()
+  >>> "Successfully updated" in browser.contents
+  True
+
+CSV Upload and Download of subscriptions
+----------------------------------------
+
+We upload a list of subscribers from a csv-file.
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> browser.getLink(url='http://nohost/plone/portal_newsletters/channels/my-other-channel').click()
+
+  >>> my_channel = collective.singing.channel.lookup('my-other-channel')
+  >>> len(my_channel.subscriptions.query(key=u'pia@localhost'))
+  0 
+
+  >>> import cStringIO
+  >>> ctrl = browser.getControl(name='crud-add.html.widgets.subscriberdata')
+  >>> ctrl
+  <Control name='crud-add.html.widgets.subscriberdata' type='file'>
+  >>> ctrl.add_file(cStringIO.StringIO('pia@localhost\nlars@localhost'),
+  ...               'text/plain', 'test.txt')
+  >>> browser.getControl('Upload').click()
+  >>> '2 subscriptions updated successfully' in browser.contents
+  True
+  >>> len(my_channel.subscriptions.query(key=u'pia@localhost'))
+  1
+
+We upload a list of subscribers with valid and invalid email addresses
+
+  >>> ctrl = browser.getControl(name='crud-add.html.widgets.subscriberdata')
+  >>> ctrl.add_file(cStringIO.StringIO('pia@localhost\nlars'),
+  ...              'text/plain', 'test.txt')
+  >>> browser.getControl('Upload').click()
+  >>> '1 subscriptions updated successfully' in browser.contents
+  True
+  >>> '1 could not be added. (lars)' in browser.contents
+  True
+
+Subscriptions can be downloaded as csv:
+
+  >>> browser.getControl('Download').click()
+  >>> browser.headers['content-type']
+  'text/csv; charset=UTF-8'
+  >>> 'daniel@localhost\r\n' in browser.contents
+  True
+  >>> 'mailman@localhost\r\n' in browser.contents
+  True
+  >>> 'lars@localhost\r\n' in browser.contents
+  True
+  >>> 'pia@localhost\r\n' in browser.contents
+  True
+  
+Cleanup: remove subscriptions
+
+  >>> subs = my_channel.subscriptions.query(key=u'pia@localhost')
+  >>> for subscription in subs:
+  ...       my_channel.subscriptions.remove_subscription(subscription)
+  >>> subs = my_channel.subscriptions.query(key=u'lars@localhost')
+  >>> for subscription in subs:
+  ...       my_channel.subscriptions.remove_subscription(subscription)
+
+
+Stats
+-----
+
+Also the statistics screens can be reached through the control panel:
+
+  >>> browser.open('http://nohost/plone/portal_newsletters')
+  >>> browser.getLink('Statistics').click()
+
+We can see that our channel is listed here:
+
+  >>> print browser.contents # doctest: +ELLIPSIS
+  <!DOCTYPE...My other channel...0...0...0...0...0...
+
+We can create a message now and see how the statistics reflect this.
+First, let's get a hold of our subscription object:
+
+  >>> channel = portal.portal_newsletters.channels.objectValues()[1]
+  >>> subscription = channel.subscriptions.values()[0]
+  >>> subscription # doctest: +ELLIPSIS
+  <SimpleSubscription to ...>
+
+We can now queue a new message:
+
+  >>> from collective.singing import message
+  >>> message.Message(payload=u"Hello, World!", subscription=subscription) \
+  ... # doctest: +ELLIPSIS
+  <collective.singing.message.Message object ...>
+
+Et voila:
+
+  >>> browser.reload()
+  >>> print browser.contents #doctest: +ELLIPSIS
+  <!DOCTYPE...My other channel...0...1...0...0...0...
+
+The statistics screen allows us to also send queued messages.  Right
+now, noone knows how to send text messages like the one we just
+created.  We'll register an adapter to do that for us:
+
+  >>> import collective.singing.interfaces
+  >>> from zope import component
+
+  >>> class MyTextDispatch(object):
+  ...     interface.implements(collective.singing.interfaces.IDispatch)
+  ...     component.adapts(unicode)
+  ... 
+  ...     failure = False
+  ... 
+  ...     def __init__(self, message):
+  ...         self.message = message
+  ... 
+  ...     def __call__(self):
+  ...         if self.failure:
+  ...             return u'error', self.failure
+  ...         print "Sending %r" % self.message
+  ...         return u'sent', None
+
+  >>> component.provideAdapter(MyTextDispatch)
+
+Now we can select our channel and click the "Send queued messages now" button:
+
+  >>> btn = browser.getControl(
+  ...     name='crud-edit.my-other-channel.widgets.select:list')
+  >>> btn.value = ['selected']
+  >>> browser.getControl('Send queued messages now').click()
+  Sending u'Hello, World!'
+  >>> "1 message(s) sent" in browser.contents
+  True
+
+If sending the message fails, we'll get notified:
+
+  >>> message.Message(payload=u"Hello, Aliens!", subscription=subscription) \
+  ... # doctest: +ELLIPSIS
+  <collective.singing.message.Message object ...>
+
+  >>> MyTextDispatch.failure = u'Sorry, failed'
+  >>> btn = browser.getControl(
+  ...     name='crud-edit.my-other-channel.widgets.select:list')
+  >>> btn.value = ['selected']
+  >>> browser.getControl('Send queued messages now').click()
+  >>> "1 failure(s)" in browser.contents
+  True
+  >>> "0 message(s) sent" in browser.contents
+  True
+
+  
+Subscribe
+---------
+
+Every channel has a view that allows people to subscribe:
+
+  >>> browser = new_browser()
+  >>> browser.open(channel.absolute_url() + '/subscribe.html')
+  >>> "My other channel" in browser.contents
+  True
+
+We'll subscribe to events only:
+
+  >>> browser.getControl('E-mail address').value = u"root@localhost"
+  >>> browser.getControl('Events').click()
+  >>> browser.getControl('Finish').click() \
+  ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *TestingMailDelivery sending*:
+  From: Site Administrator <>
+  To: root@localhost
+  Message follows:
+  ...
+  To confirm your subscription with My other channel, please click here:...
+  
+  >>> "Thanks for your subscription" in browser.contents
+  True
+
+  >>> import quopri
+  >>> msg = quopri.decodestring(delivery.sent[-1])
+  >>> confirm_url = "http://nohost/plone/portal_newsletters/confirm-subscription.html"
+  >>> confirm_url + "?secret=" in msg
+  True
+  >>> secret = msg[msg.rindex('secret='):msg.index('</a')]
+  >>> secret.startswith('secret=')
+  True
+
+So now we've received an e-mail to confirm our subscription.  Using
+the subscriptions query interface, we can see that our subscription is
+*pending*:
+
+  >>> subscriptions = list(
+  ...     channel.subscriptions.query(secret=secret.split('=')[1]))
+  >>> len(subscriptions)
+  1
+  >>> subscription = subscriptions[0]
+  >>> subscription.metadata['pending']
+  True
+  >>> dict((subscription.composer_data))
+  {'email': u'root@localhost'}
+
+After confirming our subscription, the subscription is no longer
+pending:
+
+  >>> browser.open(confirm_url + '?' + secret)
+  >>> "You confirmed your subscription successfully" in browser.contents
+  True
+  >>> subscription.metadata['pending']
+  False
+
+Trying to confirm a subscription that doesn't exist will give us a
+meaningful message:
+
+  >>> browser.open(confirm_url + '?secret=imfake')
+  >>> "Your subscription isn't known to us" in browser.contents
+  True
+
+Trying to subscribe to the same channel and format with the same
+e-mail address fails.  Note that e-mail addresses are case insensitive
+and that whitespace is stripped off:
+
+  >>> browser.open(channel.absolute_url() + '/subscribe.html')
+  >>> browser.getControl('E-mail address').value = u" ROOT@localhost "
+  >>> browser.getControl('Finish').click()
+  >>> "Your email address is already subscribed." in browser.contents
+  True
+
+Users can also request an e-mail with their secret:
+
+  >>> browser.getControl('Send my subscription details').click() \
+  ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *TestingMailDelivery sending*:
+  From: Site Administrator <>
+  To: root@localhost
+  Message follows:
+  ...
+  Click here to manage your subscriptions...my-subscriptions.html...
+
+What if we never received the message to confirm?  We can then still
+rely on the "Send my subscriptions details" function to update the
+'pending' state:
+
+  >>> subscription.metadata['pending'] = True
+  >>> url = '%s/../../my-subscriptions.html?secret=%s' % (
+  ...     channel.absolute_url(), subscription.secret)
+  >>> browser.open(url)
+  >>> "You are currently subscribed to these newsletters" in browser.contents
+  True
+  >>> subscription.metadata['pending']
+  False
+
+Unsubscribe
+-----------
+
+For this, we'll quickly add another subscription:
+
+  >>> browser.open(channel.absolute_url() + '/subscribe.html')
+  >>> browser.getControl('E-mail address').value = u"daemon@localhost"
+  >>> browser.getControl('Finish').click() \
+  ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *TestingMailDelivery sending*:
+  From: Site Administrator <>
+  To: daemon@localhost...
+
+  >>> msg = quopri.decodestring(delivery.sent[-1])
+  >>> secret = msg[msg.rindex('secret='):msg.index('</a')]
+  >>> browser.open(confirm_url + '?' + secret)
+  >>> "You confirmed your subscription successfully" in browser.contents
+  True
+
+Now let's unsubscribe:
+
+  >>> browser.open(channel.absolute_url() + '/unsubscribe.html?' + secret)
+  >>> "You unsubscribed successfully" in browser.contents
+  True
+
+We're now no longer subscribed:
+
+  >>> browser.open(channel.absolute_url() + '/unsubscribe.html?' + secret)
+  >>> "You aren't subscribed to this channel" in browser.contents
+  True
+
+  >>> delivery.sent = []
+
+Using a scheduler to send e-mails
+---------------------------------
+
+The scheduler for our channel is the weekly scheduler:
+
+  >>> channel.scheduler
+  <WeeklyScheduler at /plone/portal_newsletters/channels/my-other-channel/scheduler>
+
+Calling the scheduler's ``tick`` method will send messages to all our
+subscribers.  Right now the scheduler is inactive though, i.e. it
+won't trigger, ever:
+
+  >>> from zope.publisher.browser import TestRequest
+  >>> request = TestRequest()
+  
+  >>> channel.scheduler.tick(channel, request)
+
+Let's make it active.  Now we can see that the messages are being
+sent:
+
+  >>> channel.scheduler.active = True
+  >>> channel.scheduler.tick(channel, request)
+  3
+  >>> channel.queue.dispatch()
+  *TestingMailDelivery sending*:
+  ...
+  (3, 0)
+
+  >>> print delivery.last_messages(purge=False) \
+  ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  Content-Type: multipart/mixed;
+  ...
+  Subject: Plone site: My other channel...
+  From: Site Administrator <>
+  To: daniel@localhost
+  ...Super Bowl XLII...Drug-resistant flu rising, says WHO...
+  To: mailman@localhost
+  ...Drug-resistant flu rising, says WHO...
+  To: root@localhost
+  ...Super Bowl XLII...
+  Our newsletter rocks!
+  ...
+
+Let's take a closer look at the mail that's sent to mailman:
+
+  >>> msg = quopri.decodestring(delivery.sent[-2])
+  >>> 'mailman@localhost' in msg
+  True
+  >>> "Super Bowl" in msg
+  False
+  >>> msg # doctest: +ELLIPSIS
+  '...<a href="http://nohost/plone/portal_newsletters/channels/my-other-channel/unsubscribe.html?secret=...">...Click here to unsubscribe...</a>...'
+  >>> neglect = delivery.last_messages(purge=True)
+
+Ticking the scheduler a second time won't do anything:
+
+  >>> channel.scheduler.tick(channel, request)
+
+This has two reasons really: Firstly, the scheduler keeps track of
+when it queued something the last time:
+
+  >>> import datetime
+  >>> now = datetime.datetime.now()
+  >>> channel.scheduler.triggered_last < now
+  True
+  >>> now - datetime.timedelta(hours=1) < channel.scheduler.triggered_last
+  True
+
+Secondly, all our subscriptions have a "cue" set, which marks the time
+when they last received an item:
+
+  >>> [s.metadata['cue'] for s in channel.subscriptions.values()] \
+  ... # doctest: +ELLIPSIS
+  [DateTime(...), DateTime(...), DateTime(...)]
+
+We have to reset *both* the cues and the ``triggered_last`` time for
+messages to be queued again:
+
+  >>> for subs in subscriptions:
+  ...     del subs.metadata['cue']
+  >>> channel.scheduler.tick(channel, request)
+
+  >>> channel.scheduler.triggered_last = datetime.datetime(1, 1, 1, 0, 0)
+  >>> channel.scheduler.tick(channel, request)
+  3
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS
+  *TestingMailDelivery sending*:...(3, 0)
+  >>> print delivery.last_messages() # doctest: +ELLIPSIS
+  Content-Type:...To: daniel@localhost...To: mailman@localhost...To: root@localhost...
+
+We can choose another scheduler for our channel by visiting the
+channel administration screen.  But for now, let's resubmit the form
+with the same scheduler to make sure that its ``triggered_last`` date
+is preserved:
+
+  >>> triggered_last = channel.scheduler.triggered_last
+  >>> browser.addHeader('Authorization',
+  ...                   'Basic %s:%s' % ('portal_owner', user_password))
+  >>> browser.open(channel.aq_parent.absolute_url())
+  >>> select = browser.getControl(
+  ...     name='crud-edit.my-other-channel.widgets.scheduler:list')
+  >>> select.displayValue
+  ['Weekly scheduler']
+  >>> browser.getControl('Apply').click()
+  >>> "No changes made" in browser.contents
+  True
+  >>> triggered_last == channel.scheduler.triggered_last
+  True
+
+Let's select the daily scheduler now:
+
+  >>> select = browser.getControl(
+  ...     name='crud-edit.my-other-channel.widgets.scheduler:list')
+  >>> select.displayValue = ['Daily scheduler']
+  >>> browser.getControl('Apply').click()
+  >>> "Successfully updated" in browser.contents
+  True
+
+Again, that scheduler is inactive by default.  Also, the subscriptions
+still have their cues set:
+
+  >>> channel.scheduler.tick(channel, request)
+  >>> for subs in subscriptions:
+  ...     del subs.metadata['cue']
+  >>> channel.scheduler.tick(channel, request)
+
+We can visit the scheduler's management screen to activate it:
+
+  >>> browser.getLink('Daily scheduler').click()
+  >>> "Daily scheduler for My other channel" in browser.contents
+  True
+  >>> browser.getControl(name='form.widgets.active:list').value = ['true']
+  >>> browser.getControl('Apply').click()
+  >>> "Data successfully updated" in browser.contents
+  True
+
+The scheduler will send messages now:
+
+  >>> channel.scheduler.tick(channel, request)
+  3
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS
+  *TestingMailDelivery sending*:...(3, 0)
+  >>> print delivery.last_messages() # doctest: +ELLIPSIS
+  Content-Type:...To: daniel@localhost...To: mailman@localhost...To: root@localhost...
+
+Now it's silent again:
+
+  >>> for subs in subscriptions:
+  ...     del subs.metadata['cue']
+  >>> channel.scheduler.tick(channel, request)
+
+We can manually trigger the scheduler and thereby override the time
+check by using the "Trigger now" button:
+
+  >>> browser.getControl('Trigger now').click()
+  >>> "3 messages queued" in browser.contents
+  True
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS
+  *TestingMailDelivery sending*:...(3, 0)
+
+  >>> print delivery.last_messages() # doctest: +ELLIPSIS
+  Content-Type:...To: daniel@localhost...To: mailman@localhost...To: root@localhost...
+
+
+Sending newsletters from content objects
+----------------------------------------
+
+We can also send newsletters directly from any content object.  If the
+channel has a collector, this will also send the collector's items.
+To show this, we'll first create a new news item:
+
+  >>> news.invokeFactory(
+  ...     'News Item', id='vdfm',
+  ...     title="Vickar's daughter foully murdered")
+  'vdfm'
+  >>> workflow.doActionFor(news['vdfm'], 'publish')
+
+Let's verify that a CMF action was added.
+
+  >>> browser.open(portal.absolute_url())
+
+This just checks that there's a link to the form, but it's good enough
+for now.
+  
+  >>> '/send-newsletter.html' in browser.contents
+  True
+  
+We'll now send the front page as a newsletter:
+
+  >>> previous_trigger_time = channel.scheduler.triggered_last
+  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
+  >>> browser.getControl('Newsletter').click()
+  >>> browser.getControl('My other channel').click()
+  >>> browser.getControl('Send', index=0).click()
+  >>> "Messages queued for delivery" in browser.contents
+  True
+
+When we click send, our action will be queued in a job queue.
+Information about the job queue is available through the Statistics
+screen.  The job queue can also be processed from there:
+
+  >>> browser.open('http://nohost/plone/portal_newsletters')
+  >>> browser.getLink('Statistics').click()
+  >>> 'Send "Welcome to Plone"' in browser.contents
+  True
+  >>> browser.getControl("Process jobs").click()
+  >>> "3 message(s) queued for delivery" in browser.contents
+  True
+
+  >>> browser.getControl(name="crud-edit.my-other-channel.widgets.select:list"
+  ...     ).value = ['selected']
+  >>> browser.getControl(name="crud-edit.default-channel.widgets.select:list"
+  ...     ).value = ['selected']
+  >>> browser.getControl('Send queued messages now').click()
+  *TestingMailDelivery sending*:
+  ...
+  Welcome to Plone...Are you doing something interesting with Plone?...
+  Vickar's daughter...
+  >>> "3 message(s) sent" in browser.contents
+  True
+
+While we're at the Statistics screen, let's also clear the old jobs:
+
+  >>> browser.getControl("Clear finished jobs").click()
+  >>> "All finished jobs cleared" in browser.contents
+  True
+
+The scheduler last triggered time is also updated.
+
+  >>> previous_trigger_time < channel.scheduler.triggered_last
+  True
+  
+If we want we can avoid adding the collector items for selected
+channels:
+
+  >>> news.invokeFactory(
+  ...     'News Item', id='allisquiet',
+  ...     title="All is quiet on the western front")
+  'allisquiet'
+  >>> workflow.doActionFor(news['allisquiet'], 'publish')
+
+  >>> previous_trigger_time = channel.scheduler.triggered_last
+  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
+  >>> browser.getControl('Newsletter').click()
+  >>> browser.getControl('My other channel').click()
+
+This time we won't add the collector items:
+
+  >>> browser.getControl(
+  ...     name='form.widgets.include_collector_items:list').value = ['false']
+  >>> browser.getControl('Send', index=0).click()
+  >>> "Messages queued for delivery" in browser.contents
+  True
+
+To send out the queued messages this time, we'll use the
+``@@tick_and_dispatch`` view this time.  This view will be covered in
+more depth later:
+
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/tick_and_dispatch')
+  *TestingMailDelivery sending*:
+  ...
+  >>> print browser.contents # doctest +NORMALIZE_WHITESPACE
+  3 message(s) queued for delivery.
+  default-channel: 0 messages queued, dispatched: (0, 0)
+  my-other-channel: 0 messages queued, dispatched: (3, 0)
+
+Because we didn't add the collector items, our News Item is not sent
+out:
+
+  >>> delivery.order()
+  >>> msg = quopri.decodestring(delivery.sent[-3])
+  >>> 'mailman@localhost' in msg
+  True
+  >>> "All is quiet on the western front" in msg
+  False
+  >>> delivery.sent = []
+
+Since we did not include collector items the scheduler triggered time
+is not updated:
+
+  >>> previous_trigger_time == channel.scheduler.triggered_last
+  True
+
+We can also choose to send a preview of the same item.  To do this,
+we'll fill in our e-mail address and click the Preview button.  Note
+that the cue time remains the same:
+
+  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
+  >>> root = tuple(channel.subscriptions.query(key=u'root@localhost'))[0]
+  >>> old_cue = root.metadata['cue']
+  >>> browser.getControl('Address').value = u'root@localhost'
+  >>> browser.getControl('My other channel').click()
+  >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
+  >>> "1 message(s) queued" in browser.contents
+  True
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *TestingMailDelivery sending*:
+  ...
+  (1, 0)
+  >>> root = tuple(channel.subscriptions.query(key=u'root@localhost'))[0]
+  >>> root.metadata['cue'] == old_cue
+  True
+  >>> previous_trigger_time == channel.scheduler.triggered_last
+  True
+
+If we use an address that's unknown, it'll tell us that no messages
+were queued:
+
+  >>> browser.getControl('Address').value = u'nobody@localhost'
+  >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
+  >>> "0 message(s) queued" in browser.contents
+  True
+
+We may request an in-browser preview:
+
+  >>> browser.getControl('Show preview').click() # doctest: +ELLIPSIS
+  >>> "Previewing &quot;My other channel&quot;" in browser.contents
+  True
+  >>> "Click here to unsubscribe." in browser.contents
+  True
+
+We can also choose to schedule a send-out instead of sending it right
+now.  This is only possible though if one of our channels has what we
+call a "timed scheduler":
+
+  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
+  >>> "Schedule distribution" in browser.contents
+  False
+
+  >>> from collective.singing.scheduler import TimedScheduler
+  >>> channel.scheduler = TimedScheduler()
+
+  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
+  >>> "Schedule distribution" in browser.contents
+  True
+  >>> browser.getControl("Newsletter").click()
+  >>> browser.getControl("Schedule distribution").click()
+  >>> "Newsletter does not support scheduling" in browser.contents
+  True
+
+  >>> browser.getControl("Newsletter").click()
+  >>> browser.getControl("My other channel").click()
+
+  >>> browser.getControl("Scheduled time").value = ""
+  >>> browser.getControl("Schedule distribution").click()
+  >>> "Please fill in a date" in browser.contents
+  True
+
+  >>> browser.getControl("Scheduled time").value = "6/10/08 11:00 AM"
+  >>> browser.getControl("Schedule distribution").click()
+  >>> "Successfully scheduled distribution" in browser.contents
+  True
+  >>> len(channel.scheduler.items)
+  1
+
+When we now tick the scheduler, we expect mail to be sent out:
+
+  >>> channel.scheduler.tick(channel, channel.REQUEST) # doctest: +ELLIPSIS
+  3
+  >>> len(channel.scheduler.items)
+  0
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *TestingMailDelivery sending*:
+  ...Are you doing something interesting with Plone?...
+  (3, 0)
+
+The "My subscriptions" page
+---------------------------
+
+This page allows users to manage their subscriptions.  Subscriptions
+can be edited, removed and added.
+
+Let's first step back and let's create another channel, along with its
+own selector and composers.  We'll do this using the API to make this
+test more compact:
+
+  >>> from zope import schema
+  >>> from zope.schema.vocabulary import SimpleVocabulary
+  >>> from collective.dancing.channel import Channel
+  >>> from collective.dancing.collector import Collector
+  >>> from collective.dancing.composer import HTMLComposer
+
+  >>> class MyHTMLComposer(HTMLComposer):
+  ...     title = u'Hypertext E-Mail with selectable font-size'
+  ...     class schema(HTMLComposer.schema):
+  ...         font_size = schema.Choice(
+  ...             title=u"Font size",
+  ...             vocabulary=SimpleVocabulary.fromValues([8, 12, 16]))
+  >>> __builtins__['MyHTMLComposer'] = MyHTMLComposer # make it persistable
+
+  >>> selecta = portal.portal_newsletters.collectors['brand-new-selecta'] = \
+  ...     Collector('brand-new-selecta', 'Brand new selecta')
+  >>> new_channel = portal.portal_newsletters.channels['brand-new-channel'] = \
+  ...     Channel('brand-new-channel', 'Brand new channel',
+  ...             {'html': HTMLComposer(), 'html-fontsize': MyHTMLComposer()},
+  ...             selecta)
+
+We can now look at root's subscriptions.  Note how we add the secret
+as a query parameter.  We expect the subscription to "My other
+channel" to be shown:
+
+  >>> secret = channel.composers['html'].secret(dict(email='root@localhost'))
+  >>> browser.open(portal.absolute_url() +
+  ...              '/portal_newsletters/my-subscriptions.html?secret=' + secret)
+  >>> 'You are currently subscribed to these newsletters:' in browser.contents
+  True
+  >>> 'You can subscribe to these newsletters:' in browser.contents
+  True
+  >>> html1 = browser.contents[browser.contents.index('You are currently'):
+  ...                          browser.contents.index('You can subscribe')]
+  >>> 'My other channel' in html1, 'Brand new channel' in html1
+  (True, False)
+  >>> 'Unsubscribe' in html1
+  True
+
+We can subscribe to "Brand new channel":
+
+  >>> html2 = browser.contents[browser.contents.index('You can subscribe'):]
+  >>> 'My other channel' in html2, 'Brand new channel' in html2
+  (False, True)
+
+"Brand new channel" has two ways to subscribe.  This reflects the two
+composers that we used:
+
+  >>> 'HTML E-Mail' in html2
+  True
+  >>> 'Hypertext E-Mail with selectable font-size' in html2
+  True
+
+Let's use the form now to subscribe 'root' to both news items and events:
+
+  >>> subscription = tuple(channel.subscriptions.query(secret=secret))[0]
+  >>> [c.title for c in subscription.collector_data['selected_collectors']]
+  [u'Events']
+  >>> browser.getControl('News').click()
+  >>> browser.getControl('Apply').click()
+  >>> 'Your subscription was updated' in browser.contents
+  True
+  >>> sorted([c.title for c in subscription.collector_data['selected_collectors']])
+  [u'Events', u'News']
+
+Next, we'll subscribe to "Brand new channel".  We'll use the secretond
+format, which is Hypertext with variable font-size:
+
+  >>> len(new_channel.subscriptions.query(secret=secret))
+  0
+  >>> browser.getControl('E-mail address', index=1).value = u"root@localhost"
+  >>> browser.getControl('Font size').getControl('16').click()
+  >>> browser.getControl('Subscribe', index=1).click()
+  >>> "You subscribed successfully" in browser.contents
+  True
+  >>> len(new_channel.subscriptions.query(secret=secret))
+  1
+  >>> new_subscription = tuple(
+  ...     new_channel.subscriptions.query(secret=secret))[0]
+  >>> new_subscription.composer_data['font_size']
+  16
+  >>> new_subscription.metadata.get('pending', False)
+  False
+
+No confirmation mail?  That's right.  Remember that we provided the
+secret when we visited the subscriptions page.
+
+Now let's unsubscribe from "My other channel":
+
+  >>> browser.getControl('Unsubscribe').click() # doctest: +ELLIPSIS
+  Traceback (most recent call last):
+  ...
+  AmbiguityError: label 'Unsubscribe'
+  >>> browser.getControl('Unsubscribe', index=0).click()
+  >>> "You unsubscribed successfully" in browser.contents
+  True
+  >>> len(channel.subscriptions.query(secret=secret))
+  0
+
+We could now subscribe to "My other channel" again:
+
+  >>> html2 = browser.contents[browser.contents.index('You can subscribe'):]
+  >>> 'My other channel' in html2
+  True
+
+We can use this same form to subscribe to a channel without a secret.
+This will trigger the confirmation mail to be sent out:
+
+  >>> browser.open(portal.absolute_url() +
+  ...              '/portal_newsletters/my-subscriptions.html')
+  >>> browser.getControl('E-mail address', index=1).value = "daemon@localhost"
+  >>> browser.getControl('Subscribe', index=1).click()
+  *TestingMailDelivery sending*:
+  From: Site Administrator <>
+  To: daemon@localhost
+  Message follows:
+  ...
+  To confirm your subscription with My other channel, please click here:...
+  >>> "Information on how to confirm your subscription has been sent to you." in browser.contents
+  True
+
+  >>> secret = channel.composers['html'].secret(dict(email='daemon@localhost'))
+  >>> len(channel.subscriptions.query(secret=secret))
+  1
+  >>> tuple(channel.subscriptions.query(secret=secret))[0].metadata['pending']
+  True
+
+The unpersonalized version of "My subscription" contains a form that
+lets us retrieve an e-mail message with a link to the same page that
+contains our secret:
+
+  >>> browser.getControl("Address").value = "daemon@localhost"
+  >>> browser.getControl('Send').click()
+  *TestingMailDelivery sending*:
+  From: Site Administrator <>
+  To: daemon@localhost
+  Message follows:
+  ...
+  Click here to manage your subscriptions...
+
+This feature is also available from a separate view, which is linked for all subscribe
+pages. So the user is not forced to try subscribing first when she knows she already is.
+
+  >>> browser.open(portal.absolute_url() + 
+  ...              '/portal_newsletters/channels/default-channel/subscribe.html')
+  >>> browser.getLink('edit your subscriptions').click()
+  >>> 'portal_newsletters/sendsecret.html' in browser.url
+  True
+  >>> browser.getControl("Address").value = "daemon@localhost"
+  >>> browser.getControl('Send').click()
+  *TestingMailDelivery sending*:
+  From: Site Administrator <>
+  To: daemon@localhost
+  Message follows:
+  ...
+  Click here to manage your subscriptions...
+
+
+Configuring composers
+---------------------
+
+The composers fieldset of the channel edit view allows configuration of
+that channels composers.
+
+For the default HTMLComposer we can specify sender name and address
+as well as reply-to address.
+
+  >>> browser.open(portal.absolute_url() +
+  ...  	'/portal_newsletters/channels/my-other-channel')
+  >>> from_name = browser.getControl(name="composers.html.widgets.from_name")
+  >>> from_addr = browser.getControl(name="composers.html.widgets.from_address")
+  >>> replyto = browser.getControl(name="composers.html.widgets.replyto_address")
+
+All these values are initially empty. Meaning that values are taken from
+the plone mail configuration as we've seen above.
+  
+  >>> from_name.value == from_addr.value == replyto.value == ''
+  True
+
+Let's set some values.
+  
+  >>> from_name.value = 'Portal Master'
+  >>> from_addr.value = 'master@domain.tld'
+  >>> replyto.value = 'noreply@domain.tld'
+  >>> browser.getControl('Save').click()
+  >>> 'Data successfully updated.' in browser.contents
+  True
+
+And see that they've stuck.
+  
+  >>> browser.open(portal.absolute_url() +
+  ...  	'/portal_newsletters/channels/my-other-channel')
+  >>> browser.getControl(name="composers.html.widgets.from_name").value
+  'Portal Master'
+  >>> browser.getControl(name="composers.html.widgets.from_address").value
+  'master@domain.tld'
+  >>> browser.getControl(name="composers.html.widgets.replyto_address").value
+  'noreply@domain.tld'
+
+We can also add some header and footer text for the messages with the
+composer.  Also a subject, for which we'll use a variable substitution
+with ``${item0_title}``.  This will be replaced with the title of the
+content that we're sending out:
+
+  >>> browser.getControl(name='composers.html.widgets.header_text').value = \
+  ... 'Our little header'
+  >>> browser.getControl(name='composers.html.widgets.footer_text').value = \
+  ... 'Our little footer'
+  >>> browser.getControl("Message subject").value = '${item0_title}'
+  >>> browser.getControl('Save').click()
+  >>> 'Data successfully updated.' in browser.contents
+  True
+
+Now let's send out a frontpage preview to see the new composer values
+have taken effect.
+  
+  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
+  >>> browser.getControl('My other channel').click()
+  >>> browser.getControl('Address').value = u'daniel@localhost'
+  >>> browser.getControl(
+  ...     name='form.widgets.include_collector_items:list').value = ['false']
+  >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
+  >>> "1 message(s) queued" in browser.contents
+  True
+
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *TestingMailDelivery sending*:
+  ...Our little header...Welcome to Plone...Our little footer...
+  (1, 0)
+
+  >>> msg = quopri.decodestring(delivery.sent[-1])
+  >>> "From: Portal Master <master@domain.tld>" in msg
+  True
+  >>> "Reply-To: noreply@domain.tld" in msg
+  True
+  >>> "Subject: Welcome to Plone" in msg
+  True
+
+If a channel has more formats, they will of course all be editable
+from this page.
+
+  >>> browser.open(portal.absolute_url() +
+  ...  	'/portal_newsletters/channels/my-other-channel')
+  >>> 'composers.html.widgets.from_name' in browser.contents
+  True
+  >>> 'composers.text.widgets.from_name' in browser.contents
+  False
+
+  >>> channel.composers['text'] = HTMLComposer()
+
+  >>> browser.open(portal.absolute_url() +
+  ...  	'/portal_newsletters/channels/my-other-channel')
+  >>> 'composers.html.widgets.from_name' in browser.contents
+  True
+  >>> 'composers.text.widgets.from_name' in browser.contents
+  True
+
+  
+Periodic ticking
+----------------
+
+Periodic tick'ing and dispatching happens from an outside time-source,
+i.e. cron or zope clock-server. Really, anything that can call our
+utility view as Manager.  The view will return a status message for
+each channel.
+
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/tick_and_dispatch')
+  >>> print browser.contents # doctest +NORMALIZE_WHITESPACE
+  default-channel: 0 messages queued, dispatched: (0, 0)
+  my-other-channel: 0 messages queued, dispatched: (0, 0)
+  brand-new-channel: 0 messages queued, dispatched: (0, 0)
+
+Bounces
+-------
+
+Looking for addresses that bounce is not within S&D's scope.  For that
+kind of functionality, please take a look at the ``mailprocess``
+package, for which S&D has a compatible interface called
+``handle_bounce``.
+
+``handle_bounce`` expects to be passed a list of email addresses.  S&D
+will require to get a bounce notification three times before it
+deactivates an email address:
+
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/handle_bounce?' +
+  ...              'addrs=root@localhost')
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/handle_bounce?' +
+  ...              'addrs=root@localhost&addrs=daniel@localhost')
+  >>> browser.contents
+  '2 addresses received, 0 deactivated'
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/handle_bounce?' +
+  ...              'addrs=root@localhost&addrs=daniel@localhost')
+  >>> browser.contents
+  '2 addresses received, 1 deactivated'

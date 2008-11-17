@@ -1,0 +1,177 @@
+Portlet tests
+=============
+
+These are browser-driven tests for the functionality provided by the
+``collective.dancing`` package.
+
+Test Setup
+----------
+
+  >>> from Testing.ZopeTestCase import user_password
+  >>> from Products.Five.testbrowser import Browser
+  >>> def new_browser():
+  ...     browser = Browser()
+  ...     browser.handleErrors = False
+  ...     return browser
+  >>> browser = new_browser()
+
+We want messages to be printed out instead of sending them:
+
+  >>> from collective.dancing.tests import setup_testing_maildelivery
+  >>> delivery = setup_testing_maildelivery()
+
+First off, let's edit the default collector, delete the default Collection and add two optional blocks. These can later be set from our portlet.
+
+  >>> browser.addHeader('Authorization',
+  ...                   'Basic %s:%s' % ('portal_owner', user_password))
+  >>> browser.open(portal.absolute_url()+'/portal_newsletters/collectors')
+  >>> browser.getLink('Latest news').click()		
+  >>> browser.getControl('Remove block').click()
+  >>> browser.getControl('Title', index=1).value = 'News'
+  >>> browser.getControl('Add').click()
+  >>> browser.getControl('Title', index=4).value = 'Events'
+  >>> browser.getControl('Add', index=-1).click()
+  >>> print browser.contents # doctest +ELLIPSIS +NORMALIZE_WHITESPACE
+  <!DOCTYPE...
+  block: News...
+  block: Events...
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-0.widgets.optional:list').value = ['true']
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-1.widgets.optional:list').value = ['true'] 
+  >>> browser.getControl('Apply').click()
+
+  
+Let's add a second collector and channel pair with different options.
+
+  >>> browser.getLink('Up to Collector administration').click()
+  >>> browser.getControl('Title', index=0).value = 'Tales from the crypt'
+  >>> browser.getControl('Type').displayValue = ['Collector block']
+  >>> browser.getControl('Add').click()
+  >>> browser.getLink('Tales from the crypt').click()
+  >>> browser.getControl('Remove block').click()
+  >>> browser.getControl('Title', index=1).value = 'Creepy stories'
+  >>> browser.getControl('Add').click()
+  >>> browser.getControl('Title', index=4).value = 'Gory stories'
+  >>> browser.getControl('Add', index=-1).click()
+  >>> print browser.contents # doctest +ELLIPSIS +NORMALIZE_WHITESPACE
+  <!DOCTYPE...
+  block: Creepy stories...
+  block: Gory stories...
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-tales-from-the-crypt-0.widgets.optional:list').value = ['true']
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-tales-from-the-crypt-1.widgets.optional:list').value = ['true']
+  >>> browser.getControl('Apply').click()
+
+Create new channel and make sure we have a channel using each of our two collectors.
+First set default channel to use default collector:
+
+  >>> browser.open(portal.absolute_url()+'/portal_newsletters/channels')
+  >>> browser.getControl(name='crud-edit.default-channel.widgets.collector:list').displayValue = ['Latest news']
+  >>> browser.getControl('Apply changes').click()
+
+Then add new channel that uses our "Tales from.." collector:
+
+  >>> browser.getControl('Title').value = 'TFTC newsletter'
+  >>> browser.getControl('Collector (what)').displayValue = ['Tales from the crypt']
+  >>> browser.getControl('Add').click()
+  
+  
+Create Channel subscribe portlet
+--------------------------------
+
+  >>> browser.open(portal.absolute_url())
+  >>> browser.getLink('Manage portlets').click()
+  >>> 'Add portlet' in browser.contents
+  True
+  >>> browser.getControl('Add portlet', index=0).control.displayValue = ['Channel subscribe portlet']
+  >>> browser.getControl('Add portlet', index=1).click()
+  >>> 'Add Channel Subscribe Portlet' in browser.contents
+  True
+  >>> browser.getControl('Portlet header').value = 'Subscribe to News'
+  >>> browser.getControl('Portlet description').value = 'Enter your email to subscribe to our latest news.'
+  >>> browser.getControl('Add').click()
+  >>> 'Subscribe to News' in browser.contents
+  True   
+
+Since this is a z3c.form base portlet, we are not taken back to manage_portlets (yet).
+We do this manually by clicking the back link.
+
+  >>> browser.getLink('Back to portlets').click()
+
+Now lets edit it - setting subscriber options. We will choose to let the portlet set options, and choose only the News option.
+
+  >>> browser.getLink('Subscribe to News').click()
+  >>> 'Edit Channel Subscribe Portlet' in browser.contents
+  True
+  >>> browser.getControl('The channel to enable subscriptions to.').displayValue = ['Newsletter']
+  >>> browser.getControl(name='form.widgets.subscribe_directly:list').value = ['true']
+  >>> default_collector_options = browser.getControl('News').control
+  >>> default_collector_options.displayOptions
+  ['News', 'Events']
+  >>> default_collector_options.displayValue = ['News']
+  >>> browser.getControl('Apply').click()
+
+Portlet now has the News option hidden in the rendered subscribe form.
+However, it seems we do not have a widget for hidden mode ;-(
+
+  >>> browser.open(portal.absolute_url())
+  >>> print browser.contents # doctest +ELLIPSIS +NORMALIZE_WHITESPACE
+  <!DOCTYPE...
+      <input type="hidden"
+             name="default-channel.html.widgets.collector.selected_collectors:list"
+             class="hidden-widget" value="default-latest-news/0"
+             id="default-channel-html-widgets-collector-selected_collectors-0" />
+  ...
+
+
+What happens if we delete a collector option that is selected in the portlet? 
+
+  >>> browser.open(portal.absolute_url()+'/portal_newsletters/collectors')
+  >>> browser.getLink('Latest news').click()		
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-0.widgets.optional:list').value = ['true']
+  >>> browser.getControl('Apply', index=0).click()
+  >>> browser.open(portal.absolute_url())
+  >>> print browser.contents # doctest +ELLIPSIS +NORMALIZE_WHITESPACE
+  <!DOCTYPE...
+      <input type="hidden"
+             name="default-channel.html.widgets.collector.selected_collectors:list"
+             class="hidden-widget" value="default-latest-news/0"
+             id="default-channel-html-widgets-collector-selected_collectors-0" />
+  ...
+
+  
+
+Subscribe via portlet
+---------------------
+  
+  >>> browser.open(portal.absolute_url())
+  >>> browser.getControl('E-mail address').value = u'tmog@localhost'
+  >>> browser.getControl('Subscribe').click()
+  *TestingMailDelivery sending*:
+  From: Site Administrator <>
+  To: tmog@localhost
+  Message follows:
+  ...
+  >>> "Information on how to confirm your subscription has been sent to you." in browser.contents
+  True
+
+If that e-mail address is already subscribed, we'll get a message:
+
+  >>> browser.open(portal.absolute_url())
+  >>> browser.getControl('E-mail address').value = u'tmog@localhost'
+  >>> browser.getControl('Subscribe').click()
+  >>> "You are already subscribed to this newsletter" in browser.contents
+  True
+
+If the portlet option "Subscribe directly from portlet" is deselected,
+the portlet will instead redirect the user to the channels subscribe
+page.
+
+  >>> browser.getLink('Manage portlets').click()
+  >>> browser.getLink('Subscribe to News').click()
+  >>> browser.getControl(name='form.widgets.subscribe_directly:list').value = ['false']
+  >>> browser.getControl('Apply').click()
+  >>> browser.open(portal.absolute_url())
+  >>> browser.getControl('E-mail address').value = u'tmog@localhost'
+  >>> browser.getControl('Proceed').click()
+  >>> browser.url
+  'http://nohost/plone/portal_newsletters/channels/default-channel/subscribe.html?composer.widgets.email=tmog%40localhost'
+  

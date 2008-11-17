@@ -1,0 +1,505 @@
+History
+=======
+
+Version 0.8.2 - Unreleased
+--------------------------
+
+- Fixed a bug in ``HTMLComposer`` where unsubscribe_url could not be substituted
+  by template engine because of double dollars in variable name.  [saily]
+
+Version 0.8.1 - 2008-11-14
+--------------------------
+
+- Small refactoring of tests to allow for reuse of test infrastructure
+  in third party tests. [nouri]
+
+Version 0.8.0 - 2008-11-12
+--------------------------
+
+- Added bouncing support: The new utility view
+  ``@@dancing.utils/handle_bounce`` takes a list of addresses and
+  marks subscriptions as pending when it receives more than two bounce
+  notifications.  This has the effect that no more messages are sent
+  to that subscription, while the subscription is still present in the
+  database. [nouri]
+
+- Added caching to composer rendering.  Caching is done based on
+  ``_vars`` and collected items.  Notice that ``composer._vars`` has
+  been split into two; ``_vars`` and ``_subscription_vars``. The
+  latter containing variables that are likely to be unique to the
+  subscription, and the former those that are likely shared across
+  multiple subscriptions.
+
+  Rendering is now broken into two step:
+
+  1) Rendering the ``composer-html`` template and compacting the
+     resulting html with StoneAgeHTML.  ``_vars`` and collected items
+     is available in the template.  This step is cached on ``_vars``
+     and items.
+
+  2) ``string.Template`` variable replacement on the html of variables
+     in ``_subscription_vars``.  In the default implementation only
+     the subscribers secret in the subscription management urls is
+     replaced.
+
+  [tmog]
+
+Version 0.7.7 - 2008-11-05
+--------------------------
+
+- Set ``ignoreContext = True`` for SubscriptionsSearchForm.  Before
+  I'd get ``AttributeError: 'ManageSubscriptionsForm' object has no
+  attribute 'fulltext'``, but strangely enough not in the tests and
+  only in one installation that I know of.  [nouri]
+
+Version 0.7.6 - 2008-11-05
+--------------------------
+
+- German translation has been updated.
+  [saily]
+
+- Used i18ndude to find all untranslated msgid's. There were some updates in 
+  collective.dancing queue-button-naming, so all guy's please help updating 
+  collective.dancing's po files.  [saily]
+
+- Fixed a bug where when sending a preview we were incorrectly setting
+  the ``cue`` of the subscription that the preview is sent to. [nouri]
+
+- Fix #264990: When sending out a newsletter from a content item
+  manually, we no longer assemble all message in the course of the
+  browser request.  Instead, we schedule a job that's executed
+  asynchronously on ``tick_and_dispatch`` time. [nouri]
+
+Version 0.7.5 - 2008-10-27
+--------------------------
+
+- Move file locking from queue dispatch to the ``tick_and_dispatch``
+  browser view.  This is to make sure that we don't put duplicates
+  into the queue.  This is because the underlying queue implementation
+  will actually work against us here by allowing simultaneous adds in
+  parallel ZODB- writes. [nouri]
+
+- Fix #289779: Strip whitespace from e-mail addresses. [nouri]
+
+- Added ``encoding`` attribute on the ``HTMLComposer`` class to make
+  it possible to either subclass and provide a different default
+  encoding, or set a persistent attribute. [malthe]
+
+- Fix #280338: Images in header and footer text were sent with
+  relative URLs. [nouri]
+
+- It's now possible to filter channels from the sendnewsletter view.
+  Simple by setting channel.sendable=False.
+  [tmog]
+
+- Fixed an issue with installing collective.dancing from python.
+  The event-listener registering ISalt on creation of a new tool
+  no longer depends upon having a request. [tmog]
+  
+- zope.conf configuration with Virtual Host added in 
+  documentation [macadames]  
+
+Version 0.7.4 - 2008-09-19
+--------------------------
+
+- Fix an issue where confirming pending subscriptions by visiting the "My 
+  subscriptions" page.  If a subscription is already confirmed the dictionary
+  ``subscription.metadata`` does not have a key ``pending``.  [saily]
+
+Version 0.7.3 - 2008-09-16
+--------------------------
+
+- Rebuild ``collective.dancing.pot`` and updated German
+  translation. [saily]
+
+- Removed bug in ``ManageSubscriptionsForm.remove``. When the search box
+  was added we also changed the ``ManageSubscriptionsForm.get_items`` method
+  to return the secret instead of the name. The remove method was not updated, 
+  and delete of subscriptions did not work. [saily]
+
+- Removed bug in CSV-export. Export must have same ordered fields or
+  columns as expected on import. As we are using the composer schema
+  for import, we should use this for export too. [saily]
+  
+- Make CSV export and import use the same delimiter.
+  [saily]
+
+Version 0.7.2 - 2008-09-15
+--------------------------
+
+- Fix an issue where the scheduled send-out would send out items in
+  their short form, i.e. only title and description.  [miziodel, nouri]
+
+- Add a search box to the subscriptions administration view.
+
+  Prior versions of S&D didn't populate the subscribers fulltext index
+  correctly.  This version adds an upgrade step that you'll need to
+  run in order to reindex all your subscription objects.
+
+  Refer to the Upgrade_ section for details on how to run upgrades.
+  [nouri]
+
+- Allow pending subscriptions to be conformed by visiting the "My
+  subscriptions" page.  This allows users to confirm their
+  subscriptions even if they've lost or never received their message
+  for confirm.  [nouri]
+
+- More fine-tuning of the ``PloneCallHTMLFormatter``: Strip unwanted
+  content like the review history in a configurable way.  [nouri]
+
+Version 0.7.1 - 2008-09-05
+--------------------------
+
+- Added workaround for a bug in the composer where ``header_text`` or
+  ``footer_text`` are ``None``.  No idea why they're ``None``, though.
+
+Version 0.7.0 - 2008-09-05
+--------------------------
+
+- Added a new field ``subject`` for the composer.  This allows more
+  control over what subject outgoing messages have, using string
+  templates.  The default is ``${site_title}: ${channel_title}``.
+
+  Removed the ``<h1>`` from the default composer template.  You can
+  now use the ``header text`` of the composer to the same effect.  The
+  default header text has now become ``<h1>${subject}</h1>`` to mimic
+  the old behaviour.
+
+  On the API side of things, I changed the signature of
+  ``dancing.composer.HTMLComposer._vars``.  Since overriding this is
+  the recommended way of providing your own variables, this warrants a
+  0.7.0 release.  I'm thinking about adding a little variable provider
+  component as an alternative to subclassing.
+  [nouri]
+
+- Added missing header with containing style and title tag in 
+  ``composer-html-forgot.pt`` and ``composer-html-confirm.pt``. 
+  [saily] 
+
+Version 0.6.5 - 2008-09-04
+--------------------------
+
+- Add header and footer fields for the composer and its form.  This
+  allows us to add text at the beginning and at the end of messages in
+  an easy and consistent way. [nouri]
+
+- Fix #264694: Using non ASCII characters in context title
+  of send-newsletter raises ``UnicodeEncodeError``. [saily]
+
+- Make ``PloneCallHTMLFormatter`` even more robust by switching to
+  using ``BeautifulSoup`` instead of ``str.find`` to parse the
+  contents. [nouri]
+
+Version 0.6.4 - 2008-09-03
+--------------------------
+
+- Added a default ITransform adapter for S&D called
+  ``dancing.transform.URL``.  This will rewrite relative links and the
+  like automatically.  Relative links were the cause of broken links
+  and images in the outgoing messages.  This fixes #262633.
+
+  What this transform also allows is the definition of one or more
+  backend URLs that it should replace by a canonical URL.  See
+  ``transform.txt`` for details. [tmog, nouri]
+
+- Fix #262612: The Reply-To field is not included as message header.
+
+Version 0.6.3 - 2008-09-01
+--------------------------
+
+- Have the S&D SMTPMailer subclass from zope.sendmail's.  This allows
+  the use of TLS with the standard configuration and fixes #263271.
+
+Version 0.6.2 - 2008-08-28
+--------------------------
+
+- Updated docs with information on how to configure
+  ``mail:queuedDelivery`` of ``zope.sendmail``. [nouri]
+
+- Make the ``PloneCallHTMLFormatter`` which is the fallback formatter
+  for all objects more robust. [tmog]
+
+- Improve internationalization with newsletter object titles. [tmog]
+
+- Fixed a bug in csv-export if you use more composer_data than just
+  email address. [saily]
+
+- Some people have reported that S&D is sending out duplicate mails on
+  high-traffic newsletters.  I've added a ``StubSMTPMailer`` utility,
+  which you can register conveniently in
+  ``collective/dancing/mail.zcml``.  No mail will be sent out when
+  it's configured instead of the default one.  This allows you to
+  debug and fine-tune settings, e.g. those of your configured
+  ``mail:queuedDelivery`` component. [nouri]
+
+- Changed batch_size in browser/channel.py to 30 to stay at Plone's
+  default. [saily]
+
+- German translation updated. [saily]
+
+- Rebuild of collective.dancing.pot using i18ndude. Some translation
+  updates needed. [saily]
+
+Version 0.6.1 - 2008-08-22
+--------------------------
+
+- On reinstall, advise QuickInstaller not to delete the five.intid
+  tool that we set up during installation.  This fixes the brokenness
+  of the subscription catalogs after a reinstall.  A typical error
+  you'd see would look like::
+
+    ...
+     Module collective.singing.subscribe, line 227, in subscription_modified
+     Module collective.singing.subscribe, line 214, in _catalog_subscription
+     Module five.intid.intid, line 36, in getId
+     Module zope.app.intid, line 86, in getId
+    KeyError: SimpleSubscription ...
+
+  No migration is available at this point.  Contact us if you need
+  help writing one.  Note that the use of QuickInstaller
+  reinstallation isn't required with Singing & Dancing.  For how to
+  run upgrades from one version to the next, please see the Upgrade_
+  section.  A QuickInstaller reinstallation will not run these
+  upgrades for you.  [nouri]
+
+Version 0.6.0 - 2008-08-21
+--------------------------
+
+- Update to use Singing's new IMessageAssemble API. [nouri]
+
+- Use batching for the subscriptions management view.  Also, reshuffle
+  the order of tabs in the channel administration view.  Most notably:
+  move the "Subscriptions" tab to the first position to allow more
+  comfortable editing. [nouri]
+
+Version 0.5.1 - 2008-08-15
+--------------------------
+
+- Fixed a bug where a collector would have a ``Title`` property; this
+  should be a method. [malthe]
+
+- Added permissions to send, preview and manage newsletter. No upgrade
+  steps required - just reinstall. By default - send and preview is 
+  allowed to reviewer and manager role, manage newsletters for 
+  managers only. [saily]
+
+Version 0.5.0 - 2008-07-29
+--------------------------
+
+- Display a more user friendly error message when the user attempts to
+  add duplicate subscriptions.
+  [miziodel, nouri]
+
+- List of subscribers can now be uploaded and downloaded in CSV format!
+  [skatja]
+  
+- Depend on 0.3 or higher of plone.app.z3cform.
+  [nouri]
+
+Version 0.4.1 - 2008-07-23
+--------------------------
+
+- Fix ``RuntimeError: maximum recursion depth exceeded`` error in
+  ``Module collective.dancing.browser.portlets.channelsubscribe, line
+  253, in channel`` when displaying portlets that were created prior
+  to 0.4b4.
+  [nouri]
+
+Version 0.4 - 2008-07-23
+------------------------
+
+New features
+~~~~~~~~~~~~
+
+- Added subject, confirmation_subject and forgot_secret_subject to
+  vars of composer for easy customization.  Defaults are unchanged.
+  [tmog]
+
+- Added sender name, sender address and reply-to address as per
+  composer configuration. Composer configuration is now available
+  in the new Composers fieldset of the channel edit view.
+  [tmog]
+
+- Allow for easier subclassing of HTMLComposer.  The ``_vars()``
+  method is now more generally applicable and easily to override.
+  [nouri]
+
+- Made adding thirdparty Channels possible. This works the same as
+  with Collectors - you simply implement you custom channel and add
+  a factory to the collective.dancing.channel.channels list.
+  Preview and edit forms are now class methods on ManageChannelView
+  to make it easier to subclass for your custom channels.
+  [tmog]
+
+- Pass on raw item as received from the collector to the composer
+  (template).  Making use of this raw item will obviously bind the
+  implementation of the composer to that of the collector.  However,
+  it's considered useful for custom implementations that need total
+  control and that know what collector they'll be using.
+
+  This required an API change in IComposer.render(); the ``items``
+  argument is now a list of 2-tuples instead of a list of formatted
+  items.
+  [nouri]
+
+- Added Polish translation by Barbara Struk
+  [naro]
+
+- Added another type of scheduler: TimedScheduler.  This one allows to
+  schedule a number of send-outs with an exact datetime.  Its main use
+  is for the "send newsletter" form on a context where we want to
+  specify a send-out date in the future.
+  [nouri]
+
+- The confirmation view will now confirm pending subscriptions to any
+  channel.  This saves us from having to send a separate confirmation
+  e-mail for every channel a user subscribes to.  This feature isn't
+  used anywhere in S&D core at this point, but it's useful if you're
+  writing custom subscription forms.
+  [nouri]
+
+- Added SubjectsCollectorBase template class that you can use to
+  create a collector based on a vocabulary.  This vocabulary may come
+  from anywhere, like from ATVocabularyManager or from the list of all
+  subjects/tags available in your site.
+  [nouri]
+
+- Text fields will now per default not be included in the resulting
+  message if there are no sibling collectors that produced items.
+  E.g. if you have a heading text and a sibling topic collector, the
+  heading won't appear if the topic didn't return any items.
+  [nouri]
+
+Bugfixes
+~~~~~~~~
+
+- Updated installation instructions to use the ``fake-zope-eggs``
+  feature of the ``plone.recipe.zope2install`` instead of
+  ``fakezope2eggs``.  Also, added ``skip-fake-eggs`` to accommodate
+  latest changes in ``plone.z3cform``.
+
+- Use ``CompositeQueue`` instead of the simple zc.queue.Queue for
+  queueing and archiving mails.  This should help with memory bloat
+  when there's a lot of messages in the queue.
+  [nouri]
+
+- Don't attempt to do any workflow transition with ATTopic items
+  created in the collector; the default workflow will do fine, and we
+  avoid errors when using workflows other than the default one.
+  [nouri]
+
+- Don't bail if no items are available for preview.
+  [malthe]
+
+Version 0.3 - 2008-06-03
+------------------------
+
+New features
+~~~~~~~~~~~~
+
+- Add translations to German.
+  [saily]
+
+- Added preview also to channel view.  This was previously only
+  available for the "send as newsletter" action.
+  [malthe]
+
+- Refactored channels management view and the dedicated channel view.
+  Big improvements to usability of the channel view.
+  [malthe]
+  
+- Added capability to embed stylesheets in outgoing mail.  Right now,
+  this is a simple text field that can be set on the channel's composer.
+  We're now making use of the StoneAgeHTML library to embed styles in
+  the individual HTML elements instead of providing styles in the
+  ``<head>`` of the HTML document.  This gives us much better support
+  with quirky e-mail clients out there.
+  [malthe]
+
+  In the future, we want to extend this to allow administrators to
+  select themes for individual channels by browsing and selecting from a
+  list of registered styles.
+
+- Added Czech translation.
+  [naro]
+
+- Refactored ``mail.py`` to create ``MIMEMultipart`` based messages.
+  This allows us to easily adapt the mail sending process to embed
+  images and the like.
+  [naro]
+
+- Added a "reference collector".  This allows you to select individual
+  portal items to be sent out, as opposed to items collected by a Smart
+  Folder or the like.
+  [malthe]
+
+Bugfixes
+~~~~~~~~
+
+- S&D 0.3b2 introduced an incompatible change with channels created in
+  0.3b1 and earlier.  I added a GenericSetup upgrade step to fix this.
+  The relevant code is in the ``collective.dancing.upgrade`` module.
+
+  If you're using a legacy database with channels that were created
+  before version 0.3b2, you'll need to run this upgrade step, or
+  you'll see this error::
+
+    TypeError: ('object.__new__(HTMLComposer) is not safe, use persistent.Persistent.__new__()', <function _reconstructor at ...>, (<class 'collective.dancing.composer.HTMLComposer'>, <type 'object'>, None))
+
+  Refer to the Upgrade_ section for details on how to run upgrades.
+  [nouri]
+
+- Add ``metadata.xml`` to make QuickInstaller happy with version
+  numbers.
+  [naro]
+
+- Back to using checkboxes for multi selection instead of ``select``.
+  [nouri]
+
+- Make HTMLComposer and channel.composers persistent so that changes
+  to template and composers are conveniently persisted.
+  [nouri]
+
+- Use ``zc.lockfile`` to lock the queue processing (sending out of mail)
+  instead of excessively using ``transaction.commit()``, which caused
+  massive ZODB bloat when a lot of messages were involved.
+  [nouri]
+
+- Use ``email.Header`` for message header formatting.  This allows for
+  better internationalization in headers of outgoing e-mails.
+  [naro]
+
+- In-browser preview now displays what would really be sent out,
+  i.e. after collectors and transforms could do their thing.  Before, it
+  used to only display the context item as mail.
+  [malthe]
+
+Version 0.2 - 2008-05-06
+------------------------
+
+- Add an 'Already subscribed?" section to the "My subscriptions"
+  page to retrieve your password.
+  [nouri]
+
+- added i18n:domain to browser/controlpanel-links.pt, removed extra quotes 
+  from browser/channel.py, updated pot and danish translation
+  [bartholdy]
+
+- updated .pot and danish translation
+  [bartholdy]
+
+- apparently triplequoted strings do not get translated .. 
+  this takes care of 
+  https://bugs.launchpad.net/singing-dancing/+bug/218448
+  [bartholdy]
+
+- Don't use locale-dependent 'string.letters' when creating the
+  ISalt utility.  This fixes
+  https://bugs.launchpad.net/singing-dancing/+bug/217823
+  [nouri]
+
+- Extended portlet with optinal footertext
+  [bartholdy]
+
+- Added functionality to show a preview in the browser
+  [malthe]

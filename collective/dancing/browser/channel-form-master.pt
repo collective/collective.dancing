@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="collective.singing"
+      tal:omit-tag="">
+
+  <div class="portalMessage"
+       tal:condition="view/status" tal:content="view/status">
+  </div>
+  
+  <p class="crud-description"
+       tal:condition="view/description" >
+ 
+       <span tal:replace="view/description" />
+  </p>
+  
+  
+  <div tal:repeat="form view/subforms"
+       tal:content="structure form/render"
+       class="crud-form">
+  </div>
+
+  <div class="action" tal:repeat="action view/actions/values">
+    <input type="submit" tal:replace="structure action/render" />
+  </div>
+
+</html>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<object name="portal_controlpanel">
+ <configlet title="Singing &amp; Dancing" action_id="collective.dancing"
+    appId="collective.dancing" category="Products" condition_expr=""
+    url_expr="string:${portal_url}/portal_newsletters"
+    visible="True">
+  <permission>collective.dancing: Manage newsletters</permission>
+ </configlet>
+</object>

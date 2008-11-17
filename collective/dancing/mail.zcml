@@ -1,0 +1,55 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:mail="http://namespaces.zope.org/mail"
+   i18n_domain="collective.dancing">
+
+  <!-- ``zope.sendmail`` is a dependency for sending mail -->
+  <include package="zope.sendmail" file="meta.zcml" />
+  <include package="zope.sendmail" />
+
+  <!--
+      These are some default settings that make S&D work out of the
+      box.  They're *not* suitable for high-volume newsletters:
+  -->
+
+  <!-- This ISMTPMailer Will fetch settings from the portal. -->
+  <utility name="plone.smtp" factory=".composer.SMTPMailer" />
+
+  <mail:directDelivery 
+      name=""
+      mailer="plone.smtp"
+      permission="zope.Public" />
+  
+  <!-- end of default settings -->
+
+
+  <!--
+      For large websites, it is highly recommended to use
+      zope.sendmail's queuedDelivery instead of the directDelivery.
+      You'll also need another mailer to go with it instead of the
+      default SMTPMailer defined above.  Use ``z3c.unconfigure`` to
+      remove the configuration of the default delivery and mailer
+      components.
+
+      This is an example configuration that uses queuedDelivery:
+
+  <mail:smtpMailer name="smtp" hostname="localhost" port="25" />
+
+  <mail:queuedDelivery
+      name=""
+      queuePath="./queue"
+      mailer="smtp"
+      permission="zope.SendMail"
+      />
+  -->
+  
+  <!--
+      You can use the following mailer instead of the default one to
+      log instead of really sending out mail.  Use this for debugging:
+
+  <utility name="plone.smtp" factory=".composer.StubSMTPMailer" />
+  -->
+
+
+</configure>
+

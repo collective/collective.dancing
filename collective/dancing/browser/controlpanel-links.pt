@@ -1,0 +1,31 @@
+  <dl i18n:domain="collective.dancing">
+    <dt>
+      <a i18n:translate="label_channel_administration" href="./channels">
+        Channel administration
+      </a>
+    </dt>
+    <dd i18n:translate="description_channel_administration">
+        A Channel is a hub of configuration.  It doesn't do anything by
+        itself.  Rather, it provides a number of components to configure
+        and work with.  It is also the container of subscriptions to it.
+    </dd>
+    <dt>
+      <a href="./collectors"
+          i18n:translate="label_collector_administration">
+        Collector administration
+      </a>
+    </dt>
+    <dd i18n:translate="description_collector_administration">
+      Collectors are useful for automatic newsletters.  They are
+      responsible for assembling a list of items for publishing.
+    </dd>
+    <dt>
+      <a i18n:translate="label_statistics_administration"
+           href="./channels/newsletter-stats.html">
+         Statistics
+      </a>
+    </dt>
+    <dd i18n:translate="description_statistics_administration">
+         View newsletter statistics
+    </dd>
+</dl>

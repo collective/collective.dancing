@@ -1,0 +1,74 @@
+Channels
+========
+
+Setup
+-----
+
+  >>> from zope import component
+  >>> from zope.app.component.hooks import setSite
+  >>> setSite(self.portal)
+
+The portal tool
+---------------
+
+When installed in a Plone site, we will create a tool called
+``portal_newsletters``, and therein a couple of containers:
+
+  >>> sorted(self.portal['portal_newsletters'].objectIds())
+  ['channels', 'collectors']
+
+Give me a list of all channels
+------------------------------
+
+The ``channels`` folder contains the list of ``IChannel`` available.
+These channels can be retrieved through the ``channel_lookup``
+function, like so:
+
+  >>> from collective.singing.channel import channel_lookup
+  >>> channel_lookup()
+  [<Channel at /plone/portal_newsletters/channels/default-channel>]
+
+Let's create another channel and ask for the list of channels again:
+
+  >>> from collective.dancing.channel import Channel
+  >>> channels = self.portal['portal_newsletters']['channels']
+  >>> channels['wq'] = Channel('wq')
+  >>> channel_lookup() # doctest: +NORMALIZE_WHITESPACE
+  [<Channel at /plone/portal_newsletters/channels/default-channel>, 
+   <Channel at /plone/portal_newsletters/channels/wq>]
+
+Channels and collectors
+-----------------------
+
+Our default channel has no collector by default:
+
+  >>> channel = channel_lookup()[0]
+  >>> channel.collector is None
+  True
+
+We can assign the default collector to our channel like this:
+
+  >>> collectors = self.portal['portal_newsletters']['collectors']
+  >>> collector = collectors['default-latest-news']
+  >>> channel.collector = collector
+
+Should we now decide to remove the collector, the channel's reference
+to the collector will be gone:
+
+  >>> channel.collector
+  <Collector at /plone/portal_newsletters/channels/default-channel/default-latest-news>
+  >>> collectors.manage_delObjects(['default-latest-news'])
+  >>> channel.collector is None
+  True
+
+Salt
+----
+
+An ISalt utility is created at install time.  It's available for us:
+
+  >>> from zope.app.component import hooks
+  >>> from collective.singing.interfaces import ISalt
+  >>> hooks.setSite(portal)
+  >>> salt = component.getUtility(ISalt)
+  >>> len(salt)
+  50

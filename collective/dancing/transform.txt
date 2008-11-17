@@ -1,0 +1,168 @@
+Transforms
+==========
+
+Transforms comply with the collective.singing.interfaces.ITransform``
+interface.
+
+URL Transform
+-------------
+
+We don't want mail to be sent out with relative links in them.  The
+``URL`` transform makes sure of that.  We'll mock a context object
+with an ``absolute_url`` method:
+
+  >>> class Context(object):
+  ...     def __init__(self, id, url):
+  ...         self.id = id
+  ...         self.url = url
+  ...     def absolute_url(self):
+  ...         return self.url
+  ...     def getId(self):
+  ...         return self.id
+
+  >>> context = Context('470', 'http://xkcd.com/470/')
+
+The same class will also be our ``IPloneSiteRoot``:
+
+  >>> site = Context('xkcd.com', 'http://xkcd.com/')
+  >>> from zope import component
+  >>> from Products.CMFPlone.interfaces import IPloneSiteRoot
+  >>> component.provideUtility(site, IPloneSiteRoot)
+
+Due to a nasty workaround, we'll need to override
+``utils.fix_request`` to always return the site unchanged:
+
+  >>> def fix_request(context, level):
+  ...     return context
+  >>> from collective.dancing import utils
+  >>> safe_fix_request = utils.fix_request
+  >>> utils.fix_request = fix_request
+
+We'll start off our tests by assuring that the transform does nothing
+when absolute URLs are passed:
+
+  >>> from collective.dancing.transform import URL
+  >>> url = URL(context)
+  >>> url('<a href="http://example.org/newsreport.html">News Report</a>', None)
+  '<a href="http://example.org/newsreport.html">News Report</a>'
+
+Relative links will be transformed into absolute ones correctly:
+
+  >>> url('<a href="../archive/">Archive</a>', None)
+  '<a href="http://xkcd.com/archive/">Archive</a>'
+
+  >>> url('<a href="/archive/">Archive</a>', None)
+  '<a href="http://xkcd.com/archive/">Archive</a>'
+
+The URL transform's other feature is that it allows us to replace
+certain URLs with others.  This usually means replacing non-public
+facing URLs with their public facing equivalents.
+
+A list of aliases for our canonical base URL look like this:
+
+  >>> URL.aliases = ['admin.xkcd.com',
+  ...                'localhost:8080/xkcd',
+  ...                'localhost/xkcd',
+  ...                'www.xkcd.com']
+
+  >>> url('<a href="https://admin.xkcd.com/archive/">Archive</a>', None)
+  '<a href="http://xkcd.com/archive/">Archive</a>'
+
+  >>> url('<a href="http://localhost:8080/xkcd/archive/">Archive</a>', None)
+  '<a href="http://xkcd.com/archive/">Archive</a>'
+
+  >>> url('<a href="https://www.xkcd.com/archive/">Archive</a>', None)
+  '<a href="http://xkcd.com/archive/">Archive</a>'
+
+  >>> url('<a href="http://xkcd.com/">Read this</a>', None)
+  '<a href="http://xkcd.com/">Read this</a>'
+
+We can also explicitely set a canonical base URL.  Note that we also
+extend the list of aliases by one:
+
+  >>> URL.base = 'http://www.drmcninja.com/'
+  >>> URL.aliases.append('xkcd.com')
+
+  >>> url('<a href="../archive/">Archive</a>', None)
+  '<a href="http://www.drmcninja.com/archive/">Archive</a>'
+
+  >>> url('<a href="/archive/">Archive</a>', None)
+  '<a href="http://www.drmcninja.com/archive/">Archive</a>'
+
+  >>> url('<a href="https://admin.xkcd.com/archive/">Archive</a>', None)
+  '<a href="http://www.drmcninja.com/archive/">Archive</a>'
+
+  >>> URL.base = None
+  >>> URL.aliases = URL.aliases[:-1]
+  >>> url('<a href="https://admin.xkcd.com/archive/">Archive</a>', None)
+  '<a href="http://xkcd.com/archive/">Archive</a>'
+
+A few more involved examples
+````````````````````````````
+
+An alias appearing as text will not be replaced:
+
+  >>> html = """\
+  ... <div>
+  ...   <h2>
+  ...     <a href="http://admin.xkcd.com/archive/">Archive</a>
+  ...   </h2>
+  ...   http://admin.xkcd.com/archive/
+  ...   <p>Hello</p>
+  ... </div>
+  ... """
+
+  >>> print url(html, None) # doctest: +NORMALIZE_WHITESPACE +REPORT_NDIFF
+  <div>
+    <h2>
+      <a href="http://xkcd.com/archive/">Archive</a>
+    </h2>
+    http://admin.xkcd.com/archive/
+    <p>Hello</p>
+  </div>
+
+The URL transform is somewhat case insensitive:
+
+  >>> url('<a href="HtTps://ADMIN.xkcd.com/archive/">Archive</a>', None)
+  '<a href="http://xkcd.com/archive/">Archive</a>'
+
+The transform does not choke on non-ASCII strings:
+
+  >>> url('<a href="https://admin.xkcd.com/archive/">Hall\xc3\xb8j</a>', None)
+  '<a href="http://xkcd.com/archive/">Hall\xc3\xb8j</a>'
+
+A complicated example, involving a number of sources for URLs:
+
+  >>> html = """\
+  ... <div>
+  ...   <h2><a href="HttP://admin.xkcd.com/archive/">Archive</a></h2>
+  ...   admin.xkcd.com
+  ...   <p>Hello</p>
+  ...   <a href="http://admin.xkcd.com">Home</a>
+  ...   <img src="../ballerup/kalender" /> Bar
+  ...   <script src="/foo.js"></script>
+  ...   <a href="more.html">Read more</a>
+  ... </div>
+  ... """
+
+  >>> print url(html, None) # doctest: +NORMALIZE_WHITESPACE +REPORT_NDIFF
+  <div>
+    <h2><a href="http://xkcd.com/archive/">Archive</a></h2>
+    admin.xkcd.com
+    <p>Hello</p>
+    <a href="http://xkcd.com">Home</a>
+    <img src="http://xkcd.com/ballerup/kalender" /> Bar
+    <script src="http://xkcd.com/foo.js"></script>
+    <a href="http://xkcd.com/470/more.html">Read more</a>
+  </div>
+
+Kupu makes absolute links without the domain, which include the Plone
+site:
+
+  >>> url('<a href="/xkcd.com/archive/">Archive</a>', None)
+  '<a href="http://xkcd.com/archive/">Archive</a>'
+
+Cleanup
+-------
+
+  >>> utils.fix_request = safe_fix_request

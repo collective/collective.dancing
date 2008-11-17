@@ -1,0 +1,784 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Singing & Dancing\n"
+"POT-Creation-Date: 2008-11-05 14:28+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Daniel Widerin <daniel.widerin@kombinat.at>\n"
+"Language-Team: David Picó Vila <david.pico.vila@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: de\n"
+"Language-Name: German\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.dancing\n"
+"X-Is-Fallback-For: de-at de-li de-lu de-ch de-de\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: AUSTRIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:288
+msgid "${channel} options"
+msgstr "${channel} Einstellungen"
+
+#: collective/dancing/browser/sendnewsletter.py:151
+msgid "${name} does not support scheduling."
+msgstr "${name} unterstützt keinen Zeitplan!"
+
+#: collective/dancing/browser/channel.py:558
+msgid "${numberadded} subscriptions updated successfully!"
+msgstr "${numberadded} Anmeldungen erfolgreich aktualisiert."
+
+#: collective/dancing/browser/channel.py:552
+msgid "${numberadded} subscriptions updated successfully, ${numberremoved} removed!"
+msgstr "${numberadded} Anmeldungen erfolgreich aktualisiert, ${numberremoved} entfernt!"
+
+#: collective/dancing/browser/channel.py:542
+msgid "${numberadded} subscriptions updated successfully. ${numberremoved} removed. ${numbernotadded} could not be added. (${errorcandidates})"
+msgstr "${numberadded} Anmeldungen erfolgreich aktualisiert. ${numbernotadded} Anmeldung(en) konnte(n) nicht hinzugefügt werden. (${errorcandidates})"
+
+#: collective/dancing/browser/scheduler.py:33
+msgid "${number} messages queued."
+msgstr "${number} Nachrichten auf der Warteliste"
+
+#: collective/dancing/browser/sendnewsletter.py:133
+msgid "${num} message(s) queued."
+msgstr "${num} Nachricht(en) auf der Warteliste"
+
+#: collective/dancing/browser/stats.py:117
+msgid "${sent} message(s) sent, ${failed} failure(s)."
+msgstr "${sent} Nachricht(en) gesendet, ${failed} fehlgeschlagen."
+
+#: collective/dancing/browser/collector.py:183
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:451
+msgid "Add Channel Subscribe Portlet"
+msgstr "Portlet für direkte Anmeldung zu einem Newsletterthema hinzufügen"
+
+#: collective/dancing/browser/channel.py:94
+msgid "Add or edit channels that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
+msgstr "Hier können Sie Themenbereiche hinzufügen und/oder bearbeiten. Diese Themenbereiche verwenden (Inhalts-) Sammlerdienste um Informationen Ihrer Website per E-Mail an Abonnenten zur geplanten Zeit zu versenden."
+
+#: collective/dancing/browser/interfaces.py:23
+msgid "Address to send the preview to"
+msgstr "Vorschau an diese E-Mail Adresse senden"
+
+#: collective/dancing/browser/stats.py:137
+msgid "All finished jobs cleared"
+msgstr "Alle erledigten Aufgaben gelöscht"
+
+#: collective/dancing/browser/stats.py:129
+msgid "All pending jobs processed"
+msgstr "Alle ausständigen Aufgaben durchgeführt"
+
+#: collective/dancing/browser/stats.py:161
+msgid "All sent and failed messages deleted"
+msgstr "Alle gesendeten und fehlgeschlagenen Messages gelöscht."
+
+#. Default: "Already subscribed?"
+#: collective/dancing/browser/subscriptions.pt:33
+msgid "Already subscribed?"
+msgstr "Sind Sie bereits angemeldet?"
+
+#: collective/dancing/browser/interfaces.py:17
+msgid "Append automatically collected content in this send-out"
+msgstr "Sollen automatisch gesammelte Inhalte an diese Aussendung angehängt werden?"
+
+#: collective/dancing/browser/scheduler.py:23
+msgid "Apply"
+msgstr "Übernehmen"
+
+#: collective/dancing/browser/subscribe.py:176
+msgid "Apply changes"
+msgstr "Änderungen übernehmen"
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:401
+msgid "Back to portlets"
+msgstr "Zurück zur Portletverwaltung"
+
+#. Default: "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
+#: collective/dancing/browser/subscriptions.pt:10
+msgid "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
+msgstr "Hier sehen Sie eine Liste aller Themenbereiche die wir anbieten. Falls Sie bereits zu einem dieser Themenbereiche bereits angemeldet sind können Sie das untenstehende Formular ausfüllen und wir senden Ihnen einen Link  zu, um Ihre Abonnements zu bearbeiten."
+
+#. Default: "Best regards"
+#: collective/dancing/browser/composer-html-forgot.pt:30
+msgid "Best regards"
+msgstr "mit freundlichen Grüßen"
+
+#: collective/dancing/interfaces.py:56
+msgid "CSS Stylesheet"
+msgstr ""
+
+#. Default: "Change your subscriptions with ${site-title}"
+#: collective/dancing/browser/composer-html-forgot.pt:16
+msgid "Change your subscriptions with ${site-title}"
+msgstr "Ändern Sie Ihre Abonnements für ${site-title}"
+
+#: collective/dancing/browser/channel.py:169
+msgid "Channel administration"
+msgstr "Verwaltung Themenbereiche"
+
+#: collective/dancing/browser/stats.py:131
+msgid "Clear finished jobs"
+msgstr "Erledigte Aufgaben entfernen"
+
+#: collective/dancing/browser/stats.py:97
+msgid "Clear queued messages"
+msgstr "Wartende Nachrichten löschen"
+
+#. Default: "Click here to manage your subscriptions with ${site-title}:"
+#: collective/dancing/browser/composer-html-forgot.pt:21
+msgid "Click here to manage your subscriptions with ${site-title}:"
+msgstr "Klicken Sie auf folgenden Link um Ihre Abonnements für ${site-title} zu verwalten."
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:50
+msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
+msgstr "Bestimmen Sie, ob ein direktes Anmelden über das Portlet möglich sein soll - falls nicht werden Sie zum Anmeldeformular weitergeleitet und die eingegebenen Daten werden dort eingetragen."
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:58
+msgid "Click here to show the portlet footer."
+msgstr "Bestimmen Sie, ob die Fusszeile des Portlets angezeigt werden soll."
+
+#. Default: "Click here to unsubscribe."
+#: collective/dancing/browser/composer-html.pt:39
+msgid "Click here to unsubscribe."
+msgstr "Falls Sie in Zukunft auf unseren Newsletter zu diesem Themenbereich verzichten möchten - Klicken Sie bitte hier."
+
+#: collective/dancing/browser/collector.py:65
+msgid "Collector administration"
+msgstr "Verwaltung der Sammlerdienste"
+
+#: collective/dancing/browser/composer.py:42
+msgid "Composer for format : ${format}"
+msgstr "Vorlage für folgendes Format: ${format}"
+
+#: collective/dancing/browser/channel.py:687
+msgid "Composers"
+msgstr "Vorlagen"
+
+#: collective/dancing/composer.py:216
+msgid "Confirm your subscription with ${channel-title}"
+msgstr "Sie müssen Ihre Anmeldung zum Thema '${channel-title}' bestätigen"
+
+#: collective/dancing/browser/subscribe.py:78
+msgid "Confirming your subscription"
+msgstr "Anmeldung bestätigt"
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:47
+msgid "Description of the rendered portlet"
+msgstr "Geben Sie eine kurze Beschreibung des Portlets an."
+
+#. Default: "Displays a form that lets you send this content item as a newsletter."
+#: collective/dancing/profiles/default/actions.xml
+msgid "Displays a form that lets you send this content item as a newsletter."
+msgstr "Zeigt ein Formular an, welches Sie diesen Inhalt als Newsletter versenden lässt."
+
+#: collective/dancing/browser/channel.py:575
+msgid "Download"
+msgstr "Herunterladen"
+
+#: collective/dancing/composer.py:58
+msgid "E-mail address"
+msgstr "E-Mail Adresse"
+
+#: collective/dancing/browser/channel.py:686
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: collective/dancing/browser/collector.py:331
+msgid "Edit ${collector}"
+msgstr "${collector} bearbeiten"
+
+#: collective/dancing/browser/scheduler.py:90
+msgid "Edit ${selector} for ${channel}"
+msgstr "${selector} von ${channel} bearbeiten"
+
+#: collective/dancing/browser/channel.py:661
+msgid "Edit Channel ${channel}"
+msgstr "${channel} bearbeiten"
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:370
+msgid "Edit Channel Subscribe Portlet"
+msgstr "Portlet für direkte Anmeldung zu einem Newsletterthema bearbeiten"
+
+#: collective/dancing/browser/subscribe.py:27
+msgid "Edit existing subscriptions"
+msgstr "Bestehende Abonnements bearbeiten"
+
+#: collective/dancing/browser/channel.py:355
+msgid "Edit the properties of the channel."
+msgstr "Eigenschaften des Themenbereichs bearbeiten"
+
+#: collective/dancing/browser/composer.py:33
+msgid "Edit the properties of the composer."
+msgstr "Eigenschaften der Vorlage bearbeiten"
+
+#: collective/dancing/browser/query.py:12
+msgid "Enter a search query to find content."
+msgstr "Geben Sie einen Suchbegriff ein."
+
+#: collective/dancing/browser/channel.py:407
+msgid "Error importing subscriber file."
+msgstr "Unbekannter Fehler beim Importieren des Files."
+
+#: collective/dancing/browser/stats.py:42
+msgid "Failed messages"
+msgstr "Fehlgeschlagene Nachrichten"
+
+#: collective/dancing/browser/channel.py:503
+msgid "File has not correct format."
+msgstr "File hat nicht das geforderte Format. Bitte beachten Sie die Beschreibung des Formats beim Upload-Feld."
+
+#: collective/dancing/browser/channel.py:499
+msgid "File was not given."
+msgstr "Keine Datei angegeben."
+
+#: collective/dancing/browser/subscribe.py:29
+msgid "Fill out the form below to receive an email with a link from which you can edit your subscriptions."
+msgstr "Bitte teilen Sie uns Ihre E-Mail Adresse mit und wir senden Ihnen einen Link zu, um Ihr Abonnement zu bearbeiten."
+
+#: collective/dancing/browser/subscribe.py:52
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgstr "Bitte füllen Sie untenstehendes Formular aus um sich zum Themenbereich '${channel}' anzumelden.<br />Klicken Sie hier <a href=\"${url}\">um ihre bestehenden Abonnements zu bearbeiten</a>."
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:42
+msgid "Find the channel you want to enable direct subscription to"
+msgstr "Wählen Sie das Newsletterthema aus für welches Sie eine direkte Anmeldungen ermöglichen möchten."
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:53
+msgid "Footer text"
+msgstr "Fusszeile des Portlets"
+
+#: collective/dancing/interfaces.py:28
+msgid "From address"
+msgstr "E-Mail Adresse des Absenders"
+
+#: collective/dancing/interfaces.py:23
+msgid "From name"
+msgstr "Absender"
+
+#: collective/dancing/browser/channel.py:330
+msgid "Generate"
+msgstr "Erstellen"
+
+#: collective/dancing/composer.py:76
+msgid "HTML E-Mail"
+msgstr "HTML E-Mail"
+
+#: collective/dancing/interfaces.py:44
+msgid "Header text"
+msgstr "Einleitender Text"
+
+#: collective/dancing/browser/channel.py:449
+msgid "If selected and a subscriber exists in the database, but is not part of the uploaded file, the subscriber will be removed from the list."
+msgstr "Existiert ein Abonnement in der Datenbank welches in der hochgeladenen Datei nicht mehr existiert, wird dieses aus der Datenbank entfernt."
+
+#: collective/dancing/browser/interfaces.py:16
+msgid "Include collector items"
+msgstr "Sammlerdienste miteinbeziehen"
+
+#: collective/dancing/browser/subscribe.py:276
+msgid "Information on how to confirm your subscription has been sent to you."
+msgstr "Eine E-Mail mit einem Bestätigungslink wurde an die eingegebene E-Mail Adresse gesendet."
+
+#: collective/dancing/browser/collector.py:191
+msgid "Item added successfully."
+msgstr "Element wurde hinzugefügt."
+
+#: collective/dancing/browser/collector.py:202
+msgid "Item successfully deleted."
+msgstr "Element wurde gelöscht."
+
+#: collective/dancing/browser/collector.py:235
+msgid "Item successfully moved."
+msgstr "Element wurde verschoben"
+
+#: collective/dancing/browser/query.py:11
+msgid "Items"
+msgstr "Elemente"
+
+#: collective/dancing/browser/stats.py:33
+msgid "Last Change"
+msgstr "Letzte Änderung"
+
+#: collective/dancing/browser/channel.py:217
+msgid "Manage or add subscriptions."
+msgstr "Verwalten Sie ihre Abonnements"
+
+#. Default: "Manage your subscriptions"
+#: collective/dancing/browser/composer-html-forgot.pt:24
+msgid "Manage your subscriptions"
+msgstr "Bearbeiten Sie ihre Abonnements"
+
+#: collective/dancing/interfaces.py:33
+msgid "Message subject"
+msgstr "Betreff"
+
+#: collective/dancing/browser/sendnewsletter.py:86
+msgid "Messages queued for delivery."
+msgstr "***Nachrichten für Zustellung markiert"
+
+#: collective/dancing/browser/stats.py:37
+msgid "Messages successfully sent"
+msgstr "Nachrichten erfolgreich versendet"
+
+#: collective/dancing/browser/stats.py:31
+msgid "Messages waiting to be sent"
+msgstr "Wartende Nachrichten"
+
+#: collective/dancing/browser/stats.py:43
+msgid "Messages with errors"
+msgstr "Nachrichten mit Fehlern"
+
+#: collective/dancing/browser/stats.py:49
+msgid "Messages with errors in the retry queue"
+msgstr "Nachrichten mit Fehlern auf der Warteliste"
+
+#: collective/dancing/browser/collector.py:238
+msgid "Move block down"
+msgstr "Block nach unten verschieben"
+
+#: collective/dancing/browser/collector.py:231
+msgid "Move block up"
+msgstr "Block nach oben verschieben"
+
+#: collective/dancing/browser/subscribe.py:289
+msgid "My subscriptions"
+msgstr "Ihre Abonnements"
+
+#: collective/dancing/browser/stats.py:30
+msgid "New messages"
+msgstr "Neue Nachrichten"
+
+#: collective/dancing/channel.py:100
+msgid "Newsletter"
+msgstr ""
+
+#: collective/dancing/browser/stats.py:169
+msgid "Newsletter statistics"
+msgstr "Newsletterstatistik"
+
+#: collective/dancing/browser/preview.py:66
+msgid "No items found."
+msgstr "Keine Elemente gefunden."
+
+#: collective/dancing/browser/scheduler.py:36
+msgid "No messages queued."
+msgstr "Keine Nachrichten auf der Warteliste"
+
+#: collective/dancing/browser/channel.py:602
+msgid "Only some of your changes were saved"
+msgstr "Nur einige Änderungen wurden gespeichert."
+
+#. Default: "Please confirm your subscription"
+#: collective/dancing/browser/composer-html-confirm.pt:14
+msgid "Please confirm your subscription"
+msgstr "Bitte bestätigen Sie ihre Anmeldung"
+
+#: collective/dancing/browser/sendnewsletter.py:155
+msgid "Please fill in a date."
+msgstr "Bitte geben Sie ein gültiges Datum an."
+
+#: collective/dancing/browser/stats.py:90
+msgid "Please select items to remove."
+msgstr "Bitte wählen Sie einen Themenbereich dessen alte bzw. gesendete Nachrichten gelöscht werden sollen."
+
+#: collective/dancing/browser/stats.py:99
+msgid "Please select items with new messages to clear."
+msgstr "Bitte wählen Sie einen Themenbereich dessen wartende Nachrichten gelöscht werden sollen."
+
+#: collective/dancing/browser/sendnewsletter.py:97
+msgid "Please select precisely one channel for preview."
+msgstr "Bitte wählen Sie einen Themenbereich für die Vorschau aus."
+
+#: collective/dancing/browser/stats.py:108
+msgid "Please select which channel's queued e-mails you'd like to send."
+msgstr "Bitte wählen Sie einen Themenbereich dessen wartende Nachrichten versendet werden sollen."
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:46
+msgid "Portlet description"
+msgstr "Beschreibung des Portlets"
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:38
+msgid "Portlet header"
+msgstr "Kopfzeile des Portlets"
+
+#: collective/dancing/browser/channel.py:688
+msgid "Preview"
+msgstr "Vorschau senden"
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:207
+msgid "Proceed"
+msgstr "Weiter"
+
+#: collective/dancing/browser/stats.py:120
+msgid "Process jobs"
+msgstr ""
+
+#: collective/dancing/browser/collector.py:199
+msgid "Remove block"
+msgstr "Block entfernen"
+
+#: collective/dancing/browser/scheduler.py:78
+msgid "Remove entries"
+msgstr "Einträge entfernen"
+
+#: collective/dancing/browser/channel.py:448
+msgid "Remove non-existing"
+msgstr "Entferne nicht existierende Elemente"
+
+#: collective/dancing/browser/stats.py:88
+msgid "Remove old messages"
+msgstr "Alte Nachrichten entfernen"
+
+#: collective/dancing/interfaces.py:39
+msgid "Reply-to address"
+msgstr "Antwort E-Mail Adresse"
+
+#: collective/dancing/browser/stats.py:48
+msgid "Retry messages"
+msgstr "Nachrichten wiederholen"
+
+#: collective/dancing/collector.py:70
+msgid "Rich text"
+msgstr "Freier Text"
+
+#: collective/dancing/browser/channel.py:618
+msgid "Save"
+msgstr "Speichern"
+
+#: collective/dancing/browser/sendnewsletter.py:143
+msgid "Schedule distribution"
+msgstr "Plane Zustellung"
+
+#: collective/dancing/browser/interfaces.py:30
+msgid "Scheduled time"
+msgstr "Zeit planen"
+
+#: collective/dancing/browser/channel.py:188
+msgid "Search"
+msgstr "Suche"
+
+#: collective/dancing/browser/channel.py:184
+msgid "Search subscribers"
+msgstr "Abonnenten durchsuchen"
+
+#: collective/dancing/collector.py:211
+msgid "Sections"
+msgstr "Sektionen"
+
+#: collective/dancing/browser/channel.py:320
+msgid "See an in-browser preview of the newsletter."
+msgstr "Vorschau des Newsletters im Browser anzeigen."
+
+#: collective/dancing/browser/sendnewsletter.py:65
+msgid "Send"
+msgstr "Senden"
+
+#: collective/dancing/browser/sendnewsletter.py:79
+msgid "Send \"${context}\" through ${channels}."
+msgstr "\"${context}\" über \"${channels}\" versenden."
+
+#: collective/dancing/browser/sendnewsletter.py:169
+msgid "Send ${item} as newsletter"
+msgstr "Artikel '${item}' als Newsletter versenden"
+
+#. Default: "Send as newsletter"
+#: collective/dancing/profiles/default/actions.xml
+msgid "Send as newsletter"
+msgstr "Als Newsletter versenden"
+
+#: collective/dancing/browser/sendnewsletter.py:108
+msgid "Send preview"
+msgstr "Vorschau versenden"
+
+#: collective/dancing/browser/stats.py:106
+msgid "Send queued messages now"
+msgstr "Wartende Nachrichten jetzt verschicken"
+
+#: collective/dancing/browser/stats.py:36
+msgid "Sent messages"
+msgstr "Gesendete Nachrichten"
+
+#. Default: "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
+#: collective/dancing/browser/subscriptions.pt:34
+msgid "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
+msgstr "Wenn Sie bereits zu mindestens einem unserer Themenbereiche angemeldet sind, können Sie über ihre E-Mail Adresse einen Link für Ihre Abonnementverwaltung anfordern:"
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:57
+msgid "Show footer"
+msgstr "Fusszeile anzeigen?"
+
+#: collective/dancing/browser/sendnewsletter.py:88
+msgid "Show preview"
+msgstr "Vorschau anzeigen"
+
+#: collective/dancing/browser/controlpanel.py:19
+msgid "Singing & Dancing configuration"
+msgstr "Singing & Dancing Konfiguration"
+
+#: collective/dancing/channel.py:114
+msgid "Standard Channel"
+msgstr "Standard Themenbereich"
+
+#: collective/dancing/browser/subscribe.py:231
+msgid "Subscribe"
+msgstr "Anmelden"
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:49
+msgid "Subscribe directly from portlet"
+msgstr "Direktes Anmelden ermöglichen?"
+
+#: collective/dancing/browser/subscribe.py:61
+msgid "Subscribe to ${channel}"
+msgstr "Zu ${channel} anmelden"
+
+#: collective/dancing/browser/channel.py:439
+msgid "Subscribers"
+msgstr "Abonnenten"
+
+#: collective/dancing/browser/channel.py:577
+msgid "Subscribers exported."
+msgstr "Anmeldungen exportiert."
+
+#: collective/dancing/browser/channel.py:683
+msgid "Subscriptions"
+msgstr "Abonnements"
+
+#: collective/dancing/browser/stats.py:102
+msgid "Successfully cleared queued messages in channels."
+msgstr "Warteliste wurde erfolgreich geleert."
+
+#: collective/dancing/browser/stats.py:93
+msgid "Successfully removed old messages from channels."
+msgstr "Alte Nachrichten wurde erfolgreich entfernt."
+
+#: collective/dancing/browser/sendnewsletter.py:164
+msgid "Successfully scheduled distribution."
+msgstr "Zustellzeitpunkt erfolgreich geplant."
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:54
+msgid "Text in footer - if omitted the channel title is used"
+msgstr "Text der in der Fusszeile dargestellt wird - falls leer wird der Titel des Newsletterthemas verwendet."
+
+#: collective/dancing/interfaces.py:45
+msgid "Text to appear at the beginning of every message. You may use a number of variables here including ${subject}."
+msgstr "Dieser Text wird automatisch zum Beginn jeder Nachricht angezeigt. Sie können hier Variablen wie ${subject} verwenden."
+
+#: collective/dancing/interfaces.py:52
+msgid "Text to appear at the end of every message"
+msgstr "Dieser Text wird automatisch am Ende jeder Nachricht angezeigt."
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:41
+msgid "The channel to enable subscriptions to."
+msgstr "Das Thema zu dem Anmeldungen möglich sind."
+
+#: collective/dancing/browser/interfaces.py:10
+msgid "The channel to send this through"
+msgstr "Themenbereiche an welche gesendet werden soll"
+
+#: collective/dancing/interfaces.py:29
+msgid "The from addess that will appear in messages sent from this composer."
+msgstr "Die Absendeadresse die in jeder Nachricht mit dieser Vorlage angezeigt wird."
+
+#: collective/dancing/interfaces.py:40
+msgid "The reply-to addess that will appear in messages sent from this composer."
+msgstr "Die Antwortadresse die in jeder Nachricht mit dieser Vorlage angezeigt wird."
+
+#: collective/dancing/interfaces.py:24
+msgid "The sender name that will appear in messages sent from this composer."
+msgstr "Der Absendename der in jeder Nachricht mit dieser Vorlage angezeigt wird."
+
+#: collective/dancing/interfaces.py:57
+msgid "The stylesheet will be applied to the document."
+msgstr "Diese CSS-Style Definitionen werden in jede Nachricht eingefügt."
+
+#: collective/dancing/browser/subscribe.py:254
+msgid "There seems to be an error with the information you entered."
+msgstr "Es scheint ein Fehler mit den eingegebenen Werten aufgetreten zu sein."
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:198
+msgid "There were some errors."
+msgstr "Mindestens ein Fehler ist aufgetreten."
+
+#: collective/dancing/browser/interfaces.py:31
+msgid "This is only required if you click 'Schedule distribution' below"
+msgstr "Dies ist nur erforderlich, falls Sie auf 'Plane Zustellung' klicken."
+
+#: collective/dancing/browser/interfaces.py:24
+msgid "This is only required if you click 'Send preview' below"
+msgstr "Dies ist nur erforderlich, falls Sie auf 'Vorschau versenden' klicken."
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:407
+msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
+msgstr "Dieses Portlet erlaubt einem Besucher sich zu einem oder mehreren Themenbereichen anzumelden."
+
+#: collective/dancing/browser/collector.py:91
+msgid "Title"
+msgstr "Titel"
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:39
+msgid "Title of the rendered portlet"
+msgstr "Geben Sie den Titel des Portlets."
+
+#. Default: "To confirm your subscription with ${channel}, please click here: ${url}"
+#: collective/dancing/browser/composer-html-confirm.pt:20
+msgid "To confirm your subscription with ${channel}, please click here: ${url}"
+msgstr "Um die Anmeldung zum Themenbereich '${channel}' zu bestätigen, klicken Sie bitte hier: ${url}."
+
+#: collective/dancing/browser/stats.py:25
+msgid "Total messages sent"
+msgstr "Anzahl der gesendeten Nachrichten"
+
+#: collective/dancing/browser/stats.py:26
+msgid "Total number of messages sent successsfully"
+msgstr "Anzahl der erfolgreich gesendeten Nachrichten"
+
+#: collective/dancing/browser/scheduler.py:28
+msgid "Trigger now"
+msgstr ""
+
+#: collective/dancing/browser/channel.py:107
+msgid "Type"
+msgstr "Typ"
+
+#: collective/dancing/browser/channel.py:531
+msgid "Unknown"
+msgstr "Unbekannt"
+
+#: collective/dancing/browser/subscribe.py:106
+msgid "Unsubscribe"
+msgstr "Abmelden"
+
+#: collective/dancing/browser/subscribe.py:188
+msgid "Unsubscribe from newsletter"
+msgstr "Vom Newsletter abmelden"
+
+#: collective/dancing/browser/channel.py:656
+msgid "Up to Channels administration"
+msgstr "Zurück zur Verwaltung der Themenbereiche"
+
+#: collective/dancing/browser/collector.py:335
+msgid "Up to Collector administration"
+msgstr "Zurück zur Verwaltung der Sammlerdienste"
+
+#: collective/dancing/browser/controlpanel.py:12
+msgid "Up to Singing & Dancing configuration"
+msgstr "Zurück zur Singing & Dancing Konfiguration"
+
+#: collective/dancing/browser/controlpanel.py:22
+msgid "Up to Site Setup"
+msgstr "Zurück zur Website-Konfiguration"
+
+#: collective/dancing/browser/channel.py:433
+msgid "Upload"
+msgstr "Hochladen"
+
+#: collective/dancing/browser/channel.py:440
+msgid "Upload a CSV file with a list of subscribers here. Subscribers already present in the database will be overwritten. Each line should contain: ${columns}."
+msgstr "Laden Sie eine CSV-Datei hoch. Neue Abonnenten werden hinzugefügt, bereits bestehende überschrieben. Jede Zeile muss folgende getrennte Werte enthalten: ${columns}."
+
+#: collective/dancing/browser/channel.py:582
+msgid "Upload list of subscribers."
+msgstr "Upload Liste neuer Abonnenten."
+
+#: collective/dancing/browser/portlets/channelsubscribe.py:146
+msgid "You are already subscribed to this newsletter. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgstr "Sie sind bereits zu diesem Newsletter angemeldet.Klicken Sie hier <a href=\"${url}\">um Ihre Abonnements zu bearbeiten</a>."
+
+#: collective/dancing/browser/subscribe.py:203
+msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
+msgstr "Sie sind bereits angemeldet. Füllen Sie das untenstehende Formular aus und wir senden Ihnen einen Link zu, um Ihre Abonnements zu bearbeiten."
+
+#. Default: "You are currently subscribed to these newsletters:"
+#: collective/dancing/browser/subscriptions.pt:21
+msgid "You are currently subscribed to these newsletters:"
+msgstr "Sie sind im Moment für folgende Themenbereiche angemeldet:"
+
+#: collective/dancing/browser/subscribe.py:118
+msgid "You aren't subscribed to this channel."
+msgstr "Sie haben diesen Newsletter nicht abonniert."
+
+#. Default: "You can subscribe to these newsletters:"
+#: collective/dancing/browser/subscriptions.pt:28
+msgid "You can subscribe to these newsletters:"
+msgstr "Sie können sich zu folgenden Themenbereichen anmelden:"
+
+#: collective/dancing/browser/subscribe.py:80
+msgid "You confirmed your subscription successfully."
+msgstr "Sie haben Ihre Anmeldung erfolgreich bestätigt."
+
+#: collective/dancing/interfaces.py:34
+msgid "You may use a number of variables here, like ${site-title}."
+msgstr "Sie können hier Variablen verwenden wie ${site-title}."
+
+#: collective/dancing/browser/subscribe.py:271
+msgid "You subscribed successfully."
+msgstr "Sie haben sich erfolgreich angemeldet."
+
+#: collective/dancing/browser/subscribe.py:116
+msgid "You unsubscribed successfully."
+msgstr "Sie haben sich erfolgreich abgemeldet."
+
+#. Default: "You're receiving this e-mail because you're registered for the ${channel} newsletter."
+#: collective/dancing/browser/composer-html.pt:35
+msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
+msgstr "Sie erhalten diese E-Mail weil Sie sich für den Themenbereich '${channel}' angemeldet haben."
+
+#: collective/dancing/composer.py:40
+msgid "Your e-mail address is invalid"
+msgstr "Ihre E-Mail Adresse ist ungültig"
+
+#: collective/dancing/browser/subscribe.py:19
+msgid "Your email address is already subscribed. Click the \"Send my subscription details\" button below."
+msgstr "Diese E-Mail Adresse ist bereits angemeldet. Klicken Sie auf den \"Abonnementdetails zusenden\" Button."
+
+#: collective/dancing/browser/subscribe.py:81
+msgid "Your subscription isn't known to us."
+msgstr "Ihre Anmeldung konnte nicht gefunden werden."
+
+#: collective/dancing/browser/subscribe.py:142
+msgid "Your subscription was updated."
+msgstr "Ihre Abonnements wurden geändert."
+
+#. Default: "A Channel is a hub of configuration.  It doesn't do anything by itself.  Rather, it provides a number of components to configure and work with.  It is also the container of subscriptions to it."
+#: collective/dancing/browser/controlpanel-links.pt:7
+msgid "description_channel_administration"
+msgstr "Ein Themenbereich ist eine Ansammlung von intelligenten Ordnern und Textblöcken. Er stellt eine Reihe von Komponenten zur Anpassung und Darstellung von Informationen zur Verfügung. Weiters enthält er auch die Abonnements der Personen die sich zu einem Themenbereich anmelden."
+
+#. Default: "Collectors are useful for automatic newsletters.  They are responsible for assembling a list of items for publishing."
+#: collective/dancing/browser/controlpanel-links.pt:18
+msgid "description_collector_administration"
+msgstr "Sammlerdienste sind nützlich für automatisierte Newsletter. Sie sind verantwortlich für den Aufbau und die Inhaltsauswahl im Newsletter."
+
+#. Default: "View newsletter statistics"
+#: collective/dancing/browser/controlpanel-links.pt:28
+msgid "description_statistics_administration"
+msgstr "Hier können Sie die Newsletterstatistik einsehen."
+
+#. Default: "Channel administration"
+#: collective/dancing/browser/controlpanel-links.pt:3
+msgid "label_channel_administration"
+msgstr "Verwaltung der Themenbereiche"
+
+#. Default: "Collector administration"
+#: collective/dancing/browser/controlpanel-links.pt:13
+msgid "label_collector_administration"
+msgstr "Verwaltung der Sammlerdienste"
+
+#. Default: "Statistics"
+#: collective/dancing/browser/controlpanel-links.pt:23
+msgid "label_statistics_administration"
+msgstr "Statistik"
+
+#~ msgid "Flush new messages"
+#~ msgstr "Neue Nachrichten löschen"
+#~ msgid "\"${channel}\" subscriptions administration"
+#~ msgstr "${channel}'s Abonnements verwalten"
+#~ msgid "${address} is not subscribed to ${channel}."
+#~ msgstr "${address} hat den Newsletter ${channel} nicht abonniert."
+

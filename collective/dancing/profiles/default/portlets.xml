@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<portlets>
+ 
+ <!-- Portlet type registrations -->
+ 
+ <portlet
+   addview="collective.dancing.ChannelSubscribePortlet"
+   title="Channel subscribe portlet"
+   description="A portlet that allows the visitor to subscribe to a specific newsletter channel."
+   />
+ 
+</portlets>

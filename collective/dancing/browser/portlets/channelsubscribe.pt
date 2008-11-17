@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="collective.dancing"
+      tal:omit-tag="">
+
+<dl class="portlet portlet-dancing"
+    tal:define="plone_view context/@@plone;
+                toLocalizedTime nocall:plone_view/toLocalizedTime;
+                getIcon nocall:plone_view/getIcon;">
+
+    <dt class="portletHeader">
+      <span class="portletTopLeft"></span>
+      <span tal:content="view/data/header" />
+      <span class="portletTopRight"></span>
+    </dt>
+    
+   <dd class="portletItem">
+   
+      <div tal:content="view/data/description">
+	    Portlet description
+	  </div>
+
+	
+   <div tal:content="structure view/form/render">
+	   Subscribe form here
+   </div> 
+   <div class="visualClear"></div>  
+   </dd>
+   <dd class="portletFooter" 
+       tal:condition="view/data/show_footer"
+       tal:define="channel_link view/channel_link">
+	  <a href=""
+	     tal:attributes="href channel_link/url" >
+	    <span tal:content="channel_link/title">
+	      Link to channel
+	    </span>
+	  </a>
+	  
+   </dd> 
+</dl>
+
+</html>

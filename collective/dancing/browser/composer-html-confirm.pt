@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="collective.dancing">
+
+  <head>
+    <title tal:content="options/subject">Subject</title>
+    <style type="text/css"
+           tal:content="structure options/stylesheet" />
+  </head>
+  
+  <body>
+    <h1 i18n:translate="">Please confirm your subscription</h1>
+
+    <p i18n:translate="">
+      To confirm your subscription with
+      <span tal:replace="options/channel/title" i18n:name="channel" />,
+      please click here:
+      <a href="" 
+         tal:content="options/confirm_url"
+	 tal:attributes="href options/confirm_url"
+	 i18n:name="url">
+      </a>
+    </p>
+      
+  </body>
+
+</html>
