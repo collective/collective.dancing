@@ -1,7 +1,10 @@
 History
 =======
 
-Version 0.8.2 - Unreleased
+Version 0.8.3 - Unreleased
+--------------------------
+
+Version 0.8.2 - 2008-11-17
 --------------------------
 
 - Fixed a bug in ``HTMLComposer`` where unsubscribe_url could not be substituted
