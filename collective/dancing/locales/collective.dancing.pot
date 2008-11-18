@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2008-11-05 14:28+0000\n"
+"POT-Creation-Date: 2008-11-18 10:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,15 +25,15 @@ msgstr ""
 msgid "${name} does not support scheduling."
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:558
+#: ./collective/dancing/browser/channel.py:557
 msgid "${numberadded} subscriptions updated successfully!"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:552
+#: ./collective/dancing/browser/channel.py:551
 msgid "${numberadded} subscriptions updated successfully, ${numberremoved} removed!"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:542
+#: ./collective/dancing/browser/channel.py:541
 msgid "${numberadded} subscriptions updated successfully. ${numberremoved} removed. ${numbernotadded} could not be added. (${errorcandidates})"
 msgstr ""
 
@@ -155,16 +155,21 @@ msgstr ""
 msgid "Composer for format : ${format}"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:687
+#: ./collective/dancing/browser/channel.py:686
 msgid "Composers"
 msgstr ""
 
-#: ./collective/dancing/composer.py:216
+#: ./collective/dancing/composer.py:243
 msgid "Confirm your subscription with ${channel-title}"
 msgstr ""
 
 #: ./collective/dancing/browser/subscribe.py:78
 msgid "Confirming your subscription"
+msgstr ""
+
+#. Default: "Date of execution"
+#: ./collective/dancing/browser/jobs.pt:25
+msgid "Date of execution"
 msgstr ""
 
 #: ./collective/dancing/browser/portlets/channelsubscribe.py:47
@@ -176,15 +181,15 @@ msgstr ""
 msgid "Displays a form that lets you send this content item as a newsletter."
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:575
+#: ./collective/dancing/browser/channel.py:574
 msgid "Download"
 msgstr ""
 
-#: ./collective/dancing/composer.py:58
+#: ./collective/dancing/composer.py:71
 msgid "E-mail address"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:686
+#: ./collective/dancing/browser/channel.py:685
 msgid "Edit"
 msgstr ""
 
@@ -196,7 +201,7 @@ msgstr ""
 msgid "Edit ${selector} for ${channel}"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:661
+#: ./collective/dancing/browser/channel.py:660
 msgid "Edit Channel ${channel}"
 msgstr ""
 
@@ -208,7 +213,7 @@ msgstr ""
 msgid "Edit existing subscriptions"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:355
+#: ./collective/dancing/browser/channel.py:354
 msgid "Edit the properties of the channel."
 msgstr ""
 
@@ -220,7 +225,7 @@ msgstr ""
 msgid "Enter a search query to find content."
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:407
+#: ./collective/dancing/browser/channel.py:406
 msgid "Error importing subscriber file."
 msgstr ""
 
@@ -228,11 +233,11 @@ msgstr ""
 msgid "Failed messages"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:503
+#: ./collective/dancing/browser/channel.py:502
 msgid "File has not correct format."
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:499
+#: ./collective/dancing/browser/channel.py:498
 msgid "File was not given."
 msgstr ""
 
@@ -248,6 +253,11 @@ msgstr ""
 msgid "Find the channel you want to enable direct subscription to"
 msgstr ""
 
+#. Default: "Finished jobs"
+#: ./collective/dancing/browser/jobs.pt:19
+msgid "Finished jobs"
+msgstr ""
+
 #: ./collective/dancing/browser/portlets/channelsubscribe.py:53
 msgid "Footer text"
 msgstr ""
@@ -260,11 +270,11 @@ msgstr ""
 msgid "From name"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:330
+#: ./collective/dancing/browser/channel.py:329
 msgid "Generate"
 msgstr ""
 
-#: ./collective/dancing/composer.py:76
+#: ./collective/dancing/composer.py:89
 msgid "HTML E-Mail"
 msgstr ""
 
@@ -272,7 +282,7 @@ msgstr ""
 msgid "Header text"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:449
+#: ./collective/dancing/browser/channel.py:448
 msgid "If selected and a subscriber exists in the database, but is not part of the uploaded file, the subscriber will be removed from the list."
 msgstr ""
 
@@ -300,11 +310,16 @@ msgstr ""
 msgid "Items"
 msgstr ""
 
+#. Default: "Job title"
+#: ./collective/dancing/browser/jobs.pt:23
+msgid "Job title"
+msgstr ""
+
 #: ./collective/dancing/browser/stats.py:33
 msgid "Last Change"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:217
+#: ./collective/dancing/browser/channel.py:216
 msgid "Manage or add subscriptions."
 msgstr ""
 
@@ -369,8 +384,13 @@ msgstr ""
 msgid "No messages queued."
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:602
+#: ./collective/dancing/browser/channel.py:601
 msgid "Only some of your changes were saved"
+msgstr ""
+
+#. Default: "Pending jobs"
+#: ./collective/dancing/browser/jobs.pt:9
+msgid "Pending jobs"
 msgstr ""
 
 #. Default: "Please confirm your subscription"
@@ -406,7 +426,7 @@ msgstr ""
 msgid "Portlet header"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:688
+#: ./collective/dancing/browser/channel.py:687
 msgid "Preview"
 msgstr ""
 
@@ -426,7 +446,7 @@ msgstr ""
 msgid "Remove entries"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:448
+#: ./collective/dancing/browser/channel.py:447
 msgid "Remove non-existing"
 msgstr ""
 
@@ -446,7 +466,7 @@ msgstr ""
 msgid "Rich text"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:618
+#: ./collective/dancing/browser/channel.py:617
 msgid "Save"
 msgstr ""
 
@@ -458,7 +478,7 @@ msgstr ""
 msgid "Scheduled time"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:188
+#: ./collective/dancing/browser/channel.py:187
 msgid "Search"
 msgstr ""
 
@@ -470,7 +490,7 @@ msgstr ""
 msgid "Sections"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:320
+#: ./collective/dancing/browser/channel.py:319
 msgid "See an in-browser preview of the newsletter."
 msgstr ""
 
@@ -524,6 +544,11 @@ msgstr ""
 msgid "Standard Channel"
 msgstr ""
 
+#. Default: "Status"
+#: ./collective/dancing/browser/jobs.pt:24
+msgid "Status"
+msgstr ""
+
 #: ./collective/dancing/browser/subscribe.py:231
 msgid "Subscribe"
 msgstr ""
@@ -536,15 +561,15 @@ msgstr ""
 msgid "Subscribe to ${channel}"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:439
+#: ./collective/dancing/browser/channel.py:438
 msgid "Subscribers"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:577
+#: ./collective/dancing/browser/channel.py:576
 msgid "Subscribers exported."
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:683
+#: ./collective/dancing/browser/channel.py:682
 msgid "Subscriptions"
 msgstr ""
 
@@ -645,7 +670,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:531
+#: ./collective/dancing/browser/channel.py:530
 msgid "Unknown"
 msgstr ""
 
@@ -657,7 +682,7 @@ msgstr ""
 msgid "Unsubscribe from newsletter"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:656
+#: ./collective/dancing/browser/channel.py:655
 msgid "Up to Channels administration"
 msgstr ""
 
@@ -673,15 +698,15 @@ msgstr ""
 msgid "Up to Site Setup"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:433
+#: ./collective/dancing/browser/channel.py:432
 msgid "Upload"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:440
+#: ./collective/dancing/browser/channel.py:439
 msgid "Upload a CSV file with a list of subscribers here. Subscribers already present in the database will be overwritten. Each line should contain: ${columns}."
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:582
+#: ./collective/dancing/browser/channel.py:581
 msgid "Upload list of subscribers."
 msgstr ""
 
@@ -728,7 +753,7 @@ msgstr ""
 msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
 msgstr ""
 
-#: ./collective/dancing/composer.py:40
+#: ./collective/dancing/composer.py:43
 msgid "Your e-mail address is invalid"
 msgstr ""
 
