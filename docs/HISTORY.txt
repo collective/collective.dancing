@@ -4,6 +4,8 @@ History
 Version 0.8.3 - Unreleased
 --------------------------
 
+- Added french translation.
+
 - Made new job-view ``browser/jobs.pt`` translateable, rebuilt pot file and 
   updated german translation.  [saily]
 

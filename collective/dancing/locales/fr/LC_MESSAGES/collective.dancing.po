@@ -1,0 +1,774 @@
+# translation of collective.dancing.
+# <kevin.samuel@pilotsystems.net>, 2008.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: collective.dancing 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-02-17 01:25+0100\n"
+"PO-Revision-Date: 2008-11-19 17:40+0100\n"
+"Last-Translator: Daniel Widerin <daniel.widerin@kombinat.at>\n"
+"Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:288
+msgid "${channel} options"
+msgstr "Options de ${channel}"
+
+#: ./collective/dancing/browser/sendnewsletter.py:132
+msgid "${name} does not support scheduling."
+msgstr "${name} ne supporte pas la planification."
+
+#: ./collective/dancing/browser/channel.py:559
+msgid "${numberadded} subscriptions updated successfully!"
+msgstr "${numberadded} abonnements mis à jour avec succès !"
+
+#: ./collective/dancing/browser/channel.py:553
+msgid "${numberadded} subscriptions updated successfully, ${numberremoved} removed!"
+msgstr "${numberadded} abonnements mis à jour avec succès, ${numberremoved} retirés!"
+
+#: ./collective/dancing/browser/channel.py:543
+msgid "${numberadded} subscriptions updated successfully. ${numberremoved} removed. ${numbernotadded} could not be added. (${errorcandidates})"
+msgstr "${numberadded} abonnements mis à jour avec succès. ${numberremoved} retirés. ${numbernotadded} n'ont pu être ajoutés. (${errorcandidates})"
+
+#: ./collective/dancing/browser/scheduler.py:33
+msgid "${number} messages queued."
+msgstr "${number} messages mis en file d'attente."
+
+#: ./collective/dancing/browser/sendnewsletter.py:68
+msgid "${num} message(s) queued."
+msgstr "${num} message(s) en file d'attente."
+
+#: ./collective/dancing/browser/stats.py:104
+msgid "${sent} message(s) sent, ${failed} failure(s)."
+msgstr "${sent} message(s) envoyé(s), ${failed} dont l'envoi a échoué."
+
+#: ./collective/dancing/browser/collector.py:183
+msgid "Add"
+msgstr "Ajouter"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:451
+msgid "Add Channel Subscribe Portlet"
+msgstr "Ajouter un portlet d'abonnement au canal de diffusion"
+
+#: ./collective/dancing/browser/channel.py:94
+msgid "Add or edit channels that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
+msgstr "Ajouter ou éditer des canaux de diffusion qui utiliseront des collections afin de réunir et envoyer par e-mail les informations issues de votre site, aux adresses email abonnées, selon la planification choisie."
+
+#: ./collective/dancing/browser/interfaces.py:23
+msgid "Address to send the preview to"
+msgstr "Adresse à laquelle envoyer la pré-visualisation"
+
+#: ./collective/dancing/browser/stats.py:137
+msgid "All finished jobs cleared"
+msgstr "Les taches achevées ont été effacées"
+
+#: ./collective/dancing/browser/stats.py:129
+msgid "All pending jobs processed"
+msgstr "Les taches en attente ont été éxécutées"
+
+#: ./collective/dancing/browser/stats.py:123
+msgid "All sent and failed messages deleted"
+msgstr "Tous les messages envoyés ou dont l'envoi a échoué ont été supprimés"
+
+#. Default: "Already subscribed?"
+#: ./collective/dancing/browser/subscriptions.pt:33
+msgid "Already subscribed?"
+msgstr "Déjà abonné ?"
+
+#: ./collective/dancing/browser/interfaces.py:17
+msgid "Append automatically collected content in this send-out"
+msgstr "Ajouter automatiquement le contenu collecté à cette liste de diffusion"
+
+#: ./collective/dancing/browser/scheduler.py:23
+msgid "Apply"
+msgstr "Appliquer"
+
+#: ./collective/dancing/browser/subscribe.py:176
+msgid "Apply changes"
+msgstr "Appliquer les changements"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:401
+msgid "Back to portlets"
+msgstr "Retourner aux portlets"
+
+#. Default: "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
+#: ./collective/dancing/browser/subscriptions.pt:10
+msgid "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
+msgstr "Vous voyez ci-dessous la liste des newsletters que nous proposons. Si vous êtes déjà abonnés à certaines d'entre elles vous pouvez compléter le formulaire situé en fin de page afin de recevoir un lien vers la page d'édition de vos abonnements existant."
+
+#. Default: "Best regards"
+#: ./collective/dancing/browser/composer-html-forgot.pt:30
+msgid "Best regards"
+msgstr "Cordialement"
+
+#: ./collective/dancing/interfaces.py:56
+msgid "CSS Stylesheet"
+msgstr "Feuille de styles CSS"
+
+#. Default: "Change your subscriptions with ${site-title}"
+#: ./collective/dancing/browser/composer-html-forgot.pt:16
+msgid "Change your subscriptions with ${site-title}"
+msgstr "Modifier votre abonnement à ${site-title}"
+
+#: ./collective/dancing/browser/channel.py:169
+msgid "Channel administration"
+msgstr "Administration des canaux de diffusion"
+
+#: ./collective/dancing/browser/stats.py:131
+msgid "Clear finished jobs"
+msgstr "Effacer les taches terminées"
+
+#: ./collective/dancing/browser/stats.py:97
+msgid "Clear queued messages"
+msgstr "Effacer les messages en attente"
+
+#. Default: "Click here to manage your subscriptions with ${site-title}:"
+#: ./collective/dancing/browser/composer-html-forgot.pt:21
+msgid "Click here to manage your subscriptions with ${site-title}:"
+msgstr "Cliquez ici pour accéder à la gestion de votre abonnement à ${site-title}:"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:50
+msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
+msgstr "Cliquez ici pour sélectionner les options de la collection à activer automatiquement en cas d'inscription à ce portlet."
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:58
+msgid "Click here to show the portlet footer."
+msgstr "Cliquez ici pour afficher le portlet de pied de page."
+
+#. Default: "Click here to unsubscribe."
+#: ./collective/dancing/browser/composer-html.pt:39
+msgid "Click here to unsubscribe."
+msgstr "Cliquez ici pour annuler votre abonnement"
+
+#: ./collective/dancing/browser/collector.py:65
+msgid "Collector administration"
+msgstr "Administration de la mise la mise en page"
+
+#: ./collective/dancing/browser/composer.py:42
+msgid "Composer for format : ${format}"
+msgstr "Mise en page pour le format : ${format}"
+
+#: ./collective/dancing/browser/channel.py:688
+msgid "Composers"
+msgstr "Mises en page"
+
+#: ./collective/dancing/composer.py:211
+msgid "Confirm your subscription with ${channel-title}"
+msgstr "Confirmez votre abonnement à ${channel-title}"
+
+#: ./collective/dancing/browser/subscribe.py:78
+msgid "Confirming your subscription"
+msgstr "Confirmez votre abonnement"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:47
+msgid "Description of the rendered portlet"
+msgstr "Description du portlet affiché"
+
+#. Default: "Displays a form that lets you send this content item as a newsletter."
+#: ./collective/dancing/profiles/default/actions.xml
+msgid "Displays a form that lets you send this content item as a newsletter."
+msgstr "Affiche un formulaire permettant d'envoyer ce contenu en tant que newsletter."
+
+#: ./collective/dancing/browser/channel.py:576
+msgid "Download"
+msgstr "Télécharger"
+
+#: ./collective/dancing/composer.py:57
+msgid "E-mail address"
+msgstr "Adresse e-mail"
+
+#: ./collective/dancing/browser/channel.py:687
+msgid "Edit"
+msgstr "Éditer"
+
+#: ./collective/dancing/browser/collector.py:331
+msgid "Edit ${collector}"
+msgstr "Éditer ${collector}"
+
+#: ./collective/dancing/browser/scheduler.py:90
+msgid "Edit ${selector} for ${channel}"
+msgstr "Éditer ${selector} pour ${channel}"
+
+#: ./collective/dancing/browser/channel.py:662
+msgid "Edit Channel ${channel}"
+msgstr "Éditer le canal de diffusion ${channel}"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:370
+msgid "Edit Channel Subscribe Portlet"
+msgstr "Éditer le portlet d'inscription du canal de diffusion "
+
+#: ./collective/dancing/browser/subscribe.py:27
+msgid "Edit existing subscriptions"
+msgstr "Éditer les abonnements existant"
+
+#: ./collective/dancing/browser/channel.py:356
+msgid "Edit the properties of the channel."
+msgstr "Éditer les propriétés de ce canal de diffusion"
+
+#: ./collective/dancing/browser/composer.py:33
+msgid "Edit the properties of the composer."
+msgstr "Éditer les propriétés de cette mise en page"
+
+#: ./collective/dancing/browser/query.py:12
+msgid "Enter a search query to find content."
+msgstr "Rechercher un contenu."
+
+#: ./collective/dancing/browser/channel.py:408
+msgid "Error importing subscriber file."
+msgstr "Erreur à l'importation du fichier de l'abonné."
+
+#: ./collective/dancing/browser/stats.py:40
+msgid "Failed messages"
+msgstr "Messages dont l'envoi à échoué"
+
+#: ./collective/dancing/browser/channel.py:504
+msgid "File has not correct format."
+msgstr "Format de fichier incorrect"
+
+#: ./collective/dancing/browser/channel.py:500
+msgid "File was not given."
+msgstr "Le fichier n'a pas été fourni."
+
+#: ./collective/dancing/browser/subscribe.py:29
+msgid "Fill out the form below to receive an email with a link from which you can edit you subscriptions."
+msgstr "Complétez le formulaire ci-dessous afin de recevoir un e-mail contenant le lien vers la page d'édition de vos abonnements."
+
+#: ./collective/dancing/browser/subscribe.py:52
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgstr "Complétez le formulaire ci-dessous pour vous abonner à ${channel}. Notez bien que cela ne concerne que les nouveaux abonnements. Cliquez ici pour <a href=\"${url}\">éditer vos abonnements</a>."
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:42
+msgid "Find the channel you want to enable direct subscription to"
+msgstr "Trouver les canaux de diffusion auxquels vous souhaitez vous abonnement directement"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:53
+msgid "Footer text"
+msgstr "Pied de page"
+
+#: ./collective/dancing/interfaces.py:28
+msgid "From address"
+msgstr "Adresse de l'émetteur "
+
+#: ./collective/dancing/interfaces.py:23
+msgid "From name"
+msgstr "Nom de l'émetteur"
+
+#: ./collective/dancing/browser/channel.py:331
+msgid "Generate"
+msgstr "Générer"
+
+#: ./collective/dancing/composer.py:75
+msgid "HTML E-Mail"
+msgstr "E-mail au format HTML"
+
+#: ./collective/dancing/interfaces.py:44
+msgid "Header text"
+msgstr "En-tête"
+
+#: ./collective/dancing/browser/channel.py:450
+msgid "If selected and a subscriber exists in the database, but is not part of the uploaded file, the subscriber will be removed from the list."
+msgstr "Dans le cas d'une sélection, et si l'abonné existe dans la base de données mais qu'il ne fait pas partie du fichier transmis, l'abonné sera retiré de la liste."
+
+#: ./collective/dancing/browser/interfaces.py:16
+msgid "Include collector items"
+msgstr "Inclure les éléments de la collection"
+
+#: ./collective/dancing/browser/subscribe.py:276
+msgid "Information on how to confirm your subscription has been sent to you."
+msgstr "Les informations expliquant comment confirmer votre abonnement vous ont été envoyées."
+
+#: ./collective/dancing/browser/collector.py:191
+msgid "Item added successfully."
+msgstr "Élément ajouté avec succès."
+
+#: ./collective/dancing/browser/collector.py:202
+msgid "Item successfully deleted."
+msgstr "Élément supprimé avec succès."
+
+#: ./collective/dancing/browser/collector.py:235
+msgid "Item successfully moved."
+msgstr "Élément déplacé avec succès."
+
+#: ./collective/dancing/browser/query.py:11
+msgid "Items"
+msgstr "Éléments"
+
+#: ./collective/dancing/browser/stats.py:31
+msgid "Last Change"
+msgstr "Dernière modification"
+
+#: ./collective/dancing/browser/channel.py:217
+msgid "Manage or add subscriptions."
+msgstr "Gérer ou ajouter des abonnements."
+
+#. Default: "Manage your subscriptions"
+#: ./collective/dancing/browser/composer-html-forgot.pt:24
+msgid "Manage your subscriptions"
+msgstr "Gérer vos abonnements"
+
+#: ./collective/dancing/interfaces.py:33
+msgid "Message subject"
+msgstr "Sujet du message"
+
+#: ./collective/dancing/browser/sendnewsletter.py:86
+msgid "Messages queued for delivery."
+msgstr "Message en attente de diffusion."
+
+#: ./collective/dancing/browser/stats.py:35
+msgid "Messages successfully sent"
+msgstr "Messages envoyés avec succès"
+
+#: ./collective/dancing/browser/stats.py:29
+msgid "Messages waiting to be sent"
+msgstr "Messages en attente d'envoi"
+
+#: ./collective/dancing/browser/stats.py:41
+msgid "Messages with errors"
+msgstr "Messages contenant des erreurs"
+
+#: ./collective/dancing/browser/stats.py:47
+msgid "Messages with errors in the retry queue"
+msgstr "Messages contenant des erreurs en attente d'un nouvel essai"
+
+#: ./collective/dancing/browser/collector.py:238
+msgid "Move block down"
+msgstr "Déplacer le bloc vers le bas"
+
+#: ./collective/dancing/browser/collector.py:231
+msgid "Move block up"
+msgstr "Déplacer le bloc vers le haut"
+
+#: ./collective/dancing/browser/subscribe.py:289
+msgid "My subscriptions"
+msgstr "Mes abonnements"
+
+#: ./collective/dancing/browser/stats.py:28
+msgid "New messages"
+msgstr "Nouveaux messages"
+
+#: ./collective/dancing/channel.py:100
+msgid "Newsletter"
+msgstr "Newsletter"
+
+#: ./collective/dancing/browser/stats.py:131
+msgid "Newsletter statistics"
+msgstr "Statistiques de la newsletter"
+
+#: ./collective/dancing/browser/preview.py:66
+msgid "No items found."
+msgstr "Aucun élément trouvé."
+
+#: ./collective/dancing/browser/scheduler.py:36
+msgid "No messages queued."
+msgstr "Aucune message en attente."
+
+#: ./collective/dancing/browser/channel.py:603
+msgid "Only some of your changes were saved"
+msgstr "Seules quelques-unes de vos modifications on été sauvegardées."
+
+#. Default: "Please confirm your subscription"
+#: ./collective/dancing/browser/composer-html-confirm.pt:14
+msgid "Please confirm your subscription"
+msgstr "Veuillez confirmer votre abonnement"
+
+#: ./collective/dancing/browser/sendnewsletter.py:136
+msgid "Please fill in a date."
+msgstr "Veuillez entrer une date."
+
+#: ./collective/dancing/browser/stats.py:77
+msgid "Please select items to remove."
+msgstr "Veuillez sélectionner des éléments à retirer."
+
+#: ./collective/dancing/browser/stats.py:86
+msgid "Please select items with new messages to clear."
+msgstr "Veuillez sélectionner des éléments contenant des nouveaux messages à effacer."
+
+#: ./collective/dancing/browser/sendnewsletter.py:79
+msgid "Please select precisely one channel for preview."
+msgstr "Veuillez sélectionner un canal de diffusion pour la pré-visualisation."
+
+#: ./collective/dancing/browser/stats.py:95
+msgid "Please select which channel's queued e-mails you'd like to send."
+msgstr "Veuillez sélectionner la liste d'attente du canal de diffusion dont vous souhaitez envoyer les e-mails."
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:46
+msgid "Portlet description"
+msgstr "Description du portlet"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:38
+msgid "Portlet header"
+msgstr "Portlet d'en-tête"
+
+#: ./collective/dancing/browser/channel.py:689
+msgid "Preview"
+msgstr "Pré-visualisation"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:207
+msgid "Proceed"
+msgstr "Éxécuter"
+
+#: ./collective/dancing/browser/stats.py:120
+msgid "Process jobs"
+msgstr "Éxécuter les taches"
+
+#: ./collective/dancing/browser/collector.py:199
+msgid "Remove block"
+msgstr "Retirer le bloc"
+
+#: ./collective/dancing/browser/scheduler.py:78
+msgid "Remove entries"
+msgstr "Retirer les entrées"
+
+#: ./collective/dancing/browser/channel.py:449
+msgid "Remove non-existing"
+msgstr "Retirer tout ce qui n'existe pas"
+
+#: ./collective/dancing/browser/stats.py:88
+msgid "Remove old messages"
+msgstr "Retirer les anciens messages"
+
+#: ./collective/dancing/interfaces.py:39
+msgid "Reply-to address"
+msgstr "Répondre à l'adresse"
+
+#: ./collective/dancing/browser/stats.py:46
+msgid "Retry messages"
+msgstr "Faire un nouvel essai pour ces messages"
+
+#: ./collective/dancing/collector.py:70
+msgid "Rich text"
+msgstr "Texte enrichi"
+
+#: ./collective/dancing/browser/channel.py:619
+msgid "Save"
+msgstr "Sauvegarder"
+
+#: ./collective/dancing/browser/sendnewsletter.py:124
+msgid "Schedule distribution"
+msgstr "Planifier la livraison"
+
+#: ./collective/dancing/browser/interfaces.py:30
+msgid "Scheduled time"
+msgstr "Heure de planification"
+
+#: ./collective/dancing/browser/channel.py:188
+msgid "Search"
+msgstr "Rechercher"
+
+#: ./collective/dancing/browser/channel.py:184
+msgid "Search subscribers"
+msgstr "Rechercher des abonnés"
+
+#: ./collective/dancing/collector.py:211
+msgid "Sections"
+msgstr "Sections"
+
+#: ./collective/dancing/browser/channel.py:321
+msgid "See an in-browser preview of the newsletter."
+msgstr "Afficher une pré-visualisation de la newsletter directement dans le navigateur"
+
+#: ./collective/dancing/browser/sendnewsletter.py:49
+msgid "Send"
+msgstr "Envoyer"
+
+#: ./collective/dancing/browser/sendnewsletter.py:79
+msgid "Send \"${context}\" through ${channels}."
+msgstr "Envoyer \"${context}\" sur ${channels}."
+
+#: ./collective/dancing/browser/sendnewsletter.py:150
+msgid "Send ${item} as newsletter"
+msgstr "Envoyer ${item} en tant que newsletter"
+
+#. Default: "Send as newsletter"
+#: ./collective/dancing/profiles/default/actions.xml
+msgid "Send as newsletter"
+msgstr "Envoyer une newsletter"
+
+#: ./collective/dancing/browser/sendnewsletter.py:90
+msgid "Send preview"
+msgstr "Envoyer la pré-visualisation"
+
+#: ./collective/dancing/browser/stats.py:106
+msgid "Send queued messages now"
+msgstr "Envoyer les messages en attente immédiatement"
+
+#: ./collective/dancing/browser/stats.py:34
+msgid "Sent messages"
+msgstr "Envoyer les messages"
+
+#. Default: "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
+#: ./collective/dancing/browser/subscriptions.pt:34
+msgid "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
+msgstr "Dans le cas ou vous seriez déjà abonné à une de nos listes, veuillez utiliser ce formulaire pour récupérer un lien vers la page présentant vos abonnements."
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:57
+msgid "Show footer"
+msgstr "Afficher le pied de page"
+
+#: ./collective/dancing/browser/sendnewsletter.py:70
+msgid "Show preview"
+msgstr "Afficher la pré-visualisation"
+
+#: ./collective/dancing/browser/controlpanel.py:19
+msgid "Singing & Dancing configuration"
+msgstr "Configuration de Singing & Dancing"
+
+#: ./collective/dancing/channel.py:114
+msgid "Standard Channel"
+msgstr "Canal de diffusion standard"
+
+#: ./collective/dancing/browser/subscribe.py:231
+msgid "Subscribe"
+msgstr "S'abonner"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:49
+msgid "Subscribe directly from portlet"
+msgstr "S'abonner directement depuis le portlet"
+
+#: ./collective/dancing/browser/subscribe.py:61
+msgid "Subscribe to ${channel}"
+msgstr "S'abonner à ${channel}"
+
+#: ./collective/dancing/browser/channel.py:440
+msgid "Subscribers"
+msgstr "Abonnés"
+
+#: ./collective/dancing/browser/channel.py:578
+msgid "Subscribers exported."
+msgstr "Les abonnés ont été exportés."
+
+#: ./collective/dancing/browser/channel.py:684
+msgid "Subscriptions"
+msgstr "Abonnements"
+
+#: ./collective/dancing/browser/stats.py:80
+msgid "Successfully cleared queued messages in channels."
+msgstr "Les messages en attente des canaux de diffusion ont été effacés avec succès."
+
+#: ./collective/dancing/browser/stats.py:89
+msgid "Successfully removed old messages from channels."
+msgstr "Les anciens messages des canaux de diffusion ont été retirés avec succès."
+
+#: ./collective/dancing/browser/sendnewsletter.py:145
+msgid "Successfully scheduled distribution."
+msgstr "La livraison a été planifiée avec succès."
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:54
+msgid "Text in footer - if omitted the channel title is used"
+msgstr "Texte du pied de page - Le titre du canal de diffusion est utilisé en cas d'omission"
+
+#: ./collective/dancing/interfaces.py:45
+msgid "Text to appear at the beginning of every message. You may use a number of variables here including ${subject}."
+msgstr "Texte devant apparaitre au début de tout message. Vous pouvez utiliser quelques variables ici, telles que ${subject}."
+
+#: ./collective/dancing/interfaces.py:52
+msgid "Text to appear at the end of every message"
+msgstr "Texte à faire apparaitre à la fin de tout message"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:41
+msgid "The channel to enable subscriptions to."
+msgstr "Le canal de diffusion auquel il faut lié l'abonnement."
+
+#: ./collective/dancing/browser/interfaces.py:10
+msgid "The channel to send this through"
+msgstr "Le canal de diffusion sur lequel on procède à l'envoi"
+
+#: ./collective/dancing/interfaces.py:29
+msgid "The from addess that will appear in messages sent from this composer."
+msgstr "L'adresse de l'émetteur qui apparaitra dans les messages envoyés avec cette mise en page"
+
+#: ./collective/dancing/interfaces.py:40
+msgid "The reply-to addess that will appear in messages sent from this composer."
+msgstr "L'adresse de réponse qui apparaitra dans les messages envoyés avec cette mise en page"
+
+#: ./collective/dancing/interfaces.py:24
+msgid "The sender name that will appear in messages sent from this composer."
+msgstr "Le nom de l'émetteur qui apparaitra dans les messages envoyés avec cette mise en page"
+
+#: ./collective/dancing/interfaces.py:57
+msgid "The stylesheet will be applied to the document."
+msgstr "La feuille de styles sera appliquée au document."
+
+#: ./collective/dancing/browser/subscribe.py:254
+msgid "There seems to be an error with the information you entered."
+msgstr "Il semble y avoir une erreur avec les informations que vous avez fournies."
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:198
+msgid "There were some errors."
+msgstr "Des erreurs sont survenues."
+
+#: ./collective/dancing/browser/interfaces.py:31
+msgid "This is only required if you click 'Schedule distribution' below"
+msgstr "Ceci est obligatoire uniquement si vous cliquez sur 'Diffusion planifiée' ci-dessous"
+
+#: ./collective/dancing/browser/interfaces.py:24
+msgid "This is only required if you click 'Send preview' below"
+msgstr "Ceci est obligatoire uniquement si vous cliquez sur \"Envoyer la pré-visualisation\" ci-dessous"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:407
+msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
+msgstr "Ce portlet permet aux visiteurs de s'abonner à un canal de diffusion précis de la newsletter."
+
+#: ./collective/dancing/browser/collector.py:91
+msgid "Title"
+msgstr "Titre"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:39
+msgid "Title of the rendered portlet"
+msgstr "Titre du portlet affiché"
+
+#. Default: "To confirm your subscription with ${channel}, please click here: ${url}"
+#: ./collective/dancing/browser/composer-html-confirm.pt:20
+msgid "To confirm your subscription with ${channel}, please click here: ${url}"
+msgstr "Pour confirmer votre abonnement à ${channel}, veuillez cliquez ici : ${url}"
+
+#: ./collective/dancing/browser/stats.py:23
+msgid "Total messages sent"
+msgstr "Total des messages envoyés"
+
+#: ./collective/dancing/browser/stats.py:24
+msgid "Total number of messages sent successsfully"
+msgstr "Total des messages envoyés avec succès"
+
+#: ./collective/dancing/browser/scheduler.py:28
+msgid "Trigger now"
+msgstr "Déclencher immédiatement"
+
+#: ./collective/dancing/browser/channel.py:107
+msgid "Type"
+msgstr "Type"
+
+#: ./collective/dancing/browser/channel.py:532
+msgid "Unknown"
+msgstr "Inconnu"
+
+#: ./collective/dancing/browser/subscribe.py:106
+msgid "Unsubscribe"
+msgstr "Se désabonner"
+
+#: ./collective/dancing/browser/subscribe.py:188
+msgid "Unsubscribe from newsletter"
+msgstr "Se désabonner de la newsletter"
+
+#: ./collective/dancing/browser/channel.py:657
+msgid "Up to Channels administration"
+msgstr "Remonter vers l'administration des canaux de diffusion"
+
+#: ./collective/dancing/browser/collector.py:335
+msgid "Up to Collector administration"
+msgstr "Remonter vers l'administration de la collection"
+
+#: ./collective/dancing/browser/controlpanel.py:12
+msgid "Up to Singing & Dancing configuration"
+msgstr "Remonter vers l'administration de Singing·&·Dancing"
+
+#: ./collective/dancing/browser/controlpanel.py:22
+msgid "Up to Site Setup"
+msgstr "Remonter vers la configuration du site"
+
+#: ./collective/dancing/browser/channel.py:434
+msgid "Upload"
+msgstr "Upload"
+
+#: ./collective/dancing/browser/channel.py:441
+msgid "Upload a CSV file with a list of subscribers here. Subscribers already present in the database will be overwritten. Each line should contain: ${columns}."
+msgstr "Veuillez procéder à l'upload d'une liste d'abonnés ici. Les abonnés déjà présents dans la base de donnés seront écrasés. Chaque ligne devrait contenir : ${columns}."
+
+#: ./collective/dancing/browser/channel.py:583
+msgid "Upload list of subscribers."
+msgstr "Upload de la liste d'abonnés"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:146
+msgid "You are already subscribed to this newsletter. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgstr "Vous êtes déjà abonnés à cette newsletter. Cliquez ici pour <a href=\"${url}\">éditer vos abonnements</a>."
+
+#: ./collective/dancing/browser/subscribe.py:203
+msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
+msgstr "Vous êtes déjà abonnés. Complétez le formulaire au pied de cette page afin de recevoir un lien vers la page d'édition de vos abonnements."
+
+#. Default: "You are currently subscribed to these newsletters:"
+#: ./collective/dancing/browser/subscriptions.pt:21
+msgid "You are currently subscribed to these newsletters:"
+msgstr "Vous êtes déjà abonnés à ces newsletters : "
+
+#: ./collective/dancing/browser/subscribe.py:118
+msgid "You aren't subscribed to this channel."
+msgstr "Vous n'êtes pas abonnés à ce canal de diffusion"
+
+#. Default: "You can subscribe to these newsletters:"
+#: ./collective/dancing/browser/subscriptions.pt:28
+msgid "You can subscribe to these newsletters:"
+msgstr "Vous pouvez vous abonner aux newsletters suivantes :"
+
+#: ./collective/dancing/browser/subscribe.py:80
+msgid "You confirmed your subscription successfully."
+msgstr "Vous avez confirmé votre abonnement avec succès."
+
+#: ./collective/dancing/interfaces.py:34
+msgid "You may use a number of variables here, like ${site-title}."
+msgstr "Vous pouvez utilisez quelques variables ici, telles que ${site-title}."
+
+#: ./collective/dancing/browser/subscribe.py:271
+msgid "You subscribed successfully."
+msgstr "Votre abonnement est un succès."
+
+#: ./collective/dancing/browser/subscribe.py:116
+msgid "You unsubscribed successfully."
+msgstr "Vous avez été désabonnés avec succès."
+
+#. Default: "You're receiving this e-mail because you're registered for the ${channel} newsletter."
+#: ./collective/dancing/browser/composer-html.pt:35
+msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
+msgstr "Vous recevez cet email car vous êtes abonnés à la newsletter ${channel}."
+
+#: ./collective/dancing/composer.py:39
+msgid "Your e-mail address is invalid"
+msgstr "Votre adresse e-mail est invalide"
+
+#: ./collective/dancing/browser/subscribe.py:19
+msgid "Your email address is already subscribed. Click the \"Send my subscription details\" button below."
+msgstr "Votre adresse email est déjà enregistrée. Cliquez sur le bouton \"Envoyer le récapitulatif de mon abonnement\" ci-dessous."
+
+#: ./collective/dancing/browser/subscribe.py:81
+msgid "Your subscription isn't known to us."
+msgstr "Nous n'avons pas de trace de votre inscription."
+
+#: ./collective/dancing/browser/subscribe.py:142
+msgid "Your subscription was updated."
+msgstr "Votre inscription a été mise à jour."
+
+#. Default: "A Channel is a hub of configuration.  It doesn't do anything by itself.  Rather, it provides a number of components to configure and work with.  It is also the container of subscriptions to it."
+#: ./collective/dancing/browser/controlpanel-links.pt:7
+msgid "description_channel_administration"
+msgstr "Créer, éditer et supprimer des canaux d'administration"
+
+#. Default: "Collectors are useful for automatic newsletters.  They are responsible for assembling a list of items for publishing."
+#: ./collective/dancing/browser/controlpanel-links.pt:18
+msgid "description_collector_administration"
+msgstr "Créer, éditer et supprimer des collection"
+
+#. Default: "View newsletter statistics"
+#: ./collective/dancing/browser/controlpanel-links.pt:28
+msgid "description_statistics_administration"
+msgstr "L'activité de vos newsletters en détails."
+
+#. Default: "Channel administration"
+#: ./collective/dancing/browser/controlpanel-links.pt:3
+msgid "label_channel_administration"
+msgstr "Administration des canaux de diffusion"
+
+#. Default: "Collector administration"
+#: ./collective/dancing/browser/controlpanel-links.pt:13
+msgid "label_collector_administration"
+msgstr "Administration des collections"
+
+#. Default: "Statistics"
+#: ./collective/dancing/browser/controlpanel-links.pt:23
+msgid "label_statistics_administration"
+msgstr "Statistiques"
+
