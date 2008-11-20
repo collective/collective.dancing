@@ -3,6 +3,7 @@ import datetime
 from zope import component
 from zope.app.component.hooks import getSite
 from zope.app.pagetemplate import viewpagetemplatefile
+import zope.i18n.interfaces
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form import button
@@ -260,16 +261,32 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
             date=datetime.datetime.now(),
             pending=not secret_provided)
 
+        # We assume here that the language of the request is the
+        # desired language of the subscription:
+        pl = component.queryAdapter(
+            self.request, zope.i18n.interfaces.IUserPreferredLanguages)
+        if pl is not None:
+            metadata['languages'] = pl.getPreferredLanguages()
+
+        # By using another method here we allow subclasses to override
+        # what really happens here:
+        self.add_subscription(
+            self.context, secret, comp_data, coll_data, metadata,
+            secret_provided)
+
+    def add_subscription(self, context, secret, comp_data, coll_data, metadata,
+                         secret_provided):
         try:
             self.added = self.context.subscriptions.add_subscription(
                 self.context, secret, comp_data, coll_data, metadata)
-        except ValueError:
+        except ValueError, e:
             self.added = None
             self.status = self.status_already_subscribed
             return
-
+            
         self.status = _(u"You subscribed successfully.")
         if not secret_provided:
+            composer = self.context.composers[self.format]
             msg = composer.render_confirmation(self.added)
             status, status_msg = collective.singing.message.dispatch(msg)
             if status == u'sent':
@@ -280,7 +297,6 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
                 raise RuntimeError(
                     "There was an error with sending your e-mail.  Please try "
                     "again later.")
-
 
 class Subscriptions(BrowserView):
     __call__ = ViewPageTemplateFile('skeleton.pt')
