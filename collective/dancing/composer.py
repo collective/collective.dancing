@@ -169,7 +169,7 @@ class HTMLComposer(persistent.Persistent):
         vars.update(self._more_vars(subscription, items))
 
         def subs(name):
-            vars[name] = string.Template(vars[name]).substitute(vars)
+            vars[name] = string.Template(vars[name]).safe_substitute(vars)
         for name in 'subject', 'header_text', 'footer_text':
             subs(name)
 
@@ -221,7 +221,7 @@ class HTMLComposer(persistent.Persistent):
         subscription_vars = self._subscription_vars(subscription)
 
         html = self._render(vars, items)
-        html = string.Template(html).substitute(subscription_vars)
+        html = string.Template(html).safe_substitute(subscription_vars)
 
         message = collective.singing.mail.create_html_mail(
             vars['subject'],
@@ -246,7 +246,7 @@ class HTMLComposer(persistent.Persistent):
 
         html = self.confirm_template(**vars)
         html = stoneagehtml.compactify(html).decode('utf-8')
-        html = string.Template(html).substitute(subscription_vars)
+        html = string.Template(html).safe_substitute(subscription_vars)
         
         message = collective.singing.mail.create_html_mail(
             vars['confirmation_subject'],
@@ -272,7 +272,7 @@ class HTMLComposer(persistent.Persistent):
 
         html = self.forgot_template(**vars)
         html = stoneagehtml.compactify(html).decode('utf-8')
-        html = string.Template(html).substitute(subscription_vars)
+        html = string.Template(html).safe_substitute(subscription_vars)
 
         message = collective.singing.mail.create_html_mail(
             vars['forgot_secret_subject'],

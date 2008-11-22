@@ -80,7 +80,8 @@ That is, we can use it to retrieve a subscription's secret:
   ...     'My bonnie lies over the ocean',
   ...     'My bonnie lies over the sea',
   ...     'My bonnie lies over the ocean',
-  ...     'Oh bring back my bonnie to me')
+  ...     'Oh bring back my bonnie to me',
+  ...     'Er ... if the cab fare is less than $2.00') #$ tests bug #300720
 
   >>> msg = composer.render(subscription, items=zip(items, items))
   >>> msg # doctest: +ELLIPSIS
