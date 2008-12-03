@@ -820,6 +820,10 @@ for now.
   
 We'll now send the front page as a newsletter:
 
+This of course also works with non-ascii chars in the frontpage title.
+
+  >>> portal['front-page'].title += u' - Rødgrød med fløde!'
+  
   >>> previous_trigger_time = channel.scheduler.triggered_last
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
   >>> browser.getControl('Newsletter').click()
@@ -834,7 +838,7 @@ screen.  The job queue can also be processed from there:
 
   >>> browser.open('http://nohost/plone/portal_newsletters')
   >>> browser.getLink('Statistics').click()
-  >>> 'Send "Welcome to Plone"' in browser.contents
+  >>> 'Send "Welcome to Plone - Rødgrød med fløde!"' in browser.contents
   True
   >>> browser.getControl("Process jobs").click()
   >>> "3 message(s) queued for delivery" in browser.contents
@@ -851,6 +855,7 @@ screen.  The job queue can also be processed from there:
   Vickar's daughter...
   >>> "3 message(s) sent" in browser.contents
   True
+  >>> portal['front-page'].title = u'Welcome to Plone'
 
 While we're at the Statistics screen, let's also clear the old jobs:
 

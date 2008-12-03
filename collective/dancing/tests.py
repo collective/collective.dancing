@@ -125,6 +125,7 @@ def test_suite():
         ztc.ZopeDocFileSuite(
             'browser.txt',
             test_class=ptc.FunctionalTestCase,
+            encoding='utf-8'
             ),
         ztc.ZopeDocFileSuite(
             'portlets.txt',

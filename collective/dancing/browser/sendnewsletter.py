@@ -52,7 +52,6 @@ def _assemble_messages(channel_paths, context_path, include_collector_items):
 
 class SendAsNewsletterForm(form.Form):
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
-    
     ignoreContext = True
 
     @property
@@ -78,8 +77,8 @@ class SendAsNewsletterForm(form.Form):
             channel_paths, context_path, include_collector_items)
         title = _(u'Send "${context}" through ${channels}.',
                   mapping=dict(
-            context=self.context.Title(),
-            channels=', '.join(['"%s"' % c.title for c in channels])))
+            context=self.context.Title().decode(self.context.plone_utils.getSiteEncoding()),
+            channels=u', '.join([u'"%s"' % c.title for c in channels])))
         job.title = title
         utils.get_queue().pending.append(job)
 
