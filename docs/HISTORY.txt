@@ -1,8 +1,28 @@
 History
 =======
 
-Version 0.8.3 - Unreleased
+Version 0.8.4 - Unreleased
 --------------------------
+
+Version 0.8.3 - 2008-12-03
+--------------------------
+
+- fixes issue with unicodeerrors on statistics page because of bad Job-messages. 
+  Described in https://bugs.launchpad.net/singing-dancing/+bug/299950
+  [tmog]
+
+- Part of Czech translation.  
+  [naro]
+
+- Improved block structure and added classes and ids. Replaced paras with divs. 
+  These changes will impact existing CSS.  [russf]
+
+- Use of ``Template().substitute`` will be fatal on any un-escaped where $ will 
+  occur - like on all recent news items :( safe_substitute behaves properly in 
+  these cirumstances.  [russf]
+
+- Some refactoring in order to allow for more customized subscription forms.
+  [nouri]
 
 - Added french translation.
 
