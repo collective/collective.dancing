@@ -1,11 +1,14 @@
 import copy_reg
 import persistent
 import zc.queue
+import logging
 
 import collective.singing.channel
 import collective.singing.subscribe
 import collective.dancing.composer
+from collective.singing.queue import CompositeQueue
 
+logger = logging.getLogger('collective.dancing')
 safe_reconstructor = copy_reg._reconstructor
 
 def _reconstructor(cls, base, state):
@@ -50,3 +53,22 @@ def reindex_subscriptions(tool):
     for channel in collective.singing.channel.channel_lookup():
         for sub in channel.subscriptions.values():
             collective.singing.subscribe._catalog_subscription(sub)
+
+def upgrade_to_singing_compositequeue(tool):
+    """collective.singing.message.MessageQueues used to store messages
+    in zc.queue.CompositeQueue objects, which are inefficient when counting
+    items in a large queue, because it needs to access many persistent sub-
+    queues.
+    This upgrade modifies existing instances of MessageQueues to use
+    collective.singing.message.CompositeQueue instead."""
+    for channel in collective.singing.channel.channel_lookup():
+        logger.info("Updating queues in %s to singing CompositeQueue" % channel.name)
+        for key in channel.queue.keys():
+            if isinstance(channel.queue[key], CompositeQueue):
+                continue
+            new = CompositeQueue()
+            for item in channel.queue[key]:
+                new.put(item)
+            channel.queue[key] = new
+        logger.info("Updated queues in %s to singing CompositeQueue" % channel.name)
+

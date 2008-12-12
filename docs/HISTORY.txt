@@ -4,6 +4,12 @@ History
 Version 0.8.4 - Unreleased
 --------------------------
 
+- Added upgradestep to migrate existing MessageQueues to
+  collective.singing.queue.CompositeQueue.
+  This fixes slow iteration over large queues and
+  extremely slow rendering of the staticstics page.
+  [tmog]
+
 Version 0.8.3 - 2008-12-03
 --------------------------
 
