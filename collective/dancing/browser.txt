@@ -413,6 +413,44 @@ Cleanup: remove subscriptions
   >>> for subscription in subs:
   ...       my_channel.subscriptions.remove_subscription(subscription)
 
+zexp import and export
+----------------------
+
+S&D has experimental support for export and import of the
+``portal_newsletters`` folder through the ZMI.
+
+Setup
+~~~~~
+
+  >>> import tempfile
+  >>> fn = tempfile.mktemp()
+
+  >>> import transaction
+  >>> ignore = transaction.savepoint()
+
+Export
+~~~~~~
+
+  >>> portal.portal_newsletters.objectIds()
+  ['channels', 'collectors']
+  >>> exported = portal.portal_newsletters.manage_exportObject(download=True)
+  >>> f = open(fn, 'wb')
+  >>> f.write(exported)
+  >>> f.close()
+
+Import
+~~~~~~
+
+  >>> portal.manage_delObjects('portal_newsletters')
+  >>> portal._importObjectFromFile(fn)
+  >>> portal.portal_newsletters.objectIds()
+  ['channels', 'collectors']
+
+Teardown
+~~~~~~~~
+
+  >>> import os
+  >>> os.unlink(fn)
 
 Stats
 -----
@@ -1237,6 +1275,7 @@ have taken effect.
   >>> "1 message(s) queued" in browser.contents
   True
 
+  >>> channel = portal.portal_newsletters.channels['my-other-channel']
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *TestingMailDelivery sending*:
   ...Our little header...Welcome to Plone...Our little footer...

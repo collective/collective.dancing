@@ -29,11 +29,14 @@ def portal_newsletters():
     if root is None:
         return []
     root = collective.dancing.utils.fix_request(root, 0)
-    channels = root['portal_newsletters']['channels'].objectValues()
-    security = AccessControl.getSecurityManager()
-    return [c for c in channels if \
-            security.checkPermission('View', c) and \
-            collective.singing.interfaces.IChannel.providedBy(c)]
+    if 'portal_newsletters' in root.objectIds():
+        channels = root['portal_newsletters']['channels'].objectValues()
+        security = AccessControl.getSecurityManager()
+        return [c for c in channels if
+                security.checkPermission('View', c) and
+                collective.singing.interfaces.IChannel.providedBy(c)]
+    else:
+        return []
 
 interface.directlyProvides(portal_newsletters,
                            collective.singing.interfaces.IChannelLookup)
@@ -97,8 +100,9 @@ class ChannelContainer(OFS.Folder.Folder):
 @component.adapter(IChannelContainer,
                    zope.app.container.interfaces.IObjectAddedEvent)
 def channels_added(container, event):
-    default_channel = Channel('default-channel', title=_(u"Newsletter"))
-    container['default-channel'] = default_channel
+    if 'default-channel' not in container.objectIds():
+        default_channel = Channel('default-channel', title=_(u"Newsletter"))
+        container['default-channel'] = default_channel
 
 class Channel(OFS.SimpleItem.SimpleItem):
     """

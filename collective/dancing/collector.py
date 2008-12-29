@@ -49,6 +49,8 @@ class CollectorContainer(OFS.Folder.Folder):
                    zope.app.container.interfaces.IObjectAddedEvent)
 def container_added(container, event):
     name = 'default-latest-news'
+    if name in container.objectIds():
+        return
     container[name] = Collector(
         name, u"Latest news")
     topic = container[name].objectValues()[0]

@@ -4,6 +4,8 @@ History
 Version 0.8.4 - Unreleased
 --------------------------
 
+- Add experimental support for zexp. [nouri]
+
 - Added upgradestep to migrate existing MessageQueues to
   collective.singing.queue.CompositeQueue.
   This fixes slow iteration over large queues and
@@ -13,7 +15,7 @@ Version 0.8.4 - Unreleased
 Version 0.8.3 - 2008-12-03
 --------------------------
 
-- fixes issue with unicodeerrors on statistics page because of bad Job-messages. 
+- Fix issue with unicodeerrors on statistics page because of bad Job-messages. 
   Described in https://bugs.launchpad.net/singing-dancing/+bug/299950
   [tmog]
 
