@@ -446,8 +446,8 @@ Import
   >>> portal.portal_newsletters.objectIds()
   ['channels', 'collectors']
 
-Teardown
-~~~~~~~~
+Cleanup
+~~~~~~~
 
   >>> import os
   >>> os.unlink(fn)
@@ -674,6 +674,7 @@ Using a scheduler to send e-mails
 
 The scheduler for our channel is the weekly scheduler:
 
+  >>> channel = portal.portal_newsletters.channels['my-other-channel']
   >>> channel.scheduler
   <WeeklyScheduler at /plone/portal_newsletters/channels/my-other-channel/scheduler>
 
@@ -740,8 +741,8 @@ when it queued something the last time:
 Secondly, all our subscriptions have a "cue" set, which marks the time
 when they last received an item:
 
-  >>> [s.metadata['cue'] for s in channel.subscriptions.values()] \
-  ... # doctest: +ELLIPSIS
+  >>> subscriptions = channel.subscriptions.values()
+  >>> [s.metadata['cue'] for s in subscriptions] # doctest: +ELLIPSIS
   [DateTime(...), DateTime(...), DateTime(...)]
 
 We have to reset *both* the cues and the ``triggered_last`` time for
@@ -1275,7 +1276,6 @@ have taken effect.
   >>> "1 message(s) queued" in browser.contents
   True
 
-  >>> channel = portal.portal_newsletters.channels['my-other-channel']
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *TestingMailDelivery sending*:
   ...Our little header...Welcome to Plone...Our little footer...

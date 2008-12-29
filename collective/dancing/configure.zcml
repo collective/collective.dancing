@@ -45,6 +45,7 @@
   <utility component=".channel.portal_newsletters" name="portal-newsletters" />
   <subscriber handler=".channel.tool_added" />
   <subscriber handler=".channel.channels_added" /> 
+  <subscriber handler=".channel.channel_added" /> 
   <subscriber handler=".channel.collector_removed" /> 
   <subscriber handler="collective.singing.subscribe.subscription_added" />
   <subscriber handler="collective.singing.subscribe.subscription_modified" />

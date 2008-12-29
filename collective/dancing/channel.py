@@ -16,6 +16,7 @@ import Products.CMFPlone.interfaces
 import collective.singing.interfaces
 import collective.singing.message
 import collective.singing.channel
+import collective.singing.subscribe
 import collective.dancing.collector
 import collective.dancing.composer
 import collective.dancing.subscribe
@@ -78,9 +79,9 @@ def tool_added(tool, event):
             tool[name] = factory(name)
 
     # Create and register salt
-    salt = Salt()
-    sm = zope.component.getSiteManager(tool)
+    salt = getattr(aq_base(tool), 'salt', Salt())
     tool.salt = salt
+    sm = zope.component.getSiteManager(tool)
     sm.registerUtility(salt, collective.singing.interfaces.ISalt)
 
 class IChannelContainer(interface.Interface):
@@ -144,6 +145,28 @@ class Channel(OFS.SimpleItem.SimpleItem):
 
     def Title(self):
         return self.title
+
+@component.adapter(Channel,
+                   zope.app.container.interfaces.IObjectAddedEvent)
+def channel_added(channel, event):
+    # We'll take extra care that when we're imported through the ZMI,
+    # we update things to keep everything up to date:
+    channel.subscriptions._catalog.clear()
+    
+    for subscription in channel.subscriptions.values():
+        # Let's make sure that ``subscription.channel`` refers to the
+        # channel:
+        if aq_base(subscription.channel) is not aq_base(channel):
+            subscription.channel = channel
+
+        # The secret may have changed:
+        composer = channel.composers[subscription.metadata['format']]
+        secret = composer.secret(subscription.composer_data)
+        if subscription.secret != secret:
+            subscription.secret = secret
+
+        # This will finally catalog the subscription:
+        collective.singing.subscribe.subscription_added(subscription, None)
 
 @component.adapter(collective.singing.interfaces.ICollector,
                    zope.app.container.interfaces.IObjectRemovedEvent)
