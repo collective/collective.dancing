@@ -379,6 +379,35 @@ We upload a list of subscribers from a csv-file.
   >>> len(my_channel.subscriptions.query(key=u'pia@localhost'))
   1
 
+We upload a list of subscribers from a csv-file, with a header line and 
+extra data for the composer
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> browser.getLink(url='http://nohost/plone/portal_newsletters/channels/my-other-channel').click()
+
+  >>> my_channel = collective.singing.channel.lookup('my-other-channel')
+  >>> len(my_channel.subscriptions.query(key=u'pengo@localhost'))
+  0 
+
+  >>> import cStringIO
+  >>> ctrl = browser.getControl(name='crud-add.html.widgets.subscriberdata')
+  >>> ctrl
+  <Control name='crud-add.html.widgets.subscriberdata' type='file'>
+  >>> fil='colour,animal,email\nred,goat,pengo@localhost\nblue,pig,pia@localhost'
+  >>> ctrl.add_file(cStringIO.StringIO(fil), 'text/plain', 'test.txt')
+
+This time we tell it there's a header row
+
+  >>> btn = browser.getControl(name='crud-add.html.widgets.header_row_present:list')
+  >>> btn.value = ['true']  
+  
+  >>> browser.getControl('Upload').click()
+  >>> '2 subscriptions updated successfully' in browser.contents
+  True
+  
+  >>> len(my_channel.subscriptions.query(key=u'pengo@localhost'))
+  1
+    
 We upload a list of subscribers with valid and invalid email addresses
 
   >>> ctrl = browser.getControl(name='crud-add.html.widgets.subscriberdata')
@@ -410,6 +439,9 @@ Cleanup: remove subscriptions
   >>> for subscription in subs:
   ...       my_channel.subscriptions.remove_subscription(subscription)
   >>> subs = my_channel.subscriptions.query(key=u'lars@localhost')
+  >>> for subscription in subs:
+  ...       my_channel.subscriptions.remove_subscription(subscription)
+  >>> subs = my_channel.subscriptions.query(key=u'pengo@localhost')
   >>> for subscription in subs:
   ...       my_channel.subscriptions.remove_subscription(subscription)
 
