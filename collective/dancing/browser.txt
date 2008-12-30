@@ -1256,9 +1256,9 @@ with ``${item0_title}``.  This will be replaced with the title of the
 content that we're sending out:
 
   >>> browser.getControl(name='composers.html.widgets.header_text').value = \
-  ... 'Our little header'
+  ... 'Our little heäder'
   >>> browser.getControl(name='composers.html.widgets.footer_text').value = \
-  ... 'Our little footer'
+  ... 'Our little fööter'
   >>> browser.getControl("Message subject").value = '${item0_title}'
   >>> browser.getControl('Save').click()
   >>> 'Data successfully updated.' in browser.contents
@@ -1278,7 +1278,8 @@ have taken effect.
 
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *TestingMailDelivery sending*:
-  ...Our little header...Welcome to Plone...Our little footer...
+  ...Our little he=C3=83=C2=A4der...Welcome to Plone...
+  ...Our little f=C3=83=C2=B6=C3=83=C2=B6ter...
   (1, 0)
 
   >>> msg = quopri.decodestring(delivery.sent[-1])
