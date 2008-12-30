@@ -286,7 +286,14 @@ class HTMLComposer(persistent.Persistent):
         return collective.singing.message.Message(
             message, subscription, status=None)
 
-plone_html_strip_not_likey = [{'id': 'review-history'}]
+plone_html_strip_not_likey = [
+    {'id': 'review-history'},
+    {'class':'documentActions'},
+    {'class':'portalMessage'},
+    {'id':'plone-document-byline'},
+    {'id':'portlets-below'},
+    {'id':'portlets-above'},
+    ]
 def plone_html_strip(html, not_likey=plone_html_strip_not_likey):
     r"""Tries to strip the relevant parts from a Plone HTML page.
 

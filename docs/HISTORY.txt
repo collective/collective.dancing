@@ -4,6 +4,10 @@ History
 Version 0.8.4 - Unreleased
 --------------------------
 
+- Added some sensible defaults to
+  ``collective.dancing.composer.plone_html_strip`` so that key html is
+  filtered out. [pigeonflight]
+
 - Add experimental support for zexp. [nouri]
 
 - Added upgradestep to migrate existing MessageQueues to
