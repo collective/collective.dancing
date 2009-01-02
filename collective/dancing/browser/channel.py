@@ -56,7 +56,7 @@ schedulers = [
     simpleitem_wrap(klass, 'scheduler')
     for klass in collective.singing.scheduler.schedulers]
     
-csv_delimiter = ";"
+csv_delimiter = ","
 
 class FactoryChoice(schema.Choice):
     def _validate(self, value):
@@ -377,7 +377,9 @@ class EditChannelForm(z3c.form.form.EditForm):
         return fields
 
 
-def parseSubscriberCSVFile(subscriberdata, composer):
+def parseSubscriberCSVFile(subscriberdata, composer, 
+                           header_row_present=False,
+                           delimiter=csv_delimiter):
     """parses file containing subscriber data
 
     returns list of dictionaries with subscriber data according to composer"""
@@ -386,15 +388,21 @@ def parseSubscriberCSVFile(subscriberdata, composer):
                                                      'utf-8').upper()    
     try:
         data = cStringIO.StringIO(subscriberdata)
-        reader = csv.reader(data, delimiter = csv_delimiter)
+        reader = csv.reader(data, delimiter=str(delimiter))
         subscriberslist = []
         errorcandidates = []
-        for parsedline in reader:
-            if len(parsedline)<len(field.Fields(composer.schema)):
+        for index, parsedline in enumerate(reader):
+            if index == 0:
+                if header_row_present:
+                    fields = parsedline
+                    continue
+                else:
+                    fields = field.Fields(composer.schema).keys()
+            if len(parsedline)<len(fields):
                 pass
             else:
                 try:
-                    subscriber = dict(zip(field.Fields(composer.schema).keys(),\
+                    subscriber = dict(zip(fields,\
                        map(lambda x:x.decode(charset), parsedline)))
                     check_email(subscriber['email'])
                 except:
@@ -402,8 +410,8 @@ def parseSubscriberCSVFile(subscriberdata, composer):
                 else:
                     subscriberslist.append(subscriber)
         return subscriberslist, errorcandidates
-    except:
-        return _(u"Error importing subscriber file."), []
+    except Exception, e:
+        return _(u"Error importing subscriber file. %s" % e), []
 
 class ExportCSV(BrowserView):
 
@@ -450,7 +458,22 @@ class UploadForm(crud.AddForm):
                           u"the subscriber will be removed from the list."),
             default = False
         ) 
-        return field.Fields(subscriberdata, remove)
+        header_row_present = schema.Bool(__name__ = 'header_row_present',
+            title=_(u"CSV contains a header row"),
+            description=_(u"Select this if you want to use the csv "
+                          u"header row to designate document variables."
+                          u"The header row must contain one 'email' field."),
+            default = False
+        ) 
+        csv_delimiter = schema.TextLine(__name__ = 'csv_delimiter',
+            title=_(u"CSV delimiter"),
+            description=_(u"The delimiter in your CSV file. "
+                          u"(Usually ',' or ';', but no quotes are necessary.)"),
+            default = u','
+        ) 
+
+        return field.Fields(subscriberdata, remove, 
+                            header_row_present, csv_delimiter)
    
     @property
     def mychannel(self):
@@ -494,12 +517,16 @@ class UploadForm(crud.AddForm):
 
         subscriberdata = data.get('subscriberdata', None)
         remove = data.get('removenonexisting', False)
+        header_row_present = data.get('header_row_present', False)
+        delimiter = data.get('csv_delimiter', csv_delimiter)
         if subscriberdata is None: 
-            return _(u"File was not given.")        
+            return _(u"File was not given.")    
         subscribers, errorcandidates = parseSubscriberCSVFile(subscriberdata, 
-                                                          self.context.composer)
+                                self.context.composer, 
+                                header_row_present=header_row_present,
+                                delimiter=delimiter)
         if not type(subscribers)==type([]):
-            return _(u"File has not correct format.")
+            return _(u"File has incorrect format.")
         added = 0
         new_and_updated = []
         notadded = len(errorcandidates)

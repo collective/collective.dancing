@@ -127,6 +127,7 @@ class HTMLComposer(persistent.Persistent):
         if not isinstance(mail, unicode):
             # mail has to be be ASCII!!
             mail = mail.decode(charset).encode('us-ascii', 'replace')
+            #TODO : assert that mail is now valid. (could have '?' from repl.)
 
         return formataddr((str(Header(name, charset)), mail))
 
@@ -206,6 +207,8 @@ class HTMLComposer(persistent.Persistent):
         vars = {}
         vars[template_var('secret')] = self.secret(subscription.composer_data)
         vars[template_var('to_addr')] = subscription.composer_data['email']
+        for k, v in subscription.composer_data.items():
+            vars[template_var(k)] = v
         return vars
 
     @volatile.cache(_render_cachekey)

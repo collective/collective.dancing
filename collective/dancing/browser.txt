@@ -379,7 +379,59 @@ We upload a list of subscribers from a csv-file.
   >>> len(my_channel.subscriptions.query(key=u'pia@localhost'))
   1
 
-We upload a list of subscribers with valid and invalid email addresses
+We upload a list of subscribers from an extended csv-file, containing a 
+header line and extra columns to be included in the composer.
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> browser.getLink(url='http://nohost/plone/portal_newsletters/channels/my-other-channel').click()
+
+  >>> my_channel = collective.singing.channel.lookup('my-other-channel')
+  >>> len(my_channel.subscriptions.query(key=u'pengo@localhost'))
+  0 
+
+  >>> import cStringIO
+  >>> ctrl = browser.getControl(name='crud-add.html.widgets.subscriberdata')
+  >>> ctrl
+  <Control name='crud-add.html.widgets.subscriberdata' type='file'>
+  >>> fil='Colour,Animal,email\nred,fox,pengo@localhost\npink,pig,pia@localhost'
+  >>> ctrl.add_file(cStringIO.StringIO(fil), 'text/plain', 'test.txt')
+
+This time we signify there's a header row
+
+  >>> btn = browser.getControl(name='crud-add.html.widgets.header_row_present:list')
+  >>> btn.value = ['true']  
+  
+  >>> browser.getControl('Upload').click()
+  >>> '2 subscriptions updated successfully' in browser.contents
+  True
+  
+  >>> len(my_channel.subscriptions.query(key=u'pengo@localhost'))
+  1
+  
+Since pengo was one of the imported subscriptions, let's check that
+pengo has the correct values for the csv variables
+
+  >>> resultSet = my_channel.subscriptions.query(key=u'pengo@localhost')
+  >>> subscriber = [i for i in resultSet][0]
+  >>> composer_data = subscriber.composer_data
+  >>> [composer_data[k] for k in sorted(composer_data)]
+  [u'fox', u'red', u'pengo@localhost']
+
+Now let's compose an HTML message to ensure that the variables pass from
+end-to-end
+
+  >>> composer = my_channel.composers['html']
+  >>> text=('${composervariableAnimal} is ${composervariableColour}\n',)
+  >>> msg = composer.render(subscriber, items=zip(text, text))
+  >>> from collective.dancing.tests import decodeMessageAsString
+  >>> 'fox is red' in decodeMessageAsString(msg.payload) 
+  True
+
+  >>> my_channel.queue['new'].pull() # doctest: +ELLIPSIS
+  <collective.singing.message.Message object ...>
+  
+We upload a list of subscribers with valid and invalid email
+addresses:
 
   >>> ctrl = browser.getControl(name='crud-add.html.widgets.subscriberdata')
   >>> ctrl.add_file(cStringIO.StringIO('pia@localhost\nlars'),
@@ -410,6 +462,9 @@ Cleanup: remove subscriptions
   >>> for subscription in subs:
   ...       my_channel.subscriptions.remove_subscription(subscription)
   >>> subs = my_channel.subscriptions.query(key=u'lars@localhost')
+  >>> for subscription in subs:
+  ...       my_channel.subscriptions.remove_subscription(subscription)
+  >>> subs = my_channel.subscriptions.query(key=u'pengo@localhost')
   >>> for subscription in subs:
   ...       my_channel.subscriptions.remove_subscription(subscription)
 
