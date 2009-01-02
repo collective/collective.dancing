@@ -414,7 +414,7 @@ pengo has the correct values for the csv variables
   >>> resultSet = my_channel.subscriptions.query(key=u'pengo@localhost')
   >>> subscriber = [i for i in resultSet][0]
   >>> composer_data = subscriber.composer_data
-  >>> [data[k] for k in sorted(composer_data)]
+  >>> [composer_data[k] for k in sorted(composer_data)]
   [u'fox', u'red', u'pengo@localhost']
 
 Now let's compose an HTML message to ensure that the variables pass from
