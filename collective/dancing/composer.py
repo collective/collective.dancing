@@ -207,9 +207,8 @@ class HTMLComposer(persistent.Persistent):
         vars = {}
         vars[template_var('secret')] = self.secret(subscription.composer_data)
         vars[template_var('to_addr')] = subscription.composer_data['email']
-        if hasattr(subscription.composer_data, 'data'):
-            for k, v in subscription.composer_data.data.items():
-                vars[template_var(k)] = v
+        for k, v in subscription.composer_data.items():
+            vars[template_var(k)] = v
         return vars
 
     @volatile.cache(_render_cachekey)
