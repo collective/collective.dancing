@@ -6,6 +6,7 @@ Thanks to the following people for support, code, patches, etc:
   - Alec Mitchell
   - Anton Stonor
   - Daniel Widerin
+  - David Bain
   - David Pico
   - Giuseppe Zizza
   - Jakob Bartholdy Bruun
@@ -14,6 +15,7 @@ Thanks to the following people for support, code, patches, etc:
   - Malthe Borch
   - Maurizio Delmonte
   - Peter Holzer
+  - Radim Novotny
   - Ross Patterson
   - Russ Ferriday
   - Sune Toft
