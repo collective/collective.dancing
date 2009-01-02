@@ -428,15 +428,11 @@ end-to-end
   >>> 'fox is red' in decodeMessageAsString(msg.payload) 
   True
 
-  >>> my_channel.queue.clear()
+  >>> my_channel.queue['new'].pull() # doctest: +ELLIPSIS
+  <collective.singing.message.Message object ...>
   
-ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-WHY is the message generated above inserted into the result of the test below that 
-expects "Sending u'Hello, World!" as result??
-The clear, above, does not help.
-ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-    
-We upload a list of subscribers with valid and invalid email addresses
+We upload a list of subscribers with valid and invalid email
+addresses:
 
   >>> ctrl = browser.getControl(name='crud-add.html.widgets.subscriberdata')
   >>> ctrl.add_file(cStringIO.StringIO('pia@localhost\nlars'),
