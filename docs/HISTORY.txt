@@ -1,12 +1,16 @@
 History
 =======
 
-Version 0.8.5 - Unreleased
+Version 0.8.6 - Unreleased
 --------------------------
 
-- Extended the CVS input of subscribers to allow arbitrary CVS fields 
-  to be stored as part of the subscriptions, and then included in the 
-  composer output using the ${composervariableFIELDNAME1} syntax. [russf]
+Version 0.8.5 - 2009-01-05
+--------------------------
+
+- Extended the CVS input of subscribers to allow arbitrary CVS fields
+  to be stored as part of the subscriptions, and then included in the
+  composer output using the ``${composervariableFIELDNAME1}``
+  syntax. [russf]
 
 Version 0.8.4 - 2009-01-02
 --------------------------
