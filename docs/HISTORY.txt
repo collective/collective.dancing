@@ -4,6 +4,11 @@ History
 Version 0.8.6 - Unreleased
 --------------------------
 
+- Exclude all markup with class ``newsletterExclude`` when sending out
+  mail.  This allows for a lo-fi way of marking parts of your template
+  for exclusion if you can't be bothered to write your own
+  ``IFormatItem``.
+
 Version 0.8.5 - 2009-01-05
 --------------------------
 
