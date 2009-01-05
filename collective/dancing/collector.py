@@ -168,8 +168,8 @@ class Collector(OFS.Folder.Folder):
         query_args = {}
         if cue is not None and topic.hasSortCriterion():
             sort_criterion = topic.getSortCriterion()
-            query_args[str(sort_criterion.field)] = dict(
-                query=cue, range='min')
+            fname = str(sort_criterion.field)
+            query_args[fname] = sort_criteria[fname](cue)
         return topic.queryCatalog(full_objects=True, **query_args)
         
     def get_optional_collectors(self):
@@ -234,3 +234,8 @@ def sfc_added(sfc, event):
 # These lists of factories are mutable: You can add to them:
 collectors = [Collector, TextCollector, ReferenceCollector]
 standalone_collectors = [Collector]
+
+sort_criteria = dict(
+     created   =  lambda cue: dict(query=cue, range='min'),
+     effective =  lambda cue: dict(query=(cue, DateTime.DateTime()), range='minmax')
+     )
