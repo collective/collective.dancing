@@ -4,6 +4,9 @@ History
 Version 0.8.7 - Unreleased
 --------------------------
 
+- Fix #313044: Don't mess up ``javascript:`` links when making
+  absolute links out of relative ones. [nouri]
+
 Version 0.8.6 - 2009-01-20
 --------------------------
 

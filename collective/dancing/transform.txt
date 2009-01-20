@@ -59,6 +59,11 @@ Links starting with a ``mailto:`` won't be touched:
   >>> url('<a href="mailto:daniel@localhost">Contact me</a>', None)
   '<a href="mailto:daniel@localhost">Contact me</a>'
 
+Same for ``javascript:`` links:
+
+  >>> url('<a href="javascript:this.print();">Print this page</a>', None)
+  '<a href="javascript:this.print();">Print this page</a>'
+
 The URL transform's other feature is that it allows us to replace
 certain URLs with others.  This usually means replacing non-public
 facing URLs with their public facing equivalents.
