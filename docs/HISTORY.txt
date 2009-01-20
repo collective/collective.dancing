@@ -1,7 +1,10 @@
 History
 =======
 
-Version 0.8.6 - Unreleased
+Version 0.8.7 - Unreleased
+--------------------------
+
+Version 0.8.6 - 2009-01-20
 --------------------------
 
 - Fix #318725: Don't mess up ``mailto:`` links when making absolute
