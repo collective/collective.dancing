@@ -32,7 +32,7 @@ class URL(object):
 
     def __call__(self, text, subscription):
         root_exp = re.compile('^/')
-        relative_exp = re.compile('^(?!(\w+://|/))')
+        relative_exp = re.compile('^(?!(\w+://|mailto:|/))')
         alias_exp = re.compile('|'.join(self.aliases), re.IGNORECASE)
         soup = BeautifulSoup(text, fromEncoding='UTF-8') # hmm
         curl = self.context.absolute_url()

@@ -54,6 +54,11 @@ Relative links will be transformed into absolute ones correctly:
   >>> url('<a href="/archive/">Archive</a>', None)
   '<a href="http://xkcd.com/archive/">Archive</a>'
 
+Links starting with a ``mailto:`` won't be touched:
+
+  >>> url('<a href="mailto:daniel@localhost">Contact me</a>', None)
+  '<a href="mailto:daniel@localhost">Contact me</a>'
+
 The URL transform's other feature is that it allows us to replace
 certain URLs with others.  This usually means replacing non-public
 facing URLs with their public facing equivalents.

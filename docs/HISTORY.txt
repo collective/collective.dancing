@@ -4,10 +4,13 @@ History
 Version 0.8.6 - Unreleased
 --------------------------
 
+- Fix #318725: Don't mess up ``mailto:`` links when making absolute
+  links out of relative ones.  Thanks to Scribbles. [nouri]
+
 - Exclude all markup with class ``newsletterExclude`` when sending out
   mail.  This allows for a lo-fi way of marking parts of your template
   for exclusion if you can't be bothered to write your own
-  ``IFormatItem``.
+  ``IFormatItem``. [nouri]
   
 - Added sort_criteria dict to the collector module. It allows to specify
   different query based on the current cue for different sort criteria.
