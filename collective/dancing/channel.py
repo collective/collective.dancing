@@ -151,9 +151,10 @@ class Channel(OFS.SimpleItem.SimpleItem):
 def channel_added(channel, event):
     # We'll take extra care that when we're imported through the ZMI,
     # we update things to keep everything up to date:
-    channel.subscriptions._catalog.clear()
+    subscriptions = collective.singing.subscribe.subscriptions_data(channel)
+    subscriptions._catalog.clear()
     
-    for subscription in channel.subscriptions.values():
+    for subscription in subscriptions.values():
         # Let's make sure that ``subscription.channel`` refers to the
         # channel:
         if aq_base(subscription.channel) is not aq_base(channel):
