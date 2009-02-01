@@ -1,8 +1,13 @@
 History
 =======
 
+Version 0.8.9 - Unreleased
+--------------------------
+
 Version 0.8.8 - Unreleased
 --------------------------
+
+- Fix a dependency issue with collective.singing. [nouri]
 
 Version 0.8.7 - 2009-02-01
 --------------------------
