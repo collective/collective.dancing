@@ -106,6 +106,10 @@ Troubleshooting
 
 Should the above instructions not work for you, `contact us`_.
 
+**NOTE**: If you're upgrading your buildout from an older version
+where you included version dependencies of S&D by hand, remove the
+``develop-eggs`` directory inside your buildout and re-run buildout.
+
 Here's a list of the most common stumbling blocks:
 
    - `ValueError: too many values to unpack <https://bugs.launchpad.net/singing-dancing/+bug/253377>`_
