@@ -55,63 +55,56 @@ guide you through the steps necessary to get you set up and dancing!
 Installation
 ============
 
-Singing & Dancing is available as `Python eggs on PyPI`_.  To install,
-you can simply depend_ on the ``collective.dancing`` package in your
-own site policy package, and add *fake zope eggs* to your zope2
-install section in your buildout_ configuration, as explained below.
-
-Alternatively, add ``collective.dancing`` to the list of eggs in your
-``buildout.cfg`` if you don't have your own package.  This is what we
-explain below.
-
-Installing S&D with Buildout
-----------------------------
-
-If you don't know what buildout is or `how to create a buildout`_,
-`follow this tutorial`_ first.
+Installation of Singing & Dancing uses buildout_.  If you don't know
+what buildout is or `how to create a buildout`_, `follow this
+tutorial`_ first.
 
 These instructions assume that you already have a Plone 3 buildout
 that's built and ready to run.
 
-1) Edit your buildout.cfg file and look for the ``eggs`` key in the
-   ``[instance]`` section.  Add ``collective.dancing`` to that list.
-   Your list will look something like this::
+Singing & Dancing is available as `Python eggs on PyPI`_.  To install,
+you can simply depend_ on the ``collective.dancing`` package in your
+own site policy package, and add a ``extends =`` line into the
+``[buildout]`` section of your buildout configuration, like this::
 
-     eggs =
-         ${buildout:eggs}
-         ${plone:eggs}
-         collective.dancing
+  [buildout]
+  extends = https://svn.plone.org/svn/collective/collective.dancing/buildout-extends/0.8.7.cfg
+  parts =
+      zope2
+      plone
+      ...
 
-   In the same section, look for the ``zcml`` key.  Add
-   ``collective.dancing`` here, too::
+If you're not developing your own package that depends on
+``collective.dancing``, simply put a dependency on
+``collective.dancing`` to the ``eggs`` and ``zcml`` options of your
+``[instance]`` section, which is the section that uses the
+``plone.recipe.zope2instance`` recipe.  Your ``[instance]`` section
+might then look like this::
 
-     zcml = collective.dancing
+  [instance]
+  recipe = plone.recipe.zope2instance
+  zope2-location = ${zope2:location}
+  user = admin:admin
+  eggs =
+      ${buildout:eggs}
+      ${plone:eggs}
+      collective.dancing
+  zcml =
+      collective.dancing
 
-2) Still in your buildout configuration file, look for the ``[zope2]``
-   section (which uses the ``plone.recipe.zope2install`` recipe), and
-   add the following lines to it::
+When you're done editing your buildout configuration, don't forget to
+run your buildout again before you start up Zope::
 
-     fake-zope-eggs = true
-     additional-fake-eggs = ZODB3
-     skip-fake-eggs =
-         zope.testing
-         zope.component
-         zope.i18n
-         zope.sendmail
+  $ ./bin/buildout -v
 
-3) Now that we're done editing the buildout configuration file, we can
-   run buildout again::
-
-     $ ./bin/buildout -v
-
-4) That's it!  You can now start up your Zope instance, and then
-   install Singing & Dancing in your Plone site by visiting the
-   *Add-on Products* site control panel.
+That's it!  You can now start up your Zope instance, and then install
+Singing & Dancing in your Plone site by visiting the *Add-on Products*
+site control panel.
 
 Troubleshooting
 ---------------
 
-Should these instructions not work for you, `contact us`_.
+Should the above instructions not work for you, `contact us`_.
 
 Here's a list of the most common stumbling blocks:
 
@@ -186,8 +179,6 @@ the zope.conf clock server configuration would be ::
         password admin
       </clock-server>
 
-    
-
 This will process the message queue every five minutes.  It assumes
 that your Plone site's ID is ``portal``, that your username and
 password are ``admin``, and that your site is called
@@ -218,7 +209,6 @@ If you're upgrading your version of Singing & Dancing, it might be
 that you need to run an upgrade of the database.  In the
 ``portal_setup`` tool in the ZMI, visit the *Upgrades* tab and run any
 available new upgrades for the ``collective.dancing:default`` profile.
-
 
 Contact us
 ==========
