@@ -1,8 +1,13 @@
 History
 =======
 
-Version 0.8.7 - Unreleased
+Version 0.8.8 - Unreleased
 --------------------------
+
+Version 0.8.7 - 2009-02-01
+--------------------------
+
+- We now have much easier installation instructions. [nouri]
 
 - Fix #313044: Don't mess up ``javascript:`` links when making
   absolute links out of relative ones. [nouri]
