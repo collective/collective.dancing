@@ -219,9 +219,13 @@ class HTMLComposer(persistent.Persistent):
             **vars)
         return stoneagehtml.compactify(html).decode('utf-8')
 
-    def render(self, subscription, items=()):
+    def render(self, subscription, items=(), override_vars=None):
         vars = self._vars(subscription, items)
         subscription_vars = self._subscription_vars(subscription)
+
+        if override_vars is None:
+            override_vars = {}
+        vars.update(override_vars)
 
         html = self._render(vars, items)
         html = string.Template(html).safe_substitute(subscription_vars)

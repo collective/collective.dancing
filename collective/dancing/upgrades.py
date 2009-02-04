@@ -72,3 +72,21 @@ def upgrade_to_singing_compositequeue(tool):
             channel.queue[key] = new
         logger.info("Updated queues in %s to singing CompositeQueue" % channel.name)
 
+def upgrade_scheduled_sends(tool):
+    """ Upgrade already scheduled items in Timed Schedulers
+    to reflect code changes in 0.8.9.
+    I.e. scheduler.items is now a list of (when, content, override_vars)
+    instead of the previous (when, content)"""
+    for channel in collective.singing.channel.channel_lookup():
+        if isinstance(channel.scheduler,
+                      collective.singing.scheduler.TimedScheduler):
+            items = persistent.list.PersistentList()
+            for item in channel.scheduler.items:
+                try:
+                    when, content = item
+                    items.append((when, content, {}))
+                    logger.info('Upgrading scheduled item "%s" for channel "%s"' \
+                                % (item, channel.Title()))
+                except ValueError:
+                    items.append(item)
+            channel.scheduler.items = items

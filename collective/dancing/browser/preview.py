@@ -39,7 +39,11 @@ class PreviewSubscription(object):
 class PreviewNewsletterView(BrowserView):
     template = ViewPageTemplateFile("preview.pt")
     
-    def __call__(self, name=None, include_collector_items=False):
+    def __call__(self, name=None, include_collector_items=False, override_vars=None):
+
+        if override_vars is None:
+            override_vars = {}
+
         if IChannel.providedBy(self.context):
             channel = self.context
             items = ()
@@ -59,7 +63,8 @@ class PreviewNewsletterView(BrowserView):
             self.request,
             sub,
             items,
-            bool(include_collector_items))
+            bool(include_collector_items),
+            eval(override_vars))
 
         if message is None:
             IStatusMessage(self.request).addStatusMessage(

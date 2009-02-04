@@ -4,6 +4,19 @@ History
 Version 0.8.9 - Unreleased
 --------------------------
 
+- Added optional keyword argument 'override_vars' to Composer.render.
+  'override_vars' are now a override individual composer_vars from e.g.
+  the send-newsletter.html form.
+  I've included an example of this in the section "Customizing the
+  send as newsletter form" in browser.txt (and the new
+  send-newsletter-custom-subject.html view).
+  This is a pretty pervasive change since it needs to work with
+  asynchronous sending, email-previewing, browser-previewing, and with
+  scheduled delivery.
+  Also included is an upgradestep for migrating TimedSheduler.items
+  to the new format.
+  [tmog]
+
 Version 0.8.8 - 2009-02-01
 --------------------------
 
