@@ -1096,6 +1096,92 @@ When we now tick the scheduler, we expect mail to be sent out:
   ...Are you doing something interesting with Plone?...
   (3, 0)
 
+
+Customizing the send as newsletter form
+---------------------------------------
+
+It's easy to customize the sendnewsletter form to include overrides for
+the default composer values. 
+For example we could add a "subject" if we wanted to be able to force a certain subject
+for one send-out of a channel.
+There's an example of this in the send-newsletter-with-subject.html view.
+
+  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
+  >>> "Custom Subject" in browser.contents
+  False
+
+  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter-with-subject.html')
+  >>> "Custom Subject" in browser.contents
+  True
+  
+This form has a Custom Subject field, let's try filling it out and sending.
+
+So let's see if it works in all cases. First we do a normal, asynchronous send-out:
+  
+  >>> browser.getControl('My other channel').click()
+  >>> browser.getControl('Custom Subject').value = u'My new subject'
+  >>> browser.getControl('Send', index=0).click()
+  >>> "Messages queued for delivery" in browser.contents
+  True
+
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/tick_and_dispatch')
+  *TestingMailDelivery sending*:
+  ...
+  Subject: My new subject
+  ...
+
+As you can see the sent out mail has the subject we entered.
+
+Next we try sending a preview.
+
+  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter-with-subject.html')
+  >>> browser.getControl('My other channel').click()
+  >>> browser.getControl('Custom Subject').value = u'My new subject'
+  >>> browser.getControl('Address').value = u'root@localhost'
+  >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
+  >>> "1 message(s) queued" in browser.contents
+  True
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *TestingMailDelivery sending*:
+  ...
+  Subject: My new subject
+  ...
+  (1, 0)
+
+And an in-browser preview:
+
+  >>> browser.getControl('Show preview').click() # doctest: +ELLIPSIS
+  >>> "Previewing &quot;My other channel&quot;" in browser.contents
+  True
+  >>> '<title>My new subject</title>' in browser.contents
+  True
+
+And finally a scheduled send-out:
+
+  >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter-with-subject.html')
+
+  >>> browser.getControl("My other channel").click()
+  >>> browser.getControl('Custom Subject').value = u'My new subject'
+  >>> browser.getControl("Scheduled time").value = "6/10/08 11:00 AM"
+  >>> browser.getControl("Schedule distribution").click()
+  >>> "Successfully scheduled distribution" in browser.contents
+  True
+  >>> len(channel.scheduler.items)
+  1
+
+  >>> channel.scheduler.tick(channel, channel.REQUEST) # doctest: +ELLIPSIS
+  3
+  >>> len(channel.scheduler.items)
+  0
+  >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *TestingMailDelivery sending*:
+  ...
+  Subject: My new subject
+  ...
+  (3, 0)
+
+
+
 The "My subscriptions" page
 ---------------------------
 

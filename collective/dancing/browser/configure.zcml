@@ -194,6 +194,13 @@
      />
 
   <page
+     name="send-newsletter-with-subject.html"
+     for="*"
+     class=".sendnewsletter.SendAsNewsletterViewWithCustomSubject"
+     permission="dancing.SendAsNewsletter"
+     />
+
+  <page
      name="preview-newsletter.html"
      for="*"
      class=".preview.PreviewNewsletterView"

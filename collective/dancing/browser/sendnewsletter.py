@@ -1,4 +1,5 @@
 import datetime
+import urllib
 
 from zope import interface
 from zope import schema
@@ -36,7 +37,7 @@ class UIDResolver(object):
         rc = getToolByName(getSite(), 'reference_catalog')
         return FullFormatWrapper(rc.lookupObject(self.uid))
 
-def _assemble_messages(channel_paths, context_path, include_collector_items):
+def _assemble_messages(channel_paths, context_path, include_collector_items, form_vars={}):
     queued = 0
     site = getSite()
     request = site.REQUEST
@@ -45,7 +46,7 @@ def _assemble_messages(channel_paths, context_path, include_collector_items):
         channel = site.restrictedTraverse(path)
         assembler = collective.singing.interfaces.IMessageAssemble(channel)
         queued += assembler(
-            request, (FullFormatWrapper(context),), include_collector_items)
+            request, (FullFormatWrapper(context),), include_collector_items, form_vars)
         if channel.scheduler is not None and include_collector_items:
             channel.scheduler.triggered_last = datetime.datetime.now()
     return "%s message(s) queued for delivery." % queued
@@ -61,6 +62,19 @@ class SendAsNewsletterForm(form.Form):
             fields['datetime'].mode = z3c.form.interfaces.HIDDEN_MODE
         return fields
 
+    def get_form_vars(self):
+        form_vars = {}
+        data, errors = self.extractData()
+        if errors:
+            return
+
+        for field_name in self.fields.omit('channels', 'address', 'datetime',
+                                           'include_collector_items'):
+            if data[field_name] is not None:
+                form_vars[field_name] = data[field_name]
+
+        return form_vars
+        
     @button.buttonAndHandler(_('Send'), name='send')
     def handle_send(self, action):
         data, errors = self.extractData()
@@ -71,10 +85,11 @@ class SendAsNewsletterForm(form.Form):
         channel_paths = ['/'.join(c.getPhysicalPath()) for c in channels]
         context_path = '/'.join(self.context.getPhysicalPath())
         include_collector_items = data['include_collector_items']
+        form_vars = self.get_form_vars()
 
         job = collective.singing.async.Job(
             _assemble_messages,
-            channel_paths, context_path, include_collector_items)
+            channel_paths, context_path, include_collector_items, form_vars)
         title = _(u'Send "${context}" through ${channels}.',
                   mapping=dict(
             context=self.context.Title().decode(self.context.plone_utils.getSiteEncoding()),
@@ -98,12 +113,15 @@ class SendAsNewsletterForm(form.Form):
 
         name = tuple(channels)[0].name
         include_collector_items = data['include_collector_items']
+
+        params = {'name': name,
+                  'include_collector_items': int(bool(include_collector_items)),
+                  'form_vars': self.get_form_vars()}
         
         self.request.response.redirect(
             self.context.absolute_url()+\
-            '/preview-newsletter.html?name=%s&include_collector_items=%d' % \
-            (name, int(bool(include_collector_items))))
-
+            '/preview-newsletter.html?%s' % urllib.urlencode(params))
+            
     @button.buttonAndHandler(_('Send preview'), name='preview')
     def handle_preview(self, action):
         data, errors = self.extractData()
@@ -125,7 +143,8 @@ class SendAsNewsletterForm(form.Form):
                     self.request,
                     sub,
                     (FullFormatWrapper(self.context),),                
-                    include_collector_items)
+                    include_collector_items,
+                    self.get_form_vars())
                 if msg is not None:
                     queued += 1
 
@@ -143,6 +162,10 @@ class SendAsNewsletterForm(form.Form):
                              condition=lambda form:form._have_timed_scheduler())
     def handle_schedule(self, action):
         data, errors = self.extractData()
+        if errors:
+            self.status = form.EditForm.formErrorsMessage
+            return
+
         channels = data.get('channels', ())
         for channel in channels:
             if not isinstance(channel.scheduler,
@@ -158,11 +181,15 @@ class SendAsNewsletterForm(form.Form):
             # XXX: We want to get the UIDResolver through an adapter
             # in the future
             channel.scheduler.items.append((
-                data['datetime'], UIDResolver(self.context.UID())))
+                data['datetime'], UIDResolver(self.context.UID()),
+                self.get_form_vars()))
 
         self.status = _("Successfully scheduled distribution.")
 
 class SendAsNewsletterView(plone.z3cform.layout.FormWrapper):
+
+    form_class = SendAsNewsletterForm
+    
     def label(self):
         site_encoding = self.context.plone_utils.getSiteEncoding()
         return _(u'Send ${item} as newsletter',
@@ -171,4 +198,25 @@ class SendAsNewsletterView(plone.z3cform.layout.FormWrapper):
     def contents(self):
         z2.switch_on(self,
                      request_layer=collective.singing.interfaces.IFormLayer)
-        return SendAsNewsletterForm(self.context, self.request)()
+        return self.form_class(self.context, self.request)()
+
+
+
+class ISendAndPreviewFormWithCustomSubject(ISendAndPreviewForm):
+    subject = schema.TextLine(
+        title=_(u"Custom Subject"),
+        description=_(u"Enter a custom subject line for your newsletter here. "
+                      "Leave blank to use the default subject for the chosen "
+                      "content and channel."),
+        required=False)
+
+class SendAsNewsletterFormWithCustomSubject(SendAsNewsletterForm):
+    @property
+    def fields(self):
+        fields = field.Fields(ISendAndPreviewFormWithCustomSubject)
+        if not self._have_timed_scheduler():
+            fields['datetime'].mode = z3c.form.interfaces.HIDDEN_MODE
+        return fields
+
+class SendAsNewsletterViewWithCustomSubject(SendAsNewsletterView):
+    form_class = SendAsNewsletterFormWithCustomSubject

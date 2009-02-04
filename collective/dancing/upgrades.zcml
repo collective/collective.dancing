@@ -53,4 +53,17 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+     profile="collective.dancing:default"
+     source="0.1.0"
+     destination="0.8.9">
+    
+    <genericsetup:upgradeStep
+       handler=".upgrades.upgrade_scheduled_sends"
+       title="Upgrade already scheduled items in Timed Schedulers to reflect code changes in 0.8.9"
+       description=""
+       />
+
+  </genericsetup:upgradeSteps>
+
 </configure>
