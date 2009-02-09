@@ -172,6 +172,69 @@ site:
   >>> url('<a href="/xkcd.com/archive/">Archive</a>', None)
   '<a href="http://xkcd.com/archive/">Archive</a>'
 
+  
+Anchor links are different. We want them to be relative if the they point an anchor that
+exists in the item that is sent out.
+
+A bare anchor are not touched:
+
+  >>> url('<a href="#2007">Archive</a><a name="2007">2007</a>', None)
+  '<a href="#2007">Archive</a><a name="2007">2007</a>'
+
+Absolute Anchor links to context become bare achors: 
+  
+  >>> url('<a href="http://xkcd.com/470#2007">Archive</a><a name="2007">2007</a>', None)
+  '<a href="#2007">Archive</a><a name="2007">2007</a>'
+
+Relative Anchor links to context become bare achors: 
+  
+  >>> url('<a href="/470#2007">Archive</a><a name="2007">2007</a>', None)
+  '<a href="#2007">Archive</a><a name="2007">2007</a>'
+
+  >>> url('<a href="../470#2007">Archive</a><a name="2007">2007</a>', None)
+  '<a href="#2007">Archive</a><a name="2007">2007</a>'
+
+Absolute anchor links to other content are not touched: 
+  
+  >>> url('<a href="http://xkcd.com/archive#2007">Archive</a>', None)
+  '<a href="http://xkcd.com/archive#2007">Archive</a>'
+
+Relative anchor links to other content are still made absolute: 
+  
+  >>> url('<a href="/archive#2007">Archive</a>', None)
+  '<a href="http://xkcd.com/archive#2007">Archive</a>'
+
+  >>> url('<a href="../archive#2007">Archive</a>', None)
+  '<a href="http://xkcd.com/archive#2007">Archive</a>'
+
+Anchorlinks to context that have no corresponding anchor are always made absolute.
+
+  >>> url('<a href="#2007">Archive</a>', None)
+  '<a href="http://xkcd.com/470#2007">Archive</a>'
+
+  >>> url('<a href="http://xkcd.com/470#2007">Archive</a>', None)
+  '<a href="http://xkcd.com/470#2007">Archive</a>'
+
+  >>> url('<a href="/470#2007">Archive</a>', None)
+  '<a href="http://xkcd.com/470#2007">Archive</a>'
+
+  >>> url('<a href="../470#2007">Archive</a>', None)
+  '<a href="http://xkcd.com/470#2007">Archive</a>'
+
+Links to other content is always absolute, even if an anchor of the same
+name exists in the item text.
+  
+  >>> url('<a href="http://xkcd.com/archive#2007">Archive</a><a name="2007">2007</a>', None)
+  '<a href="http://xkcd.com/archive#2007">Archive</a><a name="2007">2007</a>'
+
+  >>> url('<a href="/archive#2007">Archive</a><a name="2007">2007</a>', None)
+  '<a href="http://xkcd.com/archive#2007">Archive</a><a name="2007">2007</a>'
+
+  >>> url('<a href="../archive#2007">Archive</a><a name="2007">2007</a>', None)
+  '<a href="http://xkcd.com/archive#2007">Archive</a><a name="2007">2007</a>'
+
+
+
 Cleanup
 -------
 
