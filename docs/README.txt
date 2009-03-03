@@ -45,12 +45,12 @@ Subscriptions
 .. image:: http://danielnouri.org/media/singing-dancing.jpg
    :alt: Singing & Dancing Logo by Giuseppe Zizza
 
-Screenshots
-===========
+Guide
+=====
 
-A `walk-through with screenshots`_ is available online, which should
-give you a good idea of what Singing & Dancing is capable of, and also
-guide you through the steps necessary to get you set up and dancing!
+If you want to get an idea of what Singing & Dancing is capable of,
+visit our `guide with screenshots`_.  This guide will also help you
+find your way to setting up your first newsletter.
 
 Installation
 ============
@@ -59,40 +59,58 @@ Installation of Singing & Dancing uses buildout_.  If you don't know
 what buildout is or `how to create a buildout`_, `follow this
 tutorial`_ first.
 
-These instructions assume that you already have a Plone 3 buildout
+These instructions assume that you already have a Plone 3.x buildout
 that's built and ready to run.
 
-Singing & Dancing is available as `Python eggs on PyPI`_.  To install,
-you can simply depend_ on the ``collective.dancing`` package in your
-own site policy package, and add a ``extends =`` line into the
-``[buildout]`` section of your buildout configuration, like this::
+Singing & Dancing is available as `Python eggs on PyPI`_.
 
-  [buildout]
-  extends = https://svn.plone.org/svn/collective/collective.dancing/buildout-extends/0.8.7.cfg
-  parts =
-      zope2
-      plone
-      ...
+To install Singing & Dancing, add it to your buildout by following
+these steps:
 
-If you're not developing your own package that depends on
-``collective.dancing``, simply put a dependency on
-``collective.dancing`` to the ``eggs`` and ``zcml`` options of your
-``[instance]`` section, which is the section that uses the
-``plone.recipe.zope2instance`` recipe.  Your ``[instance]`` section
-might then look like this::
+1) If you're using **Plone 3.0.x or 3.1.x**, add the following
+   ``extends`` line to your ``[buildout]`` section.  It should then
+   look like this::
 
-  [instance]
-  recipe = plone.recipe.zope2instance
-  zope2-location = ${zope2:location}
-  user = admin:admin
-  eggs =
-      ${buildout:eggs}
-      ${plone:eggs}
-      collective.dancing
-  zcml =
-      collective.dancing
+     [buildout]
+     extends = https://svn.plone.org/svn/collective/collective.dancing/buildout-extends/0.8.7.cfg
+     parts =
+         zope2
+         ...
+         ...
 
-When you're done editing your buildout configuration, don't forget to
+   Continue with step 3.
+
+2) If you're using **Plone 3.2.x or later**, you should already have
+   an ``extends line``.  Replace the existing one, and make your
+   ``[buildout]`` section look like this::
+
+     [buildout]
+     extends = https://svn.plone.org/svn/collective/collective.dancing/buildout-extends/0.8.7-plone.3.2.1.cfg
+     parts =
+         zope2
+         ...
+         ...
+
+3) Next, you'll need to add ``collective.dancing`` to the ``eggs`` and
+   ``zcml`` options in your ``[instance]`` section.  It should then
+   look like this::
+
+     [instance]
+     ...
+     eggs =
+         ${buildout:eggs}
+         ...
+         collective.dancing
+     zcml =
+         ...
+         collective.dancing
+
+4) If you're using **Plone 3.2.x or later**, remove any
+   ``additional-fake-eggs`` and ``skip-fake-eggs`` options from that
+   same ``[instance]`` section.  (This is so you don't overrride the
+   ones defined in the S&D extends file that we added in step 1.)
+
+Once you're done editing your buildout configuration, don't forget to
 run your buildout again before you start up Zope::
 
   $ ./bin/buildout -v
@@ -139,6 +157,9 @@ front page, and click *Actions -> Send as newsletter*.
 The advanced configuration panel of S&D gives you many more ways to
 send newsletters, like periodically and from automatically collected
 content.
+
+Make sure to also check out our `guide with screenshots`_ for more
+details.
 
 Processing the message queue
 ----------------------------
@@ -248,7 +269,7 @@ Get in touch with us if you need help or have comments.  See the
 `Contact us`_ section.
 
 
-.. _walk-through with screenshots: http://groups.google.com/group/singing-dancing/web/singing-dancing-screenshots
+.. _guide with screenshots: http://groups.google.com/group/singing-dancing/web/singing-dancing-screenshots
 .. _Python eggs on PyPI: http://pypi.python.org/pypi/collective.dancing
 .. _depend: http://peak.telecommunity.com/DevCenter/setuptools#declaring-dependencies
 .. _buildout: http://pypi.python.org/pypi/zc.buildout
