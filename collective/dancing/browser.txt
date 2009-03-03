@@ -898,7 +898,8 @@ To show this, we'll first create a new news item:
 
   >>> news.invokeFactory(
   ...     'News Item', id='vdfm',
-  ...     title="Vickar's daughter foully murdered")
+  ...     title="Vicar's daughter foully murdered",
+  ...     text="I think that is the way my father would begin.")
   'vdfm'
   >>> workflow.doActionFor(news['vdfm'], 'publish')
 
@@ -946,9 +947,17 @@ screen.  The job queue can also be processed from there:
   *TestingMailDelivery sending*:
   ...
   Welcome to Plone...Are you doing something interesting with Plone?...
-  Vickar's daughter...
+  Vicar's daughter...
   >>> "3 message(s) sent" in browser.contents
   True
+
+Only the title and description of the Vicar's daughter should be
+included, not its body text, since it's not the main article that's
+sent out:
+
+  >>> "I think that is the way my father would begin." in delivery.sent[-2]
+  False
+
   >>> portal['front-page'].title = u'Welcome to Plone'
 
 While we're at the Statistics screen, let's also clear the old jobs:

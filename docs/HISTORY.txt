@@ -4,6 +4,12 @@ History
 Version 0.8.9 - Unreleased
 --------------------------
 
+- Fix the bug that Doug found where items from collectors would be
+  rendered fully. [nouri]
+
+- Update installation to account for Plone 3.2.x buildouts, which are
+  somewhat different. [nouri]
+
 - Added optional keyword argument 'override_vars' to Composer.render.
   'override_vars' are now a override individual composer_vars from e.g.
   the send-newsletter.html form.

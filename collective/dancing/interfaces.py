@@ -1,10 +1,11 @@
+from zope import interface
 from zope import schema
 
 import collective.singing.interfaces
 
 from collective.dancing import MessageFactory as _
 
-class IFullFormatter(collective.singing.interfaces.IFormatItem):
+class IFullFormatter(interface.Interface):
     """Format the item for use as main newsletter content.
 
     This is used when newsletters are created from an existing content
