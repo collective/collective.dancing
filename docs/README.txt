@@ -67,9 +67,9 @@ Singing & Dancing is available as `Python eggs on PyPI`_.
 To install Singing & Dancing, add it to your buildout by following
 these steps:
 
-1) If you're using **Plone 3.0.x or 3.1.x**, add the following
-   ``extends`` line to your ``[buildout]`` section.  It should then
-   look like this::
+1) Edit your ``buildout.cfg`` file and look for the ``[buildout]``
+   section.  Add an ``extends =`` option in that section like the
+   following::
 
      [buildout]
      extends = https://svn.plone.org/svn/collective/collective.dancing/buildout-extends/0.8.7.cfg
@@ -78,21 +78,21 @@ these steps:
          ...
          ...
 
-   Continue with step 3.
-
-2) If you're using **Plone 3.2.x or later**, you should already have
-   an ``extends line``.  Replace the existing one, and make your
-   ``[buildout]`` section look like this::
+   Should you already have an ``extends =`` line, add the new line in
+   front of your extends files.  For Plone 3.2.1, your ``[buildout]``
+   section might start like this::
 
      [buildout]
-     extends = https://svn.plone.org/svn/collective/collective.dancing/buildout-extends/0.8.7-plone.3.2.1.cfg
+     extends =
+         https://svn.plone.org/svn/collective/collective.dancing/buildout-extends/0.8.7.cfg
+         http://dist.plone.org/release/3.2.1/versions.cfg
      parts =
          zope2
          ...
          ...
 
-3) Next, you'll need to add ``collective.dancing`` to the ``eggs`` and
-   ``zcml`` options in your ``[instance]`` section.  It should then
+2) Next, you'll need to add ``collective.dancing`` to the ``eggs`` and
+   ``zcml`` options in your ``[instance]`` section.  Which should then
    look like this::
 
      [instance]
@@ -105,10 +105,10 @@ these steps:
          ...
          collective.dancing
 
-4) If you're using **Plone 3.2.x or later**, remove any
-   ``additional-fake-eggs`` and ``skip-fake-eggs`` options from that
-   same ``[instance]`` section.  (This is so you don't overrride the
-   ones defined in the S&D extends file that we added in step 1.)
+3) Remove all ``additional-fake-eggs`` and ``skip-fake-eggs`` options
+   from that same ``[instance]`` section, if any.  (This is so you
+   don't overrride the ones defined in the S&D extends file that we
+   added in step 1.)
 
 Once you're done editing your buildout configuration, don't forget to
 run your buildout again before you start up Zope::
