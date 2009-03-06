@@ -1,0 +1,801 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2008-11-18 10:40+0000\n"
+"PO-Revision-Date: 2009-03-06 16:32+0100\n"
+"Last-Translator: Mikel Larreategi <mlarreategi@codesyntax.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.dancing\n"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:288
+msgid "${channel} options"
+msgstr "${channel} aukerak"
+
+#: ./collective/dancing/browser/sendnewsletter.py:151
+msgid "${name} does not support scheduling."
+msgstr "${name}k ez du antolaketa onartzen."
+
+#: ./collective/dancing/browser/channel.py:557
+msgid "${numberadded} subscriptions updated successfully!"
+msgstr "${numberadded} harpidetza ondo eguneratu dira!"
+
+#: ./collective/dancing/browser/channel.py:551
+msgid "${numberadded} subscriptions updated successfully, ${numberremoved} removed!"
+msgstr "${numberadded} harpidetza ondo eguneratu dira, ${numberremoved} ezabatu dira!"
+
+#: ./collective/dancing/browser/channel.py:541
+msgid "${numberadded} subscriptions updated successfully. ${numberremoved} removed. ${numbernotadded} could not be added. (${errorcandidates})"
+msgstr "${numberadded} harpidetza ondo eguneratu dira, ${numberremoved} ezabatu dira. ${numbernotadded} ezin izan dira gehitu. (${errorcandidates})"
+
+#: ./collective/dancing/browser/scheduler.py:33
+msgid "${number} messages queued."
+msgstr "${number} mezu ilaran."
+
+#: ./collective/dancing/browser/sendnewsletter.py:133
+msgid "${num} message(s) queued."
+msgstr "${num} mezu ilaran gorde dira."
+
+#: ./collective/dancing/browser/stats.py:117
+msgid "${sent} message(s) sent, ${failed} failure(s)."
+msgstr "${sent} mezu bidali dira, ${failed} errore."
+
+#: ./collective/dancing/browser/collector.py:183
+msgid "Add"
+msgstr "Gehitu"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:451
+msgid "Add Channel Subscribe Portlet"
+msgstr "Gehitu buletinera harpidetzeko portleta"
+
+#: ./collective/dancing/browser/channel.py:94
+msgid "Add or edit channels that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
+msgstr "Gehitu edo editatu zure webguneko edukia informazio-bildumak erabiliz e-postaz , harpidetutako helbideetera, konfiguratutako epeetan, bidaliko dituzten buletinak."
+
+#: ./collective/dancing/browser/interfaces.py:23
+msgid "Address to send the preview to"
+msgstr "Aurreikuspen mezua bidaltzeko helbidea"
+
+#: ./collective/dancing/browser/stats.py:137
+msgid "All finished jobs cleared"
+msgstr "Egindako lan guztiak garbituta"
+
+#: ./collective/dancing/browser/stats.py:129
+msgid "All pending jobs processed"
+msgstr "Egin gabe zeuden lanak eginda"
+
+#: ./collective/dancing/browser/stats.py:161
+msgid "All sent and failed messages deleted"
+msgstr "Bidalitako eta huts egindako mezu guztiak ezabatuta"
+
+#. Default: "Already subscribed?"
+#: ./collective/dancing/browser/subscriptions.pt:33
+msgid "Already subscribed?"
+msgstr "Jada harpidetuta zaude?"
+
+#: ./collective/dancing/browser/interfaces.py:17
+msgid "Append automatically collected content in this send-out"
+msgstr "Bildutako edukia automatikoki gehitu bidalketara"
+
+#: ./collective/dancing/browser/scheduler.py:23
+msgid "Apply"
+msgstr "Gorde"
+
+#: ./collective/dancing/browser/subscribe.py:176
+msgid "Apply changes"
+msgstr "Aldaketak egin"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:401
+msgid "Back to portlets"
+msgstr "Portletetara itzuli"
+
+#. Default: "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
+#: ./collective/dancing/browser/subscriptions.pt:10
+msgid "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
+msgstr "Dauzkagun buletinen zerrenda daukazu behean. Hauetakoren batera harpidetuta bazaude, bukaeran dagoen formularioa betez zure harpidetzak editatzeko helbidea bidaliko dizugu."
+
+#. Default: "Best regards"
+#: ./collective/dancing/browser/composer-html-forgot.pt:30
+msgid "Best regards"
+msgstr "Agur bat"
+
+#: ./collective/dancing/interfaces.py:56
+msgid "CSS Stylesheet"
+msgstr "CSS estilo orria"
+
+#. Default: "Change your subscriptions with ${site-title}"
+#: ./collective/dancing/browser/composer-html-forgot.pt:16
+msgid "Change your subscriptions with ${site-title}"
+msgstr "${site-title} webguneko zure harpidetzak aldatu"
+
+#: ./collective/dancing/browser/channel.py:169
+msgid "Channel administration"
+msgstr "Buletinen kudeaketa"
+
+#: ./collective/dancing/browser/stats.py:131
+msgid "Clear finished jobs"
+msgstr "Egindako lanak garbitu"
+
+#: ./collective/dancing/browser/stats.py:97
+msgid "Clear queued messages"
+msgstr "Ilaran dauden mezuak garbitu"
+
+#. Default: "Click here to manage your subscriptions with ${site-title}:"
+#: ./collective/dancing/browser/composer-html-forgot.pt:21
+msgid "Click here to manage your subscriptions with ${site-title}:"
+msgstr "Egin klik hemen ${site-title} webguneko zure harpidetzak kudeatzeko:"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:50
+msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
+msgstr "Porltlet honetatik harpidetzean automatikoki aktibatuko diren informazio-bildumen aukerak aukeratzeko egin klik hemen."
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:58
+msgid "Click here to show the portlet footer."
+msgstr "Portletaren oina erakusteko hemen egin klik"
+
+#. Default: "Click here to unsubscribe."
+#: ./collective/dancing/browser/composer-html.pt:39
+msgid "Click here to unsubscribe."
+msgstr "Egin klik hemen harpidetza eteteko"
+
+#: ./collective/dancing/browser/collector.py:65
+msgid "Collector administration"
+msgstr "Informazio-bildumen kudeaketa"
+
+#: ./collective/dancing/browser/composer.py:42
+msgid "Composer for format : ${format}"
+msgstr "Formatuarentzako egilea: ${format}"
+
+#: ./collective/dancing/browser/channel.py:686
+msgid "Composers"
+msgstr "Egileaak"
+
+#: ./collective/dancing/composer.py:243
+msgid "Confirm your subscription with ${channel-title}"
+msgstr "${channel-title} buletinerako zure harpidetza konfirmatu"
+
+#: ./collective/dancing/browser/subscribe.py:78
+msgid "Confirming your subscription"
+msgstr "Zure harpidetza konfirmatzen"
+
+#. Default: "Date of execution"
+#: ./collective/dancing/browser/jobs.pt:25
+msgid "Date of execution"
+msgstr "Bidalketa data"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:47
+msgid "Description of the rendered portlet"
+msgstr "Portletaren deskribapena"
+
+#. Default: "Displays a form that lets you send this content item as a newsletter."
+#: ./collective/dancing/profiles/default/actions.xml
+msgid "Displays a form that lets you send this content item as a newsletter."
+msgstr "Eduki hau buletin gisa bidaltzeko formularioa erakustarazten du."
+
+#: ./collective/dancing/browser/channel.py:574
+msgid "Download"
+msgstr "Deskargatu"
+
+#: ./collective/dancing/composer.py:71
+msgid "E-mail address"
+msgstr "E-posta helbidea"
+
+#: ./collective/dancing/browser/channel.py:685
+msgid "Edit"
+msgstr "Editatu"
+
+#: ./collective/dancing/browser/collector.py:331
+msgid "Edit ${collector}"
+msgstr "${collector} editatu"
+
+#: ./collective/dancing/browser/scheduler.py:90
+msgid "Edit ${selector} for ${channel}"
+msgstr "${channel} buletinean ${selector} editatu"
+
+#: ./collective/dancing/browser/channel.py:660
+msgid "Edit Channel ${channel}"
+msgstr "${channel} buletina editatu"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:370
+msgid "Edit Channel Subscribe Portlet"
+msgstr "Buletinera harpidetzeko portleta editatu"
+
+#: ./collective/dancing/browser/subscribe.py:27
+msgid "Edit existing subscriptions"
+msgstr "Harpidetzak editatu"
+
+#: ./collective/dancing/browser/channel.py:354
+msgid "Edit the properties of the channel."
+msgstr "Buletinaren propietateak editatu"
+
+#: ./collective/dancing/browser/composer.py:33
+msgid "Edit the properties of the composer."
+msgstr "Egilearen propietateak editatu"
+
+#: ./collective/dancing/browser/query.py:12
+msgid "Enter a search query to find content."
+msgstr "Edukia bilatzeko testua sartu"
+
+#: ./collective/dancing/browser/channel.py:406
+msgid "Error importing subscriber file."
+msgstr "Erroreak harpidedunen fitxategia kargatzean."
+
+#: ./collective/dancing/browser/stats.py:42
+msgid "Failed messages"
+msgstr "Huts egin duten mezuak"
+
+#: ./collective/dancing/browser/channel.py:502
+msgid "File has not correct format."
+msgstr "Fitxategiak ez dauka behar duen formatua."
+
+#: ./collective/dancing/browser/channel.py:498
+msgid "File was not given."
+msgstr "Ez duzu fitxategirik kargatu."
+
+#: ./collective/dancing/browser/subscribe.py:29
+msgid "Fill out the form below to receive an email with a link from which you can edit your subscriptions."
+msgstr "Bete ezazu beheko formularioa zure harpidetzak editatzeko helbidea e-postaz jasotzeko."
+
+#: ./collective/dancing/browser/subscribe.py:52
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgstr "Bete ezazu beheko formularioa ${channel} buletinera harpidetzeko. Hau harpidedun berrientzat da. Egin klik hemen <a href=\"${url}\">zure harpidetzak editatzeko</a>."
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:42
+msgid "Find the channel you want to enable direct subscription to"
+msgstr "Harpidetzak egiteko buletina aukeratu"
+
+#. Default: "Finished jobs"
+#: ./collective/dancing/browser/jobs.pt:19
+msgid "Finished jobs"
+msgstr "Amaitutako lanak"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:53
+msgid "Footer text"
+msgstr "Oineko testua"
+
+#: ./collective/dancing/interfaces.py:28
+msgid "From address"
+msgstr "Bidaltzailearen helbidea"
+
+#: ./collective/dancing/interfaces.py:23
+msgid "From name"
+msgstr "Bidaltzailearen izena"
+
+#: ./collective/dancing/browser/channel.py:329
+msgid "Generate"
+msgstr "Sortu"
+
+#: ./collective/dancing/composer.py:89
+msgid "HTML E-Mail"
+msgstr "HTML e-posta"
+
+#: ./collective/dancing/interfaces.py:44
+msgid "Header text"
+msgstr "Goiburuko testua"
+
+#: ./collective/dancing/browser/channel.py:448
+msgid "If selected and a subscriber exists in the database, but is not part of the uploaded file, the subscriber will be removed from the list."
+msgstr "Aukeratuta badago, eta harpideduna datu-basean egonda kargatutako fitxategian ez badago, harpideduna ezabatu egingo da."
+
+#: ./collective/dancing/browser/interfaces.py:16
+msgid "Include collector items"
+msgstr "Informazio-bildumako elementuak gehitu."
+
+#: ./collective/dancing/browser/subscribe.py:276
+msgid "Information on how to confirm your subscription has been sent to you."
+msgstr "Zure harpidetza konfirmatzeko informazioa bidali dizugu."
+
+#: ./collective/dancing/browser/collector.py:191
+msgid "Item added successfully."
+msgstr "Elementua ondo gehitu da."
+
+#: ./collective/dancing/browser/collector.py:202
+msgid "Item successfully deleted."
+msgstr "Elementua ezabatuta."
+
+#: ./collective/dancing/browser/collector.py:235
+msgid "Item successfully moved."
+msgstr "Elementua ondo mugitu da-"
+
+#: ./collective/dancing/browser/query.py:11
+msgid "Items"
+msgstr "Elementuak"
+
+#. Default: "Job title"
+#: ./collective/dancing/browser/jobs.pt:23
+msgid "Job title"
+msgstr "Lanaren izenburua"
+
+#: ./collective/dancing/browser/stats.py:33
+msgid "Last Change"
+msgstr "Azken aldaketa"
+
+#: ./collective/dancing/browser/channel.py:216
+msgid "Manage or add subscriptions."
+msgstr "Harpidetzak kudeatu edo gehitu"
+
+#. Default: "Manage your subscriptions"
+#: ./collective/dancing/browser/composer-html-forgot.pt:24
+msgid "Manage your subscriptions"
+msgstr "Zure harpidetzak kudeatu"
+
+#: ./collective/dancing/interfaces.py:33
+msgid "Message subject"
+msgstr "Mezuaren gaia"
+
+#: ./collective/dancing/browser/sendnewsletter.py:86
+msgid "Messages queued for delivery."
+msgstr "Bidaltzeko ilaran dauden mezuak"
+
+#: ./collective/dancing/browser/stats.py:37
+msgid "Messages successfully sent"
+msgstr "Ondo bidalitako mezuak"
+
+#: ./collective/dancing/browser/stats.py:31
+msgid "Messages waiting to be sent"
+msgstr "Bidaltzeko zain dauden mezuak"
+
+#: ./collective/dancing/browser/stats.py:43
+msgid "Messages with errors"
+msgstr "Erroredun mezuak"
+
+#: ./collective/dancing/browser/stats.py:49
+msgid "Messages with errors in the retry queue"
+msgstr "Berriz saiatzeko ilaran erroredun mezuak daude"
+
+#: ./collective/dancing/browser/collector.py:238
+msgid "Move block down"
+msgstr "Blokea behera mugitu"
+
+#: ./collective/dancing/browser/collector.py:231
+msgid "Move block up"
+msgstr "Blokea gora mugitu"
+
+#: ./collective/dancing/browser/subscribe.py:289
+msgid "My subscriptions"
+msgstr "Nire harpidetzak"
+
+#: ./collective/dancing/browser/stats.py:30
+msgid "New messages"
+msgstr "Mezu berriak"
+
+#: ./collective/dancing/channel.py:100
+msgid "Newsletter"
+msgstr "Buletina"
+
+#: ./collective/dancing/browser/stats.py:169
+msgid "Newsletter statistics"
+msgstr "Buletinaren estatistikak"
+
+#: ./collective/dancing/browser/preview.py:66
+msgid "No items found."
+msgstr "Ez da elementurik aurkitu."
+
+#: ./collective/dancing/browser/scheduler.py:36
+msgid "No messages queued."
+msgstr "Ez dago mezurik ilaran"
+
+#: ./collective/dancing/browser/channel.py:601
+msgid "Only some of your changes were saved"
+msgstr "Zure aldaketa batzuk bakarrik gorde dira"
+
+#. Default: "Pending jobs"
+#: ./collective/dancing/browser/jobs.pt:9
+msgid "Pending jobs"
+msgstr "Egiteke dauden lanak"
+
+#. Default: "Please confirm your subscription"
+#: ./collective/dancing/browser/composer-html-confirm.pt:14
+msgid "Please confirm your subscription"
+msgstr "Konfirmatu zure harpidetza."
+
+#: ./collective/dancing/browser/sendnewsletter.py:155
+msgid "Please fill in a date."
+msgstr "Data bat idatzi."
+
+#: ./collective/dancing/browser/stats.py:90
+msgid "Please select items to remove."
+msgstr "Ezabatu beharreko mezuak aukeratu."
+
+#: ./collective/dancing/browser/stats.py:99
+msgid "Please select items with new messages to clear."
+msgstr "Garbitu beharrezko mezu berriak dituzten elementuak aukeratu."
+
+#: ./collective/dancing/browser/sendnewsletter.py:97
+msgid "Please select precisely one channel for preview."
+msgstr "Aurreikusteko buletin bakarra aukeratu."
+
+#: ./collective/dancing/browser/stats.py:108
+msgid "Please select which channel's queued e-mails you'd like to send."
+msgstr "Aukeratu zein ilaran dauden mezuen artetik zein buletinetakoak bidali nahi dituzun."
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:46
+msgid "Portlet description"
+msgstr "Portletaren deskribapena"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:38
+msgid "Portlet header"
+msgstr "Portletaren goiburua"
+
+#: ./collective/dancing/browser/channel.py:687
+msgid "Preview"
+msgstr "Aurreikusi"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:207
+msgid "Proceed"
+msgstr "Aurrera"
+
+#: ./collective/dancing/browser/stats.py:120
+msgid "Process jobs"
+msgstr "Lanak abiarazi"
+
+#: ./collective/dancing/browser/collector.py:199
+msgid "Remove block"
+msgstr "Blokea ezabatu"
+
+#: ./collective/dancing/browser/scheduler.py:78
+msgid "Remove entries"
+msgstr "Sarrerak ezabatu"
+
+#: ./collective/dancing/browser/channel.py:447
+msgid "Remove non-existing"
+msgstr "Existitzen ez direnak ezabatu"
+
+#: ./collective/dancing/browser/stats.py:88
+msgid "Remove old messages"
+msgstr "Mezu zaharrak ezabatu"
+
+#: ./collective/dancing/interfaces.py:39
+msgid "Reply-to address"
+msgstr "Erantzuteko helbidea."
+
+#: ./collective/dancing/browser/stats.py:48
+msgid "Retry messages"
+msgstr "Berriz saiatu"
+
+#: ./collective/dancing/collector.py:70
+msgid "Rich text"
+msgstr "Testua"
+
+#: ./collective/dancing/browser/channel.py:617
+msgid "Save"
+msgstr "Gorde"
+
+#: ./collective/dancing/browser/sendnewsletter.py:143
+msgid "Schedule distribution"
+msgstr "Banaketa antolatu"
+
+#: ./collective/dancing/browser/interfaces.py:30
+msgid "Scheduled time"
+msgstr "Programatutako ordua"
+
+#: ./collective/dancing/browser/channel.py:187
+msgid "Search"
+msgstr "Bilatu"
+
+#: ./collective/dancing/browser/channel.py:184
+msgid "Search subscribers"
+msgstr "Harpidedunak bilatu"
+
+#: ./collective/dancing/collector.py:211
+msgid "Sections"
+msgstr "Atalak"
+
+#: ./collective/dancing/browser/channel.py:319
+msgid "See an in-browser preview of the newsletter."
+msgstr "Buletinaren aurrebista nabigatzailean ikusi."
+
+#: ./collective/dancing/browser/sendnewsletter.py:65
+msgid "Send"
+msgstr "Bidali"
+
+#: ./collective/dancing/browser/sendnewsletter.py:79
+msgid "Send \"${context}\" through ${channels}."
+msgstr "\"${context}\" ${channels} erabiliz bidali"
+
+#: ./collective/dancing/browser/sendnewsletter.py:169
+msgid "Send ${item} as newsletter"
+msgstr "${item} buletin gisa bidali"
+
+#. Default: "Send as newsletter"
+#: ./collective/dancing/profiles/default/actions.xml
+msgid "Send as newsletter"
+msgstr "Buletin gisa bidali"
+
+#: ./collective/dancing/browser/sendnewsletter.py:108
+msgid "Send preview"
+msgstr "Aurrebista-mezua bidali"
+
+#: ./collective/dancing/browser/stats.py:106
+msgid "Send queued messages now"
+msgstr "Ilaran dauden mezuak orain bidali"
+
+#: ./collective/dancing/browser/stats.py:36
+msgid "Sent messages"
+msgstr "Mezuak bidalita"
+
+#. Default: "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
+#: ./collective/dancing/browser/subscriptions.pt:34
+msgid "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
+msgstr "Gure zerrendetakoren batera harpidetuta bazaude, erabili formulario hau zure harpidetzak kudeatzeko helbidea lortzeko:"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:57
+msgid "Show footer"
+msgstr "Oina erakutsi"
+
+#: ./collective/dancing/browser/sendnewsletter.py:88
+msgid "Show preview"
+msgstr "Aurrebista ikusi"
+
+#: ./collective/dancing/browser/controlpanel.py:19
+msgid "Singing & Dancing configuration"
+msgstr "Singin & Dancingen konfigurazioa"
+
+#: ./collective/dancing/channel.py:114
+msgid "Standard Channel"
+msgstr "Buletin estandarra"
+
+#. Default: "Status"
+#: ./collective/dancing/browser/jobs.pt:24
+msgid "Status"
+msgstr "Egoera"
+
+#: ./collective/dancing/browser/subscribe.py:231
+msgid "Subscribe"
+msgstr "Harpidetu"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:49
+msgid "Subscribe directly from portlet"
+msgstr "Portletetik zuzenean harpidetu"
+
+#: ./collective/dancing/browser/subscribe.py:61
+msgid "Subscribe to ${channel}"
+msgstr "${channel} buletinera harpidetu"
+
+#: ./collective/dancing/browser/channel.py:438
+msgid "Subscribers"
+msgstr "Harpidedunak"
+
+#: ./collective/dancing/browser/channel.py:576
+msgid "Subscribers exported."
+msgstr "Harpidedunak esportatuta."
+
+#: ./collective/dancing/browser/channel.py:682
+msgid "Subscriptions"
+msgstr "Harpidetzak"
+
+#: ./collective/dancing/browser/stats.py:102
+msgid "Successfully cleared queued messages in channels."
+msgstr "Mezuen ilarak ondo hustu dira."
+
+#: ./collective/dancing/browser/stats.py:93
+msgid "Successfully removed old messages from channels."
+msgstr "Mezu zaharrak ondo ezabatu dira."
+
+#: ./collective/dancing/browser/sendnewsletter.py:164
+msgid "Successfully scheduled distribution."
+msgstr "Ondo antolatutako banaketa."
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:54
+msgid "Text in footer - if omitted the channel title is used"
+msgstr "Oineko testua - hutsik utziz gero, buletinaren izena erabiliko da."
+
+#: ./collective/dancing/interfaces.py:45
+msgid "Text to appear at the beginning of every message. You may use a number of variables here including ${subject}."
+msgstr "Mezu guztien hasieran agertuko den testua. Hemen, hainbat aldagai erabil ditzakezu, adibidez ${subject}"
+
+#: ./collective/dancing/interfaces.py:52
+msgid "Text to appear at the end of every message"
+msgstr "Mezu guztien oinean agertuko den testua"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:41
+msgid "The channel to enable subscriptions to."
+msgstr "Zein buletinetara harpidetu"
+
+#: ./collective/dancing/browser/interfaces.py:10
+msgid "The channel to send this through"
+msgstr "Hau bidaltzeko buletina"
+
+#: ./collective/dancing/interfaces.py:29
+msgid "The from addess that will appear in messages sent from this composer."
+msgstr "Bidalitako mezuetan bidaltzaile gisa agertuko den helbidea."
+
+#: ./collective/dancing/interfaces.py:40
+msgid "The reply-to addess that will appear in messages sent from this composer."
+msgstr "Bidalitako mezuetan agertuko den nori-erantzuteko helbidea."
+
+#: ./collective/dancing/interfaces.py:24
+msgid "The sender name that will appear in messages sent from this composer."
+msgstr "Bidalitako mezuetan agertuko den bidaltzailearen izena."
+
+#: ./collective/dancing/interfaces.py:57
+msgid "The stylesheet will be applied to the document."
+msgstr "Dokumentuari aplikatuko zaion estilo-orria."
+
+#: ./collective/dancing/browser/subscribe.py:254
+msgid "There seems to be an error with the information you entered."
+msgstr "Emandako informazioak erroreren bat duela dirudi."
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:198
+msgid "There were some errors."
+msgstr "Errore batzuk egon dira."
+
+#: ./collective/dancing/browser/interfaces.py:31
+msgid "This is only required if you click 'Schedule distribution' below"
+msgstr "'Banaketa antolatun'-n klik egiten baduzu bakarrik da beharrezkoa."
+
+#: ./collective/dancing/browser/interfaces.py:24
+msgid "This is only required if you click 'Send preview' below"
+msgstr "'Aurreikuspen mezua bidali'-n klik egiten baduzu bakarrik da beharrezkoa."
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:407
+msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
+msgstr "Buletin jakin batera harpidetzeko portleta"
+
+#: ./collective/dancing/browser/collector.py:91
+msgid "Title"
+msgstr "Izenburua"
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:39
+msgid "Title of the rendered portlet"
+msgstr "Portletaren izenburua"
+
+#. Default: "To confirm your subscription with ${channel}, please click here: ${url}"
+#: ./collective/dancing/browser/composer-html-confirm.pt:20
+msgid "To confirm your subscription with ${channel}, please click here: ${url}"
+msgstr "Egin klik hemen ${channel} buletinera zure harpidetza konfirmatzeko: ${url}"
+
+#: ./collective/dancing/browser/stats.py:25
+msgid "Total messages sent"
+msgstr "Guztira bidalitako mezu kopurua:"
+
+#: ./collective/dancing/browser/stats.py:26
+msgid "Total number of messages sent successsfully"
+msgstr "Ondo bidalitako mezuak"
+
+#: ./collective/dancing/browser/scheduler.py:28
+msgid "Trigger now"
+msgstr "Orain bidali"
+
+#: ./collective/dancing/browser/channel.py:107
+msgid "Type"
+msgstr "Mota"
+
+#: ./collective/dancing/browser/channel.py:530
+msgid "Unknown"
+msgstr "Ezezaguna"
+
+#: ./collective/dancing/browser/subscribe.py:106
+msgid "Unsubscribe"
+msgstr "Harpidetza eten"
+
+#: ./collective/dancing/browser/subscribe.py:188
+msgid "Unsubscribe from newsletter"
+msgstr "Buletinetik harpidetza eten"
+
+#: ./collective/dancing/browser/channel.py:655
+msgid "Up to Channels administration"
+msgstr "Bildumen konfiguraziora joan"
+
+#: ./collective/dancing/browser/collector.py:335
+msgid "Up to Collector administration"
+msgstr "Informazio-bildumen kudeaketara joan"
+
+#: ./collective/dancing/browser/controlpanel.py:12
+msgid "Up to Singing & Dancing configuration"
+msgstr "Singing & Dancingen konfiguraziora joan"
+
+#: ./collective/dancing/browser/controlpanel.py:22
+msgid "Up to Site Setup"
+msgstr "Atariaren konfiguraziora joan"
+
+#: ./collective/dancing/browser/channel.py:432
+msgid "Upload"
+msgstr "Kargatu"
+
+#: ./collective/dancing/browser/channel.py:439
+msgid "Upload a CSV file with a list of subscribers here. Subscribers already present in the database will be overwritten. Each line should contain: ${columns}."
+msgstr "Harpidedunen zerrenda duen CSV fitxategia kargatu. Datu-basean aurretik dauden harpidedunen datuak gainidatzi egingo dira. Lerro bakoitzak informazio hau eduki behar du: ${columns}"
+
+#: ./collective/dancing/browser/channel.py:581
+msgid "Upload list of subscribers."
+msgstr "Harpidedunen zerrenda kargatu."
+
+#: ./collective/dancing/browser/portlets/channelsubscribe.py:146
+msgid "You are already subscribed to this newsletter. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgstr "Buletin honetara harpidetuta zaude jada. Egin klik hemen <a href=\"${url}\">zure harpidetza editatzako</a>."
+
+#: ./collective/dancing/browser/subscribe.py:203
+msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
+msgstr "Harpidetuta zaude. Orrialdearen bukaeran dagoen formularioa bete ezazu zure harpidetza konfiguratzeko helbidea lortzeko."
+
+#. Default: "You are currently subscribed to these newsletters:"
+#: ./collective/dancing/browser/subscriptions.pt:21
+msgid "You are currently subscribed to these newsletters:"
+msgstr "Buletin hauetara harpidetuta zaude:"
+
+#: ./collective/dancing/browser/subscribe.py:118
+msgid "You aren't subscribed to this channel."
+msgstr "Ez zaude buletin honetara harpidetuta."
+
+#. Default: "You can subscribe to these newsletters:"
+#: ./collective/dancing/browser/subscriptions.pt:28
+msgid "You can subscribe to these newsletters:"
+msgstr "Buletin hauetara harpidetu zaitezke:"
+
+#: ./collective/dancing/browser/subscribe.py:80
+msgid "You confirmed your subscription successfully."
+msgstr "Zure harpidetza baieztatu duzu."
+
+#: ./collective/dancing/interfaces.py:34
+msgid "You may use a number of variables here, like ${site-title}."
+msgstr "Hemen aldagaiak erabil ditzakezu, adibidez ${site-title}"
+
+#: ./collective/dancing/browser/subscribe.py:271
+msgid "You subscribed successfully."
+msgstr "Ondo harpidetu zara."
+
+#: ./collective/dancing/browser/subscribe.py:116
+msgid "You unsubscribed successfully."
+msgstr "Ondo ezabatu da zure harpidetza."
+
+#. Default: "You're receiving this e-mail because you're registered for the ${channel} newsletter."
+#: ./collective/dancing/browser/composer-html.pt:35
+msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
+msgstr "Mezu hau ${channel} buletinera harpidetuta zaudelako jaso duzu."
+
+#: ./collective/dancing/composer.py:43
+msgid "Your e-mail address is invalid"
+msgstr "Zure e-posta helbidea ez da baliozkoa"
+
+#: ./collective/dancing/browser/subscribe.py:19
+msgid "Your email address is already subscribed. Click the \"Send my subscription details\" button below."
+msgstr "Zure helbidea harpidetuta dago. \"Nire harpidetzari buruzkoak ikusi\" botoian egin klik."
+
+#: ./collective/dancing/browser/subscribe.py:81
+msgid "Your subscription isn't known to us."
+msgstr "Ez zaude harpidetuta."
+
+#: ./collective/dancing/browser/subscribe.py:142
+msgid "Your subscription was updated."
+msgstr "Zure harpidetza eguneratu da."
+
+#. Default: "A Channel is a hub of configuration.  It doesn't do anything by itself.  Rather, it provides a number of components to configure and work with.  It is also the container of subscriptions to it."
+#: ./collective/dancing/browser/controlpanel-links.pt:7
+msgid "description_channel_administration"
+msgstr "Konfigurazioa besterik ez dago hemen. Bere kabuz ez du ezer egiten, baina konfiguratzeko hainbat elementu ditu. Harpidetzak ere bertan gordetzen dira."
+
+#. Default: "Collectors are useful for automatic newsletters.  They are responsible for assembling a list of items for publishing."
+#: ./collective/dancing/browser/controlpanel-links.pt:18
+msgid "description_collector_administration"
+msgstr "Informazio-bildumak buletin automatikoentzat dira erabilgarriak. Bidali beharreko elementu-zerrenda automatikoki sortzeaz arduratzen dira."
+
+#. Default: "View newsletter statistics"
+#: ./collective/dancing/browser/controlpanel-links.pt:28
+msgid "description_statistics_administration"
+msgstr "Buletinaren estatistikak ikusi"
+
+#. Default: "Channel administration"
+#: ./collective/dancing/browser/controlpanel-links.pt:3
+msgid "label_channel_administration"
+msgstr "Buletinen kudeaketa"
+
+#. Default: "Collector administration"
+#: ./collective/dancing/browser/controlpanel-links.pt:13
+msgid "label_collector_administration"
+msgstr "Informazio-bildumen kudeaketa"
+
+#. Default: "Statistics"
+#: ./collective/dancing/browser/controlpanel-links.pt:23
+msgid "label_statistics_administration"
+msgstr "Estatistikak"
+
