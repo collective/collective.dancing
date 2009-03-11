@@ -1,7 +1,10 @@
 History
 =======
 
-Version 0.8.9 - Unreleased
+Version 0.8.10 - Unreleased
+--------------------------
+
+Version 0.8.9 - 2009-03-11
 --------------------------
 
 - Fix the bug that Doug found where items from collectors would be
@@ -20,8 +23,9 @@ Version 0.8.9 - Unreleased
   pervasive change since it needs to work with asynchronous sending,
   email-previewing, browser-previewing, and with scheduled delivery.
 
-  Also included is an upgrade step for migrating
-  ``TimedScheduler.items`` to the new format. [tmog]
+  Included is an upgrade step for migrating ``TimedScheduler.items``
+  to the new format.  Refer to the Upgrade_ section for details on how
+  to run upgrades.  [tmog]
 
 Version 0.8.8 - 2009-02-01
 --------------------------
