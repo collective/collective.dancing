@@ -106,9 +106,9 @@ these steps:
          collective.dancing
 
 3) Remove all ``additional-fake-eggs`` and ``skip-fake-eggs`` options
-   from that same ``[instance]`` section, if any.  (This is so you
-   don't overrride the ones defined in the S&D extends file that we
-   added in step 1.)
+   from your ``[zope2]`` section, if any.  (This is so you don't
+   overrride the ones defined in the S&D extends file that we added in
+   step 1.)
 
 Once you're done editing your buildout configuration, don't forget to
 run your buildout again before you start up Zope::
