@@ -888,6 +888,12 @@ check by using the "Trigger now" button:
   >>> print delivery.last_messages() # doctest: +ELLIPSIS
   Content-Type:...To: daniel@localhost...To: mailman@localhost...To: root@localhost...
 
+It's also possible to request a preview of automatic newsletters:
+
+  >>> browser.open(channel.absolute_url())
+  >>> browser.getControl("Generate").click()
+  >>> "Previewing" in browser.contents
+  True
 
 Sending newsletters from content objects
 ----------------------------------------
@@ -1109,11 +1115,11 @@ When we now tick the scheduler, we expect mail to be sent out:
 Customizing the send as newsletter form
 ---------------------------------------
 
-It's easy to customize the sendnewsletter form to include overrides for
-the default composer values. 
-For example we could add a "subject" if we wanted to be able to force a certain subject
-for one send-out of a channel.
-There's an example of this in the send-newsletter-with-subject.html view.
+It's easy to customize the sendnewsletter form to include overrides
+for the default composer values.  For example we could add a "subject"
+if we wanted to be able to force a certain subject for one send-out of
+a channel.  There's an example of this in the
+``send-newsletter-with-subject.html`` view.
 
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
   >>> "Custom Subject" in browser.contents
@@ -1125,7 +1131,8 @@ There's an example of this in the send-newsletter-with-subject.html view.
   
 This form has a Custom Subject field, let's try filling it out and sending.
 
-So let's see if it works in all cases. First we do a normal, asynchronous send-out:
+So let's see if it works in all cases. First we do a normal,
+asynchronous send-out:
   
   >>> browser.getControl('My other channel').click()
   >>> browser.getControl('Custom Subject').value = u'My new subject'
@@ -1188,8 +1195,6 @@ And finally a scheduled send-out:
   Subject: My new subject
   ...
   (3, 0)
-
-
 
 The "My subscriptions" page
 ---------------------------

@@ -42,7 +42,7 @@ class PreviewNewsletterView(BrowserView):
     def __call__(self, name=None, include_collector_items=False, override_vars=None):
 
         if override_vars is None:
-            override_vars = {}
+            override_vars = '{}'
 
         if IChannel.providedBy(self.context):
             channel = self.context

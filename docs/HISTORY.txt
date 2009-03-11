@@ -4,6 +4,10 @@ History
 Version 0.8.10 - Unreleased
 --------------------------
 
+- Fixed and added test for newsletter preview form.  The preview in
+  the channel page would fail before with ``TypeError: eval() arg 1
+  must be a string or code object``. [nouri]
+
 Version 0.8.9 - 2009-03-11
 --------------------------
 
