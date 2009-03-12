@@ -78,14 +78,14 @@ these steps:
          ...
          ...
 
-   Should you already have an ``extends =`` line, add the new line in
-   front of your extends files.  For Plone 3.2.1, your ``[buildout]``
-   section might start like this::
+   Should you already have an ``extends =`` line, add the new line at
+   the end of the other extends files.  For Plone 3.2.2, your
+   ``[buildout]`` section might start like this::
 
      [buildout]
      extends =
+         http://dist.plone.org/release/3.2.2/versions.cfg
          https://svn.plone.org/svn/collective/collective.dancing/buildout-extends/0.8.7.cfg
-         http://dist.plone.org/release/3.2.1/versions.cfg
      parts =
          zope2
          ...
