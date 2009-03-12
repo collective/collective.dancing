@@ -4,6 +4,9 @@ History
 Version 0.8.10 - Unreleased
 --------------------------
 
+- Fix bug where collector sort criteria other than 'created' and
+  'effective' would result in an error. [nouri]
+
 - Fixed and added test for newsletter preview form.  The preview in
   the channel page would fail before with ``TypeError: eval() arg 1
   must be a string or code object``. [nouri]
