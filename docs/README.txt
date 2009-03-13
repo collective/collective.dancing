@@ -247,12 +247,14 @@ Donate
 ======
 
 Developing software as Open Source can be a thankless task sometimes.
-Please consider posting to the `mailing list`_ describing any
-successes or problems you have with the software.  It's the only way
-we can ever know if S&D is working correctly for you.
+If you're a happy user of Singing & Dancing, and you'd like to show your
+appreciation, you might want to `donate via PayPal`_.
 
-If you'd like to contribute in a more concrete way, you can `donate
-via PayPal`_.
+There's other ways to contribute to the project if you're not a
+developer; one is to post a message to the `mailing list`_ describing
+any successes or problems that you have with the software.  That's the
+only way we can know if S&D is working correctly for you.  Another is
+to add a screenshot to the `sites using S&D`_.
 
 Developers
 ==========
@@ -292,5 +294,6 @@ Get in touch with us if you need help or have comments.  See the
 .. _mailing list: http://groups.google.com/group/singing-dancing
 .. _Freenode: http://freenode.net
 .. _donate via PayPal: http://ur1.ca/2d41
+.. _sites using S&D: http://ur1.ca/2d4p
 .. _interfaces.py: http://dev.plone.org/collective/browser/collective.singing/trunk/collective/singing/interfaces.py
 .. _Subversion repository: http://svn.plone.org/svn/collective/collective.dancing/trunk#egg=collective.dancing-dev
