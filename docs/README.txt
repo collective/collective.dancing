@@ -243,6 +243,17 @@ If you have a question, or comment, get in touch with us!  Our
 `let us know`_. We also have an IRC channel called
 ``#singing-dancing`` on Freenode_.
 
+Donate
+======
+
+Developing software as Open Source can be a thankless task sometimes.
+Please consider posting to the `mailing list`_ describing any
+successes or problems you have with the software.  It's the only way
+we can ever know if S&D is working correctly for you.
+
+If you'd like to contribute in a more concrete way, you can `donate
+via PayPal`_.
+
 Developers
 ==========
 
@@ -280,5 +291,6 @@ Get in touch with us if you need help or have comments.  See the
 .. _zope.sendmail: http://pypi.python.org/pypi/zope.sendmail
 .. _mailing list: http://groups.google.com/group/singing-dancing
 .. _Freenode: http://freenode.net
+.. _donate via PayPal: http://ur1.ca/2d41
 .. _interfaces.py: http://dev.plone.org/collective/browser/collective.singing/trunk/collective/singing/interfaces.py
 .. _Subversion repository: http://svn.plone.org/svn/collective/collective.dancing/trunk#egg=collective.dancing-dev
