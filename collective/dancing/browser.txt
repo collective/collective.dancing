@@ -739,6 +739,12 @@ won't trigger, ever:
 
   >>> from zope.publisher.browser import TestRequest
   >>> request = TestRequest()
+
+Our request needs to be annotatable. 
+
+  >>> from zope.annotation.attribute import AttributeAnnotations
+  >>> component.provideAdapter(
+  ...     AttributeAnnotations, (TestRequest,))
   
   >>> channel.scheduler.tick(channel, request)
 
