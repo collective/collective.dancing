@@ -1,0 +1,129 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: collective.singing\n"
+"POT-Creation-Date: 2008-11-05 14:49+0000\n"
+"PO-Revision-Date: 2009-03-20 14:49+0000\n"
+"Last-Translator: József Jároli <jaroli@yahoo.com>\n"
+"Language-Team: József Jároli <jaroli@yahoo.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Is-Fallback-For: hu\n"
+"X-Poedit-Language: Hungarian\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: collective/singing/browser/subscribe.py:220
+msgid "Address"
+msgstr "Cím"
+
+#: collective/singing/interfaces.py:232
+msgid "Collector (what)"
+msgstr "Hírlevél-gyűjtő (mit)"
+
+#: collective/singing/scheduler.py:153
+msgid "Daily scheduler"
+msgstr "Napi ütemezés"
+
+#: collective/singing/interfaces.py:222
+msgid "Description"
+msgstr "Leírás"
+
+#: collective/singing/browser/subscribe.py:130
+msgid "Fill in the information below to subscribe."
+msgstr "Adja meg az alábbi információkat az előfizetéshez."
+
+#: collective/singing/browser/subscribe.py:113
+msgid "Filters"
+msgstr "Szűrők"
+
+#: collective/singing/browser/wizard.py:102
+msgid "Finish"
+msgstr "Befejez"
+
+#: collective/singing/browser/subscribe.py:43
+msgid "Format"
+msgstr "Formátum"
+
+#: collective/singing/browser/wizard.py:26
+msgid "Information submitted successfully."
+msgstr "Az információ sikeresen elküldve."
+
+#: collective/singing/scheduler.py:161
+msgid "Manual scheduler"
+msgstr "Kézi ütemezés"
+
+#: collective/singing/browser/wizard.py:84
+msgid "Proceed"
+msgstr "Végrehajt"
+
+#: collective/singing/browser/subscribe.py:212
+msgid "Retrieve a link to your personalized subscription settings"
+msgstr "Saját feliratkozásaimat elérhetővé tevő link elküldése"
+
+#: collective/singing/interfaces.py:226
+msgid "Scheduler (when)"
+msgstr "Ütemező (mikor)"
+
+#: collective/singing/browser/subscribe.py:225
+msgid "Send"
+msgstr "Elküld"
+
+#: collective/singing/browser/subscribe.py:76
+msgid "Send my subscription details"
+msgstr "Feliratkozásaim részleinek elküldése"
+
+#: collective/singing/collector.py:28
+msgid "Subjects"
+msgstr "Témák"
+
+#: collective/singing/collector.py:25
+msgid "Subjects collector"
+msgstr "Témagyűjtő"
+
+#: collective/singing/browser/subscribe.py:131
+msgid "Thanks for your subscription; we sent you a message for confirmation."
+msgstr "Köszönjük a feliratkozást, küldtünk egy megerősítő e-mailt címére."
+
+#: collective/singing/browser/subscribe.py:106
+msgid "Thanks.  We sent you a message."
+msgstr "Köszönjük. Küldtünk egy üzenetet Önnek."
+
+#: collective/singing/browser/subscribe.py:221
+msgid "The address you're already subscribed with"
+msgstr "Az e-mail cím, mellyel Ön feliratkozott volt"
+
+#: collective/singing/interfaces.py:244
+msgid "The channel's subscriptions"
+msgstr "A hírlevél-csatorna feliratkozásai"
+
+#: collective/singing/browser/wizard.py:27
+msgid "There were errors."
+msgstr "Hiba lépett fel."
+
+#: collective/singing/subscribe.py:203
+msgid "There's already a subscription for ${name}"
+msgstr "${name} néven már korábban rögzítettünk feliratkozást"
+
+#: collective/singing/scheduler.py:168
+msgid "Timed scheduler"
+msgstr "Időzített ütemezés"
+
+#: collective/singing/interfaces.py:218
+msgid "Title"
+msgstr "Cím"
+
+#: collective/singing/interfaces.py:214
+msgid "Unique identifier for this channel across the site."
+msgstr "A hírlevél-csatorna egyedi azonosítója az oldalon"
+
+#: collective/singing/scheduler.py:157
+msgid "Weekly scheduler"
+msgstr "Heti ütemezés"
+
+#: collective/singing/browser/subscribe.py:134
+msgid "You are already subscribed."
+msgstr "Feliratkozott"
+
+#: collective/singing/browser/subscribe.py:95
+msgid "Your subscription isn't known to us."
+msgstr "Az Ön feliratkozása nem ismeretes előttünk."
