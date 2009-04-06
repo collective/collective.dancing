@@ -453,8 +453,8 @@ msgstr "Rediger eksisterende abonnementer"
 
 #: /browser/subscribe.py:30
 msgid ""
-"Fill out the form below to receive an email with a link from which you can "
-"edit you subscriptions."
+"Fill out the form below to receive an email with a link from which "
+"you can edit your subscriptions."
 msgstr ""
 "Udfyld denne formular for at få adgang til at redigere dine abonnementer. Du "
 "vil få tilsendt en e-mail med et link til en side hvor du kan fra- og "
