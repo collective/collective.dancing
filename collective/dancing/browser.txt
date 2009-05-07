@@ -796,7 +796,7 @@ when it queued something the last time:
   >>> now = datetime.datetime.now()
   >>> channel.scheduler.triggered_last < now
   True
-  >>> now - datetime.timedelta(hours=1) < channel.scheduler.triggered_last
+  >>> now - channel.scheduler.delta < channel.scheduler.triggered_last
   True
 
 Secondly, all our subscriptions have a "cue" set, which marks the time
