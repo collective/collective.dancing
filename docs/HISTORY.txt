@@ -1,8 +1,11 @@
 History
 =======
 
-Version 0.8.10 - Unreleased
---------------------------
+Version 0.8.11 - Unreleased
+---------------------------
+
+Version 0.8.10 - 2009-06-11
+---------------------------
 
 - Fix bug where collector sort criteria other than 'created' and
   'effective' would result in an error. [nouri]
