@@ -1094,12 +1094,12 @@ call a "timed scheduler":
   >>> browser.getControl("Newsletter").click()
   >>> browser.getControl("My other channel").click()
 
-  >>> browser.getControl("Scheduled time").value = ""
-  >>> browser.getControl("Schedule distribution").click()
-  >>> "Please fill in a date" in browser.contents
-  True
-
-  >>> browser.getControl("Scheduled time").value = "6/10/08 11:00 AM"
+  >>> name_pre = 'form.widgets.datetime-'
+  >>> browser.getControl(name=name_pre + "year").value = "6"
+  >>> browser.getControl(name=name_pre + "month").displayValue = ["June"]
+  >>> browser.getControl(name=name_pre + "year").value = "2008"
+  >>> browser.getControl(name=name_pre + "hour").value = "11"
+  >>> browser.getControl(name=name_pre + "min").value = "00"
   >>> browser.getControl("Schedule distribution").click()
   >>> "Successfully scheduled distribution" in browser.contents
   True
@@ -1184,7 +1184,12 @@ And finally a scheduled send-out:
 
   >>> browser.getControl("My other channel").click()
   >>> browser.getControl('Custom Subject').value = u'My new subject'
-  >>> browser.getControl("Scheduled time").value = "6/10/08 11:00 AM"
+  >>> name_pre = 'form.widgets.datetime-'
+  >>> browser.getControl(name=name_pre + "year").value = "6"
+  >>> browser.getControl(name=name_pre + "month").displayValue = ["June"]
+  >>> browser.getControl(name=name_pre + "year").value = "2008"
+  >>> browser.getControl(name=name_pre + "hour").value = "11"
+  >>> browser.getControl(name=name_pre + "min").value = "00"
   >>> browser.getControl("Schedule distribution").click()
   >>> "Successfully scheduled distribution" in browser.contents
   True
