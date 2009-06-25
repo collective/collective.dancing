@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2008-11-18 10:40+0000\n"
+"POT-Creation-Date: 2009-06-25 10:15+0000\n"
 "PO-Revision-Date: 2008-11-26 12:55+0100\n"
 "Last-Translator: Radim Novotny <novotny.radim@gmail.com>\n"
 "Language-Team: CoreNet <info@corenet.cz>\n"
@@ -16,763 +16,785 @@ msgstr ""
 "Generated-By: zope/app/translation_files/extract.py\n"
 
 #. Default: "channel"
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:288
+#: ./browser/portlets/channelsubscribe.py:288
 msgid "${channel} options"
 msgstr "Nastavení ${channel}"
 
-#: ./collective/dancing/browser/sendnewsletter.py:151
+#: ./browser/sendnewsletter.py:176
 msgid "${name} does not support scheduling."
 msgstr "${name} nepodporuje plánování."
 
-#: ./collective/dancing/browser/channel.py:557
+#: ./browser/channel.py:584
 msgid "${numberadded} subscriptions updated successfully!"
 msgstr "Počet úspěšně aktualizovaných přihlášení: ${numberadded}"
 
-#: ./collective/dancing/browser/channel.py:551
+#: ./browser/channel.py:578
 msgid "${numberadded} subscriptions updated successfully, ${numberremoved} removed!"
 msgstr "Počet úspěšně aktualizovaných přihlášení: ${numberadded}, počet zrušených: ${numberremoved}"
 
-#: ./collective/dancing/browser/channel.py:541
+#: ./browser/channel.py:568
 msgid "${numberadded} subscriptions updated successfully. ${numberremoved} removed. ${numbernotadded} could not be added. (${errorcandidates})"
 msgstr "Počet úspěšně aktualizovaných přihlášení: ${numberadded}, počet zrušených: ${numberremoved}. Počet těch, které nemohly být přidány: ${numbernotadded}  (${errorcandidates})"
 
 #. Default: ""
-#: ./collective/dancing/browser/scheduler.py:33
+#: ./browser/scheduler.py:33
 msgid "${number} messages queued."
 msgstr "Počet zpráv ve frontě: ${number}."
 
-#: ./collective/dancing/browser/sendnewsletter.py:133
+#: ./browser/sendnewsletter.py:154
 msgid "${num} message(s) queued."
 msgstr "Počet zpráv přidaných do fronty: ${num}."
 
-#: ./collective/dancing/browser/stats.py:117
+#: ./browser/stats.py:117
 msgid "${sent} message(s) sent, ${failed} failure(s)."
 msgstr "Počet odeslaných zpráv: ${sent}, počet neodeslaných: ${failed}."
 
-#: ./collective/dancing/browser/collector.py:183
+#: ./browser/collector.py:183
 msgid "Add"
 msgstr "Přidat"
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:451
+#: ./browser/portlets/channelsubscribe.py:451
 msgid "Add Channel Subscribe Portlet"
 msgstr "Přidat portlet přihlášení"
 
-#: ./collective/dancing/browser/channel.py:94
+#: ./browser/channel.py:94
 msgid "Add or edit channels that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
 msgstr "Zde je možné přidat nebo změnit nastavení kanálů, které budou používat nástroje sběru dat aby mohly shromáždit a odeslat příslušné informace z tohoto portálu na přihlášené email adresy v nastaveném čase."
 
-#: ./collective/dancing/browser/interfaces.py:23
+#: ./browser/interfaces.py:23
 msgid "Address to send the preview to"
 msgstr "Adresa na kterou se má odeslat náhled"
 
-#: ./collective/dancing/browser/stats.py:137
+#: ./browser/stats.py:137
 msgid "All finished jobs cleared"
 msgstr "Všechny ukončené úlohy byly vymazány."
 
-#: ./collective/dancing/browser/stats.py:129
+#: ./browser/stats.py:129
 msgid "All pending jobs processed"
 msgstr "Všechny čekající úlohy byly zpracovány."
 
-#: ./collective/dancing/browser/stats.py:161
+#: ./browser/stats.py:161
 msgid "All sent and failed messages deleted"
 msgstr "Všechny odeslané a neúspěšně odeslané zprávy byly vymazány"
 
 #. Default: "Already subscribed?"
-#: ./collective/dancing/browser/subscriptions.pt:33
+#: ./browser/subscriptions.pt:33
 msgid "Already subscribed?"
 msgstr "Existující přihlášení?"
 
-#: ./collective/dancing/browser/interfaces.py:17
+#: ./browser/interfaces.py:17
 msgid "Append automatically collected content in this send-out"
 msgstr "V tomto odeslání přidat i automaticky vybraný obsah."
 
-#: ./collective/dancing/browser/scheduler.py:23
+#: ./browser/scheduler.py:23
 msgid "Apply"
 msgstr "Použít"
 
-#: ./collective/dancing/browser/subscribe.py:176
+#: ./browser/subscribe.py:177
 msgid "Apply changes"
 msgstr "Použít změny"
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:401
+#: ./browser/portlets/channelsubscribe.py:401
 msgid "Back to portlets"
 msgstr "Zpět na správu portletů"
 
 #. Default: "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
-#: ./collective/dancing/browser/subscriptions.pt:10
+#: ./browser/subscriptions.pt:10
 msgid "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
 msgstr "Níže je uvedený seznam zpravodajů které nabízíme. Pokud jste již k některému z nich přihlášen(a), vyplňte prosím formulář na konci stránky a bude vám odeslán email s informacemi, které vám umožní spravovat vaše přihlášení."
 
 #. Default: "Best regards"
-#: ./collective/dancing/browser/composer-html-forgot.pt:30
+#: ./browser/composer-html-forgot.pt:30
 msgid "Best regards"
 msgstr "Děkujeme"
 
-#: ./collective/dancing/interfaces.py:56
+#: ./interfaces.py:57
 msgid "CSS Stylesheet"
 msgstr "CSS styl"
 
+#: ./browser/channel.py:462
+msgid "CSV contains a header row"
+msgstr ""
+
+#: ./browser/channel.py:469
+msgid "CSV delimiter"
+msgstr ""
+
 #. Default: "Change your subscriptions with ${site-title}"
-#: ./collective/dancing/browser/composer-html-forgot.pt:16
+#: ./browser/composer-html-forgot.pt:16
 msgid "Change your subscriptions with ${site-title}"
 msgstr "Nastavení vašeho přihlášení na ${site-title}"
 
-#: ./collective/dancing/browser/channel.py:169
+#: ./browser/channel.py:169
 msgid "Channel administration"
 msgstr "Správa kanálů"
 
-#: ./collective/dancing/browser/stats.py:131
+#: ./browser/stats.py:131
 msgid "Clear finished jobs"
 msgstr "Vymazat ukončené úlohy"
 
-#: ./collective/dancing/browser/stats.py:97
+#: ./browser/stats.py:97
 msgid "Clear queued messages"
 msgstr "Vymazat zprávy ve frontě"
 
 #. Default: "Click here to manage your subscriptions with ${site-title}:"
-#: ./collective/dancing/browser/composer-html-forgot.pt:21
+#: ./browser/composer-html-forgot.pt:21
 msgid "Click here to manage your subscriptions with ${site-title}:"
 msgstr "Klepněte zde pro nastavení a správu vašich odběrů na ${site-title}:"
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:50
+#: ./browser/portlets/channelsubscribe.py:50
 msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
 msgstr "Zaškrtněte, pokud chcete v případě přihlášení z portletu zpřístupnit nastavení nástroje pro sběr dat."
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:58
+#: ./browser/portlets/channelsubscribe.py:58
 msgid "Click here to show the portlet footer."
 msgstr "Zaškrtněte, pokud chcete zonrazit patičku portletu."
 
 #. Default: "Click here to unsubscribe."
-#: ./collective/dancing/browser/composer-html.pt:39
+#: ./browser/composer-html.pt:44
 msgid "Click here to unsubscribe."
 msgstr "Pro odhlášení klepněte zde."
 
-#: ./collective/dancing/browser/collector.py:65
+#: ./browser/collector.py:65
 msgid "Collector administration"
 msgstr "Správa sběru dat"
 
-#: ./collective/dancing/browser/composer.py:42
+#: ./browser/composer.py:42
 msgid "Composer for format : ${format}"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:686
+#: ./browser/channel.py:713
 msgid "Composers"
 msgstr ""
 
 #. Default: "channel-title"
-#: ./collective/dancing/composer.py:243
+#: ./composer.py:250
 msgid "Confirm your subscription with ${channel-title}"
 msgstr "Potvrďte prosím vaše přihlášení k ${channel-title}"
 
-#: ./collective/dancing/browser/subscribe.py:78
+#: ./browser/subscribe.py:79
 msgid "Confirming your subscription"
 msgstr "Potvrzení přihlášení"
 
+#: ./browser/sendnewsletter.py:210
+msgid "Custom Subject"
+msgstr ""
+
 #. Default: "Date of execution"
-#: ./collective/dancing/browser/jobs.pt:25
+#: ./browser/jobs.pt:25
 msgid "Date of execution"
 msgstr "Datym vykonání"
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:47
+#: ./browser/portlets/channelsubscribe.py:47
 msgid "Description of the rendered portlet"
 msgstr "Popis portletu"
 
 #. Default: "Displays a form that lets you send this content item as a newsletter."
-#: ./collective/dancing/profiles/default/actions.xml
+#: ./profiles/default/actions.xml
 msgid "Displays a form that lets you send this content item as a newsletter."
 msgstr "Zobrazí formulář, pomocí kterého můžete odeslat obsah této stránky jako zpravodaj."
 
-#: ./collective/dancing/browser/channel.py:574
+#: ./browser/channel.py:601
 msgid "Download"
 msgstr "Stáhnout"
 
-#: ./collective/dancing/composer.py:71
+#: ./composer.py:71
 msgid "E-mail address"
 msgstr "E-mail adresa"
 
-#: ./collective/dancing/browser/channel.py:685
+#: ./browser/channel.py:712
 msgid "Edit"
 msgstr "Upravit"
 
 #. Default: ""
-#: ./collective/dancing/browser/collector.py:331
+#: ./browser/collector.py:331
 msgid "Edit ${collector}"
 msgstr "Nastavení ${collector}"
 
-#: ./collective/dancing/browser/scheduler.py:90
+#: ./browser/scheduler.py:90
 msgid "Edit ${selector} for ${channel}"
 msgstr ""
 
 #. Default: "channel"
-#: ./collective/dancing/browser/channel.py:660
+#: ./browser/channel.py:687
 msgid "Edit Channel ${channel}"
 msgstr "Úprava kanálu ${channel}"
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:370
+#: ./browser/portlets/channelsubscribe.py:370
 msgid "Edit Channel Subscribe Portlet"
 msgstr "Nastavení portletu pro správu přihlášení"
 
-#: ./collective/dancing/browser/subscribe.py:27
+#: ./browser/subscribe.py:28
 msgid "Edit existing subscriptions"
 msgstr "Nastavení existujících přihlášení"
 
-#: ./collective/dancing/browser/channel.py:354
+#: ./browser/channel.py:354
 msgid "Edit the properties of the channel."
 msgstr ""
 
-#: ./collective/dancing/browser/composer.py:33
+#: ./browser/composer.py:33
 msgid "Edit the properties of the composer."
 msgstr ""
 
-#: ./collective/dancing/browser/query.py:12
+#: ./browser/sendnewsletter.py:211
+msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and channel."
+msgstr ""
+
+#: ./browser/query.py:12
 msgid "Enter a search query to find content."
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:406
-msgid "Error importing subscriber file."
+#: ./browser/channel.py:414
+msgid "Error importing subscriber file. %s"
 msgstr ""
 
-#: ./collective/dancing/browser/stats.py:42
+#: ./browser/stats.py:42
 msgid "Failed messages"
 msgstr "Neúspěšně odesláno"
 
-#: ./collective/dancing/browser/channel.py:502
-msgid "File has not correct format."
+#: ./browser/channel.py:529
+msgid "File has incorrect format."
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:498
+#: ./browser/channel.py:523
 msgid "File was not given."
 msgstr ""
 
-#: ./collective/dancing/browser/subscribe.py:29
+#: ./browser/subscribe.py:30
 msgid "Fill out the form below to receive an email with a link from which you can edit your subscriptions."
 msgstr ""
 
-#. Default: "channel"
-#: ./collective/dancing/browser/subscribe.py:52
-msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href=\"${url}\">edit your subscriptions</a>."
-msgstr "Pro přihlášení k ${channel} vyplňte prosím níže uvedený formulář. Tento formulář slouží pouze pro nové přihlášení. Pokud již jste přihlášen(a), klepněte prosím na odkaz pro <a href=\"${url}\">nastavení existujícího přihlášení</a>."
+#: ./browser/subscribe.py:53
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href="${url}">edit your subscriptions</a>."
+msgstr ""
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:42
+#: ./browser/portlets/channelsubscribe.py:42
 msgid "Find the channel you want to enable direct subscription to"
 msgstr "Vyhledejte prosím kanál, ke kterému chcete zpřístupnit přihlášení."
 
 #. Default: "Finished jobs"
-#: ./collective/dancing/browser/jobs.pt:19
+#: ./browser/jobs.pt:19
 msgid "Finished jobs"
 msgstr ""
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:53
+#: ./browser/portlets/channelsubscribe.py:53
 msgid "Footer text"
 msgstr "Patička"
 
-#: ./collective/dancing/interfaces.py:28
+#: ./interfaces.py:29
 msgid "From address"
 msgstr ""
 
-#: ./collective/dancing/interfaces.py:23
+#: ./interfaces.py:24
 msgid "From name"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:329
+#: ./browser/channel.py:329
 msgid "Generate"
 msgstr ""
 
-#: ./collective/dancing/composer.py:89
+#: ./composer.py:89
 msgid "HTML E-Mail"
 msgstr "HTML E-mail"
 
-#: ./collective/dancing/interfaces.py:44
+#: ./interfaces.py:45
 msgid "Header text"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:448
+#: ./browser/channel.py:456
 msgid "If selected and a subscriber exists in the database, but is not part of the uploaded file, the subscriber will be removed from the list."
 msgstr ""
 
-#: ./collective/dancing/browser/interfaces.py:16
+#: ./browser/interfaces.py:16
 msgid "Include collector items"
 msgstr "Včetně položek příslušného nástroje sběru dat"
 
-#: ./collective/dancing/browser/subscribe.py:276
+#: ./browser/subscribe.py:293
 msgid "Information on how to confirm your subscription has been sent to you."
 msgstr "Byly vám odeslány informace nutné k dokončení vašeho přihlášení."
 
-#: ./collective/dancing/browser/collector.py:191
+#: ./browser/collector.py:191
 msgid "Item added successfully."
 msgstr "Položka byla přidána."
 
-#: ./collective/dancing/browser/collector.py:202
+#: ./browser/collector.py:202
 msgid "Item successfully deleted."
 msgstr "Položka byla odebrána."
 
-#: ./collective/dancing/browser/collector.py:235
+#: ./browser/collector.py:235
 msgid "Item successfully moved."
 msgstr "Položka byla přesunuta."
 
-#: ./collective/dancing/browser/query.py:11
+#: ./browser/query.py:11
 msgid "Items"
 msgstr "Položky"
 
 #. Default: "Job title"
-#: ./collective/dancing/browser/jobs.pt:23
+#: ./browser/jobs.pt:23
 msgid "Job title"
 msgstr "Název úlohy"
 
-#: ./collective/dancing/browser/stats.py:33
+#: ./browser/stats.py:33
 msgid "Last Change"
 msgstr "Poslední změna"
 
-#: ./collective/dancing/browser/channel.py:216
+#: ./browser/channel.py:216
 msgid "Manage or add subscriptions."
 msgstr ""
 
 #. Default: "Manage your subscriptions"
-#: ./collective/dancing/browser/composer-html-forgot.pt:24
+#: ./browser/composer-html-forgot.pt:24
 msgid "Manage your subscriptions"
 msgstr "Správa odběrů"
 
-#: ./collective/dancing/interfaces.py:33
+#: ./interfaces.py:34
 msgid "Message subject"
 msgstr "Předmět zprávy"
 
-#: ./collective/dancing/browser/sendnewsletter.py:86
+#: ./browser/sendnewsletter.py:103
 msgid "Messages queued for delivery."
 msgstr "Zprávy k odeslání."
 
-#: ./collective/dancing/browser/stats.py:37
+#: ./browser/stats.py:37
 msgid "Messages successfully sent"
 msgstr "Úspěšně odesláno"
 
-#: ./collective/dancing/browser/stats.py:31
+#: ./browser/stats.py:31
 msgid "Messages waiting to be sent"
 msgstr "Zprávy čekající na odeslání"
 
-#: ./collective/dancing/browser/stats.py:43
+#: ./browser/stats.py:43
 msgid "Messages with errors"
 msgstr "Zprávy s chybami"
 
-#: ./collective/dancing/browser/stats.py:49
+#: ./browser/stats.py:49
 msgid "Messages with errors in the retry queue"
 msgstr "Zpráv s chybami v opravné frontě"
 
-#: ./collective/dancing/browser/collector.py:238
+#: ./browser/collector.py:238
 msgid "Move block down"
 msgstr "Přesunout dolů"
 
-#: ./collective/dancing/browser/collector.py:231
+#: ./browser/collector.py:231
 msgid "Move block up"
 msgstr "Přesunout nahoru"
 
-#: ./collective/dancing/browser/subscribe.py:289
+#: ./browser/subscribe.py:305
 msgid "My subscriptions"
 msgstr "Mé přihlášení"
 
-#: ./collective/dancing/browser/stats.py:30
+#: ./browser/stats.py:30
 msgid "New messages"
 msgstr "Nové zprávy"
 
-#: ./collective/dancing/channel.py:100
+#: ./channel.py:105
 msgid "Newsletter"
 msgstr "Zpravodaj"
 
-#: ./collective/dancing/browser/stats.py:169
+#: ./browser/stats.py:169
 msgid "Newsletter statistics"
 msgstr "Statistika zpravodaje"
 
-#: ./collective/dancing/browser/preview.py:66
+#: ./browser/preview.py:71
 msgid "No items found."
 msgstr "Žádné položky nebyly nalezeny."
 
-#: ./collective/dancing/browser/scheduler.py:36
+#: ./browser/scheduler.py:36
 msgid "No messages queued."
 msgstr "Ve frontě nejsou žádné zprávy."
 
-#: ./collective/dancing/browser/channel.py:601
+#: ./browser/channel.py:628
 msgid "Only some of your changes were saved"
 msgstr ""
 
 #. Default: "Pending jobs"
-#: ./collective/dancing/browser/jobs.pt:9
+#: ./browser/jobs.pt:9
 msgid "Pending jobs"
 msgstr "Čekajícé úlohy"
 
 #. Default: "Please confirm your subscription"
-#: ./collective/dancing/browser/composer-html-confirm.pt:14
+#: ./browser/composer-html-confirm.pt:14
 msgid "Please confirm your subscription"
 msgstr "Potvrďte prosím vaše přihlášení k odběru"
 
-#: ./collective/dancing/browser/sendnewsletter.py:155
+#: ./browser/sendnewsletter.py:180
 msgid "Please fill in a date."
 msgstr "Zadejte prosím datum."
 
-#: ./collective/dancing/browser/stats.py:90
+#: ./browser/stats.py:90
 msgid "Please select items to remove."
 msgstr "Vyberte prosím položky, které chcete vymazat."
 
-#: ./collective/dancing/browser/stats.py:99
+#: ./browser/stats.py:99
 msgid "Please select items with new messages to clear."
 msgstr ""
 
-#: ./collective/dancing/browser/sendnewsletter.py:97
+#: ./browser/sendnewsletter.py:114
 msgid "Please select precisely one channel for preview."
 msgstr ""
 
-#: ./collective/dancing/browser/stats.py:108
+#: ./browser/stats.py:108
 msgid "Please select which channel's queued e-mails you'd like to send."
 msgstr ""
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:46
+#: ./browser/portlets/channelsubscribe.py:46
 msgid "Portlet description"
 msgstr "Popis portletu"
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:38
+#: ./browser/portlets/channelsubscribe.py:38
 msgid "Portlet header"
 msgstr "Nadpis portletu"
 
-#: ./collective/dancing/browser/channel.py:687
+#: ./browser/channel.py:714
 msgid "Preview"
 msgstr "Náhled"
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:207
+#: ./browser/portlets/channelsubscribe.py:207
 msgid "Proceed"
 msgstr "Odeslat"
 
-#: ./collective/dancing/browser/stats.py:120
+#: ./browser/stats.py:120
 msgid "Process jobs"
 msgstr "Zpracovat úlohy"
 
-#: ./collective/dancing/browser/collector.py:199
+#: ./browser/collector.py:199
 msgid "Remove block"
 msgstr "Odebrat"
 
-#: ./collective/dancing/browser/scheduler.py:78
+#: ./browser/scheduler.py:78
 msgid "Remove entries"
 msgstr "Odebrat položky"
 
-#: ./collective/dancing/browser/channel.py:447
+#: ./browser/channel.py:455
 msgid "Remove non-existing"
 msgstr ""
 
-#: ./collective/dancing/browser/stats.py:88
+#: ./browser/stats.py:88
 msgid "Remove old messages"
 msgstr "Vymazat staré zprávy"
 
-#: ./collective/dancing/interfaces.py:39
+#: ./interfaces.py:40
 msgid "Reply-to address"
 msgstr ""
 
-#: ./collective/dancing/browser/stats.py:48
+#: ./browser/stats.py:48
 msgid "Retry messages"
 msgstr "Opakované zprávy"
 
-#: ./collective/dancing/collector.py:70
+#: ./collector.py:72
 msgid "Rich text"
 msgstr "Formátovaný text"
 
-#: ./collective/dancing/browser/channel.py:617
+#: ./browser/channel.py:644
 msgid "Save"
 msgstr "Uložit"
 
-#: ./collective/dancing/browser/sendnewsletter.py:143
+#: ./browser/sendnewsletter.py:164
 msgid "Schedule distribution"
 msgstr ""
 
-#: ./collective/dancing/browser/interfaces.py:30
+#: ./browser/interfaces.py:30
 msgid "Scheduled time"
 msgstr "Plánovaný čas"
 
-#: ./collective/dancing/browser/channel.py:187
+#: ./browser/channel.py:187
 msgid "Search"
 msgstr "Vyhledat"
 
-#: ./collective/dancing/browser/channel.py:184
+#: ./browser/channel.py:184
 msgid "Search subscribers"
 msgstr ""
 
-#: ./collective/dancing/collector.py:211
+#: ./collector.py:215
 msgid "Sections"
 msgstr "Sekce"
 
-#: ./collective/dancing/browser/channel.py:319
+#: ./browser/channel.py:319
 msgid "See an in-browser preview of the newsletter."
 msgstr ""
 
-#: ./collective/dancing/browser/sendnewsletter.py:65
+#: ./browser/channel.py:463
+msgid "Select this if you want to use the csv header row to designate document variables.The header row must contain one 'email' field."
+msgstr ""
+
+#: ./browser/sendnewsletter.py:81
 msgid "Send"
 msgstr "Odeslat"
 
+#: ./browser/sendnewsletter.py:96
+msgid "Send "${context}" through ${channels}."
+msgstr ""
+
 #. Default: ""
-#: ./collective/dancing/browser/sendnewsletter.py:169
+#: ./browser/sendnewsletter.py:198
 msgid "Send ${item} as newsletter"
 msgstr "Odeslat ${item} jako zpravodaj"
 
-#: ./collective/dancing/browser/sendnewsletter.py:79
-msgid "Send \"${context}\" through ${channels}."
-msgstr ""
-
 #. Default: "Send as newsletter"
-#: ./collective/dancing/profiles/default/actions.xml
+#: ./profiles/default/actions.xml
 msgid "Send as newsletter"
 msgstr "Odeslat jako newsletter"
 
-#: ./collective/dancing/browser/sendnewsletter.py:108
+#: ./browser/sendnewsletter.py:128
 msgid "Send preview"
 msgstr "Odeslat náhled"
 
-#: ./collective/dancing/browser/stats.py:106
+#: ./browser/stats.py:106
 msgid "Send queued messages now"
 msgstr "Ihned odeslat zprávy ve frontě"
 
-#: ./collective/dancing/browser/stats.py:36
+#: ./browser/stats.py:36
 msgid "Sent messages"
 msgstr "Odeslané zprávy"
 
 #. Default: "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
-#: ./collective/dancing/browser/subscriptions.pt:34
+#: ./browser/subscriptions.pt:34
 msgid "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
 msgstr "Pravděpodobně již existuje vaše přihlášení k některému ze zpravodajů. Použijte prosím následující formulář a bude vám odeslán email s odkazem na vaši stránku s nastavením přihlášení."
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:57
+#: ./browser/portlets/channelsubscribe.py:57
 msgid "Show footer"
 msgstr "Zobrazit patičku"
 
-#: ./collective/dancing/browser/sendnewsletter.py:88
+#: ./browser/sendnewsletter.py:105
 msgid "Show preview"
 msgstr "Zobrazit náhled"
 
-#: ./collective/dancing/browser/controlpanel.py:19
+#: ./browser/controlpanel.py:19
 msgid "Singing & Dancing configuration"
 msgstr "Nastavení produktu Singing & Dancing"
 
-#: ./collective/dancing/channel.py:114
+#: ./channel.py:119
 msgid "Standard Channel"
 msgstr ""
 
 #. Default: "Status"
-#: ./collective/dancing/browser/jobs.pt:24
+#: ./browser/jobs.pt:24
 msgid "Status"
 msgstr "Stav"
 
-#: ./collective/dancing/browser/subscribe.py:231
+#: ./browser/subscribe.py:232
 msgid "Subscribe"
 msgstr "Přihlásit"
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:49
+#: ./browser/portlets/channelsubscribe.py:49
 msgid "Subscribe directly from portlet"
 msgstr "Přihlásit se přímo z portletu"
 
 #. Default: "channel"
-#: ./collective/dancing/browser/subscribe.py:61
+#: ./browser/subscribe.py:62
 msgid "Subscribe to ${channel}"
 msgstr "Přihlášení k ${channel}"
 
-#: ./collective/dancing/browser/channel.py:438
+#: ./browser/channel.py:446
 msgid "Subscribers"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:576
+#: ./browser/channel.py:603
 msgid "Subscribers exported."
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:682
+#: ./browser/channel.py:709
 msgid "Subscriptions"
 msgstr ""
 
-#: ./collective/dancing/browser/stats.py:102
+#: ./browser/stats.py:102
 msgid "Successfully cleared queued messages in channels."
 msgstr ""
 
-#: ./collective/dancing/browser/stats.py:93
+#: ./browser/stats.py:93
 msgid "Successfully removed old messages from channels."
 msgstr ""
 
-#: ./collective/dancing/browser/sendnewsletter.py:164
+#: ./browser/sendnewsletter.py:190
 msgid "Successfully scheduled distribution."
 msgstr ""
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:54
+#: ./browser/portlets/channelsubscribe.py:54
 msgid "Text in footer - if omitted the channel title is used"
 msgstr "Text v patičce portletu. Není-li vyplněno, bude moužit nadpis kanálu."
 
-#: ./collective/dancing/interfaces.py:45
+#: ./interfaces.py:46
 msgid "Text to appear at the beginning of every message. You may use a number of variables here including ${subject}."
 msgstr ""
 
-#: ./collective/dancing/interfaces.py:52
+#: ./interfaces.py:53
 msgid "Text to appear at the end of every message"
 msgstr ""
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:41
+#: ./browser/portlets/channelsubscribe.py:41
 msgid "The channel to enable subscriptions to."
 msgstr "Kanál, ke kterému se uživatel bude přihlašovat."
 
-#: ./collective/dancing/browser/interfaces.py:10
+#: ./browser/interfaces.py:10
 msgid "The channel to send this through"
 msgstr "Kanál, přes který se má položka odeslat"
 
-#: ./collective/dancing/interfaces.py:29
+#: ./browser/channel.py:470
+msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
+msgstr ""
+
+#: ./interfaces.py:30
 msgid "The from addess that will appear in messages sent from this composer."
 msgstr ""
 
-#: ./collective/dancing/interfaces.py:40
+#: ./interfaces.py:41
 msgid "The reply-to addess that will appear in messages sent from this composer."
 msgstr ""
 
-#: ./collective/dancing/interfaces.py:24
+#: ./interfaces.py:25
 msgid "The sender name that will appear in messages sent from this composer."
 msgstr ""
 
-#: ./collective/dancing/interfaces.py:57
+#: ./interfaces.py:58
 msgid "The stylesheet will be applied to the document."
 msgstr ""
 
-#: ./collective/dancing/browser/subscribe.py:254
+#: ./browser/subscribe.py:255
 msgid "There seems to be an error with the information you entered."
 msgstr "Vámi zadané údaje nesouhlasí."
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:198
+#: ./browser/portlets/channelsubscribe.py:198
 msgid "There were some errors."
 msgstr "Opravte prosím vyznačené chyby."
 
-#: ./collective/dancing/browser/interfaces.py:31
+#: ./browser/interfaces.py:31
 msgid "This is only required if you click 'Schedule distribution' below"
 msgstr ""
 
-#: ./collective/dancing/browser/interfaces.py:24
+#: ./browser/interfaces.py:24
 msgid "This is only required if you click 'Send preview' below"
 msgstr "Vyplňte pouze v případě, že chcete použít funkci \"Odeslat náhled\" níže."
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:407
+#: ./browser/portlets/channelsubscribe.py:407
 msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
 msgstr "Tento portlet umožňuje návštěvníkům přihlásit se k odběru informací určitého kanálu."
 
-#: ./collective/dancing/browser/collector.py:91
+#: ./browser/collector.py:91
 msgid "Title"
 msgstr "Nadpis"
 
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:39
+#: ./browser/portlets/channelsubscribe.py:39
 msgid "Title of the rendered portlet"
 msgstr "Nadpis portletu"
 
 #. Default: "To confirm your subscription with ${channel}, please click here: ${url}"
-#: ./collective/dancing/browser/composer-html-confirm.pt:20
+#: ./browser/composer-html-confirm.pt:20
 msgid "To confirm your subscription with ${channel}, please click here: ${url}"
 msgstr "Pro potvrzení přihlášení kanálu ${channel} klepněte prosím zde: ${url}"
 
-#: ./collective/dancing/browser/stats.py:25
+#: ./browser/stats.py:25
 msgid "Total messages sent"
 msgstr "Celkový počet odeslaných zpráv"
 
-#: ./collective/dancing/browser/stats.py:26
+#: ./browser/stats.py:26
 msgid "Total number of messages sent successsfully"
 msgstr "Celkový počet úspěšně odeslaných zpráv"
 
-#: ./collective/dancing/browser/scheduler.py:28
+#: ./browser/scheduler.py:28
 msgid "Trigger now"
 msgstr "Spustit teď"
 
-#: ./collective/dancing/browser/channel.py:107
+#: ./browser/channel.py:107
 msgid "Type"
 msgstr "Typ"
 
-#: ./collective/dancing/browser/channel.py:530
+#: ./browser/channel.py:557
 msgid "Unknown"
 msgstr ""
 
-#: ./collective/dancing/browser/subscribe.py:106
+#: ./browser/subscribe.py:107
 msgid "Unsubscribe"
 msgstr "Odhlásit"
 
-#: ./collective/dancing/browser/subscribe.py:188
+#: ./browser/subscribe.py:189
 msgid "Unsubscribe from newsletter"
 msgstr "Odhlásit z odběru zpravodaje"
 
-#: ./collective/dancing/browser/channel.py:655
+#: ./browser/channel.py:682
 msgid "Up to Channels administration"
 msgstr "Zpět na správu kanálů"
 
-#: ./collective/dancing/browser/collector.py:335
+#: ./browser/collector.py:335
 msgid "Up to Collector administration"
 msgstr "Zpět na správu nástrojů sběru dat"
 
-#: ./collective/dancing/browser/controlpanel.py:12
+#: ./browser/controlpanel.py:12
 msgid "Up to Singing & Dancing configuration"
 msgstr "Zpet na nastavení produktu Singing & Dancing"
 
-#: ./collective/dancing/browser/controlpanel.py:22
+#: ./browser/controlpanel.py:22
 msgid "Up to Site Setup"
 msgstr "Zpět na nastavení portálu"
 
-#: ./collective/dancing/browser/channel.py:432
+#: ./browser/channel.py:440
 msgid "Upload"
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:439
+#: ./browser/channel.py:447
 msgid "Upload a CSV file with a list of subscribers here. Subscribers already present in the database will be overwritten. Each line should contain: ${columns}."
 msgstr ""
 
-#: ./collective/dancing/browser/channel.py:581
+#: ./browser/channel.py:608
 msgid "Upload list of subscribers."
 msgstr ""
 
-#. Default: "url%s/sendsecret.html"
-#: ./collective/dancing/browser/portlets/channelsubscribe.py:146
-msgid "You are already subscribed to this newsletter. Click here to <a href=\"${url}\">edit your subscriptions</a>."
-msgstr "Takové přihlášení k odběru zpráv již existuje. Klepněte zde pro <a href=\"${url}\">nastavení odběru</a>."
+#: ./browser/portlets/channelsubscribe.py:146
+msgid "You are already subscribed to this newsletter. Click here to <a href="${url}">edit your subscriptions</a>."
+msgstr ""
 
-#: ./collective/dancing/browser/subscribe.py:203
+#: ./browser/subscribe.py:204
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
 msgstr "Takové přihlášení již existuje. Klepněte prosím na odkaz na konci této stránky a bude vám odeslána zpráva, ve které najdete odkaz na nastavení vašeho přihlášení."
 
 #. Default: "You are currently subscribed to these newsletters:"
-#: ./collective/dancing/browser/subscriptions.pt:21
+#: ./browser/subscriptions.pt:21
 msgid "You are currently subscribed to these newsletters:"
 msgstr "V současné době jste přihlášen(a) k těmto zpravodajům:"
 
-#: ./collective/dancing/browser/subscribe.py:118
+#: ./browser/subscribe.py:119
 msgid "You aren't subscribed to this channel."
 msgstr "Nejste přihlášen(a) k tomuto kanálu."
 
 #. Default: "You can subscribe to these newsletters:"
-#: ./collective/dancing/browser/subscriptions.pt:28
+#: ./browser/subscriptions.pt:28
 msgid "You can subscribe to these newsletters:"
 msgstr "Můžete se přihlást k těmto zpravodajům:"
 
-#: ./collective/dancing/browser/subscribe.py:80
+#: ./browser/subscribe.py:81
 msgid "You confirmed your subscription successfully."
 msgstr "Vaše přihlášení bylo úspěšně potvrzeno."
 
-#: ./collective/dancing/interfaces.py:34
+#: ./interfaces.py:35
 msgid "You may use a number of variables here, like ${site-title}."
 msgstr ""
 
-#: ./collective/dancing/browser/subscribe.py:271
+#: ./browser/subscribe.py:287
 msgid "You subscribed successfully."
 msgstr "Přihlášení proběhlo úspěšně."
 
-#: ./collective/dancing/browser/subscribe.py:116
+#: ./browser/subscribe.py:117
 msgid "You unsubscribed successfully."
 msgstr "Odhlášení úspěšně provedeno."
 
 #. Default: "You're receiving this e-mail because you're registered for the ${channel} newsletter."
-#: ./collective/dancing/browser/composer-html.pt:35
+#: ./browser/composer-html.pt:39
 msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
 msgstr "Tento email dostáváte, protože jste registrován(a) k odběru informací ${channel}."
 
-#: ./collective/dancing/composer.py:43
+#: ./composer.py:43
 msgid "Your e-mail address is invalid"
 msgstr "Vaše e-mail adresa není platná"
 
-#: ./collective/dancing/browser/subscribe.py:19
-msgid "Your email address is already subscribed. Click the \"Send my subscription details\" button below."
-msgstr "Vaše email adresa je již přihlášená. Klepněte prosím na tlačítko \"Odeslat mé přihlašovací údaje\" níže."
+#: ./browser/subscribe.py:20
+msgid "Your email address is already subscribed. Click the "Send my subscription details" button below."
+msgstr ""
 
-#: ./collective/dancing/browser/subscribe.py:81
+#: ./browser/subscribe.py:82
 msgid "Your subscription isn't known to us."
 msgstr "Takové přihlášení neexistuje."
 
-#: ./collective/dancing/browser/subscribe.py:142
+#: ./browser/subscribe.py:143
 msgid "Your subscription was updated."
 msgstr "Vaše přihlášení bylo aktualizováno."
 
@@ -780,34 +802,34 @@ msgstr "Vaše přihlášení bylo aktualizováno."
 # "        itself.  Rather, it provides a number of components to configure\n"
 # "        and work with.  It is also the container of subscriptions to it."
 #. Default: "A Channel is a hub of configuration.  It doesn't do anything by itself.  Rather, it provides a number of components to configure and work with.  It is also the container of subscriptions to it."
-#: ./collective/dancing/browser/controlpanel-links.pt:7
+#: ./browser/controlpanel-links.pt:7
 msgid "description_channel_administration"
 msgstr "Kanál je konfigurační uzel. Sám o sobě nedělá nic, ale poskytuje sadu komponent, které je možné konfigurovat a pracovat s nimi. Zároveň spravuje i přihlášení k odběru uvedených informací."
 
 # "Collectors are useful for automatic newsletters.  They are\n"
 # "      responsible for assembling a list of items for publishing."
 #. Default: "Collectors are useful for automatic newsletters.  They are responsible for assembling a list of items for publishing."
-#: ./collective/dancing/browser/controlpanel-links.pt:18
+#: ./browser/controlpanel-links.pt:18
 msgid "description_collector_administration"
 msgstr "Nástroj pro sběr dat jse vhodný pro automatické odesílání. Zajišťuje sběr informací, které budou odeslány."
 
 #. Default: "View newsletter statistics"
-#: ./collective/dancing/browser/controlpanel-links.pt:28
+#: ./browser/controlpanel-links.pt:28
 msgid "description_statistics_administration"
 msgstr "Zobrazení statistik"
 
 #. Default: "Channel administration"
-#: ./collective/dancing/browser/controlpanel-links.pt:3
+#: ./browser/controlpanel-links.pt:3
 msgid "label_channel_administration"
 msgstr "Správa kanálů"
 
 #. Default: "Collector administration"
-#: ./collective/dancing/browser/controlpanel-links.pt:13
+#: ./browser/controlpanel-links.pt:13
 msgid "label_collector_administration"
 msgstr "Správa nástroje pro sběr dat"
 
 #. Default: "Statistics"
-#: ./collective/dancing/browser/controlpanel-links.pt:23
+#: ./browser/controlpanel-links.pt:23
 msgid "label_statistics_administration"
 msgstr "Statistiky"
 
