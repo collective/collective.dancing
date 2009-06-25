@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2009-06-25 10:15+0000\n"
-"PO-Revision-Date: 2009-03-06 16:32+0100\n"
+"PO-Revision-Date: 2009-06-25 12:28+0100\n"
 "Last-Translator: Mikel Larreategi <mlarreategi@codesyntax.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -114,11 +114,11 @@ msgstr "CSS estilo orria"
 
 #: ./browser/channel.py:462
 msgid "CSV contains a header row"
-msgstr ""
+msgstr "CSV fitxategiak goiburukoa dauka"
 
 #: ./browser/channel.py:469
 msgid "CSV delimiter"
-msgstr ""
+msgstr "CSV fitxategiko edukien banatzailea"
 
 #. Default: "Change your subscriptions with ${site-title}"
 #: ./browser/composer-html-forgot.pt:16
@@ -177,7 +177,7 @@ msgstr "Zure harpidetza konfirmatzen"
 
 #: ./browser/sendnewsletter.py:210
 msgid "Custom Subject"
-msgstr ""
+msgstr "Pertsonalizatutako gaia"
 
 #. Default: "Date of execution"
 #: ./browser/jobs.pt:25
@@ -235,7 +235,7 @@ msgstr "Egilearen propietateak editatu"
 
 #: ./browser/sendnewsletter.py:211
 msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and channel."
-msgstr ""
+msgstr "Idatzi bidaliko den buletinaren Gaia eremua. Utzi hutsik defektuzko gaia erabiltzeko."
 
 #: ./browser/query.py:12
 msgid "Enter a search query to find content."
@@ -243,7 +243,7 @@ msgstr "Edukia bilatzeko testua sartu"
 
 #: ./browser/channel.py:414
 msgid "Error importing subscriber file. %s"
-msgstr ""
+msgstr "Errorea harpidedunen fitxategia inportatzerakoan. %s"
 
 #: ./browser/stats.py:42
 msgid "Failed messages"
@@ -251,7 +251,7 @@ msgstr "Huts egin duten mezuak"
 
 #: ./browser/channel.py:529
 msgid "File has incorrect format."
-msgstr ""
+msgstr "Fitxategiaren formatua ez da egokia."
 
 #: ./browser/channel.py:523
 msgid "File was not given."
@@ -263,7 +263,7 @@ msgstr "Bete ezazu beheko formularioa zure harpidetzak editatzeko helbidea e-pos
 
 #: ./browser/subscribe.py:53
 msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href="${url}">edit your subscriptions</a>."
-msgstr ""
+msgstr "Bete ezazu beheko formulariako ${channel}era harpidetzekoa. Kontuan izan hau harpidetza berrietarako dela. Egin klik <a href=\"${url}\">zure harpidetzak editatzeko</a>."
 
 #: ./browser/portlets/channelsubscribe.py:42
 msgid "Find the channel you want to enable direct subscription to"
@@ -512,7 +512,7 @@ msgstr "Buletinaren aurrebista nabigatzailean ikusi."
 
 #: ./browser/channel.py:463
 msgid "Select this if you want to use the csv header row to designate document variables.The header row must contain one 'email' field."
-msgstr ""
+msgstr "Aukeratu CSV fitxategiaren goiburu-lerroa erabilil nahi baduzu. Lerro horrek gutxienez 'email' izeneko zutabe bat izan behar du."
 
 #: ./browser/sendnewsletter.py:81
 msgid "Send"
@@ -520,7 +520,7 @@ msgstr "Bidali"
 
 #: ./browser/sendnewsletter.py:96
 msgid "Send "${context}" through ${channels}."
-msgstr ""
+msgstr "Bidali \"${context} ${channels} erabiliz."
 
 #: ./browser/sendnewsletter.py:198
 msgid "Send ${item} as newsletter"
@@ -627,7 +627,7 @@ msgstr "Hau bidaltzeko buletina"
 
 #: ./browser/channel.py:470
 msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
-msgstr ""
+msgstr "CSV fitxategiko edukien banatzailea. (Normalean ',' edo ';' izan ohi da, baina komatxoak ez dira beharrezkoak)"
 
 #: ./interfaces.py:30
 msgid "The from addess that will appear in messages sent from this composer."
@@ -736,7 +736,7 @@ msgstr "Harpidedunen zerrenda kargatu."
 
 #: ./browser/portlets/channelsubscribe.py:146
 msgid "You are already subscribed to this newsletter. Click here to <a href="${url}">edit your subscriptions</a>."
-msgstr ""
+msgstr "Buletin honetara harpidetuta zaude jadanik. Egin klik <a href=\"${url}\">zure harpidetzak editatzeko</a>"
 
 #: ./browser/subscribe.py:204
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
@@ -783,7 +783,7 @@ msgstr "Zure e-posta helbidea ez da baliozkoa"
 
 #: ./browser/subscribe.py:20
 msgid "Your email address is already subscribed. Click the "Send my subscription details" button below."
-msgstr ""
+msgstr "Zure e-posta helbidea harpidetuta dago jadanik. Egin klik beheragoko \"Bidali nire harpidetzeren datuak\" botoian."
 
 #: ./browser/subscribe.py:82
 msgid "Your subscription isn't known to us."
