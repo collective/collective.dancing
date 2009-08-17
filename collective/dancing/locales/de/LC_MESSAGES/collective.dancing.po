@@ -115,11 +115,11 @@ msgstr ""
 
 #: ./browser/channel.py:462
 msgid "CSV contains a header row"
-msgstr ""
+msgstr "CSV beinhaltet eine Kopfzeile"
 
 #: ./browser/channel.py:469
 msgid "CSV delimiter"
-msgstr ""
+msgstr "CSV Trennzeichen"
 
 #. Default: "Change your subscriptions with ${site-title}"
 #: ./browser/composer-html-forgot.pt:16
@@ -178,7 +178,7 @@ msgstr "Anmeldung bestätigt"
 
 #: ./browser/sendnewsletter.py:210
 msgid "Custom Subject"
-msgstr ""
+msgstr "Eigener Betreff"
 
 #. Default: "Date of execution"
 #: ./browser/jobs.pt:25
@@ -236,7 +236,7 @@ msgstr "Eigenschaften der Vorlage bearbeiten"
 
 #: ./browser/sendnewsletter.py:211
 msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and channel."
-msgstr ""
+msgstr "Optional kann der E-Mail Betreff geändert werden. Lassen Sie dieses Feld leer um den Standardbetreff zu verwenden."
 
 #: ./browser/query.py:12
 msgid "Enter a search query to find content."
@@ -252,7 +252,7 @@ msgstr "Fehlgeschlagene Nachrichten"
 
 #: ./browser/channel.py:529
 msgid "File has incorrect format."
-msgstr ""
+msgstr "Falsches Dateiformat"
 
 #: ./browser/channel.py:523
 msgid "File was not given."
@@ -263,8 +263,8 @@ msgid "Fill out the form below to receive an email with a link from which you ca
 msgstr "Bitte teilen Sie uns Ihre E-Mail Adresse mit und wir senden Ihnen einen Link zu, um Ihr Abonnement zu bearbeiten."
 
 #: ./browser/subscribe.py:53
-msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href="${url}">edit your subscriptions</a>."
-msgstr ""
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgstr "Füllen Sie untenstehendes Formular aus um sich zu(m) ${channel} anzumelden. Beachten Sie, dass dieses Formular für Neuanmeldungen ist. Klicken Sie hier um <a href=\"${url}\">Ihre bestehenden Abonnements zu bearbeiten</a>."
 
 #: ./browser/portlets/channelsubscribe.py:42
 msgid "Find the channel you want to enable direct subscription to"
@@ -513,14 +513,14 @@ msgstr "Vorschau des Newsletters im Browser anzeigen."
 
 #: ./browser/channel.py:463
 msgid "Select this if you want to use the csv header row to designate document variables.The header row must contain one 'email' field."
-msgstr ""
+msgstr "Wenn aktiviert werden die verfügbaren Variablen über die Kopfzeile bestimmt. Die Kopfzeile muss eine Spalte 'email' enthalten."
 
 #: ./browser/sendnewsletter.py:81
 msgid "Send"
 msgstr "Senden"
 
 #: ./browser/sendnewsletter.py:96
-msgid "Send "${context}" through ${channels}."
+msgid "Send \"${context}\" through ${channels}."
 msgstr ""
 
 #: ./browser/sendnewsletter.py:198
@@ -628,7 +628,7 @@ msgstr "Themenbereiche an welche gesendet werden soll"
 
 #: ./browser/channel.py:470
 msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
-msgstr ""
+msgstr "Das Trennzeichen der CSV-Datei. (Meist ',' oder ';', es sind keine Anführungszeichen erforderlich)."
 
 #: ./interfaces.py:30
 msgid "The from addess that will appear in messages sent from this composer."
@@ -736,8 +736,8 @@ msgid "Upload list of subscribers."
 msgstr "Upload Liste neuer Abonnenten."
 
 #: ./browser/portlets/channelsubscribe.py:146
-msgid "You are already subscribed to this newsletter. Click here to <a href="${url}">edit your subscriptions</a>."
-msgstr ""
+msgid "You are already subscribed to this newsletter. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgstr "Sie sind bereits angemeldet. Klicken Sie hier um <a href=\"${url}\">Ihr bestehendes Abonnement zu bearbeiten</a>."
 
 #: ./browser/subscribe.py:204
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
@@ -783,12 +783,12 @@ msgid "Your e-mail address is invalid"
 msgstr "Ihre E-Mail Adresse ist ungültig"
 
 #: ./browser/subscribe.py:20
-msgid "Your email address is already subscribed. Click the "Send my subscription details" button below."
-msgstr ""
+msgid "Your email address is already subscribed. Click the \"Send my subscription details\" button below."
+msgstr "Ihre E-Mail Adresse ist bereits angemeldet. Klicken Sie auf \"Abonnementdetails zusenden\"."
 
 #: ./browser/subscribe.py:82
 msgid "Your subscription isn't known to us."
-msgstr "Ihre Anmeldung konnte nicht gefunden werden."
+msgstr "Ihr Abonnement konnte nicht gefunden werden."
 
 #: ./browser/subscribe.py:143
 msgid "Your subscription was updated."

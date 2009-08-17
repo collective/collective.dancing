@@ -4,6 +4,9 @@ History
 Version 0.8.11 - Unreleased
 ---------------------------
 
+- Translated new messageids for german language and updated some old ones.
+  [saily]
+
 Version 0.8.10 - 2009-06-11
 ---------------------------
 
