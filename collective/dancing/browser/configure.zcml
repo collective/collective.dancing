@@ -143,7 +143,14 @@
       class=".subscribe.Subscriptions"
       permission="zope2.View"
       />
-  
+
+  <page
+      name="pretty-my-subscriptions.html"
+      for="collective.dancing.channel.IPortalNewsletters"
+      class=".subscribe.PrettySubscriptions"
+      permission="zope2.View"
+      />
+
   <page
       name="sendsecret.html"
       for="collective.dancing.channel.IPortalNewsletters"
