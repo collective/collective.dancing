@@ -306,107 +306,23 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
                     "There was an error with sending your e-mail.  Please try "
                     "again later.")
 
-class Subscriptions(BrowserView):
-    __call__ = ViewPageTemplateFile('skeleton.pt')
-    contents_template = ViewPageTemplateFile('subscriptions.pt')
 
-    label = _(u"My subscriptions")
-    status = u""
+class SubscriptionSubForm(IncludeHiddenSecret, subform.EditSubForm):
 
-    def forgot_secret_form(self):
-        form = collective.singing.browser.subscribe.ForgotSecret(
-            self.context, self.request)
-        form.label = u''
-        return form()
-
-    @property
-    def addforms(self):
-        return [f for f in self.subscription_addforms if not f.added]
-
-    @property
-    def editforms(self):
-        return [f for f in self.subscription_editforms if not f.removed]
-
-    @property
-    def secret(self):
-        secret = self.request.form.get('secret')
-        if isinstance(secret, list):
-            return secret[0]
-        return secret
-
-    def contents(self):
-        z2.switch_on(self,
-                     request_layer=collective.singing.interfaces.IFormLayer)
-
-        subscriptions, channels = self._subscriptions_and_channels(self.secret)
-
-        # Let's set convert any 'pending' subscriptions to non-pending:
-        for sub in subscriptions:
-            if sub.metadata.get('pending'):
-                sub.metadata['pending'] = False
-
-        # Assemble the list of edit forms
-        self.subscription_editforms = [
-            SubscriptionEditForm(s, self.request) for s in subscriptions]
-
-        # Assemble the list of add forms
-        self.subscription_addforms = []
-        for format, channel in channels:
-            addform = SubscriptionAddForm(channel, self.request)
-            addform.format = format
-            self.subscription_addforms.append(addform)
-
-        # The edit forms might have deleted a subscription.  We'll
-        # take care of this while updating them:
-        for form in self.subscription_editforms:
-            form.update()
-            if form.removed:
-                subscription = form.context
-                name = subscription.channel.name
-                addform = SubscriptionAddForm(
-                    subscription.channel, self.request)
-                addform.format = subscription.metadata['format']
-                addform.update()
-                self.subscription_addforms.append(addform)
-                addform.status = form.status
-            elif form.status != form.noChangesMessage:
-                self.status = form.status
-
-        # Let's update the add forms now.  One of them may have added
-        # a subscription:
-        for form in self.subscription_addforms:
-            form.update()
-            subscription = form.added
-            if subscription is not None:
-                editform = SubscriptionEditForm(
-                    subscription, self.request)
-                editform.update()
-                self.subscription_editforms.append(editform)
-                editform.status = form.status#_(u"You subscribed successfully.")
-
-        return self.contents_template()
-
-    def _subscriptions_and_channels(self, secret):
-        subscriptions = []
-        channels_and_formats = []
-
-        for channel in channel_lookup(only_subscribeable=True):
-            channel_subs = channel.subscriptions
-
-            subscribed_formats = []
-            if self.secret is not None:
-                for s in channel_subs.query(secret=self.secret):
-                    subscriptions.append(s)
-                    subscribed_formats.append(s.metadata['format'])
-
-            for format in channel.composers.keys():
-                if format not in subscribed_formats:
-                    channels_and_formats.append((format, channel))
-
-        return subscriptions, channels_and_formats
+    def update(self):
+        super(SubscriptionSubForm, self).update()
+        # set label on channel-checkbox
+        # indent other widgets
+        widgets = self.widgets.values()
+        widgets[0].items[0]['label'] = self.label
+        widgets[0].label = u''
+        for widget in widgets[1:]:
+            widget.label = u""
+            widget.required = False
+            widget.addClass('level-1') 
 
 
-class SubscriptionAddSubForm(IncludeHiddenSecret, subform.EditSubForm):
+class SubscriptionAddSubForm(SubscriptionSubForm):
     template = viewpagetemplatefile.ViewPageTemplateFile('subform.pt')
 
     ignoreContext = True
@@ -448,11 +364,11 @@ class SubscriptionAddSubForm(IncludeHiddenSecret, subform.EditSubForm):
             __name__=self.context.name,
             title=self.context.title,
             default=False,
-            required=False
+            required=False,
             ))
         select_field.widgetFactory[z3c.form.interfaces.INPUT_MODE] = (
             singlecheckboxwidget_factory)
-        
+
         return field.Fields(select_field, prefix='selector.') + fields
 
     def update(self):
@@ -537,7 +453,7 @@ class SubscriptionAddSubForm(IncludeHiddenSecret, subform.EditSubForm):
                     "There was an error with sending your e-mail.  Please try "
                     "again later.")
 
-class SubscriptionEditSubForm(IncludeHiddenSecret, subform.EditSubForm):
+class SubscriptionEditSubForm(SubscriptionSubForm):
     template = viewpagetemplatefile.ViewPageTemplateFile('subform.pt')    
     successMessage = _('Your subscription was updated.')
     removed = False
@@ -610,6 +526,7 @@ class SubscriptionEditSubForm(IncludeHiddenSecret, subform.EditSubForm):
 
         super(SubscriptionEditSubForm, self).update()
 
+
     def unsubscribe(self):
         secret = self.secret
         subs = self.context.channel.subscriptions
@@ -663,13 +580,17 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
             f = field.Field(kf)
             if self.subs:
                 kf.default = self.subs[0].composer_data[kf.getName()]
-                f.disabled = True
             fields += field.Fields(f)
         return fields
 
     def update(self):
         super(PrettySubscriptionsForm, self).update()
 
+        if self.subs: #existing subscriptions
+            for f_name in [f.getName() for f in self.key_fields]:
+                widget = self.widgets.get(f_name)
+
+            
         # Let's set convert any 'pending' subscriptions to non-pending:
         for sub in self.subs:
             if sub.metadata.get('pending'):
@@ -735,24 +656,117 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
                     "There was an error with sending your e-mail.  Please try "
                     "again later.")
 
-    
-class PrettySubscriptions(Subscriptions):
-    contents_template = ViewPageTemplateFile('prettysubscriptions.pt')
+class Subscriptions(BrowserView):
+    __call__ = ViewPageTemplateFile('skeleton.pt')
+    contents_template = ViewPageTemplateFile('subscriptions.pt')
+    single_form_template = ViewPageTemplateFile('prettysubscriptions.pt')
+ 
+    label = _(u"My subscriptions")
+    status = u""
 
-    def __init__(self, context, request):
-        super(PrettySubscriptions, self).__init__(context, request)
+    def forgot_secret_form(self):
+        form = collective.singing.browser.subscribe.ForgotSecret(
+            self.context, self.request)
+        form.label = u''
+        return form()
+
+    @property
+    def newsletters(self):
+        return getSite().portal_newsletters
+    
+    @property
+    def single_form_subscriptions(self):
+        return self.newsletters.get('use_single_form_subscriptions_page', '')
+
+    @property
+    def addforms(self):
+        return [f for f in self.subscription_addforms if not f.added]
+
+    @property
+    def editforms(self):
+        return [f for f in self.subscription_editforms if not f.removed]
+
+    @property
+    def secret(self):
+        secret = self.request.form.get('secret')
+        if isinstance(secret, list):
+            return secret[0]
+        return secret
+
+    def contents(self):
         z2.switch_on(self,
                      request_layer=collective.singing.interfaces.IFormLayer)
-
         subscriptions, channels = self._subscriptions_and_channels(self.secret)
-        self.form = PrettySubscriptionsForm(self.context, self.request, 
-                                            subscriptions, channels)
-        self.form.update()
         
-    @memoize
-    def contents(self):
-        return self.contents_template()        
+        if self.single_form_subscriptions:
+            self.form = PrettySubscriptionsForm(self.context, self.request, 
+                                                subscriptions, channels)
+            self.form.update()
+            return self.single_form_template()
 
-    
+        # Let's set convert any 'pending' subscriptions to non-pending:
+        for sub in subscriptions:
+            if sub.metadata.get('pending'):
+                sub.metadata['pending'] = False
 
-    
+        # Assemble the list of edit forms
+        self.subscription_editforms = [
+            SubscriptionEditForm(s, self.request) for s in subscriptions]
+
+        # Assemble the list of add forms
+        self.subscription_addforms = []
+        for format, channel in channels:
+            addform = SubscriptionAddForm(channel, self.request)
+            addform.format = format
+            self.subscription_addforms.append(addform)
+
+        # The edit forms might have deleted a subscription.  We'll
+        # take care of this while updating them:
+        for form in self.subscription_editforms:
+            form.update()
+            if form.removed:
+                subscription = form.context
+                name = subscription.channel.name
+                addform = SubscriptionAddForm(
+                    subscription.channel, self.request)
+                addform.format = subscription.metadata['format']
+                addform.update()
+                self.subscription_addforms.append(addform)
+                addform.status = form.status
+            elif form.status != form.noChangesMessage:
+                self.status = form.status
+
+        # Let's update the add forms now.  One of them may have added
+        # a subscription:
+        for form in self.subscription_addforms:
+            form.update()
+            subscription = form.added
+            if subscription is not None:
+                editform = SubscriptionEditForm(
+                    subscription, self.request)
+                editform.update()
+                self.subscription_editforms.append(editform)
+                editform.status = form.status#_(u"You subscribed successfully.")
+
+        return self.contents_template()
+
+    def _subscriptions_and_channels(self, secret):
+        subscriptions = []
+        channels_and_formats = []
+
+        for channel in channel_lookup(only_subscribeable=True):
+            channel_subs = channel.subscriptions
+
+            subscribed_formats = []
+            if self.secret is not None:
+                for s in channel_subs.query(secret=self.secret):
+                    subscriptions.append(s)
+                    subscribed_formats.append(s.metadata['format'])
+
+            for format in channel.composers.keys():
+                if format not in subscribed_formats:
+                    channels_and_formats.append((format, channel))
+
+        return subscriptions, channels_and_formats
+
+

@@ -18,23 +18,11 @@
     <form action="." method="post"
           tal:attributes="action request/getURL; enctype view/enctype">
 
-      <div tal:repeat="form view/forms"
+      <div class="subform" tal:repeat="form view/forms"
 	   tal:condition="view/forms|nothing">
         <div tal:replace="structure form/render" />
       </div>
-      <div tal:condition="not:view/forms|nothing">
-	<fieldset tal:repeat="addform view/addforms">
-          <legend tal:content="addform/label">Owner</legend>
-          <div tal:replace="structure addform/render" />
-	</fieldset>
 
-	------
-	
-	<fieldset tal:repeat="editform view/editforms">
-          <legend tal:content="editform/label">Owner</legend>
-          <div tal:replace="structure editform/render" />
-	</fieldset>
-      </div>
       <tal:widgets condition="view/widgets">
 	<div class="row" tal:repeat="widget view/widgets/values">
           <b tal:condition="widget/error"

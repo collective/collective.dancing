@@ -38,6 +38,10 @@ fieldset.subforms {
     border: 1px dotted black;
 }
 
+#subscription-combinedform .row .level-1 {
+    margin-left: 2em;
+}
+
 .collector-form .subform-level-1 { 
     margin-left: 0;
     padding-left: 0;

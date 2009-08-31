@@ -15,7 +15,7 @@
   </p>
 </div>
 
-<div id="subscription-editforms">
+<div id="subscription-combinedform">
   <tal:form replace="structure view/form/render" />
 </div>
 

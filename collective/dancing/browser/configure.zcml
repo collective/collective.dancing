@@ -80,6 +80,13 @@
       />
 
   <page
+     name="settings.html"
+     for="collective.dancing.channel.PortalNewsletters"
+     class=".settings.NewslettersSettingsView"
+     permission="dancing.ManageNewsletters"
+     />
+
+  <page
       name="index_html"
       for="collective.dancing.channel.ChannelContainer"
       class=".channel.ChannelAdministrationView"
@@ -141,13 +148,6 @@
       name="my-subscriptions.html"
       for="collective.dancing.channel.IPortalNewsletters"
       class=".subscribe.Subscriptions"
-      permission="zope2.View"
-      />
-
-  <page
-      name="pretty-my-subscriptions.html"
-      for="collective.dancing.channel.IPortalNewsletters"
-      class=".subscribe.PrettySubscriptions"
       permission="zope2.View"
       />
 
