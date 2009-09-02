@@ -308,7 +308,18 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
 
 
 class SubscriptionSubForm(IncludeHiddenSecret, subform.EditSubForm):
-
+    status_already_subscribed = _(u"You are already subscribed. "
+                                  "Fill out the form at the end of this "
+                                  "page to be sent a link from where you "
+                                  "can edit your subscription.")
+    status_error = _(u"There seems to be an error with the "
+                     "information you entered.")
+    status_sent = _(u"Information on how to confirm your "
+                    "subscription has been sent to you.")
+    successMessage = _('Your subscription was updated.')
+    status_subscribed = _(u"You subscribed successfully.")
+    status_unsubscribed = _(u"You unsubscribed successfully.")
+    
     def update(self):
         super(SubscriptionSubForm, self).update()
         # set label on channel-checkbox
@@ -317,8 +328,8 @@ class SubscriptionSubForm(IncludeHiddenSecret, subform.EditSubForm):
         widgets[0].items[0]['label'] = self.label
         widgets[0].label = u''
         for widget in widgets[1:]:
-            widget.label = u""
-            widget.required = False
+            #widget.label = u""
+            #widget.required = False
             widget.addClass('level-1') 
 
 
@@ -329,7 +340,7 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
     
     added = None
     format = None # set by parent form
-    status_already_subscribed = _(u"You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription.")
+
     @property
     def description(self):
         return self.context.description
@@ -347,6 +358,11 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
         return value
 
     @property
+    def channel_selector(self):
+        return '%s-%s' % (self.context.name,
+                          self.format)
+
+    @property
     def fields(self):
         if self.context.collector is not None:
             fields = field.Fields(self.context.collector.schema,
@@ -361,8 +377,8 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
 
         select_field = field.Field(
             schema.Bool(
-            __name__=self.context.name,
-            title=self.context.title,
+            __name__=self.channel_selector,
+            title=self.label,
             default=False,
             required=False,
             ))
@@ -375,7 +391,7 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
         def handleApply(self, action):
             data, errors = self.extractData()
 
-            if not data.get(self.context.name):
+            if not data.get(self.channel_selector):
                 return
 
             if errors:
@@ -400,10 +416,18 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
                 self.request)
             secret_provided = self.secret
             if secret_provided and secret != secret_provided:
-                self.status = _(
-                    u"There seems to be an error with the information you entered.")
+                self.status = self.status_error
                 return
 
+            # Check if subscribed to other channels
+            if not secret_provided:
+                existing = sum(
+                    [len(channel.subscriptions.query(secret=secret)) \
+                     for channel in channel_lookup(only_subscribeable=True)])
+                if existing:
+                    self.status = self.status_already_subscribed
+                    return
+                
             metadata = dict(
                 format=self.format,
                 date=datetime.datetime.now(),
@@ -439,25 +463,16 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
             self.status = self.status_already_subscribed
             return
 
-        self.status = _(u"You subscribed successfully.")
+        self.status = self.status_subscribed
+
         if not secret_provided:
-            composer = self.context.composers[self.format]
-            msg = composer.render_confirmation(self.added)
-            status, status_msg = collective.singing.message.dispatch(msg)
-            if status == u'sent':
-                self.status = _(u"Information on how to confirm your "
-                                "subscription has been sent to you.")
-            else:
-                # This implicitely rolls back our transaction.
-                raise RuntimeError(
-                    "There was an error with sending your e-mail.  Please try "
-                    "again later.")
+            self.parentForm.send_confirmation(self.context, self.format, self.added)
 
 class SubscriptionEditSubForm(SubscriptionSubForm):
     template = viewpagetemplatefile.ViewPageTemplateFile('subform.pt')    
-    successMessage = _('Your subscription was updated.')
     removed = False
     handlers = form.EditForm.handlers
+
 
     @property
     def description(self):
@@ -479,11 +494,16 @@ class SubscriptionEditSubForm(SubscriptionSubForm):
         return value
 
     @property
+    def channel_selector(self):
+        return '%s-%s' % (self.context.channel.name,
+                          self.context.metadata['format'])
+
+    @property
     def fields(self):
         select_field = field.Field(
             schema.Bool(
-            __name__=self.context.channel.name,
-            title=self.context.channel.title,
+            __name__=self.channel_selector,
+            title=self.label,
             default=True,
             required=False
             ))
@@ -502,7 +522,7 @@ class SubscriptionEditSubForm(SubscriptionSubForm):
         def handleApply(self, action):
             data, errors = self.extractData()
 
-            if not data.get(self.context.channel.name):
+            if not data.get(self.channel_selector):
                 self.unsubscribe()
                 return
             if errors:
@@ -510,7 +530,7 @@ class SubscriptionEditSubForm(SubscriptionSubForm):
                 return
 
             content = self.getContent()
-            del data[self.context.channel.name] 
+            del data[self.channel_selector] 
 
             changes = form.applyChanges(self, content, data)
             if changes:
@@ -529,18 +549,21 @@ class SubscriptionEditSubForm(SubscriptionSubForm):
 
     def unsubscribe(self):
         secret = self.secret
+        format = self.context.metadata['format']
         subs = self.context.channel.subscriptions
-        for subscription in subs.query(secret=secret):
+        for subscription in subs.query(secret=secret, format=format):
             subs.remove_subscription(subscription)
         self.removed = self.context
-        self.status = _(u"You unsubscribed successfully.")
-
+        self.status = self.status_unsubscribed
 
 class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
+
     template = viewpagetemplatefile.ViewPageTemplateFile(
         'prettysubscriptionsform.pt')
     ignoreContext = True
+    ignoreRequest = True
     confirmation_sent = False
+    status_message = None
     
     def __init__(self, context, request, subs, channels):
         super(PrettySubscriptionsForm, self).__init__(context, request)
@@ -558,6 +581,24 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
                     if f not in self.key_fields:
                         self.key_fields.append(f)
         self.confirmation_sent = False
+
+    def status(self):
+        if self.status_message:
+            return self.status_message
+        stati = [form.status for form in self.forms]
+
+        for s in [SubscriptionSubForm.status_already_subscribed,
+                  SubscriptionSubForm.status_sent,
+                  SubscriptionSubForm.successMessage]:
+            if s in stati:
+                return s
+
+        for s in [SubscriptionSubForm.status_subscribed,
+                  SubscriptionSubForm.status_unsubscribed]:
+            if s in stati:
+                return SubscriptionSubForm.successMessage
+
+        return ''
 
     @property
     def addforms(self):
@@ -590,7 +631,6 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
             for f_name in [f.getName() for f in self.key_fields]:
                 widget = self.widgets.get(f_name)
 
-            
         # Let's set convert any 'pending' subscriptions to non-pending:
         for sub in self.subs:
             if sub.metadata.get('pending'):
@@ -621,8 +661,8 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
                 addform.update()
                 self.subscription_addforms.append(addform)
                 addform.status = form.status
-            elif form.status != form.noChangesMessage:
-                self.status = form.status
+            #elif form.status != form.noChangesMessage:
+            #    self.status = form.status
         
         # Let's update the add forms now.  One of them may have added
         # a subscription:
@@ -639,7 +679,14 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
     @button.buttonAndHandler(_('Apply'), name='apply')
     def handle_apply(self, action):
         # All the action happens in the subforms ;-)
-        pass
+        # All we do here is check that key_fields were not altered
+        if self.subs:
+            data, errors = self.extractData()
+            key_defaults = dict(
+                [(f.getName(), f.default) for f in self.key_fields])
+            for key, value in data.items():
+                if key_defaults[key] != value:
+                    self.status_message = SubscriptionSubForm.status_error
 
     def send_confirmation(self, channel, format, subscription):
         if not self.confirmation_sent:
@@ -647,8 +694,8 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
             msg = composer.render_confirmation(subscription)
             status, status_msg = collective.singing.message.dispatch(msg)
             if status == u'sent':
-                self.status = _(u"Information on how to confirm your "
-                                "subscription has been sent to you.")
+                self.status_message = _(u"Information on how to confirm your "
+                                        "subscription has been sent to you.")
                 self.confirmation_sent = True
             else:
                 # This implicitely rolls back our transaction.
@@ -702,7 +749,10 @@ class Subscriptions(BrowserView):
             self.form = PrettySubscriptionsForm(self.context, self.request, 
                                                 subscriptions, channels)
             self.form.update()
-            return self.single_form_template()
+            if len(self.form.key_fields) == 1:
+                # Revert to old style form if not all
+                # composers have the same ISubscriptionKey.
+                return self.single_form_template()
 
         # Let's set convert any 'pending' subscriptions to non-pending:
         for sub in subscriptions:
@@ -770,3 +820,14 @@ class Subscriptions(BrowserView):
         return subscriptions, channels_and_formats
 
 
+#############
+from zope import schema
+from zope.schema.vocabulary import SimpleVocabulary
+from collective.dancing.composer import HTMLComposer
+
+class MyHTMLComposer(HTMLComposer):
+    title = u'Hypertext E-Mail with selectable font-size'
+    class schema(HTMLComposer.schema):
+        font_size = schema.Choice(
+            title=u"Font size",
+            vocabulary=SimpleVocabulary.fromValues([8, 12, 16]))
