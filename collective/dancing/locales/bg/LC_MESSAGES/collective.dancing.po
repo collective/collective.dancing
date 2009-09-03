@@ -261,7 +261,7 @@ msgid "Fill out the form below to receive an email with a link from which you ca
 msgstr ""
 
 #: ./browser/subscribe.py:53
-msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href="${url}">edit your subscriptions</a>."
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href=\"${url}\">edit your subscriptions</a>."
 msgstr ""
 
 #: ./browser/portlets/channelsubscribe.py:42
@@ -518,7 +518,7 @@ msgid "Send"
 msgstr "Изпращане"
 
 #: ./browser/sendnewsletter.py:96
-msgid "Send "${context}" through ${channels}."
+msgid "Send \"${context}\" through ${channels}."
 msgstr "Изпращане на \"${context}\" в ${channels}."
 
 #: ./browser/sendnewsletter.py:198
@@ -734,7 +734,7 @@ msgid "Upload list of subscribers."
 msgstr "Качване на списък с абонати."
 
 #: ./browser/portlets/channelsubscribe.py:146
-msgid "You are already subscribed to this newsletter. Click here to <a href="${url}">edit your subscriptions</a>."
+msgid "You are already subscribed to this newsletter. Click here to <a href=\"${url}\">edit your subscriptions</a>."
 msgstr "Вие вече сте абониран(а) за този бюлетин. Щракнете на <a href=\"${url}\">редактиране на вашите абонаменти</a>."
 
 #: ./browser/subscribe.py:204
@@ -781,7 +781,7 @@ msgid "Your e-mail address is invalid"
 msgstr "Вашия e-mail адрес е невалиден"
 
 #: ./browser/subscribe.py:20
-msgid "Your email address is already subscribed. Click the "Send my subscription details" button below."
+msgid "Your email address is already subscribed. Click the \"Send my subscription details\" button below."
 msgstr "Вече има абонамент на вашия email адрес. Щракнете на бутон 'Изпращане на информация за абонамент' по-долу."
 
 #: ./browser/subscribe.py:82

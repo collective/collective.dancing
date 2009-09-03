@@ -262,7 +262,7 @@ msgid "Fill out the form below to receive an email with a link from which you ca
 msgstr "Bete ezazu beheko formularioa zure harpidetzak editatzeko helbidea e-postaz jasotzeko."
 
 #: ./browser/subscribe.py:53
-msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href="${url}">edit your subscriptions</a>."
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href=\"${url}\">edit your subscriptions</a>."
 msgstr "Bete ezazu beheko formulariako ${channel}era harpidetzekoa. Kontuan izan hau harpidetza berrietarako dela. Egin klik <a href=\"${url}\">zure harpidetzak editatzeko</a>."
 
 #: ./browser/portlets/channelsubscribe.py:42
@@ -519,7 +519,7 @@ msgid "Send"
 msgstr "Bidali"
 
 #: ./browser/sendnewsletter.py:96
-msgid "Send "${context}" through ${channels}."
+msgid "Send \"${context}\" through ${channels}."
 msgstr "Bidali \"${context} ${channels} erabiliz."
 
 #: ./browser/sendnewsletter.py:198
@@ -735,7 +735,7 @@ msgid "Upload list of subscribers."
 msgstr "Harpidedunen zerrenda kargatu."
 
 #: ./browser/portlets/channelsubscribe.py:146
-msgid "You are already subscribed to this newsletter. Click here to <a href="${url}">edit your subscriptions</a>."
+msgid "You are already subscribed to this newsletter. Click here to <a href=\"${url}\">edit your subscriptions</a>."
 msgstr "Buletin honetara harpidetuta zaude jadanik. Egin klik <a href=\"${url}\">zure harpidetzak editatzeko</a>"
 
 #: ./browser/subscribe.py:204
@@ -782,7 +782,7 @@ msgid "Your e-mail address is invalid"
 msgstr "Zure e-posta helbidea ez da baliozkoa"
 
 #: ./browser/subscribe.py:20
-msgid "Your email address is already subscribed. Click the "Send my subscription details" button below."
+msgid "Your email address is already subscribed. Click the \"Send my subscription details\" button below."
 msgstr "Zure e-posta helbidea harpidetuta dago jadanik. Egin klik beheragoko \"Bidali nire harpidetzeren datuak\" botoian."
 
 #: ./browser/subscribe.py:82
