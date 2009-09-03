@@ -4,6 +4,14 @@ History
 Version 0.8.11 - Unreleased
 ---------------------------
 
+- Added alternative "My subscriptions" page. It's based on a single form
+  with subforms, instead of multiple forms like the old one. It's main
+  feature is that it displays the ISubscriptionKey (the email address ;-))
+  and "subscribe" button only once. It has a checkbox for subscribing to
+  each channel.
+  To try the new version, select it from the new "Global settings" controlpanel.
+  [tmog]
+
 - Translated new messageids for german language and updated some old ones.
   [saily]
 

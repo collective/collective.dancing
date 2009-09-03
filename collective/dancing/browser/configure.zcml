@@ -80,6 +80,13 @@
       />
 
   <page
+     name="settings.html"
+     for="collective.dancing.channel.PortalNewsletters"
+     class=".settings.NewslettersSettingsView"
+     permission="dancing.ManageNewsletters"
+     />
+
+  <page
       name="index_html"
       for="collective.dancing.channel.ChannelContainer"
       class=".channel.ChannelAdministrationView"
@@ -143,7 +150,7 @@
       class=".subscribe.Subscriptions"
       permission="zope2.View"
       />
-  
+
   <page
       name="sendsecret.html"
       for="collective.dancing.channel.IPortalNewsletters"

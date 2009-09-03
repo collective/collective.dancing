@@ -5,6 +5,7 @@ from UserString import UserString
 import persistent.dict
 from zope import component
 from zope import interface
+from zope import schema
 import zope.app.container.interfaces
 import zope.app.component.hooks
 import AccessControl
@@ -58,11 +59,20 @@ class Salt(UserString):
             for i in range(50)])
         UserString.__init__(self, salt)
 
-class IPortalNewsletters(interface.Interface):
+class INewslettersSettings(interface.Interface):
+    use_single_form_subscriptions_page = schema.Bool(
+        title=_(u"Use single form subscriptions page"),
+        description=_(u"Use single form subscriptions page when possible."),
+        default=False,
+        required=False)
+
+class IPortalNewsletters(INewslettersSettings):
     pass
 
 class PortalNewsletters(OFS.Folder.Folder):
     interface.implements(IPortalNewsletters)
+
+    use_single_form_subscriptions_page = False
 
     def Title(self):
         return u"Newsletters"

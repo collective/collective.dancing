@@ -1207,6 +1207,7 @@ And finally a scheduled send-out:
   ...
   (3, 0)
 
+
 The "My subscriptions" page
 ---------------------------
 
@@ -1232,9 +1233,9 @@ test more compact:
   >>> __builtins__['MyHTMLComposer'] = MyHTMLComposer # make it persistable
 
   >>> selecta = portal.portal_newsletters.collectors['brand-new-selecta'] = \
-  ...     Collector('brand-new-selecta', 'Brand new selecta')
+  ...     Collector('brand-new-selecta', u'Brand new selecta')
   >>> new_channel = portal.portal_newsletters.channels['brand-new-channel'] = \
-  ...     Channel('brand-new-channel', 'Brand new channel',
+  ...     Channel('brand-new-channel', u'Brand new channel',
   ...             {'html': HTMLComposer(), 'html-fontsize': MyHTMLComposer()},
   ...             selecta)
 
@@ -1374,6 +1375,212 @@ pages. So the user is not forced to try subscribing first when she knows she alr
   ...
   Click here to manage your subscriptions...
 
+
+  
+The alternative "My subscriptions" page
+---------------------------
+
+There is an alternative "My subscriptions" page available for those who choose.
+It presents a flat form where key composer fields ('email' in vanilla s&d) are
+only displayed once, and channels are (un-)selected via simple checkboxes. 
+
+Let's go  through the same subscription updates that we did for the standard form.
+First, though, we go to the controlpanel to enable the alternative form.
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters')
+  >>> browser.getLink('Global settings').click()
+  >>> use_single_form = browser.getControl(
+  ...     name='form.widgets.use_single_form_subscriptions_page:list')
+  >>> use_single_form.value
+  ['false']
+  >>> use_single_form.value = ['true']
+  >>> browser.getControl('Apply').click()
+
+We can now look at root's subscriptions.  Note how we add the secret
+as a query parameter.  We expect the subscription to "My other
+channel" to be shown:
+
+  >>> secret = channel.composers['html'].secret(dict(email='root@localhost'))
+  >>> browser.open(portal.absolute_url() +
+  ...              '/portal_newsletters/my-subscriptions.html?secret=' + secret)
+
+We see that root is subscribed to 'Brand new channel (hypertext)' and can subscribe
+to 'My other channel' as well as to 'Brand new channel' with html format.
+   
+  >>> browser.getControl('My other channel').selected
+  False
+  >>> browser.getControl('Brand new channel (HTML E-Mail)').selected
+  False
+  >>> browser.getControl('Brand new channel (Hypertext E-Mail with selectable font-size)').selected
+  True
+
+The form has only a single email field at the bottom.
+The field is disabled when showing an existing subscription.
+
+  >>> email_ctrl = browser.getControl('E-mail address')
+  >>> email_ctrl.value
+  'root@localhost'
+  >>> email_ctrl.disabled
+  False
+  >>> pos = browser.contents.index
+  >>> pos('E-mail address') > pos('My other channel')
+  True
+  >>> pos('E-mail address') > pos('Brand new channel')
+  True
+  
+Let's use the form now to subscribe 'root' to 'My other channel'
+with both news items and events selected:
+
+  >>> len(channel.subscriptions.query(secret=secret))
+  0
+  >>> browser.getControl('My other channel').selected = True
+  >>> browser.getControl('News').click()
+  >>> browser.getControl('Events').click()
+  >>> from collective.dancing.browser.subscribe import PrettySubscriptionsForm
+
+  >>> browser.getControl('Apply').click()
+  >>> 'Your subscription was updated' in browser.contents
+  True
+  >>> subscription = tuple(channel.subscriptions.query(secret=secret))[0]
+  >>> sorted([c.title for c in subscription.collector_data['selected_collectors']])
+  [u'Events', u'News']
+
+  
+Next, we'll subscribe to "Brand new channel (html)". While removing
+the 'News' option on 'My channel'. Notice that the 
+
+  >>> new_subscription = tuple(new_channel.subscriptions.query(secret=secret))
+  >>> len(new_subscription)
+  1
+  >>> new_subscription[0].metadata['format']
+  'html-fontsize'
+
+  >>> browser.getControl('Brand new channel (HTML E-Mail)').selected = True
+  >>> browser.getControl('News').click()
+  >>> browser.getControl('Apply').click()
+  >>> 'Your subscription was updated' in browser.contents
+  True
+
+  >>> new_subscription = tuple(new_channel.subscriptions.query(secret=secret))
+  >>> len(new_subscription)
+  2
+  >>> sorted([sub.metadata['format'] for sub in new_subscription])
+  ['html', 'html-fontsize']
+
+Notice that if we unsubscribe 'Brand new Channel (HTML selectable size) we
+will get the opportunity to choose the font-size again.
+
+  >>> tuple(new_channel.subscriptions.query(
+  ...    secret=secret, format='html-fontsize'))[0].composer_data['font_size']
+  16
+  >>> 'Font size' in browser.contents
+  False
+
+  >>> browser.getControl(
+  ...    'Brand new channel (Hypertext E-Mail with selectable font-size)').selected = False
+  >>> browser.getControl('Apply').click()
+  >>> 'Your subscription was updated' in browser.contents
+  True
+
+  >>> 'Font size' in browser.contents
+  True
+  >>> browser.getControl('Font size').getControl('12').click() 
+  >>> browser.getControl(
+  ...    'Brand new channel (Hypertext E-Mail with selectable font-size)').selected = True
+  >>> browser.getControl('Apply').click()
+  >>> 'Your subscription was updated' in browser.contents
+  True
+  
+  >>> tuple(new_channel.subscriptions.query(
+  ...    secret=secret, format='html-fontsize'))[0].composer_data['font_size']
+  12
+  >>> 'Font size' in browser.contents
+  False
+  
+Let's unsubscribe 'Brand new channel (HTML E-mail)' and
+'My other channel' again. ;-)
+
+  >>> browser.open(portal.absolute_url() +
+  ...              '/portal_newsletters/my-subscriptions.html?secret=' + secret)
+  >>> browser.getControl('Brand new channel (HTML E-Mail)').selected
+  True
+  >>> browser.getControl(
+  ...    'Brand new channel (Hypertext E-Mail with selectable font-size)').selected
+  True
+  >>> browser.getControl('My other channel').selected
+  True
+
+  >>> len(new_channel.subscriptions.query(secret=secret))
+  2
+
+  >>> browser.getControl('Brand new channel (HTML E-Mail)').selected = False
+  >>> browser.getControl('My other channel').selected = False
+  >>> browser.getControl('Apply').click()
+
+  >>> 'Your subscription was updated' in browser.contents
+  True
+
+  >>> len(new_channel.subscriptions.query(secret=secret))
+  1
+  >>> len(channel.subscriptions.query(secret=secret))
+  0
+
+
+We can use this same form to subscribe to a channel without a secret.
+This will trigger the confirmation mail to be sent out:
+Notice the form will complain if the email is already subscribed.
+
+  >>> browser.open(portal.absolute_url() +
+  ...              '/portal_newsletters/my-subscriptions.html')
+  >>> browser.getControl('My other channel').selected = True
+  >>> browser.getControl('E-mail address').value = u'root@localhost'
+  >>> browser.getControl('Apply').click()
+
+  >>> 'You are already subscribed.' in browser.contents
+  True
+
+  >>> browser.getControl('My other channel').selected = True
+  >>> browser.getControl('Brand new channel (HTML E-Mail)').selected = True
+  >>> browser.getControl('E-mail address').value = "tmog@localhost"
+  >>> browser.getControl('Apply').click()
+  *TestingMailDelivery sending*:
+  From: Site Administrator <>
+  To: tmog@localhost
+  Message follows:
+  ...
+  To confirm your subscription with My other channel, please click here:...
+  >>> "Information on how to confirm your subscription has been sent to you." in browser.contents
+  True
+
+  >>> secret = channel.composers['html'].secret(dict(email='tmog@localhost'))
+  >>> len(channel.subscriptions.query(secret=secret))
+  1
+  >>> len(new_channel.subscriptions.query(secret=secret))
+  1
+  >>> tuple(channel.subscriptions.query(secret=secret))[0].metadata['pending']
+  True
+
+  
+The unpersonalized version of "My subscription" contains a form that
+lets us retrieve an e-mail message with a link to the same page that
+contains our secret:
+
+  >>> browser.getControl("Address").value = "root@localhost"
+  >>> browser.getControl('Send').click()
+  *TestingMailDelivery sending*:
+  From: Site Administrator <>
+  To: root@localhost
+  Message follows:
+  ...
+  Click here to manage your subscriptions...
+
+Let's switch back to the standard "My subscriptions".
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/settings.html')
+  >>> browser.getControl(
+  ...     name='form.widgets.use_single_form_subscriptions_page:list').value = ['false']
+  >>> browser.getControl('Apply').click()
+  
 
 Configuring composers
 ---------------------
