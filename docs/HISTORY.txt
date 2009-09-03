@@ -1,7 +1,11 @@
 History
 =======
 
-Version 0.8.11 - Unreleased
+Version 0.8.12 - Unreleased
+---------------------------
+
+
+Version 0.8.11 - 2009-09-03
 ---------------------------
 
 - Added alternative "My subscriptions" page. It's based on a single form
