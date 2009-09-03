@@ -420,7 +420,7 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
                 return
 
             # Check if subscribed to other channels
-            if not secret_provided:
+            if not secret_provided and not self.parentForm.confirmation_sent:
                 existing = sum(
                     [len(channel.subscriptions.query(secret=secret)) \
                      for channel in channel_lookup(only_subscribeable=True)])

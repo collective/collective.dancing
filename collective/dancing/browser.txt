@@ -1540,6 +1540,7 @@ Notice the form will complain if the email is already subscribed.
   True
 
   >>> browser.getControl('My other channel').selected = True
+  >>> browser.getControl('Brand new channel (HTML E-Mail)').selected = True
   >>> browser.getControl('E-mail address').value = "tmog@localhost"
   >>> browser.getControl('Apply').click()
   *TestingMailDelivery sending*:
@@ -1551,11 +1552,14 @@ Notice the form will complain if the email is already subscribed.
   >>> "Information on how to confirm your subscription has been sent to you." in browser.contents
   True
 
-  >>> secret = channel.composers['html'].secret(dict(email='daemon@localhost'))
+  >>> secret = channel.composers['html'].secret(dict(email='tmog@localhost'))
   >>> len(channel.subscriptions.query(secret=secret))
+  1
+  >>> len(new_channel.subscriptions.query(secret=secret))
   1
   >>> tuple(channel.subscriptions.query(secret=secret))[0].metadata['pending']
   True
+
   
 The unpersonalized version of "My subscription" contains a form that
 lets us retrieve an e-mail message with a link to the same page that
