@@ -4,6 +4,14 @@ History
 Version 0.8.12 - Unreleased
 ---------------------------
 
+- Changed the email address validation. The old one allowed a few bad
+  addresses to slip through - addresses with trailing dots for instance.
+  The new validation is generally stricter. Note that 'simple' local addresses
+  like 'admin@localhost' are no longer allowed. For special use-cases where you
+  need this, you must change the validation RegExp. However, for most usecases, I
+  believe this is a big improvement.
+  [tmog]
+
 
 Version 0.8.11 - 2009-09-03
 ---------------------------

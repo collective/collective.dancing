@@ -143,11 +143,11 @@ Subscribe via portlet
 ---------------------
   
   >>> browser.open(portal.absolute_url())
-  >>> browser.getControl('E-mail address').value = u'tmog@localhost'
+  >>> browser.getControl('E-mail address').value = u'tmog@domain.tld'
   >>> browser.getControl('Subscribe').click()
   *TestingMailDelivery sending*:
   From: Site Administrator <>
-  To: tmog@localhost
+  To: tmog@domain.tld
   Message follows:
   ...
   >>> "Information on how to confirm your subscription has been sent to you." in browser.contents
@@ -156,7 +156,7 @@ Subscribe via portlet
 If that e-mail address is already subscribed, we'll get a message:
 
   >>> browser.open(portal.absolute_url())
-  >>> browser.getControl('E-mail address').value = u'tmog@localhost'
+  >>> browser.getControl('E-mail address').value = u'tmog@domain.tld'
   >>> browser.getControl('Subscribe').click()
   >>> "You are already subscribed to this newsletter" in browser.contents
   True
@@ -170,8 +170,8 @@ page.
   >>> browser.getControl(name='form.widgets.subscribe_directly:list').value = ['false']
   >>> browser.getControl('Apply').click()
   >>> browser.open(portal.absolute_url())
-  >>> browser.getControl('E-mail address').value = u'tmog@localhost'
+  >>> browser.getControl('E-mail address').value = u'tmog@domain.tld'
   >>> browser.getControl('Proceed').click()
   >>> browser.url
-  'http://nohost/plone/portal_newsletters/channels/default-channel/subscribe.html?composer.widgets.email=tmog%40localhost'
+  'http://nohost/plone/portal_newsletters/channels/default-channel/subscribe.html?composer.widgets.email=tmog%40domain.tld'
   

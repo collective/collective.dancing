@@ -3,6 +3,7 @@ import unittest
 from zope import interface, component
 import zope.sendmail.interfaces
 from zope.testing import doctest
+from zope.component import testing
 from Testing import ZopeTestCase as ztc
 from Products.Five import zcml
 from Products.Five import fiveconfigure
@@ -131,4 +132,8 @@ def test_suite():
             'portlets.txt',
             test_class=ptc.FunctionalTestCase,
             ),
+       doctest.DocTestSuite(
+           'collective.dancing.composer',
+           setUp=testing.setUp, tearDown=testing.tearDown,
+           ),
         ])

@@ -56,8 +56,8 @@ Relative links will be transformed into absolute ones correctly:
 
 Links starting with a ``mailto:`` won't be touched:
 
-  >>> url('<a href="mailto:daniel@localhost">Contact me</a>', None)
-  '<a href="mailto:daniel@localhost">Contact me</a>'
+  >>> url('<a href="mailto:daniel@domain.tld">Contact me</a>', None)
+  '<a href="mailto:daniel@domain.tld">Contact me</a>'
 
 Same for ``javascript:`` links:
 

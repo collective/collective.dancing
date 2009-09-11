@@ -302,17 +302,17 @@ channel's name to reach the channel subscriptions screen:
 
 We can add new subscriptions here:
 
-  >>> browser.getControl('E-mail address').value = u"daniel@localhost"
+  >>> browser.getControl('E-mail address').value = u"daniel@domain.tld"
   >>> browser.getControl('Add').click()
   >>> 'Item added successfully' in browser.contents
   True
-  >>> 'daniel@localhost' in browser.contents
+  >>> 'daniel@domain.tld' in browser.contents
   True
 
 We'll get a nice error message when we try to add a subscription with
 the same e-mail address:
 
-  >>> browser.getControl('E-mail address').value = u"daniel@localhost"
+  >>> browser.getControl('E-mail address').value = u"daniel@domain.tld"
   >>> browser.getControl('Add').click()
   >>> 'Item added successfully' in browser.contents
   False
@@ -326,17 +326,17 @@ Let's delete and re-add:
   'selected'
   >>> select.click()
   >>> browser.getControl("Delete").click()
-  >>> "daniel@localhost" in browser.contents
+  >>> "daniel@domain.tld" in browser.contents
   False
 
-  >>> browser.getControl('E-mail address').value = u"daniel@localhost"
+  >>> browser.getControl('E-mail address').value = u"daniel@domain.tld"
   >>> browser.getControl('Add').click()
   >>> 'Item added successfully' in browser.contents
   True
 
 We'll add another subscription:
 
-  >>> browser.getControl('E-mail address').value = u"mailman@localhost"
+  >>> browser.getControl('E-mail address').value = u"mailman@domain.tld"
   >>> browser.getControl('Add').click()
   >>> 'Item added successfully' in browser.contents
   True
@@ -364,19 +364,19 @@ We upload a list of subscribers from a csv-file.
   >>> browser.getLink(url='http://nohost/plone/portal_newsletters/channels/my-other-channel').click()
 
   >>> my_channel = collective.singing.channel.lookup('my-other-channel')
-  >>> len(my_channel.subscriptions.query(key=u'pia@localhost'))
+  >>> len(my_channel.subscriptions.query(key=u'pia@domain.tld'))
   0 
 
   >>> import cStringIO
   >>> ctrl = browser.getControl(name='crud-add.html.widgets.subscriberdata')
   >>> ctrl
   <Control name='crud-add.html.widgets.subscriberdata' type='file'>
-  >>> ctrl.add_file(cStringIO.StringIO('pia@localhost\nlars@localhost'),
+  >>> ctrl.add_file(cStringIO.StringIO('pia@domain.tld\nlars@domain.tld'),
   ...               'text/plain', 'test.txt')
   >>> browser.getControl('Upload').click()
   >>> '2 subscriptions updated successfully' in browser.contents
   True
-  >>> len(my_channel.subscriptions.query(key=u'pia@localhost'))
+  >>> len(my_channel.subscriptions.query(key=u'pia@domain.tld'))
   1
 
 We upload a list of subscribers from an extended csv-file, containing a 
@@ -386,14 +386,14 @@ header line and extra columns to be included in the composer.
   >>> browser.getLink(url='http://nohost/plone/portal_newsletters/channels/my-other-channel').click()
 
   >>> my_channel = collective.singing.channel.lookup('my-other-channel')
-  >>> len(my_channel.subscriptions.query(key=u'pengo@localhost'))
+  >>> len(my_channel.subscriptions.query(key=u'pengo@domain.tld'))
   0 
 
   >>> import cStringIO
   >>> ctrl = browser.getControl(name='crud-add.html.widgets.subscriberdata')
   >>> ctrl
   <Control name='crud-add.html.widgets.subscriberdata' type='file'>
-  >>> fil='Colour,Animal,email\nred,fox,pengo@localhost\npink,pig,pia@localhost'
+  >>> fil='Colour,Animal,email\nred,fox,pengo@domain.tld\npink,pig,pia@domain.tld'
   >>> ctrl.add_file(cStringIO.StringIO(fil), 'text/plain', 'test.txt')
 
 This time we signify there's a header row
@@ -405,17 +405,17 @@ This time we signify there's a header row
   >>> '2 subscriptions updated successfully' in browser.contents
   True
   
-  >>> len(my_channel.subscriptions.query(key=u'pengo@localhost'))
+  >>> len(my_channel.subscriptions.query(key=u'pengo@domain.tld'))
   1
   
 Since pengo was one of the imported subscriptions, let's check that
 pengo has the correct values for the csv variables
 
-  >>> resultSet = my_channel.subscriptions.query(key=u'pengo@localhost')
+  >>> resultSet = my_channel.subscriptions.query(key=u'pengo@domain.tld')
   >>> subscriber = [i for i in resultSet][0]
   >>> composer_data = subscriber.composer_data
   >>> [composer_data[k] for k in sorted(composer_data)]
-  [u'fox', u'red', u'pengo@localhost']
+  [u'fox', u'red', u'pengo@domain.tld']
 
 Now let's compose an HTML message to ensure that the variables pass from
 end-to-end
@@ -434,7 +434,7 @@ We upload a list of subscribers with valid and invalid email
 addresses:
 
   >>> ctrl = browser.getControl(name='crud-add.html.widgets.subscriberdata')
-  >>> ctrl.add_file(cStringIO.StringIO('pia@localhost\nlars'),
+  >>> ctrl.add_file(cStringIO.StringIO('pia@domain.tld\nlars'),
   ...              'text/plain', 'test.txt')
   >>> browser.getControl('Upload').click()
   >>> '1 subscriptions updated successfully' in browser.contents
@@ -447,24 +447,24 @@ Subscriptions can be downloaded as csv:
   >>> browser.getControl('Download').click()
   >>> browser.headers['content-type']
   'text/csv; charset=UTF-8'
-  >>> 'daniel@localhost\r\n' in browser.contents
+  >>> 'daniel@domain.tld\r\n' in browser.contents
   True
-  >>> 'mailman@localhost\r\n' in browser.contents
+  >>> 'mailman@domain.tld\r\n' in browser.contents
   True
-  >>> 'lars@localhost\r\n' in browser.contents
+  >>> 'lars@domain.tld\r\n' in browser.contents
   True
-  >>> 'pia@localhost\r\n' in browser.contents
+  >>> 'pia@domain.tld\r\n' in browser.contents
   True
   
 Cleanup: remove subscriptions
 
-  >>> subs = my_channel.subscriptions.query(key=u'pia@localhost')
+  >>> subs = my_channel.subscriptions.query(key=u'pia@domain.tld')
   >>> for subscription in subs:
   ...       my_channel.subscriptions.remove_subscription(subscription)
-  >>> subs = my_channel.subscriptions.query(key=u'lars@localhost')
+  >>> subs = my_channel.subscriptions.query(key=u'lars@domain.tld')
   >>> for subscription in subs:
   ...       my_channel.subscriptions.remove_subscription(subscription)
-  >>> subs = my_channel.subscriptions.query(key=u'pengo@localhost')
+  >>> subs = my_channel.subscriptions.query(key=u'pengo@domain.tld')
   >>> for subscription in subs:
   ...       my_channel.subscriptions.remove_subscription(subscription)
 
@@ -604,13 +604,13 @@ Every channel has a view that allows people to subscribe:
 
 We'll subscribe to events only:
 
-  >>> browser.getControl('E-mail address').value = u"root@localhost"
+  >>> browser.getControl('E-mail address').value = u"root@domain.tld"
   >>> browser.getControl('Events').click()
   >>> browser.getControl('Finish').click() \
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *TestingMailDelivery sending*:
   From: Site Administrator <>
-  To: root@localhost
+  To: root@domain.tld
   Message follows:
   ...
   To confirm your subscription with My other channel, please click here:...
@@ -639,7 +639,7 @@ the subscriptions query interface, we can see that our subscription is
   >>> subscription.metadata['pending']
   True
   >>> dict((subscription.composer_data))
-  {'email': u'root@localhost'}
+  {'email': u'root@domain.tld'}
 
 After confirming our subscription, the subscription is no longer
 pending:
@@ -662,7 +662,7 @@ e-mail address fails.  Note that e-mail addresses are case insensitive
 and that whitespace is stripped off:
 
   >>> browser.open(channel.absolute_url() + '/subscribe.html')
-  >>> browser.getControl('E-mail address').value = u" ROOT@localhost "
+  >>> browser.getControl('E-mail address').value = u" ROOT@domain.tld "
   >>> browser.getControl('Finish').click()
   >>> "Your email address is already subscribed." in browser.contents
   True
@@ -673,7 +673,7 @@ Users can also request an e-mail with their secret:
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *TestingMailDelivery sending*:
   From: Site Administrator <>
-  To: root@localhost
+  To: root@domain.tld
   Message follows:
   ...
   Click here to manage your subscriptions...my-subscriptions.html...
@@ -697,12 +697,12 @@ Unsubscribe
 For this, we'll quickly add another subscription:
 
   >>> browser.open(channel.absolute_url() + '/subscribe.html')
-  >>> browser.getControl('E-mail address').value = u"daemon@localhost"
+  >>> browser.getControl('E-mail address').value = u"daemon@domain.tld"
   >>> browser.getControl('Finish').click() \
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *TestingMailDelivery sending*:
   From: Site Administrator <>
-  To: daemon@localhost...
+  To: daemon@domain.tld...
 
   >>> msg = quopri.decodestring(delivery.sent[-1])
   >>> secret = msg[msg.rindex('secret='):msg.index('</a')]
@@ -765,11 +765,11 @@ sent:
   ...
   Subject: Plone site: My other channel...
   From: Site Administrator <>
-  To: daniel@localhost
+  To: daniel@domain.tld
   ...Super Bowl XLII...Drug-resistant flu rising, says WHO...
-  To: mailman@localhost
+  To: mailman@domain.tld
   ...Drug-resistant flu rising, says WHO...
-  To: root@localhost
+  To: root@domain.tld
   ...Super Bowl XLII...
   Our newsletter rocks!
   ...
@@ -777,7 +777,7 @@ sent:
 Let's take a closer look at the mail that's sent to mailman:
 
   >>> msg = quopri.decodestring(delivery.sent[-2])
-  >>> 'mailman@localhost' in msg
+  >>> 'mailman@domain.tld' in msg
   True
   >>> "Super Bowl" in msg
   False
@@ -819,7 +819,7 @@ messages to be queued again:
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS
   *TestingMailDelivery sending*:...(3, 0)
   >>> print delivery.last_messages() # doctest: +ELLIPSIS
-  Content-Type:...To: daniel@localhost...To: mailman@localhost...To: root@localhost...
+  Content-Type:...To: daniel@domain.tld...To: mailman@domain.tld...To: root@domain.tld...
 
 We can choose another scheduler for our channel by visiting the
 channel administration screen.  But for now, let's resubmit the form
@@ -874,7 +874,7 @@ The scheduler will send messages now:
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS
   *TestingMailDelivery sending*:...(3, 0)
   >>> print delivery.last_messages() # doctest: +ELLIPSIS
-  Content-Type:...To: daniel@localhost...To: mailman@localhost...To: root@localhost...
+  Content-Type:...To: daniel@domain.tld...To: mailman@domain.tld...To: root@domain.tld...
 
 Now it's silent again:
 
@@ -892,7 +892,7 @@ check by using the "Trigger now" button:
   *TestingMailDelivery sending*:...(3, 0)
 
   >>> print delivery.last_messages() # doctest: +ELLIPSIS
-  Content-Type:...To: daniel@localhost...To: mailman@localhost...To: root@localhost...
+  Content-Type:...To: daniel@domain.tld...To: mailman@domain.tld...To: root@domain.tld...
 
 It's also possible to request a preview of automatic newsletters:
 
@@ -1022,7 +1022,7 @@ out:
 
   >>> delivery.order()
   >>> msg = quopri.decodestring(delivery.sent[-3])
-  >>> 'mailman@localhost' in msg
+  >>> 'mailman@domain.tld' in msg
   True
   >>> "All is quiet on the western front" in msg
   False
@@ -1039,9 +1039,9 @@ we'll fill in our e-mail address and click the Preview button.  Note
 that the cue time remains the same:
 
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
-  >>> root = tuple(channel.subscriptions.query(key=u'root@localhost'))[0]
+  >>> root = tuple(channel.subscriptions.query(key=u'root@domain.tld'))[0]
   >>> old_cue = root.metadata['cue']
-  >>> browser.getControl('Address').value = u'root@localhost'
+  >>> browser.getControl('Address').value = u'root@domain.tld'
   >>> browser.getControl('My other channel').click()
   >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
   >>> "1 message(s) queued" in browser.contents
@@ -1050,7 +1050,7 @@ that the cue time remains the same:
   *TestingMailDelivery sending*:
   ...
   (1, 0)
-  >>> root = tuple(channel.subscriptions.query(key=u'root@localhost'))[0]
+  >>> root = tuple(channel.subscriptions.query(key=u'root@domain.tld'))[0]
   >>> root.metadata['cue'] == old_cue
   True
   >>> previous_trigger_time == channel.scheduler.triggered_last
@@ -1059,7 +1059,7 @@ that the cue time remains the same:
 If we use an address that's unknown, it'll tell us that no messages
 were queued:
 
-  >>> browser.getControl('Address').value = u'nobody@localhost'
+  >>> browser.getControl('Address').value = u'nobody@domain.tld'
   >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
   >>> "0 message(s) queued" in browser.contents
   True
@@ -1159,7 +1159,7 @@ Next we try sending a preview.
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter-with-subject.html')
   >>> browser.getControl('My other channel').click()
   >>> browser.getControl('Custom Subject').value = u'My new subject'
-  >>> browser.getControl('Address').value = u'root@localhost'
+  >>> browser.getControl('Address').value = u'root@domain.tld'
   >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
   >>> "1 message(s) queued" in browser.contents
   True
@@ -1243,7 +1243,7 @@ We can now look at root's subscriptions.  Note how we add the secret
 as a query parameter.  We expect the subscription to "My other
 channel" to be shown:
 
-  >>> secret = channel.composers['html'].secret(dict(email='root@localhost'))
+  >>> secret = channel.composers['html'].secret(dict(email='root@domain.tld'))
   >>> browser.open(portal.absolute_url() +
   ...              '/portal_newsletters/my-subscriptions.html?secret=' + secret)
   >>> 'You are currently subscribed to these newsletters:' in browser.contents
@@ -1288,7 +1288,7 @@ format, which is Hypertext with variable font-size:
 
   >>> len(new_channel.subscriptions.query(secret=secret))
   0
-  >>> browser.getControl('E-mail address', index=1).value = u"root@localhost"
+  >>> browser.getControl('E-mail address', index=1).value = u"root@domain.tld"
   >>> browser.getControl('Font size').getControl('16').click()
   >>> browser.getControl('Subscribe', index=1).click()
   >>> "You subscribed successfully" in browser.contents
@@ -1328,18 +1328,18 @@ This will trigger the confirmation mail to be sent out:
 
   >>> browser.open(portal.absolute_url() +
   ...              '/portal_newsletters/my-subscriptions.html')
-  >>> browser.getControl('E-mail address', index=1).value = "daemon@localhost"
+  >>> browser.getControl('E-mail address', index=1).value = "daemon@domain.tld"
   >>> browser.getControl('Subscribe', index=1).click()
   *TestingMailDelivery sending*:
   From: Site Administrator <>
-  To: daemon@localhost
+  To: daemon@domain.tld
   Message follows:
   ...
   To confirm your subscription with My other channel, please click here:...
   >>> "Information on how to confirm your subscription has been sent to you." in browser.contents
   True
 
-  >>> secret = channel.composers['html'].secret(dict(email='daemon@localhost'))
+  >>> secret = channel.composers['html'].secret(dict(email='daemon@domain.tld'))
   >>> len(channel.subscriptions.query(secret=secret))
   1
   >>> tuple(channel.subscriptions.query(secret=secret))[0].metadata['pending']
@@ -1349,11 +1349,11 @@ The unpersonalized version of "My subscription" contains a form that
 lets us retrieve an e-mail message with a link to the same page that
 contains our secret:
 
-  >>> browser.getControl("Address").value = "daemon@localhost"
+  >>> browser.getControl("Address").value = "daemon@domain.tld"
   >>> browser.getControl('Send').click()
   *TestingMailDelivery sending*:
   From: Site Administrator <>
-  To: daemon@localhost
+  To: daemon@domain.tld
   Message follows:
   ...
   Click here to manage your subscriptions...
@@ -1366,11 +1366,11 @@ pages. So the user is not forced to try subscribing first when she knows she alr
   >>> browser.getLink('edit your subscriptions').click()
   >>> 'portal_newsletters/sendsecret.html' in browser.url
   True
-  >>> browser.getControl("Address").value = "daemon@localhost"
+  >>> browser.getControl("Address").value = "daemon@domain.tld"
   >>> browser.getControl('Send').click()
   *TestingMailDelivery sending*:
   From: Site Administrator <>
-  To: daemon@localhost
+  To: daemon@domain.tld
   Message follows:
   ...
   Click here to manage your subscriptions...
@@ -1400,7 +1400,7 @@ We can now look at root's subscriptions.  Note how we add the secret
 as a query parameter.  We expect the subscription to "My other
 channel" to be shown:
 
-  >>> secret = channel.composers['html'].secret(dict(email='root@localhost'))
+  >>> secret = channel.composers['html'].secret(dict(email='root@domain.tld'))
   >>> browser.open(portal.absolute_url() +
   ...              '/portal_newsletters/my-subscriptions.html?secret=' + secret)
 
@@ -1419,7 +1419,7 @@ The field is disabled when showing an existing subscription.
 
   >>> email_ctrl = browser.getControl('E-mail address')
   >>> email_ctrl.value
-  'root@localhost'
+  'root@domain.tld'
   >>> email_ctrl.disabled
   False
   >>> pos = browser.contents.index
@@ -1533,7 +1533,7 @@ Notice the form will complain if the email is already subscribed.
   >>> browser.open(portal.absolute_url() +
   ...              '/portal_newsletters/my-subscriptions.html')
   >>> browser.getControl('My other channel').selected = True
-  >>> browser.getControl('E-mail address').value = u'root@localhost'
+  >>> browser.getControl('E-mail address').value = u'root@domain.tld'
   >>> browser.getControl('Apply').click()
 
   >>> 'You are already subscribed.' in browser.contents
@@ -1541,18 +1541,18 @@ Notice the form will complain if the email is already subscribed.
 
   >>> browser.getControl('My other channel').selected = True
   >>> browser.getControl('Brand new channel (HTML E-Mail)').selected = True
-  >>> browser.getControl('E-mail address').value = "tmog@localhost"
+  >>> browser.getControl('E-mail address').value = "tmog@domain.tld"
   >>> browser.getControl('Apply').click()
   *TestingMailDelivery sending*:
   From: Site Administrator <>
-  To: tmog@localhost
+  To: tmog@domain.tld
   Message follows:
   ...
   To confirm your subscription with My other channel, please click here:...
   >>> "Information on how to confirm your subscription has been sent to you." in browser.contents
   True
 
-  >>> secret = channel.composers['html'].secret(dict(email='tmog@localhost'))
+  >>> secret = channel.composers['html'].secret(dict(email='tmog@domain.tld'))
   >>> len(channel.subscriptions.query(secret=secret))
   1
   >>> len(new_channel.subscriptions.query(secret=secret))
@@ -1565,11 +1565,11 @@ The unpersonalized version of "My subscription" contains a form that
 lets us retrieve an e-mail message with a link to the same page that
 contains our secret:
 
-  >>> browser.getControl("Address").value = "root@localhost"
+  >>> browser.getControl("Address").value = "root@domain.tld"
   >>> browser.getControl('Send').click()
   *TestingMailDelivery sending*:
   From: Site Administrator <>
-  To: root@localhost
+  To: root@domain.tld
   Message follows:
   ...
   Click here to manage your subscriptions...
@@ -1642,7 +1642,7 @@ have taken effect.
   
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
   >>> browser.getControl('My other channel').click()
-  >>> browser.getControl('Address').value = u'daniel@localhost'
+  >>> browser.getControl('Address').value = u'daniel@domain.tld'
   >>> browser.getControl(
   ...     name='form.widgets.include_collector_items:list').value = ['false']
   >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
@@ -1710,12 +1710,12 @@ will require to get a bounce notification three times before it
 deactivates an email address:
 
   >>> browser.open(portal.absolute_url() + '/@@dancing.utils/handle_bounce?' +
-  ...              'addrs=root@localhost')
+  ...              'addrs=root@domain.tld')
   >>> browser.open(portal.absolute_url() + '/@@dancing.utils/handle_bounce?' +
-  ...              'addrs=root@localhost&addrs=daniel@localhost')
+  ...              'addrs=root@domain.tld&addrs=daniel@domain.tld')
   >>> browser.contents
   '2 addresses received, 0 deactivated'
   >>> browser.open(portal.absolute_url() + '/@@dancing.utils/handle_bounce?' +
-  ...              'addrs=root@localhost&addrs=daniel@localhost')
+  ...              'addrs=root@domain.tld&addrs=daniel@domain.tld')
   >>> browser.contents
   '2 addresses received, 1 deactivated'

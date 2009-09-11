@@ -1,3 +1,4 @@
+# --*-- coding: utf-8 --*--
 import atexit
 import datetime
 import logging
@@ -41,12 +42,65 @@ logger = logging.getLogger('collective.singing')
 
 class InvalidEmailAddress(schema.ValidationError):
     _(u"Your e-mail address is invalid")
-    regex = r"[a-zA-Z0-9._%-]+@([a-zA-Z0-9-]+\.)*[a-zA-Z]{2,4}"
+    regex = r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
 
 def check_email(value):
+    """
+      >>> def t(value):
+      ...    try:
+      ...        return check_email(value)
+      ...    except InvalidEmailAddress:
+      ...        return False
+      
+    Some common examples.
+
+      >>> t('tmog@domain.tld')
+      True
+      >>> t('t.mog@domain.tld')
+      True
+      >>> t('t-mog@subdomain.domain.tld')
+      True
+      >>> t('tmog@sub-domain.domain.tld')
+      True
+
+    Note that we only accept real-world routeable addresses
+
+      >>> t('tmog@localhost')
+      False
+
+    We also do not accept capitals.
+
+      >>> t('TMOG@domain.TLD')
+      False
+      >>> t('Tmog@domain.tld')
+      False
+      >>> t('TMOG@DOMAIN.TLD')
+      False
+      
+    This passed with the old regex.
+    
+      >>> t('tmog@domain.tld.')
+      False
+
+    More fails.
+        
+      >>> t('tmog@domain@tld')
+      False
+      >>> t('tmog.domain.tld')
+      False
+      >>> t('tmog')
+      False
+
+    No international chars plz.
+
+      >>> t('René@la-resistance.fr')
+      False
+
+    """
     if not re.match(InvalidEmailAddress.regex, value):
         raise InvalidEmailAddress
-    return True
+    # Lazy: Not adding this final check to the regexp.
+    return not value.endswith('.')
 
 class PrimaryLabelTextLine(schema.TextLine):
     interface.implements(collective.singing.interfaces.ISubscriptionKey,
