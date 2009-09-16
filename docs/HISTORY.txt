@@ -4,7 +4,11 @@ History
 Version 0.8.13 - Unreleased
 ---------------------------
 
-
+- Fixed bug that caused the "Include collector items" option to
+  be ignored (i.e. always on) in "Send as newsletter" previews.
+  Also, there is now a default cue for the dummy preview subscriber.
+  The cue is always "one week ago".
+  [tmog]
 
 Version 0.8.12 - 2009-09-15
 ---------------------------

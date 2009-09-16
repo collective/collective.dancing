@@ -1,3 +1,4 @@
+import datetime
 from zope import interface
 from zope import component
 from zope import schema
@@ -27,7 +28,9 @@ class PreviewSubscription(object):
         self.channel = channel
 
         self.collector_data = {}
-        self.metadata = dict(format=self.format)
+        self.metadata = dict(format=self.format,
+                             date=datetime.datetime.now() - \
+                             datetime.timedelta(days=7),)
         
         composer = self.channel.composers[self.format]
         
@@ -43,6 +46,11 @@ class PreviewNewsletterView(BrowserView):
 
         if override_vars is None:
             override_vars = '{}'
+
+        try:
+            include_collector_items = int(include_collector_items)
+        except ValueError:
+            include_collector_items = False
 
         if IChannel.providedBy(self.context):
             channel = self.context
