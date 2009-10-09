@@ -1,6 +1,14 @@
 History
 =======
 
+Version 0.9 - Unreleased
+------------------------
+
+* Remove mo files [toutpt]
+* Remove patch to attopic [toutpt]
+* Remove Extensions [toutpt]
+* Remove pinned version in setup.py [toutpt]
+
 Version 0.8.13 - Unreleased
 ---------------------------
 
