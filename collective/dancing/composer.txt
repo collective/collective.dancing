@@ -64,6 +64,12 @@ That is, we can use it to retrieve a subscription's secret:
   >>> subscription.secret = secret
 
   >>> composer = HTMLComposer()
+  
+  Lets also try to add some style e.g. font-family for p tags  
+  >>> composer.stylesheet = """
+  ...     p{font-family:Arial,'Lucida Grande',
+  ...     Verdana,Lucida,Helvetica,sans-serif;}
+  ...     """
 
   Test _from_address
   >>> from Products.CMFCore.interfaces import IPropertiesTool
@@ -76,12 +82,15 @@ That is, we can use it to retrieve a subscription's secret:
 
   Rendering
 
-  >>> items = (
+  >>> items = [
   ...     'My bonnie lies over the ocean',
   ...     'My bonnie lies over the sea',
   ...     'My bonnie lies over the ocean',
   ...     'Oh bring back my bonnie to me',
-  ...     'Er ... if the cab fare is less than $2.00') #$ tests bug #300720
+  ...     'Er ... if the cab fare is less than $2.00',] #$ tests bug #300720
+  
+  >>> items.append('<p>A paragraph with font-family style attribute</p>') \
+  ... # tests bug #438003
 
   >>> msg = composer.render(subscription, items=zip(items, items))
   >>> msg # doctest: +ELLIPSIS
@@ -93,7 +102,7 @@ That is, we can use it to retrieve a subscription's secret:
   Subject: Plone site: News for nerds...
   From: Site Administrator <>...
   To: daniel@domain.tld...
-  ...My bonnie lies over the ocean...My bonnie lies over the sea...
+  ...My bonnie lies over the ocean...My bonnie lies over the sea...<p...style...Arial...>A paragraph...
 
   >>> msg = composer.render_confirmation(subscription) # doctest: +ELLIPSIS
   >>> msg # doctest: +ELLIPSIS
@@ -151,3 +160,5 @@ Plone object that returns its Plone view when called:
   True
   >>> 'Congratulations! You have successfully installed Plone' in html
   True
+
+
