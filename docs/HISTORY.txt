@@ -4,11 +4,6 @@ History
 Version 0.8.13 - Unreleased
 ---------------------------
 
-- Removed includeOverrides from plone.z3cform since it raised 
-  "ConfigurationConflictError: Conflicting configuration actions"
-  on Zope start up. Fixes http://tinyurl.com/yaedrql
-  [pelle]
-
 - Fixed bug that caused the "Include collector items" option to
   be ignored (i.e. always on) in "Send as newsletter" previews.
   Also, there is now a default cue for the dummy preview subscriber.
