@@ -27,6 +27,11 @@
   <five:registerPackage package="." initialize=".initialize" />
 
   <i18n:registerTranslations directory="locales"/>
+  <genericsetup:importStep
+        name="dancing_various"
+        title="Various Singing &amp; Dancing Settings"
+        handler=".setupHandlers.importVarious">
+  </genericsetup:importStep>
 
   <genericsetup:registerProfile
      name="default"
@@ -36,7 +41,7 @@
      provides="Products.GenericSetup.interfaces.EXTENSION"
      />
 
-  <browser:resourceDirectory 	   
+  <browser:resourceDirectory
       name="dancing-resources"
       directory="resources"
       permission="zope2.Public"
@@ -45,9 +50,9 @@
   <!-- Channel and subscriptions registrations -->
   <utility component=".channel.portal_newsletters" name="portal-newsletters" />
   <subscriber handler=".channel.tool_added" />
-  <subscriber handler=".channel.channels_added" /> 
-  <subscriber handler=".channel.channel_added" /> 
-  <subscriber handler=".channel.collector_removed" /> 
+  <subscriber handler=".channel.channels_added" />
+  <subscriber handler=".channel.channel_added" />
+  <subscriber handler=".channel.collector_removed" />
   <subscriber handler="collective.singing.subscribe.subscription_added" />
   <subscriber handler="collective.singing.subscribe.subscription_modified" />
   <subscriber handler="collective.singing.subscribe.subscription_removed" />
@@ -73,7 +78,7 @@
       class="Products.Archetypes.BaseFolder.BaseFolder" />
   <adapter factory=".composer.HTMLFormatItemFully"
            for=".composer.FullFormatWrapper
-                zope.publisher.interfaces.browser.IBrowserRequest" 
+                zope.publisher.interfaces.browser.IBrowserRequest"
            name="html" />
   <!-- In the future, we'll want more than just this call formatter -->
   <adapter factory=".composer.PloneCallHTMLFormatter"
@@ -100,6 +105,6 @@
   <five:implements
      class=".channel.PortalNewsletters"
      interface="plone.portlets.interfaces.ILocalPortletAssignable" />
-  
-  
+
+
 </configure>
