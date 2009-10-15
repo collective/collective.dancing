@@ -72,6 +72,14 @@ Then add new channel that uses our "Tales from.." collector:
   >>> browser.getControl('Title').value = 'TFTC newsletter'
   >>> browser.getControl('Collector (what)').displayValue = ['Tales from the crypt']
   >>> browser.getControl('Add').click()
+
+Let's make sure both channels are subscribeable
+
+  >>> browser.getControl(
+  ...     name='crud-edit.default-channel.widgets.subscribeable:list').value = ['true']
+  >>> browser.getControl(
+  ...     name='crud-edit.tftc-newsletter.widgets.subscribeable:list').value = ['true']
+  >>> browser.getControl('Apply').click()
   
   
 Create Channel subscribe portlet

@@ -4,7 +4,12 @@ History
 Version 0.8.13 - Unreleased
 ---------------------------
 
-- Disabled stoneagehtml style attributes blacklist since it stripped
+- The attribute 'subscribeable' now defaults to False on newly created
+  channels. This means newly created channels will not show up on my-subscriptions
+  before they are made subscribeable from the channels configuration page.
+  [tmog]
+
+  - Disabled stoneagehtml style attributes blacklist since it stripped
   out font-familiy from the styles added to a channel which confused 
   several users. This fixes http://tinyurl.com/ygmhv7a
   Unfortunately its not possible to specify a custom 

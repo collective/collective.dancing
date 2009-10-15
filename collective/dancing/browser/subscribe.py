@@ -570,16 +570,18 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
         self.subs = subs
         self.channels = channels
         self.key_fields = []
-        composers = reduce(
-            lambda x,y:x+y,
-            [c.composers.values() for c in channel_lookup(only_subscribeable=True)])
-        for composer in composers:
-            for name in composer.schema.names():
-                f = composer.schema.get(name)
-                if f and \
-                       collective.singing.interfaces.ISubscriptionKey.providedBy(f):
-                    if f not in self.key_fields:
-                        self.key_fields.append(f)
+        channels = channel_lookup(only_subscribeable=True)
+        if channels:
+            composers = reduce(
+                lambda x,y:x+y,
+                [c.composers.values() for c in channels])
+            for composer in composers:
+                for name in composer.schema.names():
+                    f = composer.schema.get(name)
+                    if f and \
+                           collective.singing.interfaces.ISubscriptionKey.providedBy(f):
+                        if f not in self.key_fields:
+                            self.key_fields.append(f)
         self.confirmation_sent = False
 
     def status(self):

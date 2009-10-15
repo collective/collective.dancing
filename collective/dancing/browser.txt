@@ -107,6 +107,30 @@ channel:
   >>> scheduler.displayValue
   ['Weekly scheduler']
 
+By default channels are marked as not subscribeable, so they do not show up on subscribe forms
+before they are completely configured.
+
+  >>> subscribeable = browser.getControl(
+  ...     name='crud-edit.my-other-channel.widgets.subscribeable:list')
+  >>> subscribeable.value
+  ['false']
+  
+This one we need to subscribe to.
+
+  >>> subscribeable.value = ['true']
+  >>> browser.getControl('Apply').click()
+
+Default channel also:
+  >>> subscribeable = browser.getControl(
+  ...     name='crud-edit.default-channel.widgets.subscribeable:list')
+  >>> subscribeable.value
+  ['false']
+  
+This one we need to subscribe to.
+
+  >>> subscribeable.value = ['true']
+  >>> browser.getControl('Apply').click()
+
   
 Adding new types of Channels can be done very easily from external code.
 Simpy add to the list of factories.
@@ -155,15 +179,31 @@ The subscribe portlet already does this:
   >>> custom_channel in collective.singing.channel.channel_lookup()
   True
   >>> custom_channel in collective.singing.channel.channel_lookup(only_subscribeable=True)
-  True
+  False
   
-  >>> custom_channel.subscribeable = False
+  >>> custom_channel.subscribeable = True
+
+  >>> custom_channel in collective.singing.channel.channel_lookup()
+  True
+  >>> custom_channel in collective.singing.channel.channel_lookup(only_subscribeable=True)
+  True
+
+Subscribeable can also be set from the controlpanel.
+  
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> subscribeable = browser.getControl(
+  ...     name='crud-edit.%s.widgets.subscribeable:list' % custom_channel.name)
+  >>> subscribeable.value
+  ['true']
+  
+  >>> subscribeable.value = ['false']
+  >>> browser.getControl('Apply').click()
 
   >>> custom_channel in collective.singing.channel.channel_lookup()
   True
   >>> custom_channel in collective.singing.channel.channel_lookup(only_subscribeable=True)
   False
-  
+
   
 Let's remove it since it does nothing we want to test.
 
@@ -1237,7 +1277,7 @@ test more compact:
   >>> new_channel = portal.portal_newsletters.channels['brand-new-channel'] = \
   ...     Channel('brand-new-channel', u'Brand new channel',
   ...             {'html': HTMLComposer(), 'html-fontsize': MyHTMLComposer()},
-  ...             selecta)
+  ...             selecta, subscribeable=True)
 
 We can now look at root's subscriptions.  Note how we add the secret
 as a query parameter.  We expect the subscription to "My other

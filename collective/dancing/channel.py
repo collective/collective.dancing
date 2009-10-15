@@ -133,12 +133,13 @@ class Channel(OFS.SimpleItem.SimpleItem):
     sendable = True
     
     def __init__(self, name, title=None, composers=None,
-                 collector=None, scheduler=None, description=u""):
+                 collector=None, scheduler=None, description=u"", subscribeable=False):
         self.name = name
         if title is None:
             title = name
         self.title = title
         self.description = description
+        self.subscribeable = subscribeable
         self.subscriptions = collective.dancing.subscribe.Subscriptions()
         if composers is None:
             composers = persistent.dict.PersistentDict()
