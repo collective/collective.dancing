@@ -1,7 +1,11 @@
 History
 =======
 
-Version 0.8.13 - Unreleased
+Version 0.8.14 - Unreleased
+---------------------------
+
+
+Version 0.8.13 - 2009-10-19
 ---------------------------
 
 - The attribute 'subscribeable' now defaults to False on newly created
