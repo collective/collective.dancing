@@ -1135,7 +1135,7 @@ call a "timed scheduler":
   >>> browser.getControl("My other channel").click()
 
   >>> name_pre = 'form.widgets.datetime-'
-  >>> browser.getControl(name=name_pre + "year").value = "6"
+  >>> browser.getControl(name=name_pre + "day").value = "6"
   >>> browser.getControl(name=name_pre + "month").displayValue = ["June"]
   >>> browser.getControl(name=name_pre + "year").value = "2008"
   >>> browser.getControl(name=name_pre + "hour").value = "11"
