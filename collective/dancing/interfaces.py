@@ -15,8 +15,7 @@ class IFullFormatter(interface.Interface):
     complete HTML document.
     """
 
-class IHTMLComposer(collective.singing.interfaces.IComposer,
-                    collective.singing.interfaces.IComposerBasedSecret):
+class IHTMLComposer(collective.singing.interfaces.IComposer):
     """An HTML composer.
     """
 

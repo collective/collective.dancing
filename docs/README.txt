@@ -44,6 +44,7 @@ Subscriptions
 
 .. image:: http://danielnouri.org/media/singing-dancing.jpg
    :alt: Singing & Dancing Logo by Giuseppe Zizza
+   :title: Singing & Dancing Logo by Giuseppe Zizza
 
 Guide
 =====

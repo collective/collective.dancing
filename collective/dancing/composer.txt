@@ -30,6 +30,10 @@ this test:
   ...     def __init__(self, channel):
   ...         self.channel = channel
   ...         self.composer_data = {}
+  ...     
+  ...     @property
+  ...     def key(self):
+  ...         return self.composer_data['email']
 
 HTMLComposer
 ------------
@@ -42,36 +46,27 @@ The ``HTMLComposer`` creates messages of type
   >>> HTMLComposer.schema.names()
   ['email']
 
-The HTMLComposer implements both the ``IComposer`` and the
-``IComposerBasedSecret`` interfaces:
+The HTMLComposer implements the ``IComposer`` interface:
 
   >>> from zope.interface import verify
   >>> verify.verifyClass(collective.singing.interfaces.IComposer,
   ...                    HTMLComposer)
   True
-  >>> verify.verifyClass(collective.singing.interfaces.IComposerBasedSecret,
-  ...                    HTMLComposer)
-  True
-
-That is, we can use it to retrieve a subscription's secret:
 
   >>> channel = Channel('News for nerds', 'http://my.chann.el')
   >>> subscription = Subscription(channel)
   >>> subscription.composer_data['email'] = u'daniel@domain.tld'
-  >>> secret = HTMLComposer.secret(subscription.composer_data)
-  >>> isinstance(secret, str)
-  True
-  >>> subscription.secret = secret
-
   >>> composer = HTMLComposer()
   
-  Lets also try to add some style e.g. font-family for p tags  
+Let's also try to add some style e.g. font-family for p tags:
+
   >>> composer.stylesheet = """
   ...     p{font-family:Arial,'Lucida Grande',
   ...     Verdana,Lucida,Helvetica,sans-serif;}
   ...     """
 
-  Test _from_address
+Test _from_address:
+
   >>> from Products.CMFCore.interfaces import IPropertiesTool
   >>> properties = component.getUtility(IPropertiesTool)
   >>> old_name = properties.email_from_name
@@ -80,7 +75,7 @@ That is, we can use it to retrieve a subscription's secret:
   '=?utf-8?b?S2/EjWth?= <>'
   >>> properties.email_from_name = old_name
 
-  Rendering
+Rendering:
 
   >>> items = [
   ...     'My bonnie lies over the ocean',

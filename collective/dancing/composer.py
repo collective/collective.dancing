@@ -3,7 +3,6 @@ import atexit
 import datetime
 import logging
 import inspect
-import md5
 import re
 import os
 import string
@@ -28,6 +27,7 @@ import Products.CMFCore.interfaces
 import Products.CMFPlone.interfaces
 import collective.singing.interfaces
 import collective.singing.mail
+import collective.singing.subscribe
 
 from collective.dancing import MessageFactory as _
 from collective.dancing import transform
@@ -156,11 +156,6 @@ class HTMLComposer(persistent.Persistent):
     confirm_template = ViewPageTemplateFile('browser/composer-html-confirm.pt')
     forgot_template = ViewPageTemplateFile('browser/composer-html-forgot.pt')
 
-    @staticmethod
-    def secret(data):
-        salt = component.getUtility(collective.singing.interfaces.ISalt)
-        return md5.new("%s%s" % (data['email'], salt)).hexdigest()
-    
     context = None
     @property
     def request(self):
@@ -242,15 +237,16 @@ class HTMLComposer(persistent.Persistent):
         site = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
         site = utils.fix_request(site, 0)
         secret_var = '$%s' % template_var('secret')
+        key_var = '$%s' % template_var('key')
         vars['confirm_url'] = (
-            '%s/confirm-subscription.html?secret=%s' %
-            (site.portal_newsletters.absolute_url(), secret_var))
+            '%s/confirm-subscription.html?__sd_secret__=%s&__sd_key__=%s' %
+            (site.portal_newsletters.absolute_url(), secret_var, key_var))
         vars['unsubscribe_url'] = (
-            '%s/unsubscribe.html?secret=%s' %
-            (channel.absolute_url(), secret_var))
+            '%s/unsubscribe.html?__sd_secret__=%s&__sd_key__=%s' %
+            (channel.absolute_url(), secret_var, key_var))
         vars['my_subscriptions_url'] = (
-            '%s/../../my-subscriptions.html?secret=%s' %
-            (channel.absolute_url(), secret_var))
+            '%s/../../my-subscriptions.html?__sd_secret__=%s&__sd_key__=%s' %
+            (channel.absolute_url(), secret_var, key_var))
         vars['to_addr'] = '$%s' % template_var('to_addr')
         return vars
 
@@ -259,7 +255,9 @@ class HTMLComposer(persistent.Persistent):
         to every subscription.
         """
         vars = {}
-        vars[template_var('secret')] = self.secret(subscription.composer_data)
+        vars[template_var('secret')] = collective.singing.subscribe.make_secret(
+            subscription.key)
+        vars[template_var('key')] = subscription.key
         vars[template_var('to_addr')] = subscription.composer_data['email']
         for k, v in subscription.composer_data.items():
             vars[template_var(k)] = v

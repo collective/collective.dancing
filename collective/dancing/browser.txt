@@ -661,18 +661,16 @@ We'll subscribe to events only:
   >>> import quopri
   >>> msg = quopri.decodestring(delivery.sent[-1])
   >>> confirm_url = "http://nohost/plone/portal_newsletters/confirm-subscription.html"
-  >>> confirm_url + "?secret=" in msg
+  >>> confirm_url + "?__sd_secret__=" in msg
   True
-  >>> secret = msg[msg.rindex('secret='):msg.index('</a')]
-  >>> secret.startswith('secret=')
-  True
+  >>> query_str = msg[msg.rindex('__sd_secret__='):msg.index('</a')]
 
 So now we've received an e-mail to confirm our subscription.  Using
 the subscriptions query interface, we can see that our subscription is
 *pending*:
 
   >>> subscriptions = list(
-  ...     channel.subscriptions.query(secret=secret.split('=')[1]))
+  ...     channel.subscriptions.query(key=key.split('=')[1]))
   >>> len(subscriptions)
   1
   >>> subscription = subscriptions[0]
@@ -722,9 +720,10 @@ What if we never received the message to confirm?  We can then still
 rely on the "Send my subscriptions details" function to update the
 'pending' state:
 
+  >>> from collective.singing.subscribe import make_secret
   >>> subscription.metadata['pending'] = True
-  >>> url = '%s/../../my-subscriptions.html?secret=%s' % (
-  ...     channel.absolute_url(), subscription.secret)
+  >>> url = '%s/../../my-subscriptions.html?secret=%s&key=%s' % (
+  ...     channel.absolute_url(), make_secret(key), subscription.key)
   >>> browser.open(url)
   >>> "You are currently subscribed to these newsletters" in browser.contents
   True
@@ -1283,9 +1282,13 @@ We can now look at root's subscriptions.  Note how we add the secret
 as a query parameter.  We expect the subscription to "My other
 channel" to be shown:
 
-  >>> secret = channel.composers['html'].secret(dict(email='root@domain.tld'))
-  >>> browser.open(portal.absolute_url() +
-  ...              '/portal_newsletters/my-subscriptions.html?secret=' + secret)
+  >>> key = u'root@domain.tld'
+  >>> secret = make_secret(key)
+  >>> browser.open(
+  ...     portal.absolute_url() +
+  ...     '/portal_newsletters/my-subscriptions.html?secret=%s&key=%s' % (
+  ...     secret, key))
+
   >>> 'You are currently subscribed to these newsletters:' in browser.contents
   True
   >>> 'You can subscribe to these newsletters:' in browser.contents
@@ -1379,10 +1382,10 @@ This will trigger the confirmation mail to be sent out:
   >>> "Information on how to confirm your subscription has been sent to you." in browser.contents
   True
 
-  >>> secret = channel.composers['html'].secret(dict(email='daemon@domain.tld'))
-  >>> len(channel.subscriptions.query(secret=secret))
+  >>> key = 'daemon@domain.tld'
+  >>> len(channel.subscriptions.query(key=key))
   1
-  >>> tuple(channel.subscriptions.query(secret=secret))[0].metadata['pending']
+  >>> tuple(channel.subscriptions.query(key=key))[0].metadata['pending']
   True
 
 The unpersonalized version of "My subscription" contains a form that
@@ -1440,9 +1443,12 @@ We can now look at root's subscriptions.  Note how we add the secret
 as a query parameter.  We expect the subscription to "My other
 channel" to be shown:
 
-  >>> secret = channel.composers['html'].secret(dict(email='root@domain.tld'))
-  >>> browser.open(portal.absolute_url() +
-  ...              '/portal_newsletters/my-subscriptions.html?secret=' + secret)
+  >>> key = u'root@domain.tld'
+  >>> secret = make_secret(key)
+  >>> browser.open(
+  ...     portal.absolute_url() +
+  ...     '/portal_newsletters/my-subscriptions.html?secret=%s&key=%s' % (
+  ...     secret, key))
 
 We see that root is subscribed to 'Brand new channel (hypertext)' and can subscribe
 to 'My other channel' as well as to 'Brand new channel' with html format.
@@ -1592,14 +1598,13 @@ Notice the form will complain if the email is already subscribed.
   >>> "Information on how to confirm your subscription has been sent to you." in browser.contents
   True
 
-  >>> secret = channel.composers['html'].secret(dict(email='tmog@domain.tld'))
-  >>> len(channel.subscriptions.query(secret=secret))
+  >>> key = 'tmog@domain.tld'
+  >>> len(channel.subscriptions.query(key=key))
   1
-  >>> len(new_channel.subscriptions.query(secret=secret))
+  >>> len(new_channel.subscriptions.query(key=key))
   1
-  >>> tuple(channel.subscriptions.query(secret=secret))[0].metadata['pending']
+  >>> tuple(channel.subscriptions.query(key=key))[0].metadata['pending']
   True
-
   
 The unpersonalized version of "My subscription" contains a form that
 lets us retrieve an e-mail message with a link to the same page that

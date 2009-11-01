@@ -258,13 +258,10 @@ class ManageSubscriptionsForm(crud.CrudForm):
 
         for subscription in self.context.subscriptions.query(**query):
             if subscription.metadata['format'] == self.format:
-                items.append((str(subscription.secret), subscription))
+                items.append((str(subscription.key), subscription))
         return items
 
     def add(self, data):
-        secret = collective.singing.subscribe.secret(
-            self.context, self.composer, data, self.request)
-
         composer_data = dict(
             [(name, value) for (name, value) in data.items()
              if name in self._composer_fields()])
@@ -278,12 +275,12 @@ class ManageSubscriptionsForm(crud.CrudForm):
 
         try:
             return self.context.subscriptions.add_subscription(
-                self.context, secret, composer_data, collector_data, metadata)
+                self.context, composer_data, collector_data, metadata)
         except ValueError, e:
             raise schema.ValidationError(e.args[0])
 
-    def remove(self, (secret, item)):
-        subs = self.context.subscriptions.query(secret=secret, 
+    def remove(self, (key, item)):
+        subs = self.context.subscriptions.query(key=key, 
                                                 format=item.metadata['format'])
         for subscription in subs:
             self.context.subscriptions.remove_subscription(subscription)
@@ -487,12 +484,12 @@ class UploadForm(crud.AddForm):
         for subscription in subs:
             self.mychannel.subscriptions.remove_subscription(subscription)
             
-    def _removeSubscription(self, secret):
-        """Removes subscription based on secret.
+    def _removeSubscription(self, key):
+        """Removes subscription based on key.
         """
         current = self.mychannel.subscriptions
-        old_subscription = current.query(format=self.context.format, 
-                                        secret=secret)                
+        old_subscription = current.query(
+            format=self.context.format, key=key)                
         if not len(old_subscription):
             return None
         old_subscription = tuple(old_subscription)
@@ -534,17 +531,15 @@ class UploadForm(crud.AddForm):
         notadded = len(errorcandidates)
         current = self.mychannel.subscriptions
         if remove:
-            old = sets.Set([sub.composer_data['email'] \
-                            for sub in current.values()])
+            old = sets.Set(
+                [sub.composer_data['email'] for sub in current.values()])
         for subscriber_data in subscribers:
-            secret = collective.singing.subscribe.secret(self.mychannel, 
-                                                         self.context.composer, 
-                                                         subscriber_data, 
-                                                         self.context.request)
+            key = collective.singing.subscribe.get_key(
+                subscriber_data, self.context.composer.schema)
             try:
-                old_subscription = self._removeSubscription(secret)
-                item = current.add_subscription(self.mychannel, secret, 
-                                                subscriber_data, [], metadata)
+                old_subscription = self._removeSubscription(key)
+                item = current.add_subscription(
+                    self.mychannel, subscriber_data, [], metadata)
                 new_and_updated.append(subscriber_data['email'])
                 # restore section selection                
                 if old_subscription is not None:

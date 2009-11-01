@@ -233,7 +233,10 @@ name exists in the item text.
   >>> url('<a href="../archive#2007">Archive</a><a name="2007">2007</a>', None)
   '<a href="http://xkcd.com/archive#2007">Archive</a><a name="2007">2007</a>'
 
+#395007 reports that this causes an infinite loop:
 
+  >>> url('<a href="http://plone.org/../../../../../../../../../www.abc.com">abc.com</a>', None)
+  '<a href="http://plone.org/../../../../../../../../../www.abc.com">abc.com</a>'
 
 Cleanup
 -------

@@ -90,16 +90,16 @@ class Confirm(BrowserView):
     notKnownMessage = _(u"Your subscription isn't known to us.")
 
     def __call__(self):
+        key = self.request.form['key']
         secret = self.request.form['secret']
         exists = False
 
         for channel in channel_lookup(only_subscribeable=True):
-            subscriptions = channel.subscriptions.query(secret=secret)
-            if len(subscriptions):
-                exists = True
-                for sub in subscriptions:
-                    if sub.metadata.get('pending', False):
-                        sub.metadata['pending'] = False
+            for subscription in channel.subscriptions.query(key=key):
+                if collective.singing.subscribe.make_secret(key) == secret:
+                    exists = True
+                    if subscription.metadata.get('pending', False):
+                        subscription.metadata['pending'] = False
 
         if exists:
             self.status = self.successMessage
@@ -116,37 +116,44 @@ class Unsubscribe(BrowserView):
 
     def __call__(self):
         secret = self.request.form['secret']
+        key = self.request.form['key']
         subs = self.context.aq_inner.subscriptions
-        
-        subscriptions = subs.query(secret=secret)
-        if len(subscriptions):
-            for sub in subscriptions:
-                subs.remove_subscription(sub)
-            self.status = _(u"You unsubscribed successfully.")
-        else:
-            self.status = _(u"You aren't subscribed to this channel.")
 
+        self.status = _(u"You aren't subscribed to this channel.")        
+        for sub in subs.query(key=key):
+            if collective.singing.subscribe.make_secret(key) == secret:
+                subs.remove_subscription(sub)
+                self.status = _(u"You unsubscribed successfully.")
+        
         return self.template()
 
-class IncludeHiddenSecret(object):
-    def render(self):
-        html = super(IncludeHiddenSecret, self).render()
-        secret = self.secret
-        if secret is not None:
+class IncludeHiddenStuff(object):
+    def render(self, html=None):
+        if html is None:
+            html = super(IncludeHiddenStuff, self).render()
+        injected_html = u''
+        if self.secret is not None:
+            injected_html += (
+                '<input type="hidden" name="__sd_secret__" value="%s" />' %
+                self.secret)
+        if self.key is not None:
+            injected_html += (
+                '<input type="hidden" name="__sd_key__" value="%s" />' %
+                self.key)
+        if injected_html:
             index = html.find('</form>')
-            html = (html[:index] +
-                    '<input type="hidden" name="secret" value="%s"' % secret +
-                    html[index:])
+            html = html[:index] + injected_html + html[index:]
         return html
 
     @property
     def secret(self):
-        secret = self.request.form.get('secret')
-        if isinstance(secret, list):
-            return secret[0]
-        return secret
+        return self.request.form.get('__sd_secret__')
 
-class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
+    @property
+    def key(self):
+        return self.request.form.get('__sd_key__')
+
+class SubscriptionEditForm(IncludeHiddenStuff, form.EditForm):
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')    
     successMessage = _('Your subscription was updated.')
     removed = False
@@ -198,12 +205,16 @@ class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
     def handle_unsubscribe(self, action):
         secret = self.secret
         subs = self.context.channel.subscriptions
-        for subscription in subs.query(secret=secret):
-            subs.remove_subscription(subscription)
-        self.removed = self.context
-        self.status = _(u"You unsubscribed successfully.")
+        
+        if (collective.singing.subscribe.make_secret(self.context.key) ==
+            self.secret):
+            subs.remove_subscription(self.context)
+            self.removed = self.context
+            self.status = _(u"You unsubscribed successfully.")
+        else:
+            self.status = _(u"Bad secret.")
 
-class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
+class SubscriptionAddForm(IncludeHiddenStuff, form.Form):
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
     ignoreContext = True
     
@@ -253,15 +264,11 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
         coll_data = extract(data, 'collector.')
 
         composer = self.context.composers[self.format]
-        secret = collective.singing.subscribe.secret(
-            self.context,
-            composer,
-            comp_data,
-            self.request)
+        key = collective.singing.subscribe.get_key(comp_data, composer.schema)
+        secret = collective.singing.subscribe.make_secret(key)
         secret_provided = self.secret
         if secret_provided and secret != secret_provided:
-            self.status = _(
-                u"There seems to be an error with the information you entered.")
+            self.status = _(u"Bad secret.")
             return
 
         metadata = dict(
@@ -279,14 +286,13 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
         # By using another method here we allow subclasses to override
         # what really happens here:
         self.add_subscription(
-            self.context, secret, comp_data, coll_data, metadata,
-            secret_provided)
+            self.context, comp_data, coll_data, metadata, secret_provided)
 
-    def add_subscription(self, context, secret, comp_data, coll_data, metadata,
+    def add_subscription(self, context, comp_data, coll_data, metadata,
                          secret_provided):
         try:
             self.added = self.context.subscriptions.add_subscription(
-                self.context, secret, comp_data, coll_data, metadata)
+                self.context, comp_data, coll_data, metadata)
         except ValueError, e:
             self.added = None
             self.status = self.status_already_subscribed
@@ -307,7 +313,7 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
                     "again later.")
 
 
-class SubscriptionSubForm(IncludeHiddenSecret, subform.EditSubForm):
+class SubscriptionSubForm(IncludeHiddenStuff, subform.EditSubForm):
     status_already_subscribed = _(u"You are already subscribed. "
                                   "Fill out the form at the end of this "
                                   "page to be sent a link from where you "
@@ -409,11 +415,10 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
             comp_data.update(pdata)
 
             composer = self.context.composers[self.format]
-            secret = collective.singing.subscribe.secret(
-                self.context,
-                composer,
-                comp_data,
-                self.request)
+            
+            key = collective.singing.subscribe.get_key(
+                comp_data, composer.schema)
+            secret = collective.singing.subscribe.make_secret(key)
             secret_provided = self.secret
             if secret_provided and secret != secret_provided:
                 self.status = self.status_error
@@ -422,7 +427,7 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
             # Check if subscribed to other channels
             if not secret_provided and not self.parentForm.confirmation_sent:
                 existing = sum(
-                    [len(channel.subscriptions.query(secret=secret)) \
+                    [len(channel.subscriptions.query(key=key))
                      for channel in channel_lookup(only_subscribeable=True)])
                 if existing:
                     self.status = self.status_already_subscribed
@@ -443,7 +448,7 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
             # By using another method here we allow subclasses to override
             # what really happens here:
             self.add_subscription(
-                self.context, secret, comp_data, coll_data, metadata,
+                self.context, comp_data, coll_data, metadata,
                 secret_provided)
 
         self.handlers = button.Handlers()
@@ -453,11 +458,11 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
         super(SubscriptionAddSubForm, self).update()
 
 
-    def add_subscription(self, context, secret, comp_data, coll_data, metadata,
+    def add_subscription(self, context, comp_data, coll_data, metadata,
                          secret_provided):
         try:
             self.added = self.context.subscriptions.add_subscription(
-                self.context, secret, comp_data, coll_data, metadata)
+                self.context, comp_data, coll_data, metadata)
         except ValueError, e:
             self.added = None
             self.status = self.status_already_subscribed
@@ -466,7 +471,8 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
         self.status = self.status_subscribed
 
         if not secret_provided:
-            self.parentForm.send_confirmation(self.context, self.format, self.added)
+            self.parentForm.send_confirmation(
+                self.context, self.format, self.added)
 
 class SubscriptionEditSubForm(SubscriptionSubForm):
     template = viewpagetemplatefile.ViewPageTemplateFile('subform.pt')    
@@ -550,13 +556,16 @@ class SubscriptionEditSubForm(SubscriptionSubForm):
     def unsubscribe(self):
         secret = self.secret
         format = self.context.metadata['format']
+        key = self.context.key
         subs = self.context.channel.subscriptions
-        for subscription in subs.query(secret=secret, format=format):
-            subs.remove_subscription(subscription)
-        self.removed = self.context
-        self.status = self.status_unsubscribed
+        for subscription in subs.query(key=key, format=format):
+            if (collective.singing.subscribe.make_secret(key) ==
+                secret):
+                subs.remove_subscription(subscription)
+                self.removed = self.context
+                self.status = self.status_unsubscribed
 
-class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
+class PrettySubscriptionsForm(IncludeHiddenStuff, form.EditForm):
 
     template = viewpagetemplatefile.ViewPageTemplateFile(
         'prettysubscriptionsform.pt')
@@ -705,13 +714,17 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
                     "There was an error with sending your e-mail.  Please try "
                     "again later.")
 
-class Subscriptions(BrowserView):
-    __call__ = ViewPageTemplateFile('skeleton.pt')
+class Subscriptions(IncludeHiddenStuff, BrowserView):
+    template = ViewPageTemplateFile('skeleton.pt')
     contents_template = ViewPageTemplateFile('subscriptions.pt')
     single_form_template = ViewPageTemplateFile('prettysubscriptions.pt')
  
     label = _(u"My subscriptions")
     status = u""
+
+    def render(self):
+        html = self.template()
+        return IncludeHiddenStuff.render(self, html)
 
     def forgot_secret_form(self):
         form = collective.singing.browser.subscribe.ForgotSecret(
@@ -735,17 +748,10 @@ class Subscriptions(BrowserView):
     def editforms(self):
         return [f for f in self.subscription_editforms if not f.removed]
 
-    @property
-    def secret(self):
-        secret = self.request.form.get('secret')
-        if isinstance(secret, list):
-            return secret[0]
-        return secret
-
     def contents(self):
         z2.switch_on(self,
                      request_layer=collective.singing.interfaces.IFormLayer)
-        subscriptions, channels = self._subscriptions_and_channels(self.secret)
+        subscriptions, channels = self._subscriptions_and_channels(self.key)
         
         if self.single_form_subscriptions:
             self.form = PrettySubscriptionsForm(self.context, self.request, 
@@ -802,7 +808,7 @@ class Subscriptions(BrowserView):
 
         return self.contents_template()
 
-    def _subscriptions_and_channels(self, secret):
+    def _subscriptions_and_channels(self, key):
         subscriptions = []
         channels_and_formats = []
 
@@ -811,7 +817,7 @@ class Subscriptions(BrowserView):
 
             subscribed_formats = []
             if self.secret is not None:
-                for s in channel_subs.query(secret=self.secret):
+                for s in channel_subs.query(key=key):
                     subscriptions.append(s)
                     subscribed_formats.append(s.metadata['format'])
 

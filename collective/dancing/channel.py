@@ -171,12 +171,6 @@ def channel_added(channel, event):
         if aq_base(subscription.channel) is not aq_base(channel):
             subscription.channel = channel
 
-        # The secret may have changed:
-        composer = channel.composers[subscription.metadata['format']]
-        secret = composer.secret(subscription.composer_data)
-        if subscription.secret != secret:
-            subscription.secret = secret
-
         # This will finally catalog the subscription:
         collective.singing.subscribe.subscription_added(subscription, None)
 
