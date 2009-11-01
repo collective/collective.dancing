@@ -90,8 +90,8 @@ class Confirm(BrowserView):
     notKnownMessage = _(u"Your subscription isn't known to us.")
 
     def __call__(self):
-        key = self.request.form['key']
-        secret = self.request.form['secret']
+        key = self.request.form['__sd_key__']
+        secret = self.request.form['__sd_secret__']
         exists = False
 
         for channel in channel_lookup(only_subscribeable=True):
@@ -115,8 +115,8 @@ class Unsubscribe(BrowserView):
     label = _(u"Unsubscribe")
 
     def __call__(self):
-        secret = self.request.form['secret']
-        key = self.request.form['key']
+        secret = self.request.form['__sd_secret__']
+        key = self.request.form['__sd_key__']
         subs = self.context.aq_inner.subscriptions
 
         self.status = _(u"You aren't subscribed to this channel.")        
@@ -147,11 +147,18 @@ class IncludeHiddenStuff(object):
 
     @property
     def secret(self):
-        return self.request.form.get('__sd_secret__')
-
+        secret = self.request.form.get('__sd_secret__')
+        if isinstance(secret, list):
+            return secret[0]
+        return secret
+    
     @property
     def key(self):
-        return self.request.form.get('__sd_key__')
+        key = self.request.form.get('__sd_key__')
+        if isinstance(key, list):
+            return key[0]
+        return key
+
 
 class SubscriptionEditForm(IncludeHiddenStuff, form.EditForm):
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')    
@@ -722,7 +729,7 @@ class Subscriptions(IncludeHiddenStuff, BrowserView):
     label = _(u"My subscriptions")
     status = u""
 
-    def render(self):
+    def __call__(self):
         html = self.template()
         return IncludeHiddenStuff.render(self, html)
 

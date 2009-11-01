@@ -664,13 +664,15 @@ We'll subscribe to events only:
   >>> confirm_url + "?__sd_secret__=" in msg
   True
   >>> query_str = msg[msg.rindex('__sd_secret__='):msg.index('</a')]
+  >>> key = query_str.split('&amp;')[1].split('=')[1]
+  >>> secret = query_str.split('&amp;')[0].split('=')[1]
 
 So now we've received an e-mail to confirm our subscription.  Using
 the subscriptions query interface, we can see that our subscription is
 *pending*:
 
   >>> subscriptions = list(
-  ...     channel.subscriptions.query(key=key.split('=')[1]))
+  ...     channel.subscriptions.query(key=key))
   >>> len(subscriptions)
   1
   >>> subscription = subscriptions[0]
@@ -682,7 +684,7 @@ the subscriptions query interface, we can see that our subscription is
 After confirming our subscription, the subscription is no longer
 pending:
 
-  >>> browser.open(confirm_url + '?' + secret)
+  >>> browser.open(confirm_url + '?' + query_str)
   >>> "You confirmed your subscription successfully" in browser.contents
   True
   >>> subscription.metadata['pending']
@@ -691,7 +693,7 @@ pending:
 Trying to confirm a subscription that doesn't exist will give us a
 meaningful message:
 
-  >>> browser.open(confirm_url + '?secret=imfake')
+  >>> browser.open(confirm_url + '?__sd_secret__=imfake&__sd_key__=%s' % key)
   >>> "Your subscription isn't known to us" in browser.contents
   True
 
@@ -722,9 +724,9 @@ rely on the "Send my subscriptions details" function to update the
 
   >>> from collective.singing.subscribe import make_secret
   >>> subscription.metadata['pending'] = True
-  >>> url = '%s/../../my-subscriptions.html?secret=%s&key=%s' % (
+  >>> url = '%s/../../my-subscriptions.html?__sd_secret__=%s&__sd_key__=%s' % (
   ...     channel.absolute_url(), make_secret(key), subscription.key)
-  >>> browser.open(url)
+  >>> browser.open(str(url))
   >>> "You are currently subscribed to these newsletters" in browser.contents
   True
   >>> subscription.metadata['pending']
@@ -744,20 +746,20 @@ For this, we'll quickly add another subscription:
   To: daemon@domain.tld...
 
   >>> msg = quopri.decodestring(delivery.sent[-1])
-  >>> secret = msg[msg.rindex('secret='):msg.index('</a')]
-  >>> browser.open(confirm_url + '?' + secret)
+  >>> query_str = msg[msg.rindex('__sd_secret__='):msg.index('</a')]
+  >>> browser.open(confirm_url + '?' + query_str)
   >>> "You confirmed your subscription successfully" in browser.contents
   True
 
 Now let's unsubscribe:
 
-  >>> browser.open(channel.absolute_url() + '/unsubscribe.html?' + secret)
+  >>> browser.open(channel.absolute_url() + '/unsubscribe.html?' + query_str)
   >>> "You unsubscribed successfully" in browser.contents
   True
 
 We're now no longer subscribed:
 
-  >>> browser.open(channel.absolute_url() + '/unsubscribe.html?' + secret)
+  >>> browser.open(channel.absolute_url() + '/unsubscribe.html?' + query_str)
   >>> "You aren't subscribed to this channel" in browser.contents
   True
 
@@ -821,7 +823,7 @@ Let's take a closer look at the mail that's sent to mailman:
   >>> "Super Bowl" in msg
   False
   >>> msg # doctest: +ELLIPSIS
-  '...<a href="http://nohost/plone/portal_newsletters/channels/my-other-channel/unsubscribe.html?secret=...">...Click here to unsubscribe...</a>...'
+  '...<a href="http://nohost/plone/portal_newsletters/channels/my-other-channel/unsubscribe.html?__sd_secret__=...__sd_key__=...">...Click here to unsubscribe...</a>...'
   >>> neglect = delivery.last_messages(purge=True)
 
 Ticking the scheduler a second time won't do anything:
@@ -1282,11 +1284,11 @@ We can now look at root's subscriptions.  Note how we add the secret
 as a query parameter.  We expect the subscription to "My other
 channel" to be shown:
 
-  >>> key = u'root@domain.tld'
+  >>> key = 'root@domain.tld'
   >>> secret = make_secret(key)
   >>> browser.open(
   ...     portal.absolute_url() +
-  ...     '/portal_newsletters/my-subscriptions.html?secret=%s&key=%s' % (
+  ...     '/portal_newsletters/my-subscriptions.html?__sd_secret__=%s&__sd_key__=%s' % (
   ...     secret, key))
 
   >>> 'You are currently subscribed to these newsletters:' in browser.contents
@@ -1316,7 +1318,7 @@ composers that we used:
 
 Let's use the form now to subscribe 'root' to both news items and events:
 
-  >>> subscription = tuple(channel.subscriptions.query(secret=secret))[0]
+  >>> subscription = tuple(channel.subscriptions.query(key=key))[0]
   >>> [c.title for c in subscription.collector_data['selected_collectors']]
   [u'Events']
   >>> browser.getControl('News').click()
@@ -1329,17 +1331,17 @@ Let's use the form now to subscribe 'root' to both news items and events:
 Next, we'll subscribe to "Brand new channel".  We'll use the secretond
 format, which is Hypertext with variable font-size:
 
-  >>> len(new_channel.subscriptions.query(secret=secret))
+  >>> len(new_channel.subscriptions.query(key=key))
   0
   >>> browser.getControl('E-mail address', index=1).value = u"root@domain.tld"
   >>> browser.getControl('Font size').getControl('16').click()
   >>> browser.getControl('Subscribe', index=1).click()
   >>> "You subscribed successfully" in browser.contents
   True
-  >>> len(new_channel.subscriptions.query(secret=secret))
+  >>> len(new_channel.subscriptions.query(key=key))
   1
   >>> new_subscription = tuple(
-  ...     new_channel.subscriptions.query(secret=secret))[0]
+  ...     new_channel.subscriptions.query(key=key))[0]
   >>> new_subscription.composer_data['font_size']
   16
   >>> new_subscription.metadata.get('pending', False)
@@ -1357,7 +1359,7 @@ Now let's unsubscribe from "My other channel":
   >>> browser.getControl('Unsubscribe', index=0).click()
   >>> "You unsubscribed successfully" in browser.contents
   True
-  >>> len(channel.subscriptions.query(secret=secret))
+  >>> len(channel.subscriptions.query(key=key))
   0
 
 We could now subscribe to "My other channel" again:
@@ -1443,11 +1445,11 @@ We can now look at root's subscriptions.  Note how we add the secret
 as a query parameter.  We expect the subscription to "My other
 channel" to be shown:
 
-  >>> key = u'root@domain.tld'
+  >>> key = 'root@domain.tld'
   >>> secret = make_secret(key)
   >>> browser.open(
   ...     portal.absolute_url() +
-  ...     '/portal_newsletters/my-subscriptions.html?secret=%s&key=%s' % (
+  ...     '/portal_newsletters/my-subscriptions.html?__sd_secret__=%s&__sd_key__=%s' % (
   ...     secret, key))
 
 We see that root is subscribed to 'Brand new channel (hypertext)' and can subscribe
@@ -1477,7 +1479,7 @@ The field is disabled when showing an existing subscription.
 Let's use the form now to subscribe 'root' to 'My other channel'
 with both news items and events selected:
 
-  >>> len(channel.subscriptions.query(secret=secret))
+  >>> len(channel.subscriptions.query(key=key))
   0
   >>> browser.getControl('My other channel').selected = True
   >>> browser.getControl('News').click()
@@ -1487,7 +1489,7 @@ with both news items and events selected:
   >>> browser.getControl('Apply').click()
   >>> 'Your subscription was updated' in browser.contents
   True
-  >>> subscription = tuple(channel.subscriptions.query(secret=secret))[0]
+  >>> subscription = tuple(channel.subscriptions.query(key=key))[0]
   >>> sorted([c.title for c in subscription.collector_data['selected_collectors']])
   [u'Events', u'News']
 
@@ -1495,7 +1497,7 @@ with both news items and events selected:
 Next, we'll subscribe to "Brand new channel (html)". While removing
 the 'News' option on 'My channel'. Notice that the 
 
-  >>> new_subscription = tuple(new_channel.subscriptions.query(secret=secret))
+  >>> new_subscription = tuple(new_channel.subscriptions.query(key=key))
   >>> len(new_subscription)
   1
   >>> new_subscription[0].metadata['format']
@@ -1507,7 +1509,7 @@ the 'News' option on 'My channel'. Notice that the
   >>> 'Your subscription was updated' in browser.contents
   True
 
-  >>> new_subscription = tuple(new_channel.subscriptions.query(secret=secret))
+  >>> new_subscription = tuple(new_channel.subscriptions.query(key=key))
   >>> len(new_subscription)
   2
   >>> sorted([sub.metadata['format'] for sub in new_subscription])
@@ -1517,7 +1519,7 @@ Notice that if we unsubscribe 'Brand new Channel (HTML selectable size) we
 will get the opportunity to choose the font-size again.
 
   >>> tuple(new_channel.subscriptions.query(
-  ...    secret=secret, format='html-fontsize'))[0].composer_data['font_size']
+  ...    key=key, format='html-fontsize'))[0].composer_data['font_size']
   16
   >>> 'Font size' in browser.contents
   False
@@ -1538,7 +1540,7 @@ will get the opportunity to choose the font-size again.
   True
   
   >>> tuple(new_channel.subscriptions.query(
-  ...    secret=secret, format='html-fontsize'))[0].composer_data['font_size']
+  ...    key=key, format='html-fontsize'))[0].composer_data['font_size']
   12
   >>> 'Font size' in browser.contents
   False
@@ -1546,8 +1548,10 @@ will get the opportunity to choose the font-size again.
 Let's unsubscribe 'Brand new channel (HTML E-mail)' and
 'My other channel' again. ;-)
 
-  >>> browser.open(portal.absolute_url() +
-  ...              '/portal_newsletters/my-subscriptions.html?secret=' + secret)
+  >>> browser.open(
+  ...     portal.absolute_url() +
+  ...     '/portal_newsletters/my-subscriptions.html?__sd_secret__=%s&__sd_key__=%s' % (
+  ...     secret, key))
   >>> browser.getControl('Brand new channel (HTML E-Mail)').selected
   True
   >>> browser.getControl(
@@ -1556,7 +1560,7 @@ Let's unsubscribe 'Brand new channel (HTML E-mail)' and
   >>> browser.getControl('My other channel').selected
   True
 
-  >>> len(new_channel.subscriptions.query(secret=secret))
+  >>> len(new_channel.subscriptions.query(key=key))
   2
 
   >>> browser.getControl('Brand new channel (HTML E-Mail)').selected = False
@@ -1566,9 +1570,9 @@ Let's unsubscribe 'Brand new channel (HTML E-mail)' and
   >>> 'Your subscription was updated' in browser.contents
   True
 
-  >>> len(new_channel.subscriptions.query(secret=secret))
+  >>> len(new_channel.subscriptions.query(key=key))
   1
-  >>> len(channel.subscriptions.query(secret=secret))
+  >>> len(channel.subscriptions.query(key=key))
   0
 
 

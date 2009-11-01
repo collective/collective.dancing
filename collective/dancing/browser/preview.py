@@ -21,7 +21,7 @@ import transaction
 class PreviewSubscription(object):
     interface.implements(ISubscription)
 
-    secret = u""
+    key = u""
     format = 'html'
     
     def __init__(self, channel):
