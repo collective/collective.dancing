@@ -133,7 +133,8 @@ class Channel(OFS.SimpleItem.SimpleItem):
     sendable = True
     
     def __init__(self, name, title=None, composers=None,
-                 collector=None, scheduler=None, description=u"", subscribeable=False):
+                 collector=None, scheduler=None, description=u"",
+                 subscribeable=False, includePloneMembers = False):
         self.name = name
         if title is None:
             title = name
@@ -148,6 +149,8 @@ class Channel(OFS.SimpleItem.SimpleItem):
         self.collector = collector
         self.scheduler = scheduler
         self.queue = collective.singing.message.MessageQueues()
+        self.includePloneMembers = includePloneMembers
+        
         super(Channel, self).__init__(name)
 
     @property
