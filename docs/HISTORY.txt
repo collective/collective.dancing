@@ -4,6 +4,9 @@ History
 Version 0.8.14 - Unreleased
 ---------------------------
 
+- Added 'includePloneMembers' option to the channel, so the site's
+  users also receive the newsletter.
+  [vincentpretre]
 
 Version 0.8.13 - 2009-10-19
 ---------------------------

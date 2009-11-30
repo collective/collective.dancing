@@ -23,6 +23,7 @@ import plone.z3cform.layout
 import collective.singing.async
 import collective.singing.channel
 import collective.singing.interfaces
+from collective.singing.subscribe import SimpleSubscription
 
 from collective.dancing.composer import FullFormatWrapper
 from collective.dancing.browser.interfaces import ISendAndPreviewForm
@@ -141,6 +142,9 @@ class SendAsNewsletterForm(form.Form):
             assembler.update_cue = False
             subs = channel.subscriptions.query(key=address)
 
+            # The list of addresses to which the newsletter has been sent.
+            addresses = []
+
             for sub in subs:
                 msg = assembler.render_message(
                     self.request,
@@ -148,8 +152,49 @@ class SendAsNewsletterForm(form.Form):
                     (FullFormatWrapper(self.context),),                
                     include_collector_items,
                     self.get_override_vars())
+
+                if 'email' in sub.composer_data:
+                    addresses.append(sub.composer_data['email'])
+                
                 if msg is not None:
                     queued += 1
+
+            # Now we send the preview to Plone members if wanted.
+            if channel.includePloneMembers:
+                portal = getSite()
+
+                membership = getToolByName(portal, 'portal_membership')
+                users = membership.listMembers()
+
+                for user in users:
+                    user_email = user.getProperty('email')
+                    if user_email in addresses:
+                        # He already received the newsletter.
+                        continue
+
+                    # We create a fake subscription to be able to
+                    # use render_message
+                    secret = ''
+                    metadata = dict(format='html',
+                                    date=datetime.datetime.now(),
+                                    pending=False)
+                    f_subscription = SimpleSubscription(channel,
+                                                        secret,
+                                                        {'email': user_email},
+                                                        {},
+                                                        metadata)
+                
+                    # We make the message with the fake subscription
+                    message = assembler.render_message(
+                        self.request,
+                        f_subscription,
+                        (FullFormatWrapper(self.context),),                
+                        include_collector_items,
+                        self.get_override_vars())
+                
+                    if message is not None:
+                        queued += 1            
+
 
         self.status = _(
             u"${num} message(s) queued.", mapping=dict(num=queued))
