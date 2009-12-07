@@ -724,7 +724,7 @@ class ManageChannelView(BrowserView):
         """
         
         return wrapper % \
-               ("\n".join((template % (id(msg), zope.i18n.translate(msg), id(msg), html)
+               ("\n".join((template % (id(msg), zope.i18n.translate(msg, context=self.request), id(msg), html)
                            for (msg, html) in fieldsets)))
 
         
