@@ -4,7 +4,14 @@ History
 Version 0.8.14 - Unreleased
 ---------------------------
 
-- Add log on ATTopic Patch [toutpt]
+- Add log on ATTopic Patch
+  [toutpt]
+
+- Update French translations
+  [toutpt]
+
+- Fix i18n pot file by escape quotes
+  [toutpt]
 
 Version 0.8.13 - 2009-10-19
 ---------------------------
