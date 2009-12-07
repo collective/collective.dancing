@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: collective.dancing 0.1\n"
 "POT-Creation-Date: 2009-06-25 10:15+0000\n"
 "PO-Revision-Date: 2008-11-19 17:40+0100\n"
-"Last-Translator: Daniel Widerin <daniel.widerin@kombinat.at>\n"
+"Last-Translator: jeanmichel.francois <jeanmichel.francois@makina-corpus.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
+"Language-Code: fr\n"
+"Language-Name: French\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: DOMAIN\n"
+"Domain: collective.dancing\n"
 "Report-Msgid-Bugs-To: \n"
 
 #: ./browser/portlets/channelsubscribe.py:288
@@ -116,11 +116,11 @@ msgstr "Feuille de styles CSS"
 
 #: ./browser/channel.py:462
 msgid "CSV contains a header row"
-msgstr ""
+msgstr "Le fichier CSV contient une ligne d'en-tête"
 
 #: ./browser/channel.py:469
 msgid "CSV delimiter"
-msgstr ""
+msgstr "Séparateur CSV"
 
 #. Default: "Change your subscriptions with ${site-title}"
 #: ./browser/composer-html-forgot.pt:16
@@ -179,12 +179,12 @@ msgstr "Confirmez votre abonnement"
 
 #: ./browser/sendnewsletter.py:210
 msgid "Custom Subject"
-msgstr ""
+msgstr "Sujet personnalisé"
 
 #. Default: "Date of execution"
 #: ./browser/jobs.pt:25
 msgid "Date of execution"
-msgstr ""
+msgstr "Date d'execution"
 
 #: ./browser/portlets/channelsubscribe.py:47
 msgid "Description of the rendered portlet"
@@ -237,7 +237,7 @@ msgstr "Éditer les propriétés de cette mise en page"
 
 #: ./browser/sendnewsletter.py:211
 msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and channel."
-msgstr ""
+msgstr "Entrez un sujet personnalité pour votre newsletter ici. Laissez blanc pour utiliser le sujet par défaut de ce contenu pour ce canal."
 
 #: ./browser/query.py:12
 msgid "Enter a search query to find content."
@@ -245,7 +245,7 @@ msgstr "Rechercher un contenu."
 
 #: ./browser/channel.py:414
 msgid "Error importing subscriber file. %s"
-msgstr ""
+msgstr "Erreur durant l'import de ce fichier d'abonnement. %s"
 
 #: ./browser/stats.py:42
 msgid "Failed messages"
@@ -253,7 +253,7 @@ msgstr "Messages dont l'envoi à échoué"
 
 #: ./browser/channel.py:529
 msgid "File has incorrect format."
-msgstr ""
+msgstr "Ce fichier a un format incorrect"
 
 #: ./browser/channel.py:523
 msgid "File was not given."
@@ -261,11 +261,11 @@ msgstr "Le fichier n'a pas été fourni."
 
 #: ./browser/subscribe.py:30
 msgid "Fill out the form below to receive an email with a link from which you can edit your subscriptions."
-msgstr ""
+msgstr "Remplissez le formulaire ci dessous pour recevoir un mail. Ce mail comportera un lien vous permettant d'éditer vos préférences."
 
 #: ./browser/subscribe.py:53
-msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href="${url}">edit your subscriptions</a>."
-msgstr ""
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgstr "Remplissez le formulaire ci dessous pour vous inscrire à ${channel}. Notez que ceci est pour une nouvelle inscription. Cliquez ici pour <a href=\"${url}\">éditer vos préférences</a>."
 
 #: ./browser/portlets/channelsubscribe.py:42
 msgid "Find the channel you want to enable direct subscription to"
@@ -274,7 +274,7 @@ msgstr "Trouver les canaux de diffusion auxquels vous souhaitez vous abonnement 
 #. Default: "Finished jobs"
 #: ./browser/jobs.pt:19
 msgid "Finished jobs"
-msgstr ""
+msgstr "Tâches terminées"
 
 #: ./browser/portlets/channelsubscribe.py:53
 msgid "Footer text"
@@ -331,7 +331,7 @@ msgstr "Éléments"
 #. Default: "Job title"
 #: ./browser/jobs.pt:23
 msgid "Job title"
-msgstr ""
+msgstr "Titre de la tâche"
 
 #: ./browser/stats.py:33
 msgid "Last Change"
@@ -409,7 +409,7 @@ msgstr "Seules quelques-unes de vos modifications on été sauvegardées."
 #. Default: "Pending jobs"
 #: ./browser/jobs.pt:9
 msgid "Pending jobs"
-msgstr ""
+msgstr "Tâches en attente"
 
 #. Default: "Please confirm your subscription"
 #: ./browser/composer-html-confirm.pt:14
@@ -514,15 +514,15 @@ msgstr "Afficher une pré-visualisation de la newsletter directement dans le nav
 
 #: ./browser/channel.py:463
 msgid "Select this if you want to use the csv header row to designate document variables.The header row must contain one 'email' field."
-msgstr ""
+msgstr "Cochez cette case si vous souhaitez utiliser la première ligne du fichier csv pour désigner les noms des variables. Cette ligne doit contenir la valeur 'email'."
 
 #: ./browser/sendnewsletter.py:81
 msgid "Send"
 msgstr "Envoyer"
 
 #: ./browser/sendnewsletter.py:96
-msgid "Send "${context}" through ${channels}."
-msgstr ""
+msgid "Send \"${context}\" through ${channels}."
+msgstr "Envoyez \"${context}\" sur ${channels}."
 
 #: ./browser/sendnewsletter.py:198
 msgid "Send ${item} as newsletter"
@@ -569,7 +569,7 @@ msgstr "Canal de diffusion standard"
 #. Default: "Status"
 #: ./browser/jobs.pt:24
 msgid "Status"
-msgstr ""
+msgstr "Statut"
 
 #: ./browser/subscribe.py:232
 msgid "Subscribe"
@@ -629,7 +629,7 @@ msgstr "Le canal de diffusion sur lequel on procède à l'envoi"
 
 #: ./browser/channel.py:470
 msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
-msgstr ""
+msgstr "Le séparateur de champs utilisé dans votre fichier CSV. (Habituellement ',' ou ';', sans les guillemets)."
 
 #: ./interfaces.py:30
 msgid "The from addess that will appear in messages sent from this composer."
@@ -736,9 +736,17 @@ msgstr "Veuillez procéder à l'upload d'une liste d'abonnés ici. Les abonnés 
 msgid "Upload list of subscribers."
 msgstr "Upload de la liste d'abonnés"
 
+#: ./channel.py:64
+msgid "Use single form subscriptions page"
+msgstr "Utiliser une seul formulaire d'inscription"
+
+#: ./channel.py:65
+msgid "Use single form subscriptions page when possible."
+msgstr "Utiliser un seul formulaire d'inscription lorsque cela est possible"
+
 #: ./browser/portlets/channelsubscribe.py:146
-msgid "You are already subscribed to this newsletter. Click here to <a href="${url}">edit your subscriptions</a>."
-msgstr ""
+msgid "You are already subscribed to this newsletter. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgstr "Vous êtes deja inscrit à cette newsletter. Cliquer ici pour <a href=\"${url}\">éditer vos préférences</a>."
 
 #: ./browser/subscribe.py:204
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
@@ -784,8 +792,8 @@ msgid "Your e-mail address is invalid"
 msgstr "Votre adresse e-mail est invalide"
 
 #: ./browser/subscribe.py:20
-msgid "Your email address is already subscribed. Click the "Send my subscription details" button below."
-msgstr ""
+msgid "Your email address is already subscribed. Click the \"Send my subscription details\" button below."
+msgstr "Votre adresse email est déjà enregistrée. Cliquez sur \"Envoyez mes préférences d'abonnement\" ci dessous."
 
 #: ./browser/subscribe.py:82
 msgid "Your subscription isn't known to us."
@@ -805,6 +813,11 @@ msgstr "Créer, éditer et supprimer des canaux d'administration"
 msgid "description_collector_administration"
 msgstr "Créer, éditer et supprimer des collection"
 
+#. Default: "Change some aspects of how Singing & Dancing behaves."
+#: ./browser/controlpanel-links.pt:28
+msgid "description_globalsettings_administration"
+msgstr "Modifier certains aspects"
+
 #. Default: "View newsletter statistics"
 #: ./browser/controlpanel-links.pt:28
 msgid "description_statistics_administration"
@@ -819,6 +832,11 @@ msgstr "Administration des canaux de diffusion"
 #: ./browser/controlpanel-links.pt:13
 msgid "label_collector_administration"
 msgstr "Administration des collections"
+
+#. Default: "Global settings"
+#: ./browser/controlpanel-links.pt:23
+msgid "label_newsletters_settings_administration"
+msgstr "Paramètres globaux"
 
 #. Default: "Statistics"
 #: ./browser/controlpanel-links.pt:23
