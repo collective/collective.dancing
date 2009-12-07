@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 from xml.dom.minidom import parse
 
 def readversion():
-    mdfile = os.path.join(os.path.dirname(__file__), 'collective', 'dancing', 
+    mdfile = os.path.join(os.path.dirname(__file__), 'collective', 'dancing',
                           'profiles', 'default', 'metadata.xml')
     metadata = parse(mdfile)
     assert metadata.documentElement.tagName == "metadata"
@@ -47,8 +47,9 @@ setup(name='collective.dancing',
           'zc.lockfile',
           'StoneageHTML',
           'BeautifulSoup',
+          'collective.monkeypatcher',
       ],
-      
+
       entry_points="""
       # -*- Entry points: -*-
       """,

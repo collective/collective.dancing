@@ -1,7 +1,6 @@
 # We patch our friend, the ATTopic to allow overriding *all* of the
 # query that it builds by providing keyword arguments.
 
-from Products.ATContentTypes.content.topic import *
 
 def queryCatalog(self, REQUEST=None, batch=False, b_size=None,
                                                 full_objects=False, **kw):
@@ -17,7 +16,7 @@ def queryCatalog(self, REQUEST=None, batch=False, b_size=None,
     related = [ i for i in self.getRelatedItems() \
                     if mt.checkPermission(View, i) ]
     if not full_objects:
-        related = [ pcatalog(path='/'.join(r.getPhysicalPath()))[0] 
+        related = [ pcatalog(path='/'.join(r.getPhysicalPath()))[0]
                     for r in related]
     related=LazyCat([related])
 
@@ -58,4 +57,3 @@ def queryCatalog(self, REQUEST=None, batch=False, b_size=None,
         return batch
     return results
 
-ATTopic.queryCatalog = queryCatalog

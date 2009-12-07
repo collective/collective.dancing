@@ -4,6 +4,7 @@ History
 Version 0.8.14 - Unreleased
 ---------------------------
 
+- Add log on ATTopic Patch [toutpt]
 
 Version 0.8.13 - 2009-10-19
 ---------------------------

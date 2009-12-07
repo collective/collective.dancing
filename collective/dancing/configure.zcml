@@ -4,12 +4,13 @@
    xmlns:i18n="http://namespaces.zope.org/i18n"
    xmlns:five="http://namespaces.zope.org/five"
    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+   xmlns:monkey="http://namespaces.plone.org/monkey"
    i18n_domain="collective.dancing">
 
   <include package="collective.singing" />
   <include package="collective.singing.browser" />
   <!-- Leave the includeOverrides to plone.z3cform itself and it'll fail:
-  Nicetohave: Eventually skip this approach it could have some odd side 
+  Nicetohave: Eventually skip this approach it could have some odd side
   effects http://tinyurl.com/yaedrql -->
   <includeOverrides package="plone.z3cform" file="overrides.zcml" />
   <include package="plone.app.z3cform" />
@@ -29,6 +30,13 @@
 
   <!-- Make this package a Zope 2 product -->
   <five:registerPackage package="." initialize=".initialize" />
+  <include package="collective.monkeypatcher" />
+  <monkey:patch
+     description="path ATTopic to allow overriding *all* of the query that it builds by providing keyword arguments."
+     class="Products.ATContentTypes.content.topic.ATTopic"
+     original="queryCatalog"
+     replacement=".patch.topic.queryCatalog"
+  />
 
   <i18n:registerTranslations directory="locales"/>
 
@@ -40,7 +48,7 @@
      provides="Products.GenericSetup.interfaces.EXTENSION"
      />
 
-  <browser:resourceDirectory 	   
+  <browser:resourceDirectory
       name="dancing-resources"
       directory="resources"
       permission="zope2.Public"
@@ -49,9 +57,9 @@
   <!-- Channel and subscriptions registrations -->
   <utility component=".channel.portal_newsletters" name="portal-newsletters" />
   <subscriber handler=".channel.tool_added" />
-  <subscriber handler=".channel.channels_added" /> 
-  <subscriber handler=".channel.channel_added" /> 
-  <subscriber handler=".channel.collector_removed" /> 
+  <subscriber handler=".channel.channels_added" />
+  <subscriber handler=".channel.channel_added" />
+  <subscriber handler=".channel.collector_removed" />
   <subscriber handler="collective.singing.subscribe.subscription_added" />
   <subscriber handler="collective.singing.subscribe.subscription_modified" />
   <subscriber handler="collective.singing.subscribe.subscription_removed" />
@@ -77,7 +85,7 @@
       class="Products.Archetypes.BaseFolder.BaseFolder" />
   <adapter factory=".composer.HTMLFormatItemFully"
            for=".composer.FullFormatWrapper
-                zope.publisher.interfaces.browser.IBrowserRequest" 
+                zope.publisher.interfaces.browser.IBrowserRequest"
            name="html" />
   <!-- In the future, we'll want more than just this call formatter -->
   <adapter factory=".composer.PloneCallHTMLFormatter"
@@ -104,6 +112,6 @@
   <five:implements
      class=".channel.PortalNewsletters"
      interface="plone.portlets.interfaces.ILocalPortletAssignable" />
-  
-  
+
+
 </configure>
