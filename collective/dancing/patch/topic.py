@@ -1,6 +1,7 @@
 # We patch our friend, the ATTopic to allow overriding *all* of the
 # query that it builds by providing keyword arguments.
 
+from Products.ATContentTypes.content.topic import * 
 
 def queryCatalog(self, REQUEST=None, batch=False, b_size=None,
                                                 full_objects=False, **kw):
