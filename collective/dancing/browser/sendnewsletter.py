@@ -191,17 +191,14 @@ class SendAsNewsletterForm(form.Form):
 
 class SendAsNewsletterView(plone.z3cform.layout.FormWrapper):
 
-    form_class = SendAsNewsletterForm
-    
+    form = SendAsNewsletterForm
+    request_layer = collective.singing.interfaces.IFormLayer
+
     def label(self):
         site_encoding = self.context.plone_utils.getSiteEncoding()
         return _(u'Send ${item} as newsletter',
                  mapping=dict(item=self.context.Title().decode(site_encoding)))
 
-    def contents(self):
-        z2.switch_on(self,
-                     request_layer=collective.singing.interfaces.IFormLayer)
-        return self.form_class(self.context, self.request)()
 
 
 
@@ -222,4 +219,4 @@ class SendAsNewsletterFormWithCustomSubject(SendAsNewsletterForm):
         return fields
 
 class SendAsNewsletterViewWithCustomSubject(SendAsNewsletterView):
-    form_class = SendAsNewsletterFormWithCustomSubject
+    form = SendAsNewsletterFormWithCustomSubject
