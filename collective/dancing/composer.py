@@ -36,7 +36,7 @@ from collective.dancing import utils
 from interfaces import IFullFormatter
 from interfaces import IHTMLComposer
 
-from plone.memoize import volatile 
+from plone.memoize import volatile
 
 logger = logging.getLogger('collective.singing')
 
@@ -51,7 +51,7 @@ def check_email(value):
       ...        return check_email(value)
       ...    except InvalidEmailAddress:
       ...        return False
-      
+
     Some common examples.
 
       >>> t('tmog@domain.tld')
@@ -76,14 +76,14 @@ def check_email(value):
       False
       >>> t('TMOG@DOMAIN.TLD')
       False
-      
+
     This passed with the old regex.
-    
+
       >>> t('tmog@domain.tld.')
       False
 
     More fails.
-        
+
       >>> t('tmog@domain@tld')
       False
       >>> t('tmog.domain.tld')
@@ -151,7 +151,7 @@ class HTMLComposer(persistent.Persistent):
     subject = u"${site_title}: ${channel_title}"
     header_text = u"<h1>${subject}</h1>"
     footer_text = u""
-    
+
     template = ViewPageTemplateFile('browser/composer-html.pt')
     confirm_template = ViewPageTemplateFile('browser/composer-html-confirm.pt')
     forgot_template = ViewPageTemplateFile('browser/composer-html-forgot.pt')
@@ -160,7 +160,7 @@ class HTMLComposer(persistent.Persistent):
     def secret(data):
         salt = component.getUtility(collective.singing.interfaces.ISalt)
         return md5.new("%s%s" % (data['email'], salt)).hexdigest()
-    
+
     context = None
     @property
     def request(self):
@@ -187,7 +187,7 @@ class HTMLComposer(persistent.Persistent):
 
     @property
     def language(self):
-        return self.request.get('LANGUAGE')        
+        return self.request.get('LANGUAGE')
 
     def _vars(self, subscription, items=()):
         """Provide variables for the template.
@@ -199,10 +199,13 @@ class HTMLComposer(persistent.Persistent):
         site = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
         site = utils.fix_request(site, 0)
         fix_urls = lambda t: transform.URL(site).__call__(t, subscription)
-        
+
         vars['channel'] = subscription.channel
         vars['site_url'] = site.absolute_url()
-        vars['site_title'] = unicode(site.Title(), 'UTF-8')
+        site_title = site.Title()
+        if not isinstance(site_title, unicode):
+            site_title = unicode(site_title, 'UTF-8')
+        vars['site_title'] = site_title
         vars['channel_title'] = subscription.channel.title
         vars['subject'] = self.subject
         # Why would header_text or footer_text ever be None?
@@ -213,7 +216,7 @@ class HTMLComposer(persistent.Persistent):
         headers = vars['more_headers'] = {}
         if self.replyto_address:
             headers['Reply-To'] = self.replyto_address
-        
+
         # This is so brittle, it hurts my eyes.  Someone convince me
         # that this needs to become another component:
         for index, item in enumerate(items):
@@ -232,7 +235,7 @@ class HTMLComposer(persistent.Persistent):
         # variables.  We'd probably want to pass 'items' along to that
         # adapter.
 
-        return vars    
+        return vars
 
     def _more_vars(self, subscription, items):
         """Less generic variables.
@@ -298,7 +301,7 @@ class HTMLComposer(persistent.Persistent):
     def render_confirmation(self, subscription):
         vars = self._vars(subscription)
         subscription_vars = self._subscription_vars(subscription)
-        
+
         if 'confirmation_subject' not in vars:
             vars['confirmation_subject'] = zope.i18n.translate(
                 _(u"Confirm your subscription with ${channel-title}",
@@ -308,7 +311,7 @@ class HTMLComposer(persistent.Persistent):
         html = self.confirm_template(**vars)
         html = stoneagehtml.compactify(html, filter_tags=False).decode('utf-8')
         html = string.Template(html).safe_substitute(subscription_vars)
-        
+
         message = collective.singing.mail.create_html_mail(
             vars['confirmation_subject'],
             html,
@@ -324,7 +327,7 @@ class HTMLComposer(persistent.Persistent):
     def render_forgot_secret(self, subscription):
         vars = self._vars(subscription)
         subscription_vars = self._subscription_vars(subscription)
-        
+
         if 'forgot_secret_subject' not in vars:
             vars['forgot_secret_subject'] = zope.i18n.translate(
                 _(u"Change your subscriptions with ${site-title}",
@@ -406,7 +409,7 @@ class CMFDublinCoreHTMLFormatter(object):
       <p>%(description)s</p>
     </div>
     """
-    
+
     def __init__(self, item, request):
         self.item = item
         self.request = request
@@ -423,7 +426,7 @@ class PloneCallHTMLFormatter(object):
     If what ``item()`` returns looks like a rendered Plone page, this
     formatter will try and strip away all irrelevant parts.
     """
-    
+
     interface.implements(collective.singing.interfaces.IFormatItem)
 
     def __init__(self, item, request):
@@ -445,7 +448,7 @@ class PloneCallHTMLFormatter(object):
 
 class FullFormatWrapper(object):
     """Wraps an item for use with a full formatter."""
-    
+
     def __init__(self, item):
         self.item = item
 
@@ -454,11 +457,11 @@ class FullFormatWrapper(object):
 
 class HTMLFormatItemFully(object):
     interface.implements(collective.singing.interfaces.IFormatItem)
-    
+
     def __init__(self, wrapper, request):
         self.item = wrapper.item
         self.request = request
-                 
+
     def __call__(self):
         view = component.getMultiAdapter(
             (self.item, self.request), IFullFormatter, name='html')
@@ -493,7 +496,7 @@ class StubSMTPMailer(zope.sendmail.mailer.SMTPMailer):
         path = os.path.join(tempfile.gettempdir(),
                             'collective.dancing.StubSMTPMailer.log')
         StubSMTPMailer.logfile = logfile = open(path, 'a')
-        
+
         logger.info("%r logging to %s" % (self, path))
         self.log("StubSMTPMailer starting to log.")
 
