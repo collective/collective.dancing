@@ -32,7 +32,7 @@
   <five:registerPackage package="." initialize=".initialize" />
   <include package="collective.monkeypatcher" />
   <monkey:patch
-     description="path ATTopic to allow overriding *all* of the query that it builds by providing keyword arguments."
+     description="patch ATTopic to allow overriding *all* of the query that it builds by providing keyword arguments."
      class="Products.ATContentTypes.content.topic.ATTopic"
      original="queryCatalog"
      replacement=".patch.topic.queryCatalog"
