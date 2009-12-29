@@ -446,24 +446,6 @@ class PloneCallHTMLFormatter(object):
         else:
             return html
 
-class TemplateHTMLFormatter(object):
-    """Uses a template to generate the HTML.
-    """
-    
-    interface.implements(collective.singing.interfaces.IFormatItem)
-
-    def __init__(self, item, request):
-        self.item = item
-        self.request = request
-
-    def __call__(self):
-        # Get the template. This needs do be overrideable in some easy way, so
-        # we'll make a view of it. Makes for easy debugging too. So we'll
-        # just traverse to it and call it. Simple and working!
-        formatter = self.item.unrestrictedTraverse('dancing_newsletter_template.html')
-        return formatter()
-
-
 class FullFormatWrapper(object):
     """Wraps an item for use with a full formatter."""
 
