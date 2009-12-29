@@ -223,7 +223,7 @@
      />
 
   <page
-     name="dancing_template_formatter.html"
+     name="dancing_newsletter_template.html"
      for="*"
      class=".templateformatter.TemplateFormatterView"
      template="templateformatter.pt"

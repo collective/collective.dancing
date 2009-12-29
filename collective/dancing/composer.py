@@ -460,7 +460,7 @@ class TemplateHTMLFormatter(object):
         # Get the template. This needs do be overrideable in some easy way, so
         # we'll make a view of it. Makes for easy debugging too. So we'll
         # just traverse to it and call it. Simple and working!
-        formatter = self.item.unrestrictedTraverse('dancing_template_formatter.html')
+        formatter = self.item.unrestrictedTraverse('dancing_newsletter_template.html')
         return formatter()
 
 
