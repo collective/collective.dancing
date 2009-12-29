@@ -214,7 +214,6 @@
      permission="dancing.PreviewNewsletter"
      />
 
-
   <page
      name="dancing.utils"
      for="*"
@@ -223,5 +222,12 @@
      allowed_interface=".utils.IDancingUtilsView"
      />
 
+  <page
+     name="dancing_template_formatter.html"
+     for="*"
+     class=".templateformatter.TemplateFormatterView"
+     template="templateformatter.pt"
+     permission="dancing.SendAsNewsletter"
+     />
 
 </zope:configure>

@@ -88,7 +88,7 @@
                 zope.publisher.interfaces.browser.IBrowserRequest"
            name="html" />
   <!-- In the future, we'll want more than just this call formatter -->
-  <adapter factory=".composer.PloneCallHTMLFormatter"
+  <adapter factory=".composer.TemplateHTMLFormatter"
            for="Products.CMFCore.interfaces.IContentish
                 zope.publisher.interfaces.browser.IBrowserRequest"
            provides=".interfaces.IFullFormatter"

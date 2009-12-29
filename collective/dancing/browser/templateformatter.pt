@@ -1,0 +1,2 @@
+<p class="description" tal:content="context/Description"/>
+<tal:block content="structure context/getText"/>
