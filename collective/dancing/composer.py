@@ -35,6 +35,7 @@ from collective.dancing import utils
 
 from interfaces import IFullFormatter
 from interfaces import IHTMLComposer
+from interfaces import IHTMLComposerTemplate
 
 from plone.memoize import volatile
 
@@ -130,6 +131,17 @@ class IHTMLComposerSchema(interface.Interface):
 def composerdata_from_subscription(subscription):
     return utils.AttributeToDictProxy(subscription.composer_data)
 
+
+class HTMLTemplateVocabularyFactory(object):
+    
+    interface.implements(schema.interfaces.IVocabularyFactory)
+    
+    def __call__(self, context):
+        names = [x[0] for x  in component.getUtilitiesFor(IHTMLComposerTemplate)]
+        return schema.vocabulary.SimpleVocabulary.fromValues(names)
+    
+default_template = ViewPageTemplateFile('browser/composer-html.pt')
+
 class HTMLComposer(persistent.Persistent):
     """
       >>> from zope.interface.verify import verifyClass
@@ -152,7 +164,7 @@ class HTMLComposer(persistent.Persistent):
     header_text = u"<h1>${subject}</h1>"
     footer_text = u""
 
-    template = ViewPageTemplateFile('browser/composer-html.pt')
+    template_name = 'default'
     confirm_template = ViewPageTemplateFile('browser/composer-html-confirm.pt')
     forgot_template = ViewPageTemplateFile('browser/composer-html-forgot.pt')
 
@@ -270,7 +282,15 @@ class HTMLComposer(persistent.Persistent):
 
     @volatile.cache(_render_cachekey)
     def _render(self, vars, items):
-        html = self.template(
+        if getattr(self, 'template', None) is not None:
+            # This instance has overridden the template attribute.
+            # We'll use that template. Note that this will be a bound template,
+            # so we will need to "unbind" it by accessing im_func directly.
+            template = self.template.im_func
+        else:
+            template = component.getUtility(IHTMLComposerTemplate, name=self.template_name)
+        html = template(
+            self,
             contents=[i[0] for i in items],
             items=[dict(formatted=i[0], original=i[1]) for i in items],
             **vars)

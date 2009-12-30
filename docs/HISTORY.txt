@@ -12,6 +12,21 @@ Version 0.8.14 - Unreleased
 
 - Fix i18n pot file by escape quotes
   [toutpt]
+  
+- Extended the HTML composer so that you can select which composer template
+  to use. You register new composer templates by instantiating a template
+  somewhere in your code:
+  
+    >>> mytemplate = ViewPageTemplateFile('browser/composer-html.pt')
+  
+  and registering that in ZCML:
+  
+    <utility component=".module.mytemplate"
+           name="My Custom Template"
+           provides="collective.dancing.interfaces.IHTMLComposerTemplate" />
+
+  [regebro]
+
 
 Version 0.8.13 - 2009-10-19
 ---------------------------

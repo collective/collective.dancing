@@ -73,6 +73,12 @@
 
   <!-- Composer registrations-->
   <adapter factory=".composer.composerdata_from_subscription" />
+  <utility factory=".composer.HTMLTemplateVocabularyFactory"
+           name="html_template_vocabulary"/>
+  <utility component=".composer.default_template"
+           name="default"
+           provides=".interfaces.IHTMLComposerTemplate" />
+  
   <adapter factory=".composer.CMFDublinCoreHTMLFormatter"
            for="Products.CMFCore.interfaces.IDublinCore
                 zope.publisher.interfaces.browser.IBrowserRequest"

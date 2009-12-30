@@ -58,3 +58,15 @@ class IHTMLComposer(collective.singing.interfaces.IComposer,
         description=_(u"The stylesheet will be applied to the document."),
         required=False,
         )
+    template_name = schema.Choice(
+        title=_(u"Template"),
+        description=_(u"The template that will be used."),
+        required=True,
+        default='default',
+        vocabulary='html_template_vocabulary',
+        )
+
+class IHTMLComposerTemplate(interface.Interface):
+    """A marker interface to say that this template object can be used
+    as a template for the HTMLComposer"""
+    
