@@ -9,10 +9,6 @@
 
   <include package="collective.singing" />
   <include package="collective.singing.browser" />
-  <!-- Leave the includeOverrides to plone.z3cform itself and it'll fail:
-  Nicetohave: Eventually skip this approach it could have some odd side
-  effects http://tinyurl.com/yaedrql -->
-  <includeOverrides package="plone.z3cform" file="overrides.zcml" />
   <include package="plone.app.z3cform" />
   <include package="five.intid" />
 
@@ -93,7 +89,7 @@
            for=".composer.FullFormatWrapper
                 zope.publisher.interfaces.browser.IBrowserRequest"
            name="html" />
-  
+
   <!-- Formatter -->
   <adapter factory=".composer.PloneCallHTMLFormatter"
            for="Products.CMFCore.interfaces.IContentish

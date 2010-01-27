@@ -4,23 +4,27 @@ History
 Version 0.8.14 - Unreleased
 ---------------------------
 
-- Add log on ATTopic Patch
+- Added our own overrides.zcml to load the one from plone.z3cform. You cannot
+  load overrides in the configure stage.
+  [hannosch]
+
+- Add log on ATTopic Patch.
   [toutpt]
 
-- Update French translations
+- Update French translations.
   [toutpt]
 
-- Fix i18n pot file by escape quotes
+- Fix i18n pot file by escape quotes.
   [toutpt]
-  
+
 - Extended the HTML composer so that you can select which composer template
   to use. You register new composer templates by instantiating a template
   somewhere in your code:
-  
+
     >>> mytemplate = ViewPageTemplateFile('browser/composer-html.pt')
-  
+
   and registering that in ZCML:
-  
+
     <utility component=".module.mytemplate"
            name="My Custom Template"
            provides="collective.dancing.interfaces.IHTMLComposerTemplate" />
