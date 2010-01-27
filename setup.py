@@ -24,7 +24,6 @@ setup(name='collective.dancing',
         "Framework :: Plone",
         "Framework :: Zope2",
         "Programming Language :: Python",
-        "Topic :: Software Development :: Libraries :: Python Modules",
         ],
       keywords='zope plone notification newsletter',
       author='Daniel Nouri, Thomas Clement Mogensen and contributors',
@@ -49,8 +48,8 @@ setup(name='collective.dancing',
           'BeautifulSoup',
           'collective.monkeypatcher',
       ],
-
       entry_points="""
-      # -*- Entry points: -*-
+      [z3c.autoinclude.plugin]
+      target = plone
       """,
       )

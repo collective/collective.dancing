@@ -4,6 +4,9 @@ History
 Version 0.8.14 - Unreleased
 ---------------------------
 
+- Added a z3c.autoinclude entry point to mark this as a Plone add-on.
+  [hannosch]
+
 - Added our own overrides.zcml to load the one from plone.z3cform. You cannot
   load overrides in the configure stage.
   [hannosch]
