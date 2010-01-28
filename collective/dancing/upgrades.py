@@ -11,6 +11,10 @@ from collective.singing.queue import CompositeQueue
 logger = logging.getLogger('collective.dancing')
 safe_reconstructor = copy_reg._reconstructor
 
+def null_upgrade_step(tool):
+    """ This is a null upgrade, use it when nothing happens """
+    pass
+
 def _reconstructor(cls, base, state):
     if issubclass(cls, collective.dancing.composer.HTMLComposer):
         obj = persistent.Persistent.__new__(cls, state)

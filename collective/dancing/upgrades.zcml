@@ -44,7 +44,7 @@
      profile="collective.dancing:default"
      source="0.4b1"
      destination="0.8.4">
-    
+
     <genericsetup:upgradeStep
        handler=".upgrades.upgrade_to_singing_compositequeue"
        title="Use collective.singing.queue.CompositeQueue for message queueing"
@@ -57,7 +57,7 @@
      profile="collective.dancing:default"
      source="0.1.0"
      destination="0.8.9">
-    
+
     <genericsetup:upgradeStep
        handler=".upgrades.upgrade_scheduled_sends"
        title="Upgrade already scheduled items in Timed Schedulers to reflect code changes in 0.8.9"
@@ -65,5 +65,37 @@
        />
 
   </genericsetup:upgradeSteps>
+
+  <genericsetup:upgradeStep
+      source="0.8.9"
+      destination="0.8.10"
+      title="Empty upgrade step"
+      profile="collective.dancing:default"
+      handler=".upgrades.null_upgrade_step"
+      />
+
+  <genericsetup:upgradeStep
+      source="0.8.10"
+      destination="0.8.11"
+      title="Empty upgrade step"
+      profile="collective.dancing:default"
+      handler=".upgrades.null_upgrade_step"
+      />
+
+  <genericsetup:upgradeStep
+      source="0.8.11"
+      destination="0.8.12"
+      title="Empty upgrade step"
+      profile="collective.dancing:default"
+      handler=".upgrades.null_upgrade_step"
+      />
+
+  <genericsetup:upgradeStep
+      source="0.8.12"
+      destination="0.8.13"
+      title="Empty upgrade step"
+      profile="collective.dancing:default"
+      handler=".upgrades.null_upgrade_step"
+      />
 
 </configure>

@@ -4,6 +4,10 @@ History
 Version 0.8.14 - Unreleased
 ---------------------------
 
+- Added missing upgrade steps for all recent versions. This makes the package
+  comply with the upgrade logic of the Plone add-ons control panel.
+  [hannosch]
+
 - Follow best practice and decouple the profile metadata from the software
   version in setup.py.
   [hannosch]
@@ -26,11 +30,11 @@ Version 0.8.14 - Unreleased
 
 - Extended the HTML composer so that you can select which composer template
   to use. You register new composer templates by instantiating a template
-  somewhere in your code:
+  somewhere in your code::
 
     >>> mytemplate = ViewPageTemplateFile('browser/composer-html.pt')
 
-  and registering that in ZCML:
+  and registering that in ZCML::
 
     <utility component=".module.mytemplate"
            name="My Custom Template"
