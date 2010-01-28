@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 def read(*pathnames):
     return open(os.path.join(os.path.dirname(__file__), *pathnames)).read()
 
-version = '0.8.14'
+version = '0.8.15'
 
 setup(name='collective.dancing',
       version=version,
