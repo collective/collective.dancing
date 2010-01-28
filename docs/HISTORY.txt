@@ -4,6 +4,10 @@ History
 Version 0.8.14 - Unreleased
 ---------------------------
 
+- Follow best practice and decouple the profile metadata from the software
+  version in setup.py.
+  [hannosch]
+
 - Added a z3c.autoinclude entry point to mark this as a Plone add-on.
   [hannosch]
 
