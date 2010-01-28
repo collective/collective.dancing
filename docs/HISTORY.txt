@@ -1,7 +1,7 @@
 History
 =======
 
-Version 0.8.14 - Unreleased
+Version 0.8.14 - 2010-01-28
 ---------------------------
 
 - Added missing upgrade steps for all recent versions. This makes the package
@@ -42,7 +42,6 @@ Version 0.8.14 - Unreleased
 
   [regebro]
 
-
 Version 0.8.13 - 2009-10-19
 ---------------------------
 
@@ -75,7 +74,6 @@ Version 0.8.12 - 2009-09-15
   need this, you must change the validation RegExp. However, for most usecases, I
   believe this is a big improvement.
   [tmog]
-
 
 Version 0.8.11 - 2009-09-03
 ---------------------------
