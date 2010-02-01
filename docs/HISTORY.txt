@@ -4,6 +4,9 @@ History
 Version 0.8.15 - unreleased
 ---------------------------
 
+- Fixed ConfigurationError: ('Missing parameter:', 'description') on Plone3
+  with the last upgrade steps.
+  [toutpt]
 
 Version 0.8.14 - 2010-01-28
 ---------------------------
