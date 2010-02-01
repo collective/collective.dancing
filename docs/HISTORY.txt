@@ -4,6 +4,9 @@ History
 Version 0.8.15 - unreleased
 ---------------------------
 
+- Added a development buildout and automated test runner setup to the package.
+  [hannosch]
+
 - Fixed ConfigurationError: ('Missing parameter:', 'description') on Plone3
   with the last upgrade steps.
   [toutpt]
