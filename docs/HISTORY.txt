@@ -4,6 +4,8 @@ History
 Version 0.8.16 - unreleased
 ---------------------------
 
+- Updated Dutch translations.
+  [maurits]
 
 Version 0.8.15 - 2010-02-01
 ---------------------------
