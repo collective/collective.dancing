@@ -2,9 +2,9 @@
 # Maurits van Rees <m.van.rees@zestsoftware.nl>, 2010
 msgid ""
 msgstr ""
-"Project-Id-Version: collective.dancing VERSION\n"
+"Project-Id-Version: collective.dancing 0.8.13\n"
 "POT-Creation-Date: 2010-03-09 13:42+0000\n"
-"PO-Revision-Date: 2010-03-09 14:32+0100\n"
+"PO-Revision-Date: 2010-03-09 14:47+0100\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Dutch <plone-nl@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
@@ -821,20 +821,18 @@ msgstr "Je abonnement is aangepast."
 
 #. Default: "A Channel is a hub of configuration. It doesn't do anything by itself. Rather, it provides a number of components to configure and work with. It is also the container of subscriptions to it."
 #: ./browser/controlpanel-links.pt:7
-#, fuzzy
 msgid "description_channel_administration"
-msgstr "Naar configuratie van kanaal"
+msgstr "Een kanaal is een knooppunt van configuratie. Het doet op zichzelf niets, maar het biedt een aantal componenten aan om te configureren en mee te werken. Het bevat ook de inschrijvingen."
 
 #. Default: "Collectors are useful for automatic newsletters. They are responsible for assembling a list of items for publishing."
 #: ./browser/controlpanel-links.pt:18
-#, fuzzy
 msgid "description_collector_administration"
-msgstr "Naar configuratie van collectie"
+msgstr "Collecties zijn bruikbaar voor automatische nieuwsbrieven. Ze zijn verantwoordelijk voor het samenstellen van een lijst met items om te publiceren."
 
 #. Default: "Change some aspects of how Singing & Dancing behaves."
 #: ./browser/controlpanel-links.pt:28
 msgid "description_globalsettings_administration"
-msgstr ""
+msgstr "Verander een aantal aspected van hoe Singing & Dancing zich gedraagt."
 
 #. Default: "View newsletter statistics"
 #: ./browser/controlpanel-links.pt:37
