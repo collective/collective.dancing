@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-03-09 15:00+0000\n"
+"POT-Creation-Date: 2010-03-09 15:31+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: David Picó Vila <david.pico.vila@gmail.com>\n"
 "Language-Team: David Picó Vila <david.pico.vila@gmail.com>\n"
@@ -401,6 +401,10 @@ msgstr "Newsletter"
 #: ./browser/stats.py:169
 msgid "Newsletter statistics"
 msgstr "Estadístiques del butlletí de notícies"
+
+#: ./channel.py:78
+msgid "Newsletters"
+msgstr ""
 
 #: ./browser/preview.py:79
 msgid "No items found."

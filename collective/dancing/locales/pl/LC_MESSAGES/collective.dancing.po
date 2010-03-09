@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-03-09 15:00+0000\n"
+"POT-Creation-Date: 2010-03-09 15:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Barbara Struk <barbara.struk@gmail.com>\n"
 "Language-Team: Silva i18n team <walco@infrae.com>\n"
@@ -400,6 +400,10 @@ msgstr "Newsletter"
 #: ./browser/stats.py:169
 msgid "Newsletter statistics"
 msgstr "Statystyki newslettera"
+
+#: ./channel.py:78
+msgid "Newsletters"
+msgstr ""
 
 #: ./browser/preview.py:79
 msgid "No items found."

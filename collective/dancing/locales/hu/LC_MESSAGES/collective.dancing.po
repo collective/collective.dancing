@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.singing\n"
-"POT-Creation-Date: 2010-03-09 15:00+0000\n"
+"POT-Creation-Date: 2010-03-09 15:31+0000\n"
 "PO-Revision-Date: 2009-03-20 14:49+0000\n"
 "Last-Translator: József Jároli <jaroli@yahoo.com>\n"
 "Language-Team: József Jároli <jaroli@yahoo.com>\n"
@@ -395,6 +395,10 @@ msgstr ""
 
 #: ./browser/stats.py:169
 msgid "Newsletter statistics"
+msgstr ""
+
+#: ./channel.py:78
+msgid "Newsletters"
 msgstr ""
 
 #: ./browser/preview.py:79

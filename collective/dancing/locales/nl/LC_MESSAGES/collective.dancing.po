@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.dancing 0.8.13\n"
-"POT-Creation-Date: 2010-03-09 15:00+0000\n"
-"PO-Revision-Date: 2010-03-09 16:08+0100\n"
+"POT-Creation-Date: 2010-03-09 15:31+0000\n"
+"PO-Revision-Date: 2010-03-09 16:30+0100\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Dutch <plone-nl@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
@@ -396,6 +396,10 @@ msgstr "Nieuwsbrief"
 #: ./browser/stats.py:169
 msgid "Newsletter statistics"
 msgstr "Nieuwbrief statistieken"
+
+#: ./channel.py:78
+msgid "Newsletters"
+msgstr "Nieuwsbrieven"
 
 #: ./browser/preview.py:79
 msgid "No items found."

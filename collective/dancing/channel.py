@@ -75,7 +75,7 @@ class PortalNewsletters(OFS.Folder.Folder):
     use_single_form_subscriptions_page = False
 
     def Title(self):
-        return u"Newsletters"
+        return _(u"Newsletters")
 
 @component.adapter(IPortalNewsletters,
                    zope.app.container.interfaces.IObjectAddedEvent)

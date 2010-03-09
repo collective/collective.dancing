@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2010-03-09 15:00+0000\n"
+"POT-Creation-Date: 2010-03-09 15:31+0000\n"
 "PO-Revision-Date: 2008-11-26 12:55+0100\n"
 "Last-Translator: Radim Novotny <novotny.radim@gmail.com>\n"
 "Language-Team: CoreNet <info@corenet.cz>\n"
@@ -399,6 +399,10 @@ msgstr "Zpravodaj"
 #: ./browser/stats.py:169
 msgid "Newsletter statistics"
 msgstr "Statistika zpravodaje"
+
+#: ./channel.py:78
+msgid "Newsletters"
+msgstr ""
 
 #: ./browser/preview.py:79
 msgid "No items found."
