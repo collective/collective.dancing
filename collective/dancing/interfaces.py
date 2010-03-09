@@ -27,7 +27,7 @@ class IHTMLComposer(collective.singing.interfaces.IComposer,
         )
     from_address = schema.TextLine(
         title=_(u"From address"),
-        description=_(u"The from addess that will appear in messages sent from this composer."),
+        description=_(u"The from address that will appear in messages sent from this composer."),
         required=False,
         )
     subject = schema.TextLine(
@@ -38,7 +38,7 @@ class IHTMLComposer(collective.singing.interfaces.IComposer,
         )
     replyto_address = schema.TextLine(
         title=_(u"Reply-to address"),
-        description=_(u"The reply-to addess that will appear in messages sent from this composer."),
+        description=_(u"The reply-to address that will appear in messages sent from this composer."),
         required=False,
         )
     header_text = schema.Text(

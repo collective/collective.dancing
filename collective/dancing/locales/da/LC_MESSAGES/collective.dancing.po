@@ -628,11 +628,11 @@ msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are ne
 msgstr "Det adskillelsestegn der benyttes i CSV-filen. (Som regel ',' eller ';'.)"
 
 #: ./interfaces.py:30
-msgid "The from addess that will appear in messages sent from this composer."
+msgid "The from address that will appear in messages sent from this composer."
 msgstr "'Fra'-adressen, som den vil optræde i beskeder sent af denne composer."
 
 #: ./interfaces.py:41
-msgid "The reply-to addess that will appear in messages sent from this composer."
+msgid "The reply-to address that will appear in messages sent from this composer."
 msgstr "'reply-to'-adressen, som den vil optræde i beskeder sent af denne composer."
 
 #: ./interfaces.py:25

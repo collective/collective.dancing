@@ -638,11 +638,11 @@ msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are ne
 msgstr ""
 
 #: ./interfaces.py:30
-msgid "The from addess that will appear in messages sent from this composer."
+msgid "The from address that will appear in messages sent from this composer."
 msgstr ""
 
 #: ./interfaces.py:41
-msgid "The reply-to addess that will appear in messages sent from this composer."
+msgid "The reply-to address that will appear in messages sent from this composer."
 msgstr ""
 
 #: ./interfaces.py:25
