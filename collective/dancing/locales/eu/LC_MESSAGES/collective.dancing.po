@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-03-09 13:42+0000\n"
+"POT-Creation-Date: 2010-03-09 15:00+0000\n"
 "PO-Revision-Date: 2009-06-25 12:28+0100\n"
 "Last-Translator: Mikel Larreategi <mlarreategi@codesyntax.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.dancing\n"
 
-#: ./browser/portlets/channelsubscribe.py:288
+#: ./browser/portlets/channelsubscribe.py:296
 msgid "${channel} options"
 msgstr "${channel} aukerak"
 
@@ -53,7 +53,7 @@ msgstr "${sent} mezu bidali dira, ${failed} errore."
 msgid "Add"
 msgstr "Gehitu"
 
-#: ./browser/portlets/channelsubscribe.py:451
+#: ./browser/portlets/channelsubscribe.py:459
 msgid "Add Channel Subscribe Portlet"
 msgstr "Gehitu buletinera harpidetzeko portleta"
 
@@ -88,15 +88,15 @@ msgid "Append automatically collected content in this send-out"
 msgstr "Bildutako edukia automatikoki gehitu bidalketara"
 
 #: ./browser/scheduler.py:23
-#: ./browser/subscribe.py:681
+#: ./browser/subscribe.py:688
 msgid "Apply"
 msgstr "Gorde"
 
-#: ./browser/subscribe.py:185
+#: ./browser/subscribe.py:192
 msgid "Apply changes"
 msgstr "Aldaketak egin"
 
-#: ./browser/portlets/channelsubscribe.py:401
+#: ./browser/portlets/channelsubscribe.py:409
 msgid "Back to portlets"
 msgstr "Portletetara itzuli"
 
@@ -175,7 +175,7 @@ msgstr "Egileaak"
 msgid "Confirm your subscription with ${channel-title}"
 msgstr "${channel-title} buletinerako zure harpidetza konfirmatu"
 
-#: ./browser/subscribe.py:87
+#: ./browser/subscribe.py:94
 msgid "Confirming your subscription"
 msgstr "Zure harpidetza konfirmatzen"
 
@@ -221,7 +221,7 @@ msgstr "${channel} buletinean ${selector} editatu"
 msgid "Edit Channel ${channel}"
 msgstr "${channel} buletina editatu"
 
-#: ./browser/portlets/channelsubscribe.py:370
+#: ./browser/portlets/channelsubscribe.py:378
 msgid "Edit Channel Subscribe Portlet"
 msgstr "Buletinera harpidetzeko portleta editatu"
 
@@ -265,8 +265,8 @@ msgstr "Ez duzu fitxategirik kargatu."
 msgid "Fill out the form below to receive an email with a link from which you can edit your subscriptions."
 msgstr "Bete ezazu beheko formularioa zure harpidetzak editatzeko helbidea e-postaz jasotzeko."
 
-#: ./browser/subscribe.py:61
-msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href="${url}">edit your subscriptions</a>."
+#: ./browser/subscribe.py:67
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to ${link_start}edit your subscriptions${link_end}."
 msgstr ""
 
 #: ./browser/portlets/channelsubscribe.py:42
@@ -311,7 +311,7 @@ msgstr "Aukeratuta badago, eta harpideduna datu-basean egonda kargatutako fitxat
 msgid "Include collector items"
 msgstr "Informazio-bildumako elementuak gehitu."
 
-#: ./browser/subscribe.py:301
+#: ./browser/subscribe.py:308
 msgid "Information on how to confirm your subscription has been sent to you."
 msgstr "Zure harpidetza konfirmatzeko informazioa bidali dizugu."
 
@@ -381,7 +381,7 @@ msgstr "Blokea behera mugitu"
 msgid "Move block up"
 msgstr "Blokea gora mugitu"
 
-#: ./browser/subscribe.py:713
+#: ./browser/subscribe.py:720
 msgid "My subscriptions"
 msgstr "Nire harpidetzak"
 
@@ -451,7 +451,7 @@ msgstr "Portletaren goiburua"
 msgid "Preview"
 msgstr "Aurreikusi"
 
-#: ./browser/portlets/channelsubscribe.py:207
+#: ./browser/portlets/channelsubscribe.py:215
 msgid "Proceed"
 msgstr "Aurrera"
 
@@ -523,13 +523,13 @@ msgstr "Aukeratu CSV fitxategiaren goiburu-lerroa erabilil nahi baduzu. Lerro ho
 msgid "Send"
 msgstr "Bidali"
 
-#: ./browser/sendnewsletter.py:96
-msgid "Send "${context}" through ${channels}."
-msgstr ""
-
 #: ./browser/sendnewsletter.py:199
 msgid "Send ${item} as newsletter"
 msgstr "${item} buletin gisa bidali"
+
+#: ./browser/sendnewsletter.py:96
+msgid "Send '${context}' through ${channels}."
+msgstr ""
 
 #. Default: "Send as newsletter"
 #: ./profiles/default/actions.xml
@@ -575,7 +575,7 @@ msgstr "Buletin estandarra"
 msgid "Status"
 msgstr "Egoera"
 
-#: ./browser/subscribe.py:240
+#: ./browser/subscribe.py:247
 msgid "Subscribe"
 msgstr "Harpidetu"
 
@@ -583,7 +583,7 @@ msgstr "Harpidetu"
 msgid "Subscribe directly from portlet"
 msgstr "Portletetik zuzenean harpidetu"
 
-#: ./browser/subscribe.py:70
+#: ./browser/subscribe.py:77
 msgid "Subscribe to ${channel}"
 msgstr "${channel} buletinera harpidetu"
 
@@ -659,11 +659,11 @@ msgstr "Dokumentuari aplikatuko zaion estilo-orria."
 msgid "The template that will be used."
 msgstr ""
 
-#: ./browser/subscribe.py:263
+#: ./browser/subscribe.py:270
 msgid "There seems to be an error with the information you entered."
 msgstr "Emandako informazioak erroreren bat duela dirudi."
 
-#: ./browser/portlets/channelsubscribe.py:198
+#: ./browser/portlets/channelsubscribe.py:206
 msgid "There were some errors."
 msgstr "Errore batzuk egon dira."
 
@@ -675,7 +675,7 @@ msgstr "'Banaketa antolatun'-n klik egiten baduzu bakarrik da beharrezkoa."
 msgid "This is only required if you click 'Send preview' below"
 msgstr "'Aurreikuspen mezua bidali'-n klik egiten baduzu bakarrik da beharrezkoa."
 
-#: ./browser/portlets/channelsubscribe.py:407
+#: ./browser/portlets/channelsubscribe.py:415
 msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
 msgstr "Buletin jakin batera harpidetzeko portleta"
 
@@ -714,11 +714,11 @@ msgstr "Mota"
 msgid "Unknown"
 msgstr "Ezezaguna"
 
-#: ./browser/subscribe.py:115
+#: ./browser/subscribe.py:122
 msgid "Unsubscribe"
 msgstr "Harpidetza eten"
 
-#: ./browser/subscribe.py:197
+#: ./browser/subscribe.py:204
 msgid "Unsubscribe from newsletter"
 msgstr "Buletinetik harpidetza eten"
 
@@ -759,11 +759,11 @@ msgstr ""
 msgid "Use single form subscriptions page when possible."
 msgstr ""
 
-#: ./browser/portlets/channelsubscribe.py:146
-msgid "You are already subscribed to this newsletter. Click here to <a href="${url}">edit your subscriptions</a>."
+#: ./browser/portlets/channelsubscribe.py:152
+msgid "You are already subscribed to this newsletter. Click here to ${link_start}edit your subscriptions${link_end}."
 msgstr ""
 
-#: ./browser/subscribe.py:212
+#: ./browser/subscribe.py:219
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
 msgstr "Harpidetuta zaude. Orrialdearen bukaeran dagoen formularioa bete ezazu zure harpidetza konfiguratzeko helbidea lortzeko."
 
@@ -772,7 +772,7 @@ msgstr "Harpidetuta zaude. Orrialdearen bukaeran dagoen formularioa bete ezazu z
 msgid "You are currently subscribed to these newsletters:"
 msgstr "Buletin hauetara harpidetuta zaude:"
 
-#: ./browser/subscribe.py:127
+#: ./browser/subscribe.py:134
 msgid "You aren't subscribed to this channel."
 msgstr "Ez zaude buletin honetara harpidetuta."
 
@@ -781,7 +781,7 @@ msgstr "Ez zaude buletin honetara harpidetuta."
 msgid "You can subscribe to these newsletters:"
 msgstr "Buletin hauetara harpidetu zaitezke:"
 
-#: ./browser/subscribe.py:89
+#: ./browser/subscribe.py:96
 msgid "You confirmed your subscription successfully."
 msgstr "Zure harpidetza baieztatu duzu."
 
@@ -789,11 +789,11 @@ msgstr "Zure harpidetza baieztatu duzu."
 msgid "You may use a number of variables here, like ${site-title}."
 msgstr "Hemen aldagaiak erabil ditzakezu, adibidez ${site-title}"
 
-#: ./browser/subscribe.py:295
+#: ./browser/subscribe.py:302
 msgid "You subscribed successfully."
 msgstr "Ondo harpidetu zara."
 
-#: ./browser/subscribe.py:125
+#: ./browser/subscribe.py:132
 msgid "You unsubscribed successfully."
 msgstr "Ondo ezabatu da zure harpidetza."
 
@@ -807,14 +807,14 @@ msgid "Your e-mail address is invalid"
 msgstr "Zure e-posta helbidea ez da baliozkoa"
 
 #: ./browser/subscribe.py:28
-msgid "Your email address is already subscribed. Click the "Send my subscription details" button below."
+msgid "Your email address is already subscribed. Click the 'Send my subscription details' button below."
 msgstr ""
 
-#: ./browser/subscribe.py:90
+#: ./browser/subscribe.py:97
 msgid "Your subscription isn't known to us."
 msgstr "Ez zaude harpidetuta."
 
-#: ./browser/subscribe.py:151
+#: ./browser/subscribe.py:158
 msgid "Your subscription was updated."
 msgstr "Zure harpidetza eguneratu da."
 

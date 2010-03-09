@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.dancing 0.8.13\n"
-"POT-Creation-Date: 2010-03-09 13:42+0000\n"
-"PO-Revision-Date: 2010-03-09 14:51+0100\n"
+"POT-Creation-Date: 2010-03-09 15:00+0000\n"
+"PO-Revision-Date: 2010-03-09 16:08+0100\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Dutch <plone-nl@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Domain: collective.dancing\n"
 "X-Is-Fallback-For: nl-be nl-nl\n"
 
-#: ./browser/portlets/channelsubscribe.py:288
+#: ./browser/portlets/channelsubscribe.py:296
 msgid "${channel} options"
 msgstr "${channel} opties"
 
@@ -53,7 +53,7 @@ msgstr "${sent} bericht(en) verzonden, ${failed} mislukt."
 msgid "Add"
 msgstr "Toevoegen"
 
-#: ./browser/portlets/channelsubscribe.py:451
+#: ./browser/portlets/channelsubscribe.py:459
 msgid "Add Channel Subscribe Portlet"
 msgstr "Abonnementen portlet toevoegen"
 
@@ -88,15 +88,15 @@ msgid "Append automatically collected content in this send-out"
 msgstr "Voeg automatisch verzamelde content toe in deze mailing"
 
 #: ./browser/scheduler.py:23
-#: ./browser/subscribe.py:681
+#: ./browser/subscribe.py:688
 msgid "Apply"
 msgstr "Toepassen"
 
-#: ./browser/subscribe.py:185
+#: ./browser/subscribe.py:192
 msgid "Apply changes"
 msgstr "Wijzigingen toepassen"
 
-#: ./browser/portlets/channelsubscribe.py:401
+#: ./browser/portlets/channelsubscribe.py:409
 msgid "Back to portlets"
 msgstr "Terug naar portlets"
 
@@ -175,7 +175,7 @@ msgstr "Composers"
 msgid "Confirm your subscription with ${channel-title}"
 msgstr "Bevestig uw inschrijving op ${channel-title}"
 
-#: ./browser/subscribe.py:87
+#: ./browser/subscribe.py:94
 msgid "Confirming your subscription"
 msgstr "Uw inschrijving bevestigen"
 
@@ -221,7 +221,7 @@ msgstr "Wijzig ${selector} voor ${channel}"
 msgid "Edit Channel ${channel}"
 msgstr "Kanaal ${channel} bewerken"
 
-#: ./browser/portlets/channelsubscribe.py:370
+#: ./browser/portlets/channelsubscribe.py:378
 msgid "Edit Channel Subscribe Portlet"
 msgstr "Kanaal inschrijving portlet wijzigen"
 
@@ -265,9 +265,9 @@ msgstr "Bestand is niet opgegeven."
 msgid "Fill out the form below to receive an email with a link from which you can edit your subscriptions."
 msgstr "Vul het onderstaande formulier in om een e-mail te ontvangen met een link waarmee u uw inschrijvingen kunt wijzigen."
 
-#: ./browser/subscribe.py:61
-msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href="${url}">edit your subscriptions</a>."
-msgstr "Vul het onderstaande formulier in om u in te schrijven op ${channel}. Let op: dit is voor nieuwe inschrijvingen. Klik hier om <a href="${url}">uw inschrijvingen te wijzigen</a>."
+#: ./browser/subscribe.py:67
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to ${link_start}edit your subscriptions${link_end}."
+msgstr "Vul het onderstaande formulier in om u in te schrijven op ${channel}. Let op: dit is voor nieuwe inschrijvingen. Klik hier om ${link_start}uw inschrijvingen te wijzigen${link_end}."
 
 #: ./browser/portlets/channelsubscribe.py:42
 msgid "Find the channel you want to enable direct subscription to"
@@ -311,7 +311,7 @@ msgstr "Wanneer geselecteerd, worden inschrijvingen die bestaan in de database m
 msgid "Include collector items"
 msgstr "Inclusief items van collectie"
 
-#: ./browser/subscribe.py:301
+#: ./browser/subscribe.py:308
 msgid "Information on how to confirm your subscription has been sent to you."
 msgstr "De informatie over hoe uw inschrijving te bevestigen, is naar u verstuurd."
 
@@ -381,7 +381,7 @@ msgstr "Blok naar beneden verplaatsen"
 msgid "Move block up"
 msgstr "Blok naar boven verplaatsen"
 
-#: ./browser/subscribe.py:713
+#: ./browser/subscribe.py:720
 msgid "My subscriptions"
 msgstr "Mijn inschrijvingen"
 
@@ -451,7 +451,7 @@ msgstr "Portlet koptekst"
 msgid "Preview"
 msgstr "Voorbeeldweergave"
 
-#: ./browser/portlets/channelsubscribe.py:207
+#: ./browser/portlets/channelsubscribe.py:215
 msgid "Proceed"
 msgstr "Ga verder"
 
@@ -523,13 +523,13 @@ msgstr "Selecteer dit als u de eerste rij van de csv wil gebruiken om variabelen
 msgid "Send"
 msgstr "Verzenden"
 
-#: ./browser/sendnewsletter.py:96
-msgid "Send "${context}" through ${channels}."
-msgstr "Verzend "${context}" door ${channels}."
-
 #: ./browser/sendnewsletter.py:199
 msgid "Send ${item} as newsletter"
 msgstr "Verzend ${item} als nieuwsbrief"
+
+#: ./browser/sendnewsletter.py:96
+msgid "Send '${context}' through ${channels}."
+msgstr "Verzend '${context}' door ${channels}."
 
 #. Default: "Send as newsletter"
 #: ./profiles/default/actions.xml
@@ -575,7 +575,7 @@ msgstr "Standaardkanaal"
 msgid "Status"
 msgstr "Status"
 
-#: ./browser/subscribe.py:240
+#: ./browser/subscribe.py:247
 msgid "Subscribe"
 msgstr "Inschrijven"
 
@@ -584,7 +584,7 @@ msgid "Subscribe directly from portlet"
 msgstr "Rechtstreeks inschrijven met portlet"
 
 #. Default: "channel"
-#: ./browser/subscribe.py:70
+#: ./browser/subscribe.py:77
 msgid "Subscribe to ${channel}"
 msgstr "Abonneer op ${channel}"
 
@@ -614,7 +614,7 @@ msgstr "Verzending met succes ingepland"
 
 #: ./interfaces.py:62
 msgid "Template"
-msgstr ""
+msgstr "Sjabloon"
 
 #: ./browser/portlets/channelsubscribe.py:54
 msgid "Text in footer - if omitted the channel title is used"
@@ -658,13 +658,13 @@ msgstr "De stylesheet zal worden toegepast op het document."
 
 #: ./interfaces.py:63
 msgid "The template that will be used."
-msgstr ""
+msgstr "De sjabloon die gebruikt zal worden."
 
-#: ./browser/subscribe.py:263
+#: ./browser/subscribe.py:270
 msgid "There seems to be an error with the information you entered."
 msgstr "Er zit een fout in de ingevoerde gegevens."
 
-#: ./browser/portlets/channelsubscribe.py:198
+#: ./browser/portlets/channelsubscribe.py:206
 msgid "There were some errors."
 msgstr "Er is iets misgegaan."
 
@@ -676,7 +676,7 @@ msgstr "Dit is alleen verplicht als u beneden klikt op 'Plan verzending in'."
 msgid "This is only required if you click 'Send preview' below"
 msgstr "Dit is alleen verplicht indien u klikt op 'Voorbeeldweergave verzenden'"
 
-#: ./browser/portlets/channelsubscribe.py:407
+#: ./browser/portlets/channelsubscribe.py:415
 msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
 msgstr "Deze portlet staat bezoekers toe om zich in te schrijven voor een specifiek kanaal"
 
@@ -715,11 +715,11 @@ msgstr "Type"
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: ./browser/subscribe.py:115
+#: ./browser/subscribe.py:122
 msgid "Unsubscribe"
 msgstr "Uitschrijven"
 
-#: ./browser/subscribe.py:197
+#: ./browser/subscribe.py:204
 msgid "Unsubscribe from newsletter"
 msgstr "Abonnement opzeggen"
 
@@ -754,17 +754,17 @@ msgstr "Upload lijst met abonnees."
 
 #: ./channel.py:64
 msgid "Use single form subscriptions page"
-msgstr ""
+msgstr "Gebruik enkelvoudig formulier als inschrijvingspagina"
 
 #: ./channel.py:65
 msgid "Use single form subscriptions page when possible."
-msgstr ""
+msgstr "Gebruik enkelvoudig formulier als inschrijvingspagina indien mogelijk"
 
-#: ./browser/portlets/channelsubscribe.py:146
-msgid "You are already subscribed to this newsletter. Click here to <a href="${url}">edit your subscriptions</a>."
-msgstr "U bent al geabonneerd op deze nieuwsbrief. Klik hier om <a href="${url}">uw inschrijvingen te wijzigen</a>."
+#: ./browser/portlets/channelsubscribe.py:152
+msgid "You are already subscribed to this newsletter. Click here to ${link_start}edit your subscriptions${link_end}."
+msgstr "U bent al geabonneerd op deze nieuwsbrief. Klik hier om ${link_start}uw inschrijvingen te wijzigen${link_end}."
 
-#: ./browser/subscribe.py:212
+#: ./browser/subscribe.py:219
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
 msgstr "U bent al ingeschreven. Vul het formulier op het einde van deze pagina in om een link te versturen waarmee u uw inschrijving kan bewerken."
 
@@ -773,7 +773,7 @@ msgstr "U bent al ingeschreven. Vul het formulier op het einde van deze pagina i
 msgid "You are currently subscribed to these newsletters:"
 msgstr "U bent momenteel ingeschreven op de volgende nieuwsbrieven."
 
-#: ./browser/subscribe.py:127
+#: ./browser/subscribe.py:134
 msgid "You aren't subscribed to this channel."
 msgstr "U bent niet ingeschreven op dit kanaal."
 
@@ -782,7 +782,7 @@ msgstr "U bent niet ingeschreven op dit kanaal."
 msgid "You can subscribe to these newsletters:"
 msgstr "U kunt zich inschrijven op deze nieuwsbrieven:"
 
-#: ./browser/subscribe.py:89
+#: ./browser/subscribe.py:96
 msgid "You confirmed your subscription successfully."
 msgstr "Uw inschrijving is bevestigd."
 
@@ -790,11 +790,11 @@ msgstr "Uw inschrijving is bevestigd."
 msgid "You may use a number of variables here, like ${site-title}."
 msgstr "U mag hier een aantal variabelen gebruiken, zoals ${site-title}."
 
-#: ./browser/subscribe.py:295
+#: ./browser/subscribe.py:302
 msgid "You subscribed successfully."
 msgstr "U bent succesvol ingeschreven."
 
-#: ./browser/subscribe.py:125
+#: ./browser/subscribe.py:132
 msgid "You unsubscribed successfully."
 msgstr "U bent succesvol uitgeschreven."
 
@@ -808,14 +808,14 @@ msgid "Your e-mail address is invalid"
 msgstr "Uw e-mail adres is ongeldig"
 
 #: ./browser/subscribe.py:28
-msgid "Your email address is already subscribed. Click the "Send my subscription details" button below."
+msgid "Your email address is already subscribed. Click the 'Send my subscription details' button below."
 msgstr "Uw e-mailadres is al geabonneerd. Klik op de knop 'Verstuur mijn inschrijfgegevens' hieronder."
 
-#: ./browser/subscribe.py:90
+#: ./browser/subscribe.py:97
 msgid "Your subscription isn't known to us."
 msgstr "Uw inschrijving is niet bekend."
 
-#: ./browser/subscribe.py:151
+#: ./browser/subscribe.py:158
 msgid "Your subscription was updated."
 msgstr "Uw abonnement is aangepast."
 
@@ -832,7 +832,7 @@ msgstr "Collecties zijn bruikbaar voor automatische nieuwsbrieven. Ze zijn veran
 #. Default: "Change some aspects of how Singing & Dancing behaves."
 #: ./browser/controlpanel-links.pt:28
 msgid "description_globalsettings_administration"
-msgstr "Verander een aantal aspected van hoe Singing & Dancing zich gedraagt."
+msgstr "Verander een aantal aspecten van hoe Singing & Dancing zich gedraagt."
 
 #. Default: "View newsletter statistics"
 #: ./browser/controlpanel-links.pt:37
@@ -852,7 +852,7 @@ msgstr "Collectie configuratie"
 #. Default: "Global settings"
 #: ./browser/controlpanel-links.pt:23
 msgid "label_newsletters_settings_administration"
-msgstr ""
+msgstr "Globale instellingen"
 
 #. Default: "Statistics"
 #: ./browser/controlpanel-links.pt:32

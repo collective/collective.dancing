@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.dancing\n"
-"POT-Creation-Date: 2010-03-09 13:42+0000\n"
+"POT-Creation-Date: 2010-03-09 15:00+0000\n"
 "PO-Revision-Date: 2009-09-01 18:25+0200\n"
 "Last-Translator: Vladimir Iliev <vladimir.iliev@gmail.com>\n"
 "Language-Team: plone i18n\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-Language: Bulgarian\n"
 "X-Poedit-Country: BULGARIA\n"
 
-#: ./browser/portlets/channelsubscribe.py:288
+#: ./browser/portlets/channelsubscribe.py:296
 msgid "${channel} options"
 msgstr ""
 
@@ -52,7 +52,7 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: ./browser/portlets/channelsubscribe.py:451
+#: ./browser/portlets/channelsubscribe.py:459
 msgid "Add Channel Subscribe Portlet"
 msgstr ""
 
@@ -87,15 +87,15 @@ msgid "Append automatically collected content in this send-out"
 msgstr ""
 
 #: ./browser/scheduler.py:23
-#: ./browser/subscribe.py:681
+#: ./browser/subscribe.py:688
 msgid "Apply"
 msgstr "Прилагане"
 
-#: ./browser/subscribe.py:185
+#: ./browser/subscribe.py:192
 msgid "Apply changes"
 msgstr "Прилагане на промените"
 
-#: ./browser/portlets/channelsubscribe.py:401
+#: ./browser/portlets/channelsubscribe.py:409
 msgid "Back to portlets"
 msgstr ""
 
@@ -174,7 +174,7 @@ msgstr ""
 msgid "Confirm your subscription with ${channel-title}"
 msgstr "Потвърдете вашия абонамент в  ${channel-title}"
 
-#: ./browser/subscribe.py:87
+#: ./browser/subscribe.py:94
 msgid "Confirming your subscription"
 msgstr "Потвърдете вашия абонамент"
 
@@ -220,7 +220,7 @@ msgstr "Редактиране на ${selector} за ${channel}"
 msgid "Edit Channel ${channel}"
 msgstr "Редактиране на канал ${channel}"
 
-#: ./browser/portlets/channelsubscribe.py:370
+#: ./browser/portlets/channelsubscribe.py:378
 msgid "Edit Channel Subscribe Portlet"
 msgstr ""
 
@@ -264,8 +264,8 @@ msgstr ""
 msgid "Fill out the form below to receive an email with a link from which you can edit your subscriptions."
 msgstr ""
 
-#: ./browser/subscribe.py:61
-msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href="${url}">edit your subscriptions</a>."
+#: ./browser/subscribe.py:67
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to ${link_start}edit your subscriptions${link_end}."
 msgstr ""
 
 #: ./browser/portlets/channelsubscribe.py:42
@@ -310,7 +310,7 @@ msgstr ""
 msgid "Include collector items"
 msgstr ""
 
-#: ./browser/subscribe.py:301
+#: ./browser/subscribe.py:308
 msgid "Information on how to confirm your subscription has been sent to you."
 msgstr "Беше ви изпратена информация как да потвърдите вашия абонамент."
 
@@ -380,7 +380,7 @@ msgstr "Преместване на блока надолу"
 msgid "Move block up"
 msgstr "Преместване на блока нагоре"
 
-#: ./browser/subscribe.py:713
+#: ./browser/subscribe.py:720
 msgid "My subscriptions"
 msgstr "Моите абонаменти"
 
@@ -450,7 +450,7 @@ msgstr ""
 msgid "Preview"
 msgstr "Преглед"
 
-#: ./browser/portlets/channelsubscribe.py:207
+#: ./browser/portlets/channelsubscribe.py:215
 msgid "Proceed"
 msgstr "Продължаване"
 
@@ -522,13 +522,13 @@ msgstr ""
 msgid "Send"
 msgstr "Изпращане"
 
-#: ./browser/sendnewsletter.py:96
-msgid "Send "${context}" through ${channels}."
-msgstr ""
-
 #: ./browser/sendnewsletter.py:199
 msgid "Send ${item} as newsletter"
 msgstr "Изпращане на ${item} като бюлетин"
+
+#: ./browser/sendnewsletter.py:96
+msgid "Send '${context}' through ${channels}."
+msgstr ""
 
 #. Default: "Send as newsletter"
 #: ./profiles/default/actions.xml
@@ -574,7 +574,7 @@ msgstr ""
 msgid "Status"
 msgstr "Статус"
 
-#: ./browser/subscribe.py:240
+#: ./browser/subscribe.py:247
 msgid "Subscribe"
 msgstr "Абониране"
 
@@ -582,7 +582,7 @@ msgstr "Абониране"
 msgid "Subscribe directly from portlet"
 msgstr "Абониране директно от портлета"
 
-#: ./browser/subscribe.py:70
+#: ./browser/subscribe.py:77
 msgid "Subscribe to ${channel}"
 msgstr "Абониране за ${channel}"
 
@@ -658,11 +658,11 @@ msgstr ""
 msgid "The template that will be used."
 msgstr ""
 
-#: ./browser/subscribe.py:263
+#: ./browser/subscribe.py:270
 msgid "There seems to be an error with the information you entered."
 msgstr "Изглежда има грешка в информацията, която сте въвели."
 
-#: ./browser/portlets/channelsubscribe.py:198
+#: ./browser/portlets/channelsubscribe.py:206
 msgid "There were some errors."
 msgstr "Бяха открити грешки."
 
@@ -674,7 +674,7 @@ msgstr ""
 msgid "This is only required if you click 'Send preview' below"
 msgstr ""
 
-#: ./browser/portlets/channelsubscribe.py:407
+#: ./browser/portlets/channelsubscribe.py:415
 msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
 msgstr ""
 
@@ -713,11 +713,11 @@ msgstr "Тип"
 msgid "Unknown"
 msgstr "Неизвестен"
 
-#: ./browser/subscribe.py:115
+#: ./browser/subscribe.py:122
 msgid "Unsubscribe"
 msgstr "Прекратяване на абонамента"
 
-#: ./browser/subscribe.py:197
+#: ./browser/subscribe.py:204
 msgid "Unsubscribe from newsletter"
 msgstr "Отказване от бюлетина"
 
@@ -758,11 +758,11 @@ msgstr ""
 msgid "Use single form subscriptions page when possible."
 msgstr ""
 
-#: ./browser/portlets/channelsubscribe.py:146
-msgid "You are already subscribed to this newsletter. Click here to <a href="${url}">edit your subscriptions</a>."
+#: ./browser/portlets/channelsubscribe.py:152
+msgid "You are already subscribed to this newsletter. Click here to ${link_start}edit your subscriptions${link_end}."
 msgstr ""
 
-#: ./browser/subscribe.py:212
+#: ./browser/subscribe.py:219
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
 msgstr "Вие вече сте абониран(а). Попълнете формата в края на тази страница и ще получите връзка, от която може да промените вашия абонамент."
 
@@ -771,7 +771,7 @@ msgstr "Вие вече сте абониран(а). Попълнете форм
 msgid "You are currently subscribed to these newsletters:"
 msgstr "Вие имате абонамент за тези канали:"
 
-#: ./browser/subscribe.py:127
+#: ./browser/subscribe.py:134
 msgid "You aren't subscribed to this channel."
 msgstr "Вие нямате абонамент за този канал."
 
@@ -780,7 +780,7 @@ msgstr "Вие нямате абонамент за този канал."
 msgid "You can subscribe to these newsletters:"
 msgstr "Вие може да се абонирате за тези бюлетини:"
 
-#: ./browser/subscribe.py:89
+#: ./browser/subscribe.py:96
 msgid "You confirmed your subscription successfully."
 msgstr "Вие потвърдихте успешно вашия абонамент."
 
@@ -788,11 +788,11 @@ msgstr "Вие потвърдихте успешно вашия абонамен
 msgid "You may use a number of variables here, like ${site-title}."
 msgstr "Може да използвате променливи, като ${site-title}."
 
-#: ./browser/subscribe.py:295
+#: ./browser/subscribe.py:302
 msgid "You subscribed successfully."
 msgstr "Вашия абонамент премина успешно."
 
-#: ./browser/subscribe.py:125
+#: ./browser/subscribe.py:132
 msgid "You unsubscribed successfully."
 msgstr "Вашия абонамент беше закрит."
 
@@ -806,14 +806,14 @@ msgid "Your e-mail address is invalid"
 msgstr "Вашия e-mail адрес е невалиден"
 
 #: ./browser/subscribe.py:28
-msgid "Your email address is already subscribed. Click the "Send my subscription details" button below."
+msgid "Your email address is already subscribed. Click the 'Send my subscription details' button below."
 msgstr ""
 
-#: ./browser/subscribe.py:90
+#: ./browser/subscribe.py:97
 msgid "Your subscription isn't known to us."
 msgstr "Вашия абонамент не е познат за нас."
 
-#: ./browser/subscribe.py:151
+#: ./browser/subscribe.py:158
 msgid "Your subscription was updated."
 msgstr "Вашия абонамент беше обновен."
 

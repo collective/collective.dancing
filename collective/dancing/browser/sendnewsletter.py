@@ -93,7 +93,7 @@ class SendAsNewsletterForm(form.Form):
         job = collective.singing.async.Job(
             _assemble_messages,
             channel_paths, context_path, include_collector_items, override_vars)
-        title = _(u'Send "${context}" through ${channels}.',
+        title = _(u"Send '${context}' through ${channels}.",
                   mapping=dict(
             context=self.context.Title().decode(self.context.plone_utils.getSiteEncoding()),
             channels=u', '.join([u'"%s"' % c.title for c in channels])))

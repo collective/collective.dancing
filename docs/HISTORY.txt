@@ -4,6 +4,11 @@ History
 Version 0.8.16 - unreleased
 ---------------------------
 
+- Fixed translations that were causing compile errors on Zope startup,
+  resulting in old translations showing up for a language (taken from
+  the outdated .mo file), or no translations at all.
+  [maurits]
+
 - Updated Dutch translations.
   [maurits]
 

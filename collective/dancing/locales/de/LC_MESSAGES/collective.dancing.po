@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Singing & Dancing\n"
-"POT-Creation-Date: 2010-03-09 13:42+0000\n"
+"POT-Creation-Date: 2010-03-09 15:00+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Daniel Widerin <daniel.widerin@kombinat.at>\n"
 "Language-Team: David Picó Vila <david.pico.vila@gmail.com>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Poedit-Country: AUSTRIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ./browser/portlets/channelsubscribe.py:288
+#: ./browser/portlets/channelsubscribe.py:296
 msgid "${channel} options"
 msgstr "${channel} Einstellungen"
 
@@ -54,7 +54,7 @@ msgstr "${sent} Nachricht(en) gesendet, ${failed} fehlgeschlagen."
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: ./browser/portlets/channelsubscribe.py:451
+#: ./browser/portlets/channelsubscribe.py:459
 msgid "Add Channel Subscribe Portlet"
 msgstr "Portlet für direkte Anmeldung zu einem Newsletterthema hinzufügen"
 
@@ -89,15 +89,15 @@ msgid "Append automatically collected content in this send-out"
 msgstr "Sollen automatisch gesammelte Inhalte an diese Aussendung angehängt werden?"
 
 #: ./browser/scheduler.py:23
-#: ./browser/subscribe.py:681
+#: ./browser/subscribe.py:688
 msgid "Apply"
 msgstr "Übernehmen"
 
-#: ./browser/subscribe.py:185
+#: ./browser/subscribe.py:192
 msgid "Apply changes"
 msgstr "Änderungen übernehmen"
 
-#: ./browser/portlets/channelsubscribe.py:401
+#: ./browser/portlets/channelsubscribe.py:409
 msgid "Back to portlets"
 msgstr "Zurück zur Portletverwaltung"
 
@@ -176,7 +176,7 @@ msgstr "Vorlagen"
 msgid "Confirm your subscription with ${channel-title}"
 msgstr "Sie müssen Ihre Anmeldung zum Thema '${channel-title}' bestätigen"
 
-#: ./browser/subscribe.py:87
+#: ./browser/subscribe.py:94
 msgid "Confirming your subscription"
 msgstr "Anmeldung bestätigt"
 
@@ -222,7 +222,7 @@ msgstr "${selector} von ${channel} bearbeiten"
 msgid "Edit Channel ${channel}"
 msgstr "${channel} bearbeiten"
 
-#: ./browser/portlets/channelsubscribe.py:370
+#: ./browser/portlets/channelsubscribe.py:378
 msgid "Edit Channel Subscribe Portlet"
 msgstr "Portlet für direkte Anmeldung zu einem Newsletterthema bearbeiten"
 
@@ -266,8 +266,8 @@ msgstr "Keine Datei angegeben."
 msgid "Fill out the form below to receive an email with a link from which you can edit your subscriptions."
 msgstr "Bitte teilen Sie uns Ihre E-Mail Adresse mit und wir senden Ihnen einen Link zu, um Ihr Abonnement zu bearbeiten."
 
-#: ./browser/subscribe.py:61
-msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href="${url}">edit your subscriptions</a>."
+#: ./browser/subscribe.py:67
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to ${link_start}edit your subscriptions${link_end}."
 msgstr ""
 
 #: ./browser/portlets/channelsubscribe.py:42
@@ -312,7 +312,7 @@ msgstr "Existiert ein Abonnement in der Datenbank welches in der hochgeladenen D
 msgid "Include collector items"
 msgstr "Sammlerdienste miteinbeziehen"
 
-#: ./browser/subscribe.py:301
+#: ./browser/subscribe.py:308
 msgid "Information on how to confirm your subscription has been sent to you."
 msgstr "Eine E-Mail mit einem Bestätigungslink wurde an die eingegebene E-Mail Adresse gesendet."
 
@@ -382,7 +382,7 @@ msgstr "Block nach unten verschieben"
 msgid "Move block up"
 msgstr "Block nach oben verschieben"
 
-#: ./browser/subscribe.py:713
+#: ./browser/subscribe.py:720
 msgid "My subscriptions"
 msgstr "Ihre Abonnements"
 
@@ -452,7 +452,7 @@ msgstr "Kopfzeile des Portlets"
 msgid "Preview"
 msgstr "Vorschau senden"
 
-#: ./browser/portlets/channelsubscribe.py:207
+#: ./browser/portlets/channelsubscribe.py:215
 msgid "Proceed"
 msgstr "Weiter"
 
@@ -524,13 +524,13 @@ msgstr "Wenn aktiviert werden die verfügbaren Variablen über die Kopfzeile bes
 msgid "Send"
 msgstr "Senden"
 
-#: ./browser/sendnewsletter.py:96
-msgid "Send "${context}" through ${channels}."
-msgstr ""
-
 #: ./browser/sendnewsletter.py:199
 msgid "Send ${item} as newsletter"
 msgstr "Artikel '${item}' als Newsletter versenden"
+
+#: ./browser/sendnewsletter.py:96
+msgid "Send '${context}' through ${channels}."
+msgstr ""
 
 #. Default: "Send as newsletter"
 #: ./profiles/default/actions.xml
@@ -576,7 +576,7 @@ msgstr "Standard Themenbereich"
 msgid "Status"
 msgstr "Status"
 
-#: ./browser/subscribe.py:240
+#: ./browser/subscribe.py:247
 msgid "Subscribe"
 msgstr "Anmelden"
 
@@ -584,7 +584,7 @@ msgstr "Anmelden"
 msgid "Subscribe directly from portlet"
 msgstr "Direktes Anmelden ermöglichen?"
 
-#: ./browser/subscribe.py:70
+#: ./browser/subscribe.py:77
 msgid "Subscribe to ${channel}"
 msgstr "Zu ${channel} anmelden"
 
@@ -660,11 +660,11 @@ msgstr "Diese CSS-Style Definitionen werden in jede Nachricht eingefügt."
 msgid "The template that will be used."
 msgstr ""
 
-#: ./browser/subscribe.py:263
+#: ./browser/subscribe.py:270
 msgid "There seems to be an error with the information you entered."
 msgstr "Es scheint ein Fehler mit den eingegebenen Werten aufgetreten zu sein."
 
-#: ./browser/portlets/channelsubscribe.py:198
+#: ./browser/portlets/channelsubscribe.py:206
 msgid "There were some errors."
 msgstr "Mindestens ein Fehler ist aufgetreten."
 
@@ -676,7 +676,7 @@ msgstr "Dies ist nur erforderlich, falls Sie auf 'Plane Zustellung' klicken."
 msgid "This is only required if you click 'Send preview' below"
 msgstr "Dies ist nur erforderlich, falls Sie auf 'Vorschau versenden' klicken."
 
-#: ./browser/portlets/channelsubscribe.py:407
+#: ./browser/portlets/channelsubscribe.py:415
 msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
 msgstr "Dieses Portlet erlaubt einem Besucher sich zu einem oder mehreren Themenbereichen anzumelden."
 
@@ -715,11 +715,11 @@ msgstr "Typ"
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: ./browser/subscribe.py:115
+#: ./browser/subscribe.py:122
 msgid "Unsubscribe"
 msgstr "Abmelden"
 
-#: ./browser/subscribe.py:197
+#: ./browser/subscribe.py:204
 msgid "Unsubscribe from newsletter"
 msgstr "Vom Newsletter abmelden"
 
@@ -760,11 +760,11 @@ msgstr ""
 msgid "Use single form subscriptions page when possible."
 msgstr ""
 
-#: ./browser/portlets/channelsubscribe.py:146
-msgid "You are already subscribed to this newsletter. Click here to <a href="${url}">edit your subscriptions</a>."
+#: ./browser/portlets/channelsubscribe.py:152
+msgid "You are already subscribed to this newsletter. Click here to ${link_start}edit your subscriptions${link_end}."
 msgstr ""
 
-#: ./browser/subscribe.py:212
+#: ./browser/subscribe.py:219
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
 msgstr "Sie sind bereits angemeldet. Füllen Sie das untenstehende Formular aus und wir senden Ihnen einen Link zu, um Ihre Abonnements zu bearbeiten."
 
@@ -773,7 +773,7 @@ msgstr "Sie sind bereits angemeldet. Füllen Sie das untenstehende Formular aus 
 msgid "You are currently subscribed to these newsletters:"
 msgstr "Sie sind im Moment für folgende Themenbereiche angemeldet:"
 
-#: ./browser/subscribe.py:127
+#: ./browser/subscribe.py:134
 msgid "You aren't subscribed to this channel."
 msgstr "Sie haben diesen Newsletter nicht abonniert."
 
@@ -782,7 +782,7 @@ msgstr "Sie haben diesen Newsletter nicht abonniert."
 msgid "You can subscribe to these newsletters:"
 msgstr "Sie können sich zu folgenden Themenbereichen anmelden:"
 
-#: ./browser/subscribe.py:89
+#: ./browser/subscribe.py:96
 msgid "You confirmed your subscription successfully."
 msgstr "Sie haben Ihre Anmeldung erfolgreich bestätigt."
 
@@ -790,11 +790,11 @@ msgstr "Sie haben Ihre Anmeldung erfolgreich bestätigt."
 msgid "You may use a number of variables here, like ${site-title}."
 msgstr "Sie können hier Variablen verwenden wie ${site-title}."
 
-#: ./browser/subscribe.py:295
+#: ./browser/subscribe.py:302
 msgid "You subscribed successfully."
 msgstr "Sie haben sich erfolgreich angemeldet."
 
-#: ./browser/subscribe.py:125
+#: ./browser/subscribe.py:132
 msgid "You unsubscribed successfully."
 msgstr "Sie haben sich erfolgreich abgemeldet."
 
@@ -808,14 +808,14 @@ msgid "Your e-mail address is invalid"
 msgstr "Ihre E-Mail Adresse ist ungültig"
 
 #: ./browser/subscribe.py:28
-msgid "Your email address is already subscribed. Click the "Send my subscription details" button below."
+msgid "Your email address is already subscribed. Click the 'Send my subscription details' button below."
 msgstr ""
 
-#: ./browser/subscribe.py:90
+#: ./browser/subscribe.py:97
 msgid "Your subscription isn't known to us."
 msgstr "Ihr Abonnement konnte nicht gefunden werden."
 
-#: ./browser/subscribe.py:151
+#: ./browser/subscribe.py:158
 msgid "Your subscription was updated."
 msgstr "Ihre Abonnements wurden geändert."
 

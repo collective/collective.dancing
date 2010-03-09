@@ -26,8 +26,8 @@ from plone.memoize.instance import memoize
 
 class SubscribeForm(collective.singing.browser.subscribe.Subscribe):
     already_subscribed_message = _(
-        u'Your email address is already subscribed. Click the '
-        '"Send my subscription details" button below.')
+        u"Your email address is already subscribed. Click the "
+        "'Send my subscription details' button below.")
 
 class SendSecret(BrowserView):
     template = ViewPageTemplateFile('skeleton.pt')
@@ -58,12 +58,19 @@ class Subscribe(BrowserView):
 
     @property
     def send_secret_link(self):
+        link_start = '<a href="%s/portal_newsletters/sendsecret.html">' % (
+            getSite().absolute_url())
+        link_end = '</a>'
+        # The link_start plus link_end construction is not very
+        # pretty, but it is needed to avoid syntax errors in the
+        # generated po files.
         return _(
             u'Fill out the form below to subscribe to ${channel}. Note that '
             'this is for new subscriptions. Click here to '
-            '<a href="${url}">edit your subscriptions</a>.',
+            '${link_start}edit your subscriptions${link_end}.',
             mapping={'channel': self.context.Title(),
-                     'url': '%s/portal_newsletters/sendsecret.html' % getSite().absolute_url()})
+                     'link_start': link_start,
+                     'link_end': link_end})
     
     @property
     def label(self):

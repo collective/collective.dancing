@@ -143,9 +143,17 @@ class PortletSubscriptionAddForm(ValuesMixin, SubscriptionAddForm):
 
     @property
     def status_already_subscribed(self):
-        return _(u'You are already subscribed to this newsletter. Click here to <a href="${url}">edit your subscriptions</a>.',
-                 mapping={'url':
-                          '%s/sendsecret.html' % self.newslettertool.absolute_url()})
+        link_start = '<a href="%s/sendsecret.html">' % (
+            self.newslettertool.absolute_url())
+        link_end = '</a>'
+        # The link_start plus link_end construction is not very
+        # pretty, but it is needed to avoid syntax errors in the
+        # generated po files.
+        return _(
+            u'You are already subscribed to this newsletter. Click here to '
+            '${link_start}edit your subscriptions${link_end}.',
+            mapping={'link_start': link_start,
+                     'link_end': link_end})
 
     @property
     def newslettertool(self):
