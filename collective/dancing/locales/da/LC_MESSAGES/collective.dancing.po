@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2009-10-15 08:36+0000\n"
+"POT-Creation-Date: 2010-03-09 13:42+0000\n"
 "PO-Revision-Date: 2009-09-11 13:22+0200\n"
 "Last-Translator: Thomas Clement Mogensen <thomas@headnet.dk>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76,6 +76,7 @@ msgstr "Alle "
 
 #. Default: "Already subscribed?"
 #: ./browser/prettysubscriptions.pt:23
+#: ./browser/subscriptions.pt:33
 msgid "Already subscribed?"
 msgstr "Er du allerede abonnent?"
 
@@ -84,6 +85,7 @@ msgid "Append automatically collected content in this send-out"
 msgstr "Inkluder automatisk indsamlet indhold i denne udsendelse"
 
 #: ./browser/scheduler.py:23
+#: ./browser/subscribe.py:681
 msgid "Apply"
 msgstr "Udfør"
 
@@ -97,6 +99,7 @@ msgstr "Tilbage til portlets"
 
 #. Default: "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
 #: ./browser/prettysubscriptions.pt:10
+#: ./browser/subscriptions.pt:10
 msgid "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
 msgstr "Nedenfor ser du en liste over de nyhedsbreve vi tilbyder. Abonnerer du allerede på en eller flere af duisse, skal du udfylde formularen nederst på siden. Du vil derefter få tilsendt et link til en side, hvor du kan redigere dine tilmeldinger."
 
@@ -119,6 +122,7 @@ msgstr "CSV adskilletegn"
 
 #. Default: "Change your subscriptions with ${site-title}"
 #: ./browser/composer-html-forgot.pt:16
+#: ./composer.py:353
 msgid "Change your subscriptions with ${site-title}"
 msgstr "${site-title}: Rediger dine tilmeldinger"
 
@@ -164,7 +168,7 @@ msgstr "Composer til formatet : ${format}"
 msgid "Composers"
 msgstr "Composere"
 
-#: ./composer.py:304
+#: ./composer.py:327
 msgid "Confirm your subscription with ${channel-title}"
 msgstr "Bekræft din tilmelding til ${channel-title}"
 
@@ -172,7 +176,7 @@ msgstr "Bekræft din tilmelding til ${channel-title}"
 msgid "Confirming your subscription"
 msgstr "Bekræfter din tilmelding"
 
-#: ./browser/sendnewsletter.py:210
+#: ./browser/sendnewsletter.py:207
 msgid "Custom Subject"
 msgstr "Selvvalgt Emne"
 
@@ -194,7 +198,7 @@ msgstr "Viser en formular, der giver dig mulighed for at sende indholdsobjektet 
 msgid "Download"
 msgstr "Download"
 
-#: ./composer.py:125
+#: ./composer.py:126
 msgid "E-mail address"
 msgstr "Email-adresse"
 
@@ -230,7 +234,7 @@ msgstr "Rediger kanalens egenskaber."
 msgid "Edit the properties of the composer."
 msgstr "Rediger composerens egenskaber."
 
-#: ./browser/sendnewsletter.py:211
+#: ./browser/sendnewsletter.py:208
 msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and channel."
 msgstr "Indtast en Emne-linie til nyhedsbrevet her. Lad feltet være blankt for at benytte standard emnet for det valgte indhold og den valgt kanal."
 
@@ -259,7 +263,7 @@ msgid "Fill out the form below to receive an email with a link from which you ca
 msgstr "Udfyld denne formular for at få adgang til at redigere dine abonnementer. Du vil få tilsendt en e-mail med et link til en side hvor du kan fra- og tilmelde dig alle de nyhedsbreve sitet tilbyder."
 
 #: ./browser/subscribe.py:61
-msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href="${url}">edit your subscriptions</a>."
 msgstr ""
 
 #: ./browser/portlets/channelsubscribe.py:42
@@ -272,6 +276,7 @@ msgid "Finished jobs"
 msgstr "Afsluttede job"
 
 #: ./browser/portlets/channelsubscribe.py:53
+#: ./interfaces.py:52
 msgid "Footer text"
 msgstr "Footertekst"
 
@@ -287,7 +292,7 @@ msgstr "Afsenderens navn"
 msgid "Generate"
 msgstr "Generer"
 
-#: ./composer.py:143
+#: ./composer.py:155
 msgid "HTML E-Mail"
 msgstr "HTML email"
 
@@ -516,10 +521,10 @@ msgid "Send"
 msgstr "Udsend"
 
 #: ./browser/sendnewsletter.py:96
-msgid "Send \"${context}\" through ${channels}."
+msgid "Send "${context}" through ${channels}."
 msgstr ""
 
-#: ./browser/sendnewsletter.py:198
+#: ./browser/sendnewsletter.py:199
 msgid "Send ${item} as newsletter"
 msgstr "Send ${item} som nyhedsbrev"
 
@@ -542,6 +547,7 @@ msgstr "Beskeder nu sendt"
 
 #. Default: "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
 #: ./browser/prettysubscriptions.pt:24
+#: ./browser/subscriptions.pt:34
 msgid "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
 msgstr "Hvis du allerede abonnerer til en af vores nyhedsbreve, kan du bruge denne formular til at få tilsendt et link til en side, hvor du kan ændre dit abonnement:"
 
@@ -603,6 +609,10 @@ msgstr "Gamle beskeder for de valgte kanaler blev slettet."
 msgid "Successfully scheduled distribution."
 msgstr "Skeduleret udsendelse oprettet."
 
+#: ./interfaces.py:62
+msgid "Template"
+msgstr ""
+
 #: ./browser/portlets/channelsubscribe.py:54
 msgid "Text in footer - if omitted the channel title is used"
 msgstr "Tekst i footer - hvis udeladt bruges kanalens navn"
@@ -643,6 +653,10 @@ msgstr "Afsendernavnet, som det vil optræde i beskeder sent af denne composer."
 msgid "The stylesheet will be applied to the document."
 msgstr "Skriftsnitarket vil blive brugt på dokumentet."
 
+#: ./interfaces.py:63
+msgid "The template that will be used."
+msgstr ""
+
 #: ./browser/subscribe.py:263
 msgid "There seems to be an error with the information you entered."
 msgstr "Du har indtastet en fejl."
@@ -664,6 +678,7 @@ msgid "This portlet allows a visitor to subscribe to a specific newsletter chann
 msgstr "Denne portlet gør det muligt for en besøgende at abonnere på en specifik nyhedsbrevskanal."
 
 #: ./browser/collector.py:91
+#: ./browser/stats.py:22
 msgid "Title"
 msgstr "Titel"
 
@@ -689,6 +704,7 @@ msgid "Trigger now"
 msgstr "Send nu"
 
 #: ./browser/channel.py:107
+#: ./browser/collector.py:39
 msgid "Type"
 msgstr "Type"
 
@@ -705,6 +721,7 @@ msgid "Unsubscribe from newsletter"
 msgstr "Afmeld nyhedsbrev"
 
 #: ./browser/channel.py:684
+#: ./browser/scheduler.py:96
 msgid "Up to Channels administration"
 msgstr "Til kanal-administration"
 
@@ -741,7 +758,7 @@ msgid "Use single form subscriptions page when possible."
 msgstr "Benyt abonnementsside med kun en formular hvis det er muligt."
 
 #: ./browser/portlets/channelsubscribe.py:146
-msgid "You are already subscribed to this newsletter. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgid "You are already subscribed to this newsletter. Click here to <a href="${url}">edit your subscriptions</a>."
 msgstr ""
 
 #: ./browser/subscribe.py:212
@@ -783,12 +800,12 @@ msgstr "Du er nu afmeldt."
 msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
 msgstr "Du modtager denne email, fordi du er oprettet som abonnent på ${channel}."
 
-#: ./composer.py:44
+#: ./composer.py:45
 msgid "Your e-mail address is invalid"
 msgstr "Din email-adresse er ugyldig"
 
 #: ./browser/subscribe.py:28
-msgid "Your email address is already subscribed. Click the \"Send my subscription details\" button below."
+msgid "Your email address is already subscribed. Click the "Send my subscription details" button below."
 msgstr ""
 
 #: ./browser/subscribe.py:90
@@ -801,13 +818,15 @@ msgstr "Dine abonnementændringer blev gemt"
 
 # Rather, it provides a number of components to configure and work with.
 # It is also the container of subscriptions to it."
-#. Default: "A Channel is a hub of configuration.  It doesn't do anything by itself.  Rather, it provides a number of components to configure and work with.  It is also the container of subscriptions to it."
+#. Default: "A Channel is a hub of configuration. It doesn't do anything by itself. Rather, it provides a number of components to configure and work with. It is also the container of subscriptions to it."
 #: ./browser/controlpanel-links.pt:7
+#, fuzzy
 msgid "description_channel_administration"
 msgstr "En kanal er en sammenføjning af de elementer der udgør en nyhedsbrevskonfiguration - den gør intet i sig selv, men giver mulighed for at konfigurere en række delkomponenenter"
 
-#. Default: "Collectors are useful for automatic newsletters.  They are responsible for assembling a list of items for publishing."
+#. Default: "Collectors are useful for automatic newsletters. They are responsible for assembling a list of items for publishing."
 #: ./browser/controlpanel-links.pt:18
+#, fuzzy
 msgid "description_collector_administration"
 msgstr "Indsamlere er nyttige ved automatiske nyhedsbreve. De står for indsamling af objeketer, der skal udsendes."
 

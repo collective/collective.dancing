@@ -1,10 +1,7 @@
-# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
-# SOME DESCRIPTIVE TITLE.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2009-10-15 08:36+0000\n"
+"POT-Creation-Date: 2010-03-09 13:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +12,7 @@ msgstr ""
 "Language-Code: en\n"
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: collective.dancing\n"
+"Domain: DOMAIN\n"
 
 #: ./browser/portlets/channelsubscribe.py:288
 msgid "${channel} options"
@@ -77,8 +74,8 @@ msgstr ""
 msgid "All sent and failed messages deleted"
 msgstr ""
 
-#. Default: "Already subscribed?"
 #: ./browser/prettysubscriptions.pt:23
+#: ./browser/subscriptions.pt:33
 msgid "Already subscribed?"
 msgstr ""
 
@@ -87,6 +84,7 @@ msgid "Append automatically collected content in this send-out"
 msgstr ""
 
 #: ./browser/scheduler.py:23
+#: ./browser/subscribe.py:681
 msgid "Apply"
 msgstr ""
 
@@ -98,12 +96,11 @@ msgstr ""
 msgid "Back to portlets"
 msgstr ""
 
-#. Default: "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
 #: ./browser/prettysubscriptions.pt:10
+#: ./browser/subscriptions.pt:10
 msgid "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
 msgstr ""
 
-#. Default: "Best regards"
 #: ./browser/composer-html-forgot.pt:30
 msgid "Best regards"
 msgstr ""
@@ -120,8 +117,8 @@ msgstr ""
 msgid "CSV delimiter"
 msgstr ""
 
-#. Default: "Change your subscriptions with ${site-title}"
 #: ./browser/composer-html-forgot.pt:16
+#: ./composer.py:353
 msgid "Change your subscriptions with ${site-title}"
 msgstr ""
 
@@ -137,7 +134,6 @@ msgstr ""
 msgid "Clear queued messages"
 msgstr ""
 
-#. Default: "Click here to manage your subscriptions with ${site-title}:"
 #: ./browser/composer-html-forgot.pt:21
 msgid "Click here to manage your subscriptions with ${site-title}:"
 msgstr ""
@@ -150,7 +146,6 @@ msgstr ""
 msgid "Click here to show the portlet footer."
 msgstr ""
 
-#. Default: "Click here to unsubscribe."
 #: ./browser/composer-html.pt:44
 msgid "Click here to unsubscribe."
 msgstr ""
@@ -167,7 +162,7 @@ msgstr ""
 msgid "Composers"
 msgstr ""
 
-#: ./composer.py:304
+#: ./composer.py:327
 msgid "Confirm your subscription with ${channel-title}"
 msgstr ""
 
@@ -175,11 +170,10 @@ msgstr ""
 msgid "Confirming your subscription"
 msgstr ""
 
-#: ./browser/sendnewsletter.py:210
+#: ./browser/sendnewsletter.py:207
 msgid "Custom Subject"
 msgstr ""
 
-#. Default: "Date of execution"
 #: ./browser/jobs.pt:25
 msgid "Date of execution"
 msgstr ""
@@ -188,7 +182,6 @@ msgstr ""
 msgid "Description of the rendered portlet"
 msgstr ""
 
-#. Default: "Displays a form that lets you send this content item as a newsletter."
 #: ./profiles/default/actions.xml
 msgid "Displays a form that lets you send this content item as a newsletter."
 msgstr ""
@@ -197,7 +190,7 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: ./composer.py:125
+#: ./composer.py:126
 msgid "E-mail address"
 msgstr ""
 
@@ -233,7 +226,7 @@ msgstr ""
 msgid "Edit the properties of the composer."
 msgstr ""
 
-#: ./browser/sendnewsletter.py:211
+#: ./browser/sendnewsletter.py:208
 msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and channel."
 msgstr ""
 
@@ -262,19 +255,19 @@ msgid "Fill out the form below to receive an email with a link from which you ca
 msgstr ""
 
 #: ./browser/subscribe.py:61
-msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to <a href="${url}">edit your subscriptions</a>."
 msgstr ""
 
 #: ./browser/portlets/channelsubscribe.py:42
 msgid "Find the channel you want to enable direct subscription to"
 msgstr ""
 
-#. Default: "Finished jobs"
 #: ./browser/jobs.pt:19
 msgid "Finished jobs"
 msgstr ""
 
 #: ./browser/portlets/channelsubscribe.py:53
+#: ./interfaces.py:52
 msgid "Footer text"
 msgstr ""
 
@@ -290,7 +283,7 @@ msgstr ""
 msgid "Generate"
 msgstr ""
 
-#: ./composer.py:143
+#: ./composer.py:155
 msgid "HTML E-Mail"
 msgstr ""
 
@@ -326,7 +319,6 @@ msgstr ""
 msgid "Items"
 msgstr ""
 
-#. Default: "Job title"
 #: ./browser/jobs.pt:23
 msgid "Job title"
 msgstr ""
@@ -339,7 +331,6 @@ msgstr ""
 msgid "Manage or add subscriptions."
 msgstr ""
 
-#. Default: "Manage your subscriptions"
 #: ./browser/composer-html-forgot.pt:24
 msgid "Manage your subscriptions"
 msgstr ""
@@ -404,12 +395,10 @@ msgstr ""
 msgid "Only some of your changes were saved"
 msgstr ""
 
-#. Default: "Pending jobs"
 #: ./browser/jobs.pt:9
 msgid "Pending jobs"
 msgstr ""
 
-#. Default: "Please confirm your subscription"
 #: ./browser/composer-html-confirm.pt:14
 msgid "Please confirm your subscription"
 msgstr ""
@@ -519,14 +508,13 @@ msgid "Send"
 msgstr ""
 
 #: ./browser/sendnewsletter.py:96
-msgid "Send \"${context}\" through ${channels}."
+msgid "Send "${context}" through ${channels}."
 msgstr ""
 
-#: ./browser/sendnewsletter.py:198
+#: ./browser/sendnewsletter.py:199
 msgid "Send ${item} as newsletter"
 msgstr ""
 
-#. Default: "Send as newsletter"
 #: ./profiles/default/actions.xml
 msgid "Send as newsletter"
 msgstr ""
@@ -543,8 +531,8 @@ msgstr ""
 msgid "Sent messages"
 msgstr ""
 
-#. Default: "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
 #: ./browser/prettysubscriptions.pt:24
+#: ./browser/subscriptions.pt:34
 msgid "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
 msgstr ""
 
@@ -564,7 +552,6 @@ msgstr ""
 msgid "Standard Channel"
 msgstr ""
 
-#. Default: "Status"
 #: ./browser/jobs.pt:24
 msgid "Status"
 msgstr ""
@@ -603,6 +590,10 @@ msgstr ""
 
 #: ./browser/sendnewsletter.py:190
 msgid "Successfully scheduled distribution."
+msgstr ""
+
+#: ./interfaces.py:62
+msgid "Template"
 msgstr ""
 
 #: ./browser/portlets/channelsubscribe.py:54
@@ -645,6 +636,10 @@ msgstr ""
 msgid "The stylesheet will be applied to the document."
 msgstr ""
 
+#: ./interfaces.py:63
+msgid "The template that will be used."
+msgstr ""
+
 #: ./browser/subscribe.py:263
 msgid "There seems to be an error with the information you entered."
 msgstr ""
@@ -666,6 +661,7 @@ msgid "This portlet allows a visitor to subscribe to a specific newsletter chann
 msgstr ""
 
 #: ./browser/collector.py:91
+#: ./browser/stats.py:22
 msgid "Title"
 msgstr ""
 
@@ -673,7 +669,6 @@ msgstr ""
 msgid "Title of the rendered portlet"
 msgstr ""
 
-#. Default: "To confirm your subscription with ${channel}, please click here: ${url}"
 #: ./browser/composer-html-confirm.pt:20
 msgid "To confirm your subscription with ${channel}, please click here: ${url}"
 msgstr ""
@@ -691,6 +686,7 @@ msgid "Trigger now"
 msgstr ""
 
 #: ./browser/channel.py:107
+#: ./browser/collector.py:39
 msgid "Type"
 msgstr ""
 
@@ -707,6 +703,7 @@ msgid "Unsubscribe from newsletter"
 msgstr ""
 
 #: ./browser/channel.py:684
+#: ./browser/scheduler.py:96
 msgid "Up to Channels administration"
 msgstr ""
 
@@ -743,14 +740,13 @@ msgid "Use single form subscriptions page when possible."
 msgstr ""
 
 #: ./browser/portlets/channelsubscribe.py:146
-msgid "You are already subscribed to this newsletter. Click here to <a href=\"${url}\">edit your subscriptions</a>."
+msgid "You are already subscribed to this newsletter. Click here to <a href="${url}">edit your subscriptions</a>."
 msgstr ""
 
 #: ./browser/subscribe.py:212
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
 msgstr ""
 
-#. Default: "You are currently subscribed to these newsletters:"
 #: ./browser/subscriptions.pt:21
 msgid "You are currently subscribed to these newsletters:"
 msgstr ""
@@ -759,7 +755,6 @@ msgstr ""
 msgid "You aren't subscribed to this channel."
 msgstr ""
 
-#. Default: "You can subscribe to these newsletters:"
 #: ./browser/subscriptions.pt:28
 msgid "You can subscribe to these newsletters:"
 msgstr ""
@@ -780,17 +775,16 @@ msgstr ""
 msgid "You unsubscribed successfully."
 msgstr ""
 
-#. Default: "You're receiving this e-mail because you're registered for the ${channel} newsletter."
 #: ./browser/composer-html.pt:39
 msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
 msgstr ""
 
-#: ./composer.py:44
+#: ./composer.py:45
 msgid "Your e-mail address is invalid"
 msgstr ""
 
 #: ./browser/subscribe.py:28
-msgid "Your email address is already subscribed. Click the \"Send my subscription details\" button below."
+msgid "Your email address is already subscribed. Click the "Send my subscription details" button below."
 msgstr ""
 
 #: ./browser/subscribe.py:90
@@ -801,12 +795,12 @@ msgstr ""
 msgid "Your subscription was updated."
 msgstr ""
 
-#. Default: "A Channel is a hub of configuration.  It doesn't do anything by itself.  Rather, it provides a number of components to configure and work with.  It is also the container of subscriptions to it."
+#. Default: "A Channel is a hub of configuration. It doesn't do anything by itself. Rather, it provides a number of components to configure and work with. It is also the container of subscriptions to it."
 #: ./browser/controlpanel-links.pt:7
 msgid "description_channel_administration"
 msgstr ""
 
-#. Default: "Collectors are useful for automatic newsletters.  They are responsible for assembling a list of items for publishing."
+#. Default: "Collectors are useful for automatic newsletters. They are responsible for assembling a list of items for publishing."
 #: ./browser/controlpanel-links.pt:18
 msgid "description_collector_administration"
 msgstr ""
