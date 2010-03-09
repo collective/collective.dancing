@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: collective.dancing 0.8.13\n"
 "POT-Creation-Date: 2010-03-09 13:42+0000\n"
-"PO-Revision-Date: 2010-03-09 14:47+0100\n"
+"PO-Revision-Date: 2010-03-09 14:51+0100\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Dutch <plone-nl@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
@@ -104,7 +104,7 @@ msgstr "Terug naar portlets"
 #: ./browser/prettysubscriptions.pt:10
 #: ./browser/subscriptions.pt:10
 msgid "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
-msgstr "Hieronder zie je een lijst van het nieuwsbrieven-aanbod. Indien je al bent ingeschreven, kun je het formulier op het einde van deze pagina gebruiken om een link te versturen waarmee je je bestaande inschrijvingen kunt bewerken."
+msgstr "Hieronder ziet u een lijst van het nieuwsbrieven-aanbod. Indien u al bent ingeschreven, kunt u het formulier op het einde van deze pagina gebruiken om een link te versturen waarmee u uw bestaande inschrijvingen kunt bewerken."
 
 #. Default: "Best regards"
 #: ./browser/composer-html-forgot.pt:30
@@ -127,7 +127,7 @@ msgstr "CSV scheidingsteken"
 #: ./browser/composer-html-forgot.pt:16
 #: ./composer.py:353
 msgid "Change your subscriptions with ${site-title}"
-msgstr "Wijzig je inschrijving voor ${site-title}"
+msgstr "Wijzig uw inschrijving voor ${site-title}"
 
 #: ./browser/channel.py:171
 msgid "Channel administration"
@@ -144,7 +144,7 @@ msgstr "Ruim berichten in de wachtrij op"
 #. Default: "Click here to manage your subscriptions with ${site-title}:"
 #: ./browser/composer-html-forgot.pt:21
 msgid "Click here to manage your subscriptions with ${site-title}:"
-msgstr "Klik hier om je inschrijvingen te beheren met titel ${site-title}:"
+msgstr "Klik hier om uw inschrijvingen te beheren met titel ${site-title}:"
 
 #: ./browser/portlets/channelsubscribe.py:50
 msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
@@ -157,7 +157,7 @@ msgstr "Geef portlet voettekst weer."
 #. Default: "Click here to unsubscribe."
 #: ./browser/composer-html.pt:44
 msgid "Click here to unsubscribe."
-msgstr "Klik hier om je uit te schrijven."
+msgstr "Klik hier om u uit te schrijven."
 
 #: ./browser/collector.py:65
 msgid "Collector administration"
@@ -173,11 +173,11 @@ msgstr "Composers"
 
 #: ./composer.py:327
 msgid "Confirm your subscription with ${channel-title}"
-msgstr "Bevestig je inschrijving op ${channel-title}"
+msgstr "Bevestig uw inschrijving op ${channel-title}"
 
 #: ./browser/subscribe.py:87
 msgid "Confirming your subscription"
-msgstr "Je inschrijving bevestigen"
+msgstr "Uw inschrijving bevestigen"
 
 #: ./browser/sendnewsletter.py:207
 msgid "Custom Subject"
@@ -271,7 +271,7 @@ msgstr "Vul het onderstaande formulier in om u in te schrijven op ${channel}. Le
 
 #: ./browser/portlets/channelsubscribe.py:42
 msgid "Find the channel you want to enable direct subscription to"
-msgstr "Kanaal zoeken waarop je rechtstreeks inschrijven wilt toelaten"
+msgstr "Kanaal zoeken waarop u rechtstreeks inschrijven wilt toelaten"
 
 #. Default: "Finished jobs"
 #: ./browser/jobs.pt:19
@@ -313,7 +313,7 @@ msgstr "Inclusief items van collectie"
 
 #: ./browser/subscribe.py:301
 msgid "Information on how to confirm your subscription has been sent to you."
-msgstr "De informatie over hoe je inschrijving te bevestigen, is naar je verstuurd."
+msgstr "De informatie over hoe uw inschrijving te bevestigen, is naar u verstuurd."
 
 #: ./browser/collector.py:191
 msgid "Item added successfully."
@@ -417,7 +417,7 @@ msgstr "Taken in de wachtrij"
 #. Default: "Please confirm your subscription"
 #: ./browser/composer-html-confirm.pt:14
 msgid "Please confirm your subscription"
-msgstr "Bevestig je inschrijving"
+msgstr "Bevestig uw inschrijving"
 
 #: ./browser/sendnewsletter.py:180
 msgid "Please fill in a date."
@@ -552,7 +552,7 @@ msgstr "Verzonden berichten"
 #: ./browser/prettysubscriptions.pt:24
 #: ./browser/subscriptions.pt:34
 msgid "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
-msgstr "Mocht je al ingeschreven zijn op één van onze lijsten, vul dan dit formulier in om een link te ontvangen naar je persoonlijk inschrijvingspagina."
+msgstr "Mocht u al ingeschreven zijn op één van onze lijsten, vul dan dit formulier in om een link te ontvangen naar uw persoonlijk inschrijvingspagina."
 
 #: ./browser/portlets/channelsubscribe.py:57
 msgid "Show footer"
@@ -674,7 +674,7 @@ msgstr "Dit is alleen verplicht als u beneden klikt op 'Plan verzending in'."
 
 #: ./browser/interfaces.py:24
 msgid "This is only required if you click 'Send preview' below"
-msgstr "Dit is alleen verplicht indien je klikt op 'Voorbeeldweergave verzenden'"
+msgstr "Dit is alleen verplicht indien u klikt op 'Voorbeeldweergave verzenden'"
 
 #: ./browser/portlets/channelsubscribe.py:407
 msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
@@ -692,7 +692,7 @@ msgstr "Titel van de weergegeven portlet"
 #. Default: "To confirm your subscription with ${channel}, please click here: ${url}"
 #: ./browser/composer-html-confirm.pt:20
 msgid "To confirm your subscription with ${channel}, please click here: ${url}"
-msgstr "Om je inschrijving voor ${channel} te bevestigen, klik hier: ${url}"
+msgstr "Om uw inschrijving voor ${channel} te bevestigen, klik hier: ${url}"
 
 #: ./browser/stats.py:25
 msgid "Total messages sent"
@@ -766,25 +766,25 @@ msgstr "U bent al geabonneerd op deze nieuwsbrief. Klik hier om <a href="${url}"
 
 #: ./browser/subscribe.py:212
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
-msgstr "Je bent al ingeschreven. Vul het formulier op het einde van deze pagina in om een link te versturen waarmee je je inschrijving kan bewerken."
+msgstr "U bent al ingeschreven. Vul het formulier op het einde van deze pagina in om een link te versturen waarmee u uw inschrijving kan bewerken."
 
 #. Default: "You are currently subscribed to these newsletters:"
 #: ./browser/subscriptions.pt:21
 msgid "You are currently subscribed to these newsletters:"
-msgstr "Je bent momenteel ingeschreven op de volgende nieuwsbrieven."
+msgstr "U bent momenteel ingeschreven op de volgende nieuwsbrieven."
 
 #: ./browser/subscribe.py:127
 msgid "You aren't subscribed to this channel."
-msgstr "Je bent niet ingeschreven op dit kanaal."
+msgstr "U bent niet ingeschreven op dit kanaal."
 
 #. Default: "You can subscribe to these newsletters:"
 #: ./browser/subscriptions.pt:28
 msgid "You can subscribe to these newsletters:"
-msgstr "Je kunt je inschrijven op deze nieuwsbrieven:"
+msgstr "U kunt zich inschrijven op deze nieuwsbrieven:"
 
 #: ./browser/subscribe.py:89
 msgid "You confirmed your subscription successfully."
-msgstr "Je inschrijving is bevestigd."
+msgstr "Uw inschrijving is bevestigd."
 
 #: ./interfaces.py:35
 msgid "You may use a number of variables here, like ${site-title}."
@@ -792,20 +792,20 @@ msgstr "U mag hier een aantal variabelen gebruiken, zoals ${site-title}."
 
 #: ./browser/subscribe.py:295
 msgid "You subscribed successfully."
-msgstr "Je bent succesvol ingeschreven."
+msgstr "U bent succesvol ingeschreven."
 
 #: ./browser/subscribe.py:125
 msgid "You unsubscribed successfully."
-msgstr "Je bent succesvol uitgeschreven."
+msgstr "U bent succesvol uitgeschreven."
 
 #. Default: "You're receiving this e-mail because you're registered for the ${channel} newsletter."
 #: ./browser/composer-html.pt:39
 msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
-msgstr "Je ontvangt deze e-mail omdat je ingeschreven bent op de ${channel} nieuwsbrief."
+msgstr "U ontvangt deze e-mail omdat u ingeschreven bent op de ${channel} nieuwsbrief."
 
 #: ./composer.py:45
 msgid "Your e-mail address is invalid"
-msgstr "Je e-mail adres is ongeldig"
+msgstr "Uw e-mail adres is ongeldig"
 
 #: ./browser/subscribe.py:28
 msgid "Your email address is already subscribed. Click the "Send my subscription details" button below."
@@ -813,11 +813,11 @@ msgstr "Uw e-mailadres is al geabonneerd. Klik op de knop 'Verstuur mijn inschri
 
 #: ./browser/subscribe.py:90
 msgid "Your subscription isn't known to us."
-msgstr "Je inschrijving is niet bekend."
+msgstr "Uw inschrijving is niet bekend."
 
 #: ./browser/subscribe.py:151
 msgid "Your subscription was updated."
-msgstr "Je abonnement is aangepast."
+msgstr "Uw abonnement is aangepast."
 
 #. Default: "A Channel is a hub of configuration. It doesn't do anything by itself. Rather, it provides a number of components to configure and work with. It is also the container of subscriptions to it."
 #: ./browser/controlpanel-links.pt:7
