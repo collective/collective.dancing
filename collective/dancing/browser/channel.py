@@ -55,7 +55,7 @@ def simpleitem_wrap(klass, name):
 schedulers = [
     simpleitem_wrap(klass, 'scheduler')
     for klass in collective.singing.scheduler.schedulers]
-    
+
 csv_delimiter = ","
 
 class FactoryChoice(schema.Choice):
@@ -90,12 +90,12 @@ class ChannelEditForm(crud.EditForm):
 
 class ManageChannelsForm(crud.CrudForm):
     """Crud form for channels."""
-    
+
     description = _("Add or edit channels that will use collectors to "
                     "gather and email specific sets of information from "
                     "your site, to subscribed email addresses, at scheduled "
                     "times.")
-    
+
     editform_factory = ChannelEditForm
 
     @property
@@ -128,7 +128,7 @@ class ManageChannelsForm(crud.CrudForm):
             vocabulary='Scheduler Vocabulary')
 
         fields += field.Fields(collector, scheduler)
-        
+
         fields += field.Fields(IChannel).select('subscribeable')
 
         return fields
@@ -136,10 +136,10 @@ class ManageChannelsForm(crud.CrudForm):
     @property
     def view_schema(self):
         return self.update_schema.copy()
-    
+
     def get_items(self):
         return collective.singing.channel.channel_lookup()
-    
+
     def add(self, data):
         name = Products.CMFPlone.utils.normalizeString(
             data['title'].encode('utf-8'), encoding='utf-8')
@@ -154,20 +154,21 @@ class ManageChannelsForm(crud.CrudForm):
         self.context.manage_delObjects([id])
 
     def link(self, item, field):
-       if field == 'title':
-           return item.absolute_url()
-       elif field == 'collector' and item.collector is not None:
-           collector_id = item.collector.getId()
-           collector = getattr(self.context.aq_inner.aq_parent.collectors,
-                               collector_id)
-           return collector.absolute_url()
-       elif field == 'scheduler':
-           if item.scheduler is not None:
-               return item.scheduler.absolute_url()
-            
+        if field == 'title':
+            return item.absolute_url()
+        elif field == 'collector' and item.collector is not None:
+            collector_id = item.collector.getId()
+            collector = getattr(self.context.aq_inner.aq_parent.collectors,
+                                collector_id)
+            return collector.absolute_url()
+        elif field == 'scheduler':
+            if item.scheduler is not None:
+                return item.scheduler.absolute_url()
+
+
 class ChannelAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
-    
+
     label = _(u'Channel administration')
     back_link = controlpanel.back_to_controlpanel
 
@@ -212,13 +213,13 @@ class ManageSubscriptionsForm(crud.CrudForm):
     """Crud form for subscriptions.
     """
     # These are set by the SubscriptionsAdministrationView
-    format = None 
+    format = None
     composer = None
 
     description = _(u"Manage or add subscriptions.")
 
     editform_factory = ManageSubscriptionsFormEdit
-    
+
     @property
     def batch_size(self):
         if self._fulltext_query():
@@ -250,7 +251,7 @@ class ManageSubscriptionsForm(crud.CrudForm):
 
     def get_items(self):
         items = []
-        
+
         query = dict(format=self.format)
         search = self._fulltext_query()
         if search:
@@ -283,7 +284,7 @@ class ManageSubscriptionsForm(crud.CrudForm):
             raise schema.ValidationError(e.args[0])
 
     def remove(self, (secret, item)):
-        subs = self.context.subscriptions.query(secret=secret, 
+        subs = self.context.subscriptions.query(secret=secret,
                                                 format=item.metadata['format'])
         for subscription in subs:
             self.context.subscriptions.remove_subscription(subscription)
@@ -324,10 +325,10 @@ class ChannelPreviewForm(z3c.form.form.Form):
         'include_collector_items')
 
     include_collector_items = True
-    
+
     def getContent(self):
         return self
-    
+
     @z3c.form.button.buttonAndHandler(_(u"Generate"), name='preview')
     def handle_preview(self, action):
         data, errors = self.extractData()
@@ -336,7 +337,7 @@ class ChannelPreviewForm(z3c.form.form.Form):
             return
 
         collector_items = int(bool(data['include_collector_items']))
-        
+
         return self.request.response.redirect(
             self.context.absolute_url()+\
             '/preview-newsletter.html?include_collector_items=%d' % \
@@ -354,7 +355,7 @@ class EditChannelForm(z3c.form.form.EditForm):
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
 
     description = _(u"Edit the properties of the channel.")
-    
+
     @property
     def fields(self):
         fields = z3c.form.field.Fields(IChannel).select('title')
@@ -370,7 +371,7 @@ class EditChannelForm(z3c.form.form.EditForm):
             title=IChannel['scheduler'].title,
             required=False,
             vocabulary='Scheduler Vocabulary')
-        
+
         fields += field.Fields(collector, scheduler)
         fields += field.Fields(IChannel).select('description', 'subscribeable')
         fields['description'].widgetFactory[
@@ -379,15 +380,15 @@ class EditChannelForm(z3c.form.form.EditForm):
         return fields
 
 
-def parseSubscriberCSVFile(subscriberdata, composer, 
+def parseSubscriberCSVFile(subscriberdata, composer,
                            header_row_present=False,
                            delimiter=csv_delimiter):
     """parses file containing subscriber data
 
     returns list of dictionaries with subscriber data according to composer"""
     properties = component.getUtility(IPropertiesTool)
-    charset = properties.site_properties.getProperty('default_charset', 
-                                                     'utf-8').upper()    
+    charset = properties.site_properties.getProperty('default_charset',
+                                                     'utf-8').upper()
     try:
         data = cStringIO.StringIO(subscriberdata)
         reader = csv.reader(data, delimiter=str(delimiter))
@@ -419,12 +420,12 @@ class ExportCSV(BrowserView):
 
     def __call__(self):
         properties = component.getUtility(IPropertiesTool)
-        charset = properties.site_properties.getProperty('default_charset', 
+        charset = properties.site_properties.getProperty('default_charset',
                                                          'utf-8').upper()
-        self.request.response.setHeader('Content-Type', 
+        self.request.response.setHeader('Content-Type',
                                         'text/csv; charset=%s' % charset)
         self.request.response.setHeader('Content-disposition',
-            'attachment; filename=subscribers_%s_%s.csv' % (self.context.id, 
+            'attachment; filename=subscribers_%s_%s.csv' % (self.context.id,
                                       datetime.date.today().strftime("%Y%m%d")))
         res = cStringIO.StringIO()
         writer = csv.writer(res, dialect=csv.excel, delimiter=csv_delimiter)
@@ -437,10 +438,10 @@ class ExportCSV(BrowserView):
 
                 writer.writerow(row)
         return res.getvalue()
-                                
+
 class UploadForm(crud.AddForm):
     label = _(u"Upload")
-    
+
     @property
     def fields(self):
         subscriberdata = schema.Bytes(
@@ -452,47 +453,47 @@ class UploadForm(crud.AddForm):
                           u"${columns}.",
                           mapping=dict(columns=';'.join(field.Fields(
                                          self.context.composer.schema).keys())))
-        ) 
+        )
         remove = schema.Bool(__name__ = 'removenonexisting',
             title=_(u"Remove non-existing"),
             description=_(u"If selected and a subscriber exists in the "
                           u"database, but is not part of the uploaded file, "
                           u"the subscriber will be removed from the list."),
             default = False
-        ) 
+        )
         header_row_present = schema.Bool(__name__ = 'header_row_present',
             title=_(u"CSV contains a header row"),
             description=_(u"Select this if you want to use the csv "
                           u"header row to designate document variables."
                           u"The header row must contain one 'email' field."),
             default = False
-        ) 
+        )
         csv_delimiter = schema.TextLine(__name__ = 'csv_delimiter',
             title=_(u"CSV delimiter"),
             description=_(u"The delimiter in your CSV file. "
                           u"(Usually ',' or ';', but no quotes are necessary.)"),
             default = u','
-        ) 
+        )
 
-        return field.Fields(subscriberdata, remove, 
+        return field.Fields(subscriberdata, remove,
                             header_row_present, csv_delimiter)
-   
+
     @property
     def mychannel(self):
         return self.context.context
-        
+
     def _releaseSubscribers(self):
         # UNUSED CODE?
         subs = self.mychannel.subscriptions.query(format=self.context.format)
         for subscription in subs:
             self.mychannel.subscriptions.remove_subscription(subscription)
-            
+
     def _removeSubscription(self, secret):
         """Removes subscription based on secret.
         """
         current = self.mychannel.subscriptions
-        old_subscription = current.query(format=self.context.format, 
-                                        secret=secret)                
+        old_subscription = current.query(format=self.context.format,
+                                        secret=secret)
         if not len(old_subscription):
             return None
         old_subscription = tuple(old_subscription)
@@ -504,12 +505,12 @@ class UploadForm(crud.AddForm):
     def _addItem(self, data):
         """imports csv and returns message
 
-        @param data: the form data        
+        @param data: the form data
         @return status as i18n aware unicode
-        
+
         if a subscription with same email is found, we delete this first
         but keep selection of options.
-        
+
         if remove-non-existing in the form was found, all existing subscriptions
         not found in the CSV file are removed.
         """
@@ -521,10 +522,10 @@ class UploadForm(crud.AddForm):
         remove = data.get('removenonexisting', False)
         header_row_present = data.get('header_row_present', False)
         delimiter = data.get('csv_delimiter', csv_delimiter)
-        if subscriberdata is None: 
-            return _(u"File was not given.")    
-        subscribers, errorcandidates = parseSubscriberCSVFile(subscriberdata, 
-                                self.context.composer, 
+        if subscriberdata is None:
+            return _(u"File was not given.")
+        subscribers, errorcandidates = parseSubscriberCSVFile(subscriberdata,
+                                self.context.composer,
                                 header_row_present=header_row_present,
                                 delimiter=delimiter)
         if not type(subscribers)==type([]):
@@ -537,34 +538,34 @@ class UploadForm(crud.AddForm):
             old = sets.Set([sub.composer_data['email'] \
                             for sub in current.values()])
         for subscriber_data in subscribers:
-            secret = collective.singing.subscribe.secret(self.mychannel, 
-                                                         self.context.composer, 
-                                                         subscriber_data, 
+            secret = collective.singing.subscribe.secret(self.mychannel,
+                                                         self.context.composer,
+                                                         subscriber_data,
                                                          self.context.request)
             try:
                 old_subscription = self._removeSubscription(secret)
-                item = current.add_subscription(self.mychannel, secret, 
+                item = current.add_subscription(self.mychannel, secret,
                                                 subscriber_data, [], metadata)
                 new_and_updated.append(subscriber_data['email'])
-                # restore section selection                
+                # restore section selection
                 if old_subscription is not None:
-                    old_collector_data = old_subscription[0].collector_data  
+                    old_collector_data = old_subscription[0].collector_data
                     if 'selected_collectors' in old_collector_data \
                        and old_collector_data['selected_collectors']:
                         item.collector_data = old_collector_data
                 added += 1
             except Exception, e: # XXX refine which exceptions we want to catch
                 # TODO; put some information about error e into the message
-                errorcandidates.append(subscriber_data.get('email', 
+                errorcandidates.append(subscriber_data.get('email',
                                                            _(u'Unknown')))
-                notadded += 1 
+                notadded += 1
         removed = 0
         if remove:
             for email in old.difference(sets.Set(new_and_updated)):
                 for key in current.keys():
                     if key.startswith(email):
                         current.remove_subscription(current[key])
-                        removed += 1                                    
+                        removed += 1
                         break
         if notadded:
             msg = _(u"${numberadded} subscriptions updated successfully. "
@@ -578,13 +579,13 @@ class UploadForm(crud.AddForm):
                     )
         elif removed > 0:
             msg = _(u"${numberadded} subscriptions updated successfully, "
-                    u"${numberremoved} removed!", 
+                    u"${numberremoved} removed!",
                     mapping=dict(numberadded=str(added),
                                  numberremoved=str(removed))
                     )
         else:
             msg = _(u"${numberadded} subscriptions updated successfully!",
-                    mapping=dict(numberadded=str(added),))        
+                    mapping=dict(numberadded=str(added),))
         return msg
 
     @z3c.form.button.buttonAndHandler(_('Upload'), name='upload')
@@ -598,27 +599,27 @@ class UploadForm(crud.AddForm):
         except Exception, e:
             if DevelopmentMode:
                 raise
-            self.status = e            
-            
+            self.status = e
+
     @z3c.form.button.buttonAndHandler(_('Download'), name='download')
     def handle_download(self, action):
         self.status = _(u"Subscribers exported.")
         return self.request.response.redirect(self.mychannel.absolute_url() + \
-                                              '/export')            
-            
-class ManageUploadForm(crud.CrudForm): 
+                                              '/export')
+
+class ManageUploadForm(crud.CrudForm):
     description = _(u"Upload list of subscribers.")
-    
-    format = None 
+
+    format = None
     composer = None
-    
+
     editform_factory = crud.NullForm
     addform_factory = UploadForm
 
     @property
     def prefix(self):
         return self.format
-    
+
 
 class EditComposersForm(z3c.form.form.EditForm):
     """
@@ -628,20 +629,20 @@ class EditComposersForm(z3c.form.form.EditForm):
     subforms = []
     ignoreContext = True
     semiSuccesMessage = _(u"Only some of your changes were saved")
-    
+
     def update(self):
         super(EditComposersForm, self).update()
         self.update_subforms()
-        
+
     def update_subforms(self):
         self.subforms = []
         for format, item in self.context.composers.items():
-             subform = component.getMultiAdapter(
-                (item, self.request, self),
-                z3c.form.interfaces.ISubForm)
-             subform.format = format
-             subform.update()
-             self.subforms.append(subform)
+            subform = component.getMultiAdapter(
+               (item, self.request, self),
+               z3c.form.interfaces.ISubForm)
+            subform.format = format
+            subform.update()
+            self.subforms.append(subform)
 
     @z3c.form.button.buttonAndHandler(_('Save'), name='save')
     def handleSave(self, action):
@@ -662,7 +663,7 @@ class EditComposersForm(z3c.form.form.EditForm):
             elif self.formErrorsMessage in stati:
                 self.status = self.formErrorsMessage
         if not self.status:
-            if changes: 
+            if changes:
                 self.status = self.successMessage
             else:
                 self.status = self.noChangesMessage
@@ -673,12 +674,12 @@ class ManageChannelView(BrowserView):
 
     Shows subscription, preview and edit options.
     """
-    
+
     __call__ = ViewPageTemplateFile('controlpanel.pt')
     preview_form = ChannelPreviewForm
     edit_form = EditChannelForm
     composers_form = EditComposersForm
-    
+
     @property
     def back_link(self):
         return dict(label=_(u"Up to Channels administration"),
@@ -702,7 +703,7 @@ class ManageChannelView(BrowserView):
             form = ManageSubscriptionsForm(self.context, self.request)
             form.format = format
             form.composer = composer
-            forms.append(form)            
+            forms.append(form)
 
             form = ManageUploadForm(self.context, self.request)
             form.format = format
@@ -722,9 +723,7 @@ class ManageChannelView(BrowserView):
           %s
         </dd>
         """
-        
+
         return wrapper % \
                ("\n".join((template % (id(msg), zope.i18n.translate(msg, context=self.request), id(msg), html)
                            for (msg, html) in fieldsets)))
-
-        
