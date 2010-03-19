@@ -11,6 +11,9 @@ Version 0.8.16 - unreleased
 
 - Updated Dutch translations.
   [maurits]
+  
+- Fixed a bug that made it impossible to delete some subscriptions.
+  [regebro]
 
 Version 0.8.15 - 2010-02-01
 ---------------------------
