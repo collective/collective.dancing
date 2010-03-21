@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 def read(*pathnames):
     return open(os.path.join(os.path.dirname(__file__), *pathnames)).read()
 
-version = '0.8.16.valentine.1'
+version = '0.8.16svn'
 
 setup(name='collective.dancing',
       version=version,
