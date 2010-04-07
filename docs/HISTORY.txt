@@ -1,7 +1,7 @@
 History
 =======
 
-Version 0.8.16 - unreleased
+Version 0.8.16 - 2010-04-07
 ---------------------------
 
 - Fixed translations that were causing compile errors on Zope startup,
