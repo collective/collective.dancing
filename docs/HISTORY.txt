@@ -4,6 +4,10 @@ History
 Version 0.8.17 - Unreleased
 ---------------------------
 
+- When importing email addresses, convert all addresses to lowercase
+  instead of rejecting them.
+  [maurits]
+
 
 Version 0.8.16 - 2010-04-07
 ---------------------------
