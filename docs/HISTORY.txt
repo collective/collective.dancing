@@ -4,6 +4,16 @@ History
 Version 0.8.17 - Unreleased
 ---------------------------
 
+- We now avoid including all zcml from five.intid (in the same way as e.g.
+  plone.app.intid) This means we avoid registering the IPersistent handlers,
+  which (among other issues) can cause problems for packages that put persistent
+  items in temporary storage. Instead we explicitly register handlers for
+  ISubscription. The issue is discussed here:
+  http://www.mail-archive.com/zodb-dev@zope.org/msg04398.html
+  And at length, as pertaining to the getpaid package, here:
+  http://code.google.com/p/getpaid/issues/detail?id=209.
+  [tmog]
+
 - Reverted changeset 113529 since it broke subscriber searching (and tests).
   The revert has likely reintroduced a problem with deleting subscriptions,
   but I've been unable to reproduce this.

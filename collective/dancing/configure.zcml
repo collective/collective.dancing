@@ -10,19 +10,43 @@
   <include package="collective.singing" />
   <include package="collective.singing.browser" />
   <include package="plone.app.z3cform" />
-  <include package="five.intid" />
-
-  <!-- Prevent scripts from being intid'ed.
-       XXX: Figure out what's going on here -->
-  <five:implements
-      interface="Products.CMFCore.interfaces.IDirectoryView"
-      class="Products.CMFCore.FSPythonScript.FSPythonScript" />
 
   <include file="mail.zcml" />
   <include file="permissions.zcml" />
   <include file="upgrades.zcml" />
 
   <include package=".browser" />
+
+  <!-- Only load parts of Five.intid to avoid the problems that come
+       with registering handlers for IPersistent
+    -->
+  <!-- Prevent scripts from being intid'ed.
+       XXX: Figure out what's going on here -->
+  <!--     interface="Products.CMFCore.interfaces.IDirectoryView" -->
+  <!--     class="Products.CMFCore.FSPythonScript.FSPythonScript" /> -->
+
+  <!-- <include package="five.intid" /> -->
+  <!-- <five:implements -->
+  
+  <includeOverrides package="five.intid" file="overrides.zcml" />
+  <include package="five.intid" file="base.zcml" />
+  <include package="five.intid" file="cmfdirectoryview.zcml" />
+  
+  <subscriber
+     handler="five.intid.intid.addIntIdSubscriber"
+     for="collective.singing.interfaces.ISubscription
+          zope.app.container.interfaces.IObjectAddedEvent"
+     />
+  <subscriber
+     handler="five.intid.intid.removeIntIdSubscriber"
+     for="collective.singing.interfaces.ISubscription
+          zope.app.container.interfaces.IObjectRemovedEvent"
+     />
+  <subscriber
+     handler="five.intid.intid.moveIntIdSubscriber"
+     for="collective.singing.interfaces.ISubscription
+          zope.app.container.interfaces.IObjectMovedEvent"
+     />
 
   <!-- Make this package a Zope 2 product -->
   <five:registerPackage package="." initialize=".initialize" />
