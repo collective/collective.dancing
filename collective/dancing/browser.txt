@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 Browser tests
 =============
 
@@ -985,7 +986,7 @@ screen.  The job queue can also be processed from there:
 
   >>> browser.open('http://nohost/plone/portal_newsletters')
   >>> browser.getLink('Statistics').click()
-  >>> 'Send "Welcome to Plone - Rødgrød med fløde!"' in browser.contents
+  >>> "Send 'Welcome to Plone - Rødgrød med fløde!'" in browser.contents
   True
   >>> browser.getControl("Process jobs").click()
   >>> "3 message(s) queued for delivery" in browser.contents
