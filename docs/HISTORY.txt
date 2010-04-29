@@ -4,6 +4,11 @@ History
 Version 0.8.17 - Unreleased
 ---------------------------
 
+- Reverted changeset 113529 since it broke subscriber searching (and tests).
+  The revert has likely reintroduced a problem with deleting subscriptions,
+  but I've been unable to reproduce this.
+  [tmog]
+  
 - When importing email addresses, convert all addresses to lowercase
   instead of rejecting them.
   [maurits]

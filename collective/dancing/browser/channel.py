@@ -250,7 +250,17 @@ class ManageSubscriptionsForm(crud.CrudForm):
         return fields
 
     def get_items(self):
-        return [(str(key), item) for key, item in self.context.subscriptions.items()]
+        items = []
+
+        query = dict(format=self.format)
+        search = self._fulltext_query()
+        if search:
+            query['fulltext'] = search
+
+        for subscription in self.context.subscriptions.query(**query):
+            if subscription.metadata['format'] == self.format:
+                items.append((str(subscription.secret), subscription))
+        return items
 
     def add(self, data):
         secret = collective.singing.subscribe.secret(
@@ -273,8 +283,11 @@ class ManageSubscriptionsForm(crud.CrudForm):
         except ValueError, e:
             raise schema.ValidationError(e.args[0])
 
-    def remove(self, (id, item)):
-        del self.context.subscriptions[id]
+    def remove(self, (secret, item)):
+        subs = self.context.subscriptions.query(secret=secret,
+                                                format=item.metadata['format'])
+        for subscription in subs:
+            self.context.subscriptions.remove_subscription(subscription)
 
 
 class SubscriptionChoiceFieldDataManager(z3c.form.datamanager.AttributeField):
