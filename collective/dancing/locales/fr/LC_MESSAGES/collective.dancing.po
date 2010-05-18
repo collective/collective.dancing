@@ -269,7 +269,7 @@ msgstr "Remplissez le formulaire ci dessous pour recevoir un mail. Ce mail compo
 
 #: ./browser/subscribe.py:67
 msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to ${link_start}edit your subscriptions${link_end}."
-msgstr ""
+msgstr "Remplissez le formulaire ci dessous pour souscrire à ${channel}. Il est à noter que ceci est pour les nouvelles inscriptions. Cliquer ${link_start} ici pour modifier vos inscriptions${link_end}."
 
 #: ./browser/portlets/channelsubscribe.py:42
 msgid "Find the channel you want to enable direct subscription to"
@@ -401,7 +401,7 @@ msgstr "Statistiques de la newsletter"
 
 #: ./channel.py:78
 msgid "Newsletters"
-msgstr ""
+msgstr "Les newsletters"
 
 #: ./browser/preview.py:79
 msgid "No items found."
@@ -535,7 +535,7 @@ msgstr "Envoyer ${item} en tant que newsletter"
 
 #: ./browser/sendnewsletter.py:96
 msgid "Send '${context}' through ${channels}."
-msgstr ""
+msgstr "Envoyer '${context}' sur ${channels}."
 
 #. Default: "Send as newsletter"
 #: ./profiles/default/actions.xml
@@ -619,7 +619,7 @@ msgstr "La livraison a été planifiée avec succès."
 
 #: ./interfaces.py:62
 msgid "Template"
-msgstr ""
+msgstr "Template"
 
 #: ./browser/portlets/channelsubscribe.py:54
 msgid "Text in footer - if omitted the channel title is used"
@@ -663,7 +663,7 @@ msgstr "La feuille de styles sera appliquée au document."
 
 #: ./interfaces.py:63
 msgid "The template that will be used."
-msgstr ""
+msgstr "Le template qui sera utilisé."
 
 #: ./browser/subscribe.py:270
 msgid "There seems to be an error with the information you entered."
@@ -767,7 +767,7 @@ msgstr "Utiliser un seul formulaire d'inscription lorsque cela est possible"
 
 #: ./browser/portlets/channelsubscribe.py:152
 msgid "You are already subscribed to this newsletter. Click here to ${link_start}edit your subscriptions${link_end}."
-msgstr ""
+msgstr "Vous êtes déjà inscrit à cette newsletter. Cliquer ici pour ${link_start}modifier vos inscriptions${link_end}."
 
 #: ./browser/subscribe.py:219
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
@@ -814,7 +814,7 @@ msgstr "Votre adresse e-mail est invalide"
 
 #: ./browser/subscribe.py:28
 msgid "Your email address is already subscribed. Click the 'Send my subscription details' button below."
-msgstr ""
+msgstr "Votre adresse email est déjà inscrite. Cliquer sur le bouton ci dessous pour récupérer vos inscriptions."
 
 #: ./browser/subscribe.py:97
 msgid "Your subscription isn't known to us."

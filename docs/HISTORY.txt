@@ -23,6 +23,8 @@ Version 0.8.17 - Unreleased
   instead of rejecting them.
   [maurits]
 
+- Update french translation
+  [toutpt]
 
 Version 0.8.16 - 2010-04-07
 ---------------------------
