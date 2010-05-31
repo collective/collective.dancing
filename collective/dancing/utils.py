@@ -1,6 +1,7 @@
 import zope.schema.vocabulary
 import z3c.form.interfaces
 import Acquisition
+import stoneagehtml
 
 import collective.singing.async
 
@@ -18,7 +19,7 @@ def fix_request(wrapped, skip=1):
 def aq_append(wrapped, item, skip=0):
     """Return wrapped with an aq chain that includes `item` at the
     end.
-    
+
       >>> class AQ(Acquisition.Explicit):
       ...     def __init__(self, name):
       ...         self.name = name
@@ -61,3 +62,21 @@ class LaxVocabulary(zope.schema.vocabulary.SimpleVocabulary):
             return same[0]
         else:
             raise LookupError(value)
+
+
+def compactify(html):
+    """Make the html compact.
+
+    We use stoneagehtml for this.  We catch at least one error that
+    can occur with some css code, that stoneagehtml tries to clean up
+    using cssutils.
+    See https://bugs.launchpad.net/singing-dancing/+bug/410238
+
+    We also return utf-8.
+    """
+    try:
+        html = stoneagehtml.compactify(html, filter_tags=False)
+    except IndexError:
+        # Use the original html
+        pass
+    return html.decode('utf-8')

@@ -11,7 +11,6 @@ import tempfile
 from email.Utils import formataddr
 from email.Header import Header
 
-import stoneagehtml
 from BeautifulSoup import BeautifulSoup
 
 import persistent
@@ -294,7 +293,7 @@ class HTMLComposer(persistent.Persistent):
             contents=[i[0] for i in items],
             items=[dict(formatted=i[0], original=i[1]) for i in items],
             **vars)
-        return stoneagehtml.compactify(html, filter_tags=False).decode('utf-8')
+        return utils.compactify(html)
 
     def render(self, subscription, items=(), override_vars=None):
         vars = self._vars(subscription, items)
@@ -329,7 +328,7 @@ class HTMLComposer(persistent.Persistent):
                 target_language=self.language)
 
         html = self.confirm_template(**vars)
-        html = stoneagehtml.compactify(html, filter_tags=False).decode('utf-8')
+        html = utils.compactify(html)
         html = string.Template(html).safe_substitute(subscription_vars)
 
         message = collective.singing.mail.create_html_mail(
@@ -355,7 +354,7 @@ class HTMLComposer(persistent.Persistent):
                 target_language=self.language)
 
         html = self.forgot_template(**vars)
-        html = stoneagehtml.compactify(html, filter_tags=False).decode('utf-8')
+        html = utils.compactify(html)
         html = string.Template(html).safe_substitute(subscription_vars)
 
         message = collective.singing.mail.create_html_mail(

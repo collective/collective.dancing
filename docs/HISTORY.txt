@@ -4,6 +4,12 @@ History
 Version 0.8.17 - Unreleased
 ---------------------------
 
+- When compactifying the sent html with stoneagehtml catch an error that
+  can occur with some css code, that stoneagehtml tries to clean up
+  using cssutils.
+  Fixes https://bugs.launchpad.net/singing-dancing/+bug/410238
+  [maurits]
+
 - Changed all occurences of site-title to site_title (in help strings
   and translations).
   Fixes https://bugs.launchpad.net/singing-dancing/+bug/296759
