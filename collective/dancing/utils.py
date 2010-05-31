@@ -1,9 +1,13 @@
+import logging
 import zope.schema.vocabulary
 import z3c.form.interfaces
 import Acquisition
 import stoneagehtml
 
 import collective.singing.async
+
+logger = logging.getLogger('collective.dancing')
+
 
 def get_queue():
     """Get the job queue"""
@@ -77,6 +81,7 @@ def compactify(html):
     try:
         html = stoneagehtml.compactify(html, filter_tags=False)
     except IndexError:
-        # Use the original html
+        logger.warn("Exception while compacting html with stoneagehtml; "
+                    "using original instead.")
         pass
     return html.decode('utf-8')
