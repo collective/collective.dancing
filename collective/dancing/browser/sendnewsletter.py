@@ -134,6 +134,9 @@ class SendAsNewsletterForm(form.Form):
         channels = data['channels']
         include_collector_items = data['include_collector_items']
         address = data['address']
+        if not address:
+            self.status = _(u"The address to send the preview to is missing.")
+            return
 
         queued = 0
         for channel in channels:

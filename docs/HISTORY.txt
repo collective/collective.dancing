@@ -4,6 +4,11 @@ History
 Version 0.8.17 - Unreleased
 ---------------------------
 
+- When no address has been selected for sending the preview to, inform
+  the user instead of sending the preview to *all* subscribers.
+  Fixes https://bugs.launchpad.net/singing-dancing/+bug/509577
+  [maurits]
+
 - When compactifying the sent html with stoneagehtml catch an error that
   can occur with some css code, that stoneagehtml tries to clean up
   using cssutils.
