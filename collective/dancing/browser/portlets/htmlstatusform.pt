@@ -1,4 +1,5 @@
-<div class="form" metal:define-macro="form">
+<div class="form" metal:define-macro="form"
+     i18n:domain="collective.dancing">
 
   <div class="portalMessage"
        tal:condition="view/status" tal:content="structure view/status">
