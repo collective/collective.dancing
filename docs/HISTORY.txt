@@ -4,6 +4,11 @@ History
 Version 0.8.17 - Unreleased
 ---------------------------
 
+- Changed all occurences of site-title to site_title (in help strings
+  and translations).
+  Fixes https://bugs.launchpad.net/singing-dancing/+bug/296759
+  [maurits]
+
 - We now avoid including all zcml from five.intid (in the same way as e.g.
   plone.app.intid) This means we avoid registering the IPersistent handlers,
   which (among other issues) can cause problems for packages that put persistent

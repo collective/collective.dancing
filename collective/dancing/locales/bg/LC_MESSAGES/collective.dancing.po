@@ -122,11 +122,11 @@ msgstr ""
 msgid "CSV delimiter"
 msgstr ""
 
-#. Default: "Change your subscriptions with ${site-title}"
+#. Default: "Change your subscriptions with ${site_title}"
 #: ./browser/composer-html-forgot.pt:16
 #: ./composer.py:353
-msgid "Change your subscriptions with ${site-title}"
-msgstr "Промяна на вашия абонамент в ${site-title}"
+msgid "Change your subscriptions with ${site_title}"
+msgstr "Промяна на вашия абонамент в ${site_title}"
 
 #: ./browser/channel.py:171
 msgid "Channel administration"
@@ -140,10 +140,10 @@ msgstr "Изчистване на приключилите задачи"
 msgid "Clear queued messages"
 msgstr "Изчистване на съобщенията в опашката"
 
-#. Default: "Click here to manage your subscriptions with ${site-title}:"
+#. Default: "Click here to manage your subscriptions with ${site_title}:"
 #: ./browser/composer-html-forgot.pt:21
-msgid "Click here to manage your subscriptions with ${site-title}:"
-msgstr "Щракнете тук за промяна на вашия абонамент в ${site-title}:"
+msgid "Click here to manage your subscriptions with ${site_title}:"
+msgstr "Щракнете тук за промяна на вашия абонамент в ${site_title}:"
 
 #: ./browser/portlets/channelsubscribe.py:50
 msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
@@ -789,8 +789,8 @@ msgid "You confirmed your subscription successfully."
 msgstr "Вие потвърдихте успешно вашия абонамент."
 
 #: ./interfaces.py:35
-msgid "You may use a number of variables here, like ${site-title}."
-msgstr "Може да използвате променливи, като ${site-title}."
+msgid "You may use a number of variables here, like ${site_title}."
+msgstr "Може да използвате променливи, като ${site_title}."
 
 #: ./browser/subscribe.py:302
 msgid "You subscribed successfully."

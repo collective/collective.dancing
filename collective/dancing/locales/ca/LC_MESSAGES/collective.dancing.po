@@ -124,12 +124,12 @@ msgstr ""
 msgid "CSV delimiter"
 msgstr ""
 
-#. Default: "Change your subscriptions with ${site-title}"
+#. Default: "Change your subscriptions with ${site_title}"
 #: ./browser/composer-html-forgot.pt:16
 #: ./composer.py:353
 #, fuzzy
-msgid "Change your subscriptions with ${site-title}"
-msgstr "Canvia les teues subscripcions en ${site-title}"
+msgid "Change your subscriptions with ${site_title}"
+msgstr "Canvia les teues subscripcions en ${site_title}"
 
 #: ./browser/channel.py:171
 msgid "Channel administration"
@@ -143,10 +143,10 @@ msgstr ""
 msgid "Clear queued messages"
 msgstr ""
 
-#. Default: "Click here to manage your subscriptions with ${site-title}:"
+#. Default: "Click here to manage your subscriptions with ${site_title}:"
 #: ./browser/composer-html-forgot.pt:21
-msgid "Click here to manage your subscriptions with ${site-title}:"
-msgstr "Fes clic ací per gestionar les teues subscripcions a ${site-title}:"
+msgid "Click here to manage your subscriptions with ${site_title}:"
+msgstr "Fes clic ací per gestionar les teues subscripcions a ${site_title}:"
 
 #: ./browser/portlets/channelsubscribe.py:50
 msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
@@ -797,7 +797,7 @@ msgid "You confirmed your subscription successfully."
 msgstr "Has confirmat les teues subscripcions correctament."
 
 #: ./interfaces.py:35
-msgid "You may use a number of variables here, like ${site-title}."
+msgid "You may use a number of variables here, like ${site_title}."
 msgstr ""
 
 #: ./browser/subscribe.py:302

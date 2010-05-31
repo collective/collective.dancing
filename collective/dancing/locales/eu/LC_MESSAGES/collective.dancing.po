@@ -123,11 +123,11 @@ msgstr "CSV fitxategiak goiburukoa dauka"
 msgid "CSV delimiter"
 msgstr "CSV fitxategiko edukien banatzailea"
 
-#. Default: "Change your subscriptions with ${site-title}"
+#. Default: "Change your subscriptions with ${site_title}"
 #: ./browser/composer-html-forgot.pt:16
 #: ./composer.py:353
-msgid "Change your subscriptions with ${site-title}"
-msgstr "${site-title} webguneko zure harpidetzak aldatu"
+msgid "Change your subscriptions with ${site_title}"
+msgstr "${site_title} webguneko zure harpidetzak aldatu"
 
 #: ./browser/channel.py:171
 msgid "Channel administration"
@@ -141,10 +141,10 @@ msgstr "Egindako lanak garbitu"
 msgid "Clear queued messages"
 msgstr "Ilaran dauden mezuak garbitu"
 
-#. Default: "Click here to manage your subscriptions with ${site-title}:"
+#. Default: "Click here to manage your subscriptions with ${site_title}:"
 #: ./browser/composer-html-forgot.pt:21
-msgid "Click here to manage your subscriptions with ${site-title}:"
-msgstr "Egin klik hemen ${site-title} webguneko zure harpidetzak kudeatzeko:"
+msgid "Click here to manage your subscriptions with ${site_title}:"
+msgstr "Egin klik hemen ${site_title} webguneko zure harpidetzak kudeatzeko:"
 
 #: ./browser/portlets/channelsubscribe.py:50
 msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
@@ -790,8 +790,8 @@ msgid "You confirmed your subscription successfully."
 msgstr "Zure harpidetza baieztatu duzu."
 
 #: ./interfaces.py:35
-msgid "You may use a number of variables here, like ${site-title}."
-msgstr "Hemen aldagaiak erabil ditzakezu, adibidez ${site-title}"
+msgid "You may use a number of variables here, like ${site_title}."
+msgstr "Hemen aldagaiak erabil ditzakezu, adibidez ${site_title}"
 
 #: ./browser/subscribe.py:302
 msgid "You subscribed successfully."

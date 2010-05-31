@@ -120,11 +120,11 @@ msgstr ""
 msgid "CSV delimiter"
 msgstr ""
 
-#. Default: "Change your subscriptions with ${site-title}"
+#. Default: "Change your subscriptions with ${site_title}"
 #: ./browser/composer-html-forgot.pt:16
 #: ./composer.py:353
-msgid "Change your subscriptions with ${site-title}"
-msgstr "Αλλάξτε τις εγγραφές σας στην ${site-title}"
+msgid "Change your subscriptions with ${site_title}"
+msgstr "Αλλάξτε τις εγγραφές σας στην ${site_title}"
 
 #: ./browser/channel.py:171
 msgid "Channel administration"
@@ -138,10 +138,10 @@ msgstr ""
 msgid "Clear queued messages"
 msgstr ""
 
-#. Default: "Click here to manage your subscriptions with ${site-title}:"
+#. Default: "Click here to manage your subscriptions with ${site_title}:"
 #: ./browser/composer-html-forgot.pt:21
-msgid "Click here to manage your subscriptions with ${site-title}:"
-msgstr "Κλικάρετε εδώ για να διαχειριστείτε τις εγγραφές σας στην ${site-title}:"
+msgid "Click here to manage your subscriptions with ${site_title}:"
+msgstr "Κλικάρετε εδώ για να διαχειριστείτε τις εγγραφές σας στην ${site_title}:"
 
 #: ./browser/portlets/channelsubscribe.py:50
 msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
@@ -787,8 +787,8 @@ msgid "You confirmed your subscription successfully."
 msgstr "Επιβεβαιώσατε την εγγραφή σας με επιτυχία."
 
 #: ./interfaces.py:35
-msgid "You may use a number of variables here, like ${site-title}."
-msgstr "Μπορείτε να χρησιμοποιήσετε έναν αριθμό μεταβλητών εδώ, όπως ${site-title}."
+msgid "You may use a number of variables here, like ${site_title}."
+msgstr "Μπορείτε να χρησιμοποιήσετε έναν αριθμό μεταβλητών εδώ, όπως ${site_title}."
 
 #: ./browser/subscribe.py:302
 msgid "You subscribed successfully."

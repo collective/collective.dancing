@@ -33,7 +33,7 @@ class IHTMLComposer(collective.singing.interfaces.IComposer,
     subject = schema.TextLine(
         title=_(u"Message subject"),
         description=_(u"You may use a number of variables here, like "
-                      "${site-title}."),
+                      "${site_title}."),
         required=False,
         )
     replyto_address = schema.TextLine(

@@ -125,10 +125,10 @@ msgstr ""
 msgid "CSV delimiter"
 msgstr ""
 
-#. Default: "Change your subscriptions with ${site-title}"
+#. Default: "Change your subscriptions with ${site_title}"
 #: ./browser/composer-html-forgot.pt:16
 #: ./composer.py:353
-msgid "Change your subscriptions with ${site-title}"
+msgid "Change your subscriptions with ${site_title}"
 msgstr ""
 
 #: ./browser/channel.py:171
@@ -143,9 +143,9 @@ msgstr ""
 msgid "Clear queued messages"
 msgstr ""
 
-#. Default: "Click here to manage your subscriptions with ${site-title}:"
+#. Default: "Click here to manage your subscriptions with ${site_title}:"
 #: ./browser/composer-html-forgot.pt:21
-msgid "Click here to manage your subscriptions with ${site-title}:"
+msgid "Click here to manage your subscriptions with ${site_title}:"
 msgstr ""
 
 #: ./browser/portlets/channelsubscribe.py:50
@@ -792,7 +792,7 @@ msgid "You confirmed your subscription successfully."
 msgstr ""
 
 #: ./interfaces.py:35
-msgid "You may use a number of variables here, like ${site-title}."
+msgid "You may use a number of variables here, like ${site_title}."
 msgstr ""
 
 #: ./browser/subscribe.py:302
@@ -826,13 +826,11 @@ msgstr ""
 
 #. Default: "A Channel is a hub of configuration. It doesn't do anything by itself. Rather, it provides a number of components to configure and work with. It is also the container of subscriptions to it."
 #: ./browser/controlpanel-links.pt:7
-#, fuzzy
 msgid "description_channel_administration"
 msgstr ""
 
 #. Default: "Collectors are useful for automatic newsletters. They are responsible for assembling a list of items for publishing."
 #: ./browser/controlpanel-links.pt:18
-#, fuzzy
 msgid "description_collector_administration"
 msgstr ""
 

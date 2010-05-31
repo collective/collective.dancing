@@ -350,8 +350,8 @@ class HTMLComposer(persistent.Persistent):
 
         if 'forgot_secret_subject' not in vars:
             vars['forgot_secret_subject'] = zope.i18n.translate(
-                _(u"Change your subscriptions with ${site-title}",
-                  mapping={'site-title': vars['site_title']}),
+                _(u"Change your subscriptions with ${site_title}",
+                  mapping={'site_title': vars['site_title']}),
                 target_language=self.language)
 
         html = self.forgot_template(**vars)
