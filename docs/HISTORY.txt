@@ -4,6 +4,10 @@ History
 Version 0.8.17 - Unreleased
 ---------------------------
 
+- Fix for subscription portlet breaking batch workflow state change.
+  Fixes https://bugs.launchpad.net/singing-dancing/+bug/475771
+  [maurits]
+
 - When no address has been selected for sending the preview to, inform
   the user instead of sending the preview to *all* subscribers.
   Fixes https://bugs.launchpad.net/singing-dancing/+bug/509577

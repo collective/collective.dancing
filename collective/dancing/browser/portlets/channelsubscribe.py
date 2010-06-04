@@ -237,7 +237,6 @@ class Renderer(base.Renderer):
 
     def __init__(self, *args):
         base.Renderer.__init__(self, *args)
-        self.setup_form()
 
     def setup_form(self):
         z2.switch_on(self)
@@ -250,8 +249,10 @@ class Renderer(base.Renderer):
             self.form.format = 'html'
             self.form.update()
         
-    render = _template
-
+    def render(self):
+        self.setup_form()
+        return self._template()
+ 
     @property
     def available(self):
         return bool(self.data.channel)
@@ -277,7 +278,7 @@ class Renderer(base.Renderer):
         if bool(self.data.footer_text):
             return self.data.footer_text
         return self.channel.Title()
- 
+
             
 def prefix(self):
     return str(self.__class__.__name__ + '-'.join(self.context.getPhysicalPath()))
