@@ -41,13 +41,13 @@ setUp()
 ptc.setupPloneSite(products=['collective.dancing'])
 
 def decodeMessageAsString(msg):
-    """ This helper method takes Message object or string and returns 
+    """ This helper method takes Message object or string and returns
         string which does not contain base64 encoded parts
         Returns message without any encoding in parts
     """
     if isinstance(msg, str):
         msg = Parser().parsestr(msg)
-    
+
     new = deepcopy(msg)
     # From is utf8 encoded: '=?utf-8?q?Site_Administrator_=3C=3E?='
     new.replace_header('From', decode_header(new['From'])[0][0])
@@ -64,7 +64,7 @@ def decodeMessageAsString(msg):
         del part['Content-Transfer-Encoding']
         part.set_payload(decoded, charset)
 
-    return new.as_string()        
+    return new.as_string()
 
 def setup_testing_maildelivery():
     class TestingMailDelivery(object):

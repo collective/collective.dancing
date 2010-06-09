@@ -15,7 +15,7 @@ class URL(object):
 
     base = None
     aliases = []
-    
+
     def __init__(self, context):
         self.context = context
 
@@ -25,7 +25,7 @@ class URL(object):
         if url.endswith('/'):
             return url[:-1]
         return url
-        
+
     @property
     def site_url(self):
         site = component.getUtility(IPloneSiteRoot)
@@ -33,7 +33,7 @@ class URL(object):
         if url.endswith('/'):
             return url[:-1]
         return url
-    
+
     def _base(self):
         if self.base is None:
             return self.site_url
@@ -41,7 +41,7 @@ class URL(object):
         url = self.base
         if url.endswith('/'):
             return url[:-1]
-        return url        
+        return url
 
     def __call__(self, text, subscription):
         anchor_exp = re.compile('#\w+')
@@ -52,7 +52,7 @@ class URL(object):
         curl = self.context.absolute_url()
         curl_parts = curl.split('/')
 
-        for attr in ('href', 'src'):                
+        for attr in ('href', 'src'):
             for tag in soup.findAll(SoupStrainer(**{attr:root_exp})):
                 if len(curl_parts) > 3 and \
                        ':' in curl_parts[2] and \
@@ -72,7 +72,7 @@ class URL(object):
                 if tag[attr].startswith('#'):
                     tag[attr] = self.context_url + tag[attr]
                     continue
-                
+
                 parts = (self.context_url + '/'+ tag[attr]).split('/')
                 while '..' in parts:
                     dots = parts.index('..')
@@ -85,7 +85,7 @@ class URL(object):
                 if not prot or not dom:
                     tag[attr] = '#%s' % frag
                     continue
-                
+
                 url = '%s://%s%s' % (prot, dom, path)
                 if url.endswith('/'):
                     url = url[:-1]
@@ -96,7 +96,7 @@ class URL(object):
                 if url == self.context_url:
                     for match in soup.findAll(attrs=dict(name=frag)):
                         if match.name == u'a':
-                            tag[attr] = '#%s' % frag                            
+                            tag[attr] = '#%s' % frag
 
             # Check for aliases
             if self.aliases:
@@ -105,5 +105,5 @@ class URL(object):
                                    '|'.join(self.aliases),
                                    re.IGNORECASE)
                     tag[attr] = p.sub(r'%s\3\4' % self._base(), tag[attr])
-            
+
         return str(soup)

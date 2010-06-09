@@ -71,7 +71,7 @@ class EditHTMLComposerForm(EditComposerForm):
     @property
     def fields(self):
         fields = z3c.form.field.Fields(IHTMLComposer).omit(
-            'name', 'schema', 'title')    
+            'name', 'schema', 'title')
         fields['header_text'].widgetFactory[
             z3c.form.interfaces.INPUT_MODE] = wysiwyg.WysiwygFieldWidget
         fields['footer_text'].widgetFactory[

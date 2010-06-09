@@ -77,7 +77,7 @@ class SendAsNewsletterForm(form.Form):
                 override_vars[field_name] = data[field_name]
 
         return override_vars
-        
+
     @button.buttonAndHandler(_('Send'), name='send')
     def handle_send(self, action):
         data, errors = self.extractData()
@@ -120,11 +120,11 @@ class SendAsNewsletterForm(form.Form):
         params = {'name': name,
                   'include_collector_items': int(bool(include_collector_items)),
                   'override_vars': self.get_override_vars()}
-        
+
         self.request.response.redirect(
             self.context.absolute_url()+\
             '/preview-newsletter.html?%s' % urllib.urlencode(params))
-            
+
     @button.buttonAndHandler(_('Send preview'), name='preview')
     def handle_preview(self, action):
         data, errors = self.extractData()
@@ -148,7 +148,7 @@ class SendAsNewsletterForm(form.Form):
                 msg = assembler.render_message(
                     self.request,
                     sub,
-                    (FullFormatWrapper(self.context),),                
+                    (FullFormatWrapper(self.context),),
                     include_collector_items,
                     self.get_override_vars())
                 if msg is not None:

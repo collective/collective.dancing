@@ -11,14 +11,14 @@ class ISendAndPreviewForm(interface.Interface):
         value_type=schema.Choice(
         vocabulary='collective.singing.vocabularies.SendableChannelVocabulary')
         )
-    
+
     include_collector_items = schema.Bool(
         title=_(u"Include collector items"),
         description=_(u"Append automatically collected content in this "
                       "send-out"),
         default=True,
         )
-    
+
     address = schema.TextLine(
         title=_(u"Address to send the preview to"),
         description=_(

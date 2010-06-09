@@ -4,14 +4,14 @@
            xmlns:plone="http://namespaces.plone.org/plone">
 
   <include package="plone.app.portlets" />
-  
+
   <plone:portlet
      name="collective.dancing.ChannelSubscribePortlet"
      interface=".channelsubscribe.IChannelSubscribePortlet"
      assignment=".channelsubscribe.Assignment"
      renderer=".channelsubscribe.Renderer"
-     addview=".channelsubscribe.ChannelSubscribePortletAddView" 
-     editview=".channelsubscribe.ChannelSubscribePortletEditView" 
+     addview=".channelsubscribe.ChannelSubscribePortletAddView"
+     editview=".channelsubscribe.ChannelSubscribePortletEditView"
      />
 
 </configure>

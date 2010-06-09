@@ -9,7 +9,7 @@
     <style type="text/css"
            tal:content="structure options/stylesheet" />
   </head>
-  
+
   <body>
     <div class="header"
        tal:define="header options/header_text|nothing"
@@ -39,7 +39,7 @@
       <span tal:replace="options/channel_title" i18n:name="channel" />
       newsletter.
     </div>
-    
+
     <div class="unsubOption">
       <a href="" tal:attributes="href options/unsubscribe_url" i18n:translate="">
         Click here to unsubscribe.

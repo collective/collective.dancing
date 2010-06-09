@@ -69,4 +69,4 @@ class IHTMLComposer(collective.singing.interfaces.IComposer,
 class IHTMLComposerTemplate(interface.Interface):
     """A marker interface to say that this template object can be used
     as a template for the HTMLComposer"""
-    
+

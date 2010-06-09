@@ -132,13 +132,13 @@ def composerdata_from_subscription(subscription):
 
 
 class HTMLTemplateVocabularyFactory(object):
-    
+
     interface.implements(schema.interfaces.IVocabularyFactory)
-    
+
     def __call__(self, context):
         names = [x[0] for x  in component.getUtilitiesFor(IHTMLComposerTemplate)]
         return schema.vocabulary.SimpleVocabulary.fromValues(names)
-    
+
 default_template = ViewPageTemplateFile('browser/composer-html.pt')
 
 class HTMLComposer(persistent.Persistent):

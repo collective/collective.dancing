@@ -129,9 +129,9 @@ class Channel(OFS.SimpleItem.SimpleItem):
     type_name = _("Standard Channel")
 
     subscribeable = True
-    
+
     sendable = True
-    
+
     def __init__(self, name, title=None, composers=None,
                  collector=None, scheduler=None, description=u"", subscribeable=False):
         self.name = name
@@ -164,7 +164,7 @@ def channel_added(channel, event):
     # we update things to keep everything up to date:
     subscriptions = collective.singing.subscribe.subscriptions_data(channel)
     subscriptions._catalog.clear()
-    
+
     for subscription in subscriptions.values():
         # Let's make sure that ``subscription.channel`` refers to the
         # channel:

@@ -9,7 +9,7 @@
     <style type="text/css"
            tal:content="structure options/stylesheet" />
   </head>
-  
+
   <body>
     <h1 i18n:translate="">Please confirm your subscription</h1>
 
@@ -17,13 +17,13 @@
       To confirm your subscription with
       <span tal:replace="options/channel/title" i18n:name="channel" />,
       please click here:
-      <a href="" 
+      <a href=""
          tal:content="options/confirm_url"
 	 tal:attributes="href options/confirm_url"
 	 i18n:name="url">
       </a>
     </p>
-      
+
   </body>
 
 </html>

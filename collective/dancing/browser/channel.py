@@ -407,7 +407,7 @@ def parseSubscriberCSVFile(subscriberdata, composer,
                 try:
                     subscriber = dict(zip(fields,\
                        map(lambda x:x.decode(charset), parsedline)))
-                    subscriber['email'] = subscriber['email'].lower() 
+                    subscriber['email'] = subscriber['email'].lower()
                     check_email(subscriber['email'])
                 except:
                     errorcandidates.append(subscriber['email'])

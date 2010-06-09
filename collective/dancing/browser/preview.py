@@ -4,7 +4,7 @@ from zope import component
 from zope import schema
 
 from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile 
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from zope.app.publisher.browser import getDefaultViewName
 
@@ -23,7 +23,7 @@ class PreviewSubscription(object):
 
     secret = u""
     format = 'html'
-    
+
     def __init__(self, channel):
         self.channel = channel
 
@@ -31,17 +31,17 @@ class PreviewSubscription(object):
         self.metadata = dict(format=self.format,
                              date=datetime.datetime.now() - \
                              datetime.timedelta(days=7),)
-        
+
         composer = self.channel.composers[self.format]
-        
+
         # set default composer data
         self.composer_data = dict(
             (name, field.default) \
             for name, field in schema.getFields(composer.schema).items())
-        
+
 class PreviewNewsletterView(BrowserView):
     template = ViewPageTemplateFile("preview.pt")
-    
+
     def __call__(self, name=None, include_collector_items=False, override_vars=None):
 
         if override_vars is None:
@@ -59,7 +59,7 @@ class PreviewNewsletterView(BrowserView):
             assert name is not None
             channel = lookup(name)
             items = (FullFormatWrapper(self.context),)
-            
+
         sub = PreviewSubscription(channel)
 
         # We don't want to commit a transaction just for the preview;
@@ -93,5 +93,5 @@ class PreviewNewsletterView(BrowserView):
                 break
         else:
             raise ValueError("Message does not contain a 'text/html' part.")
-            
+
         return self.template(content=html, title=channel.title)

@@ -41,7 +41,7 @@ class ManageCollectorsForm(crud.CrudForm):
                 [zope.schema.vocabulary.SimpleTerm(value=f, title=f.title)
                  for f in collector.standalone_collectors])
             ))
-    
+
     def get_items(self):
         return [(ob.getId(), ob) for ob in self.context.objectValues()]
 
@@ -244,7 +244,7 @@ class MoveBlockForm(form.Form):
 
 class AbstractEditCollectorForm(object):
     level = 1
-    
+
     @property
     def css_class(self):
         return "subform subform-level-%s" % self.level

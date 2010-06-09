@@ -25,7 +25,7 @@
                     <th i18n:translate="">Date of execution</th>
                 </tr>
             </thead>
-            
+
             <tbody>
                 <tr tal:repeat="job jobs">
                     <td tal:content="job/title">Send "My news item"</td>

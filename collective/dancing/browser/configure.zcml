@@ -37,7 +37,7 @@
   <zope:adapter
      factory=".composer.EditHTMLComposerForm"
      provides="z3c.form.interfaces.ISubForm" />
-  
+
   <!-- Administration views -->
 
   <defaultView
@@ -59,7 +59,7 @@
       for="collective.singing.interfaces.ICollector"
       name="index_html"
       />
-    
+
   <defaultView
       for="collective.singing.interfaces.IScheduler"
       name="index_html"
@@ -113,7 +113,7 @@
       class=".collector.RootCollectorEditView"
       permission="dancing.ManageNewsletters"
       />
-  
+
   <page
       name="index_html"
       for="collective.singing.collector.IFilteredSubjectsCollectorBase"
@@ -134,7 +134,7 @@
       class=".scheduler.TimedSchedulerEditView"
       permission="dancing.ManageNewsletters"
       />
-      
+
   <page
        name="export"
        for="collective.singing.interfaces.IChannel"

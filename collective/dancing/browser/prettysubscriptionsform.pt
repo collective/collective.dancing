@@ -14,7 +14,7 @@
 
     <h2 i18n:translate="" tal:content="view/label">
       You are currently subscribed to these newsletters</h2>
-      
+
     <form action="." method="post"
           tal:attributes="action request/getURL; enctype view/enctype">
 

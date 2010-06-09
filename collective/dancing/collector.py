@@ -40,7 +40,7 @@ interface.alsoProvides(collector_vocabulary,
 
 class CollectorContainer(OFS.Folder.Folder):
     title = u"Collectors"
-    
+
     def Title(self):
         return self.title
 
@@ -98,7 +98,7 @@ class ReferenceCollector(OFS.SimpleItem.SimpleItem):
         self.title = title
 
     def get_items(self, cue=None, subscription=None):
-        items = self._rebuild_items()        
+        items = self._rebuild_items()
         return tuple(items), None
 
     def _rebuild_items(self):
@@ -107,7 +107,7 @@ class ReferenceCollector(OFS.SimpleItem.SimpleItem):
         for ref in self.items:
             if not isinstance(ref, persistent.wref.WeakRef):
                 raise ValueError("Must be a weak reference (got %s)" % repr(ref))
-                
+
             item = ref()
 
             if item is not None:
@@ -117,9 +117,9 @@ class ReferenceCollector(OFS.SimpleItem.SimpleItem):
                     brain = catalog(UID=uid)[0]
                 except IndexError:
                     continue
-                
+
                 yield brain.getObject()
-    
+
 class Collector(OFS.Folder.Folder):
     interface.implements(collective.singing.interfaces.ICollector)
     title = 'Collector block'
@@ -173,7 +173,7 @@ class Collector(OFS.Folder.Folder):
                 fname, sort_criteria.get('default'))
             query_args[fname] = query_factory(cue)
         return topic.queryCatalog(full_objects=True, **query_args)
-        
+
     def get_optional_collectors(self):
         optional_collectors = []
         if self.optional:
@@ -185,7 +185,7 @@ class Collector(OFS.Folder.Folder):
                     optional_collectors.extend(child.get_optional_collectors())
                 elif getattr(Acquisition.aq_base(child), 'optional', False):
                     optional_collectors.append(child)
-                
+
         return optional_collectors
 
     def get_next_id(self):

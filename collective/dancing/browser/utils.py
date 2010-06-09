@@ -11,11 +11,11 @@ LOCKFILE_NAME = os.path.join(tempfile.gettempdir(),
                              __name__ + '.tick_and_dispatch')
 
 class IDancingUtilsView(Interface):
-    
+
     def tick_and_dispatch(self):
         """Tick all schedulers of all channels.  Then dispatch their
         queues.
-            
+
         This is what you call from cron or zope clock server to get
         periodic sending.
         """
@@ -62,7 +62,7 @@ class DancingUtilsView(BrowserView):
             d = {'channel':channel.name,
                  'queued':queued or 0,
                  'status':str(status or (0,0))}
-            msg += u'%(channel)s: %(queued)d messages queued, dispatched: %(status)s\n' % d 
+            msg += u'%(channel)s: %(queued)d messages queued, dispatched: %(status)s\n' % d
         return msg
 
     def handle_bounce(self):

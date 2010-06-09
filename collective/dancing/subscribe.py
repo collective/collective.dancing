@@ -24,7 +24,7 @@ class Subscription(collective.singing.subscribe.SimpleSubscription):
 
             raise AttributeError(
                 "%r is subscribed to unknown channel %r" % self._channel)
-                    
+
         def set(self, channel):
             self._channel = channel
         return property(get, set)

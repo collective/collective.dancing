@@ -71,7 +71,7 @@ class Subscribe(BrowserView):
             mapping={'channel': self.context.Title(),
                      'link_start': link_start,
                      'link_end': link_end})
-    
+
     @property
     def label(self):
         return _(u"Subscribe to ${channel}",
@@ -124,7 +124,7 @@ class Unsubscribe(BrowserView):
     def __call__(self):
         secret = self.request.form['secret']
         subs = self.context.aq_inner.subscriptions
-        
+
         subscriptions = subs.query(secret=secret)
         if len(subscriptions):
             for sub in subscriptions:
@@ -154,7 +154,7 @@ class IncludeHiddenSecret(object):
         return secret
 
 class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
-    template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')    
+    template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
     successMessage = _('Your subscription was updated.')
     removed = False
     handlers = form.EditForm.handlers
@@ -213,14 +213,14 @@ class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
 class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
     ignoreContext = True
-    
+
     added = None
     format = None # set by parent form
     status_already_subscribed = _(u"You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription.")
     @property
     def description(self):
         return self.context.description
-        
+
     @property
     def prefix(self):
         return '%s.%s.' % (self.context.name, self.format)
@@ -247,7 +247,7 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
     @button.buttonAndHandler(_('Subscribe'), name='subscribe')
     def handle_subscribe(self, action):
         data, errors = self.extractData()
-        
+
         if errors:
             self.status = form.AddForm.formErrorsMessage
             return
@@ -298,7 +298,7 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
             self.added = None
             self.status = self.status_already_subscribed
             return
-            
+
         self.status = _(u"You subscribed successfully.")
         if not secret_provided:
             composer = self.context.composers[self.format]
@@ -326,7 +326,7 @@ class SubscriptionSubForm(IncludeHiddenSecret, subform.EditSubForm):
     successMessage = _('Your subscription was updated.')
     status_subscribed = _(u"You subscribed successfully.")
     status_unsubscribed = _(u"You unsubscribed successfully.")
-    
+
     def update(self):
         super(SubscriptionSubForm, self).update()
         # set label on channel-checkbox
@@ -337,21 +337,21 @@ class SubscriptionSubForm(IncludeHiddenSecret, subform.EditSubForm):
         for widget in widgets[1:]:
             #widget.label = u""
             #widget.required = False
-            widget.addClass('level-1') 
+            widget.addClass('level-1')
 
 
 class SubscriptionAddSubForm(SubscriptionSubForm):
     template = viewpagetemplatefile.ViewPageTemplateFile('subform.pt')
 
     ignoreContext = True
-    
+
     added = None
     format = None # set by parent form
 
     @property
     def description(self):
         return self.context.description
-        
+
     @property
     def prefix(self):
         return '%s.%s.' % (self.context.name, self.format)
@@ -434,7 +434,7 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
                 if existing:
                     self.status = self.status_already_subscribed
                     return
-                
+
             metadata = dict(
                 format=self.format,
                 date=datetime.datetime.now(),
@@ -476,7 +476,7 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
             self.parentForm.send_confirmation(self.context, self.format, self.added)
 
 class SubscriptionEditSubForm(SubscriptionSubForm):
-    template = viewpagetemplatefile.ViewPageTemplateFile('subform.pt')    
+    template = viewpagetemplatefile.ViewPageTemplateFile('subform.pt')
     removed = False
     handlers = form.EditForm.handlers
 
@@ -516,15 +516,15 @@ class SubscriptionEditSubForm(SubscriptionSubForm):
             ))
         select_field.widgetFactory[z3c.form.interfaces.INPUT_MODE] = (
             singlecheckboxwidget_factory)
-        
+
         fields = field.Fields(select_field, prefix='selector.')
 
         if self.context.channel.collector is not None:
             fields += field.Fields(
                 self.context.channel.collector.schema,
-                prefix='collector.') 
+                prefix='collector.')
         return fields
-    
+
     def update(self):
         def handleApply(self, action):
             data, errors = self.extractData()
@@ -537,7 +537,7 @@ class SubscriptionEditSubForm(SubscriptionSubForm):
                 return
 
             content = self.getContent()
-            del data[self.channel_selector] 
+            del data[self.channel_selector]
 
             changes = form.applyChanges(self, content, data)
             if changes:
@@ -571,7 +571,7 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
     ignoreRequest = True
     confirmation_sent = False
     status_message = None
-    
+
     def __init__(self, context, request, subs, channels):
         super(PrettySubscriptionsForm, self).__init__(context, request)
         self.subs = subs
@@ -672,7 +672,7 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
                 addform.status = form.status
             #elif form.status != form.noChangesMessage:
             #    self.status = form.status
-        
+
         # Let's update the add forms now.  One of them may have added
         # a subscription:
         for form in self.subscription_addforms:
@@ -716,7 +716,7 @@ class Subscriptions(BrowserView):
     __call__ = ViewPageTemplateFile('skeleton.pt')
     contents_template = ViewPageTemplateFile('subscriptions.pt')
     single_form_template = ViewPageTemplateFile('prettysubscriptions.pt')
- 
+
     label = _(u"My subscriptions")
     status = u""
 
@@ -729,7 +729,7 @@ class Subscriptions(BrowserView):
     @property
     def newsletters(self):
         return getSite().portal_newsletters
-    
+
     @property
     def single_form_subscriptions(self):
         return self.newsletters.get('use_single_form_subscriptions_page', '')
@@ -753,9 +753,9 @@ class Subscriptions(BrowserView):
         z2.switch_on(self,
                      request_layer=collective.singing.interfaces.IFormLayer)
         subscriptions, channels = self._subscriptions_and_channels(self.secret)
-        
+
         if self.single_form_subscriptions:
-            self.form = PrettySubscriptionsForm(self.context, self.request, 
+            self.form = PrettySubscriptionsForm(self.context, self.request,
                                                 subscriptions, channels)
             self.form.update()
             if len(self.form.key_fields) == 1:
