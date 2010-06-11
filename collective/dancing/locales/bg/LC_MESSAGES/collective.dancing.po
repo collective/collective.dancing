@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.dancing\n"
-"POT-Creation-Date: 2010-05-31 15:36+0000\n"
+"POT-Creation-Date: 2010-06-11 21:23+0000\n"
 "PO-Revision-Date: 2009-09-01 18:25+0200\n"
 "Last-Translator: Vladimir Iliev <vladimir.iliev@gmail.com>\n"
 "Language-Team: plone i18n\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-Language: Bulgarian\n"
 "X-Poedit-Country: BULGARIA\n"
 
-#: ./browser/portlets/channelsubscribe.py:296
+#: ./browser/portlets/channelsubscribe.py:297
 msgid "${channel} options"
 msgstr ""
 
@@ -52,7 +52,7 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: ./browser/portlets/channelsubscribe.py:459
+#: ./browser/portlets/channelsubscribe.py:460
 msgid "Add Channel Subscribe Portlet"
 msgstr ""
 
@@ -95,7 +95,7 @@ msgstr "Прилагане"
 msgid "Apply changes"
 msgstr "Прилагане на промените"
 
-#: ./browser/portlets/channelsubscribe.py:409
+#: ./browser/portlets/channelsubscribe.py:410
 msgid "Back to portlets"
 msgstr ""
 
@@ -220,7 +220,7 @@ msgstr "Редактиране на ${selector} за ${channel}"
 msgid "Edit Channel ${channel}"
 msgstr "Редактиране на канал ${channel}"
 
-#: ./browser/portlets/channelsubscribe.py:378
+#: ./browser/portlets/channelsubscribe.py:379
 msgid "Edit Channel Subscribe Portlet"
 msgstr ""
 
@@ -682,7 +682,7 @@ msgstr ""
 msgid "This is only required if you click 'Send preview' below"
 msgstr ""
 
-#: ./browser/portlets/channelsubscribe.py:415
+#: ./browser/portlets/channelsubscribe.py:416
 msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
 msgstr ""
 

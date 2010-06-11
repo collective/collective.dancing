@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-05-31 15:36+0000\n"
+"POT-Creation-Date: 2010-06-11 21:23+0000\n"
 "PO-Revision-Date: 2009-09-11 13:22+0200\n"
 "Last-Translator: Thomas Clement Mogensen <thomas@headnet.dk>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.dancing\n"
 
-#: ./browser/portlets/channelsubscribe.py:296
+#: ./browser/portlets/channelsubscribe.py:297
 msgid "${channel} options"
 msgstr "${channel} indstillinger"
 
@@ -50,7 +50,7 @@ msgstr "${sent} besked(er) sendt, ${failed} fejl."
 msgid "Add"
 msgstr "Tilføj"
 
-#: ./browser/portlets/channelsubscribe.py:459
+#: ./browser/portlets/channelsubscribe.py:460
 msgid "Add Channel Subscribe Portlet"
 msgstr "Tilføj abonneringsportlet"
 
@@ -93,7 +93,7 @@ msgstr "Udfør"
 msgid "Apply changes"
 msgstr "Udfør ændringer"
 
-#: ./browser/portlets/channelsubscribe.py:409
+#: ./browser/portlets/channelsubscribe.py:410
 msgid "Back to portlets"
 msgstr "Tilbage til portlets"
 
@@ -218,7 +218,7 @@ msgstr "Rediger ${selector} til ${channel}"
 msgid "Edit Channel ${channel}"
 msgstr "Rediger kanal ${channel}"
 
-#: ./browser/portlets/channelsubscribe.py:378
+#: ./browser/portlets/channelsubscribe.py:379
 msgid "Edit Channel Subscribe Portlet"
 msgstr "Rediger Abonneringsportlet"
 
@@ -681,7 +681,7 @@ msgstr "Dette er kun påkrævetm, hvis du klikker 'Skeduler udsendelse' nedenfor
 msgid "This is only required if you click 'Send preview' below"
 msgstr "Dette er kun nødvendigt hvis du klikker på 'Send forhåndsvisning' herunder"
 
-#: ./browser/portlets/channelsubscribe.py:415
+#: ./browser/portlets/channelsubscribe.py:416
 msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
 msgstr "Denne portlet gør det muligt for en besøgende at abonnere på en specifik nyhedsbrevskanal."
 

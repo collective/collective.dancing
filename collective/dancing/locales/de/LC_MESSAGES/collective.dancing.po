@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Singing & Dancing\n"
-"POT-Creation-Date: 2010-05-31 15:36+0000\n"
+"POT-Creation-Date: 2010-06-11 21:23+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Daniel Widerin <daniel.widerin@kombinat.at>\n"
 "Language-Team: David Picó Vila <david.pico.vila@gmail.com>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Poedit-Country: AUSTRIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ./browser/portlets/channelsubscribe.py:296
+#: ./browser/portlets/channelsubscribe.py:297
 msgid "${channel} options"
 msgstr "${channel} Einstellungen"
 
@@ -54,7 +54,7 @@ msgstr "${sent} Nachricht(en) gesendet, ${failed} fehlgeschlagen."
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: ./browser/portlets/channelsubscribe.py:459
+#: ./browser/portlets/channelsubscribe.py:460
 msgid "Add Channel Subscribe Portlet"
 msgstr "Portlet für direkte Anmeldung zu einem Newsletterthema hinzufügen"
 
@@ -97,7 +97,7 @@ msgstr "Übernehmen"
 msgid "Apply changes"
 msgstr "Änderungen übernehmen"
 
-#: ./browser/portlets/channelsubscribe.py:409
+#: ./browser/portlets/channelsubscribe.py:410
 msgid "Back to portlets"
 msgstr "Zurück zur Portletverwaltung"
 
@@ -222,7 +222,7 @@ msgstr "${selector} von ${channel} bearbeiten"
 msgid "Edit Channel ${channel}"
 msgstr "${channel} bearbeiten"
 
-#: ./browser/portlets/channelsubscribe.py:378
+#: ./browser/portlets/channelsubscribe.py:379
 msgid "Edit Channel Subscribe Portlet"
 msgstr "Portlet für direkte Anmeldung zu einem Newsletterthema bearbeiten"
 
@@ -684,7 +684,7 @@ msgstr "Dies ist nur erforderlich, falls Sie auf 'Plane Zustellung' klicken."
 msgid "This is only required if you click 'Send preview' below"
 msgstr "Dies ist nur erforderlich, falls Sie auf 'Vorschau versenden' klicken."
 
-#: ./browser/portlets/channelsubscribe.py:415
+#: ./browser/portlets/channelsubscribe.py:416
 msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
 msgstr "Dieses Portlet erlaubt einem Besucher sich zu einem oder mehreren Themenbereichen anzumelden."
 

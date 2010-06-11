@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-05-31 15:36+0000\n"
+"POT-Creation-Date: 2010-06-11 21:23+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: David Picó Vila <david.pico.vila@gmail.com>\n"
 "Language-Team: LANGUAGE\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 
 #. Default: "channel"
-#: ./browser/portlets/channelsubscribe.py:296
+#: ./browser/portlets/channelsubscribe.py:297
 msgid "${channel} options"
 msgstr "opciones de ${channel}"
 
@@ -55,7 +55,7 @@ msgstr ""
 msgid "Add"
 msgstr "Añadir"
 
-#: ./browser/portlets/channelsubscribe.py:459
+#: ./browser/portlets/channelsubscribe.py:460
 msgid "Add Channel Subscribe Portlet"
 msgstr "Añadir portlet de suscripción de canales"
 
@@ -98,7 +98,7 @@ msgstr "Aplicar"
 msgid "Apply changes"
 msgstr "Aplicar cambios"
 
-#: ./browser/portlets/channelsubscribe.py:409
+#: ./browser/portlets/channelsubscribe.py:410
 msgid "Back to portlets"
 msgstr "Volver a portlets"
 
@@ -227,7 +227,7 @@ msgstr ""
 msgid "Edit Channel ${channel}"
 msgstr "Editar canal ${channel}"
 
-#: ./browser/portlets/channelsubscribe.py:378
+#: ./browser/portlets/channelsubscribe.py:379
 msgid "Edit Channel Subscribe Portlet"
 msgstr "Editar el portlet de suscripción a canal"
 
@@ -691,7 +691,7 @@ msgstr ""
 msgid "This is only required if you click 'Send preview' below"
 msgstr "Esto sólo se requiere si haces clic en \"Enviar vista previa\" más abajo"
 
-#: ./browser/portlets/channelsubscribe.py:415
+#: ./browser/portlets/channelsubscribe.py:416
 msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
 msgstr "Este portlet permite a un visitante suscribirse a un canal específico de boletín de noticias."
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2010-05-31 15:36+0000\n"
+"POT-Creation-Date: 2010-06-11 21:23+0000\n"
 "PO-Revision-Date: 2008-11-26 12:55+0100\n"
 "Last-Translator: Radim Novotny <novotny.radim@gmail.com>\n"
 "Language-Team: CoreNet <info@corenet.cz>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Generated-By: zope/app/translation_files/extract.py\n"
 
 #. Default: "channel"
-#: ./browser/portlets/channelsubscribe.py:296
+#: ./browser/portlets/channelsubscribe.py:297
 msgid "${channel} options"
 msgstr "Nastavení ${channel}"
 
@@ -53,7 +53,7 @@ msgstr "Počet odeslaných zpráv: ${sent}, počet neodeslaných: ${failed}."
 msgid "Add"
 msgstr "Přidat"
 
-#: ./browser/portlets/channelsubscribe.py:459
+#: ./browser/portlets/channelsubscribe.py:460
 msgid "Add Channel Subscribe Portlet"
 msgstr "Přidat portlet přihlášení"
 
@@ -96,7 +96,7 @@ msgstr "Použít"
 msgid "Apply changes"
 msgstr "Použít změny"
 
-#: ./browser/portlets/channelsubscribe.py:409
+#: ./browser/portlets/channelsubscribe.py:410
 msgid "Back to portlets"
 msgstr "Zpět na správu portletů"
 
@@ -224,7 +224,7 @@ msgstr ""
 msgid "Edit Channel ${channel}"
 msgstr "Úprava kanálu ${channel}"
 
-#: ./browser/portlets/channelsubscribe.py:378
+#: ./browser/portlets/channelsubscribe.py:379
 msgid "Edit Channel Subscribe Portlet"
 msgstr "Nastavení portletu pro správu přihlášení"
 
@@ -688,7 +688,7 @@ msgstr ""
 msgid "This is only required if you click 'Send preview' below"
 msgstr "Vyplňte pouze v případě, že chcete použít funkci \"Odeslat náhled\" níže."
 
-#: ./browser/portlets/channelsubscribe.py:415
+#: ./browser/portlets/channelsubscribe.py:416
 msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
 msgstr "Tento portlet umožňuje návštěvníkům přihlásit se k odběru informací určitého kanálu."
 

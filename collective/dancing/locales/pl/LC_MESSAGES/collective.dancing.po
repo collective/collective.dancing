@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-05-31 15:36+0000\n"
+"POT-Creation-Date: 2010-06-11 21:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Barbara Struk <barbara.struk@gmail.com>\n"
 "Language-Team: Silva i18n team <walco@infrae.com>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Generated-By: zope/app/translation_files/extract.py\n"
 
 #. Default: "channel"
-#: ./browser/portlets/channelsubscribe.py:296
+#: ./browser/portlets/channelsubscribe.py:297
 msgid "${channel} options"
 msgstr "Opcje dla kanału ${channel}"
 
@@ -53,7 +53,7 @@ msgstr ""
 msgid "Add"
 msgstr "Dodaj"
 
-#: ./browser/portlets/channelsubscribe.py:459
+#: ./browser/portlets/channelsubscribe.py:460
 msgid "Add Channel Subscribe Portlet"
 msgstr "Dodaj portlet subskrybcji kanałów"
 
@@ -96,7 +96,7 @@ msgstr "Zastosuj"
 msgid "Apply changes"
 msgstr "Zastosuj zmiany"
 
-#: ./browser/portlets/channelsubscribe.py:409
+#: ./browser/portlets/channelsubscribe.py:410
 msgid "Back to portlets"
 msgstr "Powrót do portletów"
 
@@ -225,7 +225,7 @@ msgstr ""
 msgid "Edit Channel ${channel}"
 msgstr "Edytuj kanał ${channel}"
 
-#: ./browser/portlets/channelsubscribe.py:378
+#: ./browser/portlets/channelsubscribe.py:379
 msgid "Edit Channel Subscribe Portlet"
 msgstr "Edytuj portlet subskrybcji kanału"
 
@@ -689,7 +689,7 @@ msgstr ""
 msgid "This is only required if you click 'Send preview' below"
 msgstr "Wymagane tylko, jeśli kliniesz przycistk 'Wyślij podgląd' poniżej"
 
-#: ./browser/portlets/channelsubscribe.py:415
+#: ./browser/portlets/channelsubscribe.py:416
 msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
 msgstr "Ten portlet pozwala odwiedzającemu zapisać się do określonego kanału newsletter'a."
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.dancing\n"
-"POT-Creation-Date: 2010-05-31 15:36+0000\n"
+"POT-Creation-Date: 2010-06-11 21:23+0000\n"
 "PO-Revision-Date: 2008-11-12 17:26+0200\n"
 "Last-Translator: G. Gozadinos <ggozad@qiweb.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.dancing\n"
 
-#: ./browser/portlets/channelsubscribe.py:296
+#: ./browser/portlets/channelsubscribe.py:297
 msgid "${channel} options"
 msgstr "${channel} επιλογές"
 
@@ -50,7 +50,7 @@ msgstr "${sent} μηνύμα(τα) στάλθηκε/καν, ${failed} απέτυ
 msgid "Add"
 msgstr "Προσθήκη"
 
-#: ./browser/portlets/channelsubscribe.py:459
+#: ./browser/portlets/channelsubscribe.py:460
 msgid "Add Channel Subscribe Portlet"
 msgstr "Προσθέσθε Πλαίσιο Εγγραφής Καναλιού"
 
@@ -93,7 +93,7 @@ msgstr "Εφαρμογή"
 msgid "Apply changes"
 msgstr "Εφαρμογή αλλαγών"
 
-#: ./browser/portlets/channelsubscribe.py:409
+#: ./browser/portlets/channelsubscribe.py:410
 msgid "Back to portlets"
 msgstr "Πίσω στα πλαίσια"
 
@@ -218,7 +218,7 @@ msgstr "Επεξεργασία ${selector} για το ${channel}"
 msgid "Edit Channel ${channel}"
 msgstr "Επεξεργασία καναλιού ${channel}"
 
-#: ./browser/portlets/channelsubscribe.py:378
+#: ./browser/portlets/channelsubscribe.py:379
 msgid "Edit Channel Subscribe Portlet"
 msgstr "Επεξεργασία Πλαίσιου Εγγραφής Καναλιού"
 
@@ -680,7 +680,7 @@ msgstr "Αυτό απαιτείται μόνο αν επιλέξετε 'Προγ
 msgid "This is only required if you click 'Send preview' below"
 msgstr "Αυτό απαιτείται μόνο αν επιλέξετε 'Αποστολή προεπισκόπησης' παρακάτω"
 
-#: ./browser/portlets/channelsubscribe.py:415
+#: ./browser/portlets/channelsubscribe.py:416
 msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
 msgstr "Αυτό το πλαίσιο επιτρέπει σε έναν επισκέπτη να εγγραφεί σε ένα συγκεκριμένο κανάλι ενημερωτικού δελτίου."
 

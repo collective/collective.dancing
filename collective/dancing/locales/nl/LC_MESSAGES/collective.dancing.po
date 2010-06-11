@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.dancing 0.8.13\n"
-"POT-Creation-Date: 2010-05-31 15:36+0000\n"
+"POT-Creation-Date: 2010-06-11 21:23+0000\n"
 "PO-Revision-Date: 2010-06-01 13:27+0200\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Dutch <plone-nl@lists.plone.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Domain: collective.dancing\n"
 "X-Is-Fallback-For: nl-be nl-nl\n"
 
-#: ./browser/portlets/channelsubscribe.py:296
+#: ./browser/portlets/channelsubscribe.py:297
 msgid "${channel} options"
 msgstr "${channel} opties"
 
@@ -53,7 +53,7 @@ msgstr "${sent} bericht(en) verzonden, ${failed} mislukt."
 msgid "Add"
 msgstr "Toevoegen"
 
-#: ./browser/portlets/channelsubscribe.py:459
+#: ./browser/portlets/channelsubscribe.py:460
 msgid "Add Channel Subscribe Portlet"
 msgstr "Abonnementen portlet toevoegen"
 
@@ -96,7 +96,7 @@ msgstr "Toepassen"
 msgid "Apply changes"
 msgstr "Wijzigingen toepassen"
 
-#: ./browser/portlets/channelsubscribe.py:409
+#: ./browser/portlets/channelsubscribe.py:410
 msgid "Back to portlets"
 msgstr "Terug naar portlets"
 
@@ -221,7 +221,7 @@ msgstr "Wijzig ${selector} voor ${channel}"
 msgid "Edit Channel ${channel}"
 msgstr "Kanaal ${channel} bewerken"
 
-#: ./browser/portlets/channelsubscribe.py:378
+#: ./browser/portlets/channelsubscribe.py:379
 msgid "Edit Channel Subscribe Portlet"
 msgstr "Kanaal inschrijving portlet wijzigen"
 
@@ -684,7 +684,7 @@ msgstr "Dit is alleen verplicht als u beneden klikt op 'Plan verzending in'."
 msgid "This is only required if you click 'Send preview' below"
 msgstr "Dit is alleen verplicht indien u klikt op 'Voorbeeldweergave verzenden'"
 
-#: ./browser/portlets/channelsubscribe.py:415
+#: ./browser/portlets/channelsubscribe.py:416
 msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
 msgstr "Deze portlet staat bezoekers toe om zich in te schrijven voor een specifiek kanaal"
 

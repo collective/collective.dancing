@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.dancing 0.1\n"
-"POT-Creation-Date: 2010-05-31 15:36+0000\n"
+"POT-Creation-Date: 2010-06-11 21:23+0000\n"
 "PO-Revision-Date: 2008-11-19 17:40+0100\n"
 "Last-Translator: Sasha Vincic <sasha.vincic@valentinewebsystems.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Domain: collective.dancing\n"
 "Report-Msgid-Bugs-To: \n"
 
-#: ./browser/portlets/channelsubscribe.py:296
+#: ./browser/portlets/channelsubscribe.py:297
 msgid "${channel} options"
 msgstr ""
 
@@ -55,7 +55,7 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: ./browser/portlets/channelsubscribe.py:459
+#: ./browser/portlets/channelsubscribe.py:460
 msgid "Add Channel Subscribe Portlet"
 msgstr ""
 
@@ -98,7 +98,7 @@ msgstr ""
 msgid "Apply changes"
 msgstr ""
 
-#: ./browser/portlets/channelsubscribe.py:409
+#: ./browser/portlets/channelsubscribe.py:410
 msgid "Back to portlets"
 msgstr ""
 
@@ -223,7 +223,7 @@ msgstr ""
 msgid "Edit Channel ${channel}"
 msgstr ""
 
-#: ./browser/portlets/channelsubscribe.py:378
+#: ./browser/portlets/channelsubscribe.py:379
 msgid "Edit Channel Subscribe Portlet"
 msgstr ""
 
@@ -685,7 +685,7 @@ msgstr ""
 msgid "This is only required if you click 'Send preview' below"
 msgstr ""
 
-#: ./browser/portlets/channelsubscribe.py:415
+#: ./browser/portlets/channelsubscribe.py:416
 msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
 msgstr ""
 

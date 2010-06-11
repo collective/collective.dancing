@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-05-31 15:36+0000\n"
+"POT-Creation-Date: 2010-06-11 21:23+0000\n"
 "PO-Revision-Date: 2009-07-10 20:58-0300\n"
 "Last-Translator: Erico Andrei <erico@simplesconsultoria.com.br>\n"
 "Language-Team: Simples Consultoria <contato@simplesconsultoria.com.br>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: ./browser/portlets/channelsubscribe.py:296
+#: ./browser/portlets/channelsubscribe.py:297
 msgid "${channel} options"
 msgstr "Opções para ${channel}"
 
@@ -50,7 +50,7 @@ msgstr "${sent} mensagem(ns) enviada(s), ${failed} falha(s)."
 msgid "Add"
 msgstr "Adicionar"
 
-#: ./browser/portlets/channelsubscribe.py:459
+#: ./browser/portlets/channelsubscribe.py:460
 msgid "Add Channel Subscribe Portlet"
 msgstr "Adicionar portlet de assinatura de canal"
 
@@ -93,7 +93,7 @@ msgstr "Aplicar"
 msgid "Apply changes"
 msgstr "Aplicar alterações"
 
-#: ./browser/portlets/channelsubscribe.py:409
+#: ./browser/portlets/channelsubscribe.py:410
 msgid "Back to portlets"
 msgstr "Voltar aos portlets"
 
@@ -218,7 +218,7 @@ msgstr "Editar ${selector} para ${channel}"
 msgid "Edit Channel ${channel}"
 msgstr "Editar o canal ${channel}"
 
-#: ./browser/portlets/channelsubscribe.py:378
+#: ./browser/portlets/channelsubscribe.py:379
 msgid "Edit Channel Subscribe Portlet"
 msgstr "Editar o portlet de assinatura de canal"
 
@@ -680,7 +680,7 @@ msgstr "Apenas necessário caso você selecione 'Distribuição agendada' abaixo
 msgid "This is only required if you click 'Send preview' below"
 msgstr "Apenas necessário caso você selecione 'Enviar previsão' abaixo"
 
-#: ./browser/portlets/channelsubscribe.py:415
+#: ./browser/portlets/channelsubscribe.py:416
 msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
 msgstr "Este portlet permite ao visitante assinar um boletim específico."
 
