@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.dancing 0.1\n"
-"POT-Creation-Date: 2010-06-11 21:23+0000\n"
+"POT-Creation-Date: 2010-06-15 13:36+0000\n"
 "PO-Revision-Date: 2008-11-19 17:40+0100\n"
 "Last-Translator: jeanmichel.francois <jeanmichel.francois@makina-corpus.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -635,7 +635,7 @@ msgstr "Texte à faire apparaitre à la fin de tout message"
 
 #: ./browser/sendnewsletter.py:138
 msgid "The address to send the preview to is missing."
-msgstr ""
+msgstr "L'adresse du destinataire de la pré-visualisation est manquante."
 
 #: ./browser/portlets/channelsubscribe.py:41
 msgid "The channel to enable subscriptions to."
@@ -868,7 +868,7 @@ msgstr "Paramètres globaux"
 #. Default: "(Required)"
 #: ./browser/portlets/htmlstatusform.pt:39
 msgid "label_required"
-msgstr ""
+msgstr "(Requis)"
 
 #. Default: "Statistics"
 #: ./browser/controlpanel-links.pt:32
@@ -878,5 +878,5 @@ msgstr "Statistiques"
 #. Default: "Required"
 #: ./browser/portlets/htmlstatusform.pt:39
 msgid "title_required"
-msgstr ""
+msgstr "Champs requis"
 
