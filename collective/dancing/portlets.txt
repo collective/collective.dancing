@@ -154,7 +154,7 @@ Subscribe via portlet
   >>> browser.getControl('E-mail address').value = u'tmog@domain.tld'
   >>> browser.getControl('Subscribe').click()
   *TestingMailDelivery sending*:
-  From: Site Administrator <>
+  From:
   To: tmog@domain.tld
   Message follows:
   ...

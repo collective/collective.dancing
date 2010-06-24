@@ -2,7 +2,12 @@ import re
 import unittest
 from zope import interface, component
 import zope.sendmail.interfaces
-from zope.testing import doctest
+## For Plone-4
+try:
+    import doctest
+## For Plone-3
+except:
+    from zope.testing import doctest
 from zope.component import testing
 from Testing import ZopeTestCase as ztc
 from Products.Five import zcml

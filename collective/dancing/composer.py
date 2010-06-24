@@ -3,7 +3,12 @@ import atexit
 import datetime
 import logging
 import inspect
-import md5
+## For Plone-4
+try:
+    import hashlib
+## For Plone-3
+except:
+    import md5
 import re
 import os
 import string
@@ -170,7 +175,10 @@ class HTMLComposer(persistent.Persistent):
     @staticmethod
     def secret(data):
         salt = component.getUtility(collective.singing.interfaces.ISalt)
-        return md5.new("%s%s" % (data['email'], salt)).hexdigest()
+        try:
+            return hashlib.md5("%s%s" % (data['email'], salt)).hexdigest()
+        except NameError:
+            return md5.new("%s%s" % (data['email'], salt)).hexdigest()
 
     context = None
     @property
@@ -494,10 +502,18 @@ class SMTPMailer(zope.sendmail.mailer.SMTPMailer):
     def _fetch_settings(self):
         root = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
         m = root.MailHost
+        try:
+            username = m.smtp_userid or m.smtp_uid or None
+        except AttributeError:
+            username = m.smtp_uid or None
+        try:
+            password=m.smtp_pass or m.smtp_pwd or None
+        except AttributeError:
+            password=m.smtp_pwd or None
         return dict(hostname=m.smtp_host or 'localhost',
                     port=m.smtp_port,
-                    username=m.smtp_userid or m.smtp_uid or None,
-                    password=m.smtp_pass or m.smtp_pwd or None,)
+                    username=username,
+                    password=password,)
 
     def send(self, fromaddr, toaddrs, message):
         self.__dict__.update(self._fetch_settings())

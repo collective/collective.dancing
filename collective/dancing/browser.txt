@@ -650,7 +650,7 @@ We'll subscribe to events only:
   >>> browser.getControl('Finish').click() \
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *TestingMailDelivery sending*:
-  From: Site Administrator <>
+  From:
   To: root@domain.tld
   Message follows:
   ...
@@ -713,7 +713,7 @@ Users can also request an e-mail with their secret:
   >>> browser.getControl('Send my subscription details').click() \
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *TestingMailDelivery sending*:
-  From: Site Administrator <>
+  From:
   To: root@domain.tld
   Message follows:
   ...
@@ -742,7 +742,7 @@ For this, we'll quickly add another subscription:
   >>> browser.getControl('Finish').click() \
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   *TestingMailDelivery sending*:
-  From: Site Administrator <>
+  From:
   To: daemon@domain.tld...
 
   >>> msg = quopri.decodestring(delivery.sent[-1])
@@ -805,7 +805,7 @@ sent:
   Content-Type: multipart/mixed;
   ...
   Subject: Plone site: My other channel...
-  From: Site Administrator <>
+  From:
   To: daniel@domain.tld
   ...Super Bowl XLII...Drug-resistant flu rising, says WHO...
   To: mailman@domain.tld
@@ -1372,7 +1372,7 @@ This will trigger the confirmation mail to be sent out:
   >>> browser.getControl('E-mail address', index=1).value = "daemon@domain.tld"
   >>> browser.getControl('Subscribe', index=1).click()
   *TestingMailDelivery sending*:
-  From: Site Administrator <>
+  From:
   To: daemon@domain.tld
   Message follows:
   ...
@@ -1393,7 +1393,7 @@ contains our secret:
   >>> browser.getControl("Address").value = "daemon@domain.tld"
   >>> browser.getControl('Send').click()
   *TestingMailDelivery sending*:
-  From: Site Administrator <>
+  From:
   To: daemon@domain.tld
   Message follows:
   ...
@@ -1410,7 +1410,7 @@ pages. So the user is not forced to try subscribing first when she knows she alr
   >>> browser.getControl("Address").value = "daemon@domain.tld"
   >>> browser.getControl('Send').click()
   *TestingMailDelivery sending*:
-  From: Site Administrator <>
+  From:
   To: daemon@domain.tld
   Message follows:
   ...
@@ -1585,7 +1585,7 @@ Notice the form will complain if the email is already subscribed.
   >>> browser.getControl('E-mail address').value = "tmog@domain.tld"
   >>> browser.getControl('Apply').click()
   *TestingMailDelivery sending*:
-  From: Site Administrator <>
+  From:
   To: tmog@domain.tld
   Message follows:
   ...
@@ -1609,7 +1609,7 @@ contains our secret:
   >>> browser.getControl("Address").value = "root@domain.tld"
   >>> browser.getControl('Send').click()
   *TestingMailDelivery sending*:
-  From: Site Administrator <>
+  From:
   To: root@domain.tld
   Message follows:
   ...
