@@ -1127,7 +1127,7 @@ call a "timed scheduler":
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
   >>> "Schedule distribution" in browser.contents
   True
-  >>> browser.getControl("Newsletter").click()
+  >>> browser.getControl(name="form.widgets.channel:list").value = ['default-channel']
   >>> browser.getControl("Schedule distribution").click()
   >>> "Newsletter does not support scheduling" in browser.contents
   True

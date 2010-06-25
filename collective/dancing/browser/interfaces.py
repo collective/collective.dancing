@@ -6,10 +6,9 @@ from collective.dancing import MessageFactory as _
 import datetime
 
 class ISendAndPreviewForm(interface.Interface):
-    channels = schema.Set(
+    channel = schema.Choice(
         title=_(u"The channel to send this through"),
-        value_type=schema.Choice(
-        vocabulary='collective.singing.vocabularies.SendableChannelVocabulary')
+        vocabulary='collective.singing.vocabularies.SendableChannelVocabulary',
         )
 
     include_collector_items = schema.Bool(

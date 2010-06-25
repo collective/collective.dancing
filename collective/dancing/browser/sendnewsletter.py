@@ -71,7 +71,7 @@ class SendAsNewsletterForm(form.Form):
         if errors:
             return
 
-        for field_name in self.fields.omit('channels', 'address', 'datetime',
+        for field_name in self.fields.omit('channel', 'address', 'datetime',
                                            'include_collector_items'):
             if data[field_name] is not None:
                 override_vars[field_name] = data[field_name]
@@ -84,8 +84,8 @@ class SendAsNewsletterForm(form.Form):
         if errors:
             self.status = form.EditForm.formErrorsMessage
             return
-        channels = data['channels']
-        channel_paths = ['/'.join(c.getPhysicalPath()) for c in channels]
+        channel = data['channel']
+        channel_paths = ['/'.join(channel.getPhysicalPath())]
         context_path = '/'.join(self.context.getPhysicalPath())
         include_collector_items = data['include_collector_items']
         override_vars = self.get_override_vars()
@@ -93,10 +93,10 @@ class SendAsNewsletterForm(form.Form):
         job = collective.singing.async.Job(
             _assemble_messages,
             channel_paths, context_path, include_collector_items, override_vars)
-        title = _(u"Send '${context}' through ${channels}.",
+        title = _(u"Send '${context}' through ${channel}.",
                   mapping=dict(
             context=self.context.Title().decode(self.context.plone_utils.getSiteEncoding()),
-            channels=u', '.join([u'"%s"' % c.title for c in channels])))
+            channel=u'"%s"' % channel.title))
         job.title = title
         utils.get_queue().pending.append(job)
 
@@ -109,12 +109,8 @@ class SendAsNewsletterForm(form.Form):
             self.status = form.EditForm.formErrorsMessage
             return
 
-        channels = data['channels']
-        if len(channels) != 1:
-            self.status = _(u"Please select precisely one channel for preview.")
-            return
-
-        name = tuple(channels)[0].name
+        channel = data['channel']
+        name = channel.name
         include_collector_items = data['include_collector_items']
 
         params = {'name': name,
@@ -131,7 +127,7 @@ class SendAsNewsletterForm(form.Form):
         if errors:
             self.status = form.EditForm.formErrorsMessage
             return
-        channels = data['channels']
+        channel = data['channel']
         include_collector_items = data['include_collector_items']
         address = data['address']
         if not address:
@@ -139,20 +135,19 @@ class SendAsNewsletterForm(form.Form):
             return
 
         queued = 0
-        for channel in channels:
-            assembler = collective.singing.interfaces.IMessageAssemble(channel)
-            assembler.update_cue = False
-            subs = channel.subscriptions.query(key=address)
+        assembler = collective.singing.interfaces.IMessageAssemble(channel)
+        assembler.update_cue = False
+        subs = channel.subscriptions.query(key=address)
 
-            for sub in subs:
-                msg = assembler.render_message(
-                    self.request,
-                    sub,
-                    (FullFormatWrapper(self.context),),
-                    include_collector_items,
-                    self.get_override_vars())
-                if msg is not None:
-                    queued += 1
+        for sub in subs:
+            msg = assembler.render_message(
+                self.request,
+                sub,
+                (FullFormatWrapper(self.context),),
+                include_collector_items,
+                self.get_override_vars())
+            if msg is not None:
+                queued += 1
 
         self.status = _(
             u"${num} message(s) queued.", mapping=dict(num=queued))
@@ -172,23 +167,21 @@ class SendAsNewsletterForm(form.Form):
             self.status = form.EditForm.formErrorsMessage
             return
 
-        channels = data.get('channels', ())
-        for channel in channels:
-            if not isinstance(channel.scheduler,
-                              collective.singing.scheduler.TimedScheduler):
-                self.status = _("${name} does not support scheduling.",
-                                mapping=dict(name=channel.title))
-                return
+        channel = data['channel']
+        if not isinstance(channel.scheduler,
+                          collective.singing.scheduler.TimedScheduler):
+            self.status = _("${name} does not support scheduling.",
+                            mapping=dict(name=channel.title))
+            return
         if not data.get('datetime'):
             self.status = _("Please fill in a date.")
             return
 
-        for channel in channels:
-            # XXX: We want to get the UIDResolver through an adapter
-            # in the future
-            channel.scheduler.items.append((
-                data['datetime'], UIDResolver(self.context.UID()),
-                self.get_override_vars()))
+        # XXX: We want to get the UIDResolver through an adapter
+        # in the future
+        channel.scheduler.items.append((
+            data['datetime'], UIDResolver(self.context.UID()),
+            self.get_override_vars()))
 
         self.status = _("Successfully scheduled distribution.")
 
