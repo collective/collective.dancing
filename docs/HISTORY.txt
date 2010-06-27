@@ -9,6 +9,10 @@ History
   custom forms (although the changes necessary are simple).
   [regebro]
 
+- The "Send as newsletter" action is now no longer shown on folders by
+  default.
+  [regebro]
+  
 
 0.8.17 (2010-06-11)
 -------------------
