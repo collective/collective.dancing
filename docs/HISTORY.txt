@@ -1,10 +1,13 @@
 History
 =======
 
-0.8.18 (unreleased)
+0.9.0 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- The send form is now split into two subforms, one for send, and one for
+  preview. **NOTE!** This introduces incompatible changes if you are having
+  custom forms (although the changes necessary are simple).
+  [regebro]
 
 
 0.8.17 (2010-06-11)

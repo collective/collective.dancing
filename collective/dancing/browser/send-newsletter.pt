@@ -37,8 +37,10 @@
     var timed = <tal:block replace="view/timed_channels"/>;
     if (jQuery.inArray(selected, timed) != -1) {
       jQuery('#formfield-send-widgets-datetime').show()
+      jQuery('#send-buttons-schedule').show()
     } else {
       jQuery('#formfield-send-widgets-datetime').hide()
+      jQuery('#send-buttons-schedule').hide()
     };
   }
   
