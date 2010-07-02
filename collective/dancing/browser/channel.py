@@ -456,10 +456,8 @@ class UploadForm(crud.AddForm):
                                          self.context.composer.schema).keys())))
         )
         remove = schema.Bool(__name__ = 'removenonexisting',
-            title=_(u"Remove non-existing"),
-            description=_(u"If selected and a subscriber exists in the "
-                          u"database, but is not part of the uploaded file, "
-                          u"the subscriber will be removed from the list."),
+            title=_(u"Purge list."),
+            description=_(u"Purge list before import."),
             default = False
         )
         header_row_present = schema.Bool(__name__ = 'header_row_present',
