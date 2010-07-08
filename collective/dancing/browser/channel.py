@@ -455,6 +455,11 @@ class UploadForm(crud.AddForm):
                           mapping=dict(columns=';'.join(field.Fields(
                                          self.context.composer.schema).keys())))
         )
+        onlyremove = schema.Bool(__name__ = 'onlyremove',
+            title=_(u"Remove subscribers in list."),
+            description=_(u"Only purge subscribers present in this list."),
+            default = False
+        )
         remove = schema.Bool(__name__ = 'removenonexisting',
             title=_(u"Purge list."),
             description=_(u"Purge list before import."),
@@ -474,7 +479,7 @@ class UploadForm(crud.AddForm):
             default = u','
         )
 
-        return field.Fields(subscriberdata, remove,
+        return field.Fields(subscriberdata, remove, onlyremove,
                             header_row_present, csv_delimiter)
 
     @property
@@ -518,6 +523,7 @@ class UploadForm(crud.AddForm):
                         date=datetime.datetime.now())
 
         subscriberdata = data.get('subscriberdata', None)
+        onlyremove = data.get('onlyremove', False)
         remove = data.get('removenonexisting', False)
         header_row_present = data.get('header_row_present', False)
         delimiter = data.get('csv_delimiter', csv_delimiter)
@@ -533,40 +539,48 @@ class UploadForm(crud.AddForm):
         new_and_updated = []
         notadded = len(errorcandidates)
         current = self.mychannel.subscriptions
-        if remove:
+        if onlyremove or remove:
             old = sets.Set([sub.composer_data['email'] \
                             for sub in current.values()])
-        for subscriber_data in subscribers:
-            secret = collective.singing.subscribe.secret(self.mychannel,
-                                                         self.context.composer,
-                                                         subscriber_data,
-                                                         self.context.request)
-            try:
-                old_subscription = self._removeSubscription(secret)
-                item = current.add_subscription(self.mychannel, secret,
-                                                subscriber_data, [], metadata)
-                new_and_updated.append(subscriber_data['email'])
-                # restore section selection
-                if old_subscription is not None:
-                    old_collector_data = old_subscription[0].collector_data
-                    if 'selected_collectors' in old_collector_data \
-                       and old_collector_data['selected_collectors']:
-                        item.collector_data = old_collector_data
-                added += 1
-            except Exception, e: # XXX refine which exceptions we want to catch
-                # TODO; put some information about error e into the message
-                errorcandidates.append(subscriber_data.get('email',
-                                                           _(u'Unknown')))
-                notadded += 1
+        # maybe add subscribvers or just registered subscribers email list
+        if not onlyremove:
+            for subscriber_data in subscribers:
+                secret = collective.singing.subscribe.secret(self.mychannel,
+                                                             self.context.composer,
+                                                             subscriber_data,
+                                                             self.context.request)
+                try:
+                    old_subscription = self._removeSubscription(secret)
+                    item = current.add_subscription(self.mychannel, secret,
+                                                    subscriber_data, [], metadata)
+                    new_and_updated.append(subscriber_data['email'])
+                    # restore section selection
+                    if old_subscription is not None:
+                        old_collector_data = old_subscription[0].collector_data
+                        if 'selected_collectors' in old_collector_data \
+                           and old_collector_data['selected_collectors']:
+                            item.collector_data = old_collector_data
+                    added += 1
+                except Exception, e: # XXX refine which exceptions we want to catch
+                    # TODO; put some information about error e into the message
+                    errorcandidates.append(subscriber_data.get('email',
+                                                               _(u'Unknown')))
+                    notadded += 1
         removed = 0
-        if remove:
-            for email in old.difference(sets.Set(new_and_updated)):
+        if onlyremove or remove:
+            to_remove = old.difference(sets.Set(new_and_updated))
+            if onlyremove:
+                to_remove = old
+            for email in to_remove:
                 for key in current.keys():
                     if key.startswith(email):
                         current.remove_subscription(current[key])
                         removed += 1
                         break
-        if notadded:
+        if onlyremove:
+            msg = _(u"${numberremoved} subscriptions removed successfully!",
+                    mapping=dict(numberremoved=str(removed),))   
+        elif notadded:
             msg = _(u"${numberadded} subscriptions updated successfully. "
                     u"${numberremoved} removed. "
                     u"${numbernotadded} could not be added. "
@@ -590,8 +604,15 @@ class UploadForm(crud.AddForm):
     @z3c.form.button.buttonAndHandler(_('Upload'), name='upload')
     def handle_add(self, action):
         data, errors = self.extractData()
-        if errors:
+        onlyremove = data.get('onlyremove', False)
+        remove = data.get('removenonexisting', False)
+        cannot_remove_onlyremove = (remove and onlyremove)
+        if errors or cannot_remove_onlyremove:
             self.status = form.EditForm.formErrorsMessage
+            if cannot_remove_onlyremove:
+                self.status = _(
+                    u'You can not add things in purge only mode!'
+                )
             return
         try:
             self.status = self._addItem(data)
