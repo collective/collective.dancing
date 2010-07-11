@@ -130,38 +130,38 @@ class Browser(browser.Browser):
 
 def test_suite():
     return unittest.TestSuite([
-        #doctest.DocTestSuite('collective.dancing.channel'),
-        #doctest.DocTestSuite('collective.dancing.composer'),
-        #doctest.DocTestSuite('collective.dancing.utils'),
+        doctest.DocTestSuite('collective.dancing.channel'),
+        doctest.DocTestSuite('collective.dancing.composer'),
+        doctest.DocTestSuite('collective.dancing.utils'),
 
-        #doctest.DocFileSuite('transform.txt'),
+        doctest.DocFileSuite('transform.txt'),
 
-        #ztc.ZopeDocFileSuite(
-        #    'channel.txt',
-        #    test_class=ptc.PloneTestCase,
-        #),
+        ztc.ZopeDocFileSuite(
+            'channel.txt',
+            test_class=ptc.PloneTestCase,
+        ),
 
-        #ztc.ZopeDocFileSuite(
-        #    'collector.txt',
-        #    test_class=ptc.PloneTestCase,
-        #),
+        ztc.ZopeDocFileSuite(
+            'collector.txt',
+            test_class=ptc.PloneTestCase,
+        ),
 
-        #ztc.ZopeDocFileSuite(
-        #    'composer.txt',
-        #    test_class=ptc.PloneTestCase,
-        #),
+        ztc.ZopeDocFileSuite(
+            'composer.txt',
+            test_class=ptc.PloneTestCase,
+        ),
 
         ztc.ZopeDocFileSuite(
             'browser.txt',
             test_class=ptc.FunctionalTestCase,
             encoding='utf-8'
         ),
-        #ztc.ZopeDocFileSuite(
-        #    'portlets.txt',
-        #    test_class=ptc.FunctionalTestCase,
-        #),
-        #doctest.DocTestSuite(
-        #    'collective.dancing.composer',
-        #    setUp=testing.setUp, tearDown=testing.tearDown,
-        #),
+        ztc.ZopeDocFileSuite(
+            'portlets.txt',
+            test_class=ptc.FunctionalTestCase,
+        ),
+        doctest.DocTestSuite(
+            'collective.dancing.composer',
+            setUp=testing.setUp, tearDown=testing.tearDown,
+        ),
     ])
