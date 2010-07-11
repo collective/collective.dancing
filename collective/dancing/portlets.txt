@@ -8,7 +8,7 @@ Test Setup
 ----------
 
   >>> from Testing.ZopeTestCase import user_password
-  >>> from Products.Five.testbrowser import Browser
+  >>> from collective.dancing.tests import Browser
   >>> def new_browser():
   ...     browser = Browser()
   ...     browser.handleErrors = False
