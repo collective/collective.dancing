@@ -456,9 +456,9 @@ We do know how to delete it now !
   >>> browser.getControl(name='crud-add.html.widgets.onlyremove:list').value = ['true']
   >>> browser.getControl('Upload').click()
   >>> len(my_channel.subscriptions.query(key=u'pia@domain.tld'))
-  0
+  0 
   >>> len(my_channel.subscriptions.query(key=u'lars@domain.tld'))
-  1
+  1  
   >>> u'1 subscriptions removed successfully!' in browser.contents
   True
 
