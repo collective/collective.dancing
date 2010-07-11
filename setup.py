@@ -41,6 +41,7 @@ setup(name='collective.dancing',
           'StoneageHTML',
           'BeautifulSoup',
           'collective.monkeypatcher',
+          'zope.testbrowser',
       ],
       entry_points="""
       [z3c.autoinclude.plugin]

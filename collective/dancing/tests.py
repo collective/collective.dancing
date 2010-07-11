@@ -99,41 +99,69 @@ def setup_testing_maildelivery():
     component.provideUtility(delivery)
     return TestingMailDelivery
 
+from Products.Five import testbrowser
+from zope.testbrowser import browser
+import mechanize
+
+class PublisherMechanizeBrowser(mechanize.Browser):
+    """Special ``mechanize`` browser using the Zope Publisher HTTP handler."""
+
+    default_schemes = ['http']
+    default_others = ["_unknown", "_http_error", "_http_default_error"]
+    default_features = ['_redirect', '_cookies', '_referer', '_refresh',
+                        '_equiv', '_basicauth', '_digestauth',]
+
+    def __init__(self, *args, **kws):
+        inherited_handlers = ['_unknown', '_http_error',
+            '_http_default_error', '_basicauth',
+            '_digestauth', '_redirect', '_cookies', '_referer',
+            '_refresh', '_equiv', '_gzip']
+        self.handler_classes = {"http": testbrowser.PublisherHTTPHandler}
+        for name in inherited_handlers:
+            self.handler_classes[name] = mechanize.Browser.handler_classes[name]
+        mechanize.Browser.__init__(self, *args, **kws)
+
+class Browser(browser.Browser):
+    """overrides zope.testbrowser Browser to support nested forms (use of a recent mechanize version)"""
+    def __init__(self, url=None):
+        mech_browser = PublisherMechanizeBrowser()
+        mech_browser.handler_classes["http"] = testbrowser.PublisherHTTPHandler
+        super(Browser, self).__init__(url=url, mech_browser=mech_browser)
+
 def test_suite():
     return unittest.TestSuite([
+        #doctest.DocTestSuite('collective.dancing.channel'),
+        #doctest.DocTestSuite('collective.dancing.composer'),
+        #doctest.DocTestSuite('collective.dancing.utils'),
 
-        doctest.DocTestSuite('collective.dancing.channel'),
-        doctest.DocTestSuite('collective.dancing.composer'),
-        doctest.DocTestSuite('collective.dancing.utils'),
+        #doctest.DocFileSuite('transform.txt'),
 
-        doctest.DocFileSuite('transform.txt'),
+        #ztc.ZopeDocFileSuite(
+        #    'channel.txt',
+        #    test_class=ptc.PloneTestCase,
+        #),
 
-        ztc.ZopeDocFileSuite(
-            'channel.txt',
-            test_class=ptc.PloneTestCase,
-            ),
+        #ztc.ZopeDocFileSuite(
+        #    'collector.txt',
+        #    test_class=ptc.PloneTestCase,
+        #),
 
-        ztc.ZopeDocFileSuite(
-            'collector.txt',
-            test_class=ptc.PloneTestCase,
-            ),
-
-        ztc.ZopeDocFileSuite(
-            'composer.txt',
-            test_class=ptc.PloneTestCase,
-            ),
+        #ztc.ZopeDocFileSuite(
+        #    'composer.txt',
+        #    test_class=ptc.PloneTestCase,
+        #),
 
         ztc.ZopeDocFileSuite(
             'browser.txt',
             test_class=ptc.FunctionalTestCase,
             encoding='utf-8'
-            ),
-        ztc.ZopeDocFileSuite(
-            'portlets.txt',
-            test_class=ptc.FunctionalTestCase,
-            ),
-       doctest.DocTestSuite(
-           'collective.dancing.composer',
-           setUp=testing.setUp, tearDown=testing.tearDown,
-           ),
-        ])
+        ),
+        #ztc.ZopeDocFileSuite(
+        #    'portlets.txt',
+        #    test_class=ptc.FunctionalTestCase,
+        #),
+        #doctest.DocTestSuite(
+        #    'collective.dancing.composer',
+        #    setUp=testing.setUp, tearDown=testing.tearDown,
+        #),
+    ])
