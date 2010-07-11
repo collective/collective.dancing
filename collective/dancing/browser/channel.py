@@ -539,6 +539,8 @@ class UploadForm(crud.AddForm):
         new_and_updated = []
         notadded = len(errorcandidates)
         current = self.mychannel.subscriptions
+        if onlyremove:
+            new_and_updated = [s['email'] for s in subscribers] 
         if onlyremove or remove:
             old = sets.Set([sub.composer_data['email'] \
                             for sub in current.values()])
@@ -570,7 +572,7 @@ class UploadForm(crud.AddForm):
         if onlyremove or remove:
             to_remove = old.difference(sets.Set(new_and_updated))
             if onlyremove:
-                to_remove = old
+                to_remove = new_and_updated
             for email in to_remove:
                 for key in current.keys():
                     if key.startswith(email):
