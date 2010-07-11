@@ -12,7 +12,12 @@ History
 - The "Send as newsletter" action is now no longer shown on folders by
   default.
   [regebro]
-  
+
+- A new 'mass delete from csv' feature has been added to the channel
+  administration page. [kiorky]
+
+- French tranlaslations have been updated [kiorky]
+
 
 0.8.17 (2010-06-11)
 -------------------
@@ -51,7 +56,7 @@ History
   The revert has likely reintroduced a problem with deleting subscriptions,
   but I've been unable to reproduce this.
   [tmog]
-  
+
 - When importing email addresses, convert all addresses to lowercase
   instead of rejecting them.
   [maurits]
@@ -69,7 +74,7 @@ Version 0.8.16 - 2010-04-07
 
 - Updated Dutch translations.
   [maurits]
-  
+
 - Fixed a bug that made it impossible to delete some subscriptions.
   [regebro]
 
@@ -133,9 +138,9 @@ Version 0.8.13 - 2009-10-19
   [tmog]
 
 - Disabled stoneagehtml style attributes blacklist since it stripped
-  out font-familiy from the styles added to a channel which confused 
+  out font-familiy from the styles added to a channel which confused
   several users. This fixes http://tinyurl.com/ygmhv7a
-  Unfortunately its not possible to specify a custom 
+  Unfortunately its not possible to specify a custom
   black list like stoneagehtml.compactify(html, filter_tags=['position'...])
   since the stoneagehtml dosen't support that yet - http://tinyurl.com/ykwca4p.
   [pelle]
@@ -227,7 +232,7 @@ Version 0.8.6 - 2009-01-20
   mail.  This allows for a lo-fi way of marking parts of your template
   for exclusion if you can't be bothered to write your own
   ``IFormatItem``. [nouri]
-  
+
 - Added sort_criteria dict to the collector module. It allows to specify
   different query based on the current cue for different sort criteria.
   [naro]
@@ -258,18 +263,18 @@ Version 0.8.4 - 2009-01-02
 Version 0.8.3 - 2008-12-03
 --------------------------
 
-- Fix issue with unicodeerrors on statistics page because of bad Job-messages. 
+- Fix issue with unicodeerrors on statistics page because of bad Job-messages.
   Described in https://bugs.launchpad.net/singing-dancing/+bug/299950
   [tmog]
 
-- Part of Czech translation.  
+- Part of Czech translation.
   [naro]
 
-- Improved block structure and added classes and ids. Replaced paras with divs. 
+- Improved block structure and added classes and ids. Replaced paras with divs.
   These changes will impact existing CSS.  [russf]
 
-- Use of ``Template().substitute`` will be fatal on any un-escaped where $ will 
-  occur - like on all recent news items :( safe_substitute behaves properly in 
+- Use of ``Template().substitute`` will be fatal on any un-escaped where $ will
+  occur - like on all recent news items :( safe_substitute behaves properly in
   these cirumstances.  [russf]
 
 - Some refactoring in order to allow for more customized subscription forms.
@@ -277,7 +282,7 @@ Version 0.8.3 - 2008-12-03
 
 - Added french translation.
 
-- Made new job-view ``browser/jobs.pt`` translateable, rebuilt pot file and 
+- Made new job-view ``browser/jobs.pt`` translateable, rebuilt pot file and
   updated german translation.  [saily]
 
 Version 0.8.2 - 2008-11-17
@@ -337,8 +342,8 @@ Version 0.7.6 - 2008-11-05
 - German translation has been updated.
   [saily]
 
-- Used i18ndude to find all untranslated msgid's. There were some updates in 
-  collective.dancing queue-button-naming, so all guy's please help updating 
+- Used i18ndude to find all untranslated msgid's. There were some updates in
+  collective.dancing queue-button-naming, so all guy's please help updating
   collective.dancing's po files.  [saily]
 
 - Fixed a bug where when sending a preview we were incorrectly setting
@@ -374,14 +379,14 @@ Version 0.7.5 - 2008-10-27
 - Fixed an issue with installing collective.dancing from python.
   The event-listener registering ISalt on creation of a new tool
   no longer depends upon having a request. [tmog]
-  
-- zope.conf configuration with Virtual Host added in 
-  documentation [macadames]  
+
+- zope.conf configuration with Virtual Host added in
+  documentation [macadames]
 
 Version 0.7.4 - 2008-09-19
 --------------------------
 
-- Fix an issue where confirming pending subscriptions by visiting the "My 
+- Fix an issue where confirming pending subscriptions by visiting the "My
   subscriptions" page.  If a subscription is already confirmed the dictionary
   ``subscription.metadata`` does not have a key ``pending``.  [saily]
 
@@ -393,13 +398,13 @@ Version 0.7.3 - 2008-09-16
 
 - Removed bug in ``ManageSubscriptionsForm.remove``. When the search box
   was added we also changed the ``ManageSubscriptionsForm.get_items`` method
-  to return the secret instead of the name. The remove method was not updated, 
+  to return the secret instead of the name. The remove method was not updated,
   and delete of subscriptions did not work. [saily]
 
 - Removed bug in CSV-export. Export must have same ordered fields or
   columns as expected on import. As we are using the composer schema
   for import, we should use this for export too. [saily]
-  
+
 - Make CSV export and import use the same delimiter.
   [saily]
 
@@ -451,9 +456,9 @@ Version 0.7.0 - 2008-09-05
   component as an alternative to subclassing.
   [nouri]
 
-- Added missing header with containing style and title tag in 
-  ``composer-html-forgot.pt`` and ``composer-html-confirm.pt``. 
-  [saily] 
+- Added missing header with containing style and title tag in
+  ``composer-html-forgot.pt`` and ``composer-html-confirm.pt``.
+  [saily]
 
 Version 0.6.5 - 2008-09-04
 --------------------------
@@ -558,8 +563,8 @@ Version 0.5.1 - 2008-08-15
   should be a method. [malthe]
 
 - Added permissions to send, preview and manage newsletter. No upgrade
-  steps required - just reinstall. By default - send and preview is 
-  allowed to reviewer and manager role, manage newsletters for 
+  steps required - just reinstall. By default - send and preview is
+  allowed to reviewer and manager role, manage newsletters for
   managers only. [saily]
 
 Version 0.5.0 - 2008-07-29
@@ -571,7 +576,7 @@ Version 0.5.0 - 2008-07-29
 
 - List of subscribers can now be uploaded and downloaded in CSV format!
   [skatja]
-  
+
 - Depend on 0.3 or higher of plone.app.z3cform.
   [nouri]
 
@@ -686,7 +691,7 @@ New features
 - Refactored channels management view and the dedicated channel view.
   Big improvements to usability of the channel view.
   [malthe]
-  
+
 - Added capability to embed stylesheets in outgoing mail.  Right now,
   this is a simple text field that can be set on the channel's composer.
   We're now making use of the StoneAgeHTML library to embed styles in
@@ -760,15 +765,15 @@ Version 0.2 - 2008-05-06
   page to retrieve your password.
   [nouri]
 
-- added i18n:domain to browser/controlpanel-links.pt, removed extra quotes 
+- added i18n:domain to browser/controlpanel-links.pt, removed extra quotes
   from browser/channel.py, updated pot and danish translation
   [bartholdy]
 
 - updated .pot and danish translation
   [bartholdy]
 
-- apparently triplequoted strings do not get translated .. 
-  this takes care of 
+- apparently triplequoted strings do not get translated ..
+  this takes care of
   https://bugs.launchpad.net/singing-dancing/+bug/218448
   [bartholdy]
 
