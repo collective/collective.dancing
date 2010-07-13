@@ -123,10 +123,10 @@ However, it seems we do not have a widget for hidden mode ;-(
   >>> browser.open(portal.absolute_url())
   >>> print browser.contents # doctest +ELLIPSIS +NORMALIZE_WHITESPACE
   <!DOCTYPE...
-      <input type="hidden"
+      <input id="default-channel-html-widgets-collector-selected_collectors-0"
              name="default-channel.html.widgets.collector.selected_collectors:list"
-             class="hidden-widget" value="default-latest-news/0"
-             id="default-channel-html-widgets-collector-selected_collectors-0" />
+             value="default-latest-news/0" class="hidden-widget"
+	     type="hidden" />
   ...
 
 
@@ -139,10 +139,10 @@ What happens if we delete a collector option that is selected in the portlet?
   >>> browser.open(portal.absolute_url())
   >>> print browser.contents # doctest +ELLIPSIS +NORMALIZE_WHITESPACE
   <!DOCTYPE...
-      <input type="hidden"
+      <input id="default-channel-html-widgets-collector-selected_collectors-0"
              name="default-channel.html.widgets.collector.selected_collectors:list"
-             class="hidden-widget" value="default-latest-news/0"
-             id="default-channel-html-widgets-collector-selected_collectors-0" />
+             value="default-latest-news/0" class="hidden-widget" 
+	     type="hidden" />
   ...
 
   

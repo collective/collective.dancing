@@ -41,7 +41,7 @@ class IChannelSubscribePortlet(IPortletDataProvider):
     channel = schema.Choice(title=_(u"The channel to enable subscriptions to."),
                             description=_(u"Find the channel you want to enable direct subscription to"),
                             required=False,
-                            vocabulary='collective.singing.vocabularies.ChannelVocabulary'
+                            vocabulary='collective.singing.vocabularies.SubscribeableChannelVocabulary'
                             )
     description = schema.TextLine(title=_(u"Portlet description"),
                            description=_(u"Description of the rendered portlet"),
@@ -101,7 +101,6 @@ class Assignment(base.Assignment):
         def set(self, value):
             self._channel = value
         return property(get, set)
-
 
     @property
     def title(self):
