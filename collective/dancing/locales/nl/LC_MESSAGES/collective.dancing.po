@@ -657,7 +657,7 @@ msgid "The reply-to address that will appear in messages sent from this composer
 msgstr "Het reply-to-adres dat zal verschijnen in berichten gezonden vanaf deze composer."
 
 #: ./interfaces.py:25
-msgid "The sender name that will appear in messages sent from this composer."
+msgid "The sender name that will appear in messages sent from this channel."
 msgstr "De afzendernaam die zal verschijnen in berichten gezonden vanaf deze composer."
 
 #: ./interfaces.py:58

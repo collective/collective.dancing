@@ -637,7 +637,7 @@ msgid "The reply-to address that will appear in messages sent from this composer
 msgstr "Svar til-adresse som skal vises i meldinger sendt fra denne postlisten." 
 
 #: ./interfaces.py:25
-msgid "The sender name that will appear in messages sent from this composer."
+msgid "The sender name that will appear in messages sent from this channel."
 msgstr "Avsenderen navnet som vil vises i meldinger sendt fra denne postlisten."
 
 #: ./interfaces.py:58

@@ -653,7 +653,7 @@ msgid "The reply-to address that will appear in messages sent from this composer
 msgstr "O endereço de resposta que será utilizado nas mensagens enviadas a partir deste compositor."
 
 #: ./interfaces.py:25
-msgid "The sender name that will appear in messages sent from this composer."
+msgid "The sender name that will appear in messages sent from this channel."
 msgstr "Nome do remetente que será utilizado nas mensagens enviadas a partir deste compositor"
 
 #: ./interfaces.py:58

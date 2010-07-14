@@ -653,7 +653,7 @@ msgid "The reply-to address that will appear in messages sent from this composer
 msgstr "Η διεύθυνση απαντήσεων που θα εμφανίζεται στα μηνύματα που στέλνονται από αυτό το συνθέτη"
 
 #: ./interfaces.py:25
-msgid "The sender name that will appear in messages sent from this composer."
+msgid "The sender name that will appear in messages sent from this channel."
 msgstr "Το όνομα αποστολέα που θα εμφανίζεται στα μηνύματα που στέλνονται από αυτό το συνθέτη"
 
 #: ./interfaces.py:58

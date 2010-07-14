@@ -656,7 +656,7 @@ msgid "The reply-to address that will appear in messages sent from this composer
 msgstr "Bidalitako mezuetan agertuko den nori-erantzuteko helbidea."
 
 #: ./interfaces.py:25
-msgid "The sender name that will appear in messages sent from this composer."
+msgid "The sender name that will appear in messages sent from this channel."
 msgstr "Bidalitako mezuetan agertuko den bidaltzailearen izena."
 
 #: ./interfaces.py:58
