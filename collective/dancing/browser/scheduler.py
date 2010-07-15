@@ -93,7 +93,7 @@ class SchedulerEditView(BrowserView):
 
     def back_link(self):
         return dict(
-            label=_(u"Up to Channels administration"),
+            label=_(u"Up to Mailing-lists administration"),
             url=self.context.aq_inner.aq_parent.aq_parent.absolute_url())
 
     def contents(self):

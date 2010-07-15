@@ -241,7 +241,7 @@ class ISendAndPreviewFormWithCustomSubject(ISendAndPreviewForm):
         title=_(u"Custom Subject"),
         description=_(u"Enter a custom subject line for your newsletter here. "
                       "Leave blank to use the default subject for the chosen "
-                      "content and channel."),
+                      "content and mailing-list."),
         required=False)
 
 class SendFormWithCustomSubject(SendForm):

@@ -7,7 +7,7 @@ import datetime
 
 class ISendAndPreviewForm(interface.Interface):
     channel = schema.Choice(
-        title=_(u"The channel to send this through"),
+        title=_(u"The mailing-list to send this through"),
         vocabulary='collective.singing.vocabularies.SendableChannelVocabulary',
         )
 

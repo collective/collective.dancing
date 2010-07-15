@@ -91,7 +91,7 @@ class ChannelEditForm(crud.EditForm):
 class ManageChannelsForm(crud.CrudForm):
     """Crud form for channels."""
 
-    description = _("Add or edit channels that will use collectors to "
+    description = _("Add or edit mailing-lists that will use collectors to "
                     "gather and email specific sets of information from "
                     "your site, to subscribed email addresses, at scheduled "
                     "times.")
@@ -169,7 +169,7 @@ class ManageChannelsForm(crud.CrudForm):
 class ChannelAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
 
-    label = _(u'Channel administration')
+    label = _(u'Mailing-list administration')
     back_link = controlpanel.back_to_controlpanel
 
     def contents(self):
@@ -354,7 +354,7 @@ class EditChannelForm(z3c.form.form.EditForm):
 
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
 
-    description = _(u"Edit the properties of the channel.")
+    description = _(u"Edit the properties of the mailing-list.")
 
     @property
     def fields(self):
@@ -704,12 +704,12 @@ class ManageChannelView(BrowserView):
 
     @property
     def back_link(self):
-        return dict(label=_(u"Up to Channels administration"),
+        return dict(label=_(u"Up to Mailing-lists administration"),
                     url=self.context.aq_inner.aq_parent.absolute_url())
 
     @property
     def label(self):
-        return _(u'Edit Channel ${channel}',
+        return _(u'Edit Mailing-list ${channel}',
                  mapping={'channel':self.context.title})
 
     def contents(self):

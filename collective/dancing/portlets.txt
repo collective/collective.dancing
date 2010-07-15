@@ -82,16 +82,16 @@ Let's make sure both channels are subscribeable
   >>> browser.getControl('Apply').click()
   
   
-Create Channel subscribe portlet
+Create Mailing-list subscribe portlet
 --------------------------------
 
   >>> browser.open(portal.absolute_url())
   >>> browser.getLink('Manage portlets').click()
   >>> 'Add portlet' in browser.contents
   True
-  >>> browser.getControl('Add portlet', index=0).control.displayValue = ['Channel subscribe portlet']
+  >>> browser.getControl('Add portlet', index=0).control.displayValue = ['Mailing-list subscribe portlet']
   >>> browser.getControl('Add portlet', index=1).click()
-  >>> 'Add Channel Subscribe Portlet' in browser.contents
+  >>> 'Add Mailing-list Subscribe Portlet' in browser.contents
   True
   >>> browser.getControl('Portlet header').value = 'Subscribe to News'
   >>> browser.getControl('Portlet description').value = 'Enter your email to subscribe to our latest news.'
@@ -107,9 +107,9 @@ We do this manually by clicking the back link.
 Now lets edit it - setting subscriber options. We will choose to let the portlet set options, and choose only the News option.
 
   >>> browser.getLink('Subscribe to News').click()
-  >>> 'Edit Channel Subscribe Portlet' in browser.contents
+  >>> 'Edit Mailing-list Subscribe Portlet' in browser.contents
   True
-  >>> browser.getControl('The channel to enable subscriptions to.').displayValue = ['Newsletter']
+  >>> browser.getControl('The mailing-list to enable subscriptions to.').displayValue = ['Newsletter']
   >>> browser.getControl(name='form.widgets.subscribe_directly:list').value = ['true']
   >>> default_collector_options = browser.getControl('News').control
   >>> default_collector_options.displayOptions

@@ -89,7 +89,7 @@ def upgrade_scheduled_sends(tool):
                 try:
                     when, content = item
                     items.append((when, content, {}))
-                    logger.info('Upgrading scheduled item "%s" for channel "%s"' \
+                    logger.info('Upgrading scheduled item "%s" for mailing-list "%s"' \
                                 % (item, channel.Title()))
                 except ValueError:
                     items.append(item)

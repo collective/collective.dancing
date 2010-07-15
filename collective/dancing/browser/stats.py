@@ -90,7 +90,7 @@ class EditForm(crud.EditForm):
         self.status = _(u"Please select items to remove.")
         selected = self.selected_items()
         if selected:
-            self.status = _(u"Successfully removed old messages from channels.")
+            self.status = _(u"Successfully removed old messages from mailing-lists.")
             for id, stats in selected:
                 stats.channel.queue.clear()
 
@@ -99,13 +99,13 @@ class EditForm(crud.EditForm):
         self.status = _(u"Please select items with new messages to clear.")
         selected = self.selected_items()
         if selected:
-            self.status = _(u"Successfully cleared queued messages in channels.")
+            self.status = _(u"Successfully cleared queued messages in mailing-lists.")
             for id, stats in selected:
                 stats.channel.queue.clear(queue_names=('new','retry'))
 
     @button.buttonAndHandler(_('Send queued messages now'), name='send')
     def handle_send(self, action):
-        self.status = _(u"Please select which channel's queued e-mails"
+        self.status = _(u"Please select which mailing-list's queued e-mails"
                         " you'd like to send.")
         selected = self.selected_items()
         if selected:

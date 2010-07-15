@@ -23,7 +23,7 @@ class Subscription(collective.singing.subscribe.SimpleSubscription):
                         return channel
 
             raise AttributeError(
-                "%r is subscribed to unknown channel %r" % self._channel)
+                "%r is subscribed to unknown mailing-list %r" % self._channel)
 
         def set(self, channel):
             self._channel = channel

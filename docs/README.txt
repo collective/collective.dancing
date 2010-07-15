@@ -147,7 +147,7 @@ You'll now have an entry in the control panel to *Singing & Dancing*.
 This will lead you to to the advanced configuration panel of S&D.
 
 Note that there's already a default newsletter set up for your
-convenience.  You can create a *Channel subscribe portlet* to enable
+convenience.  You can create a *Mailing-list subscribe portlet* to enable
 your users to subscribe to this channel, or you can point them to
 http://yoursite/portal_newsletters/channels/default-channel/subscribe.html
 

@@ -22,7 +22,7 @@ class IHTMLComposer(collective.singing.interfaces.IComposer,
 
     from_name = schema.TextLine(
         title=_(u"From name"),
-        description=_(u"The sender name that will appear in messages sent from this channel."),
+        description=_(u"The sender name that will appear in messages sent from this mailing-list."),
         required=False,
         )
     from_address = schema.TextLine(

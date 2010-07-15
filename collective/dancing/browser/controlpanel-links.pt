@@ -1,11 +1,11 @@
   <dl i18n:domain="collective.dancing">
     <dt>
       <a i18n:translate="label_channel_administration" href="./channels">
-        Channel administration
+        Mailing-list administration
       </a>
     </dt>
     <dd i18n:translate="description_channel_administration">
-        A Channel is a hub of configuration.  It doesn't do anything by
+        A Mailing-list is a hub of configuration.  It doesn't do anything by
         itself.  Rather, it provides a number of components to configure
         and work with.  It is also the container of subscriptions to it.
     </dd>

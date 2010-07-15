@@ -25,7 +25,7 @@ import collective.dancing.utils
 from collective.dancing import MessageFactory as _
 
 def portal_newsletters():
-    """Return channels created with the newsletter tool."""
+    """Return mailing-lists created with the newsletter tool."""
 
     root = component.queryUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
     if root is None:
@@ -106,7 +106,7 @@ class ChannelContainer(OFS.Folder.Folder):
       ['your-channel']
     """
     def Title(self):
-        return u"Channels"
+        return u"Mailing-lists"
 
 @component.adapter(IChannelContainer,
                    zope.app.container.interfaces.IObjectAddedEvent)

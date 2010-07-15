@@ -38,8 +38,8 @@ class IChannelSubscribePortlet(IPortletDataProvider):
     header = schema.TextLine(title=_(u"Portlet header"),
                              description=_(u"Title of the rendered portlet"),
                              required=True)
-    channel = schema.Choice(title=_(u"The channel to enable subscriptions to."),
-                            description=_(u"Find the channel you want to enable direct subscription to"),
+    channel = schema.Choice(title=_(u"The mailing-list to enable subscriptions to."),
+                            description=_(u"Find the mailing-list you want to enable direct subscription to"),
                             required=False,
                             vocabulary='collective.singing.vocabularies.ChannelVocabulary'
                             )
@@ -51,7 +51,7 @@ class IChannelSubscribePortlet(IPortletDataProvider):
                             required=True,
                             default=True)
     footer_text = schema.TextLine(title=_(u"Footer text"),
-                             description=_(u"Text in footer - if omitted the channel title is used"),
+                             description=_(u"Text in footer - if omitted the mailing-list title is used"),
                              required=False)
 
     show_footer = schema.Bool(title=_(u"Show footer"),
@@ -376,7 +376,7 @@ class ChannelSubscribePortletEditForm(z3c.form.form.EditForm):
     fields = z3c.form.field.Fields(IChannelSubscribePortlet)
 
     css_class = 'editForm portletEditForm'
-    heading = _(u"Edit Channel Subscribe Portlet")
+    heading = _(u"Edit Mailing-list Subscribe Portlet")
 
     def update(self):
         super(ChannelSubscribePortletEditForm, self).update()
@@ -412,8 +412,8 @@ class ChannelSubscribePortletView(BrowserView):
 
 class ChannelSubscribePortletEditView(ChannelSubscribePortletView):
 
-    label = _(u"Edit Channel Subscribe Portlet")
-    description = _(u"This portlet allows a visitor to subscribe to a specific newsletter channel.")
+    label = _(u"Edit Mailing-list Subscribe Portlet")
+    description = _(u"This portlet allows a visitor to subscribe to a specific newsletter.")
 
     def contents(self):
         z2.switch_on(self)
@@ -457,7 +457,7 @@ class ChannelSubscribePortletAddForm(z3c.form.form.AddForm):
     fields = z3c.form.field.Fields(IChannelSubscribePortlet)
 
     css_class = 'addForm portletAddForm'
-    heading = _(u"Add Channel Subscribe Portlet")
+    heading = _(u"Add Mailing-list Subscribe Portlet")
 
     subforms = []
 
@@ -479,8 +479,8 @@ class ChannelSubscribePortletAddForm(z3c.form.form.AddForm):
 
 class ChannelSubscribePortletAddView(ChannelSubscribePortletView):
 
-    label = _(u"Add Channel Subscribe Portlet")
-    description = _(u"This portlet allows a visitor to subscribe to a specific newsletter channel.")
+    label = _(u"Add Mailing-list Subscribe Portlet")
+    description = _(u"This portlet allows a visitor to subscribe to a specific newsletter.")
 
     def contents(self):
         z2.switch_on(self)

@@ -40,12 +40,12 @@ reach it as an administrator through the 'Site Setup' link:
   >>> "Singing &amp; Dancing configuration" in browser.contents
   True
 
-Channels administration
+Mailing-lists administration
 -----------------------
 
 The admistration screen can be reached through Plone control panel:
 
-  >>> browser.getLink('Channel administration').click()
+  >>> browser.getLink('Mailing-list administration').click()
 
 Through this administration screen we can add and delete channels:
 
@@ -133,7 +133,7 @@ This one we need to subscribe to.
   >>> browser.getControl('Apply').click()
 
 
-Adding new types of Channels can be done very easily from external code.
+Adding new types of Mailing-lists can be done very easily from external code.
 Simpy add to the list of factories.
 
   >>> import collective.dancing.channel
@@ -332,7 +332,7 @@ throughout the site.  For now, let's create one item for each type:
   >>> workflow.doActionFor(events['super-bowl'], 'publish')
 
 
-Channel subscriptions
+Mailing-list subscriptions
 ---------------------
 
 Going back to the channel administration screen, we can click on the
@@ -813,7 +813,7 @@ Now let's unsubscribe:
 We're now no longer subscribed:
 
   >>> browser.open(channel.absolute_url() + '/unsubscribe.html?' + secret)
-  >>> "You aren't subscribed to this channel" in browser.contents
+  >>> "You aren't subscribed to this mailing-list" in browser.contents
   True
 
   >>> delivery.sent = []

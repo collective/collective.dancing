@@ -131,7 +131,7 @@ class Unsubscribe(BrowserView):
                 subs.remove_subscription(sub)
             self.status = _(u"You unsubscribed successfully.")
         else:
-            self.status = _(u"You aren't subscribed to this channel.")
+            self.status = _(u"You aren't subscribed to this mailing-list.")
 
         return self.template()
 

@@ -51,11 +51,13 @@ msgid "Add"
 msgstr "Adicionar"
 
 #: ./browser/portlets/channelsubscribe.py:460
-msgid "Add Channel Subscribe Portlet"
+#, fuzzy
+msgid "Add Mailing-list Subscribe Portlet"
 msgstr "Adicionar portlet de assinatura de canal"
 
 #: ./browser/channel.py:94
-msgid "Add or edit channels that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
+#, fuzzy
+msgid "Add or edit mailing-lists will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
 msgstr "Adicione ou edite os canais que utilizarão coleções para juntar e enviar conjuntos de informações do seu site para os assinantes, em horários agendados."
 
 #: ./browser/interfaces.py:23
@@ -127,7 +129,7 @@ msgid "Change your subscriptions with ${site_title}"
 msgstr "Modificar suas assinaturas em ${site_title}"
 
 #: ./browser/channel.py:172
-msgid "Channel administration"
+msgid "Mailing-list administration"
 msgstr "Administração de canais"
 
 #: ./browser/stats.py:131
@@ -215,11 +217,13 @@ msgid "Edit ${selector} for ${channel}"
 msgstr "Editar ${selector} para ${channel}"
 
 #: ./browser/channel.py:691
-msgid "Edit Channel ${channel}"
+#, fuzzy
+msgid "Edit Mailing-list ${channel}"
 msgstr "Editar o canal ${channel}"
 
 #: ./browser/portlets/channelsubscribe.py:379
-msgid "Edit Channel Subscribe Portlet"
+#, fuzzy
+msgid "Edit Mailing-list Subscribe Portlet"
 msgstr "Editar o portlet de assinatura de canal"
 
 #: ./browser/subscribe.py:36
@@ -227,7 +231,8 @@ msgid "Edit existing subscriptions"
 msgstr "Editar assinaturas existentes"
 
 #: ./browser/channel.py:357
-msgid "Edit the properties of the channel."
+#, fuzzy
+msgid "Edit the properties of the mailing-list."
 msgstr "Editar as propriedades deste canal."
 
 #: ./browser/composer.py:33
@@ -235,7 +240,8 @@ msgid "Edit the properties of the composer."
 msgstr "Editar as propriedades do compositor."
 
 #: ./browser/sendnewsletter.py:211
-msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and channel."
+#, fuzzy
+msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and mailing-list."
 msgstr "Informe o assunto para o seu boletim aqui. Deixe em branco para que seja utilizado o assunto padrão para este conteúdo e canal."
 
 #: ./browser/query.py:12
@@ -267,7 +273,8 @@ msgid "Fill out the form below to subscribe to ${channel}. Note that this is for
 msgstr ""
 
 #: ./browser/portlets/channelsubscribe.py:42
-msgid "Find the channel you want to enable direct subscription to"
+#, fuzzy
+msgid "Find the mailing-list you want to enable direct subscription to"
 msgstr "Encontre o canal que você quer habilitar a assinatura diretamente"
 
 #. Default: "Finished jobs"
@@ -437,7 +444,8 @@ msgid "Please select precisely one channel for preview."
 msgstr "Por favor selecione exatamente um canal para a previsão."
 
 #: ./browser/stats.py:108
-msgid "Please select which channel's queued e-mails you'd like to send."
+#, fuzzy
+msgid "Please select which mailing-lists's queued e-mails you'd like to send."
 msgstr "Por favor selecione quais mensagens enfileiradas você deseja enviar."
 
 #: ./browser/portlets/channelsubscribe.py:46
@@ -601,11 +609,13 @@ msgid "Subscriptions"
 msgstr "Assinaturas"
 
 #: ./browser/stats.py:102
-msgid "Successfully cleared queued messages in channels."
+#, fuzzy
+msgid "Successfully cleared queued messages in mailing-lists."
 msgstr "Fila de mensagens nos canais apagada de maneira bem sucedida."
 
 #: ./browser/stats.py:93
-msgid "Successfully removed old messages from channels."
+#, fuzzy
+msgid "Successfully removed old messages from mailing-lists."
 msgstr "Mensagens antigas removidas de maneira bem sucedida."
 
 #: ./browser/sendnewsletter.py:193
@@ -617,7 +627,8 @@ msgid "Template"
 msgstr ""
 
 #: ./browser/portlets/channelsubscribe.py:54
-msgid "Text in footer - if omitted the channel title is used"
+#, fuzzy
+msgid "Text in footer - if omitted the mailing-list title is used"
 msgstr "Texto no rodapé - caso omitido o título do canal será utilizado"
 
 #: ./interfaces.py:46
@@ -633,11 +644,13 @@ msgid "The address to send the preview to is missing."
 msgstr ""
 
 #: ./browser/portlets/channelsubscribe.py:41
-msgid "The channel to enable subscriptions to."
+#, fuzzy
+msgid "The mailing-list to enable subscriptions to."
 msgstr "O canal para habilitar as assinaturas."
 
 #: ./browser/interfaces.py:10
-msgid "The channel to send this through"
+#, fuzzy
+msgid "The mailing-list to send this through"
 msgstr "O canal a ser utilizado para envio."
 
 #: ./browser/channel.py:474
@@ -653,7 +666,8 @@ msgid "The reply-to address that will appear in messages sent from this composer
 msgstr "O endereço de resposta que será utilizado nas mensagens enviadas a partir deste compositor."
 
 #: ./interfaces.py:25
-msgid "The sender name that will appear in messages sent from this channel."
+#, fuzzy
+msgid "The sender name that will appear in messages sent from this mailing-list."
 msgstr "Nome do remetente que será utilizado nas mensagens enviadas a partir deste compositor"
 
 #: ./interfaces.py:58
@@ -681,7 +695,8 @@ msgid "This is only required if you click 'Send preview' below"
 msgstr "Apenas necessário caso você selecione 'Enviar previsão' abaixo"
 
 #: ./browser/portlets/channelsubscribe.py:416
-msgid "This portlet allows a visitor to subscribe to a specific newsletter channel."
+#, fuzzy
+msgid "This portlet allows a visitor to subscribe to a specific newsletter."
 msgstr "Este portlet permite ao visitante assinar um boletim específico."
 
 #: ./browser/collector.py:91
@@ -729,7 +744,8 @@ msgstr "Cancelar assinatura do boletm"
 
 #: ./browser/channel.py:686
 #: ./browser/scheduler.py:96
-msgid "Up to Channels administration"
+#, fuzzy
+msgid "Up to Mailing-list administration"
 msgstr "Voltar à administração de canais"
 
 #: ./browser/collector.py:335
@@ -778,7 +794,8 @@ msgid "You are currently subscribed to these newsletters:"
 msgstr "Você atualmente assina estes boletins:"
 
 #: ./browser/subscribe.py:134
-msgid "You aren't subscribed to this channel."
+#, fuzzy
+msgid "You aren't subscribed to this mailing-list."
 msgstr "Você não assina este canal."
 
 #. Default: "You can subscribe to these newsletters:"
@@ -823,7 +840,7 @@ msgstr "Sua assinatura não consta em nosso cadastro."
 msgid "Your subscription was updated."
 msgstr "Sua assinatura foi atualizada."
 
-#. Default: "A Channel is a hub of configuration. It doesn't do anything by itself. Rather, it provides a number of components to configure and work with. It is also the container of subscriptions to it."
+#. Default: "A Mailing-list is a hub of configuration. It doesn't do anything by itself. Rather, it provides a number of components to configure and work with. It is also the container of subscriptions to it."
 #: ./browser/controlpanel-links.pt:7
 #, fuzzy
 msgid "description_channel_administration"
@@ -845,8 +862,9 @@ msgstr ""
 msgid "description_statistics_administration"
 msgstr "Visualizar as estatísticas do boletim."
 
-#. Default: "Channel administration"
+#. Default: "Mailing-list administration"
 #: ./browser/controlpanel-links.pt:3
+#, fuzzy
 msgid "label_channel_administration"
 msgstr "Administração de canais."
 
