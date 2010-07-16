@@ -62,7 +62,8 @@ class ManageCollectorsForm(crud.CrudForm):
 class CollectorAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
 
-    label = _(u'Collector administration')
+    label = _(u"label_collector_administration",
+              default=u'Collector administration')
     back_link = controlpanel.back_to_controlpanel
 
     def contents(self):

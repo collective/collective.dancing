@@ -166,5 +166,6 @@ class StatsForm(crud.CrudForm):
 StatsView = layout.wrap_form(
     StatsForm,
     index=ViewPageTemplateFile('controlpanel.pt'),
-    label = _(u"Newsletter statistics"),
+    label = _(u"label_statistics_administration",
+              default=u"Newsletter statistics"),
     back_link = controlpanel.back_to_controlpanel)

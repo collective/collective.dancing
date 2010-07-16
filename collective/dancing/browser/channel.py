@@ -169,7 +169,8 @@ class ManageChannelsForm(crud.CrudForm):
 class ChannelAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
 
-    label = _(u'Mailing-list administration')
+    label = _(u"label_channel_administration",
+              default="Mailing-list administration")
     back_link = controlpanel.back_to_controlpanel
 
     def contents(self):
@@ -540,7 +541,7 @@ class UploadForm(crud.AddForm):
         notadded = len(errorcandidates)
         current = self.mychannel.subscriptions
         if onlyremove:
-            new_and_updated = [s['email'] for s in subscribers] 
+            new_and_updated = [s['email'] for s in subscribers]
         if onlyremove or remove:
             old = sets.Set([sub.composer_data['email'] \
                             for sub in current.values()])
@@ -581,7 +582,7 @@ class UploadForm(crud.AddForm):
                         break
         if onlyremove:
             msg = _(u"${numberremoved} subscriptions removed successfully!",
-                    mapping=dict(numberremoved=str(removed),))   
+                    mapping=dict(numberremoved=str(removed),))
         elif notadded:
             msg = _(u"${numberadded} subscriptions updated successfully. "
                     u"${numberremoved} removed. "
