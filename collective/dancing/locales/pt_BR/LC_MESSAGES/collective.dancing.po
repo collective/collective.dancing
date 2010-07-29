@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-06-11 21:23+0000\n"
+"POT-Creation-Date: 2010-07-02 12:26+0000\n"
 "PO-Revision-Date: 2009-07-10 20:58-0300\n"
 "Last-Translator: Erico Andrei <erico@simplesconsultoria.com.br>\n"
 "Language-Team: Simples Consultoria <contato@simplesconsultoria.com.br>\n"
@@ -18,19 +18,19 @@ msgstr ""
 msgid "${channel} options"
 msgstr "Opções para ${channel}"
 
-#: ./browser/sendnewsletter.py:179
+#: ./browser/sendnewsletter.py:101
 msgid "${name} does not support scheduling."
 msgstr "${name} não suporta agendamento."
 
-#: ./browser/channel.py:588
+#: ./browser/channel.py:586
 msgid "${numberadded} subscriptions updated successfully!"
 msgstr "${numberadded} assinaturas atualizadas com sucesso!"
 
-#: ./browser/channel.py:582
+#: ./browser/channel.py:580
 msgid "${numberadded} subscriptions updated successfully, ${numberremoved} removed!"
 msgstr "${numberadded} assinaturas atualizadas com sucesso, ${numberremoved} removidas!"
 
-#: ./browser/channel.py:572
+#: ./browser/channel.py:570
 msgid "${numberadded} subscriptions updated successfully. ${numberremoved} removed. ${numbernotadded} could not be added. (${errorcandidates})"
 msgstr "${numberadded} assinaturas atualizadas com sucesso. ${numberremoved} removidos. ${numbernotadded} não puderam ser adicionados (${errorcandidates})"
 
@@ -38,7 +38,7 @@ msgstr "${numberadded} assinaturas atualizadas com sucesso. ${numberremoved} rem
 msgid "${number} messages queued."
 msgstr "${number} mensagens enfileiradas."
 
-#: ./browser/sendnewsletter.py:157
+#: ./browser/sendnewsletter.py:190
 msgid "${num} message(s) queued."
 msgstr "${num} mensagem(ns) enfileirada(s)."
 
@@ -60,7 +60,7 @@ msgstr "Adicionar portlet de assinatura de canal"
 msgid "Add or edit mailing-lists will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
 msgstr "Adicione ou edite os canais que utilizarão coleções para juntar e enviar conjuntos de informações do seu site para os assinantes, em horários agendados."
 
-#: ./browser/interfaces.py:23
+#: ./browser/interfaces.py:22
 msgid "Address to send the preview to"
 msgstr "Endereço para enviar a mensagem de teste"
 
@@ -82,7 +82,7 @@ msgstr "Todas as mensagens, enviadas e com falhas, apagadas."
 msgid "Already subscribed?"
 msgstr "Já é assinante?"
 
-#: ./browser/interfaces.py:17
+#: ./browser/interfaces.py:16
 msgid "Append automatically collected content in this send-out"
 msgstr "Adiciona automaticamente o conteúdo coletado a este envio"
 
@@ -114,11 +114,11 @@ msgstr "Att."
 msgid "CSS Stylesheet"
 msgstr "CSS Stylesheet"
 
-#: ./browser/channel.py:466
+#: ./browser/channel.py:464
 msgid "CSV contains a header row"
 msgstr "CSV contém uma linha de cabeçalho"
 
-#: ./browser/channel.py:473
+#: ./browser/channel.py:471
 msgid "CSV delimiter"
 msgstr "Delimitador do CSV"
 
@@ -166,7 +166,7 @@ msgstr "Administração de coleções"
 msgid "Composer for format : ${format}"
 msgstr "Compositor para formato : ${format}"
 
-#: ./browser/channel.py:717
+#: ./browser/channel.py:715
 msgid "Composers"
 msgstr "Compositores"
 
@@ -178,7 +178,7 @@ msgstr "Confirme sua assinatura de ${channel-title}"
 msgid "Confirming your subscription"
 msgstr "Confirmando sua assinatura"
 
-#: ./browser/sendnewsletter.py:210
+#: ./browser/sendnewsletter.py:241
 msgid "Custom Subject"
 msgstr "Assunto personalizado"
 
@@ -196,7 +196,7 @@ msgstr "Descrição do portlet renderizado"
 msgid "Displays a form that lets you send this content item as a newsletter."
 msgstr "Exibe um formulário que permite enviar este conteúdo como um boletim."
 
-#: ./browser/channel.py:605
+#: ./browser/channel.py:603
 msgid "Download"
 msgstr "Baixar"
 
@@ -204,7 +204,7 @@ msgstr "Baixar"
 msgid "E-mail address"
 msgstr "Endereço de e-mail"
 
-#: ./browser/channel.py:716
+#: ./browser/channel.py:714
 msgid "Edit"
 msgstr "Editar"
 
@@ -216,7 +216,7 @@ msgstr "Editar ${collector}"
 msgid "Edit ${selector} for ${channel}"
 msgstr "Editar ${selector} para ${channel}"
 
-#: ./browser/channel.py:691
+#: ./browser/channel.py:689
 #, fuzzy
 msgid "Edit Mailing-list ${channel}"
 msgstr "Editar o canal ${channel}"
@@ -239,7 +239,7 @@ msgstr "Editar as propriedades deste canal."
 msgid "Edit the properties of the composer."
 msgstr "Editar as propriedades do compositor."
 
-#: ./browser/sendnewsletter.py:211
+#: ./browser/sendnewsletter.py:242
 #, fuzzy
 msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and mailing-list."
 msgstr "Informe o assunto para o seu boletim aqui. Deixe em branco para que seja utilizado o assunto padrão para este conteúdo e canal."
@@ -256,11 +256,11 @@ msgstr "Erro ao importar o arquivo de assinantes. %s"
 msgid "Failed messages"
 msgstr "Mensagens com falhas"
 
-#: ./browser/channel.py:533
+#: ./browser/channel.py:531
 msgid "File has incorrect format."
 msgstr "O arquivo está com formato incorreto."
 
-#: ./browser/channel.py:527
+#: ./browser/channel.py:525
 msgid "File was not given."
 msgstr "Arquivo não informado."
 
@@ -307,11 +307,7 @@ msgstr "E-mail HTML"
 msgid "Header text"
 msgstr "Cabeçalho"
 
-#: ./browser/channel.py:460
-msgid "If selected and a subscriber exists in the database, but is not part of the uploaded file, the subscriber will be removed from the list."
-msgstr "Caso selecionado e um assinante existir na base de dados, mas não for parte do arquivo, o assinante será removido da lista."
-
-#: ./browser/interfaces.py:16
+#: ./browser/interfaces.py:15
 msgid "Include collector items"
 msgstr "Incluir itens da coleção"
 
@@ -357,7 +353,7 @@ msgstr "Gerencie suas assinaturas"
 msgid "Message subject"
 msgstr "Assunto da mensagem"
 
-#: ./browser/sendnewsletter.py:103
+#: ./browser/sendnewsletter.py:88
 msgid "Messages queued for delivery."
 msgstr "Mensagens enfileiradas para entrega."
 
@@ -413,7 +409,7 @@ msgstr "Nenhum item encontrado."
 msgid "No messages queued."
 msgstr "Nenhuma mensagem enfileirada."
 
-#: ./browser/channel.py:632
+#: ./browser/channel.py:630
 msgid "Only some of your changes were saved"
 msgstr "Apenas algumas das suas modificações foram salvas."
 
@@ -427,7 +423,7 @@ msgstr "Tarefas pendentes"
 msgid "Please confirm your subscription"
 msgstr "Por favor confirme sua assinatura"
 
-#: ./browser/sendnewsletter.py:183
+#: ./browser/sendnewsletter.py:105
 msgid "Please fill in a date."
 msgstr "Por favor informe uma data."
 
@@ -438,10 +434,6 @@ msgstr "Por favor selecione os itens a serem removidos."
 #: ./browser/stats.py:99
 msgid "Please select items with new messages to clear."
 msgstr "Por favor selecione os itens com novas mensagens a serem apagadas."
-
-#: ./browser/sendnewsletter.py:114
-msgid "Please select precisely one channel for preview."
-msgstr "Por favor selecione exatamente um canal para a previsão."
 
 #: ./browser/stats.py:108
 #, fuzzy
@@ -456,7 +448,8 @@ msgstr "Descrição do portlet"
 msgid "Portlet header"
 msgstr "Cabeçalho do portlet"
 
-#: ./browser/channel.py:718
+#: ./browser/channel.py:716
+#: ./browser/sendnewsletter.py:137
 msgid "Preview"
 msgstr "Pré-visualizar"
 
@@ -468,6 +461,14 @@ msgstr "Prosseguir"
 msgid "Process jobs"
 msgstr "Processar tarefas"
 
+#: ./browser/channel.py:460
+msgid "Purge list before import."
+msgstr ""
+
+#: ./browser/channel.py:459
+msgid "Purge list."
+msgstr ""
+
 #: ./browser/collector.py:199
 msgid "Remove block"
 msgstr "Remover o bloco"
@@ -475,10 +476,6 @@ msgstr "Remover o bloco"
 #: ./browser/scheduler.py:78
 msgid "Remove entries"
 msgstr "Remover as entradas"
-
-#: ./browser/channel.py:459
-msgid "Remove non-existing"
-msgstr "Remover os não existentes"
 
 #: ./browser/stats.py:88
 msgid "Remove old messages"
@@ -496,15 +493,15 @@ msgstr "Mensagens para reenvio"
 msgid "Rich text"
 msgstr "Texto rico"
 
-#: ./browser/channel.py:648
+#: ./browser/channel.py:646
 msgid "Save"
 msgstr "Salvar"
 
-#: ./browser/sendnewsletter.py:167
+#: ./browser/sendnewsletter.py:90
 msgid "Schedule distribution"
 msgstr "Distribuição agendada"
 
-#: ./browser/interfaces.py:30
+#: ./browser/interfaces.py:29
 msgid "Scheduled time"
 msgstr "Horário de agendamento"
 
@@ -524,20 +521,20 @@ msgstr "Seções"
 msgid "See an in-browser preview of the newsletter."
 msgstr "Visualizar uma previsão do boletim em seu navegador"
 
-#: ./browser/channel.py:467
+#: ./browser/channel.py:465
 msgid "Select this if you want to use the csv header row to designate document variables.The header row must contain one 'email' field."
 msgstr "Clique aqui caso você queria designar o cabeçalho do csv como variáveis do documento. O cabeçalho dever conter ao menos um campo 'email'"
 
-#: ./browser/sendnewsletter.py:81
+#: ./browser/sendnewsletter.py:59
 msgid "Send"
 msgstr "Enviar"
 
-#: ./browser/sendnewsletter.py:202
+#: ./browser/sendnewsletter.py:233
 msgid "Send ${item} as newsletter"
 msgstr "Enviar ${item} como boletim"
 
-#: ./browser/sendnewsletter.py:96
-msgid "Send '${context}' through ${channels}."
+#: ./browser/sendnewsletter.py:81
+msgid "Send '${context}' through ${channel}."
 msgstr ""
 
 #. Default: "Send as newsletter"
@@ -545,7 +542,7 @@ msgstr ""
 msgid "Send as newsletter"
 msgstr "Enviar como boletim"
 
-#: ./browser/sendnewsletter.py:128
+#: ./browser/sendnewsletter.py:162
 msgid "Send preview"
 msgstr "Enviar previsão"
 
@@ -567,7 +564,7 @@ msgstr "Caso você já esteja assinando um de nossos boletins, por favor utilize
 msgid "Show footer"
 msgstr "Exibir rodapé"
 
-#: ./browser/sendnewsletter.py:105
+#: ./browser/sendnewsletter.py:143
 msgid "Show preview"
 msgstr "Exibir previsão"
 
@@ -600,11 +597,11 @@ msgstr "Assinar ${channel}"
 msgid "Subscribers"
 msgstr "Assinantes"
 
-#: ./browser/channel.py:607
+#: ./browser/channel.py:605
 msgid "Subscribers exported."
 msgstr "Assinantes exportados."
 
-#: ./browser/channel.py:713
+#: ./browser/channel.py:711
 msgid "Subscriptions"
 msgstr "Assinaturas"
 
@@ -618,7 +615,7 @@ msgstr "Fila de mensagens nos canais apagada de maneira bem sucedida."
 msgid "Successfully removed old messages from mailing-lists."
 msgstr "Mensagens antigas removidas de maneira bem sucedida."
 
-#: ./browser/sendnewsletter.py:193
+#: ./browser/sendnewsletter.py:114
 msgid "Successfully scheduled distribution."
 msgstr "Distribuição agendada de maneira bem sucedida."
 
@@ -639,7 +636,7 @@ msgstr "Texto a ser exibido no início de cada mensagem. Você pode utilizar var
 msgid "Text to appear at the end of every message"
 msgstr "Texto a ser exibido no final de cada mensagem"
 
-#: ./browser/sendnewsletter.py:138
+#: ./browser/sendnewsletter.py:172
 msgid "The address to send the preview to is missing."
 msgstr ""
 
@@ -653,7 +650,7 @@ msgstr "O canal para habilitar as assinaturas."
 msgid "The mailing-list to send this through"
 msgstr "O canal a ser utilizado para envio."
 
-#: ./browser/channel.py:474
+#: ./browser/channel.py:472
 msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
 msgstr "O delimitador no seu arquivo CSV (Usualmente ',' ou ';')"
 
@@ -686,11 +683,11 @@ msgstr "Parece haver um erro com a informação que você digitou."
 msgid "There were some errors."
 msgstr "Ocorreram alguns erros."
 
-#: ./browser/interfaces.py:31
+#: ./browser/interfaces.py:30
 msgid "This is only required if you click 'Schedule distribution' below"
 msgstr "Apenas necessário caso você selecione 'Distribuição agendada' abaixo"
 
-#: ./browser/interfaces.py:24
+#: ./browser/interfaces.py:23
 msgid "This is only required if you click 'Send preview' below"
 msgstr "Apenas necessário caso você selecione 'Enviar previsão' abaixo"
 
@@ -730,7 +727,7 @@ msgstr "Disparar agora"
 msgid "Type"
 msgstr "Tipo"
 
-#: ./browser/channel.py:561
+#: ./browser/channel.py:559
 msgid "Unknown"
 msgstr "Desconhecido"
 
@@ -742,7 +739,7 @@ msgstr "Cancelar assinatura"
 msgid "Unsubscribe from newsletter"
 msgstr "Cancelar assinatura do boletm"
 
-#: ./browser/channel.py:686
+#: ./browser/channel.py:684
 #: ./browser/scheduler.py:96
 #, fuzzy
 msgid "Up to Mailing-list administration"
@@ -768,7 +765,7 @@ msgstr "Enviar arquivo"
 msgid "Upload a CSV file with a list of subscribers here. Subscribers already present in the database will be overwritten. Each line should contain: ${columns}."
 msgstr "Enviar arquivo CSV com a lista de assinantes. Assinantes já existentes na base de dados serão sobreescritos. Cada linha deve conter: ${columns}"
 
-#: ./browser/channel.py:612
+#: ./browser/channel.py:610
 msgid "Upload list of subscribers."
 msgstr "Enviar lista de assinantes."
 

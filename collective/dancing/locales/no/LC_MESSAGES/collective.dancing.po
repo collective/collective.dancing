@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-06-11 21:23+0000\n"
+"POT-Creation-Date: 2010-07-02 12:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,19 +18,19 @@ msgstr ""
 msgid "${channel} options"
 msgstr "${channel} innstillinger"
 
-#: ./browser/sendnewsletter.py:179
+#: ./browser/sendnewsletter.py:101
 msgid "${name} does not support scheduling."
 msgstr "${name}  har ikke støtte for planlegging."
 
-#: ./browser/channel.py:588
+#: ./browser/channel.py:586
 msgid "${numberadded} subscriptions updated successfully!"
 msgstr "${numberadded} abonnementer oppdatert!"
 
-#: ./browser/channel.py:582
+#: ./browser/channel.py:580
 msgid "${numberadded} subscriptions updated successfully, ${numberremoved} removed!"
 msgstr "${numberadded} abonnementer oppdatert, ${numberremoved} fjernet!"
 
-#: ./browser/channel.py:572
+#: ./browser/channel.py:570
 msgid "${numberadded} subscriptions updated successfully. ${numberremoved} removed. ${numbernotadded} could not be added. (${errorcandidates})"
 msgstr "${numberadded} abonnementer oppdatert, ${numberremoved} fjernet. ${numbernotadded} kunne ikke legges til. (${errorcandidates})"
 
@@ -38,7 +38,7 @@ msgstr "${numberadded} abonnementer oppdatert, ${numberremoved} fjernet. ${numbe
 msgid "${number} messages queued."
 msgstr "${number} meldinger lagt til kø."
 
-#: ./browser/sendnewsletter.py:157
+#: ./browser/sendnewsletter.py:190
 msgid "${num} message(s) queued."
 msgstr "${num} melding(er) lagt til kø."
 
@@ -60,7 +60,7 @@ msgstr "Legg til Abonner-infoboks"
 msgid "Add or edit mailing-lists will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
 msgstr "Legg til eller rediger postlister som vil bruke samlere til å samle og e spesifikke sett av informasjon fra nettstedet, for å abonnerte e-postadresser, til fastsatte tider. "
 
-#: ./browser/interfaces.py:23
+#: ./browser/interfaces.py:22
 msgid "Address to send the preview to"
 msgstr "Adresse for å sende forhåndsvisningen til"
 
@@ -81,7 +81,7 @@ msgstr "Alle sendte og feilde medlinger slettet"
 msgid "Already subscribed?"
 msgstr "Allerede abonnert?"
 
-#: ./browser/interfaces.py:17
+#: ./browser/interfaces.py:16
 msgid "Append automatically collected content in this send-out"
 msgstr "Legg automatisk innsamlet innholdet i denne sending"
 
@@ -111,11 +111,11 @@ msgstr "Vennlig hilsen"
 msgid "CSS Stylesheet"
 msgstr "CSS Stylesheet"
 
-#: ./browser/channel.py:466
+#: ./browser/channel.py:464
 msgid "CSV contains a header row"
 msgstr "CSV inneholder en overskriftsrad"
 
-#: ./browser/channel.py:473
+#: ./browser/channel.py:471
 msgid "CSV delimiter"
 msgstr "CSV delimiter"
 
@@ -160,7 +160,7 @@ msgstr "Administrasjon av samlinger"
 msgid "Composer for format : ${format}"
 msgstr "Komponist for format: ${format}"
 
-#: ./browser/channel.py:717
+#: ./browser/channel.py:715
 msgid "Composers"
 msgstr "Komponister"
 
@@ -172,7 +172,7 @@ msgstr "Bekreft abonnementet for ${channel-title}"
 msgid "Confirming your subscription"
 msgstr "Bekrefter abonnementet"
 
-#: ./browser/sendnewsletter.py:210
+#: ./browser/sendnewsletter.py:241
 msgid "Custom Subject"
 msgstr "Tilpasset Emne"
 
@@ -188,7 +188,7 @@ msgstr "Beskrivelse av gjengitte infoboksen"
 msgid "Displays a form that lets you send this content item as a newsletter."
 msgstr "Viser et skjema som lar deg sende dette innholdet elementet som et nyhetsbrev."
 
-#: ./browser/channel.py:605
+#: ./browser/channel.py:603
 msgid "Download"
 msgstr "Nedlasting"
 
@@ -196,7 +196,7 @@ msgstr "Nedlasting"
 msgid "E-mail address"
 msgstr "E-postadresse"
 
-#: ./browser/channel.py:716
+#: ./browser/channel.py:714
 msgid "Edit"
 msgstr "Rediger"
 
@@ -208,7 +208,7 @@ msgstr "Rediger ${collector}"
 msgid "Edit ${selector} for ${channel}"
 msgstr "Rediger ${selector} for ${channel}"
 
-#: ./browser/channel.py:691
+#: ./browser/channel.py:689
 #, fuzzy
 msgid "Edit Mailing-list ${channel}"
 msgstr "Rediger postliste ${channel}"
@@ -231,7 +231,7 @@ msgstr "Redigere egenskapene for kanalen."
 msgid "Edit the properties of the composer."
 msgstr "Redigere egenskapene for komponisten."
 
-#: ./browser/sendnewsletter.py:211
+#: ./browser/sendnewsletter.py:242
 #, fuzzy
 msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and mailing-list."
 msgstr "Angi en egendefinert emne for nyhetsbrevet her. Om tomt brukes standard emnet for den valgte innhold og postliste."
@@ -248,11 +248,11 @@ msgstr "Feil under importering av abonnent fil. %s"
 msgid "Failed messages"
 msgstr "Klarte meldinger"
 
-#: ./browser/channel.py:533
+#: ./browser/channel.py:531
 msgid "File has incorrect format."
 msgstr "Fil har feil format."
 
-#: ./browser/channel.py:527
+#: ./browser/channel.py:525
 msgid "File was not given."
 msgstr "Ingen fil ble angitt"
 
@@ -298,11 +298,7 @@ msgstr "HTML E-post"
 msgid "Header text"
 msgstr "Topptekst"
 
-#: ./browser/channel.py:460
-msgid "If selected and a subscriber exists in the database, but is not part of the uploaded file, the subscriber will be removed from the list."
-msgstr ""
-
-#: ./browser/interfaces.py:16
+#: ./browser/interfaces.py:15
 msgid "Include collector items"
 msgstr "Inkluder samlingselementer"
 
@@ -346,7 +342,7 @@ msgstr "Administrer dine abonnementer"
 msgid "Message subject"
 msgstr "Meldingsemne"
 
-#: ./browser/sendnewsletter.py:103
+#: ./browser/sendnewsletter.py:88
 msgid "Messages queued for delivery."
 msgstr "Meldinger i kø for levering."
 
@@ -400,9 +396,9 @@ msgstr "Ingen poster funnet"
 
 #: ./browser/scheduler.py:36
 msgid "No messages queued."
-msgstr "Ingen meldinger i kø." 
+msgstr "Ingen meldinger i kø."
 
-#: ./browser/channel.py:632
+#: ./browser/channel.py:630
 msgid "Only some of your changes were saved"
 msgstr "Bare noen av endringene ble lagret"
 
@@ -412,23 +408,19 @@ msgstr "Jobber som venter"
 
 #: ./browser/composer-html-confirm.pt:14
 msgid "Please confirm your subscription"
-msgstr "Vennligst bekreft din påmelding" 
+msgstr "Vennligst bekreft din påmelding"
 
-#: ./browser/sendnewsletter.py:183
+#: ./browser/sendnewsletter.py:105
 msgid "Please fill in a date."
-msgstr "Vennligst fyll ut en dato." 
+msgstr "Vennligst fyll ut en dato."
 
 #: ./browser/stats.py:90
 msgid "Please select items to remove."
-msgstr "Velg poster å fjerne." 
+msgstr "Velg poster å fjerne."
 
 #: ./browser/stats.py:99
 msgid "Please select items with new messages to clear."
 msgstr "Vennligst velg poster med nye meldinger å rydde."
-
-#: ./browser/sendnewsletter.py:114
-msgid "Please select precisely one channel for preview."
-msgstr "Vennligst velg nøyaktig én kanal for forhåndsvisning."
 
 #: ./browser/stats.py:108
 #, fuzzy
@@ -443,7 +435,8 @@ msgstr "Infoboksbeskrivelse"
 msgid "Portlet header"
 msgstr "Infobokstopptekst"
 
-#: ./browser/channel.py:718
+#: ./browser/channel.py:716
+#: ./browser/sendnewsletter.py:137
 msgid "Preview"
 msgstr "Forhåndsvisning"
 
@@ -455,6 +448,14 @@ msgstr "Fortsett"
 msgid "Process jobs"
 msgstr "Prosess jobber"
 
+#: ./browser/channel.py:460
+msgid "Purge list before import."
+msgstr "Rydd listen før import."
+
+#: ./browser/channel.py:459
+msgid "Purge list."
+msgstr "Rydd liste."
+
 #: ./browser/collector.py:199
 msgid "Remove block"
 msgstr "Fjern blokk"
@@ -463,13 +464,9 @@ msgstr "Fjern blokk"
 msgid "Remove entries"
 msgstr "Fjern oppføringer"
 
-#: ./browser/channel.py:459
-msgid "Remove non-existing"
-msgstr "Fjern ikke-eksisterende" 
-
 #: ./browser/stats.py:88
 msgid "Remove old messages"
-msgstr "Fjern gamle meldinger" 
+msgstr "Fjern gamle meldinger"
 
 #: ./interfaces.py:40
 msgid "Reply-to address"
@@ -483,15 +480,15 @@ msgstr "Prøv meldinger på nytt"
 msgid "Rich text"
 msgstr "Fulltekst"
 
-#: ./browser/channel.py:648
+#: ./browser/channel.py:646
 msgid "Save"
 msgstr "Lagre"
 
-#: ./browser/sendnewsletter.py:167
+#: ./browser/sendnewsletter.py:90
 msgid "Schedule distribution"
 msgstr "Planlegg distribusjon"
 
-#: ./browser/interfaces.py:30
+#: ./browser/interfaces.py:29
 msgid "Scheduled time"
 msgstr "Planlagt tid"
 
@@ -511,27 +508,27 @@ msgstr "Deler"
 msgid "See an in-browser preview of the newsletter."
 msgstr "Se en forhåndsvisning av nyhetsbrevet."
 
-#: ./browser/channel.py:467
+#: ./browser/channel.py:465
 msgid "Select this if you want to use the csv header row to designate document variables.The header row must contain one 'email' field."
 msgstr "Velg dette hvis du vil bruke CSV overskriftsraden å utpeke variabler. Overskriftsraden må inneholde ett felt med navn 'email'."
 
-#: ./browser/sendnewsletter.py:81
+#: ./browser/sendnewsletter.py:59
 msgid "Send"
 msgstr "Send"
 
-#: ./browser/sendnewsletter.py:202
+#: ./browser/sendnewsletter.py:233
 msgid "Send ${item} as newsletter"
 msgstr "Send ${item} som nyhetsbrev"
 
-#: ./browser/sendnewsletter.py:96
-msgid "Send '${context}' through ${channels}."
-msgstr "Send '${context}' gjennom ${channels}."
+#: ./browser/sendnewsletter.py:81
+msgid "Send '${context}' through ${channel}."
+msgstr "Send '${context}' gjennom ${channel}."
 
 #: ./profiles/default/actions.xml
 msgid "Send as newsletter"
 msgstr "Send som nyhetsbrev"
 
-#: ./browser/sendnewsletter.py:128
+#: ./browser/sendnewsletter.py:162
 msgid "Send preview"
 msgstr "Send forhåndsvisning"
 
@@ -541,24 +538,24 @@ msgstr "Send meldinger i køen nå"
 
 #: ./browser/stats.py:36
 msgid "Sent messages"
-msgstr "Sendte meldinger" 
+msgstr "Sendte meldinger"
 
 #: ./browser/prettysubscriptions.pt:24
 #: ./browser/subscriptions.pt:34
 msgid "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
-msgstr "Skulle du være abonnerer allerede på en av våre lister, kan du bruke dette skjemaet til å hente en link til din personlige abonnementet siden:" 
+msgstr "Skulle du være abonnerer allerede på en av våre lister, kan du bruke dette skjemaet til å hente en link til din personlige abonnementet siden:"
 
 #: ./browser/portlets/channelsubscribe.py:57
 msgid "Show footer"
-msgstr "Vis bunntekst" 
+msgstr "Vis bunntekst"
 
-#: ./browser/sendnewsletter.py:105
+#: ./browser/sendnewsletter.py:143
 msgid "Show preview"
-msgstr "Vis forhåndsvisning" 
+msgstr "Vis forhåndsvisning"
 
 #: ./browser/controlpanel.py:19
 msgid "Singing & Dancing configuration"
-msgstr "Singing & Dancing konfigurasjon" 
+msgstr "Singing & Dancing konfigurasjon"
 
 #: ./channel.py:129
 msgid "Standard Channel"
@@ -584,11 +581,11 @@ msgstr "Abboner på ${channel}"
 msgid "Subscribers"
 msgstr "Abonnenter"
 
-#: ./browser/channel.py:607
+#: ./browser/channel.py:605
 msgid "Subscribers exported."
 msgstr "Abonnenter eksportert."
 
-#: ./browser/channel.py:713
+#: ./browser/channel.py:711
 msgid "Subscriptions"
 msgstr "Abonnement"
 
@@ -602,7 +599,7 @@ msgstr "Ryddet kø meldinger i postlister."
 msgid "Successfully removed old messages from mailing-lists."
 msgstr "Rydder gamle meldinger fra postlister."
 
-#: ./browser/sendnewsletter.py:193
+#: ./browser/sendnewsletter.py:114
 msgid "Successfully scheduled distribution."
 msgstr "Distribusjon planlagt."
 
@@ -623,7 +620,7 @@ msgstr "Tekst som vises i begynnelsen av hver melding. Du kan bruke en rekke var
 msgid "Text to appear at the end of every message"
 msgstr "Tekst som vises på slutten av hver melding"
 
-#: ./browser/sendnewsletter.py:138
+#: ./browser/sendnewsletter.py:172
 msgid "The address to send the preview to is missing."
 msgstr "Adressen å sende forhåndsvisningen til mangler."
 
@@ -637,7 +634,7 @@ msgstr "Kanalen for å aktivere abonnement på."
 msgid "The mailing-list to send this through"
 msgstr "Kanalen att sende dette gjennom"
 
-#: ./browser/channel.py:474
+#: ./browser/channel.py:472
 msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
 msgstr "Skilletegnen i CSV-filen. (Vanligvis ',' eller ';', men ingen anførselstegn er nødvendig.)"
 
@@ -647,7 +644,7 @@ msgstr "Fra adressen som vises i meldinger sendt fra denne postlisten."
 
 #: ./interfaces.py:41
 msgid "The reply-to address that will appear in messages sent from this composer."
-msgstr "Svar til-adresse som skal vises i meldinger sendt fra denne postlisten." 
+msgstr "Svar til-adresse som skal vises i meldinger sendt fra denne postlisten."
 
 #: ./interfaces.py:25
 #, fuzzy
@@ -670,11 +667,11 @@ msgstr "Det synes å være en feil med informasjonen du har angitt."
 msgid "There were some errors."
 msgstr "Det var noen feil."
 
-#: ./browser/interfaces.py:31
+#: ./browser/interfaces.py:30
 msgid "This is only required if you click 'Schedule distribution' below"
 msgstr "This is only required if you click 'Planlegg distribusjon' nedenfor"
 
-#: ./browser/interfaces.py:24
+#: ./browser/interfaces.py:23
 msgid "This is only required if you click 'Send preview' below"
 msgstr "This is only required if you click 'Send forhåndsvisning' nedenfor"
 
@@ -698,11 +695,11 @@ msgstr "For å bekrefte abonnementet med ${channel}, vennligst klikk her: ${url}
 
 #: ./browser/stats.py:25
 msgid "Total messages sent"
-msgstr "Totalt antall meldinger sendt" 
+msgstr "Totalt antall meldinger sendt"
 
 #: ./browser/stats.py:26
 msgid "Total number of messages sent successsfully"
-msgstr "Totalt antall meldinger sendt" 
+msgstr "Totalt antall meldinger sendt"
 
 #: ./browser/scheduler.py:28
 msgid "Trigger now"
@@ -713,7 +710,7 @@ msgstr "Trigger nå"
 msgid "Type"
 msgstr "Type"
 
-#: ./browser/channel.py:561
+#: ./browser/channel.py:559
 msgid "Unknown"
 msgstr "Ukjent"
 
@@ -725,7 +722,7 @@ msgstr "Avslutt abonnement"
 msgid "Unsubscribe from newsletter"
 msgstr "Avslutt abonnement på nyhetsbrev"
 
-#: ./browser/channel.py:686
+#: ./browser/channel.py:684
 #: ./browser/scheduler.py:96
 #, fuzzy
 msgid "Up to Mailing-list administration"
@@ -751,7 +748,7 @@ msgstr "Last opp"
 msgid "Upload a CSV file with a list of subscribers here. Subscribers already present in the database will be overwritten. Each line should contain: ${columns}."
 msgstr "Last opp en CSV-fil med en liste over abonnenter her. Abonnenter som allerede finnes i databasen vil bli overskrevet. Hver linje skal inneholde ${columns}."
 
-#: ./browser/channel.py:612
+#: ./browser/channel.py:610
 msgid "Upload list of subscribers."
 msgstr "Last opp liste over abonnenter."
 
