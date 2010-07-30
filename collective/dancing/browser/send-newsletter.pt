@@ -9,7 +9,7 @@
        tal:condition="view/status" tal:content="view/status">
   </div>
 
-  <form class="enableFormTabbing">
+  <div class="enableFormTabbing">
     <fieldset tal:repeat="form view/subforms" tal:attributes="id python:'fieldset-'+form.prefix[:-1]">
       <legend tal:attributes="id python:'fieldsetlegend-'+form.prefix[:-1]" tal:content="form/label">Title</legend>
 
@@ -20,14 +20,8 @@
       </div>
     
     </fieldset>
-    
-    <div>
-      <input type="hidden" name="fieldsets:list" 
-             tal:repeat="form view/subforms" 
-             tal:attributes="value python:form.prefix[:-1]"/>
-    </div>
-    
-  </form>
+        
+  </div>
   
   
   <tal:tag replace="structure string:<script>" />
