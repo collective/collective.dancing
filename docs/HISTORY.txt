@@ -16,8 +16,11 @@ History
 - A new 'mass delete from csv' feature has been added to the channel
   administration page. [kiorky]
 
-- French tranlaslations have been updated [kiorky]
+- French translations have been updated [kiorky]
 
+- "Channels" have been renamed "Mailing-lists" in the userinterface. [regebro]
+
+- Norwegian translation. [regebro]
 
 0.8.17 (2010-06-11)
 -------------------

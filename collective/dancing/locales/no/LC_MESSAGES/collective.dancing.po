@@ -51,12 +51,10 @@ msgid "Add"
 msgstr "Legg til"
 
 #: ./browser/portlets/channelsubscribe.py:460
-#, fuzzy
 msgid "Add Mailing-list Subscribe Portlet"
 msgstr "Legg til Abonner-infoboks"
 
 #: ./browser/channel.py:94
-#, fuzzy
 msgid "Add or edit mailing-lists will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
 msgstr "Legg til eller rediger postlister som vil bruke samlere til å samle og e spesifikke sett av informasjon fra nettstedet, for å abonnerte e-postadresser, til fastsatte tider. "
 
@@ -209,30 +207,26 @@ msgid "Edit ${selector} for ${channel}"
 msgstr "Rediger ${selector} for ${channel}"
 
 #: ./browser/channel.py:689
-#, fuzzy
 msgid "Edit Mailing-list ${channel}"
 msgstr "Rediger postliste ${channel}"
 
 #: ./browser/portlets/channelsubscribe.py:379
-#, fuzzy
 msgid "Edit Mailing-list Subscribe Portlet"
-msgstr "Regiger Abonner-infobox"
+msgstr "Rediger Abonner-infobox"
 
 #: ./browser/subscribe.py:36
 msgid "Edit existing subscriptions"
 msgstr "Redigere eksisterende abonnement"
 
 #: ./browser/channel.py:357
-#, fuzzy
 msgid "Edit the properties of the mailing-list."
-msgstr "Redigere egenskapene for kanalen."
+msgstr "Redigere egenskapene for postlisten."
 
 #: ./browser/composer.py:33
 msgid "Edit the properties of the composer."
 msgstr "Redigere egenskapene for komponisten."
 
 #: ./browser/sendnewsletter.py:242
-#, fuzzy
 msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and mailing-list."
 msgstr "Angi en egendefinert emne for nyhetsbrevet her. Om tomt brukes standard emnet for den valgte innhold og postliste."
 
@@ -265,7 +259,6 @@ msgid "Fill out the form below to subscribe to ${channel}. Note that this is for
 msgstr "Fyll ut skjemaet nedenfor for å abonnere på ${channel}. Vær oppmerksom på at dette er for nye abonnementer. Klikk her for å ${link_start}endre dine abonnement${link_end}."
 
 #: ./browser/portlets/channelsubscribe.py:42
-#, fuzzy
 msgid "Find the mailing-list you want to enable direct subscription to"
 msgstr "Finn den postlisten du vil aktivere direkte abonnement på"
 
@@ -423,7 +416,6 @@ msgid "Please select items with new messages to clear."
 msgstr "Vennligst velg poster med nye meldinger å rydde."
 
 #: ./browser/stats.py:108
-#, fuzzy
 msgid "Please select which mailing-lists's queued e-mails you'd like to send."
 msgstr "Velg hvilken postlistes kø du vil sende."
 
@@ -590,12 +582,10 @@ msgid "Subscriptions"
 msgstr "Abonnement"
 
 #: ./browser/stats.py:102
-#, fuzzy
 msgid "Successfully cleared queued messages in mailing-lists."
 msgstr "Ryddet kø meldinger i postlister."
 
 #: ./browser/stats.py:93
-#, fuzzy
 msgid "Successfully removed old messages from mailing-lists."
 msgstr "Rydder gamle meldinger fra postlister."
 
@@ -608,7 +598,6 @@ msgid "Template"
 msgstr "Mal"
 
 #: ./browser/portlets/channelsubscribe.py:54
-#, fuzzy
 msgid "Text in footer - if omitted the mailing-list title is used"
 msgstr "Bunntekst - hvis utelatt brukes postlistetittelen"
 
@@ -625,14 +614,12 @@ msgid "The address to send the preview to is missing."
 msgstr "Adressen å sende forhåndsvisningen til mangler."
 
 #: ./browser/portlets/channelsubscribe.py:41
-#, fuzzy
 msgid "The mailing-list to enable subscriptions to."
-msgstr "Kanalen for å aktivere abonnement på."
+msgstr "Postlisten for å aktivere abonnement på."
 
 #: ./browser/interfaces.py:10
-#, fuzzy
 msgid "The mailing-list to send this through"
-msgstr "Kanalen att sende dette gjennom"
+msgstr "Postlisten att sende dette gjennom"
 
 #: ./browser/channel.py:472
 msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
@@ -647,7 +634,6 @@ msgid "The reply-to address that will appear in messages sent from this composer
 msgstr "Svar til-adresse som skal vises i meldinger sendt fra denne postlisten."
 
 #: ./interfaces.py:25
-#, fuzzy
 msgid "The sender name that will appear in messages sent from this mailing-list."
 msgstr "Avsenderen navnet som vil vises i meldinger sendt fra denne postlisten."
 
@@ -676,7 +662,6 @@ msgid "This is only required if you click 'Send preview' below"
 msgstr "This is only required if you click 'Send forhåndsvisning' nedenfor"
 
 #: ./browser/portlets/channelsubscribe.py:416
-#, fuzzy
 msgid "This portlet allows a visitor to subscribe to a specific newsletter."
 msgstr "Denne infoboksen tillater en besøkende å abonnere på en bestemt nyhetsbrev."
 
@@ -724,7 +709,6 @@ msgstr "Avslutt abonnement på nyhetsbrev"
 
 #: ./browser/channel.py:684
 #: ./browser/scheduler.py:96
-#, fuzzy
 msgid "Up to Mailing-list administration"
 msgstr "Opp til administrasjon av postlister"
 
@@ -773,7 +757,6 @@ msgid "You are currently subscribed to these newsletters:"
 msgstr "Du abonnerer for tiden på disse nyhetsbrevene:"
 
 #: ./browser/subscribe.py:134
-#, fuzzy
 msgid "You aren't subscribed to this mailing-list."
 msgstr "Du abonnerer ikke på denne postlisten."
 
@@ -819,7 +802,6 @@ msgstr "Abonnementet ble oppdatert."
 
 #. Default: "A Mailing-list is a hub of configuration. It doesn't do anything by itself. Rather, it provides a number of components to configure and work with. It is also the container of subscriptions to it."
 #: ./browser/controlpanel-links.pt:7
-#, fuzzy
 msgid "description_channel_administration"
 msgstr "En postliste er et knutepunkt for konfigurasjon. Det trenger ikke gjøre noe av seg selv. Snarere gir det en rekke komponenter for å konfigurere og arbeide med. Det er også beholderen av abonnement til det."
 
@@ -840,7 +822,6 @@ msgstr "Vis nyhetsbrev statistikk"
 
 #. Default: "Mailing-list administration"
 #: ./browser/controlpanel-links.pt:3
-#, fuzzy
 msgid "label_channel_administration"
 msgstr "Postliste-administrasjon"
 
