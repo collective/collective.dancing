@@ -1,9 +1,13 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2010-07-30 09:24+0000\n"
-"PO-Revision-Date: 2009-09-11 13:22+0200\n"
-"Last-Translator: Thomas Clement Mogensen <thomas@headnet.dk>\n"
+"PO-Revision-Date: 2010-07-30 12:21+0200\n"
+"Last-Translator: Thomas Clement Mogensen <tmog@headnet.dk>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +40,7 @@ msgstr "${numberadded} abonnementer opdateret. ${numberremoved} fjernet. ${numbe
 
 #: ./browser/channel.py:584
 msgid "${numberremoved} subscriptions removed successfully!"
-msgstr ""
+msgstr "${numberremoved} abonnementer blev fjernet."
 
 #: ./browser/scheduler.py:33
 msgid "${number} messages queued."
@@ -55,13 +59,12 @@ msgid "Add"
 msgstr "Tilføj"
 
 #: ./browser/portlets/channelsubscribe.py:460
-#, fuzzy
 msgid "Add Mailing-list Subscribe Portlet"
 msgstr "Tilføj abonneringsportlet"
 
 #: ./browser/channel.py:94
 msgid "Add or edit mailing-lists that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
-msgstr ""
+msgstr "Tilføj og eller rediger postlister, der indsamler og udsender information fra dit site, til tilmeldte abonnenter, på fastlagte tidspunkter."
 
 #: ./browser/interfaces.py:22
 msgid "Address to send the preview to"
@@ -212,12 +215,10 @@ msgid "Edit ${selector} for ${channel}"
 msgstr "Rediger ${selector} til ${channel}"
 
 #: ./browser/channel.py:713
-#, fuzzy
 msgid "Edit Mailing-list ${channel}"
-msgstr "Rediger kanal ${channel}"
+msgstr "Rediger postlisten ${channel}"
 
 #: ./browser/portlets/channelsubscribe.py:379
-#, fuzzy
 msgid "Edit Mailing-list Subscribe Portlet"
 msgstr "Rediger Abonneringsportlet"
 
@@ -230,14 +231,12 @@ msgid "Edit the properties of the composer."
 msgstr "Rediger composerens egenskaber."
 
 #: ./browser/channel.py:358
-#, fuzzy
 msgid "Edit the properties of the mailing-list."
-msgstr "Rediger kanalens egenskaber."
+msgstr "Rediger postlistens egenskaber."
 
 #: ./browser/sendnewsletter.py:242
-#, fuzzy
 msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and mailing-list."
-msgstr "Indtast en Emne-linie til nyhedsbrevet her. Lad feltet være blankt for at benytte standard emnet for det valgte indhold og den valgt kanal."
+msgstr "Indtast en Emne-linie til nyhedsbrevet her. Lad feltet være blankt for at benytte standard emnet for det valgte indhold og den valgte postliste."
 
 #: ./browser/query.py:12
 msgid "Enter a search query to find content."
@@ -265,12 +264,11 @@ msgstr "Udfyld denne formular for at få adgang til at redigere dine abonnemente
 
 #: ./browser/subscribe.py:67
 msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to ${link_start}edit your subscriptions${link_end}."
-msgstr ""
+msgstr "Udfyld nedenstående formular for at abonnere på ${channel}. Bemærk at dette gælder nye abonnenter. Klik her forat ${link_start}redigere dine eksisterende abonnementer${link_end}."
 
 #: ./browser/portlets/channelsubscribe.py:42
-#, fuzzy
 msgid "Find the mailing-list you want to enable direct subscription to"
-msgstr "Find den kanal, du vil gøre direkte abonnerbar"
+msgstr "Find den postliste, du vil gøre direkte abonnerbar"
 
 #. Default: "Finished jobs"
 #: ./browser/jobs.pt:19
@@ -390,7 +388,7 @@ msgstr "Nyhedsbrev"
 
 #: ./channel.py:78
 msgid "Newsletters"
-msgstr ""
+msgstr "Postlister"
 
 #: ./browser/preview.py:79
 msgid "No items found."
@@ -402,7 +400,7 @@ msgstr "Ingen beskeder i kø."
 
 #: ./browser/channel.py:461
 msgid "Only purge subscribers present in this list."
-msgstr ""
+msgstr "Fjern kun abonnenter fra denne liste."
 
 #: ./browser/channel.py:654
 msgid "Only some of your changes were saved"
@@ -432,7 +430,7 @@ msgstr "Vælg venligst kanaler med nye beskeder der skal fjernes."
 
 #: ./browser/stats.py:108
 msgid "Please select which mailing-list's queued e-mails you'd like to send."
-msgstr ""
+msgstr "Vælg den postliste du vil udsende beskeder i køen fra."
 
 #: ./browser/portlets/channelsubscribe.py:46
 msgid "Portlet description"
@@ -457,11 +455,11 @@ msgstr "Behandl job"
 
 #: ./browser/channel.py:466
 msgid "Purge list before import."
-msgstr ""
+msgstr "Tøm listen før import"
 
 #: ./browser/channel.py:465
 msgid "Purge list."
-msgstr ""
+msgstr "Tøm listen."
 
 #: ./browser/collector.py:200
 msgid "Remove block"
@@ -477,7 +475,7 @@ msgstr "Fjern gamle beskeder"
 
 #: ./browser/channel.py:460
 msgid "Remove subscribers in list."
-msgstr ""
+msgstr "Fjern abonnenter i listen."
 
 #: ./interfaces.py:40
 msgid "Reply-to address"
@@ -533,7 +531,7 @@ msgstr "Send ${item} som nyhedsbrev"
 
 #: ./browser/sendnewsletter.py:81
 msgid "Send '${context}' through ${channel}."
-msgstr ""
+msgstr "Send '${context}' igennem ${channel}."
 
 #. Default: "Send as newsletter"
 #: ./profiles/default/actions.xml
@@ -605,14 +603,12 @@ msgid "Subscriptions"
 msgstr "Abonnementer"
 
 #: ./browser/stats.py:102
-#, fuzzy
 msgid "Successfully cleared queued messages in mailing-lists."
-msgstr "Beskeder i udsendelseskøerne for de valgt kanaler blev sletter."
+msgstr "Beskeder i udsendelseskøerne for de valgt postlister blev sletter."
 
 #: ./browser/stats.py:93
-#, fuzzy
 msgid "Successfully removed old messages from mailing-lists."
-msgstr "Gamle beskeder for de valgte kanaler blev slettet."
+msgstr "Gamle beskeder i de valgte postlister blev slettet."
 
 #: ./browser/sendnewsletter.py:114
 msgid "Successfully scheduled distribution."
@@ -620,12 +616,11 @@ msgstr "Skeduleret udsendelse oprettet."
 
 #: ./interfaces.py:62
 msgid "Template"
-msgstr ""
+msgstr "Skabelon"
 
 #: ./browser/portlets/channelsubscribe.py:54
-#, fuzzy
 msgid "Text in footer - if omitted the mailing-list title is used"
-msgstr "Tekst i footer - hvis udeladt bruges kanalens navn"
+msgstr "Tekst i footer - hvis udeladt bruges postlistens navn"
 
 #: ./interfaces.py:46
 msgid "Text to appear at the beginning of every message. You may use a number of variables here including ${subject}."
@@ -637,7 +632,7 @@ msgstr "Tekst der vil optræde i slutningen af hver udsendt besked."
 
 #: ./browser/sendnewsletter.py:172
 msgid "The address to send the preview to is missing."
-msgstr ""
+msgstr "Indtast venligst den adresse, forhåndsvisningen skal sendes til."
 
 #: ./browser/channel.py:478
 msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
@@ -648,23 +643,20 @@ msgid "The from address that will appear in messages sent from this composer."
 msgstr "'Fra'-adressen, som den vil optræde i beskeder sent af denne composer."
 
 #: ./browser/portlets/channelsubscribe.py:41
-#, fuzzy
 msgid "The mailing-list to enable subscriptions to."
-msgstr "Kanalen, der skal kunne abonneres på."
+msgstr "Den postliste, der skal kunne abonneres på."
 
 #: ./browser/interfaces.py:10
-#, fuzzy
 msgid "The mailing-list to send this through"
-msgstr "Kanalen der skal sendes gennem"
+msgstr "Den postliste, der skal sendes gennem"
 
 #: ./interfaces.py:41
 msgid "The reply-to address that will appear in messages sent from this composer."
 msgstr "'reply-to'-adressen, som den vil optræde i beskeder sent af denne composer."
 
 #: ./interfaces.py:25
-#, fuzzy
 msgid "The sender name that will appear in messages sent from this mailing-list."
-msgstr "Afsendernavnet, som det vil optræde i beskeder sent af denne composer."
+msgstr "Afsendernavnet, som det vil optræde i beskeder udsendt af denne postliste."
 
 #: ./interfaces.py:58
 msgid "The stylesheet will be applied to the document."
@@ -672,7 +664,7 @@ msgstr "Skriftsnitarket vil blive brugt på dokumentet."
 
 #: ./interfaces.py:63
 msgid "The template that will be used."
-msgstr ""
+msgstr "Den skabelon der skal benyttes."
 
 #: ./browser/subscribe.py:270
 msgid "There seems to be an error with the information you entered."
@@ -691,9 +683,8 @@ msgid "This is only required if you click 'Send preview' below"
 msgstr "Dette er kun nødvendigt hvis du klikker på 'Send forhåndsvisning' herunder"
 
 #: ./browser/portlets/channelsubscribe.py:416
-#, fuzzy
 msgid "This portlet allows a visitor to subscribe to a specific newsletter."
-msgstr "Denne portlet gør det muligt for en besøgende at abonnere på en specifik nyhedsbrevskanal."
+msgstr "Denne portlet gør det muligt for en besøgende at abonnere på en specifik postliste."
 
 #: ./browser/collector.py:92
 #: ./browser/stats.py:22
@@ -745,7 +736,7 @@ msgstr "Til administration af indsamlere"
 #: ./browser/channel.py:708
 #: ./browser/scheduler.py:96
 msgid "Up to Mailing-lists administration"
-msgstr ""
+msgstr "Op til Administration af postlister"
 
 #: ./browser/controlpanel.py:12
 msgid "Up to Singing & Dancing configuration"
@@ -777,7 +768,7 @@ msgstr "Benyt abonnementsside med kun en formular hvis det er muligt."
 
 #: ./browser/portlets/channelsubscribe.py:152
 msgid "You are already subscribed to this newsletter. Click here to ${link_start}edit your subscriptions${link_end}."
-msgstr ""
+msgstr "Du abonnerer allerede på dette nyhedsbrev. Klik her for at ${link_start}redigere dine abonnementer${link_end}."
 
 #: ./browser/subscribe.py:219
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
@@ -789,13 +780,12 @@ msgid "You are currently subscribed to these newsletters:"
 msgstr "Rediger dine tilmeldinger:"
 
 #: ./browser/subscribe.py:134
-#, fuzzy
 msgid "You aren't subscribed to this mailing-list."
-msgstr "Du abonnerer ikke på denne kanal."
+msgstr "Du abonnerer ikke på denne postliste."
 
 #: ./browser/channel.py:616
 msgid "You can not add things in purge only mode!"
-msgstr ""
+msgstr "Du kan ikke tilføj når du har valgt kun at fjerne abonnenter."
 
 #. Default: "You can subscribe to these newsletters:"
 #: ./browser/subscriptions.pt:28
@@ -829,7 +819,7 @@ msgstr "Din email-adresse er ugyldig"
 
 #: ./browser/subscribe.py:28
 msgid "Your email address is already subscribed. Click the 'Send my subscription details' button below."
-msgstr ""
+msgstr "Din e-mail-adresse er allerede tilmeldt. Klik på linket nedenfor for at redigere dine tilmeldinger."
 
 #: ./browser/subscribe.py:97
 msgid "Your subscription isn't known to us."
@@ -843,15 +833,13 @@ msgstr "Dine abonnementændringer blev gemt"
 # It is also the container of subscriptions to it."
 #. Default: "A Mailing-list is a hub of configuration. It doesn't do anything by itself. Rather, it provides a number of components to configure and work with. It is also the container of subscriptions to it."
 #: ./browser/controlpanel-links.pt:7
-#, fuzzy
 msgid "description_channel_administration"
-msgstr "En kanal er en sammenføjning af de elementer der udgør en nyhedsbrevskonfiguration - den gør intet i sig selv, men giver mulighed for at konfigurere en række delkomponenenter"
+msgstr "En postliste er en sammenføjning af de elementer der udgør en nyhedsbrevskonfiguration - den gør intet i sig selv, men giver mulighed for at konfigurere en række delkomponenenter. Den indeholder samtidig en liste over de tilmeldte abonnenter."
 
 #. Default: "Collectors are useful for automatic newsletters. They are responsible for assembling a list of items for publishing."
 #: ./browser/controlpanel-links.pt:18
-#, fuzzy
 msgid "description_collector_administration"
-msgstr "Indsamlere er nyttige ved automatiske nyhedsbreve. De står for indsamling af objeketer, der skal udsendes."
+msgstr "Indsamlere er nyttige til automatisk udsendte nyhedsbreve. De står for indsamling af objeketer, der skal udsendes."
 
 #. Default: "Change some aspects of how Singing & Dancing behaves."
 #: ./browser/controlpanel-links.pt:28
@@ -884,7 +872,7 @@ msgstr "Globale indstillinger"
 #. Default: "(Required)"
 #: ./browser/portlets/htmlstatusform.pt:39
 msgid "label_required"
-msgstr ""
+msgstr "(påkrævet)"
 
 #. Default: "Statistics"
 #: ./browser/controlpanel-links.pt:32
@@ -895,5 +883,5 @@ msgstr "Statistik"
 #. Default: "Required"
 #: ./browser/portlets/htmlstatusform.pt:39
 msgid "title_required"
-msgstr ""
+msgstr "Påkrævet"
 
