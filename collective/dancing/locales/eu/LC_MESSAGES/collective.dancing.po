@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-07-02 12:26+0000\n"
+"POT-Creation-Date: 2010-07-30 09:24+0000\n"
 "PO-Revision-Date: 2009-06-25 12:28+0100\n"
 "Last-Translator: Mikel Larreategi <mlarreategi@codesyntax.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,17 +25,21 @@ msgstr "${channel} aukerak"
 msgid "${name} does not support scheduling."
 msgstr "${name}k ez du antolaketa onartzen."
 
-#: ./browser/channel.py:586
+#: ./browser/channel.py:603
 msgid "${numberadded} subscriptions updated successfully!"
 msgstr "${numberadded} harpidetza ondo eguneratu dira!"
 
-#: ./browser/channel.py:580
+#: ./browser/channel.py:597
 msgid "${numberadded} subscriptions updated successfully, ${numberremoved} removed!"
 msgstr "${numberadded} harpidetza ondo eguneratu dira, ${numberremoved} ezabatu dira!"
 
-#: ./browser/channel.py:570
+#: ./browser/channel.py:587
 msgid "${numberadded} subscriptions updated successfully. ${numberremoved} removed. ${numbernotadded} could not be added. (${errorcandidates})"
 msgstr "${numberadded} harpidetza ondo eguneratu dira, ${numberremoved} ezabatu dira. ${numbernotadded} ezin izan dira gehitu. (${errorcandidates})"
+
+#: ./browser/channel.py:584
+msgid "${numberremoved} subscriptions removed successfully!"
+msgstr ""
 
 #: ./browser/scheduler.py:33
 msgid "${number} messages queued."
@@ -49,7 +53,7 @@ msgstr "${num} mezu ilaran gorde dira."
 msgid "${sent} message(s) sent, ${failed} failure(s)."
 msgstr "${sent} mezu bidali dira, ${failed} errore."
 
-#: ./browser/collector.py:183
+#: ./browser/collector.py:184
 msgid "Add"
 msgstr "Gehitu"
 
@@ -59,9 +63,8 @@ msgid "Add Mailing-list Subscribe Portlet"
 msgstr "Gehitu buletinera harpidetzeko portleta"
 
 #: ./browser/channel.py:94
-#, fuzzy
-msgid "Add or edit mailing-lists will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
-msgstr "Gehitu edo editatu zure webguneko edukia informazio-bildumak erabiliz e-postaz , harpidetutako helbideetera, konfiguratutako epeetan, bidaliko dituzten buletinak."
+msgid "Add or edit mailing-lists that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
+msgstr ""
 
 #: ./browser/interfaces.py:22
 msgid "Address to send the preview to"
@@ -117,11 +120,11 @@ msgstr "Agur bat"
 msgid "CSS Stylesheet"
 msgstr "CSS estilo orria"
 
-#: ./browser/channel.py:464
+#: ./browser/channel.py:470
 msgid "CSV contains a header row"
 msgstr "CSV fitxategiak goiburukoa dauka"
 
-#: ./browser/channel.py:471
+#: ./browser/channel.py:477
 msgid "CSV delimiter"
 msgstr "CSV fitxategiko edukien banatzailea"
 
@@ -130,10 +133,6 @@ msgstr "CSV fitxategiko edukien banatzailea"
 #: ./composer.py:352
 msgid "Change your subscriptions with ${site_title}"
 msgstr "${site_title} webguneko zure harpidetzak aldatu"
-
-#: ./browser/channel.py:172
-msgid "Mailing-list administration"
-msgstr "Buletinen kudeaketa"
 
 #: ./browser/stats.py:131
 msgid "Clear finished jobs"
@@ -161,15 +160,11 @@ msgstr "Portletaren oina erakusteko hemen egin klik"
 msgid "Click here to unsubscribe."
 msgstr "Egin klik hemen harpidetza eteteko"
 
-#: ./browser/collector.py:65
-msgid "Collector administration"
-msgstr "Informazio-bildumen kudeaketa"
-
 #: ./browser/composer.py:42
 msgid "Composer for format : ${format}"
 msgstr "Formatuarentzako egilea: ${format}"
 
-#: ./browser/channel.py:715
+#: ./browser/channel.py:739
 msgid "Composers"
 msgstr "Egileaak"
 
@@ -199,7 +194,7 @@ msgstr "Portletaren deskribapena"
 msgid "Displays a form that lets you send this content item as a newsletter."
 msgstr "Eduki hau buletin gisa bidaltzeko formularioa erakustarazten du."
 
-#: ./browser/channel.py:603
+#: ./browser/channel.py:627
 msgid "Download"
 msgstr "Deskargatu"
 
@@ -207,11 +202,11 @@ msgstr "Deskargatu"
 msgid "E-mail address"
 msgstr "E-posta helbidea"
 
-#: ./browser/channel.py:714
+#: ./browser/channel.py:738
 msgid "Edit"
 msgstr "Editatu"
 
-#: ./browser/collector.py:331
+#: ./browser/collector.py:332
 msgid "Edit ${collector}"
 msgstr "${collector} editatu"
 
@@ -219,7 +214,7 @@ msgstr "${collector} editatu"
 msgid "Edit ${selector} for ${channel}"
 msgstr "${channel} buletinean ${selector} editatu"
 
-#: ./browser/channel.py:689
+#: ./browser/channel.py:713
 #, fuzzy
 msgid "Edit Mailing-list ${channel}"
 msgstr "${channel} buletina editatu"
@@ -233,14 +228,14 @@ msgstr "Buletinera harpidetzeko portleta editatu"
 msgid "Edit existing subscriptions"
 msgstr "Harpidetzak editatu"
 
-#: ./browser/channel.py:357
-#, fuzzy
-msgid "Edit the properties of the mailing-list."
-msgstr "Buletinaren propietateak editatu"
-
 #: ./browser/composer.py:33
 msgid "Edit the properties of the composer."
 msgstr "Egilearen propietateak editatu"
+
+#: ./browser/channel.py:358
+#, fuzzy
+msgid "Edit the properties of the mailing-list."
+msgstr "Buletinaren propietateak editatu"
 
 #: ./browser/sendnewsletter.py:242
 #, fuzzy
@@ -251,7 +246,7 @@ msgstr "Idatzi bidaliko den buletinaren Gaia eremua. Utzi hutsik defektuzko gaia
 msgid "Enter a search query to find content."
 msgstr "Edukia bilatzeko testua sartu"
 
-#: ./browser/channel.py:418
+#: ./browser/channel.py:419
 msgid "Error importing subscriber file. %s"
 msgstr "Errorea harpidedunen fitxategia inportatzerakoan. %s"
 
@@ -259,11 +254,11 @@ msgstr "Errorea harpidedunen fitxategia inportatzerakoan. %s"
 msgid "Failed messages"
 msgstr "Huts egin duten mezuak"
 
-#: ./browser/channel.py:531
+#: ./browser/channel.py:538
 msgid "File has incorrect format."
 msgstr "Fitxategiaren formatua ez da egokia."
 
-#: ./browser/channel.py:525
+#: ./browser/channel.py:532
 msgid "File was not given."
 msgstr "Ez duzu fitxategirik kargatu."
 
@@ -298,7 +293,7 @@ msgstr "Bidaltzailearen helbidea"
 msgid "From name"
 msgstr "Bidaltzailearen izena"
 
-#: ./browser/channel.py:332
+#: ./browser/channel.py:333
 msgid "Generate"
 msgstr "Sortu"
 
@@ -318,15 +313,15 @@ msgstr "Informazio-bildumako elementuak gehitu."
 msgid "Information on how to confirm your subscription has been sent to you."
 msgstr "Zure harpidetza konfirmatzeko informazioa bidali dizugu."
 
-#: ./browser/collector.py:191
+#: ./browser/collector.py:192
 msgid "Item added successfully."
 msgstr "Elementua ondo gehitu da."
 
-#: ./browser/collector.py:202
+#: ./browser/collector.py:203
 msgid "Item successfully deleted."
 msgstr "Elementua ezabatuta."
 
-#: ./browser/collector.py:235
+#: ./browser/collector.py:236
 msgid "Item successfully moved."
 msgstr "Elementua ondo mugitu da-"
 
@@ -343,7 +338,7 @@ msgstr "Lanaren izenburua"
 msgid "Last Change"
 msgstr "Azken aldaketa"
 
-#: ./browser/channel.py:219
+#: ./browser/channel.py:220
 msgid "Manage or add subscriptions."
 msgstr "Harpidetzak kudeatu edo gehitu"
 
@@ -376,11 +371,11 @@ msgstr "Erroredun mezuak"
 msgid "Messages with errors in the retry queue"
 msgstr "Berriz saiatzeko ilaran erroredun mezuak daude"
 
-#: ./browser/collector.py:238
+#: ./browser/collector.py:239
 msgid "Move block down"
 msgstr "Blokea behera mugitu"
 
-#: ./browser/collector.py:231
+#: ./browser/collector.py:232
 msgid "Move block up"
 msgstr "Blokea gora mugitu"
 
@@ -396,10 +391,6 @@ msgstr "Mezu berriak"
 msgid "Newsletter"
 msgstr "Buletina"
 
-#: ./browser/stats.py:169
-msgid "Newsletter statistics"
-msgstr "Buletinaren estatistikak"
-
 #: ./channel.py:78
 msgid "Newsletters"
 msgstr ""
@@ -412,7 +403,11 @@ msgstr "Ez da elementurik aurkitu."
 msgid "No messages queued."
 msgstr "Ez dago mezurik ilaran"
 
-#: ./browser/channel.py:630
+#: ./browser/channel.py:461
+msgid "Only purge subscribers present in this list."
+msgstr ""
+
+#: ./browser/channel.py:654
 msgid "Only some of your changes were saved"
 msgstr "Zure aldaketa batzuk bakarrik gorde dira"
 
@@ -439,9 +434,8 @@ msgid "Please select items with new messages to clear."
 msgstr "Garbitu beharrezko mezu berriak dituzten elementuak aukeratu."
 
 #: ./browser/stats.py:108
-#, fuzzy
-msgid "Please select which mailing-lists's queued e-mails you'd like to send."
-msgstr "Aukeratu zein ilaran dauden mezuen artetik zein buletinetakoak bidali nahi dituzun."
+msgid "Please select which mailing-list's queued e-mails you'd like to send."
+msgstr ""
 
 #: ./browser/portlets/channelsubscribe.py:46
 msgid "Portlet description"
@@ -451,7 +445,7 @@ msgstr "Portletaren deskribapena"
 msgid "Portlet header"
 msgstr "Portletaren goiburua"
 
-#: ./browser/channel.py:716
+#: ./browser/channel.py:740
 #: ./browser/sendnewsletter.py:137
 msgid "Preview"
 msgstr "Aurreikusi"
@@ -464,15 +458,15 @@ msgstr "Aurrera"
 msgid "Process jobs"
 msgstr "Lanak abiarazi"
 
-#: ./browser/channel.py:460
+#: ./browser/channel.py:466
 msgid "Purge list before import."
 msgstr ""
 
-#: ./browser/channel.py:459
+#: ./browser/channel.py:465
 msgid "Purge list."
 msgstr ""
 
-#: ./browser/collector.py:199
+#: ./browser/collector.py:200
 msgid "Remove block"
 msgstr "Blokea ezabatu"
 
@@ -483,6 +477,10 @@ msgstr "Sarrerak ezabatu"
 #: ./browser/stats.py:88
 msgid "Remove old messages"
 msgstr "Mezu zaharrak ezabatu"
+
+#: ./browser/channel.py:460
+msgid "Remove subscribers in list."
+msgstr ""
 
 #: ./interfaces.py:40
 msgid "Reply-to address"
@@ -496,7 +494,7 @@ msgstr "Berriz saiatu"
 msgid "Rich text"
 msgstr "Testua"
 
-#: ./browser/channel.py:646
+#: ./browser/channel.py:670
 msgid "Save"
 msgstr "Gorde"
 
@@ -508,11 +506,11 @@ msgstr "Banaketa antolatu"
 msgid "Scheduled time"
 msgstr "Programatutako ordua"
 
-#: ./browser/channel.py:190
+#: ./browser/channel.py:191
 msgid "Search"
 msgstr "Bilatu"
 
-#: ./browser/channel.py:187
+#: ./browser/channel.py:188
 msgid "Search subscribers"
 msgstr "Harpidedunak bilatu"
 
@@ -520,11 +518,11 @@ msgstr "Harpidedunak bilatu"
 msgid "Sections"
 msgstr "Atalak"
 
-#: ./browser/channel.py:322
+#: ./browser/channel.py:323
 msgid "See an in-browser preview of the newsletter."
 msgstr "Buletinaren aurrebista nabigatzailean ikusi."
 
-#: ./browser/channel.py:465
+#: ./browser/channel.py:471
 msgid "Select this if you want to use the csv header row to designate document variables.The header row must contain one 'email' field."
 msgstr "Aukeratu CSV fitxategiaren goiburu-lerroa erabilil nahi baduzu. Lerro horrek gutxienez 'email' izeneko zutabe bat izan behar du."
 
@@ -596,15 +594,15 @@ msgstr "Portletetik zuzenean harpidetu"
 msgid "Subscribe to ${channel}"
 msgstr "${channel} buletinera harpidetu"
 
-#: ./browser/channel.py:450
+#: ./browser/channel.py:451
 msgid "Subscribers"
 msgstr "Harpidedunak"
 
-#: ./browser/channel.py:605
+#: ./browser/channel.py:629
 msgid "Subscribers exported."
 msgstr "Harpidedunak esportatuta."
 
-#: ./browser/channel.py:711
+#: ./browser/channel.py:735
 msgid "Subscriptions"
 msgstr "Harpidetzak"
 
@@ -643,6 +641,14 @@ msgstr "Mezu guztien oinean agertuko den testua"
 msgid "The address to send the preview to is missing."
 msgstr ""
 
+#: ./browser/channel.py:478
+msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
+msgstr "CSV fitxategiko edukien banatzailea. (Normalean ',' edo ';' izan ohi da, baina komatxoak ez dira beharrezkoak)"
+
+#: ./interfaces.py:30
+msgid "The from address that will appear in messages sent from this composer."
+msgstr "Bidalitako mezuetan bidaltzaile gisa agertuko den helbidea."
+
 #: ./browser/portlets/channelsubscribe.py:41
 #, fuzzy
 msgid "The mailing-list to enable subscriptions to."
@@ -652,14 +658,6 @@ msgstr "Zein buletinetara harpidetu"
 #, fuzzy
 msgid "The mailing-list to send this through"
 msgstr "Hau bidaltzeko buletina"
-
-#: ./browser/channel.py:472
-msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
-msgstr "CSV fitxategiko edukien banatzailea. (Normalean ',' edo ';' izan ohi da, baina komatxoak ez dira beharrezkoak)"
-
-#: ./interfaces.py:30
-msgid "The from address that will appear in messages sent from this composer."
-msgstr "Bidalitako mezuetan bidaltzaile gisa agertuko den helbidea."
 
 #: ./interfaces.py:41
 msgid "The reply-to address that will appear in messages sent from this composer."
@@ -699,7 +697,7 @@ msgstr "'Aurreikuspen mezua bidali'-n klik egiten baduzu bakarrik da beharrezkoa
 msgid "This portlet allows a visitor to subscribe to a specific newsletter."
 msgstr "Buletin jakin batera harpidetzeko portleta"
 
-#: ./browser/collector.py:91
+#: ./browser/collector.py:92
 #: ./browser/stats.py:22
 msgid "Title"
 msgstr "Izenburua"
@@ -730,7 +728,7 @@ msgstr "Orain bidali"
 msgid "Type"
 msgstr "Mota"
 
-#: ./browser/channel.py:559
+#: ./browser/channel.py:570
 msgid "Unknown"
 msgstr "Ezezaguna"
 
@@ -742,15 +740,14 @@ msgstr "Harpidetza eten"
 msgid "Unsubscribe from newsletter"
 msgstr "Buletinetik harpidetza eten"
 
-#: ./browser/channel.py:684
-#: ./browser/scheduler.py:96
-#, fuzzy
-msgid "Up to Mailing-list administration"
-msgstr "Bildumen konfiguraziora joan"
-
-#: ./browser/collector.py:335
+#: ./browser/collector.py:336
 msgid "Up to Collector administration"
 msgstr "Informazio-bildumen kudeaketara joan"
+
+#: ./browser/channel.py:708
+#: ./browser/scheduler.py:96
+msgid "Up to Mailing-lists administration"
+msgstr ""
 
 #: ./browser/controlpanel.py:12
 msgid "Up to Singing & Dancing configuration"
@@ -760,15 +757,15 @@ msgstr "Singing & Dancingen konfiguraziora joan"
 msgid "Up to Site Setup"
 msgstr "Atariaren konfiguraziora joan"
 
-#: ./browser/channel.py:444
+#: ./browser/channel.py:445
 msgid "Upload"
 msgstr "Kargatu"
 
-#: ./browser/channel.py:451
+#: ./browser/channel.py:452
 msgid "Upload a CSV file with a list of subscribers here. Subscribers already present in the database will be overwritten. Each line should contain: ${columns}."
 msgstr "Harpidedunen zerrenda duen CSV fitxategia kargatu. Datu-basean aurretik dauden harpidedunen datuak gainidatzi egingo dira. Lerro bakoitzak informazio hau eduki behar du: ${columns}"
 
-#: ./browser/channel.py:610
+#: ./browser/channel.py:634
 msgid "Upload list of subscribers."
 msgstr "Harpidedunen zerrenda kargatu."
 
@@ -797,6 +794,10 @@ msgstr "Buletin hauetara harpidetuta zaude:"
 #, fuzzy
 msgid "You aren't subscribed to this mailing-list."
 msgstr "Ez zaude buletin honetara harpidetuta."
+
+#: ./browser/channel.py:616
+msgid "You can not add things in purge only mode!"
+msgstr ""
 
 #. Default: "You can subscribe to these newsletters:"
 #: ./browser/subscriptions.pt:28
@@ -863,18 +864,21 @@ msgid "description_statistics_administration"
 msgstr "Buletinaren estatistikak ikusi"
 
 #. Default: "Mailing-list administration"
+#: ./browser/channel.py:172
 #: ./browser/controlpanel-links.pt:3
 #, fuzzy
 msgid "label_channel_administration"
 msgstr "Buletinen kudeaketa"
 
 #. Default: "Collector administration"
+#: ./browser/collector.py:65
 #: ./browser/controlpanel-links.pt:13
 msgid "label_collector_administration"
 msgstr "Informazio-bildumen kudeaketa"
 
 #. Default: "Global settings"
 #: ./browser/controlpanel-links.pt:23
+#: ./browser/settings.py:15
 msgid "label_newsletters_settings_administration"
 msgstr ""
 
@@ -885,6 +889,7 @@ msgstr ""
 
 #. Default: "Statistics"
 #: ./browser/controlpanel-links.pt:32
+#: ./browser/stats.py:169
 msgid "label_statistics_administration"
 msgstr "Estatistikak"
 

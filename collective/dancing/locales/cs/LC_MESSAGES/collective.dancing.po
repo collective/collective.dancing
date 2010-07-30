@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2010-07-02 12:26+0000\n"
+"POT-Creation-Date: 2010-07-30 09:24+0000\n"
 "PO-Revision-Date: 2008-11-26 12:55+0100\n"
 "Last-Translator: Radim Novotny <novotny.radim@gmail.com>\n"
 "Language-Team: CoreNet <info@corenet.cz>\n"
@@ -24,17 +24,21 @@ msgstr "Nastavení ${channel}"
 msgid "${name} does not support scheduling."
 msgstr "${name} nepodporuje plánování."
 
-#: ./browser/channel.py:586
+#: ./browser/channel.py:603
 msgid "${numberadded} subscriptions updated successfully!"
 msgstr "Počet úspěšně aktualizovaných přihlášení: ${numberadded}"
 
-#: ./browser/channel.py:580
+#: ./browser/channel.py:597
 msgid "${numberadded} subscriptions updated successfully, ${numberremoved} removed!"
 msgstr "Počet úspěšně aktualizovaných přihlášení: ${numberadded}, počet zrušených: ${numberremoved}"
 
-#: ./browser/channel.py:570
+#: ./browser/channel.py:587
 msgid "${numberadded} subscriptions updated successfully. ${numberremoved} removed. ${numbernotadded} could not be added. (${errorcandidates})"
 msgstr "Počet úspěšně aktualizovaných přihlášení: ${numberadded}, počet zrušených: ${numberremoved}. Počet těch, které nemohly být přidány: ${numbernotadded}  (${errorcandidates})"
+
+#: ./browser/channel.py:584
+msgid "${numberremoved} subscriptions removed successfully!"
+msgstr ""
 
 #. Default: ""
 #: ./browser/scheduler.py:33
@@ -49,7 +53,7 @@ msgstr "Počet zpráv přidaných do fronty: ${num}."
 msgid "${sent} message(s) sent, ${failed} failure(s)."
 msgstr "Počet odeslaných zpráv: ${sent}, počet neodeslaných: ${failed}."
 
-#: ./browser/collector.py:183
+#: ./browser/collector.py:184
 msgid "Add"
 msgstr "Přidat"
 
@@ -59,9 +63,8 @@ msgid "Add Mailing-list Subscribe Portlet"
 msgstr "Přidat portlet přihlášení"
 
 #: ./browser/channel.py:94
-#, fuzzy
-msgid "Add or edit mailing-lists will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
-msgstr "Zde je možné přidat nebo změnit nastavení kanálů, které budou používat nástroje sběru dat aby mohly shromáždit a odeslat příslušné informace z tohoto portálu na přihlášené email adresy v nastaveném čase."
+msgid "Add or edit mailing-lists that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
+msgstr ""
 
 #: ./browser/interfaces.py:22
 msgid "Address to send the preview to"
@@ -117,11 +120,11 @@ msgstr "Děkujeme"
 msgid "CSS Stylesheet"
 msgstr "CSS styl"
 
-#: ./browser/channel.py:464
+#: ./browser/channel.py:470
 msgid "CSV contains a header row"
 msgstr ""
 
-#: ./browser/channel.py:471
+#: ./browser/channel.py:477
 msgid "CSV delimiter"
 msgstr ""
 
@@ -130,10 +133,6 @@ msgstr ""
 #: ./composer.py:352
 msgid "Change your subscriptions with ${site_title}"
 msgstr "Nastavení vašeho přihlášení na ${site_title}"
-
-#: ./browser/channel.py:172
-msgid "Mailing-list administration"
-msgstr "Správa kanálů"
 
 #: ./browser/stats.py:131
 msgid "Clear finished jobs"
@@ -161,15 +160,11 @@ msgstr "Zaškrtněte, pokud chcete zonrazit patičku portletu."
 msgid "Click here to unsubscribe."
 msgstr "Pro odhlášení klepněte zde."
 
-#: ./browser/collector.py:65
-msgid "Collector administration"
-msgstr "Správa sběru dat"
-
 #: ./browser/composer.py:42
 msgid "Composer for format : ${format}"
 msgstr ""
 
-#: ./browser/channel.py:715
+#: ./browser/channel.py:739
 msgid "Composers"
 msgstr ""
 
@@ -200,7 +195,7 @@ msgstr "Popis portletu"
 msgid "Displays a form that lets you send this content item as a newsletter."
 msgstr "Zobrazí formulář, pomocí kterého můžete odeslat obsah této stránky jako zpravodaj."
 
-#: ./browser/channel.py:603
+#: ./browser/channel.py:627
 msgid "Download"
 msgstr "Stáhnout"
 
@@ -208,12 +203,12 @@ msgstr "Stáhnout"
 msgid "E-mail address"
 msgstr "E-mail adresa"
 
-#: ./browser/channel.py:714
+#: ./browser/channel.py:738
 msgid "Edit"
 msgstr "Upravit"
 
 #. Default: ""
-#: ./browser/collector.py:331
+#: ./browser/collector.py:332
 msgid "Edit ${collector}"
 msgstr "Nastavení ${collector}"
 
@@ -222,7 +217,7 @@ msgid "Edit ${selector} for ${channel}"
 msgstr ""
 
 #. Default: "channel"
-#: ./browser/channel.py:689
+#: ./browser/channel.py:713
 #, fuzzy
 msgid "Edit Mailing-list ${channel}"
 msgstr "Úprava kanálu ${channel}"
@@ -236,17 +231,15 @@ msgstr "Nastavení portletu pro správu přihlášení"
 msgid "Edit existing subscriptions"
 msgstr "Nastavení existujících přihlášení"
 
-#: ./browser/channel.py:357
-#, fuzzy
-msgid "Edit the properties of the mailing-list."
-msgstr ""
-
 #: ./browser/composer.py:33
 msgid "Edit the properties of the composer."
 msgstr ""
 
+#: ./browser/channel.py:358
+msgid "Edit the properties of the mailing-list."
+msgstr ""
+
 #: ./browser/sendnewsletter.py:242
-#, fuzzy
 msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and mailing-list."
 msgstr ""
 
@@ -254,7 +247,7 @@ msgstr ""
 msgid "Enter a search query to find content."
 msgstr ""
 
-#: ./browser/channel.py:418
+#: ./browser/channel.py:419
 msgid "Error importing subscriber file. %s"
 msgstr ""
 
@@ -262,11 +255,11 @@ msgstr ""
 msgid "Failed messages"
 msgstr "Neúspěšně odesláno"
 
-#: ./browser/channel.py:531
+#: ./browser/channel.py:538
 msgid "File has incorrect format."
 msgstr ""
 
-#: ./browser/channel.py:525
+#: ./browser/channel.py:532
 msgid "File was not given."
 msgstr ""
 
@@ -301,7 +294,7 @@ msgstr ""
 msgid "From name"
 msgstr ""
 
-#: ./browser/channel.py:332
+#: ./browser/channel.py:333
 msgid "Generate"
 msgstr ""
 
@@ -321,15 +314,15 @@ msgstr "Včetně položek příslušného nástroje sběru dat"
 msgid "Information on how to confirm your subscription has been sent to you."
 msgstr "Byly vám odeslány informace nutné k dokončení vašeho přihlášení."
 
-#: ./browser/collector.py:191
+#: ./browser/collector.py:192
 msgid "Item added successfully."
 msgstr "Položka byla přidána."
 
-#: ./browser/collector.py:202
+#: ./browser/collector.py:203
 msgid "Item successfully deleted."
 msgstr "Položka byla odebrána."
 
-#: ./browser/collector.py:235
+#: ./browser/collector.py:236
 msgid "Item successfully moved."
 msgstr "Položka byla přesunuta."
 
@@ -346,7 +339,7 @@ msgstr "Název úlohy"
 msgid "Last Change"
 msgstr "Poslední změna"
 
-#: ./browser/channel.py:219
+#: ./browser/channel.py:220
 msgid "Manage or add subscriptions."
 msgstr ""
 
@@ -379,11 +372,11 @@ msgstr "Zprávy s chybami"
 msgid "Messages with errors in the retry queue"
 msgstr "Zpráv s chybami v opravné frontě"
 
-#: ./browser/collector.py:238
+#: ./browser/collector.py:239
 msgid "Move block down"
 msgstr "Přesunout dolů"
 
-#: ./browser/collector.py:231
+#: ./browser/collector.py:232
 msgid "Move block up"
 msgstr "Přesunout nahoru"
 
@@ -399,10 +392,6 @@ msgstr "Nové zprávy"
 msgid "Newsletter"
 msgstr "Zpravodaj"
 
-#: ./browser/stats.py:169
-msgid "Newsletter statistics"
-msgstr "Statistika zpravodaje"
-
 #: ./channel.py:78
 msgid "Newsletters"
 msgstr ""
@@ -415,7 +404,11 @@ msgstr "Žádné položky nebyly nalezeny."
 msgid "No messages queued."
 msgstr "Ve frontě nejsou žádné zprávy."
 
-#: ./browser/channel.py:630
+#: ./browser/channel.py:461
+msgid "Only purge subscribers present in this list."
+msgstr ""
+
+#: ./browser/channel.py:654
 msgid "Only some of your changes were saved"
 msgstr ""
 
@@ -442,8 +435,7 @@ msgid "Please select items with new messages to clear."
 msgstr ""
 
 #: ./browser/stats.py:108
-#, fuzzy
-msgid "Please select which mailing-lists's queued e-mails you'd like to send."
+msgid "Please select which mailing-list's queued e-mails you'd like to send."
 msgstr ""
 
 #: ./browser/portlets/channelsubscribe.py:46
@@ -454,7 +446,7 @@ msgstr "Popis portletu"
 msgid "Portlet header"
 msgstr "Nadpis portletu"
 
-#: ./browser/channel.py:716
+#: ./browser/channel.py:740
 #: ./browser/sendnewsletter.py:137
 msgid "Preview"
 msgstr "Náhled"
@@ -467,15 +459,15 @@ msgstr "Odeslat"
 msgid "Process jobs"
 msgstr "Zpracovat úlohy"
 
-#: ./browser/channel.py:460
+#: ./browser/channel.py:466
 msgid "Purge list before import."
 msgstr ""
 
-#: ./browser/channel.py:459
+#: ./browser/channel.py:465
 msgid "Purge list."
 msgstr ""
 
-#: ./browser/collector.py:199
+#: ./browser/collector.py:200
 msgid "Remove block"
 msgstr "Odebrat"
 
@@ -486,6 +478,10 @@ msgstr "Odebrat položky"
 #: ./browser/stats.py:88
 msgid "Remove old messages"
 msgstr "Vymazat staré zprávy"
+
+#: ./browser/channel.py:460
+msgid "Remove subscribers in list."
+msgstr ""
 
 #: ./interfaces.py:40
 msgid "Reply-to address"
@@ -499,7 +495,7 @@ msgstr "Opakované zprávy"
 msgid "Rich text"
 msgstr "Formátovaný text"
 
-#: ./browser/channel.py:646
+#: ./browser/channel.py:670
 msgid "Save"
 msgstr "Uložit"
 
@@ -511,11 +507,11 @@ msgstr ""
 msgid "Scheduled time"
 msgstr "Plánovaný čas"
 
-#: ./browser/channel.py:190
+#: ./browser/channel.py:191
 msgid "Search"
 msgstr "Vyhledat"
 
-#: ./browser/channel.py:187
+#: ./browser/channel.py:188
 msgid "Search subscribers"
 msgstr ""
 
@@ -523,11 +519,11 @@ msgstr ""
 msgid "Sections"
 msgstr "Sekce"
 
-#: ./browser/channel.py:322
+#: ./browser/channel.py:323
 msgid "See an in-browser preview of the newsletter."
 msgstr ""
 
-#: ./browser/channel.py:465
+#: ./browser/channel.py:471
 msgid "Select this if you want to use the csv header row to designate document variables.The header row must contain one 'email' field."
 msgstr ""
 
@@ -601,25 +597,23 @@ msgstr "Přihlásit se přímo z portletu"
 msgid "Subscribe to ${channel}"
 msgstr "Přihlášení k ${channel}"
 
-#: ./browser/channel.py:450
+#: ./browser/channel.py:451
 msgid "Subscribers"
 msgstr ""
 
-#: ./browser/channel.py:605
+#: ./browser/channel.py:629
 msgid "Subscribers exported."
 msgstr ""
 
-#: ./browser/channel.py:711
+#: ./browser/channel.py:735
 msgid "Subscriptions"
 msgstr ""
 
 #: ./browser/stats.py:102
-#, fuzzy
 msgid "Successfully cleared queued messages in mailing-lists."
 msgstr ""
 
 #: ./browser/stats.py:93
-#, fuzzy
 msgid "Successfully removed old messages from mailing-lists."
 msgstr ""
 
@@ -648,6 +642,14 @@ msgstr ""
 msgid "The address to send the preview to is missing."
 msgstr ""
 
+#: ./browser/channel.py:478
+msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
+msgstr ""
+
+#: ./interfaces.py:30
+msgid "The from address that will appear in messages sent from this composer."
+msgstr ""
+
 #: ./browser/portlets/channelsubscribe.py:41
 #, fuzzy
 msgid "The mailing-list to enable subscriptions to."
@@ -658,20 +660,11 @@ msgstr "Kanál, ke kterému se uživatel bude přihlašovat."
 msgid "The mailing-list to send this through"
 msgstr "Kanál, přes který se má položka odeslat"
 
-#: ./browser/channel.py:472
-msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
-msgstr ""
-
-#: ./interfaces.py:30
-msgid "The from address that will appear in messages sent from this composer."
-msgstr ""
-
 #: ./interfaces.py:41
 msgid "The reply-to address that will appear in messages sent from this composer."
 msgstr ""
 
 #: ./interfaces.py:25
-#, fuzzy
 msgid "The sender name that will appear in messages sent from this mailing-list."
 msgstr ""
 
@@ -704,7 +697,7 @@ msgstr "Vyplňte pouze v případě, že chcete použít funkci \"Odeslat náhle
 msgid "This portlet allows a visitor to subscribe to a specific newsletter."
 msgstr "Tento portlet umožňuje návštěvníkům přihlásit se k odběru informací určitého kanálu."
 
-#: ./browser/collector.py:91
+#: ./browser/collector.py:92
 #: ./browser/stats.py:22
 msgid "Title"
 msgstr "Nadpis"
@@ -735,7 +728,7 @@ msgstr "Spustit teď"
 msgid "Type"
 msgstr "Typ"
 
-#: ./browser/channel.py:559
+#: ./browser/channel.py:570
 msgid "Unknown"
 msgstr ""
 
@@ -747,15 +740,14 @@ msgstr "Odhlásit"
 msgid "Unsubscribe from newsletter"
 msgstr "Odhlásit z odběru zpravodaje"
 
-#: ./browser/channel.py:684
-#: ./browser/scheduler.py:96
-#, fuzzy
-msgid "Up to Mailing-list administration"
-msgstr "Zpět na správu kanálů"
-
-#: ./browser/collector.py:335
+#: ./browser/collector.py:336
 msgid "Up to Collector administration"
 msgstr "Zpět na správu nástrojů sběru dat"
+
+#: ./browser/channel.py:708
+#: ./browser/scheduler.py:96
+msgid "Up to Mailing-lists administration"
+msgstr ""
 
 #: ./browser/controlpanel.py:12
 msgid "Up to Singing & Dancing configuration"
@@ -765,15 +757,15 @@ msgstr "Zpet na nastavení produktu Singing & Dancing"
 msgid "Up to Site Setup"
 msgstr "Zpět na nastavení portálu"
 
-#: ./browser/channel.py:444
+#: ./browser/channel.py:445
 msgid "Upload"
 msgstr ""
 
-#: ./browser/channel.py:451
+#: ./browser/channel.py:452
 msgid "Upload a CSV file with a list of subscribers here. Subscribers already present in the database will be overwritten. Each line should contain: ${columns}."
 msgstr ""
 
-#: ./browser/channel.py:610
+#: ./browser/channel.py:634
 msgid "Upload list of subscribers."
 msgstr ""
 
@@ -802,6 +794,10 @@ msgstr "V současné době jste přihlášen(a) k těmto zpravodajům:"
 #, fuzzy
 msgid "You aren't subscribed to this mailing-list."
 msgstr "Nejste přihlášen(a) k tomuto kanálu."
+
+#: ./browser/channel.py:616
+msgid "You can not add things in purge only mode!"
+msgstr ""
 
 #. Default: "You can subscribe to these newsletters:"
 #: ./browser/subscriptions.pt:28
@@ -873,17 +869,20 @@ msgid "description_statistics_administration"
 msgstr "Zobrazení statistik"
 
 #. Default: "Mailing-list administration"
+#: ./browser/channel.py:172
 #: ./browser/controlpanel-links.pt:3
 msgid "label_channel_administration"
 msgstr "Správa kanálů"
 
 #. Default: "Collector administration"
+#: ./browser/collector.py:65
 #: ./browser/controlpanel-links.pt:13
 msgid "label_collector_administration"
 msgstr "Správa nástroje pro sběr dat"
 
 #. Default: "Global settings"
 #: ./browser/controlpanel-links.pt:23
+#: ./browser/settings.py:15
 msgid "label_newsletters_settings_administration"
 msgstr ""
 
@@ -894,6 +893,7 @@ msgstr ""
 
 #. Default: "Statistics"
 #: ./browser/controlpanel-links.pt:32
+#: ./browser/stats.py:169
 msgid "label_statistics_administration"
 msgstr "Statistiky"
 
