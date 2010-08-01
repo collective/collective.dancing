@@ -1,8 +1,8 @@
 History
 =======
 
-0.9.0 (unreleased)
--------------------
+0.9.0 (2010-08-01)
+------------------
 
 - The send form is now split into two subforms, one for send, and one for
   preview. **NOTE!** This introduces incompatible changes if you are having
