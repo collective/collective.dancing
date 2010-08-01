@@ -36,7 +36,7 @@ msgstr "${numberadded} abonnementer oppdatert, ${numberremoved} fjernet. ${numbe
 
 #: ./browser/channel.py:584
 msgid "${numberremoved} subscriptions removed successfully!"
-msgstr ""
+msgstr "${numberremoved} abonnementer fjernet!"
 
 #: ./browser/scheduler.py:33
 msgid "${number} messages queued."
@@ -60,7 +60,7 @@ msgstr "Legg til Abonner-infoboks"
 
 #: ./browser/channel.py:94
 msgid "Add or edit mailing-lists that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
-msgstr ""
+msgstr "Legg til eller rediger postlister som skal bruke Samlinger til sende spesifikke sett av document fra nettstedet till abonnerte e-postadresser, på fastsatte tider."
 
 #: ./browser/interfaces.py:22
 msgid "Address to send the preview to"
@@ -385,7 +385,7 @@ msgstr "Ingen meldinger i kø."
 
 #: ./browser/channel.py:461
 msgid "Only purge subscribers present in this list."
-msgstr ""
+msgstr "Bare rydde abonnenter i denne listen."
 
 #: ./browser/channel.py:654
 msgid "Only some of your changes were saved"
@@ -413,7 +413,7 @@ msgstr "Vennligst velg poster med nye meldinger å rydde."
 
 #: ./browser/stats.py:108
 msgid "Please select which mailing-list's queued e-mails you'd like to send."
-msgstr ""
+msgstr "Velg hvilken postlistes kø du vil sende."
 
 #: ./browser/portlets/channelsubscribe.py:46
 msgid "Portlet description"
@@ -458,7 +458,7 @@ msgstr "Fjern gamle meldinger"
 
 #: ./browser/channel.py:460
 msgid "Remove subscribers in list."
-msgstr ""
+msgstr "Fjern abonnenter i listen."
 
 #: ./interfaces.py:40
 msgid "Reply-to address"
@@ -714,7 +714,7 @@ msgstr "Opp til administrasjon av Samlinger"
 #: ./browser/channel.py:708
 #: ./browser/scheduler.py:96
 msgid "Up to Mailing-lists administration"
-msgstr ""
+msgstr "Opp til postlisteadministrasjon"
 
 #: ./browser/controlpanel.py:12
 msgid "Up to Singing & Dancing configuration"
@@ -762,7 +762,7 @@ msgstr "Du abonnerer ikke på denne postlisten."
 
 #: ./browser/channel.py:616
 msgid "You can not add things in purge only mode!"
-msgstr ""
+msgstr "Du kan ikke legge til ting i rydd-modus!"
 
 #: ./browser/subscriptions.pt:28
 msgid "You can subscribe to these newsletters:"
