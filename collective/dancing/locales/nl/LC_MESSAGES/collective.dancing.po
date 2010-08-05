@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: collective.dancing 0.8.13\n"
 "POT-Creation-Date: 2010-07-30 09:24+0000\n"
-"PO-Revision-Date: 2010-07-30 09:57+0100\n"
-"Last-Translator: Wim Boucquaert <wim@infrae.com>\n"
+"PO-Revision-Date: 2010-08-05 15:43+0200\n"
+"Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Dutch <plone-nl@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,9 +39,8 @@ msgid "${numberadded} subscriptions updated successfully. ${numberremoved} remov
 msgstr "${numberadded} inschrijvingen succesvol aangepast. ${numberremoved} verwijderd. ${numbernotadded} konden niet toegevoegd worden. (${errorcandidates})"
 
 #: ./browser/channel.py:584
-#, fuzzy
 msgid "${numberremoved} subscriptions removed successfully!"
-msgstr "${numberadded} inschrijvingen succesvol aangepast!"
+msgstr "${numberremoved} inschrijvingen succesvol verwijderd!"
 
 #: ./browser/scheduler.py:33
 msgid "${number} messages queued."
@@ -60,13 +59,12 @@ msgid "Add"
 msgstr "Toevoegen"
 
 #: ./browser/portlets/channelsubscribe.py:460
-#, fuzzy
 msgid "Add Mailing-list Subscribe Portlet"
-msgstr "Abonnementen portlet toevoegen"
+msgstr "Mailinglijstportlet toevoegen"
 
 #: ./browser/channel.py:94
 msgid "Add or edit mailing-lists that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
-msgstr ""
+msgstr "Voeg mailinglijsten toe of bewerk ze. Mailinglijsten gebruiken collecties om specifieke stukken informatie van je site te vinden en te emailen naar ingeschreven e-mailadressen (abonnees), op gezette tijden."
 
 #: ./browser/interfaces.py:22
 msgid "Address to send the preview to"
@@ -210,12 +208,11 @@ msgstr "Wijzig ${selector} voor ${channel}"
 
 #: ./browser/channel.py:713
 msgid "Edit Mailing-list ${channel}"
-msgstr ""
+msgstr "Wijzig mailinglijst ${channel}"
 
 #: ./browser/portlets/channelsubscribe.py:379
-#, fuzzy
 msgid "Edit Mailing-list Subscribe Portlet"
-msgstr "Kanaal inschrijving portlet wijzigen"
+msgstr "Mailinglijstportlet wijzigen"
 
 #: ./browser/subscribe.py:36
 msgid "Edit existing subscriptions"
@@ -226,14 +223,12 @@ msgid "Edit the properties of the composer."
 msgstr "Wijzig de eigenschappen van de composer."
 
 #: ./browser/channel.py:358
-#, fuzzy
 msgid "Edit the properties of the mailing-list."
-msgstr "Wijzig de eigenschappen van een kanaal."
+msgstr "Wijzig de eigenschappen van een mailinglijst."
 
 #: ./browser/sendnewsletter.py:242
-#, fuzzy
 msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and mailing-list."
-msgstr "Vul hier een eigen onderwerp in voor uw nieuwsbrief. Laat dit leeg om het standaardonderwerp te gebruiken voor de gekozen content en het kanaal."
+msgstr "Vul hier een eigen onderwerp in voor uw nieuwsbrief. Laat dit leeg om het standaardonderwerp te gebruiken voor de gekozen content en de mailinglijst."
 
 #: ./browser/query.py:12
 msgid "Enter a search query to find content."
@@ -264,9 +259,8 @@ msgid "Fill out the form below to subscribe to ${channel}. Note that this is for
 msgstr "Vul het onderstaande formulier in om u in te schrijven op ${channel}. Let op: dit is voor nieuwe inschrijvingen. Klik hier om ${link_start}uw inschrijvingen te wijzigen${link_end}."
 
 #: ./browser/portlets/channelsubscribe.py:42
-#, fuzzy
 msgid "Find the mailing-list you want to enable direct subscription to"
-msgstr "Kanaal zoeken waarop u rechtstreeks inschrijven wilt toelaten"
+msgstr "Mailinglijst zoeken waarop u rechtstreeks inschrijven wilt toelaten"
 
 #: ./browser/jobs.pt:19
 msgid "Finished jobs"
@@ -423,7 +417,7 @@ msgstr "Selecteer alstublieft items met nieuwe berichten om te legen."
 
 #: ./browser/stats.py:108
 msgid "Please select which mailing-list's queued e-mails you'd like to send."
-msgstr ""
+msgstr "Selecteer de mailinglijst waarvan je de wachtende e-mailberichten wilt verzenden."
 
 #: ./browser/portlets/channelsubscribe.py:46
 msgid "Portlet description"
@@ -467,9 +461,8 @@ msgid "Remove old messages"
 msgstr "Verwijder oude berichten"
 
 #: ./browser/channel.py:460
-#, fuzzy
 msgid "Remove subscribers in list."
-msgstr "U bent niet ingeschreven op dit kanaal."
+msgstr "Verwijder abonnees in deze lijst."
 
 #: ./interfaces.py:40
 msgid "Reply-to address"
@@ -593,14 +586,12 @@ msgid "Subscriptions"
 msgstr "Inschrijvingen"
 
 #: ./browser/stats.py:102
-#, fuzzy
 msgid "Successfully cleared queued messages in mailing-lists."
-msgstr "Wachtende berichten met succes geleegd in kanalen."
+msgstr "Wachtende berichten met succes geleegd in mailinglijsten."
 
 #: ./browser/stats.py:93
-#, fuzzy
 msgid "Successfully removed old messages from mailing-lists."
-msgstr "Oude berichten met succes verwijderd van kanalen."
+msgstr "Oude berichten met succes verwijderd van mailinglijsten."
 
 #: ./browser/sendnewsletter.py:114
 msgid "Successfully scheduled distribution."
@@ -611,9 +602,8 @@ msgid "Template"
 msgstr "Sjabloon"
 
 #: ./browser/portlets/channelsubscribe.py:54
-#, fuzzy
 msgid "Text in footer - if omitted the mailing-list title is used"
-msgstr "Voettekst - indien leeg, wordt de titel van het kanaal gebruikt"
+msgstr "Voettekst - indien leeg, wordt de titel van de mailinglijst gebruikt"
 
 #: ./interfaces.py:46
 msgid "Text to appear at the beginning of every message. You may use a number of variables here including ${subject}."
@@ -636,23 +626,20 @@ msgid "The from address that will appear in messages sent from this composer."
 msgstr "Het van-adres dat zal verschijnen in berichten gezonden vanaf deze composer."
 
 #: ./browser/portlets/channelsubscribe.py:41
-#, fuzzy
 msgid "The mailing-list to enable subscriptions to."
-msgstr "Het kanaal om open te stellen voor inschrijvingen."
+msgstr "De mailinglijst om open te stellen voor inschrijvingen."
 
 #: ./browser/interfaces.py:10
-#, fuzzy
 msgid "The mailing-list to send this through"
-msgstr "Kanaal voor verzending"
+msgstr "Mailinglijst voor verzending"
 
 #: ./interfaces.py:41
 msgid "The reply-to address that will appear in messages sent from this composer."
 msgstr "Het reply-to-adres dat zal verschijnen in berichten gezonden vanaf deze composer."
 
 #: ./interfaces.py:25
-#, fuzzy
 msgid "The sender name that will appear in messages sent from this mailing-list."
-msgstr "De afzendernaam die zal verschijnen in berichten gezonden vanaf deze composer."
+msgstr "De afzendernaam die zal verschijnen in berichten gezonden vanaf deze mailinglijst."
 
 #: ./interfaces.py:58
 msgid "The stylesheet will be applied to the document."
@@ -679,9 +666,8 @@ msgid "This is only required if you click 'Send preview' below"
 msgstr "Dit is alleen verplicht indien u klikt op 'Voorbeeldweergave verzenden'"
 
 #: ./browser/portlets/channelsubscribe.py:416
-#, fuzzy
 msgid "This portlet allows a visitor to subscribe to a specific newsletter."
-msgstr "Deze portlet staat bezoekers toe om zich in te schrijven voor een specifiek kanaal"
+msgstr "Deze portlet staat bezoekers toe om zich in te schrijven voor een specifieke nieuwsbrief"
 
 #: ./browser/collector.py:92
 #: ./browser/stats.py:22
@@ -732,7 +718,7 @@ msgstr "Naar configuratie van collectie"
 #: ./browser/channel.py:708
 #: ./browser/scheduler.py:96
 msgid "Up to Mailing-lists administration"
-msgstr ""
+msgstr "Naar mailinglijstadministratie"
 
 #: ./browser/controlpanel.py:12
 msgid "Up to Singing & Dancing configuration"
@@ -775,9 +761,8 @@ msgid "You are currently subscribed to these newsletters:"
 msgstr "U bent momenteel ingeschreven op de volgende nieuwsbrieven."
 
 #: ./browser/subscribe.py:134
-#, fuzzy
 msgid "You aren't subscribed to this mailing-list."
-msgstr "U bent niet ingeschreven op dit kanaal."
+msgstr "U bent niet ingeschreven op deze mailinglijst."
 
 #: ./browser/channel.py:616
 msgid "You can not add things in purge only mode!"
@@ -825,9 +810,8 @@ msgstr "Uw abonnement is aangepast."
 
 #. Default: "A Mailing-list is a hub of configuration. It doesn't do anything by itself. Rather, it provides a number of components to configure and work with. It is also the container of subscriptions to it."
 #: ./browser/controlpanel-links.pt:7
-#, fuzzy
 msgid "description_channel_administration"
-msgstr "Een kanaal is een knooppunt van configuratie. Het doet op zichzelf niets, maar het biedt een aantal componenten aan om te configureren en mee te werken. Het bevat ook de inschrijvingen."
+msgstr "Een mailinglijst is een knooppunt van configuratie. Het doet op zichzelf niets, maar het biedt een aantal componenten aan om te configureren en mee te werken. Het bevat ook de inschrijvingen."
 
 #. Default: "Collectors are useful for automatic newsletters. They are responsible for assembling a list of items for publishing."
 #: ./browser/controlpanel-links.pt:18
@@ -847,9 +831,8 @@ msgstr "Naar configuratie van statistieken"
 #. Default: "Mailing-list administration"
 #: ./browser/channel.py:172
 #: ./browser/controlpanel-links.pt:3
-#, fuzzy
 msgid "label_channel_administration"
-msgstr "Configuratie van kanaal"
+msgstr "Configuratie van mailinglijst"
 
 #. Default: "Collector administration"
 #: ./browser/collector.py:65
