@@ -72,7 +72,7 @@ these steps:
    following::
 
      [buildout]
-     extends = https://svn.plone.org/svn/collective/collective.dancing/buildout-extends/0.8.10.cfg
+     extends = https://svn.plone.org/svn/collective/collective.dancing/buildout-extends/0.9.0.cfg
      parts =
          zope2
          ...
@@ -85,8 +85,8 @@ these steps:
      [buildout]
      extends =
          http://dist.plone.org/release/3.2.2/versions.cfg
-         https://svn.plone.org/svn/collective/collective.dancing/buildout-extends/0.8.7.cfg
-     parts =
+         https://svn.plone.org/svn/collective/collective.dancing/buildout-extends/0.9.0.cfg
+    parts =
          zope2
          ...
          ...
