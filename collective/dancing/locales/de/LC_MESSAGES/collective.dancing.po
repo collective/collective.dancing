@@ -164,7 +164,7 @@ msgstr "Vorlagen"
 
 #: ./composer.py:326
 msgid "Confirm your subscription with ${channel-title}"
-msgstr "Sie müssen Ihre Anmeldung zum Thema '${channel-title}' bestätigen"
+msgstr "Anmeldung zum Newsletter ${channel-title}"
 
 #: ./browser/subscribe.py:94
 msgid "Confirming your subscription"
