@@ -4,8 +4,8 @@ History
 0.9.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Refactoring send/preview form because formtabbing did not work.  
+  [saily] 
 
 0.9.0 (2010-08-01)
 ------------------

@@ -28,6 +28,8 @@ from collective.dancing.composer import FullFormatWrapper
 from collective.dancing.browser.interfaces import ISendAndPreviewForm
 from collective.dancing import utils
 from collective.dancing import MessageFactory as _
+from Products.statusmessages.interfaces import IStatusMessage
+
 
 class UIDResolver(object):
     def __init__(self, uid):
@@ -36,6 +38,7 @@ class UIDResolver(object):
     def __call__(self):
         rc = getToolByName(getSite(), 'reference_catalog')
         return FullFormatWrapper(rc.lookupObject(self.uid))
+
 
 def _assemble_messages(channel_paths, context_path,
                        include_collector_items, override_vars=None):
@@ -61,6 +64,7 @@ class SendForm(form.Form):
         'channel', 'include_collector_items', 'datetime')
     prefix = 'send.'
     ignoreContext = True # The context doesn't provide the data
+    template = viewpagetemplatefile.ViewPageTemplateFile('subform-formtab.pt')
 
     @button.buttonAndHandler(_('Send'), name='send')
     def handle_send(self, action):
@@ -133,13 +137,15 @@ class SendForm(form.Form):
 
         return override_vars
 
+
 class PreviewForm(form.Form):
     label = _(u'Preview')
     fields = field.Fields(ISendAndPreviewForm).select(
         'channel', 'include_collector_items', 'address')
     prefix = 'preview.'
     ignoreContext = True # The context doesn't provide the data
-	
+    template = viewpagetemplatefile.ViewPageTemplateFile('subform-formtab.pt')
+
     @button.buttonAndHandler(_('Show preview'), name='show_preview')
     def handle_show_preview(self, action):
         data, errors = self.extractData()
@@ -156,7 +162,7 @@ class PreviewForm(form.Form):
                   'override_vars': self.get_override_vars()}
 
         self.request.response.redirect(
-            self.context.context.absolute_url()+\
+            self.context.context.absolute_url() + \
             '/preview-newsletter.html?%s' % urllib.urlencode(params))
 
     @button.buttonAndHandler(_('Send preview'), name='preview')
@@ -203,19 +209,24 @@ class PreviewForm(form.Form):
 
         return override_vars
 
+
 class SendAsNewsletterForm(form.Form):
     template = viewpagetemplatefile.ViewPageTemplateFile('send-newsletter.pt')
     factories = [SendForm, PreviewForm]
 
     def update(self):
-	super(SendAsNewsletterForm, self).update()	    
-	
-	self.subforms = [f(self, self.request) for f in self.factories]
-	for form in self.subforms:
-	    form.update()
+        super(SendAsNewsletterForm, self).update()
+
+        self.subforms = [f(self, self.request) for f in self.factories]
+        for form in self.subforms:
+            form.update()
+
+            # XXX: We should find a more beautiful solution here!
+            if form.status:
+                IStatusMessage(self.request).addStatusMessage(form.status)
 
     def timed_channels(self):
-	channels = []
+        channels = []
         for channel in collective.singing.channel.channel_lookup():
             if isinstance(channel.scheduler,
                           collective.singing.scheduler.TimedScheduler):
@@ -251,7 +262,7 @@ class SendFormWithCustomSubject(SendForm):
 class PreviewFormWithCustomSubject(PreviewForm):
     fields = field.Fields(ISendAndPreviewFormWithCustomSubject).select(
         'channel', 'subject', 'include_collector_items', 'address')
-    
+
 class SendAsNewsletterFormWithCustomSubject(SendAsNewsletterForm):
     factories = [SendFormWithCustomSubject, PreviewFormWithCustomSubject]
 
