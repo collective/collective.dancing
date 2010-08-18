@@ -6,6 +6,10 @@ History
 
 - Refactoring send/preview form because formtabbing did not work.  
   [saily] 
+  
+- Reverted changeset 119773 since users could not send folderish content
+  types any more (RichDocument is a folderish content type).
+  [saily]
 
 0.9.0 (2010-08-01)
 ------------------
