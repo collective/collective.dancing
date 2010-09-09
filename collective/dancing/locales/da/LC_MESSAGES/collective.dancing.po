@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2010-06-11 21:23+0000\n"
-"PO-Revision-Date: 2009-09-11 13:22+0200\n"
+"PO-Revision-Date: 2010-09-09 11:41+0200\n"
 "Last-Translator: Thomas Clement Mogensen <thomas@headnet.dk>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -101,7 +101,7 @@ msgstr "Tilbage til portlets"
 #: ./browser/prettysubscriptions.pt:10
 #: ./browser/subscriptions.pt:10
 msgid "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
-msgstr "Nedenfor ser du en liste over de nyhedsbreve vi tilbyder. Abonnerer du allerede på en eller flere af duisse, skal du udfylde formularen nederst på siden. Du vil derefter få tilsendt et link til en side, hvor du kan redigere dine tilmeldinger."
+msgstr "Nedenfor ser du en liste over de nyhedsbreve vi tilbyder. Abonnerer du allerede på en eller flere af disse, skal du udfylde formularen nederst på siden. Du vil derefter få tilsendt et link til en side, hvor du kan redigere dine tilmeldinger."
 
 #. Default: "Best regards"
 #: ./browser/composer-html-forgot.pt:30
@@ -530,7 +530,7 @@ msgstr "Send ${item} som nyhedsbrev"
 
 #: ./browser/sendnewsletter.py:96
 msgid "Send '${context}' through ${channels}."
-msgstr ""
+msgstr "Send '${context}' igennem ${channels}."
 
 #. Default: "Send as newsletter"
 #: ./profiles/default/actions.xml
@@ -631,7 +631,7 @@ msgstr "Tekst der vil optræde i slutningen af hver udsendt besked."
 
 #: ./browser/sendnewsletter.py:138
 msgid "The address to send the preview to is missing."
-msgstr ""
+msgstr "Modtageradressen til forhåndsvisning mangler."
 
 #: ./browser/portlets/channelsubscribe.py:41
 msgid "The channel to enable subscriptions to."
@@ -767,7 +767,7 @@ msgstr "Benyt abonnementsside med kun en formular hvis det er muligt."
 
 #: ./browser/portlets/channelsubscribe.py:152
 msgid "You are already subscribed to this newsletter. Click here to ${link_start}edit your subscriptions${link_end}."
-msgstr ""
+msgstr "Du abonnerer allerede på dette nyhedsbrev. Klik her for at ${link_start}redigere dine abonnementer${link_end}."
 
 #: ./browser/subscribe.py:219
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
@@ -814,7 +814,7 @@ msgstr "Din email-adresse er ugyldig"
 
 #: ./browser/subscribe.py:28
 msgid "Your email address is already subscribed. Click the 'Send my subscription details' button below."
-msgstr ""
+msgstr "Din e-mail-adresse er allerede tilmeldt."
 
 #: ./browser/subscribe.py:97
 msgid "Your subscription isn't known to us."
@@ -866,7 +866,7 @@ msgstr "Globale indstillinger"
 #. Default: "(Required)"
 #: ./browser/portlets/htmlstatusform.pt:39
 msgid "label_required"
-msgstr ""
+msgstr "(Påkrævet)"
 
 #. Default: "Statistics"
 #: ./browser/controlpanel-links.pt:32
@@ -876,5 +876,5 @@ msgstr "Statistik"
 #. Default: "Required"
 #: ./browser/portlets/htmlstatusform.pt:39
 msgid "title_required"
-msgstr ""
+msgstr "Påkrævet"
 
