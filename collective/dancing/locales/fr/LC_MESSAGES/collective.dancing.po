@@ -544,7 +544,7 @@ msgstr "Envoyer ${item} en tant que newsletter"
 
 #: ./browser/sendnewsletter.py:81
 msgid "Send '${context}' through ${channel}."
-msgstr "Envoyer '${context}' sur ${channels}."
+msgstr "Envoyer '${context}' sur ${channel}."
 
 #. Default: "Send as newsletter"
 #: ./profiles/default/actions.xml
