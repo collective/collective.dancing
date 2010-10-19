@@ -145,7 +145,7 @@ msgstr "Effacer les taches terminées"
 
 #: ./browser/stats.py:97
 msgid "Clear queued messages"
-msgstr "Effacer les messages en attente"
+msgstr "Effacer les messages nouveaux et en attente"
 
 #. Default: "Click here to manage your subscriptions with ${site_title}:"
 #: ./browser/composer-html-forgot.pt:21
@@ -484,7 +484,7 @@ msgstr "Retirer les entrées"
 
 #: ./browser/stats.py:88
 msgid "Remove old messages"
-msgstr "Retirer les anciens messages"
+msgstr "Effacer les messages envoyés"
 
 #: ./browser/channel.py:459
 msgid "Remove subscribers in list."
@@ -496,7 +496,7 @@ msgstr "Répondre à l'adresse"
 
 #: ./browser/stats.py:48
 msgid "Retry messages"
-msgstr "Faire un nouvel essai pour ces messages"
+msgstr "Messages en attente d'un nouvel essai"
 
 #: ./collector.py:72
 msgid "Rich text"
@@ -557,11 +557,11 @@ msgstr "Envoyer la pré-visualisation"
 
 #: ./browser/stats.py:106
 msgid "Send queued messages now"
-msgstr "Envoyer les messages en attente immédiatement"
+msgstr "Envoyer les nouveaux messages immédiatement"
 
 #: ./browser/stats.py:36
 msgid "Sent messages"
-msgstr "Envoyer les messages"
+msgstr "Messages envoyés"
 
 #. Default: "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
 #: ./browser/prettysubscriptions.pt:24
