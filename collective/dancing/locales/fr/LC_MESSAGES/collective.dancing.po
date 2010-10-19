@@ -843,9 +843,8 @@ msgstr "Votre inscription a été mise à jour."
 
 #. Default: "A Channel is a hub of configuration. It doesn't do anything by itself. Rather, it provides a number of components to configure and work with. It is also the container of subscriptions to it."
 #: ./browser/controlpanel-links.pt:7
-#, fuzzy
 msgid "description_channel_administration"
-msgstr "Créer, éditer et supprimer des canaux d'administration"
+msgstr "Un canal ne fait rien de part lui même. Il met à disposition des composants à configurer et à utiliser (Mise en page, sujet, ...). Un canal est aussi un conteneur des inscrits."
 
 #. Default: "Collectors are useful for automatic newsletters. They are responsible for assembling a list of items for publishing."
 #: ./browser/controlpanel-links.pt:18
