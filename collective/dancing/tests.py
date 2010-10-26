@@ -128,6 +128,13 @@ class Browser(browser.Browser):
         mech_browser.handler_classes["http"] = testbrowser.PublisherHTTPHandler
         super(Browser, self).__init__(url=url, mech_browser=mech_browser)
 
+class DancingTestCase(ptc.FunctionalTestCase):
+    
+    def afterSetUp(self):
+        #in plone4 email_from_name is not set.
+        prop = {'email_from_name':u'Site Administrator'}
+        self.portal.portal_properties.site_properties.editProperties(prop)
+
 def test_suite():
     return unittest.TestSuite([
         doctest.DocTestSuite('collective.dancing.channel'),
@@ -158,7 +165,7 @@ def test_suite():
         ),
         ztc.ZopeDocFileSuite(
             'portlets.txt',
-            test_class=ptc.FunctionalTestCase,
+            test_class=DancingTestCase,
         ),
         doctest.DocTestSuite(
             'collective.dancing.composer',

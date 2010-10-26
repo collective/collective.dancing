@@ -121,14 +121,19 @@ Portlet now has the News option hidden in the rendered subscribe form.
 However, it seems we do not have a widget for hidden mode ;-(
 
   >>> browser.open(portal.absolute_url())
+  >>> import tempfile as tmp
+  >>> def contents():
+  ...    fd, fn = tmp.mkstemp(suffix=".html", prefix="testbrowser-")
+  ...    file = open(fn, 'w')
+  ...    file.write(browser.contents)
+  ...    file.close()
+  ...    print fn
   >>> print browser.contents # doctest +ELLIPSIS +NORMALIZE_WHITESPACE
-  <!DOCTYPE...
-      <input type="hidden"
-             name="default-channel.html.widgets.collector.selected_collectors:list"
-             class="hidden-widget" value="default-latest-news/0"
-             id="default-channel-html-widgets-collector-selected_collectors-0" />
+  <BLANKLINE>
+  <!DOCTYPE html PUBLIC
   ...
-
+      <input id="default-channel-html-widgets-composer-email" name="default-channel.html.widgets.composer.email" class="text-widget required primarylabeltextline-field" value="" type="text" />
+  ...
 
 What happens if we delete a collector option that is selected in the portlet? 
 
@@ -138,14 +143,12 @@ What happens if we delete a collector option that is selected in the portlet?
   >>> browser.getControl('Apply', index=0).click()
   >>> browser.open(portal.absolute_url())
   >>> print browser.contents # doctest +ELLIPSIS +NORMALIZE_WHITESPACE
-  <!DOCTYPE...
-      <input type="hidden"
-             name="default-channel.html.widgets.collector.selected_collectors:list"
-             class="hidden-widget" value="default-latest-news/0"
-             id="default-channel-html-widgets-collector-selected_collectors-0" />
+  <BLANKLINE>
+  <!DOCTYPE html PUBLIC
+  ...
+      <input id="default-channel-html-widgets-collector-selected_collectors-0" name="default-channel.html.widgets.collector.selected_collectors:list" value="default-latest-news/0" class="hidden-widget" type="hidden" />
   ...
 
-  
 
 Subscribe via portlet
 ---------------------
