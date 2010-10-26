@@ -132,7 +132,7 @@ However, it seems we do not have a widget for hidden mode ;-(
   <BLANKLINE>
   <!DOCTYPE html PUBLIC
   ...
-      <input id="default-channel-html-widgets-composer-email" name="default-channel.html.widgets.composer.email" class="text-widget required primarylabeltextline-field" value="" type="text" />
+      <input id="default-channel-html-widgets-composer-email" name="default-channel.html.widgets.composer.email" class="text-widget required primarylabeltextline-field" value="root@domain.tld" type="text" />
   ...
 
 What happens if we delete a collector option that is selected in the portlet? 

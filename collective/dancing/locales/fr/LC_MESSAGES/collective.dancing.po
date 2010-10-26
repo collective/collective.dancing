@@ -60,13 +60,12 @@ msgid "Add"
 msgstr "Ajouter"
 
 #: ./browser/portlets/channelsubscribe.py:460
-#, fuzzy
 msgid "Add Mailing-list Subscribe Portlet"
-msgstr "Ajouter un portlet d'abonnement au canal de diffusion"
+msgstr "Ajouter un portlet d'abonnement"
 
 #: ./browser/channel.py:94
 msgid "Add or edit mailing-lists that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
-msgstr ""
+msgstr "Ajouter ou modifier une newsletter qui utilisera des collecteurs et envoyer un email avec un ensemble spécifiques d'information de votre site, aux abonnés, à un moment définit"
 
 #: ./browser/interfaces.py:22
 msgid "Address to send the preview to"
@@ -218,25 +217,23 @@ msgstr "Éditer ${selector} pour ${channel}"
 
 #: ./browser/channel.py:713
 msgid "Edit Mailing-list ${channel}"
-msgstr ""
+msgstr "Modifier ${channel}"
 
 #: ./browser/portlets/channelsubscribe.py:379
-#, fuzzy
 msgid "Edit Mailing-list Subscribe Portlet"
-msgstr "Éditer le portlet d'inscription du canal de diffusion "
+msgstr "Modifier le portlet d'inscription"
 
 #: ./browser/subscribe.py:36
 msgid "Edit existing subscriptions"
-msgstr "Éditer les abonnements existant"
+msgstr "Modifier les abonnements existant"
 
 #: ./browser/composer.py:33
 msgid "Edit the properties of the composer."
-msgstr "Éditer les propriétés de cette mise en page"
+msgstr "Modifier les propriétés de cette mise en page"
 
 #: ./browser/channel.py:358
-#, fuzzy
 msgid "Edit the properties of the mailing-list."
-msgstr "Éditer les propriétés de ce canal de diffusion"
+msgstr "Modifier les propriétés de ce canal"
 
 #: ./browser/sendnewsletter.py:242
 msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and mailing-list."
