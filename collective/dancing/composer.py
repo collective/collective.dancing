@@ -186,7 +186,6 @@ class HTMLComposer(persistent.Persistent):
 
         name = self.from_name or properties.email_from_name
         mail = self.from_address or properties.email_from_address
-
         if not isinstance(name, unicode):
             name = name.decode(charset)
         if not isinstance(mail, unicode):
@@ -496,8 +495,8 @@ class SMTPMailer(zope.sendmail.mailer.SMTPMailer):
         m = root.MailHost
         return dict(hostname=m.smtp_host or 'localhost',
                     port=m.smtp_port,
-                    username=m.smtp_userid or m.smtp_uid or None,
-                    password=m.smtp_pass or m.smtp_pwd or None,)
+                    username=m.smtp_uid or None,
+                    password=m.smtp_pwd or None,)
 
     def send(self, fromaddr, toaddrs, message):
         self.__dict__.update(self._fetch_settings())

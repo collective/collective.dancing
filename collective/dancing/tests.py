@@ -155,7 +155,7 @@ def test_suite():
 
         ztc.ZopeDocFileSuite(
             'composer.txt',
-            test_class=ptc.PloneTestCase,
+            test_class=DancingTestCase,
         ),
 
         ztc.ZopeDocFileSuite(

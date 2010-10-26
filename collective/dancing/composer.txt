@@ -77,7 +77,7 @@ That is, we can use it to retrieve a subscription's secret:
   >>> old_name = properties.email_from_name
   >>> properties.email_from_name = u'Ko\u010dka'.encode('utf8')
   >>> composer._from_address
-  '=?utf-8?b?S2/EjWth?= <>'
+  '=?utf-8?q?Ko=C4=8Dka?= <>'
   >>> properties.email_from_name = old_name
 
   Rendering
@@ -96,7 +96,7 @@ That is, we can use it to retrieve a subscription's secret:
   >>> msg # doctest: +ELLIPSIS
   <collective.singing.message.Message object ...>
   >>> msg.payload # doctest: +ELLIPSIS
-  <email.MIMEMultipart.MIMEMultipart instance ...>
+  <email.mime.multipart.MIMEMultipart instance ...>
   >>> print decodeMessageAsString(msg.payload) # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   Content-Type: multipart/mixed;...
   Subject: Plone site: News for nerds...
@@ -154,7 +154,7 @@ The PloneCallHTMLFormatter assumes that the item passed to it is a
 Plone object that returns its Plone view when called:
 
   >>> html = composer.PloneCallHTMLFormatter(portal['front-page'], request)()
-  >>> '<h1 class="documentFirstHeading">' in html
+  >>> 'class="documentFirstHeading"' in html
   True
   >>> 'Welcome to Plone' in html
   True
