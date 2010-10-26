@@ -129,7 +129,7 @@ class Browser(browser.Browser):
         super(Browser, self).__init__(url=url, mech_browser=mech_browser)
 
 class DancingTestCase(ptc.FunctionalTestCase):
-    
+    """set expected email_from_name to help tests pass in Plone 4"""
     def afterSetUp(self):
         #in plone4 email_from_name is not set.
         prop = {'email_from_name':u'Site Administrator'}
@@ -160,7 +160,7 @@ def test_suite():
 
         ztc.ZopeDocFileSuite(
             'browser.txt',
-            test_class=ptc.FunctionalTestCase,
+            test_class=DancingTestCase,
             encoding='utf-8'
         ),
         ztc.ZopeDocFileSuite(
