@@ -4,6 +4,9 @@ History
 0.9.1 (unreleased)
 ------------------
 
+- Update test to pass on Plone4
+  [toutpt] [pbauer]
+
 - Refactoring send/preview form because formtabbing did not work.  
   [saily] 
   
