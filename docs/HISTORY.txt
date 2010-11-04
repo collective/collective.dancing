@@ -4,12 +4,14 @@ History
 0.9.1 (unreleased)
 ------------------
 
+- Fixed the stub mailer (how it ever could work is unclear). [malthe]
+
 - Update test to pass on Plone4
   [toutpt] [pbauer]
 
-- Refactoring send/preview form because formtabbing did not work.  
-  [saily] 
-  
+- Refactoring send/preview form because formtabbing did not work.
+  [saily]
+
 - Reverted changeset 119773 since users could not send folderish content
   types any more (RichDocument is a folderish content type).
   [saily]

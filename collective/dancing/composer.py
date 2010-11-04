@@ -503,8 +503,10 @@ class SMTPMailer(zope.sendmail.mailer.SMTPMailer):
         return super(SMTPMailer, self).send(fromaddr, toaddrs, message)
 
 class StubSMTPMailer(zope.sendmail.mailer.SMTPMailer):
-    """An ISMPTMailer that'll only log what it would do.
+    """An ISMPTMailer that logs what it would do and reports a status
+    upon application exit.
     """
+
     logfile = None
     sent = 0
     recipients = set()
@@ -521,7 +523,9 @@ class StubSMTPMailer(zope.sendmail.mailer.SMTPMailer):
     def send(self, fromaddr, toaddrs, message):
         self.log("StubSMTPMailer.send From: %s, To: %s\n" % (fromaddr, toaddrs))
         StubSMTPMailer.sent += 1
-        self.recipients.add(toaddrs)
+
+        for addr in toaddrs:
+            self.recipients.add(addr)
 
     @staticmethod
     def log(msg):
