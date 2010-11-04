@@ -4,7 +4,7 @@ History
 0.9.2 (unreleased)
 ------------------
 
-- ...
+- Fixed the stub mailer (encoding issue). [malthe]
 
 0.9.1 (2010-11-04)
 ------------------

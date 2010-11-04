@@ -529,8 +529,9 @@ class StubSMTPMailer(zope.sendmail.mailer.SMTPMailer):
 
     @staticmethod
     def log(msg):
+        text = msg.encode('utf-8')
         StubSMTPMailer.logfile.write(
-            "%s: %s\n" % (datetime.datetime.now(), msg))
+            "%s: %s\n" % (datetime.datetime.now(), text))
         StubSMTPMailer.logfile.flush()
 
 @atexit.register
