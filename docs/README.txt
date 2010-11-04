@@ -118,9 +118,9 @@ these steps:
 
 * Plone 4.x
 
-  1) On Plone 4 you don't need extends you'll need to add ``collective.dancing`` to the ``eggs`` and
-     ``zcml`` options in your ``[instance]`` section.  Which should then
-     look like this::
+  1) On Plone 4 you don't need to extend your buildout configuration using
+     `extends=...``. You'll need to add ``collective.dancing`` to the ``eggs`` 
+     in your ``[instance]`` section.  Which should then look like this::
     
          [instance]
          ...
