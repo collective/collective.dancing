@@ -159,10 +159,11 @@ Here's a list of the most common stumbling blocks:
      ``plone.recipe.zope2install`` >= 2.2.  You may use buildout's
      ``versions`` feature to tell it which version to use.
      
-   - Since version 0.7.0 we don't support older versions of ``z3c.form`` by 
-     default. Radio button and checkbox widget hidden templates are already 
-     included in more recent ``z3c.form`` versions.
-     ( > 2.3.3 as described here http://pypi.python.org/pypi/z3c.form#id14)
+   - Since version 0.7.0 of collective.singing we don't support older 
+     versions of ``z3c.form`` by default. Radio button and checkbox widget 
+     hidden templates are already included in more recent ``z3c.form`` 
+     versions. ( > 2.3.3 as described here 
+     http://pypi.python.org/pypi/z3c.form#id14)
      
      If you want to use an old version (for example the popular 1.9.0 which was 
      pinned in older buildout-extends files) you have to manually include a 
