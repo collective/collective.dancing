@@ -1,14 +1,10 @@
-# translation of collective.dancing.
-# <kevin.samuel@pilotsystems.net>, 2008.
-# 
-# 
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.dancing 0.1\n"
 "POT-Creation-Date: 2010-07-30 09:24+0000\n"
 "PO-Revision-Date: 2010-07-07 21:48+0200\n"
 "Last-Translator: jeanmichel.francois <jeanmichel.francois@makina-corpus.com>\n"
-"Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
+"Language-Team: French Team <plone-fr@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -233,11 +229,11 @@ msgstr "Modifier les propriétés de cette mise en page"
 
 #: ./browser/channel.py:358
 msgid "Edit the properties of the mailing-list."
-msgstr "Modifier les propriétés de ce canal"
+msgstr "Modifier les propriétés de cette liste"
 
 #: ./browser/sendnewsletter.py:242
 msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and mailing-list."
-msgstr "Entrez un sujet personnalité pour votre newsletter ici. Laissez blanc pour utiliser le sujet par défaut de ce contenu pour ce canal."
+msgstr "Entrez un sujet personnalité pour votre newsletter ici. Laissez blanc pour utiliser le sujet par défaut de ce contenu pour cette liste de diffusion."
 
 #: ./browser/query.py:12
 msgid "Enter a search query to find content."
@@ -268,9 +264,8 @@ msgid "Fill out the form below to subscribe to ${channel}. Note that this is for
 msgstr "Remplissez le formulaire ci dessous pour souscrire à ${channel}. Il est à noter que ceci est pour les nouvelles inscriptions. Cliquer ${link_start} ici pour modifier vos inscriptions${link_end}."
 
 #: ./browser/portlets/channelsubscribe.py:42
-#, fuzzy
 msgid "Find the mailing-list you want to enable direct subscription to"
-msgstr "Trouver les canaux de diffusion auxquels vous souhaitez vous abonnement directement"
+msgstr "Sélectionner la liste de diffusion à laquelle vous souhaitez permettre l'inscription"
 
 #. Default: "Finished jobs"
 #: ./browser/jobs.pt:19
@@ -572,7 +567,7 @@ msgstr "Configuration de Singing & Dancing"
 
 #: ./channel.py:129
 msgid "Standard Channel"
-msgstr "Canal de diffusion standard"
+msgstr "Liste de diffusion standard"
 
 #. Default: "Status"
 #: ./browser/jobs.pt:24
@@ -604,14 +599,12 @@ msgid "Subscriptions"
 msgstr "Abonnements"
 
 #: ./browser/stats.py:102
-#, fuzzy
 msgid "Successfully cleared queued messages in mailing-lists."
-msgstr "Les messages en attente des canaux de diffusion ont été effacés avec succès."
+msgstr "Les messages en attente des listes de diffusion ont été effacés avec succès."
 
 #: ./browser/stats.py:93
-#, fuzzy
 msgid "Successfully removed old messages from mailing-lists."
-msgstr "Les anciens messages des canaux de diffusion ont été retirés avec succès."
+msgstr "Les anciens messages des listes de diffusion ont été retirés avec succès."
 
 #: ./browser/sendnewsletter.py:114
 msgid "Successfully scheduled distribution."
@@ -622,9 +615,8 @@ msgid "Template"
 msgstr "Template"
 
 #: ./browser/portlets/channelsubscribe.py:54
-#, fuzzy
 msgid "Text in footer - if omitted the mailing-list title is used"
-msgstr "Texte du pied de page - Le titre du canal de diffusion est utilisé en cas d'omission"
+msgstr "Texte du pied de page - Le titre de la liste de diffusion est utilisé en cas d'omission"
 
 #: ./interfaces.py:46
 msgid "Text to appear at the beginning of every message. You may use a number of variables here including ${subject}."
@@ -647,23 +639,20 @@ msgid "The from address that will appear in messages sent from this composer."
 msgstr "L'adresse de l'émetteur qui apparaitra dans les messages envoyés avec cette mise en page"
 
 #: ./browser/portlets/channelsubscribe.py:41
-#, fuzzy
 msgid "The mailing-list to enable subscriptions to."
-msgstr "Le canal de diffusion auquel il faut lié l'abonnement."
+msgstr "La liste de diffusion auquelle il faut lié l'abonnement."
 
 #: ./browser/interfaces.py:10
-#, fuzzy
 msgid "The mailing-list to send this through"
-msgstr "Le canal de diffusion sur lequel on procède à l'envoi"
+msgstr "La liste de diffusion sur laquelle on procède à l'envoi"
 
 #: ./interfaces.py:41
 msgid "The reply-to address that will appear in messages sent from this composer."
 msgstr "L'adresse de réponse qui apparaitra dans les messages envoyés avec cette mise en page"
 
 #: ./interfaces.py:25
-#, fuzzy
 msgid "The sender name that will appear in messages sent from this mailing-list."
-msgstr "Le nom de l'émetteur qui apparaitra dans les messages envoyés avec cette mise en page"
+msgstr "Le nom de l'émetteur qui apparaitra dans les messages envoyés à partir de cette liste de diffusion"
 
 #: ./interfaces.py:58
 msgid "The stylesheet will be applied to the document."
@@ -690,9 +679,8 @@ msgid "This is only required if you click 'Send preview' below"
 msgstr "Ceci est obligatoire uniquement si vous cliquez sur \"Envoyer la pré-visualisation\" ci-dessous"
 
 #: ./browser/portlets/channelsubscribe.py:416
-#, fuzzy
 msgid "This portlet allows a visitor to subscribe to a specific newsletter."
-msgstr "Ce portlet permet aux visiteurs de s'abonner à un canal de diffusion précis de la newsletter."
+msgstr "Ce portlet permet aux visiteurs de s'abonner à une newsletter."
 
 #: ./browser/collector.py:92
 #: ./browser/stats.py:22
@@ -788,9 +776,8 @@ msgid "You are currently subscribed to these newsletters:"
 msgstr "Vous êtes déjà abonnés à ces newsletters : "
 
 #: ./browser/subscribe.py:134
-#, fuzzy
 msgid "You aren't subscribed to this mailing-list."
-msgstr "Vous n'êtes pas abonnés à ce canal de diffusion"
+msgstr "Vous n'êtes pas abonnés à cette liste de diffusion"
 
 #: ./browser/channel.py:616
 msgid "You can not add things in purge only mode!"
@@ -840,15 +827,13 @@ msgstr "Votre inscription a été mise à jour."
 
 #. Default: "A Mailing-list is a hub of configuration. It doesn't do anything by itself. Rather, it provides a number of components to configure and work with. It is also the container of subscriptions to it."
 #: ./browser/controlpanel-links.pt:7
-#, fuzzy
 msgid "description_channel_administration"
-msgstr "Créer, éditer et supprimer des canaux d'administration"
+msgstr "Une liste de diffusion est un ensemble de configuration. Elle ne fait rien en tant que telle. Elle met à disposition un ensemble de composants à configurer et à utiliser. C'est aussi le conteneur des abonnements à la liste."
 
 #. Default: "Collectors are useful for automatic newsletters. They are responsible for assembling a list of items for publishing."
 #: ./browser/controlpanel-links.pt:18
-#, fuzzy
 msgid "description_collector_administration"
-msgstr "Créer, éditer et supprimer des collection"
+msgstr "Les collections sont utiles pour les newsletters automatiques. Elles sont responsable d'assembler un ensemble d'éléments à publier."
 
 #. Default: "Change some aspects of how Singing & Dancing behaves."
 #: ./browser/controlpanel-links.pt:28
@@ -863,9 +848,8 @@ msgstr "L'activité de vos newsletters en détails."
 #. Default: "Mailing-list administration"
 #: ./browser/channel.py:172
 #: ./browser/controlpanel-links.pt:3
-#, fuzzy
 msgid "label_channel_administration"
-msgstr "Administration des canaux de diffusion"
+msgstr "Administration des listes de diffusion"
 
 #. Default: "Collector administration"
 #: ./browser/collector.py:65
