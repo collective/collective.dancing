@@ -427,7 +427,7 @@ msgstr "Veuillez sélectionner des éléments contenant des nouveaux messages à
 
 #: ./browser/stats.py:108
 msgid "Please select which mailing-list's queued e-mails you'd like to send."
-msgstr ""
+msgstr "Veuillez sélectionner la file d'attente de couriel que vous voulez envoyer."
 
 #: ./browser/portlets/channelsubscribe.py:46
 msgid "Portlet description"
@@ -732,7 +732,7 @@ msgstr "Remonter vers l'administration de la collection"
 #: ./browser/channel.py:708
 #: ./browser/scheduler.py:96
 msgid "Up to Mailing-lists administration"
-msgstr ""
+msgstr "Remonter vers l'administration des listes de diffusion"
 
 #: ./browser/controlpanel.py:12
 msgid "Up to Singing & Dancing configuration"
