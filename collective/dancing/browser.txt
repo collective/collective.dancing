@@ -43,7 +43,7 @@ reach it as an administrator through the 'Site Setup' link:
 Mailing-lists administration
 -----------------------
 
-The admistration screen can be reached through Plone control panel:
+The administration screen can be reached through Plone control panel:
 
   >>> browser.getLink('Mailing-list administration').click()
 
@@ -134,7 +134,7 @@ This one we need to subscribe to.
 
 
 Adding new types of Mailing-lists can be done very easily from external code.
-Simpy add to the list of factories.
+Simply add to the list of factories.
 
   >>> import collective.dancing.channel
   >>> import collective.singing.interfaces
@@ -333,7 +333,7 @@ throughout the site.  For now, let's create one item for each type:
 
 
 Mailing-list subscriptions
----------------------
+--------------------------
 
 Going back to the channel administration screen, we can click on the
 channel's name to reach the channel subscriptions screen:
@@ -429,7 +429,7 @@ We now want to remove pia by uploading a csv containing its name.
   1
 
 We don't know yet well the interface and choose yet the twice 'Purge button'.
-It is irrelevant and only purging and adding person at the same moment is just mind's inconsistant
+It is irrelevant and only purging and adding person at the same moment is just mind's inconsistent
 
   >>> import cStringIO
   >>> ctrl = browser.getControl(name='crud-add.html.widgets.subscriberdata')
@@ -1465,7 +1465,7 @@ pages. So the user is not forced to try subscribing first when she knows she alr
 
 
 The alternative "My subscriptions" page
----------------------------
+---------------------------------------
 
 There is an alternative "My subscriptions" page available for those who choose.
 It presents a flat form where key composer fields ('email' in vanilla s&d) are
