@@ -1,3 +1,4 @@
+import types
 import cStringIO
 import datetime
 from DateTime import DateTime
@@ -436,10 +437,23 @@ class ExportCSV(BrowserView):
                 row = []
                 for item in field.Fields(self.context.composers[format].schema).keys():
                     v = subscription.composer_data.get(item) or ''
-                    row.append(v.encode(charset))
+                    row.append(self._convertValue(v, charset))
 
                 writer.writerow(row)
         return res.getvalue()
+
+    def _convertValue(self, value, charset='utf-8'):
+        # here we properly handle lists, booleans and strings
+        if isinstance(value, (types.TupleType, types.ListType)):
+            value = ', '.join(map(lambda x:x.encode(charset), value))
+        elif isinstance(value, bool):
+            value = str(value)
+        elif isinstance(value, datetime.datetime):
+            value = value.strftime('%d/%m/%Y %H:%M:%S')
+        else:
+            value = value.encode(charset)
+        return value
+
 
 class UploadForm(crud.AddForm):
     label = _(u"Upload")

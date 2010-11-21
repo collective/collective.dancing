@@ -4,6 +4,10 @@ History
 0.9.3 (unreleased)
 ------------------
 
+- Fixed CSV Download view for not to break on composers that include list,
+  boolean and datetime fields.
+  [piv]
+
 - Documentation updates.  [saily]
 
 - Added italian translation, thanks to Augusto Sosa.  [saily]

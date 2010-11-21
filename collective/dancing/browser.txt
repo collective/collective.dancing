@@ -550,8 +550,55 @@ Subscriptions can be downloaded as csv:
   >>> 'pia@domain.tld\r\n' in browser.contents
   True
 
-Cleanup: remove subscriptions
+Now add custom composer with different types of fields inside it's schema and
+check if we can still download subscribers as csv file.
 
+Add our custom composer:
+
+  >>> from zope.component import provideAdapter
+  >>> from collective.dancing.tests import MyComposer, \
+  ...     composerdata_from_subscription
+  >>> provideAdapter(factory=composerdata_from_subscription)
+  >>> my_channel.composers['my_format'] = MyComposer()
+
+Add a subscriber for that 'my_format' newsletter format composer:
+
+  >>> browser.open(url=portal.absolute_url() +
+  ...     '/portal_newsletters/channels/my-other-channel')
+  >>> browser.getControl('Name').value = u"Elvis Presley"
+  >>> browser.getControl(name='crud-add.my_format.widgets.email').value = u'elvis@mail.com'
+  >>> browser.getControl(name='crud-add.my_format.widgets.programmer:list').value = ('true',)
+  >>> browser.getControl(name='crud-add.my_format.widgets.interests-empty-marker').value = 'Plone'
+  >>> browser.getControl(name='crud-add.my_format.widgets.registered-day').value = '21'
+  >>> browser.getControl(name='crud-add.my_format.widgets.registered-month').value = ('11',)
+  >>> browser.getControl(name='crud-add.my_format.widgets.registered-year').value = '2010'
+  >>> browser.getControl(name='crud-add.my_format.buttons.add').click()
+  >>> 'Item added successfully' in browser.contents
+  True
+  >>> 'elvis@mail.com' in browser.contents
+  True
+
+Download csv file:
+
+  >>> browser.getControl(name='crud-add.my_format.buttons.download').click()
+  >>> browser.headers['content-type']
+  'text/csv; charset=UTF-8'
+  >>> 'daniel@domain.tld\r\n' in browser.contents
+  True
+  >>> 'mailman@domain.tld\r\n' in browser.contents
+  True
+  >>> 'lars@domain.tld\r\n' in browser.contents
+  True
+  >>> 'pia@domain.tld\r\n' in browser.contents
+  True
+
+Cleanup:
+
+ remove subscriptions
+
+  >>> subs = my_channel.subscriptions.query(key=u'elvis@mail.com')
+  >>> for subscription in subs:
+  ...       my_channel.subscriptions.remove_subscription(subscription)
   >>> subs = my_channel.subscriptions.query(key=u'pia@domain.tld')
   >>> for subscription in subs:
   ...       my_channel.subscriptions.remove_subscription(subscription)
@@ -561,6 +608,11 @@ Cleanup: remove subscriptions
   >>> subs = my_channel.subscriptions.query(key=u'pengo@domain.tld')
   >>> for subscription in subs:
   ...       my_channel.subscriptions.remove_subscription(subscription)
+
+ remove custom composer
+
+  >>> del my_channel.composers['my_format']
+
 
 zexp import and export
 ----------------------

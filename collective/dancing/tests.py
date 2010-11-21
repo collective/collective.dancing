@@ -1,6 +1,6 @@
 import re
 import unittest
-from zope import interface, component
+from zope import interface, component, schema
 import zope.sendmail.interfaces
 from zope.testing import doctest
 from zope.component import testing
@@ -15,7 +15,34 @@ from email.Header import Header, decode_header
 from email.Charset import Charset, QP, SHORTEST
 from copy import deepcopy
 
+from collective.singing.interfaces import ISubscription
 import collective.dancing
+import collective.dancing.utils
+from collective.dancing.composer import HTMLComposer
+from collective.dancing.interfaces import IHTMLComposer
+from collective.dancing.composer import PrimaryLabelTextLine
+
+
+# custom composer definition
+class IMyComposerSchema(interface.Interface):
+    name = schema.TextLine(title=u"Name")
+    email = PrimaryLabelTextLine(title=u"E-mail address")
+    programmer = schema.Bool(title=u"Are you a programmer?")
+    interests = schema.Tuple(
+        title=u"Interests",
+        value_type=schema.Choice(values=('Plone', 'Zope', 'Python')))
+    registered = schema.Datetime(title=u"Date of registration")
+
+class MyComposer(HTMLComposer):
+  title = u'My Composer'
+  schema = IMyComposerSchema
+
+@component.adapter(ISubscription)
+@interface.implementer(IMyComposerSchema)
+def composerdata_from_subscription(subscription):
+    return collective.dancing.utils.AttributeToDictProxy(
+        subscription.composer_data)
+
 
 def setup_error_log(site):
     site.error_log._ignored_exceptions = ()
