@@ -75,9 +75,11 @@ That is, we can use it to retrieve a subscription's secret:
   >>> from Products.CMFCore.interfaces import IPropertiesTool
   >>> properties = component.getUtility(IPropertiesTool)
   >>> old_name = properties.email_from_name
-  >>> properties.email_from_name = u'Ko\u010dka'.encode('utf8')
-  >>> composer._from_address
-  '=?utf-8?q?Ko=C4=8Dka?= <>'
+  >>> properties.email_from_name = u'Ko\u010dka'.encode('utf-8')
+  >>> import email
+  >>> decoded = email.Header.decode_header(composer._from_address)
+  >>> unicode(*decoded[0]) == properties.email_from_name.decode('utf-8')
+  True
   >>> properties.email_from_name = old_name
 
   Rendering
@@ -96,7 +98,7 @@ That is, we can use it to retrieve a subscription's secret:
   >>> msg # doctest: +ELLIPSIS
   <collective.singing.message.Message object ...>
   >>> msg.payload # doctest: +ELLIPSIS
-  <email.mime.multipart.MIMEMultipart instance ...>
+  <email...MIMEMultipart instance ...>
   >>> print decodeMessageAsString(msg.payload) # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   Content-Type: multipart/mixed;...
   Subject: Plone site: News for nerds...
