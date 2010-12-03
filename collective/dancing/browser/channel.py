@@ -375,7 +375,8 @@ class EditChannelForm(z3c.form.form.EditForm):
             vocabulary='Scheduler Vocabulary')
 
         fields += field.Fields(collector, scheduler)
-        fields += field.Fields(IChannel).select('description', 'subscribeable')
+        fields += field.Fields(IChannel).select(
+            'description', 'subscribeable', 'keep_sent_messages')
         fields['description'].widgetFactory[
             z3c.form.interfaces.INPUT_MODE] = wysiwyg.WysiwygFieldWidget
 

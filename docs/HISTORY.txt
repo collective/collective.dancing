@@ -4,6 +4,10 @@ History
 0.9.3 (unreleased)
 ------------------
 
+- Added configuration setting for ``keep_sent_messages`` (new in
+  ``collective.singing`` 0.7.1).
+  [malthe]
+
 - Fixed CSV Download view for not to break on composers that include list,
   boolean and datetime fields.
   [piv]
