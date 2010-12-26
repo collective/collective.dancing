@@ -1,8 +1,7 @@
-import os
 from setuptools import setup, find_packages
 
-def read(*pathnames):
-    return open(os.path.join(os.path.dirname(__file__), *pathnames)).read()
+def read(name):
+    return open(name).read()
 
 version = '0.9.5'
 
@@ -10,8 +9,8 @@ setup(name='collective.dancing',
       version=version,
       description="The all-singing all-dancing newsletter add-on for Plone.",
       long_description='\n'.join([
-          read('docs', 'README.txt'),
-          read('docs', 'THANKS.txt'),
+          read('README.txt'),
+          read('THANKS.txt'),
           read('CHANGES.txt'),
           ]),
       classifiers=[
