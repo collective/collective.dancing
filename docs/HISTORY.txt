@@ -1,6 +1,13 @@
 History
 =======
 
+0.9.5 (2010-12-26)
+------------------
+
+- Updated the patched `queryCatalog` method of the collection class with
+  changes from the baseline.
+  [hannosch]
+
 0.9.4 (2010-12-03)
 ------------------
 

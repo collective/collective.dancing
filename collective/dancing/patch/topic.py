@@ -17,13 +17,14 @@ def queryCatalog(self, REQUEST=None, batch=False, b_size=None,
     related = [ i for i in self.getRelatedItems() \
                     if mt.checkPermission(View, i) ]
     if not full_objects:
-        related = [ pcatalog(path='/'.join(r.getPhysicalPath()))[0]
-                    for r in related]
+        uids = [r.UID() for r in related]
+        query = dict(UID=uids)
+        related = pcatalog(query)
     related=LazyCat([related])
 
     limit = self.getLimitNumber()
     max_items = self.getItemCount()
-    # Batch based on limit size if b_szie is unspecified
+    # Batch based on limit size if b_size is unspecified
     if max_items and b_size is None:
         b_size = int(max_items)
     else:
@@ -33,14 +34,13 @@ def queryCatalog(self, REQUEST=None, batch=False, b_size=None,
     if q is None:
         results=LazyCat([[]])
     else:
-        # Allow parameters to further limit existing criterias -- for real!
+        # Allow parameters to further limit existing criterias
         q.update(kw)
-
         if not batch and limit and max_items and self.hasSortCriterion():
-            # Sort limit helps Zope 2.6.1+ to do a faster query
-            # sorting when sort is involved
-            # See: http://zope.org/Members/Caseman/ZCatalog_for_2.6.1
             q.setdefault('sort_limit', max_items)
+        if batch:
+            q['b_start'] = b_start
+            q['b_size'] = b_size
         __traceback_info__ = (self, q)
         results = pcatalog.searchResults(REQUEST, **q)
 
