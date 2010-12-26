@@ -8,11 +8,11 @@ version = '0.9.5'
 
 setup(name='collective.dancing',
       version=version,
-      description="The all-singing all-dancing newsletter product for Plone.",
+      description="The all-singing all-dancing newsletter add-on for Plone.",
       long_description='\n'.join([
           read('docs', 'README.txt'),
           read('docs', 'THANKS.txt'),
-          read('docs', 'HISTORY.txt'),
+          read('CHANGES.txt'),
           ]),
       classifiers=[
         "Framework :: Plone",
