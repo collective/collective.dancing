@@ -4,6 +4,8 @@ Changelog
 0.9.6 (unreleased)
 ------------------
 
+- Fixed unclosed input tag for including the hidden secret.
+  [maurits]
 
 0.9.5 (2010-12-26)
 ------------------

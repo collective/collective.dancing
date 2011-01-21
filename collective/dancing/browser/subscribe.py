@@ -142,7 +142,8 @@ class IncludeHiddenSecret(object):
         if secret is not None:
             index = html.find('</form>')
             html = (html[:index] +
-                    '<input type="hidden" name="secret" value="%s"' % secret +
+                    '<input type="hidden" name="secret" value="%s" />' % (
+                    secret) +
                     html[index:])
         return html
 
