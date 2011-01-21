@@ -22,7 +22,6 @@ import collective.singing.browser.subscribe
 from collective.singing.channel import channel_lookup
 from collective.dancing import MessageFactory as _
 
-from plone.memoize.instance import memoize
 
 class SubscribeForm(collective.singing.browser.subscribe.Subscribe):
     already_subscribed_message = _(
@@ -295,7 +294,7 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
         try:
             self.added = self.context.subscriptions.add_subscription(
                 self.context, secret, comp_data, coll_data, metadata)
-        except ValueError, e:
+        except ValueError:
             self.added = None
             self.status = self.status_already_subscribed
             return
@@ -466,7 +465,7 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
         try:
             self.added = self.context.subscriptions.add_subscription(
                 self.context, secret, comp_data, coll_data, metadata)
-        except ValueError, e:
+        except ValueError:
             self.added = None
             self.status = self.status_already_subscribed
             return
@@ -639,6 +638,7 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
 
         if self.subs: #existing subscriptions
             for f_name in [f.getName() for f in self.key_fields]:
+                # FIXME: widget is never used in this code!
                 widget = self.widgets.get(f_name)
 
         # Let's set convert any 'pending' subscriptions to non-pending:
@@ -663,7 +663,6 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
             form.update()
             if form.removed:
                 subscription = form.context
-                name = subscription.channel.name
                 addform = SubscriptionAddSubForm(
                     subscription.channel, self.request, self)
                 addform.format = subscription.metadata['format']
@@ -786,7 +785,6 @@ class Subscriptions(BrowserView):
             form.update()
             if form.removed:
                 subscription = form.context
-                name = subscription.channel.name
                 addform = SubscriptionAddForm(
                     subscription.channel, self.request)
                 addform.format = subscription.metadata['format']
@@ -831,7 +829,6 @@ class Subscriptions(BrowserView):
 
 
 #############
-from zope import schema
 from zope.schema.vocabulary import SimpleVocabulary
 from collective.dancing.composer import HTMLComposer
 
