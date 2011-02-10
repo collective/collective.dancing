@@ -8,6 +8,7 @@ from zope.app.pagetemplate import viewpagetemplatefile
 import zope.i18n.interfaces
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zExceptions import BadRequest
 from z3c.form import button
 from z3c.form import field
 from z3c.form import form
@@ -122,6 +123,9 @@ class Unsubscribe(BrowserView):
 
     def __call__(self):
         secret = self.request.form['secret']
+        if not secret:
+            raise BadRequest()
+
         subs = self.context.aq_inner.subscriptions
 
         subscriptions = subs.query(secret=secret)

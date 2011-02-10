@@ -4,6 +4,11 @@ Changelog
 0.9.6 (unreleased)
 ------------------
 
+- Fixed critical issue that allowed an anonymous user to unsubscribe a
+  random subscriber from a channel for which the standard unsubscribe
+  view is exposed.
+  [malthe]
+
 - Fixed unclosed input tag for including the hidden secret.
   [maurits]
 
