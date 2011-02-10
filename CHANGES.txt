@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.9.6 (unreleased)
+0.9.6 (2011-02-10)
 ------------------
 
 - Fixed critical issue that allowed an anonymous user to unsubscribe a
