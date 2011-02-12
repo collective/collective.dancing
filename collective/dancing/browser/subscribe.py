@@ -123,18 +123,19 @@ class Unsubscribe(BrowserView):
 
     def __call__(self):
         secret = self.request.form['secret']
-        if not secret:
-            raise BadRequest()
+        if secret:
+            subs = self.context.aq_inner.subscriptions
+            subscriptions = subs.query(secret=secret)
 
-        subs = self.context.aq_inner.subscriptions
-
-        subscriptions = subs.query(secret=secret)
-        if len(subscriptions):
-            for sub in subscriptions:
-                subs.remove_subscription(sub)
-            self.status = _(u"You unsubscribed successfully.")
+            if len(subscriptions):
+                for sub in subscriptions:
+                    subs.remove_subscription(sub)
+                self.status = _(u"You unsubscribed successfully.")
+            else:
+                self.status = _(u"You aren't subscribed to this mailing-list.")
         else:
-            self.status = _(u"You aren't subscribed to this mailing-list.")
+            self.status = _(u"Can't identify your subscription. "
+                            u"Please check your URL.")
 
         return self.template()
 

@@ -870,6 +870,12 @@ We're now no longer subscribed:
 
   >>> delivery.sent = []
 
+Of course, not providing a secret is an error:
+
+  >>> browser.open(confirm_url + '?secret=')
+  >>> "Can't identify your subscription." in browser.contents
+  True
+
 Using a scheduler to send e-mails
 ---------------------------------
 
