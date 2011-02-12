@@ -872,7 +872,7 @@ We're now no longer subscribed:
 
 Of course, not providing a secret is an error:
 
-  >>> browser.open(confirm_url + '?secret=')
+  >>> browser.open(channel.absolute_url() + '/unsubscribe.html?secret=')
   >>> "Can't identify your subscription." in browser.contents
   True
 
