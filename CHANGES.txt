@@ -1,6 +1,11 @@
 Changelog
 =========
 
+- Fixed issue that allowed an anonymous user to confirm a random
+  subscriber from a channel for which the standard confirm view is
+  exposed.
+  [malthe]
+
 0.9.6 (2011-02-10)
 ------------------
 
