@@ -1,6 +1,9 @@
 Changelog
 =========
 
+0.9.7 (2011-02-23)
+------------------
+
 - Support acquisition-wrapped channel; the possible wrapping of the
   channel object is particularly important with subscriptions since
   the ``five.intid`` utility is used to track them and has delicate
