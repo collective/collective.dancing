@@ -1,6 +1,12 @@
 Changelog
 =========
 
+- Support acquisition-wrapped channel; the possible wrapping of the
+  channel object is particularly important with subscriptions since
+  the ``five.intid`` utility is used to track them and has delicate
+  code to avoid acquisition "loops".
+  [malthe]
+
 - Fixed issue that allowed an anonymous user to confirm a random
   subscriber from a channel for which the standard confirm view is
   exposed.

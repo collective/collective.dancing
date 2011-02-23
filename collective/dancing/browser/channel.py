@@ -22,6 +22,7 @@ from Globals import DevelopmentMode
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.interfaces import IPropertiesTool
+from Acquisition import aq_inner
 import Products.CMFPlone.utils
 from collective.singing.interfaces import IChannel, IFormLayer, ICollectorSchema
 from plone.z3cform import z2
@@ -280,16 +281,16 @@ class ManageSubscriptionsForm(crud.CrudForm):
                         date=datetime.datetime.now())
 
         try:
-            return self.context.subscriptions.add_subscription(
+            return aq_inner(self.context).subscriptions.add_subscription(
                 self.context, secret, composer_data, collector_data, metadata)
         except ValueError, e:
             raise schema.ValidationError(e.args[0])
 
     def remove(self, (secret, item)):
-        subs = self.context.subscriptions.query(secret=secret,
+        subs = aq_inner(self.context).subscriptions.query(secret=secret,
                                                 format=item.metadata['format'])
         for subscription in subs:
-            self.context.subscriptions.remove_subscription(subscription)
+            aq_inner(self.context).subscriptions.remove_subscription(subscription)
 
 
 class SubscriptionChoiceFieldDataManager(z3c.form.datamanager.AttributeField):
