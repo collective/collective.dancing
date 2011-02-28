@@ -515,7 +515,7 @@ msgstr "发送${item}作为新闻快报"
 
 #: ./browser/sendnewsletter.py:81
 msgid "Send '${context}' through ${channel}."
-msgstr "通过 ${channels}发送'${context}'"
+msgstr "通过 ${channel}发送'${context}'"
 
 #: ./profiles/default/actions.xml
 msgid "Send as newsletter"
