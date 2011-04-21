@@ -45,12 +45,11 @@ Subscriptions
 .. image:: http://danielnouri.org/media/singing-dancing.jpg
    :alt: Singing & Dancing Logo by Giuseppe Zizza
 
-Guide
-=====
+User Manual
+===========
 
-If you want to get an idea of what Singing & Dancing is capable of,
-visit our `guide with screenshots`_.  This guide will also help you
-find your way to setting up your first newsletter.
+The Singing & Dancing user manual is available here:
+http://www.webtide.co.za/how-to/singing-dancing-user-manual
 
 Installation
 ============
