@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.9.8 (unreleased)
+------------------
+
+- Fixed compatibility with Plone 4.1 by (conditionally) loading the
+  permissions.zcml from CMFCore.  (Still works on Plone 3.3 and 4.0
+  too.)
+  [maurits]
+
 0.9.7 (2011-02-23)
 ------------------
 

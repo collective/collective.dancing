@@ -1,6 +1,14 @@
 <zope:configure
    xmlns:zope="http://namespaces.zope.org/zope"
+   xmlns:zcml="http://namespaces.zope.org/zcml"
    xmlns="http://namespaces.zope.org/browser">
+
+  <!-- On Plone 4.1 and higher we must load the permissions zcml from
+       cmf core.  Not needed but works on Plone 4.0 too.  The
+       condition makes sure this is not done on Plone 3, where it
+       would fail otherwise. -->
+  <include package="Products.CMFCore" file="permissions.zcml"
+           zcml:condition="installed plone.app.upgrade"/>
 
   <include package=".portlets" />
 
