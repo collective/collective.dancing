@@ -75,7 +75,7 @@ collector_fields = field.Fields(
 
 def heading(self):
     if self.label:
-        return "<h%s>%s</h%s>" % (self.level, self.label, self.level)
+        return "<h%s>%s</h%s>" % (self.level, self.context.translate(self.label), self.level)
 
 def prefix(self):
     return self.__class__.__name__ + '-'.join(self.context.getPhysicalPath())
@@ -97,13 +97,13 @@ class EditTopicForm(subform.EditSubForm):
 
     @property
     def label(self):
-        return u"Collection: %s" % self.context.title
+        return _(u"Collection: ${title}", mapping={'title': self.context.title})
 
     prefix = property(prefix)
 
     def contents_bottom(self):
-        return u'<a href="%s/criterion_edit_form">Edit the Smart Folder</a>' % (
-            self.context.absolute_url())
+        return u'<a href="%s/criterion_edit_form">%s</a>' % (
+            self.context.absolute_url(), self.context.translate(_(u"Edit the Smart Folder")))
 
     heading = heading
 
@@ -124,7 +124,7 @@ class EditTextForm(subform.EditSubForm):
 
     @property
     def label(self):
-        return u"Rich text: %s" % self.context.title
+        return _(u"Rich text: ${title}", mapping={'title': self.context.title})
 
     prefix = property(prefix)
 
@@ -148,7 +148,7 @@ class EditReferenceForm(subform.EditSubForm):
 
     @property
     def label(self):
-        return u"Rich text: %s" % self.context.title
+        return _(u"Rich text: ${title}", mapping={'title': self.context.title})
 
     prefix = property(prefix)
 
@@ -163,7 +163,7 @@ class AddToCollectorForm(form.Form):
 
     @property
     def label(self):
-        return u"Add item to %s" % self.context.title
+        return _(u"Add item to ${title}", mapping={'title': self.context.title})
 
     @property
     def fields(self):
@@ -297,7 +297,7 @@ class EditCollectorForm(AbstractEditCollectorForm, subform.EditSubForm):
 
     @property
     def label(self):
-        return u"Collector block: %s" % self.context.title
+        return _(u"Collector block: ${title}", mapping={'title': self.context.title})
 
     @property
     def parent_form(self):

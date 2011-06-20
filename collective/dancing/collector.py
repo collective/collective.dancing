@@ -52,7 +52,7 @@ def container_added(container, event):
     if name in container.objectIds():
         return
     container[name] = Collector(
-        name, u"Latest news")
+        name, container.translate(_(u'Latest news')))
     topic = container[name].objectValues()[0]
     type_crit = topic.addCriterion('Type', 'ATPortalTypeCriterion')
     type_crit.setValue('News Item')
@@ -74,7 +74,7 @@ class ITextCollector(collective.singing.interfaces.ICollector):
 class TextCollector(OFS.SimpleItem.SimpleItem):
     interface.implements(ITextCollector)
     significant = False
-    title = 'Rich text'
+    title = _(u'Rich text')
     value = u''
 
     def __init__(self, id, title):
@@ -90,7 +90,7 @@ class IReferenceCollector(collective.singing.interfaces.ICollector):
 
 class ReferenceCollector(OFS.SimpleItem.SimpleItem):
     interface.implements(IReferenceCollector)
-    title = 'Content selection'
+    title = _(u'Content selection')
     items = ()
 
     def __init__(self, id, title):
@@ -106,7 +106,7 @@ class ReferenceCollector(OFS.SimpleItem.SimpleItem):
 
         for ref in self.items:
             if not isinstance(ref, persistent.wref.WeakRef):
-                raise ValueError("Must be a weak reference (got %s)" % repr(ref))
+                raise ValueError(_(u"Must be a weak reference (got ${title})", mapping={'title': repr(ref)}))
 
             item = ref()
 
@@ -122,7 +122,7 @@ class ReferenceCollector(OFS.SimpleItem.SimpleItem):
 
 class Collector(OFS.Folder.Folder):
     interface.implements(collective.singing.interfaces.ICollector)
-    title = 'Collector block'
+    title = _(u'Collector block')
 
     def __init__(self, id, title):
         self.id = id
@@ -224,8 +224,9 @@ class Collector(OFS.Folder.Folder):
 
     def add_topic(self):
         name = self.get_next_id()
+        title = self.translate(_(u'Collection for ${title}', mapping={'title': self.title}))
         Products.CMFPlone.utils._createObjectByType(
-            'Topic', self, id=name, title='Collection for %s' % self.title)
+            'Topic', self, id=name, title=title)
         self[name].unmarkCreationFlag()
         return self[name]
 

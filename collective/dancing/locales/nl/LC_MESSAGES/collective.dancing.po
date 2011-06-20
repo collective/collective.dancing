@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.dancing 0.8.13\n"
-"POT-Creation-Date: 2010-07-30 09:24+0000\n"
+"POT-Creation-Date: 2011-06-20 07:44+0000\n"
 "PO-Revision-Date: 2010-08-05 15:43+0200\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Dutch <plone-nl@lists.plone.org>\n"
@@ -22,23 +22,23 @@ msgstr ""
 msgid "${channel} options"
 msgstr "${channel} opties"
 
-#: ./browser/sendnewsletter.py:101
+#: ./browser/sendnewsletter.py:105
 msgid "${name} does not support scheduling."
 msgstr "${name} ondersteunt geen inplannen van taken"
 
-#: ./browser/channel.py:603
+#: ./browser/channel.py:619
 msgid "${numberadded} subscriptions updated successfully!"
 msgstr "${numberadded} inschrijvingen succesvol aangepast!"
 
-#: ./browser/channel.py:597
+#: ./browser/channel.py:613
 msgid "${numberadded} subscriptions updated successfully, ${numberremoved} removed!"
 msgstr "${numberadded} inschrijvingen succesvol aangepast, ${numberremoved} verwijderd!"
 
-#: ./browser/channel.py:587
+#: ./browser/channel.py:603
 msgid "${numberadded} subscriptions updated successfully. ${numberremoved} removed. ${numbernotadded} could not be added. (${errorcandidates})"
 msgstr "${numberadded} inschrijvingen succesvol aangepast. ${numberremoved} verwijderd. ${numbernotadded} konden niet toegevoegd worden. (${errorcandidates})"
 
-#: ./browser/channel.py:584
+#: ./browser/channel.py:600
 msgid "${numberremoved} subscriptions removed successfully!"
 msgstr "${numberremoved} inschrijvingen succesvol verwijderd!"
 
@@ -46,7 +46,7 @@ msgstr "${numberremoved} inschrijvingen succesvol verwijderd!"
 msgid "${number} messages queued."
 msgstr "${number} bericht(en) in de wachtrij"
 
-#: ./browser/sendnewsletter.py:190
+#: ./browser/sendnewsletter.py:196
 msgid "${num} message(s) queued."
 msgstr "${num} bericht(en) in de wachtrij"
 
@@ -62,7 +62,11 @@ msgstr "Toevoegen"
 msgid "Add Mailing-list Subscribe Portlet"
 msgstr "Mailinglijstportlet toevoegen"
 
-#: ./browser/channel.py:94
+#: ./browser/collector.py:166
+msgid "Add item to ${title}"
+msgstr ""
+
+#: ./browser/channel.py:96
 msgid "Add or edit mailing-lists that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
 msgstr "Voeg mailinglijsten toe of bewerk ze. Mailinglijsten gebruiken collecties om specifieke stukken informatie van je site te vinden en te emailen naar ingeschreven e-mailadressen (abonnees), op gezette tijden."
 
@@ -92,11 +96,11 @@ msgid "Append automatically collected content in this send-out"
 msgstr "Voeg automatisch verzamelde content toe in deze mailing"
 
 #: ./browser/scheduler.py:23
-#: ./browser/subscribe.py:688
+#: ./browser/subscribe.py:694
 msgid "Apply"
 msgstr "Toepassen"
 
-#: ./browser/subscribe.py:192
+#: ./browser/subscribe.py:198
 msgid "Apply changes"
 msgstr "Wijzigingen toepassen"
 
@@ -117,16 +121,20 @@ msgstr "Vriendelijke groeten"
 msgid "CSS Stylesheet"
 msgstr "CSS stylesheet"
 
-#: ./browser/channel.py:470
+#: ./browser/channel.py:486
 msgid "CSV contains a header row"
 msgstr "CSV bevat een header regel"
 
-#: ./browser/channel.py:477
+#: ./browser/channel.py:493
 msgid "CSV delimiter"
 msgstr "CSV scheidingsteken"
 
+#: ./browser/subscribe.py:114
+msgid "Can't identify your subscription. Please check your URL."
+msgstr ""
+
 #: ./browser/composer-html-forgot.pt:16
-#: ./composer.py:352
+#: ./composer.py:351
 msgid "Change your subscriptions with ${site_title}"
 msgstr "Wijzig uw inschrijving voor ${site_title}"
 
@@ -154,15 +162,31 @@ msgstr "Geef portlet voettekst weer."
 msgid "Click here to unsubscribe."
 msgstr "Klik hier om u uit te schrijven."
 
+#: ./collector.py:227
+msgid "Collection for ${title}"
+msgstr ""
+
+#: ./browser/collector.py:100
+msgid "Collection: ${title}"
+msgstr ""
+
+#: ./collector.py:125
+msgid "Collector block"
+msgstr ""
+
+#: ./browser/collector.py:300
+msgid "Collector block: ${title}"
+msgstr ""
+
 #: ./browser/composer.py:42
 msgid "Composer for format : ${format}"
 msgstr "Composer voor formaat : ${format}"
 
-#: ./browser/channel.py:739
+#: ./browser/channel.py:755
 msgid "Composers"
 msgstr "Composers"
 
-#: ./composer.py:326
+#: ./composer.py:325
 msgid "Confirm your subscription with ${channel-title}"
 msgstr "Bevestig uw inschrijving op ${channel-title}"
 
@@ -170,7 +194,11 @@ msgstr "Bevestig uw inschrijving op ${channel-title}"
 msgid "Confirming your subscription"
 msgstr "Uw inschrijving bevestigen"
 
-#: ./browser/sendnewsletter.py:241
+#: ./collector.py:93
+msgid "Content selection"
+msgstr ""
+
+#: ./browser/sendnewsletter.py:252
 msgid "Custom Subject"
 msgstr "Vervangend onderwerp"
 
@@ -186,7 +214,7 @@ msgstr "Beschrijving van de weergegeven portlet"
 msgid "Displays a form that lets you send this content item as a newsletter."
 msgstr "Toon een formulier zodat dit content item als nieuwsletter verstuurd kan worden."
 
-#: ./browser/channel.py:627
+#: ./browser/channel.py:643
 msgid "Download"
 msgstr "Download"
 
@@ -194,7 +222,7 @@ msgstr "Download"
 msgid "E-mail address"
 msgstr "E-mail adres"
 
-#: ./browser/channel.py:738
+#: ./browser/channel.py:754
 msgid "Edit"
 msgstr "Wijzig"
 
@@ -206,7 +234,7 @@ msgstr "Wijzig ${collector}"
 msgid "Edit ${selector} for ${channel}"
 msgstr "Wijzig ${selector} voor ${channel}"
 
-#: ./browser/channel.py:713
+#: ./browser/channel.py:729
 msgid "Edit Mailing-list ${channel}"
 msgstr "Wijzig mailinglijst ${channel}"
 
@@ -218,15 +246,19 @@ msgstr "Mailinglijstportlet wijzigen"
 msgid "Edit existing subscriptions"
 msgstr "Wijzig lopende abonnementen"
 
+#: ./browser/collector.py:106
+msgid "Edit the Smart Folder"
+msgstr ""
+
 #: ./browser/composer.py:33
 msgid "Edit the properties of the composer."
 msgstr "Wijzig de eigenschappen van de composer."
 
-#: ./browser/channel.py:358
+#: ./browser/channel.py:360
 msgid "Edit the properties of the mailing-list."
 msgstr "Wijzig de eigenschappen van een mailinglijst."
 
-#: ./browser/sendnewsletter.py:242
+#: ./browser/sendnewsletter.py:253
 msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and mailing-list."
 msgstr "Vul hier een eigen onderwerp in voor uw nieuwsbrief. Laat dit leeg om het standaardonderwerp te gebruiken voor de gekozen content en de mailinglijst."
 
@@ -234,7 +266,7 @@ msgstr "Vul hier een eigen onderwerp in voor uw nieuwsbrief. Laat dit leeg om he
 msgid "Enter a search query to find content."
 msgstr "Vul een zoekterm in om content te vinden."
 
-#: ./browser/channel.py:419
+#: ./browser/channel.py:422
 msgid "Error importing subscriber file. %s"
 msgstr "Fout bij het importeren van het abonneebestand. %s"
 
@@ -242,11 +274,11 @@ msgstr "Fout bij het importeren van het abonneebestand. %s"
 msgid "Failed messages"
 msgstr "Gefaalde berichten"
 
-#: ./browser/channel.py:538
+#: ./browser/channel.py:554
 msgid "File has incorrect format."
 msgstr "Bestand heeft incorrect formaat."
 
-#: ./browser/channel.py:532
+#: ./browser/channel.py:548
 msgid "File was not given."
 msgstr "Bestand is niet opgegeven."
 
@@ -279,7 +311,7 @@ msgstr "Van-adres"
 msgid "From name"
 msgstr "Van-naam"
 
-#: ./browser/channel.py:333
+#: ./browser/channel.py:335
 msgid "Generate"
 msgstr "Genereer"
 
@@ -295,7 +327,7 @@ msgstr "Openingstekst"
 msgid "Include collector items"
 msgstr "Inclusief items van collectie"
 
-#: ./browser/subscribe.py:308
+#: ./browser/subscribe.py:314
 msgid "Information on how to confirm your subscription has been sent to you."
 msgstr "De informatie over hoe uw inschrijving te bevestigen, is naar u verstuurd."
 
@@ -323,7 +355,11 @@ msgstr "Titel taak"
 msgid "Last Change"
 msgstr "Laatste wijziging"
 
-#: ./browser/channel.py:220
+#: ./collector.py:55
+msgid "Latest news"
+msgstr ""
+
+#: ./browser/channel.py:222
 msgid "Manage or add subscriptions."
 msgstr "Beheer inschrijvingen of voeg ze toe"
 
@@ -335,7 +371,7 @@ msgstr "Beheer uw inschrijvingen"
 msgid "Message subject"
 msgstr "Onderwerp van e-mail"
 
-#: ./browser/sendnewsletter.py:88
+#: ./browser/sendnewsletter.py:92
 msgid "Messages queued for delivery."
 msgstr "E-mails staan klaar voor verzenden"
 
@@ -363,7 +399,11 @@ msgstr "Blok naar beneden verplaatsen"
 msgid "Move block up"
 msgstr "Blok naar boven verplaatsen"
 
-#: ./browser/subscribe.py:720
+#: ./collector.py:109
+msgid "Must be a weak reference (got ${title})"
+msgstr ""
+
+#: ./browser/subscribe.py:726
 msgid "My subscriptions"
 msgstr "Mijn inschrijvingen"
 
@@ -387,11 +427,11 @@ msgstr "Geen items gevonden"
 msgid "No messages queued."
 msgstr "Geen berichten in de wachtrij."
 
-#: ./browser/channel.py:461
+#: ./browser/channel.py:477
 msgid "Only purge subscribers present in this list."
 msgstr "Enkel inschrijvers schoonmaken in deze lijst."
 
-#: ./browser/channel.py:654
+#: ./browser/channel.py:670
 msgid "Only some of your changes were saved"
 msgstr "Maar enkele van uw wijzigingen zijn opgeslagen"
 
@@ -403,7 +443,7 @@ msgstr "Taken in de wachtrij"
 msgid "Please confirm your subscription"
 msgstr "Bevestig uw inschrijving"
 
-#: ./browser/sendnewsletter.py:105
+#: ./browser/sendnewsletter.py:109
 msgid "Please fill in a date."
 msgstr "Vul alstublieft een datum in"
 
@@ -427,8 +467,8 @@ msgstr "Portlet beschrijving"
 msgid "Portlet header"
 msgstr "Portlet koptekst"
 
-#: ./browser/channel.py:740
-#: ./browser/sendnewsletter.py:137
+#: ./browser/channel.py:756
+#: ./browser/sendnewsletter.py:142
 msgid "Preview"
 msgstr "Voorbeeldweergave"
 
@@ -440,11 +480,11 @@ msgstr "Ga verder"
 msgid "Process jobs"
 msgstr "Voer taken uit"
 
-#: ./browser/channel.py:466
+#: ./browser/channel.py:482
 msgid "Purge list before import."
 msgstr "Lijst schoonmaken voor import."
 
-#: ./browser/channel.py:465
+#: ./browser/channel.py:481
 msgid "Purge list."
 msgstr "Schoonmaken lijst."
 
@@ -460,7 +500,7 @@ msgstr "Verwijder items"
 msgid "Remove old messages"
 msgstr "Verwijder oude berichten"
 
-#: ./browser/channel.py:460
+#: ./browser/channel.py:476
 msgid "Remove subscribers in list."
 msgstr "Verwijder abonnees in deze lijst."
 
@@ -476,11 +516,15 @@ msgstr "Berichten opnieuw proberen"
 msgid "Rich text"
 msgstr "Wysiwyg tekst"
 
-#: ./browser/channel.py:670
+#: ./browser/collector.py:127
+msgid "Rich text: ${title}"
+msgstr ""
+
+#: ./browser/channel.py:686
 msgid "Save"
 msgstr "Opslaan"
 
-#: ./browser/sendnewsletter.py:90
+#: ./browser/sendnewsletter.py:94
 msgid "Schedule distribution"
 msgstr "Plan verzending in"
 
@@ -488,11 +532,11 @@ msgstr "Plan verzending in"
 msgid "Scheduled time"
 msgstr "Ingeplande tijd"
 
-#: ./browser/channel.py:191
+#: ./browser/channel.py:193
 msgid "Search"
 msgstr "Zoeken"
 
-#: ./browser/channel.py:188
+#: ./browser/channel.py:190
 msgid "Search subscribers"
 msgstr "Zoek abonnees"
 
@@ -500,23 +544,23 @@ msgstr "Zoek abonnees"
 msgid "Sections"
 msgstr "Onderdelen"
 
-#: ./browser/channel.py:323
+#: ./browser/channel.py:325
 msgid "See an in-browser preview of the newsletter."
 msgstr "Bekijk een voorbeeldweergave van de nieuwbrief in de browser."
 
-#: ./browser/channel.py:471
+#: ./browser/channel.py:487
 msgid "Select this if you want to use the csv header row to designate document variables.The header row must contain one 'email' field."
 msgstr "Selecteer dit als u de eerste rij van de csv wil gebruiken om variabelen van het document aan te wijzen. De eerste rij moet één email veld bevatten."
 
-#: ./browser/sendnewsletter.py:59
+#: ./browser/sendnewsletter.py:62
 msgid "Send"
 msgstr "Verzenden"
 
-#: ./browser/sendnewsletter.py:233
+#: ./browser/sendnewsletter.py:244
 msgid "Send ${item} as newsletter"
 msgstr "Verzend ${item} als nieuwsbrief"
 
-#: ./browser/sendnewsletter.py:81
+#: ./browser/sendnewsletter.py:85
 msgid "Send '${context}' through ${channel}."
 msgstr "Zendt '${context}' via ${channel}."
 
@@ -524,7 +568,7 @@ msgstr "Zendt '${context}' via ${channel}."
 msgid "Send as newsletter"
 msgstr "Verstuur als nieuwsbrief"
 
-#: ./browser/sendnewsletter.py:162
+#: ./browser/sendnewsletter.py:168
 msgid "Send preview"
 msgstr "Voorbeeldweergave verzenden"
 
@@ -545,7 +589,7 @@ msgstr "Mocht u al ingeschreven zijn op één van onze lijsten, vul dan dit form
 msgid "Show footer"
 msgstr "Toon voettekst"
 
-#: ./browser/sendnewsletter.py:143
+#: ./browser/sendnewsletter.py:149
 msgid "Show preview"
 msgstr "Toon voorbeeldweergave"
 
@@ -561,7 +605,7 @@ msgstr "Standaardkanaal"
 msgid "Status"
 msgstr "Status"
 
-#: ./browser/subscribe.py:247
+#: ./browser/subscribe.py:253
 msgid "Subscribe"
 msgstr "Inschrijven"
 
@@ -573,15 +617,15 @@ msgstr "Rechtstreeks inschrijven met portlet"
 msgid "Subscribe to ${channel}"
 msgstr "Abonneer op ${channel}"
 
-#: ./browser/channel.py:451
+#: ./browser/channel.py:467
 msgid "Subscribers"
 msgstr "Abonnees"
 
-#: ./browser/channel.py:629
+#: ./browser/channel.py:645
 msgid "Subscribers exported."
 msgstr "Abonnees geëxporteerd"
 
-#: ./browser/channel.py:735
+#: ./browser/channel.py:751
 msgid "Subscriptions"
 msgstr "Inschrijvingen"
 
@@ -593,7 +637,7 @@ msgstr "Wachtende berichten met succes geleegd in mailinglijsten."
 msgid "Successfully removed old messages from mailing-lists."
 msgstr "Oude berichten met succes verwijderd van mailinglijsten."
 
-#: ./browser/sendnewsletter.py:114
+#: ./browser/sendnewsletter.py:118
 msgid "Successfully scheduled distribution."
 msgstr "Verzending met succes ingepland"
 
@@ -613,11 +657,11 @@ msgstr "Tekst die aan het begin van elk bericht verschijnt. U kunt hier een aant
 msgid "Text to appear at the end of every message"
 msgstr "Tekst die zal verschijnen aan het einde van ieder bericht"
 
-#: ./browser/sendnewsletter.py:172
+#: ./browser/sendnewsletter.py:178
 msgid "The address to send the preview to is missing."
 msgstr "Het adres om de preview naar te verzenden ontbreekt."
 
-#: ./browser/channel.py:478
+#: ./browser/channel.py:494
 msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
 msgstr "Het scheidingsteken in uw CSV-bestand. (Normaal gesproken ',' of ';', maar aanhalingstekens zijn niet nodig.)"
 
@@ -649,7 +693,7 @@ msgstr "De stylesheet zal worden toegepast op het document."
 msgid "The template that will be used."
 msgstr "De sjabloon die gebruikt zal worden."
 
-#: ./browser/subscribe.py:270
+#: ./browser/subscribe.py:276
 msgid "There seems to be an error with the information you entered."
 msgstr "Er zit een fout in de ingevoerde gegevens."
 
@@ -694,20 +738,20 @@ msgstr "Totaal aantal berichten succesvol verzonden"
 msgid "Trigger now"
 msgstr "Nu verzenden"
 
-#: ./browser/channel.py:107
+#: ./browser/channel.py:109
 #: ./browser/collector.py:39
 msgid "Type"
 msgstr "Type"
 
-#: ./browser/channel.py:570
+#: ./browser/channel.py:586
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: ./browser/subscribe.py:122
+#: ./browser/subscribe.py:123
 msgid "Unsubscribe"
 msgstr "Uitschrijven"
 
-#: ./browser/subscribe.py:204
+#: ./browser/subscribe.py:210
 msgid "Unsubscribe from newsletter"
 msgstr "Abonnement opzeggen"
 
@@ -715,7 +759,7 @@ msgstr "Abonnement opzeggen"
 msgid "Up to Collector administration"
 msgstr "Naar configuratie van collectie"
 
-#: ./browser/channel.py:708
+#: ./browser/channel.py:724
 #: ./browser/scheduler.py:96
 msgid "Up to Mailing-lists administration"
 msgstr "Naar mailinglijstadministratie"
@@ -728,15 +772,15 @@ msgstr "Naar Singing and Dancing configuratie"
 msgid "Up to Site Setup"
 msgstr "Naar Website instellingen"
 
-#: ./browser/channel.py:445
+#: ./browser/channel.py:461
 msgid "Upload"
 msgstr "Upload"
 
-#: ./browser/channel.py:452
+#: ./browser/channel.py:468
 msgid "Upload a CSV file with a list of subscribers here. Subscribers already present in the database will be overwritten. Each line should contain: ${columns}."
 msgstr "Upload een CSV-bestand met een lijst van abonnees hier. Abonnees die al bestaan in de database worden overschreven. Elke regel moet bevatten: ${columns}."
 
-#: ./browser/channel.py:634
+#: ./browser/channel.py:650
 msgid "Upload list of subscribers."
 msgstr "Upload lijst met abonnees."
 
@@ -752,7 +796,7 @@ msgstr "Gebruik enkelvoudig formulier als inschrijvingspagina indien mogelijk"
 msgid "You are already subscribed to this newsletter. Click here to ${link_start}edit your subscriptions${link_end}."
 msgstr "U bent al geabonneerd op deze nieuwsbrief. Klik hier om ${link_start}uw inschrijvingen te wijzigen${link_end}."
 
-#: ./browser/subscribe.py:219
+#: ./browser/subscribe.py:225
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
 msgstr "U bent al ingeschreven. Vul het formulier op het einde van deze pagina in om een link te versturen waarmee u uw inschrijving kan bewerken."
 
@@ -760,11 +804,11 @@ msgstr "U bent al ingeschreven. Vul het formulier op het einde van deze pagina i
 msgid "You are currently subscribed to these newsletters:"
 msgstr "U bent momenteel ingeschreven op de volgende nieuwsbrieven."
 
-#: ./browser/subscribe.py:134
+#: ./browser/subscribe.py:136
 msgid "You aren't subscribed to this mailing-list."
 msgstr "U bent niet ingeschreven op deze mailinglijst."
 
-#: ./browser/channel.py:616
+#: ./browser/channel.py:632
 msgid "You can not add things in purge only mode!"
 msgstr "Je kan niks toevoegen in enkel schoonmaak modus!"
 
@@ -780,11 +824,11 @@ msgstr "Uw inschrijving is bevestigd."
 msgid "You may use a number of variables here, like ${site_title}."
 msgstr "U mag hier een aantal variabelen gebruiken, zoals ${site_title}."
 
-#: ./browser/subscribe.py:302
+#: ./browser/subscribe.py:308
 msgid "You subscribed successfully."
 msgstr "U bent succesvol ingeschreven."
 
-#: ./browser/subscribe.py:132
+#: ./browser/subscribe.py:134
 msgid "You unsubscribed successfully."
 msgstr "U bent succesvol uitgeschreven."
 
@@ -804,7 +848,7 @@ msgstr "Uw e-mailadres is al geabonneerd. Klik op de knop 'Verstuur mijn inschri
 msgid "Your subscription isn't known to us."
 msgstr "Uw inschrijving is niet bekend."
 
-#: ./browser/subscribe.py:158
+#: ./browser/subscribe.py:164
 msgid "Your subscription was updated."
 msgstr "Uw abonnement is aangepast."
 
@@ -829,7 +873,7 @@ msgid "description_statistics_administration"
 msgstr "Naar configuratie van statistieken"
 
 #. Default: "Mailing-list administration"
-#: ./browser/channel.py:172
+#: ./browser/channel.py:174
 #: ./browser/controlpanel-links.pt:3
 msgid "label_channel_administration"
 msgstr "Configuratie van mailinglijst"
