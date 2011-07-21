@@ -4,10 +4,16 @@ Changelog
 0.9.8 (unreleased)
 ------------------
 
+- Replace several untranslatable strings.
+  [pfurman]
+
 - Fixed compatibility with Plone 4.1 by (conditionally) loading the
   permissions.zcml from CMFCore.  (Still works on Plone 3.3 and 4.0
   too.)
   [maurits]
+
+- Link to new manual.
+  [nouri]
 
 0.9.7 (2011-02-23)
 ------------------
