@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 def read(name):
     return open(name).read()
 
-version = '0.9.9dev'
+version = '0.9.9'
 
 setup(name='collective.dancing',
       version=version,
