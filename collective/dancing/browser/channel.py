@@ -1,7 +1,6 @@
 import types
 import cStringIO
 import datetime
-from DateTime import DateTime
 import sys
 import sets
 import csv
@@ -24,8 +23,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.interfaces import IPropertiesTool
 from Acquisition import aq_inner
 import Products.CMFPlone.utils
-from collective.singing.interfaces import IChannel, IFormLayer, ICollectorSchema
-from plone.z3cform import z2
+from collective.singing.interfaces import IChannel, ICollectorSchema
 from plone.z3cform.crud import crud
 from plone.app.z3cform import wysiwyg
 import collective.singing.scheduler
@@ -33,12 +31,13 @@ import collective.singing.subscribe
 import collective.singing.channel
 from zope.app.pagetemplate import viewpagetemplatefile
 from collective.dancing import MessageFactory as _
-from collective.dancing import collector
 from collective.dancing import utils
 from collective.dancing import channel
 from collective.dancing.composer import check_email
 from collective.dancing.browser import controlpanel
 from collective.dancing.browser.interfaces import ISendAndPreviewForm
+from collective.dancing.utils import switch_on
+
 
 def simpleitem_wrap(klass, name):
     class SimpleItemWrapper(klass, OFS.SimpleItem.SimpleItem):
@@ -176,8 +175,7 @@ class ChannelAdministrationView(BrowserView):
     back_link = controlpanel.back_to_controlpanel
 
     def contents(self):
-        # A call to 'switch_on' is required before we can render z3c.forms.
-        z2.switch_on(self)
+        switch_on(self)
         return ManageChannelsForm(self.context.channels, self.request)()
 
 class SubscriptionsSearchForm(z3c.form.form.Form):
@@ -730,9 +728,8 @@ class ManageChannelView(BrowserView):
                  mapping={'channel':self.context.title})
 
     def contents(self):
-        # A call to 'switch_on' is required before we can render z3c.forms.
-        z2.switch_on(self,
-                     request_layer=collective.singing.interfaces.IFormLayer)
+        switch_on(self,
+                  request_layer=collective.singing.interfaces.IFormLayer)
 
         fieldsets = []
 

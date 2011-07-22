@@ -1,4 +1,3 @@
-import datetime
 from zope import component
 from zope import interface
 from zope import schema
@@ -6,10 +5,8 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.app.pagetemplate import viewpagetemplatefile
 
 from z3c.form import button
-from z3c.form import field
 
 from plone.app.z3cform import layout
-from plone.z3cform import z2
 from plone.z3cform.crud import crud
 from collective.singing import interfaces
 from collective.singing.channel import channel_lookup
@@ -17,6 +14,7 @@ from collective.singing.channel import channel_lookup
 from collective.dancing.browser import controlpanel
 from collective.dancing import utils
 from collective.dancing import MessageFactory as _
+
 
 class IQueueStatistics(interface.Interface):
     title = schema.TextLine(title=_(u"Title"))

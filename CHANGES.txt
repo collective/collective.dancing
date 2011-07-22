@@ -4,6 +4,12 @@ Changelog
 0.9.9 (unreleased)
 ------------------
 
+- Work around incompatibility with plone.app.z3cform's base template, by
+  changing the request in our own `switch_on` function and removing the more
+  specialized `IPloneFormLayer`, thus falling back on the layer from
+  `plone.z3cform` and its base template.
+  Closes https://bugs.launchpad.net/singing-dancing/+bug/697348.
+  [hannosch]
 
 0.9.8 (2011-07-21)
 ------------------

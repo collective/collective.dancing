@@ -2,7 +2,6 @@ import zope.publisher
 from zope import schema
 import zope.schema.vocabulary
 from zope import component
-from zope import interface
 from zope.app.pagetemplate import viewpagetemplatefile
 from z3c.form import field
 from z3c.form import form, subform
@@ -15,15 +14,14 @@ import Products.CMFPlone.utils
 from collective.singing.interfaces import ICollector
 from plone.z3cform.crud import crud
 from plone.app.z3cform import wysiwyg
-from plone.z3cform import z2
 import collective.singing.interfaces
-
-import OFS.interfaces
 
 from collective.dancing import MessageFactory as _
 from collective.dancing import collector
 from collective.dancing.browser import controlpanel
 from collective.dancing.browser import query
+from collective.dancing.utils import switch_on
+
 
 class ManageCollectorsForm(crud.CrudForm):
     """Crud form for collectors.
@@ -67,7 +65,7 @@ class CollectorAdministrationView(BrowserView):
     back_link = controlpanel.back_to_controlpanel
 
     def contents(self):
-        z2.switch_on(self)
+        switch_on(self)
         return ManageCollectorsForm(self.context, self.request)()
 
 collector_fields = field.Fields(
@@ -239,7 +237,7 @@ class MoveBlockForm(form.Form):
         _('Move block down'), name='down',
         condition=lambda form: (form._info_idx() <
                                 len(form.context.aq_parent._objects) - 1))
-    def handle_moveup(self, action):
+    def handle_movedown(self, action):
         self._move(1)
         self.status = _("Item successfully moved.")
 
@@ -337,7 +335,7 @@ class CollectorEditView(BrowserView):
                     url=self.context.aq_inner.aq_parent.absolute_url())
 
     def contents(self):
-        z2.switch_on(self)
+        switch_on(self)
         form = self.form(self.context, self.request)
         return '<div class="collector-form">' + form() + '</div>'
 

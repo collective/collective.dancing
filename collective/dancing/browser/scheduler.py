@@ -6,11 +6,11 @@ from z3c.form import button
 import z3c.form.interfaces
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone.z3cform import z2
 from plone.z3cform.widget import singlecheckboxwidget_factory
 import collective.singing.interfaces
 
 from collective.dancing import MessageFactory as _
+from collective.dancing.utils import switch_on
 
 class EditPeriodicSchedulerForm(form.EditForm):
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
@@ -97,7 +97,7 @@ class SchedulerEditView(BrowserView):
             url=self.context.aq_inner.aq_parent.aq_parent.absolute_url())
 
     def contents(self):
-        z2.switch_on(self)
+        switch_on(self)
         return self.form(self.context.aq_inner, self.request)
 
 class PeriodicSchedulerEditView(SchedulerEditView):

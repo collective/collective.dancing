@@ -6,27 +6,19 @@ from zope import schema
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
 from zope.app.pagetemplate import viewpagetemplatefile
-from zope.formlib import form
 
 from Products.CMFCore.utils import getToolByName
 from urllib import urlencode
 from Products.Five import BrowserView
 import z3c.form
-from z3c.form import subform
-from plone.z3cform import z2
-
-from plone.memoize.instance import memoize
-from plone.memoize import ram
-from plone.memoize.compress import xhtml_compress
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
-import zope.app.container
-import collective.singing
 from collective.singing.channel import channel_lookup
 from collective.dancing import MessageFactory as _
 from collective.dancing.browser.subscribe import SubscriptionAddForm
 from collective.singing.interfaces import ICollectorSchema
+from collective.dancing.utils import switch_on
 
 
 test_vocab = schema.vocabulary.SimpleVocabulary.fromValues(range(5))
@@ -239,7 +231,7 @@ class Renderer(base.Renderer):
         base.Renderer.__init__(self, *args)
 
     def setup_form(self):
-        z2.switch_on(self)
+        switch_on(self)
         if self.channel is not None:
             if self.data.subscribe_directly:
                 self.form = PortletSubscriptionAddForm(self.channel, self.request)
@@ -416,7 +408,7 @@ class ChannelSubscribePortletEditView(ChannelSubscribePortletView):
     description = _(u"This portlet allows a visitor to subscribe to a specific newsletter.")
 
     def contents(self):
-        z2.switch_on(self)
+        switch_on(self)
         return ChannelSubscribePortletEditForm(self.context, self.request)()
 
 
@@ -483,6 +475,6 @@ class ChannelSubscribePortletAddView(ChannelSubscribePortletView):
     description = _(u"This portlet allows a visitor to subscribe to a specific newsletter.")
 
     def contents(self):
-        z2.switch_on(self)
+        switch_on(self)
         return ChannelSubscribePortletAddForm(self.context, self.request)()
 

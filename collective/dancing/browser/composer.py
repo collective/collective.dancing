@@ -1,25 +1,18 @@
 import zope.publisher
-from zope import schema
 import zope.event
 import z3c.form
 
-from Products.Five import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-import Products.CMFPlone.utils
 from collective.singing.interfaces import IComposer
-from plone.z3cform.crud import crud
 from plone.app.z3cform import wysiwyg
 
-from plone.z3cform import z2
 from zope import component
 from zope.app.pagetemplate import viewpagetemplatefile
 import collective.singing.interfaces
-from collective.dancing import MessageFactory as _
-from collective.dancing import collector
-from collective.dancing.browser import controlpanel
 
+from collective.dancing import MessageFactory as _
 from collective.dancing.interfaces import IHTMLComposer
 from collective.dancing.browser.channel import EditComposersForm
+
 
 class EditComposerForm(z3c.form.subform.EditSubForm):
     """Composer edit form.
