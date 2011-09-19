@@ -111,7 +111,7 @@ msgstr "Zurück zur Portletverwaltung"
 #: ./browser/prettysubscriptions.pt:10
 #: ./browser/subscriptions.pt:10
 msgid "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
-msgstr "Hier sehen Sie eine Liste aller Newsletter die wir anbieten. Falls Sie bereits zu einem dieser Newsletter bereits angemeldet sind können Sie das untenstehende Formular ausfüllen und wir senden Ihnen einen Link  zu, um Ihre Abonnements zu bearbeiten."
+msgstr "Hier sehen Sie eine Liste aller Newsletter die wir anbieten. Falls Sie bereits zu einem dieser Newsletter angemeldet sind können Sie das untenstehende Formular ausfüllen und wir senden Ihnen einen Link zu, um Ihre Abonnements zu bearbeiten."
 
 #: ./browser/composer-html-forgot.pt:30
 msgid "Best regards"
