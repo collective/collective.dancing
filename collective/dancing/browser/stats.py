@@ -165,5 +165,5 @@ StatsView = layout.wrap_form(
     StatsForm,
     index=ViewPageTemplateFile('controlpanel.pt'),
     label = _(u"label_statistics_administration",
-              default=u"Newsletter statistics"),
+              default=u"Statistics"),
     back_link = controlpanel.back_to_controlpanel)
