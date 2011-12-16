@@ -120,6 +120,7 @@ of the newsletter optional for subscribers, we'll need to have each
 part in its own collector, and then set the collectors to be optional
 later.
 
+  >>> collector = portal['portal_newsletters']['collectors']['default-latest-news']
   >>> collector.manage_delObjects(['0'])
   >>> import collective.dancing.collector
   >>> def add_collector(context, title):
