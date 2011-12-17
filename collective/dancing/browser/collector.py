@@ -236,7 +236,7 @@ class MoveBlockForm(form.Form):
         _('Move block down'), name='down',
         condition=lambda form: (form._info_idx() <
                                 len(form.context.aq_parent._objects) - 1))
-    def handle_moveup(self, action):
+    def handle_movedown(self, action):
         self._move(1)
         self.status = _("Item successfully moved.")
 

@@ -4,6 +4,9 @@ Changelog
 0.9.10 (unreleased)
 -------------------
 
+- Fixed 'Move block down/up' handlers.
+  [maurits]
+
 - Revert change made in 0.9.9.  The 0.9.x series will now remain
   compatible with z3c.form 1.9.0 and Plone 3.  Trunk will keep the
   change and target newer z3c.form versions and Plone 4 in a 1.0
