@@ -3,7 +3,7 @@
 # Wim Boucquaert <wim@infrae.com>, 2010
 msgid ""
 msgstr ""
-"Project-Id-Version: collective.dancing 0.8.13\n"
+"Project-Id-Version: collective.dancing 0.9\n"
 "POT-Creation-Date: 2011-12-17 23:25+0000\n"
 "PO-Revision-Date: 2010-08-05 15:43+0200\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Singing & Dancing\n"
+"Project-Id-Version: collective.dancing 0.9\n"
 "POT-Creation-Date: 2011-12-17 23:25+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Daniel Widerin <daniel.widerin@kombinat.at>\n"

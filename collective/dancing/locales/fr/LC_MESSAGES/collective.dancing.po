@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: collective.dancing 0.1\n"
+"Project-Id-Version: collective.dancing 0.9\n"
 "POT-Creation-Date: 2011-12-17 23:25+0000\n"
 "PO-Revision-Date: 2010-07-07 21:48+0200\n"
 "Last-Translator: jeanmichel.francois <jeanmichel.francois@makina-corpus.com>\n"
