@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-12-10 02:05+0000\n"
+"POT-Creation-Date: 2011-12-17 23:25+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: David Picó Vila <david.pico.vila@gmail.com>\n"
 "Language-Team: LANGUAGE\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "${channel} options"
 msgstr "opciones de ${channel}"
 
-#: ./browser/sendnewsletter.py:105
+#: ./browser/sendnewsletter.py:98
 msgid "${name} does not support scheduling."
 msgstr ""
 
@@ -47,15 +47,15 @@ msgstr ""
 msgid "${number} messages queued."
 msgstr "${number} mensajes puestos en cola"
 
-#: ./browser/sendnewsletter.py:196
+#: ./browser/sendnewsletter.py:189
 msgid "${num} message(s) queued."
 msgstr ""
 
-#: ./browser/stats.py:115
+#: ./browser/stats.py:114
 msgid "${sent} message(s) sent, ${failed} failure(s)."
 msgstr ""
 
-#: ./browser/collector.py:182
+#: ./browser/collector.py:181
 msgid "Add"
 msgstr "Añadir"
 
@@ -64,11 +64,11 @@ msgstr "Añadir"
 msgid "Add Mailing-list Subscribe Portlet"
 msgstr "Añadir portlet de suscripción de canales"
 
-#: ./browser/collector.py:164
+#: ./browser/collector.py:163
 msgid "Add item to ${title}"
 msgstr ""
 
-#: ./browser/channel.py:95
+#: ./browser/channel.py:94
 msgid "Add or edit mailing-lists that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
 msgstr ""
 
@@ -76,15 +76,15 @@ msgstr ""
 msgid "Address to send the preview to"
 msgstr "Dirección a la cual enviar la vista previa"
 
-#: ./browser/stats.py:135
+#: ./browser/stats.py:134
 msgid "All finished jobs cleared"
 msgstr ""
 
-#: ./browser/stats.py:127
+#: ./browser/stats.py:126
 msgid "All pending jobs processed"
 msgstr ""
 
-#: ./browser/stats.py:159
+#: ./browser/stats.py:158
 msgid "All sent and failed messages deleted"
 msgstr "Se han borrado todos los mensajes enviados y fallidos"
 
@@ -99,11 +99,11 @@ msgid "Append automatically collected content in this send-out"
 msgstr ""
 
 #: ./browser/scheduler.py:23
-#: ./browser/subscribe.py:696
+#: ./browser/subscribe.py:693
 msgid "Apply"
 msgstr "Aplicar"
 
-#: ./browser/subscribe.py:200
+#: ./browser/subscribe.py:197
 msgid "Apply changes"
 msgstr "Aplicar cambios"
 
@@ -134,22 +134,22 @@ msgstr ""
 msgid "CSV delimiter"
 msgstr ""
 
-#: ./browser/subscribe.py:116
+#: ./browser/subscribe.py:113
 msgid "Can't identify your subscription. Please check your URL."
 msgstr ""
 
 #. Default: "Change your subscriptions with ${site_title}"
 #: ./browser/composer-html-forgot.pt:16
-#: ./composer.py:351
+#: ./composer.py:350
 #, fuzzy
 msgid "Change your subscriptions with ${site_title}"
 msgstr "Cambia tus suscripciones a ${site_title}"
 
-#: ./browser/stats.py:129
+#: ./browser/stats.py:128
 msgid "Clear finished jobs"
 msgstr ""
 
-#: ./browser/stats.py:95
+#: ./browser/stats.py:94
 msgid "Clear queued messages"
 msgstr ""
 
@@ -171,19 +171,19 @@ msgstr "Haz clic aquí para mostrar el pie del portlet"
 msgid "Click here to unsubscribe."
 msgstr "Haz clic aquí para anular la suscripción."
 
-#: ./collector.py:227
+#: ./collector.py:225
 msgid "Collection for ${title}"
 msgstr ""
 
-#: ./browser/collector.py:98
+#: ./browser/collector.py:97
 msgid "Collection: ${title}"
 msgstr ""
 
-#: ./collector.py:125
+#: ./collector.py:123
 msgid "Collector block"
 msgstr ""
 
-#: ./browser/collector.py:298
+#: ./browser/collector.py:297
 msgid "Collector block: ${title}"
 msgstr ""
 
@@ -191,24 +191,24 @@ msgstr ""
 msgid "Composer for format : ${format}"
 msgstr ""
 
-#: ./browser/channel.py:752
+#: ./browser/channel.py:753
 msgid "Composers"
 msgstr ""
 
 #. Default: "channel-title"
-#: ./composer.py:325
+#: ./composer.py:324
 msgid "Confirm your subscription with ${channel-title}"
 msgstr "Confirma tu suscripción a ${channel-title}"
 
-#: ./browser/subscribe.py:96
+#: ./browser/subscribe.py:93
 msgid "Confirming your subscription"
 msgstr "Confirmando tu suscripción"
 
-#: ./collector.py:93
+#: ./collector.py:91
 msgid "Content selection"
 msgstr ""
 
-#: ./browser/sendnewsletter.py:252
+#: ./browser/sendnewsletter.py:245
 msgid "Custom Subject"
 msgstr ""
 
@@ -230,16 +230,16 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: ./composer.py:125
+#: ./composer.py:124
 msgid "E-mail address"
 msgstr "Dirección de correo electrónico"
 
-#: ./browser/channel.py:751
+#: ./browser/channel.py:752
 msgid "Edit"
 msgstr ""
 
 #. Default: ""
-#: ./browser/collector.py:330
+#: ./browser/collector.py:329
 msgid "Edit ${collector}"
 msgstr "Editar ${collector}"
 
@@ -258,11 +258,11 @@ msgstr "Editar canal ${channel}"
 msgid "Edit Mailing-list Subscribe Portlet"
 msgstr "Editar el portlet de suscripción a canal"
 
-#: ./browser/subscribe.py:38
+#: ./browser/subscribe.py:35
 msgid "Edit existing subscriptions"
 msgstr "Editar las suscripciones existentes"
 
-#: ./browser/collector.py:104
+#: ./browser/collector.py:103
 msgid "Edit the Smart Folder"
 msgstr ""
 
@@ -274,7 +274,7 @@ msgstr ""
 msgid "Edit the properties of the mailing-list."
 msgstr ""
 
-#: ./browser/sendnewsletter.py:253
+#: ./browser/sendnewsletter.py:246
 msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and mailing-list."
 msgstr ""
 
@@ -286,7 +286,7 @@ msgstr ""
 msgid "Error importing subscriber file. %s"
 msgstr ""
 
-#: ./browser/stats.py:40
+#: ./browser/stats.py:39
 msgid "Failed messages"
 msgstr "Mensajes fallidos"
 
@@ -298,11 +298,11 @@ msgstr ""
 msgid "File was not given."
 msgstr ""
 
-#: ./browser/subscribe.py:40
+#: ./browser/subscribe.py:37
 msgid "Fill out the form below to receive an email with a link from which you can edit your subscriptions."
 msgstr ""
 
-#: ./browser/subscribe.py:69
+#: ./browser/subscribe.py:66
 msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to ${link_start}edit your subscriptions${link_end}."
 msgstr ""
 
@@ -333,7 +333,7 @@ msgstr ""
 msgid "Generate"
 msgstr ""
 
-#: ./composer.py:154
+#: ./composer.py:153
 msgid "HTML E-Mail"
 msgstr "Correo electrónico HTML"
 
@@ -345,19 +345,19 @@ msgstr ""
 msgid "Include collector items"
 msgstr "Incluir los elementos de la colección"
 
-#: ./browser/subscribe.py:316
+#: ./browser/subscribe.py:313
 msgid "Information on how to confirm your subscription has been sent to you."
 msgstr "Se te ha enviado información sobre cómo confirmar tu suscripción."
 
-#: ./browser/collector.py:190
+#: ./browser/collector.py:189
 msgid "Item added successfully."
 msgstr "Se ha añadido el elemento"
 
-#: ./browser/collector.py:201
+#: ./browser/collector.py:200
 msgid "Item successfully deleted."
 msgstr "Se ha borrado el elemento"
 
-#: ./browser/collector.py:234
+#: ./browser/collector.py:233
 msgid "Item successfully moved."
 msgstr "El elemento se ha movido"
 
@@ -370,11 +370,11 @@ msgstr ""
 msgid "Job title"
 msgstr ""
 
-#: ./browser/stats.py:31
+#: ./browser/stats.py:30
 msgid "Last Change"
 msgstr "Último cambio"
 
-#: ./collector.py:55
+#: ./collector.py:53
 msgid "Latest news"
 msgstr ""
 
@@ -391,43 +391,43 @@ msgstr "Gestionar tus suscripciones"
 msgid "Message subject"
 msgstr ""
 
-#: ./browser/sendnewsletter.py:92
+#: ./browser/sendnewsletter.py:85
 msgid "Messages queued for delivery."
 msgstr ""
 
-#: ./browser/stats.py:35
+#: ./browser/stats.py:34
 msgid "Messages successfully sent"
 msgstr "Mensajes enviados con éxito"
 
-#: ./browser/stats.py:29
+#: ./browser/stats.py:28
 msgid "Messages waiting to be sent"
 msgstr "Mensajes en espera para enviar"
 
-#: ./browser/stats.py:41
+#: ./browser/stats.py:40
 msgid "Messages with errors"
 msgstr "Mensajes con errores"
 
-#: ./browser/stats.py:47
+#: ./browser/stats.py:46
 msgid "Messages with errors in the retry queue"
 msgstr "Mensajes con errores en la cola de reintento"
 
-#: ./browser/collector.py:237
+#: ./browser/collector.py:236
 msgid "Move block down"
 msgstr "Mover el bloque para abajo"
 
-#: ./browser/collector.py:230
+#: ./browser/collector.py:229
 msgid "Move block up"
 msgstr "Mover el bloque para arriba"
 
-#: ./collector.py:109
+#: ./collector.py:107
 msgid "Must be a weak reference (got ${title})"
 msgstr ""
 
-#: ./browser/subscribe.py:728
+#: ./browser/subscribe.py:725
 msgid "My subscriptions"
 msgstr "Mis suscripciones"
 
-#: ./browser/stats.py:28
+#: ./browser/stats.py:27
 msgid "New messages"
 msgstr "Mensajes nuevos"
 
@@ -439,7 +439,7 @@ msgstr "Newsletter"
 msgid "Newsletters"
 msgstr ""
 
-#: ./browser/preview.py:79
+#: ./browser/preview.py:77
 msgid "No items found."
 msgstr ""
 
@@ -465,19 +465,19 @@ msgstr ""
 msgid "Please confirm your subscription"
 msgstr "Por favor, confirma tu suscripción"
 
-#: ./browser/sendnewsletter.py:109
+#: ./browser/sendnewsletter.py:102
 msgid "Please fill in a date."
 msgstr ""
 
-#: ./browser/stats.py:88
+#: ./browser/stats.py:87
 msgid "Please select items to remove."
 msgstr ""
 
-#: ./browser/stats.py:97
+#: ./browser/stats.py:96
 msgid "Please select items with new messages to clear."
 msgstr ""
 
-#: ./browser/stats.py:106
+#: ./browser/stats.py:105
 msgid "Please select which mailing-list's queued e-mails you'd like to send."
 msgstr ""
 
@@ -489,8 +489,8 @@ msgstr "Descripción del portlet"
 msgid "Portlet header"
 msgstr "Cabecera del portlet"
 
-#: ./browser/channel.py:753
-#: ./browser/sendnewsletter.py:142
+#: ./browser/channel.py:754
+#: ./browser/sendnewsletter.py:135
 msgid "Preview"
 msgstr ""
 
@@ -498,7 +498,7 @@ msgstr ""
 msgid "Proceed"
 msgstr "Proceder"
 
-#: ./browser/stats.py:118
+#: ./browser/stats.py:117
 msgid "Process jobs"
 msgstr ""
 
@@ -510,7 +510,7 @@ msgstr ""
 msgid "Purge list."
 msgstr ""
 
-#: ./browser/collector.py:198
+#: ./browser/collector.py:197
 msgid "Remove block"
 msgstr "Eliminar el bloque"
 
@@ -518,7 +518,7 @@ msgstr "Eliminar el bloque"
 msgid "Remove entries"
 msgstr ""
 
-#: ./browser/stats.py:86
+#: ./browser/stats.py:85
 msgid "Remove old messages"
 msgstr ""
 
@@ -530,15 +530,15 @@ msgstr ""
 msgid "Reply-to address"
 msgstr ""
 
-#: ./browser/stats.py:46
+#: ./browser/stats.py:45
 msgid "Retry messages"
 msgstr "Reintentar el envío"
 
-#: ./collector.py:72
+#: ./collector.py:70
 msgid "Rich text"
 msgstr "Texto enriquecido"
 
-#: ./browser/collector.py:125
+#: ./browser/collector.py:124
 msgid "Rich text: ${title}"
 msgstr ""
 
@@ -546,7 +546,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: ./browser/sendnewsletter.py:94
+#: ./browser/sendnewsletter.py:87
 msgid "Schedule distribution"
 msgstr ""
 
@@ -562,7 +562,7 @@ msgstr ""
 msgid "Search subscribers"
 msgstr ""
 
-#: ./collector.py:215
+#: ./collector.py:213
 msgid "Sections"
 msgstr "Secciones"
 
@@ -574,16 +574,16 @@ msgstr ""
 msgid "Select this if you want to use the csv header row to designate document variables.The header row must contain one 'email' field."
 msgstr ""
 
-#: ./browser/sendnewsletter.py:62
+#: ./browser/sendnewsletter.py:55
 msgid "Send"
 msgstr "Enviar"
 
 #. Default: ""
-#: ./browser/sendnewsletter.py:244
+#: ./browser/sendnewsletter.py:237
 msgid "Send ${item} as newsletter"
 msgstr "Enviar ${item} como boletín de noticias"
 
-#: ./browser/sendnewsletter.py:85
+#: ./browser/sendnewsletter.py:78
 msgid "Send '${context}' through ${channel}."
 msgstr ""
 
@@ -592,15 +592,15 @@ msgstr ""
 msgid "Send as newsletter"
 msgstr ""
 
-#: ./browser/sendnewsletter.py:168
+#: ./browser/sendnewsletter.py:161
 msgid "Send preview"
 msgstr "Enviar vista previa"
 
-#: ./browser/stats.py:104
+#: ./browser/stats.py:103
 msgid "Send queued messages now"
 msgstr ""
 
-#: ./browser/stats.py:34
+#: ./browser/stats.py:33
 msgid "Sent messages"
 msgstr "Mensajes enviados"
 
@@ -614,11 +614,11 @@ msgstr "Ya debes estar suscrito a alguna de nuestras listas. Por favor, usa este
 msgid "Show footer"
 msgstr "Mostrar pie"
 
-#: ./browser/sendnewsletter.py:149
+#: ./browser/sendnewsletter.py:142
 msgid "Show preview"
 msgstr "Mostrar vista previa"
 
-#: ./browser/controlpanel.py:19
+#: ./browser/controlpanel.py:16
 msgid "Singing & Dancing configuration"
 msgstr "Configuración de Singing & Dancing"
 
@@ -631,7 +631,7 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: ./browser/subscribe.py:255
+#: ./browser/subscribe.py:252
 msgid "Subscribe"
 msgstr "Suscribirse"
 
@@ -640,7 +640,7 @@ msgid "Subscribe directly from portlet"
 msgstr "Suscribir directamente desde el portlet"
 
 #. Default: "channel"
-#: ./browser/subscribe.py:79
+#: ./browser/subscribe.py:76
 msgid "Subscribe to ${channel}"
 msgstr "Suscribirse a ${channel}"
 
@@ -652,19 +652,19 @@ msgstr ""
 msgid "Subscribers exported."
 msgstr ""
 
-#: ./browser/channel.py:748
+#: ./browser/channel.py:749
 msgid "Subscriptions"
 msgstr ""
 
-#: ./browser/stats.py:100
+#: ./browser/stats.py:99
 msgid "Successfully cleared queued messages in mailing-lists."
 msgstr ""
 
-#: ./browser/stats.py:91
+#: ./browser/stats.py:90
 msgid "Successfully removed old messages from mailing-lists."
 msgstr ""
 
-#: ./browser/sendnewsletter.py:118
+#: ./browser/sendnewsletter.py:111
 msgid "Successfully scheduled distribution."
 msgstr ""
 
@@ -685,7 +685,7 @@ msgstr ""
 msgid "Text to appear at the end of every message"
 msgstr ""
 
-#: ./browser/sendnewsletter.py:178
+#: ./browser/sendnewsletter.py:171
 msgid "The address to send the preview to is missing."
 msgstr ""
 
@@ -723,7 +723,7 @@ msgstr ""
 msgid "The template that will be used."
 msgstr ""
 
-#: ./browser/subscribe.py:278
+#: ./browser/subscribe.py:275
 msgid "There seems to be an error with the information you entered."
 msgstr "Parece que hay un error en la información que has introducido."
 
@@ -744,8 +744,8 @@ msgstr "Esto sólo se requiere si haces clic en \"Enviar vista previa\" más aba
 msgid "This portlet allows a visitor to subscribe to a specific newsletter."
 msgstr "Este portlet permite a un visitante suscribirse a un canal específico de boletín de noticias."
 
-#: ./browser/collector.py:90
-#: ./browser/stats.py:20
+#: ./browser/collector.py:89
+#: ./browser/stats.py:19
 msgid "Title"
 msgstr "Título"
 
@@ -758,11 +758,11 @@ msgstr "Título del portlet tal y como aparece en el sitio"
 msgid "To confirm your subscription with ${channel}, please click here: ${url}"
 msgstr "Para confirmar tu suscripción a ${channel}, por favor haz clic aquí: ${url}"
 
-#: ./browser/stats.py:23
+#: ./browser/stats.py:22
 msgid "Total messages sent"
 msgstr "Total de mensajes enviados"
 
-#: ./browser/stats.py:24
+#: ./browser/stats.py:23
 msgid "Total number of messages sent successsfully"
 msgstr "Número total de mensajes que se han podido enviar"
 
@@ -770,8 +770,8 @@ msgstr "Número total de mensajes que se han podido enviar"
 msgid "Trigger now"
 msgstr "Disparar ahora"
 
-#: ./browser/channel.py:108
-#: ./browser/collector.py:37
+#: ./browser/channel.py:107
+#: ./browser/collector.py:36
 msgid "Type"
 msgstr "Tipo"
 
@@ -779,15 +779,15 @@ msgstr "Tipo"
 msgid "Unknown"
 msgstr ""
 
-#: ./browser/subscribe.py:125
+#: ./browser/subscribe.py:122
 msgid "Unsubscribe"
 msgstr "Darse de baja"
 
-#: ./browser/subscribe.py:212
+#: ./browser/subscribe.py:209
 msgid "Unsubscribe from newsletter"
 msgstr "Darse de baja de la suscripción al boletín."
 
-#: ./browser/collector.py:334
+#: ./browser/collector.py:333
 msgid "Up to Collector administration"
 msgstr "Subir a Administración de colecciones"
 
@@ -796,11 +796,11 @@ msgstr "Subir a Administración de colecciones"
 msgid "Up to Mailing-lists administration"
 msgstr ""
 
-#: ./browser/controlpanel.py:12
+#: ./browser/controlpanel.py:9
 msgid "Up to Singing & Dancing configuration"
 msgstr "Subir a Configuración de Singing & Dancing"
 
-#: ./browser/controlpanel.py:22
+#: ./browser/controlpanel.py:19
 msgid "Up to Site Setup"
 msgstr "Subir a Configuración del sitio"
 
@@ -828,7 +828,7 @@ msgstr ""
 msgid "You are already subscribed to this newsletter. Click here to ${link_start}edit your subscriptions${link_end}."
 msgstr ""
 
-#: ./browser/subscribe.py:227
+#: ./browser/subscribe.py:224
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
 msgstr "Ya estás suscrito. Rellena el formulario que aparece al final de esta página para que se te envíe un enlace desde el cual puedes modificar las condiciones de tu suscripción."
 
@@ -837,7 +837,7 @@ msgstr "Ya estás suscrito. Rellena el formulario que aparece al final de esta p
 msgid "You are currently subscribed to these newsletters:"
 msgstr "Actualmente estás suscrito a los siguientes boletines:"
 
-#: ./browser/subscribe.py:138
+#: ./browser/subscribe.py:135
 #, fuzzy
 msgid "You aren't subscribed to this mailing-list."
 msgstr "No estás suscrito a este canal."
@@ -851,7 +851,7 @@ msgstr ""
 msgid "You can subscribe to these newsletters:"
 msgstr "Puedes suscribirte a los siguientes boletines:"
 
-#: ./browser/subscribe.py:98
+#: ./browser/subscribe.py:95
 msgid "You confirmed your subscription successfully."
 msgstr "Has confirmado tu suscripción correctamente."
 
@@ -859,11 +859,11 @@ msgstr "Has confirmado tu suscripción correctamente."
 msgid "You may use a number of variables here, like ${site_title}."
 msgstr ""
 
-#: ./browser/subscribe.py:310
+#: ./browser/subscribe.py:307
 msgid "You subscribed successfully."
 msgstr "Te has suscrito correctamente."
 
-#: ./browser/subscribe.py:136
+#: ./browser/subscribe.py:133
 msgid "You unsubscribed successfully."
 msgstr "Te has dado de baja de la suscripción."
 
@@ -872,19 +872,19 @@ msgstr "Te has dado de baja de la suscripción."
 msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
 msgstr "Estás recibiendo este correo electrónico porque estás suscrito al boletín de noticias ${channel}."
 
-#: ./composer.py:44
+#: ./composer.py:43
 msgid "Your e-mail address is invalid"
 msgstr "La dirección de correo electrónico es incorrecta"
 
-#: ./browser/subscribe.py:30
+#: ./browser/subscribe.py:27
 msgid "Your email address is already subscribed. Click the 'Send my subscription details' button below."
 msgstr ""
 
-#: ./browser/subscribe.py:99
+#: ./browser/subscribe.py:96
 msgid "Your subscription isn't known to us."
 msgstr "No conocemos tu suscripción."
 
-#: ./browser/subscribe.py:166
+#: ./browser/subscribe.py:163
 msgid "Your subscription was updated."
 msgstr "Tus suscripciones se han actualizado."
 
@@ -918,14 +918,14 @@ msgid "description_statistics_administration"
 msgstr "Ver las estadísticas de boletines"
 
 #. Default: "Mailing-list administration"
-#: ./browser/channel.py:173
+#: ./browser/channel.py:172
 #: ./browser/controlpanel-links.pt:3
 #, fuzzy
 msgid "label_channel_administration"
 msgstr "Administración de canales"
 
 #. Default: "Collector administration"
-#: ./browser/collector.py:63
+#: ./browser/collector.py:62
 #: ./browser/controlpanel-links.pt:13
 msgid "label_collector_administration"
 msgstr "Administración de colecciones"
@@ -943,7 +943,7 @@ msgstr ""
 
 #. Default: "Statistics"
 #: ./browser/controlpanel-links.pt:32
-#: ./browser/stats.py:167
+#: ./browser/stats.py:166
 msgid "label_statistics_administration"
 msgstr "Estadísticas"
 
