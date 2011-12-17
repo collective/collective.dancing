@@ -1,8 +1,8 @@
 import z3c.form
+from plone.z3cform import z2
 
 from collective.dancing.browser.channel import ChannelAdministrationView
 from collective.dancing.channel import INewslettersSettings
-from collective.dancing.utils import switch_on
 from collective.dancing import MessageFactory as _
 
 
@@ -16,5 +16,6 @@ class NewslettersSettingsView(ChannelAdministrationView):
               default=u"Global settings")
 
     def contents(self):
-        switch_on(self)
+        # Calling 'switch_on' is required before we can render z3c.forms.
+        z2.switch_on(self)
         return NewslettersSettingsForm(self.context, self.request)()

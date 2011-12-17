@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 def read(name):
     return open(name).read()
 
-version = '1.0dev'
+version = '0.9.10dev'
 
 setup(name='collective.dancing',
       version=version,
@@ -15,8 +15,8 @@ setup(name='collective.dancing',
           ]),
       classifiers=[
         "Framework :: Plone",
-        'Framework :: Plone :: 4.0',
-        'Framework :: Plone :: 4.1',
+        'Framework :: Plone :: 3.2',
+        'Framework :: Plone :: 3.3',
         "Framework :: Zope2",
         "Programming Language :: Python",
         ],
@@ -36,7 +36,7 @@ setup(name='collective.dancing',
           'setuptools',
           'collective.singing>=0.7.1',
           'plone.z3cform>=0.5.1',
-          'plone.app.z3cform>=0.5',
+          'plone.app.z3cform>=0.4.2,<0.5',
           'five.intid',
           'zc.lockfile',
           'StoneageHTML',

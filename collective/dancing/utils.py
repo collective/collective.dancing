@@ -1,12 +1,8 @@
 import logging
-
-import Acquisition
-from plone.app.z3cform.interfaces import IPloneFormLayer
-from plone.z3cform import z2
-import stoneagehtml
-import z3c.form.interfaces
-from zope.interface import noLongerProvides
 import zope.schema.vocabulary
+import z3c.form.interfaces
+import Acquisition
+import stoneagehtml
 
 import collective.singing.async
 
@@ -89,15 +85,3 @@ def compactify(html):
                     "using original instead.")
         pass
     return html.decode('utf-8')
-
-
-def switch_on(view, request_layer=z3c.form.interfaces.IFormLayer):
-    # Fix the request. If we find a form layer from plone.app.z3cform take
-    # it away. It uses a base template using context/main_template but our
-    # views don't have an implicit Acquisition context. The base template
-    # from plone.z3cform uses /@@standard-macros which does work, so we fall
-    # back on that one
-    z2.switch_on(view, request_layer=request_layer)
-    request = view.request
-    if IPloneFormLayer.providedBy(request):
-        noLongerProvides(request, IPloneFormLayer)

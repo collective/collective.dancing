@@ -21,9 +21,7 @@ import collective.singing.interfaces
 import collective.singing.message
 import collective.singing.browser.subscribe
 from collective.singing.channel import channel_lookup
-
 from collective.dancing import MessageFactory as _
-from collective.dancing.utils import switch_on
 
 
 class SubscribeForm(collective.singing.browser.subscribe.Subscribe):
@@ -48,7 +46,7 @@ class SendSecret(BrowserView):
         return form()
 
     def __call__(self):
-        switch_on(self)
+        z2.switch_on(self)
         return self.template()
 
     def contents(self):
@@ -80,8 +78,8 @@ class Subscribe(BrowserView):
                  mapping={'channel': self.context.Title()})
 
     def __call__(self):
-        switch_on(self,
-                  request_layer=collective.singing.interfaces.IFormLayer)
+        z2.switch_on(self,
+                     request_layer=collective.singing.interfaces.IFormLayer)
         return self.template()
 
     def contents(self):
@@ -758,8 +756,8 @@ class Subscriptions(BrowserView):
         return secret
 
     def contents(self):
-        switch_on(self,
-                  request_layer=collective.singing.interfaces.IFormLayer)
+        z2.switch_on(self,
+                     request_layer=collective.singing.interfaces.IFormLayer)
         subscriptions, channels = self._subscriptions_and_channels(self.secret)
 
         if self.single_form_subscriptions:

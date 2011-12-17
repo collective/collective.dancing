@@ -151,7 +151,7 @@ class Channel(OFS.SimpleItem.SimpleItem):
         self.collector = collector
         self.scheduler = scheduler
         self.queue = collective.singing.message.MessageQueues()
-        super(Channel, self).__init__()
+        super(Channel, self).__init__(name)
 
     @property
     def id(self):
