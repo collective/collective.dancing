@@ -3,19 +3,19 @@
    i18n_domain="collective.dancing">
 
   <!-- Add custom permissions to send, preview and manage newsletters -->
-  <permission 
+  <permission
     id="dancing.SendAsNewsletter"
     title="collective.dancing: Send as newsletter"
     />
 
-  <permission 
+  <permission
     id="dancing.PreviewNewsletter"
     title="collective.dancing: Preview newsletter"
     />
 
-  <permission 
+  <permission
     id="dancing.ManageNewsletters"
     title="collective.dancing: Manage newsletters"
     />
-    
+
 </configure>
