@@ -6,23 +6,15 @@ from zope import schema
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
 from zope.app.pagetemplate import viewpagetemplatefile
-from zope.formlib import form
 
 from Products.CMFCore.utils import getToolByName
 from urllib import urlencode
 from Products.Five import BrowserView
 import z3c.form
-from z3c.form import subform
 from plone.z3cform import z2
-
-from plone.memoize.instance import memoize
-from plone.memoize import ram
-from plone.memoize.compress import xhtml_compress
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
-import zope.app.container
-import collective.singing
 from collective.singing.channel import channel_lookup
 from collective.dancing import MessageFactory as _
 from collective.dancing.browser.subscribe import SubscriptionAddForm

@@ -11,7 +11,7 @@ from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
 
 from email.Parser import Parser
-from email.Header import Header, decode_header
+from email.Header import decode_header
 from email.Charset import Charset, QP, SHORTEST
 from copy import deepcopy
 
@@ -19,7 +19,6 @@ from collective.singing.interfaces import ISubscription
 import collective.dancing
 import collective.dancing.utils
 from collective.dancing.composer import HTMLComposer
-from collective.dancing.interfaces import IHTMLComposer
 from collective.dancing.composer import PrimaryLabelTextLine
 
 

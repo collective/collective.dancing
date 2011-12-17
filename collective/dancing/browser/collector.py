@@ -2,7 +2,6 @@ import zope.publisher
 from zope import schema
 import zope.schema.vocabulary
 from zope import component
-from zope import interface
 from zope.app.pagetemplate import viewpagetemplatefile
 from z3c.form import field
 from z3c.form import form, subform
@@ -17,8 +16,6 @@ from plone.z3cform.crud import crud
 from plone.app.z3cform import wysiwyg
 from plone.z3cform import z2
 import collective.singing.interfaces
-
-import OFS.interfaces
 
 from collective.dancing import MessageFactory as _
 from collective.dancing import collector

@@ -1,7 +1,6 @@
 import types
 import cStringIO
 import datetime
-from DateTime import DateTime
 import sys
 import sets
 import csv
@@ -24,7 +23,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.interfaces import IPropertiesTool
 from Acquisition import aq_inner
 import Products.CMFPlone.utils
-from collective.singing.interfaces import IChannel, IFormLayer, ICollectorSchema
+from collective.singing.interfaces import IChannel, ICollectorSchema
 from plone.z3cform import z2
 from plone.z3cform.crud import crud
 from plone.app.z3cform import wysiwyg
@@ -33,7 +32,6 @@ import collective.singing.subscribe
 import collective.singing.channel
 from zope.app.pagetemplate import viewpagetemplatefile
 from collective.dancing import MessageFactory as _
-from collective.dancing import collector
 from collective.dancing import utils
 from collective.dancing import channel
 from collective.dancing.composer import check_email

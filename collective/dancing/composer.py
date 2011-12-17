@@ -2,7 +2,6 @@
 import atexit
 import datetime
 import logging
-import inspect
 import md5
 import re
 import os

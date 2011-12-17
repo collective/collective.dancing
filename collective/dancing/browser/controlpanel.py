@@ -1,6 +1,3 @@
-from zope import component
-import Products.CMFPlone.interfaces
-
 from Products.Five import BrowserView
 from Products.Five.browser import pagetemplatefile
 

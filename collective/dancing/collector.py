@@ -13,8 +13,6 @@ import persistent
 import persistent.wref
 import persistent.list
 
-import z3c.form.field
-import z3c.formwidget.query.interfaces
 import Products.CMFCore.utils
 import Products.CMFPlone.interfaces
 import Products.CMFPlone.utils

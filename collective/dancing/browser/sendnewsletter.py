@@ -1,24 +1,17 @@
 import datetime
 import urllib
 
-from zope import interface
 from zope import schema
 
 from zope.app.pagetemplate import viewpagetemplatefile
 from zope.app.component.hooks import getSite
 
-import z3c.form.interfaces
 from z3c.form import form
-from z3c.form import subform
 from z3c.form import field
 from z3c.form import button
-from z3c.form import validator
 
 from Products.CMFCore.utils import getToolByName
-from Products.Five import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
-from plone.z3cform import z2
 import plone.z3cform.layout
 import collective.singing.async
 import collective.singing.channel
