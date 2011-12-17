@@ -15,6 +15,8 @@ setup(name='collective.dancing',
           ]),
       classifiers=[
         "Framework :: Plone",
+        'Framework :: Plone :: 4.0',
+        'Framework :: Plone :: 4.1',
         "Framework :: Zope2",
         "Programming Language :: Python",
         ],
