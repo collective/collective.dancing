@@ -5,6 +5,7 @@
    xmlns:five="http://namespaces.zope.org/five"
    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
    xmlns:monkey="http://namespaces.plone.org/monkey"
+   xmlns:zcml="http://namespaces.zope.org/zcml"
    i18n_domain="collective.dancing">
 
   <include package="collective.singing" />
@@ -104,11 +105,20 @@
                 zope.publisher.interfaces.browser.IBrowserRequest"
            name="html" />
   <five:implements
+      zcml:condition="not-have plone-41"
       interface="Products.CMFCore.interfaces.IDublinCore"
       class="Products.Archetypes.BaseContent.BaseContent" />
   <five:implements
+      zcml:condition="not-have plone-41"
       interface="Products.CMFCore.interfaces.IDublinCore"
       class="Products.Archetypes.BaseFolder.BaseFolder" />
+  <class class="Products.Archetypes.BaseFolder.BaseFolder" zcml:condition="have plone-41">
+    <implements interface="Products.CMFCore.interfaces.IDublinCore" />
+  </class>
+  <class class="Products.Archetypes.BaseFolder.BaseFolder" zcml:condition="have plone-41">
+    <implements interface="Products.CMFCore.interfaces.IDublinCore" />
+  </class>
+
   <adapter factory=".composer.HTMLFormatItemFully"
            for=".composer.FullFormatWrapper
                 zope.publisher.interfaces.browser.IBrowserRequest"
@@ -137,8 +147,11 @@
 
   <!-- We want to be able to make local portlet assignments on the tool -->
   <five:implements
+     zcml:condition="not-have plone-41"
      class=".channel.PortalNewsletters"
      interface="plone.portlets.interfaces.ILocalPortletAssignable" />
-
+  <class class=".channel.PortalNewsletters" zcml:condition="have plone-41">
+    <implements interface="plone.portlets.interfaces.ILocalPortletAssignable" />
+  </class>
 
 </configure>

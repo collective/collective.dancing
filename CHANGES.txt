@@ -4,6 +4,8 @@ Changelog
 1.0 (unreleased)
 ----------------
 
+- remove deprecation warning on plone4.1
+  [toutpt]
 
 0.9.9 (2011-07-22)
 ------------------
