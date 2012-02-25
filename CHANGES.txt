@@ -1,8 +1,12 @@
 Changelog
 =========
 
-1.0 (unreleased)
-----------------
+0.9.10 (2012-02-25)
+-------------------
+
+- Fix #363127: persistent utilities will no longer destroy site after
+  an uninstall of S&D.
+  [nouri]
 
 - remove deprecation warning on plone4.1
   [toutpt]
