@@ -85,3 +85,12 @@ class DancingUtilsView(BrowserView):
                         bounces += 1
                     md['bounces'] = bounces
         return "%d addresses received, %d deactivated" % (len(addrs), count)
+
+    def empty_queue(self):
+        """ """
+        queue = utils.get_queue()
+        while True:
+            try:
+                queue.pull()
+            except IndexError:
+                pass # done
