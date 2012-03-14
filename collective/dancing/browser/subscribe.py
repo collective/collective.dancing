@@ -576,7 +576,7 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
     template = viewpagetemplatefile.ViewPageTemplateFile(
         'prettysubscriptionsform.pt')
     ignoreContext = True
-    ignoreRequest = True
+    #ignoreRequest = True
     confirmation_sent = False
     status_message = None
 
@@ -597,6 +597,11 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
                            collective.singing.interfaces.ISubscriptionKey.providedBy(f):
                         if f not in self.key_fields:
                             self.key_fields.append(f)
+
+        if self.subs:
+            for kf in self.key_fields:
+                self.request.form['form.widgets.'+kf.getName()] = self.subs[0].composer_data[kf.getName()]
+        
         self.confirmation_sent = False
 
     def status(self):
@@ -636,8 +641,6 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
         fields = field.Fields()
         for kf in self.key_fields:
             f = field.Field(kf)
-            if self.subs:
-                kf.default = self.subs[0].composer_data[kf.getName()]
             fields += field.Fields(f)
         return fields
 
@@ -699,10 +702,8 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
         # All we do here is check that key_fields were not altered
         if self.subs:
             data, errors = self.extractData()
-            key_defaults = dict(
-                [(f.getName(), f.default) for f in self.key_fields])
             for key, value in data.items():
-                if key_defaults[key] != value:
+                if self.subs[0].composer_data[key] != value:
                     self.status_message = SubscriptionSubForm.status_error
 
     def send_confirmation(self, channel, format, subscription):

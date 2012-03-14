@@ -1719,6 +1719,18 @@ contains our secret:
   ...
   Click here to manage your subscriptions...
 
+
+  
+Regression of https://bugs.launchpad.net/singing-dancing/+bug/924124
+-----------
+Bugreport:
+When using "Use single form subscription page" - User email leaks into the default text of "E-mail address" in subscribe.html for all sessions after user manages subscription.
+
+  >>> browser.open(portal.absolute_url() +
+  ...              '/portal_newsletters/my-subscriptions.html')
+  >>> browser.getControl('E-mail address').value
+  ''
+  
 Let's switch back to the standard "My subscriptions".
 
   >>> browser.open(portal.absolute_url() + '/portal_newsletters/settings.html')
@@ -1726,6 +1738,7 @@ Let's switch back to the standard "My subscriptions".
   ...     name='form.widgets.use_single_form_subscriptions_page:list').value = ['false']
   >>> browser.getControl('Apply').click()
 
+  
 
 Configuring composers
 ---------------------

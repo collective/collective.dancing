@@ -4,6 +4,11 @@ Changelog
 1.0dev (Unreleased)
 -------------------
 
+- Fix #924124: When using "single form subscription page"
+  User email no longer leaks into the default text of "E-mail address"
+  in subscribe.html for all sessions after user manages subscription.
+  [tmog]
+
 - Fix test breakage with newer versions of zope.testbrowser
   Tested on zope.testbrowser 3.10-3.11.1
   zope.testbrowser-3.11.1 will be pinned in the test buildout
