@@ -1150,7 +1150,7 @@ channels:
 This time we won't add the collector items:
 
   >>> browser.getControl(
-  ...     name='send.widgets.include_collector_items:list').value = ['false']
+  ...     name='send.widgets.include_collector_items:list').value = []
   >>> browser.getControl('Send', index=0).click()
   >>> "Messages queued for delivery" in browser.contents
   True

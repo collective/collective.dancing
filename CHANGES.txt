@@ -4,6 +4,12 @@ Changelog
 1.0dev (Unreleased)
 -------------------
 
+- Fix test breakage with newer versions of zope.testbrowser
+  Tested on zope.testbrowser 3.10-3.11.1
+  zope.testbrowser-3.11.1 will be pinned in the test buildout
+  for now.
+  [tmog]
+
 0.9.10 (2012-02-25)
 -------------------
 
