@@ -1573,7 +1573,7 @@ The field is disabled when showing an existing subscription.
   >>> email_ctrl.value
   'root@domain.tld'
   >>> email_ctrl.disabled
-  False
+  True
   >>> pos = browser.contents.index
   >>> pos('E-mail address') > pos('My other channel')
   True
@@ -1685,7 +1685,12 @@ Notice the form will complain if the email is already subscribed.
   >>> browser.open(portal.absolute_url() +
   ...              '/portal_newsletters/my-subscriptions.html')
   >>> browser.getControl('My other channel').selected = True
-  >>> browser.getControl('E-mail address').value = u'root@domain.tld'
+  >>> email_ctrl = browser.getControl('E-mail address')
+
+E-mail field is of course not disabled when we don't supply a secret.
+  >>> email_ctrl.disabled
+  False
+  >>> email_ctrl.value = u'root@domain.tld'
   >>> browser.getControl('Apply').click()
 
   >>> 'You are already subscribed.' in browser.contents

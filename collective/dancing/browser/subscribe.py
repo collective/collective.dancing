@@ -640,17 +640,19 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
     def fields(self):
         fields = field.Fields()
         for kf in self.key_fields:
-            f = field.Field(kf)
-            fields += field.Fields(f)
+            fields += field.Fields(
+                field.Field(kf))
         return fields
 
+    def updateWidgets(self):
+        super(PrettySubscriptionsForm, self).updateWidgets()
+
+        if self.subs:
+            for kf in self.key_fields:
+                self.widgets[kf.getName()].disabled = 'disabled'
+        
     def update(self):
         super(PrettySubscriptionsForm, self).update()
-
-        if self.subs: #existing subscriptions
-            for f_name in [f.getName() for f in self.key_fields]:
-                # FIXME: widget is never used in this code!
-                widget = self.widgets.get(f_name)
 
         # Let's set convert any 'pending' subscriptions to non-pending:
         for sub in self.subs:

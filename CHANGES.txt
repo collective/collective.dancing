@@ -4,6 +4,11 @@ Changelog
 1.0dev (Unreleased)
 -------------------
 
+- Key-fields, such as "E-mail address" is now disabled on "single
+  form subscription page" when viewing an existing subscription.
+  This was misleading anyway, since they could not really be changed. 
+  [tmog]
+
 - Fix #924124: When using "single form subscription page"
   User email no longer leaks into the default text of "E-mail address"
   in subscribe.html for all sessions after user manages subscription.
