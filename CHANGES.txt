@@ -4,6 +4,13 @@ Changelog
 1.0dev (Unreleased)
 -------------------
 
+- Updated danish translations.
+  [tmog]
+
+- Add better status message when unsubscribing from all channels
+  on "single subscribe form".
+  [tmog]
+
 - Key-fields, such as "E-mail address" is now disabled on "single
   form subscription page" when viewing an existing subscription.
   This was misleading anyway, since they could not really be changed. 

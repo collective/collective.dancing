@@ -1717,11 +1717,39 @@ E-mail field is of course not disabled when we don't supply a secret.
   >>> tuple(channel.subscriptions.query(secret=secret))[0].metadata['pending']
   True
 
+When all channels are deselected you get the message "You were unsubscribed completely."
 
+  >>> browser.open(portal.absolute_url() +
+  ...              '/portal_newsletters/my-subscriptions.html?secret=' + secret)
+  >>> browser.getControl('Brand new channel (HTML E-Mail)').selected
+  True
+  >>> browser.getControl('My other channel').selected
+  True
+  >>> browser.getControl('E-mail address').value
+  'tmog@domain.tld'
+
+  >>> browser.getControl('Brand new channel (HTML E-Mail)').selected = False
+  >>> browser.getControl('My other channel').selected = False
+  >>> browser.getControl('Apply').click()
+  
+  >>> 'You were unsubscribed completely' in browser.contents
+  True
+  >>> browser.getControl('Brand new channel (HTML E-Mail)').selected
+  False
+  >>> browser.getControl('My other channel').selected
+  False
+  >>> browser.getControl('E-mail address').value
+  'tmog@domain.tld'
+  >>> browser.getControl('E-mail address').disabled
+  True
+
+  
 The unpersonalized version of "My subscription" contains a form that
 lets us retrieve an e-mail message with a link to the same page that
 contains our secret:
 
+  >>> browser.open(portal.absolute_url() +
+  ...              '/portal_newsletters/my-subscriptions.html')
   >>> browser.getControl("Address").value = "root@domain.tld"
   >>> browser.getControl('Send').click()
   *TestingMailDelivery sending*:

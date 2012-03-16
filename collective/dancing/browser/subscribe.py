@@ -579,6 +579,7 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
     #ignoreRequest = True
     confirmation_sent = False
     status_message = None
+    unsubscribed_all = False
 
     def __init__(self, context, request, subs, channels):
         super(PrettySubscriptionsForm, self).__init__(context, request)
@@ -597,11 +598,6 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
                            collective.singing.interfaces.ISubscriptionKey.providedBy(f):
                         if f not in self.key_fields:
                             self.key_fields.append(f)
-
-        if self.subs:
-            for kf in self.key_fields:
-                self.request.form['form.widgets.'+kf.getName()] = self.subs[0].composer_data[kf.getName()]
-        
         self.confirmation_sent = False
 
     def status(self):
@@ -642,12 +638,15 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
         for kf in self.key_fields:
             fields += field.Fields(
                 field.Field(kf))
+            if self.subs and not self.unsubscribed_all:
+                self.request.form['form.widgets.'+kf.getName()] = \
+                           self.subs[0].composer_data[kf.getName()]
         return fields
 
     def updateWidgets(self):
         super(PrettySubscriptionsForm, self).updateWidgets()
 
-        if self.subs:
+        if self.subs and not self.unsubscribed_all:
             for kf in self.key_fields:
                 self.widgets[kf.getName()].disabled = 'disabled'
         
@@ -698,6 +697,13 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
                 self.subscription_editforms.append(editform)
                 editform.status = form.status#_(u"You subscribed successfully.")
 
+        # check if all subscriptions are now cancelled
+        if not sum([len(c.subscriptions.query(secret=self.secret)) \
+                for c in channel_lookup(only_subscribeable=True)]):
+            self.unsubscribed_all = True
+            self.status_message = _(u"You were unsubscribed completely.")
+
+        
     @button.buttonAndHandler(_('Apply'), name='apply')
     def handle_apply(self, action):
         # All the action happens in the subforms ;-)
