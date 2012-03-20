@@ -4,6 +4,10 @@ Changelog
 1.0dev (Unreleased)
 -------------------
 
+- Add "Clear pending jobs" button on
+  statistics page.
+  [tmog]
+
 - Updated danish translations.
   [tmog]
 

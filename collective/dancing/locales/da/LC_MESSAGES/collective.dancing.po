@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-03-16 11:19+0000\n"
+"POT-Creation-Date: 2012-03-20 18:18+0000\n"
 "PO-Revision-Date: 2010-07-30 12:21+0200\n"
 "Last-Translator: Thomas Clement Mogensen <tmog@headnet.dk>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,15 +74,19 @@ msgstr "Tilføj og eller rediger postlister, der indsamler og udsender informati
 msgid "Address to send the preview to"
 msgstr "Adresse, der modtager forhåndsvisning"
 
-#: ./browser/stats.py:135
+#: ./browser/stats.py:143
 msgid "All finished jobs cleared"
 msgstr "Alle afsluttede job fjernet"
+
+#: ./browser/stats.py:135
+msgid "All pending jobs cleared"
+msgstr "Alle job blev fjernet"
 
 #: ./browser/stats.py:127
 msgid "All pending jobs processed"
 msgstr "Alle job behandlet"
 
-#: ./browser/stats.py:159
+#: ./browser/stats.py:167
 msgid "All sent and failed messages deleted"
 msgstr "Alle "
 
@@ -138,9 +142,13 @@ msgstr "Din identitet kan ikke fastslås. Kontroller venligst din URL."
 msgid "Change your subscriptions with ${site_title}"
 msgstr "${site_title}: Rediger dine tilmeldinger"
 
-#: ./browser/stats.py:129
+#: ./browser/stats.py:137
 msgid "Clear finished jobs"
 msgstr "Fjern afsluttede job"
+
+#: ./browser/stats.py:129
+msgid "Clear pending jobs"
+msgstr "Fjern alle job"
 
 #: ./browser/stats.py:95
 msgid "Clear queued messages"

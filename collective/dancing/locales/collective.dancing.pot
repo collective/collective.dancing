@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-03-16 11:19+0000\n"
+"POT-Creation-Date: 2012-03-20 18:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,15 +73,19 @@ msgstr ""
 msgid "Address to send the preview to"
 msgstr ""
 
-#: ./browser/stats.py:135
+#: ./browser/stats.py:143
 msgid "All finished jobs cleared"
+msgstr ""
+
+#: ./browser/stats.py:135
+msgid "All pending jobs cleared"
 msgstr ""
 
 #: ./browser/stats.py:127
 msgid "All pending jobs processed"
 msgstr ""
 
-#: ./browser/stats.py:159
+#: ./browser/stats.py:167
 msgid "All sent and failed messages deleted"
 msgstr ""
 
@@ -137,8 +141,12 @@ msgstr ""
 msgid "Change your subscriptions with ${site_title}"
 msgstr ""
 
-#: ./browser/stats.py:129
+#: ./browser/stats.py:137
 msgid "Clear finished jobs"
+msgstr ""
+
+#: ./browser/stats.py:129
+msgid "Clear pending jobs"
 msgstr ""
 
 #: ./browser/stats.py:95

@@ -126,6 +126,14 @@ class EditForm(crud.EditForm):
         else:
             self.status = _(u"All pending jobs processed")
 
+    @button.buttonAndHandler(_('Clear pending jobs'), name='clear_pending_jobs',
+                             condition=lambda form: form.pending_jobs())
+    def handle_clear_pending_jobs(self, action):
+        queue = utils.get_queue()
+        while queue.pending:
+            queue.pending.pop()
+        self.status = _(u"All pending jobs cleared")
+
     @button.buttonAndHandler(_('Clear finished jobs'), name='clear_jobs',
                              condition=lambda form: form.finished_jobs())
     def handle_clear_jobs(self, action):
