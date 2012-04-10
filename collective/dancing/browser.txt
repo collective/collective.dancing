@@ -1741,7 +1741,7 @@ When all channels are deselected you get the message "You were unsubscribed comp
   >>> browser.getControl('E-mail address').value
   'tmog@domain.tld'
   >>> browser.getControl('E-mail address').disabled
-  True
+  False
 
   
 The unpersonalized version of "My subscription" contains a form that

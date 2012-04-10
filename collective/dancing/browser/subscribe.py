@@ -702,7 +702,9 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
                 for c in channel_lookup(only_subscribeable=True)]):
             self.unsubscribed_all = True
             self.status_message = _(u"You were unsubscribed completely.")
-
+            # update after setting unsubscribed_all
+            self.updateWidgets() 
+            del self.request.form['secret']
         
     @button.buttonAndHandler(_('Apply'), name='apply')
     def handle_apply(self, action):

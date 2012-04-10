@@ -4,6 +4,13 @@ Changelog
 1.0dev (Unreleased)
 -------------------
 
+
+- "single subscribe form" now clears secret after
+  unsubscribing from all channels. The email address
+  is preserved and the user is able to re-subscribe or
+  subscribe with another address.
+  [tmog]
+
 - Add "Clear pending jobs" button on
   statistics page.
   [tmog]
