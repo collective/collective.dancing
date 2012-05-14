@@ -8,20 +8,18 @@ from zope.app.pagetemplate import viewpagetemplatefile
 import zope.i18n.interfaces
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from zExceptions import BadRequest
 from z3c.form import button
 from z3c.form import field
 from z3c.form import form
 from z3c.form import subform
 import z3c.form.interfaces
 import z3c.form
-from plone.z3cform import z2
 from plone.z3cform.widget import singlecheckboxwidget_factory
 import collective.singing.interfaces
 import collective.singing.message
 import collective.singing.browser.subscribe
 from collective.singing.channel import channel_lookup
-
+from collective.singing.interfaces import ISubscriptionKey
 from collective.dancing import MessageFactory as _
 from collective.dancing.utils import switch_on
 
@@ -30,6 +28,7 @@ class SubscribeForm(collective.singing.browser.subscribe.Subscribe):
     already_subscribed_message = _(
         u"Your email address is already subscribed. Click the "
         "'Send my subscription details' button below.")
+
 
 class SendSecret(BrowserView):
     template = ViewPageTemplateFile('skeleton.pt')
@@ -53,6 +52,7 @@ class SendSecret(BrowserView):
 
     def contents(self):
         return self.contents_template()
+
 
 class Subscribe(BrowserView):
     template = ViewPageTemplateFile('skeleton.pt')
@@ -118,6 +118,7 @@ class Confirm(BrowserView):
 
         return self.template()
 
+
 class Unsubscribe(BrowserView):
     template = ViewPageTemplateFile('skeleton.pt')
     contents = ViewPageTemplateFile('status.pt')
@@ -142,6 +143,7 @@ class Unsubscribe(BrowserView):
 
         return self.template()
 
+
 class IncludeHiddenSecret(object):
     def render(self):
         html = super(IncludeHiddenSecret, self).render()
@@ -160,6 +162,7 @@ class IncludeHiddenSecret(object):
         if isinstance(secret, list):
             return secret[0]
         return secret
+
 
 class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
@@ -209,7 +212,8 @@ class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
         else:
             self.status = self.noChangesMessage
 
-    @button.buttonAndHandler(_('Unsubscribe from newsletter'), name='unsubscribe')
+    @button.buttonAndHandler(_('Unsubscribe from newsletter'),
+                             name='unsubscribe')
     def handle_unsubscribe(self, action):
         secret = self.secret
         subs = self.context.channel.subscriptions
@@ -218,13 +222,19 @@ class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
         self.removed = self.context
         self.status = _(u"You unsubscribed successfully.")
 
+
 class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
     template = viewpagetemplatefile.ViewPageTemplateFile('form.pt')
     ignoreContext = True
 
     added = None
-    format = None # set by parent form
-    status_already_subscribed = _(u"You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription.")
+    # set by parent form
+    format = None
+    status_already_subscribed = _(u"""You are already subscribed.
+                                  Fill out the form at the end of this page
+                                  to be sent a link from where you can
+                                  edit your subscription.""")
+
     @property
     def description(self):
         return self.context.description
@@ -276,7 +286,8 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
         secret_provided = self.secret
         if secret_provided and secret != secret_provided:
             self.status = _(
-                u"There seems to be an error with the information you entered.")
+                u"""There seems to be an error with
+                the information you entered.""")
             return
 
         metadata = dict(
@@ -354,7 +365,8 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
     ignoreContext = True
 
     added = None
-    format = None # set by parent form
+    # set by parent form
+    format = None
 
     @property
     def description(self):
@@ -388,7 +400,7 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
         comp_fields = field.Fields(self.context.composers[self.format].schema,
                                    prefix='composer.')
         fields += comp_fields.omit(
-            *['composer.'+f.getName() for f in self.parentForm.key_fields])
+            *['composer.' + f.getName() for f in self.parentForm.key_fields])
 
         select_field = field.Field(
             schema.Bool(
@@ -467,7 +479,6 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
 
         super(SubscriptionAddSubForm, self).update()
 
-
     def add_subscription(self, context, secret, comp_data, coll_data, metadata,
                          secret_provided):
         try:
@@ -481,13 +492,14 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
         self.status = self.status_subscribed
 
         if not secret_provided:
-            self.parentForm.send_confirmation(self.context, self.format, self.added)
+            self.parentForm.send_confirmation(self.context,
+                                              self.format, self.added)
+
 
 class SubscriptionEditSubForm(SubscriptionSubForm):
     template = viewpagetemplatefile.ViewPageTemplateFile('subform.pt')
     removed = False
     handlers = form.EditForm.handlers
-
 
     @property
     def description(self):
@@ -561,7 +573,6 @@ class SubscriptionEditSubForm(SubscriptionSubForm):
 
         super(SubscriptionEditSubForm, self).update()
 
-
     def unsubscribe(self):
         secret = self.secret
         format = self.context.metadata['format']
@@ -570,6 +581,7 @@ class SubscriptionEditSubForm(SubscriptionSubForm):
             subs.remove_subscription(subscription)
         self.removed = self.context
         self.status = self.status_unsubscribed
+
 
 class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
 
@@ -589,13 +601,12 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
         channels = channel_lookup(only_subscribeable=True)
         if channels:
             composers = reduce(
-                lambda x,y:x+y,
+                lambda x, y: x + y,
                 [c.composers.values() for c in channels])
             for composer in composers:
                 for name in composer.schema.names():
                     f = composer.schema.get(name)
-                    if f and \
-                           collective.singing.interfaces.ISubscriptionKey.providedBy(f):
+                    if f and ISubscriptionKey.providedBy(f):
                         if f not in self.key_fields:
                             self.key_fields.append(f)
         self.confirmation_sent = False
@@ -636,10 +647,11 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
     def fields(self):
         fields = field.Fields()
         for kf in self.key_fields:
-            fields += field.Fields(
-                field.Field(kf))
+            current = field.Field(kf)
+            if current.__name__ not in fields.keys():
+                fields += field.Fields(current)
             if self.subs and not self.unsubscribed_all:
-                self.request.form['form.widgets.'+kf.getName()] = \
+                self.request.form['form.widgets.' + kf.getName()] = \
                            self.subs[0].composer_data[kf.getName()]
         return fields
 
@@ -649,7 +661,7 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
         if self.subs and not self.unsubscribed_all:
             for kf in self.key_fields:
                 self.widgets[kf.getName()].disabled = 'disabled'
-        
+
     def update(self):
         super(PrettySubscriptionsForm, self).update()
 
@@ -695,7 +707,8 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
                     subscription, self.request, self)
                 editform.update()
                 self.subscription_editforms.append(editform)
-                editform.status = form.status#_(u"You subscribed successfully.")
+                #_(u"You subscribed successfully.")
+                editform.status = form.status
 
         # check if all subscriptions are now cancelled
         if not sum([len(c.subscriptions.query(secret=self.secret)) \
@@ -703,9 +716,9 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
             self.unsubscribed_all = True
             self.status_message = _(u"You were unsubscribed completely.")
             # update after setting unsubscribed_all
-            self.updateWidgets() 
+            self.updateWidgets()
             del self.request.form['secret']
-        
+
     @button.buttonAndHandler(_('Apply'), name='apply')
     def handle_apply(self, action):
         # All the action happens in the subforms ;-)
@@ -730,6 +743,7 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
                 raise RuntimeError(
                     "There was an error with sending your e-mail.  Please try "
                     "again later.")
+
 
 class Subscriptions(BrowserView):
     __call__ = ViewPageTemplateFile('skeleton.pt')
@@ -823,7 +837,8 @@ class Subscriptions(BrowserView):
                     subscription, self.request)
                 editform.update()
                 self.subscription_editforms.append(editform)
-                editform.status = form.status#_(u"You subscribed successfully.")
+                #_(u"You subscribed successfully.")
+                editform.status = form.status
 
         return self.contents_template()
 
@@ -851,8 +866,10 @@ class Subscriptions(BrowserView):
 from zope.schema.vocabulary import SimpleVocabulary
 from collective.dancing.composer import HTMLComposer
 
+
 class MyHTMLComposer(HTMLComposer):
     title = u'Hypertext E-Mail with selectable font-size'
+
     class schema(HTMLComposer.schema):
         font_size = schema.Choice(
             title=u"Font size",
