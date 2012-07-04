@@ -343,17 +343,17 @@ channel's name to reach the channel subscriptions screen:
 
 We can add new subscriptions here:
 
-  >>> browser.getControl('E-mail address').value = u"daniel@domain.tld"
+  >>> browser.getControl('E-mail address').value = u"daniele@domain.tld"
   >>> browser.getControl('Add').click()
   >>> 'Item added successfully' in browser.contents
   True
-  >>> 'daniel@domain.tld' in browser.contents
+  >>> 'daniele@domain.tld' in browser.contents
   True
 
 We'll get a nice error message when we try to add a subscription with
 the same e-mail address:
 
-  >>> browser.getControl('E-mail address').value = u"daniel@domain.tld"
+  >>> browser.getControl('E-mail address').value = u"daniele@domain.tld"
   >>> browser.getControl('Add').click()
   >>> 'Item added successfully' in browser.contents
   False
@@ -367,10 +367,10 @@ Let's delete and re-add:
   'selected'
   >>> select.click()
   >>> browser.getControl("Delete").click()
-  >>> "daniel@domain.tld" in browser.contents
+  >>> "daniele@domain.tld" in browser.contents
   False
 
-  >>> browser.getControl('E-mail address').value = u"daniel@domain.tld"
+  >>> browser.getControl('E-mail address').value = u"daniele@domain.tld"
   >>> browser.getControl('Add').click()
   >>> 'Item added successfully' in browser.contents
   True
@@ -388,13 +388,28 @@ filter on the content type:
 
   >>> browser.getControl('Search subscribers').value = 'mailman'
   >>> browser.getControl('Search', index=3).click()
-  >>> 'mailman' in browser.contents, 'daniel' in browser.contents
+  >>> 'mailman' in browser.contents, 'daniele' in browser.contents
   (True, False)
 
   >>> browser.getControl('News', index=0).click()
   >>> browser.getControl('Apply changes').click()
   >>> "Successfully updated" in browser.contents
   True
+
+Changing the email (or any subscription key)
+--------------------------------------------
+
+Changing a user's email address requires us to remove and add back the
+subscription.  This can be done by calling 'remove_subscription' and
+then 'add_subscription' with the modified subscription object:
+
+  >>> from collective.singing.channel import lookup
+  >>> channel = lookup('my-other-channel')
+  >>> subscriptions = channel.subscriptions
+  >>> subscription = subscriptions['daniele@domain.tld-html']
+  >>> subscriptions.remove_subscription(subscription)
+  >>> subscription.composer_data['email'] = 'daniel@domain.tld'
+  >>> subscriptions.add_subscription_obj(subscription) 
 
 CSV Upload and Download of subscriptions
 ----------------------------------------
