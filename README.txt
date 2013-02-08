@@ -58,7 +58,7 @@ Installation of Singing & Dancing uses buildout_.  If you don't know
 what buildout is or `how to create a buildout`_, `follow this
 tutorial`_ first.
 
-These instructions assume that you already have a Plone buildout that's built 
+These instructions assume that you already have a Plone buildout that's built
 and ready to run.
 
 Singing & Dancing is available as `Python eggs on PyPI`_.
@@ -71,18 +71,18 @@ these steps:
   1) Edit your ``buildout.cfg`` file and look for the ``[buildout]``
      section.  Add an ``extends =`` option in that section like the
      following::
-    
+
          [buildout]
          extends = https://svn.plone.org/svn/collective/collective.dancing/buildout-extends/0.9.0.cfg
          parts =
              zope2
              ...
              ...
-        
+
          Should you already have an ``extends =`` line, add the new line at
          the end of the other extends files.  For Plone 3.2.2, your
          ``[buildout]`` section might start like this::
-      
+
          [buildout]
          extends =
              http://dist.plone.org/release/3.2.2/versions.cfg
@@ -93,9 +93,9 @@ these steps:
              ...
 
   2) Next, you'll need to add ``collective.dancing`` to the ``eggs`` and
-     ``zcml`` options in your ``[instance]`` section.  Which should then look 
+     ``zcml`` options in your ``[instance]`` section.  Which should then look
      like this::
-    
+
          [instance]
          ...
          eggs =
@@ -105,10 +105,10 @@ these steps:
          zcml =
              ...
              collective.dancing
-             
+
      Note: When you are using Plone > 3.3 you can skipt the zcml part, because
      ``z3c.autoinclude`` is shipped with Plone 3.3.x by default.
-     
+
 
   3) Remove all ``additional-fake-eggs`` and ``skip-fake-eggs`` options
      from your ``[zope2]`` section, if any.  (This is so you don't
@@ -118,9 +118,9 @@ these steps:
 * Plone 4.x
 
   1) On Plone 4 you don't need to extend your buildout configuration using
-     `extends=...``. You'll need to add ``collective.dancing`` to the ``eggs`` 
+     `extends=...``. You'll need to add ``collective.dancing`` to the ``eggs``
      in your ``[instance]`` section.  Which should then look like this::
-    
+
          [instance]
          ...
          eggs =
@@ -157,22 +157,22 @@ Here's a list of the most common stumbling blocks:
      when starting up, make sure you have
      ``plone.recipe.zope2install`` >= 2.2.  You may use buildout's
      ``versions`` feature to tell it which version to use.
-     
-   - Since version 0.7.0 of collective.singing we don't support older 
-     versions of ``z3c.form`` by default. Radio button and checkbox widget 
-     hidden templates are already included in more recent ``z3c.form`` 
-     versions. ( > 2.3.3 as described here 
+
+   - Since version 0.7.0 of collective.singing we don't support older
+     versions of ``z3c.form`` by default. Radio button and checkbox widget
+     hidden templates are already included in more recent ``z3c.form``
+     versions. ( > 2.3.3 as described here
      http://pypi.python.org/pypi/z3c.form#id14)
-     
-     If you want to use an old version (for example the popular 1.9.0 which was 
-     pinned in older buildout-extends files) you have to manually include a 
-     zcml file located in ``collective.singing.browser.widgets.zcml`` which 
+
+     If you want to use an old version (for example the popular 1.9.0 which was
+     pinned in older buildout-extends files) you have to manually include a
+     zcml file located in ``collective.singing.browser.widgets.zcml`` which
      registers the missing templates for these widgets::
-     
+
         <include package="collective.singing.browser" file="widgets.zcml" />
-     
-     This fixed https://bugs.launchpad.net/singing-dancing/+bug/620608. 
-     
+
+     This fixed https://bugs.launchpad.net/singing-dancing/+bug/620608.
+
 It's installed.  What's next?
 -----------------------------
 
@@ -213,7 +213,7 @@ To set up ClockServer to trigger the processing automatically for you,
 add this stanza to the Zope 2 ``[instance]`` section of your buildout
 configuration and rerun ``bin/buildout -v``::
 
-  zope-conf-additional = 
+  zope-conf-additional =
       <clock-server>
         # plonesite is your plone path
         method /plonesite/@@dancing.utils/tick_and_dispatch
@@ -221,13 +221,13 @@ configuration and rerun ``bin/buildout -v``::
         user admin
         password admin
         # You need your *real* host here
-        host www.mysite.com 
+        host www.mysite.com
       </clock-server>
-      
-Or, if your site is behind Apache using a Virtual Host, 
+
+Or, if your site is behind Apache using a Virtual Host,
 the zope.conf clock server configuration would be ::
 
-  zope-conf-additional = 
+  zope-conf-additional =
       <clock-server>
         # plonesite is your plone path
         # www.mysite.com your site url
@@ -308,8 +308,8 @@ files in the ``src/collective.singing/collective/singing/`` and
 also a documentation area for use cases and manuals in
 ``src/collective.dancing/docs/``.
 
-The latest version of collective.dancing itself can also be found in
-the `Subversion repository`_.
+The latest version of collective.dancing itself can also be found on
+`github`_.
 
 Get in touch with us if you need help or have comments.  See the
 `Contact us`_ section.
@@ -329,4 +329,4 @@ Get in touch with us if you need help or have comments.  See the
 .. _donate via PayPal: http://ur1.ca/2d41
 .. _sites using S&D: http://ur1.ca/2d4p
 .. _interfaces.py: http://dev.plone.org/collective/browser/collective.singing/trunk/collective/singing/interfaces.py
-.. _Subversion repository: http://svn.plone.org/svn/collective/collective.dancing/trunk#egg=collective.dancing-dev
+.. _github: https://github.com/collective/collective.dancing
