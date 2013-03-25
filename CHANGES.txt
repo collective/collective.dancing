@@ -4,6 +4,7 @@ Changelog
 1.0dev (Unreleased)
 -------------------
 
+- plone4.3 compat [kiorky]
 
 - "single subscribe form" now clears secret after
   unsubscribing from all channels. The email address

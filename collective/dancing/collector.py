@@ -4,7 +4,10 @@ from zope import schema
 import zope.interface.interface
 import zope.schema.vocabulary
 import zope.schema.interfaces
-import zope.app.container.interfaces
+try:
+    import zope.app.container.interfaces as zopeappcontainerinterfaces
+except ImportError:
+    import zope.lifecycleevent.interfaces as zopeappcontainerinterfaces
 import zope.i18nmessageid
 import Acquisition
 import DateTime
@@ -46,7 +49,7 @@ class CollectorContainer(OFS.Folder.Folder):
 
 
 @component.adapter(CollectorContainer,
-                   zope.app.container.interfaces.IObjectAddedEvent)
+                   zopeappcontainerinterfaces.IObjectAddedEvent)
 def container_added(container, event):
     name = 'default-latest-news'
     if name in container.objectIds():
@@ -230,7 +233,7 @@ class Collector(OFS.Folder.Folder):
         self[name].unmarkCreationFlag()
         return self[name]
 
-@component.adapter(Collector, zope.app.container.interfaces.IObjectAddedEvent)
+@component.adapter(Collector, zopeappcontainerinterfaces.IObjectAddedEvent)
 def sfc_added(sfc, event):
     sfc.add_topic()
 

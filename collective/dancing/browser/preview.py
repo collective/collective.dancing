@@ -6,7 +6,6 @@ from zope import schema
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
-from zope.app.publisher.browser import getDefaultViewName
 
 from collective.dancing.composer import FullFormatWrapper
 from collective.singing.channel import lookup

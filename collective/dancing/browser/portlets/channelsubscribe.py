@@ -5,7 +5,10 @@ from zope import interface
 from zope import schema
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
-from zope.app.pagetemplate import viewpagetemplatefile
+try:
+    from zope.app.pagetemplate import viewpagetemplatefile
+except ImportError:
+    from zope.browserpage import viewpagetemplatefile
 
 from Products.CMFCore.utils import getToolByName
 from urllib import urlencode

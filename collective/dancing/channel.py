@@ -6,8 +6,15 @@ import persistent.dict
 from zope import component
 from zope import interface
 from zope import schema
-import zope.app.container.interfaces
-import zope.app.component.hooks
+try:
+    import zope.app.container.interfaces as zopeappcontainerinterfaces
+except ImportError:
+    import zope.lifecycleevent.interfaces as zopeappcontainerinterfaces
+
+try:
+    import zope.app.component.hooks as zopeappcomponenthooks
+except ImportError:
+    import zope.component.hooks as zopeappcomponenthooks
 import AccessControl
 from Acquisition import aq_base
 import OFS.event
@@ -78,7 +85,7 @@ class PortalNewsletters(OFS.Folder.Folder):
         return _(u"Newsletters")
 
 @component.adapter(IPortalNewsletters,
-                   zope.app.container.interfaces.IObjectAddedEvent)
+                   zopeappcontainerinterfaces.IObjectAddedEvent)
 def tool_added(tool, event):
     # Add children
     factories = dict(channels=ChannelContainer,
@@ -109,7 +116,7 @@ class ChannelContainer(OFS.Folder.Folder):
         return u"Mailing-lists"
 
 @component.adapter(IChannelContainer,
-                   zope.app.container.interfaces.IObjectAddedEvent)
+                   zopeappcontainerinterfaces.IObjectAddedEvent)
 def channels_added(container, event):
     if 'default-channel' not in container.objectIds():
         default_channel = Channel('default-channel', title=_(u"Newsletter"))
@@ -161,7 +168,7 @@ class Channel(OFS.SimpleItem.SimpleItem):
         return self.title
 
 @component.adapter(Channel,
-                   zope.app.container.interfaces.IObjectAddedEvent)
+                   zopeappcontainerinterfaces.IObjectAddedEvent)
 def channel_added(channel, event):
     # We'll take extra care that when we're imported through the ZMI,
     # we update things to keep everything up to date:
@@ -184,7 +191,7 @@ def channel_added(channel, event):
         collective.singing.subscribe.subscription_added(subscription, None)
 
 @component.adapter(collective.singing.interfaces.ICollector,
-                   zope.app.container.interfaces.IObjectRemovedEvent)
+                   zopeappcontainerinterfaces.IObjectRemovedEvent)
 def collector_removed(collector, event):
     for channel in collective.singing.channel.channel_lookup():
         if isinstance(channel, Channel):

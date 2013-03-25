@@ -2,7 +2,10 @@ from zope import component
 from zope import interface
 from zope import schema
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from zope.app.pagetemplate import viewpagetemplatefile
+try:
+    from zope.app.pagetemplate import viewpagetemplatefile
+except ImportError:
+    from zope.browserpage import viewpagetemplatefile
 
 from z3c.form import button
 

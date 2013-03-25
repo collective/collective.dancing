@@ -6,7 +6,10 @@ from collective.singing.interfaces import IComposer
 from plone.app.z3cform import wysiwyg
 
 from zope import component
-from zope.app.pagetemplate import viewpagetemplatefile
+try:
+    from zope.app.pagetemplate import viewpagetemplatefile
+except ImportError:
+    from zope.browserpage import viewpagetemplatefile
 import collective.singing.interfaces
 
 from collective.dancing import MessageFactory as _

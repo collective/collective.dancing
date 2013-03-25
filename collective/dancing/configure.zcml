@@ -34,20 +34,41 @@
   <include package="five.intid" file="cmfdirectoryview.zcml" />
 
   <subscriber
-     handler="five.intid.intid.addIntIdSubscriber"
-     for="collective.singing.interfaces.ISubscription
-          zope.app.container.interfaces.IObjectAddedEvent"
-     />
+      zcml:condition="not-have plone-4"
+      handler="five.intid.intid.addIntIdSubscriber"
+      for="collective.singing.interfaces.ISubscription
+      zope.app.container.interfaces.IObjectAddedEvent"
+    />
   <subscriber
-     handler="five.intid.intid.removeIntIdSubscriber"
-     for="collective.singing.interfaces.ISubscription
-          zope.app.container.interfaces.IObjectRemovedEvent"
-     />
+      zcml:condition="not-have plone-4"
+      handler="five.intid.intid.removeIntIdSubscriber"
+      for="collective.singing.interfaces.ISubscription
+      zope.app.container.interfaces.IObjectRemovedEvent"
+    />
   <subscriber
-     handler="five.intid.intid.moveIntIdSubscriber"
-     for="collective.singing.interfaces.ISubscription
-          zope.app.container.interfaces.IObjectMovedEvent"
-     />
+      zcml:condition="not-have plone-4"
+      handler="five.intid.intid.moveIntIdSubscriber"
+      for="collective.singing.interfaces.ISubscription
+      zope.app.container.interfaces.IObjectMovedEvent"
+    />
+  <subscriber
+      zcml:condition="have plone-4"
+      handler="five.intid.intid.addIntIdSubscriber"
+      for="collective.singing.interfaces.ISubscription
+      zope.lifecycleevent.interfaces.IObjectAddedEvent"
+    />
+  <subscriber
+      zcml:condition="have plone-4"
+      handler="five.intid.intid.removeIntIdSubscriber"
+      for="collective.singing.interfaces.ISubscription
+      zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+    />
+  <subscriber
+      zcml:condition="have plone-4"
+      handler="five.intid.intid.moveIntIdSubscriber"
+      for="collective.singing.interfaces.ISubscription
+      zope.lifecycleevent.interfaces.IObjectMovedEvent"
+    />
 
   <!-- Make this package a Zope 2 product -->
   <five:registerPackage package="." initialize=".initialize" />

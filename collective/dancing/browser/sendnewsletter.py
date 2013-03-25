@@ -4,8 +4,14 @@ import urllib
 from zope import interface
 from zope import schema
 
-from zope.app.pagetemplate import viewpagetemplatefile
-from zope.app.component.hooks import getSite
+try:
+    from zope.app.pagetemplate import viewpagetemplatefile
+except:
+    from zope.browserpage import viewpagetemplatefile
+try:
+    from zope.app.component.hooks import getSite
+except ImportError:
+    from zope.component.hooks import getSite
 
 import z3c.form.interfaces
 from z3c.form import form

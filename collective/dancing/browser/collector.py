@@ -2,7 +2,10 @@ import zope.publisher
 from zope import schema
 import zope.schema.vocabulary
 from zope import component
-from zope.app.pagetemplate import viewpagetemplatefile
+try:
+    from zope.app.pagetemplate import viewpagetemplatefile
+except ImportError:
+    from zope.browserpage import viewpagetemplatefile
 from z3c.form import field
 from z3c.form import form, subform
 import z3c.form.interfaces

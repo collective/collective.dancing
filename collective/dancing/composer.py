@@ -19,8 +19,14 @@ from zope import interface
 from zope import component
 from zope import schema
 import zope.annotation.interfaces
-from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
-import zope.app.component.hooks
+try:
+    from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+except ImportError:
+    from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
+try:
+    import zope.app.component.hooks as zopeappcomponenthooks
+except ImportError:
+    import zope.component.hooks as zopeappcomponenthooks
 import zope.sendmail.mailer
 import zope.publisher.interfaces.browser
 import Products.CMFCore.interfaces
@@ -175,7 +181,7 @@ class HTMLComposer(persistent.Persistent):
     context = None
     @property
     def request(self):
-        site = zope.app.component.hooks.getSite()
+        site = zopeappcomponenthooks.getSite()
         return site.REQUEST
 
     @property

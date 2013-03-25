@@ -1,4 +1,7 @@
-from zope.app.pagetemplate import viewpagetemplatefile
+try:
+    from zope.app.pagetemplate import viewpagetemplatefile
+except ImportError:
+    from zope.browserpage import viewpagetemplatefile
 from zope import schema
 from z3c.form import form
 from z3c.form import field

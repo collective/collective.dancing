@@ -29,7 +29,10 @@ from plone.app.z3cform import wysiwyg
 import collective.singing.scheduler
 import collective.singing.subscribe
 import collective.singing.channel
-from zope.app.pagetemplate import viewpagetemplatefile
+try:
+    from zope.app.pagetemplate import viewpagetemplatefile
+except ImportError:
+    from zope.browserpage import viewpagetemplatefile
 from collective.dancing import MessageFactory as _
 from collective.dancing import utils
 from collective.dancing import channel

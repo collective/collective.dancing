@@ -3,8 +3,14 @@ import operator
 
 from zope import component
 from zope import schema
-from zope.app.component.hooks import getSite
-from zope.app.pagetemplate import viewpagetemplatefile
+try:
+    from zope.app.component.hooks import getSite
+except ImportError:
+    from zope.component.hooks import getSite
+try:
+    from zope.app.pagetemplate import viewpagetemplatefile
+except ImportError:
+    from zope.browserpage import viewpagetemplatefile
 import zope.i18n.interfaces
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
