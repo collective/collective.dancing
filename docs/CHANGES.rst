@@ -4,6 +4,9 @@ Changelog
 1.0dev (Unreleased)
 -------------------
 
+- Upgrade to new bootstrap
+  [saily]
+
 - Align package structure to new plone conventions.
   [saily]
 
