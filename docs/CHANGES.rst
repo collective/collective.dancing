@@ -13,6 +13,9 @@ Changelog
 - Align package structure to new plone conventions.
   [saily]
 
+- Fix call of ``getSiteManager`` because imports changed from
+  ``import zope.component`` to ``from zope import component``.
+
 - plone4.3 compat [kiorky]
 
 - "single subscribe form" now clears secret after

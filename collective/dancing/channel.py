@@ -98,7 +98,7 @@ def tool_added(tool, event):
     # Create and register salt
     salt = getattr(aq_base(tool), 'salt', Salt())
     tool.salt = salt
-    sm = zope.component.getSiteManager(tool)
+    sm = component.getSiteManager(tool)
     sm.registerUtility(salt, collective.singing.interfaces.ISalt)
 
 class IChannelContainer(interface.Interface):
