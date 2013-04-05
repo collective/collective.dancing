@@ -4,6 +4,9 @@ Changelog
 1.0dev (Unreleased)
 -------------------
 
+- Align package structure to new plone conventions.
+  [saily]
+
 - plone4.3 compat [kiorky]
 
 - "single subscribe form" now clears secret after
@@ -25,7 +28,7 @@ Changelog
 
 - Key-fields, such as "E-mail address" is now disabled on "single
   form subscription page" when viewing an existing subscription.
-  This was misleading anyway, since they could not really be changed. 
+  This was misleading anyway, since they could not really be changed.
   [tmog]
 
 - Fix #924124: When using "single form subscription page"
