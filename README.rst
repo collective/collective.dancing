@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/saily/collective.dancing.png?branch=master
+    :target: http://travis-ci.org/saily/collective.dancing
+
 =================
 Singing & Dancing
 =================
