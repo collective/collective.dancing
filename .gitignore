@@ -13,6 +13,7 @@ parts
 bin
 var
 sdist
+src
 develop-eggs
 .installed.cfg
 lib
@@ -29,7 +30,10 @@ nosetests.xml
 # Translations
 *.mo
 
-# Mr Developer
+# mr.developer and eclipse
 .mr.developer.cfg
 .project
 .pydevproject
+
+# Local development
+local.cfg
