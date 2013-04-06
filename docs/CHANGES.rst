@@ -4,6 +4,9 @@ Changelog
 1.0dev (Unreleased)
 -------------------
 
+- Don't try to patch ATTopic if ``plone.app.collection`` is available.
+  [saily]
+
 - Made all tests pass.
   [saily]
 

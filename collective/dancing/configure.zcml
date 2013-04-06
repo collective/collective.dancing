@@ -78,6 +78,7 @@
      class="Products.ATContentTypes.content.topic.ATTopic"
      original="queryCatalog"
      replacement=".patch.topic.queryCatalog"
+     zcml:condition="not-installed plone.app.collection"
   />
 
   <i18n:registerTranslations directory="locales"/>
