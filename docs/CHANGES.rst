@@ -4,6 +4,11 @@ Changelog
 1.0dev (Unreleased)
 -------------------
 
+- Add some helper functions to composer which allows ``plone.z3cform``
+  to render wysiwyg-widget with TinyMCE on channel edit form which
+  passes a composer as context.
+  [saily]
+
 - Update buildout(s) and add travis tests for plone 4.0, 4.1, ... 4.3.
   [saily]
 

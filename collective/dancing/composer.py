@@ -179,10 +179,36 @@ class HTMLComposer(persistent.Persistent):
         return md5.new("%s%s" % (data['email'], salt)).hexdigest()
 
     context = None
+
+    # XXX: Needs refactoring because currently these ugly wrapper methods are
+    # required to allow TinyMCE Editor to load on channel edit form.
+    @property
+    def _get_site(self):
+        return zopeappcomponenthooks.getSite()
+
     @property
     def request(self):
-        site = zopeappcomponenthooks.getSite()
-        return site.REQUEST
+        return self._get_site.REQUEST
+
+    @property
+    def portal_url(self):
+        return self._get_site.portal_url
+
+    @property
+    def portal_membership(self):
+        return self._get_site.portal_membership
+
+    @property
+    def wysiwyg_support(self):
+        return self._get_site.wysiwyg_support
+
+    @property
+    def portal_properties(self):
+        return self._get_site.portal_properties
+
+    @property
+    def portal_skins(self):
+        return self._get_site.portal_skins
 
     @property
     def _from_address(self):
