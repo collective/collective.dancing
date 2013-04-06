@@ -18,9 +18,6 @@ Changelog
 - Update buildout(s) and add travis tests for plone 4.0, 4.1, ... 4.3.
   [saily]
 
-- Upgrade to new bootstrap
-  [saily]
-
 - Align package structure to new plone conventions.
   [saily]
 
