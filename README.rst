@@ -195,9 +195,6 @@ The advanced configuration panel of S&D gives you many more ways to
 send newsletters, like periodically and from automatically collected
 content.
 
-Make sure to also check out our `guide with screenshots`_ for more
-details.
-
 Processing the message queue
 ----------------------------
 
@@ -325,7 +322,6 @@ Get in touch with us if you need help or have comments.  See the
 `Contact us`_ section.
 
 
-.. _guide with screenshots: http://groups.google.com/group/singing-dancing/web/singing-dancing-screenshots
 .. _Python eggs on PyPI: http://pypi.python.org/pypi/collective.dancing
 .. _depend: http://peak.telecommunity.com/DevCenter/setuptools#declaring-dependencies
 .. _buildout: http://pypi.python.org/pypi/zc.buildout
