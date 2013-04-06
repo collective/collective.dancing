@@ -4,6 +4,26 @@ Changelog
 1.0dev (Unreleased)
 -------------------
 
+- Don't try to patch ATTopic if ``plone.app.collection`` is available.
+  [saily]
+
+- Made all tests pass.
+  [saily]
+
+- Add some helper functions to composer which allows ``plone.z3cform``
+  to render wysiwyg-widget with TinyMCE on channel edit form which
+  passes a composer as context.
+  [saily]
+
+- Update buildout(s) and add travis tests for plone 4.0, 4.1, ... 4.3.
+  [saily]
+
+- Align package structure to new plone conventions.
+  [saily]
+
+- Fix call of ``getSiteManager`` because imports changed from
+  ``import zope.component`` to ``from zope import component``.
+
 - plone4.3 compat [kiorky]
 
 - "single subscribe form" now clears secret after
@@ -25,7 +45,7 @@ Changelog
 
 - Key-fields, such as "E-mail address" is now disabled on "single
   form subscription page" when viewing an existing subscription.
-  This was misleading anyway, since they could not really be changed. 
+  This was misleading anyway, since they could not really be changed.
   [tmog]
 
 - Fix #924124: When using "single form subscription page"

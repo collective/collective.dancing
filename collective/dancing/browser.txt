@@ -86,13 +86,13 @@ channel:
   >>> collector = browser.getControl(
   ...     name='crud-edit.my-other-channel.widgets.collector:list')
   >>> collector.displayValue
-  ['no value']
+  ['No value']
   >>> collector.displayValue = ['Latest news']
 
   >>> scheduler = browser.getControl(
   ...     name='crud-edit.my-other-channel.widgets.scheduler:list')
   >>> scheduler.displayValue
-  ['no value']
+  ['No value']
   >>> scheduler.displayValue = ['Weekly scheduler']
 
   >>> browser.getControl('Apply changes').click()
@@ -112,7 +112,7 @@ By default channels are marked as not subscribeable, so they do not show up on s
 before they are completely configured.
 
   >>> subscribeable = browser.getControl(
-  ...     name='crud-edit.my-other-channel.widgets.subscribeable:list')
+  ...     name='crud-edit.my-other-channel.widgets.subscribeable')
   >>> subscribeable.value
   ['false']
 
@@ -123,7 +123,7 @@ This one we need to subscribe to.
 
 Default channel also:
   >>> subscribeable = browser.getControl(
-  ...     name='crud-edit.default-channel.widgets.subscribeable:list')
+  ...     name='crud-edit.default-channel.widgets.subscribeable')
   >>> subscribeable.value
   ['false']
 
@@ -193,7 +193,7 @@ Subscribeable can also be set from the controlpanel.
 
   >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
   >>> subscribeable = browser.getControl(
-  ...     name='crud-edit.%s.widgets.subscribeable:list' % custom_channel.name)
+  ...     name='crud-edit.%s.widgets.subscribeable' % custom_channel.name)
   >>> subscribeable.value
   ['true']
 
@@ -284,8 +284,8 @@ Back at the collector form, we'll make both 'News' and 'Events' blocks
 optional.  This will allow users to select out of the two when they
 subscribe.  The default is to subscribe to both:
 
-  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-0.widgets.optional:list').value = ['true']
-  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-1.widgets.optional:list').value = ['true']
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-0.widgets.optional').value = ['true']
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-1.widgets.optional').value = ['true']
   >>> browser.getControl('Apply').click()
 
 We can also move blocks around:
@@ -409,7 +409,7 @@ then 'add_subscription' with the modified subscription object:
   >>> subscription = subscriptions['daniele@domain.tld-html']
   >>> subscriptions.remove_subscription(subscription)
   >>> subscription.composer_data['email'] = 'daniel@domain.tld'
-  >>> subscriptions.add_subscription_obj(subscription) 
+  >>> subscriptions.add_subscription_obj(subscription)
 
 CSV Upload and Download of subscriptions
 ----------------------------------------
@@ -451,8 +451,8 @@ It is irrelevant and only purging and adding person at the same moment is just m
   >>> ctrl
   <Control name='crud-add.html.widgets.subscriberdata' type='file'>
   >>> ctrl.add_file(cStringIO.StringIO('pia@domain.tld'), 'text/plain', 'test.txt')
-  >>> browser.getControl(name='crud-add.html.widgets.removenonexisting:list').value = ['true']
-  >>> browser.getControl(name='crud-add.html.widgets.onlyremove:list').value = ['true']
+  >>> browser.getControl(name='crud-add.html.widgets.removenonexisting').value = ['true']
+  >>> browser.getControl(name='crud-add.html.widgets.onlyremove').value = ['true']
   >>> browser.getControl('Upload').click()
   >>> 'You can not add things in purge only mode!' in browser.contents
   True
@@ -467,13 +467,13 @@ We do know how to delete it now !
   >>> my_channel = collective.singing.channel.lookup('my-other-channel')
   >>> ctrl = browser.getControl(name='crud-add.html.widgets.subscriberdata')
   >>> ctrl.add_file(cStringIO.StringIO('pia@domain.tld'), 'text/plain', 'test.txt')
-  >>> browser.getControl(name='crud-add.html.widgets.removenonexisting:list').value = ['false']
-  >>> browser.getControl(name='crud-add.html.widgets.onlyremove:list').value = ['true']
+  >>> browser.getControl(name='crud-add.html.widgets.removenonexisting').value = ['false']
+  >>> browser.getControl(name='crud-add.html.widgets.onlyremove').value = ['true']
   >>> browser.getControl('Upload').click()
   >>> len(my_channel.subscriptions.query(key=u'pia@domain.tld'))
-  0 
+  0
   >>> len(my_channel.subscriptions.query(key=u'lars@domain.tld'))
-  1  
+  1
   >>> u'1 subscriptions removed successfully!' in browser.contents
   True
 
@@ -507,7 +507,7 @@ header line and extra columns to be included in the composer.
 
 This time we signify there's a header row
 
-  >>> btn = browser.getControl(name='crud-add.html.widgets.header_row_present:list')
+  >>> btn = browser.getControl(name='crud-add.html.widgets.header_row_present')
   >>> btn.value = ['true']
 
   >>> browser.getControl('Upload').click()
@@ -582,7 +582,7 @@ Add a subscriber for that 'my_format' newsletter format composer:
   ...     '/portal_newsletters/channels/my-other-channel')
   >>> browser.getControl('Name').value = u"Elvis Presley"
   >>> browser.getControl(name='crud-add.my_format.widgets.email').value = u'elvis@mail.com'
-  >>> browser.getControl(name='crud-add.my_format.widgets.programmer:list').value = ('true',)
+  >>> browser.getControl(name='crud-add.my_format.widgets.programmer').value = ('true',)
   >>> browser.getControl(name='crud-add.my_format.widgets.interests-empty-marker').value = 'Plone'
   >>> browser.getControl(name='crud-add.my_format.widgets.registered-day').value = '21'
   >>> browser.getControl(name='crud-add.my_format.widgets.registered-month').value = ('11',)
@@ -1029,7 +1029,7 @@ We can visit the scheduler's management screen to activate it:
   >>> browser.getLink('Daily scheduler').click()
   >>> "Daily scheduler for My other channel" in browser.contents
   True
-  >>> browser.getControl(name='form.widgets.active:list').value = ['true']
+  >>> browser.getControl(name='form.widgets.active').value = ['true']
   >>> browser.getControl('Apply').click()
   >>> "Data successfully updated" in browser.contents
   True
@@ -1164,7 +1164,7 @@ channels:
 
 This time we won't add the collector items:
 
-  
+
   >>> include_items = browser.getControl(
   ...     name='send.widgets.include_collector_items:list')
 
@@ -1215,7 +1215,7 @@ that the cue time remains the same:
   >>> old_cue = root.metadata['cue']
   >>> browser.getControl('Address').value = u'root@domain.tld'
   >>> browser.getControl(name='preview.widgets.channel:list').value = ['my-other-channel']
-  >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
+  >>> browser.getControl(name='preview.buttons.preview').click() # doctest: +ELLIPSIS
   >>> "1 message(s) queued" in browser.contents
   True
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
@@ -1232,7 +1232,7 @@ If we use an address that's unknown, it'll tell us that no messages
 were queued:
 
   >>> browser.getControl('Address').value = u'nobody@domain.tld'
-  >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
+  >>> browser.getControl(name='preview.buttons.preview').click() # doctest: +ELLIPSIS
   >>> "0 message(s) queued" in browser.contents
   True
 
@@ -1327,7 +1327,7 @@ Next we try sending a preview.
   >>> browser.getControl(name='preview.widgets.channel:list').value = ['my-other-channel']
   >>> browser.getControl(name='preview.widgets.subject').value = u'My new subject'
   >>> browser.getControl('Address').value = u'root@domain.tld'
-  >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
+  >>> browser.getControl(name='preview.buttons.preview').click() # doctest: +ELLIPSIS
   >>> "1 message(s) queued" in browser.contents
   True
   >>> channel.queue.dispatch() # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
@@ -1557,11 +1557,13 @@ First, though, we go to the controlpanel to enable the alternative form.
   >>> browser.open(portal.absolute_url() + '/portal_newsletters')
   >>> browser.getLink('Global settings').click()
   >>> use_single_form = browser.getControl(
-  ...     name='form.widgets.use_single_form_subscriptions_page:list')
+  ...     name='form.widgets.use_single_form_subscriptions_page')
   >>> use_single_form.value
   ['false']
   >>> use_single_form.value = ['true']
   >>> browser.getControl('Apply').click()
+  >>> portal.portal_newsletters.use_single_form_subscriptions_page
+  True
 
 We can now look at root's subscriptions.  Note how we add the secret
 as a query parameter.  We expect the subscription to "My other
@@ -1746,7 +1748,7 @@ When all channels are deselected you get the message "You were unsubscribed comp
   >>> browser.getControl('Brand new channel (HTML E-Mail)').selected = False
   >>> browser.getControl('My other channel').selected = False
   >>> browser.getControl('Apply').click()
-  
+
   >>> 'You were unsubscribed completely' in browser.contents
   True
   >>> browser.getControl('Brand new channel (HTML E-Mail)').selected
@@ -1758,7 +1760,7 @@ When all channels are deselected you get the message "You were unsubscribed comp
   >>> browser.getControl('E-mail address').disabled
   False
 
-  
+
 The unpersonalized version of "My subscription" contains a form that
 lets us retrieve an e-mail message with a link to the same page that
 contains our secret:
@@ -1775,7 +1777,7 @@ contains our secret:
   Click here to manage your subscriptions...
 
 
-  
+
 Regression of https://bugs.launchpad.net/singing-dancing/+bug/924124
 -----------
 Bugreport:
@@ -1785,15 +1787,15 @@ When using "Use single form subscription page" - User email leaks into the defau
   ...              '/portal_newsletters/my-subscriptions.html')
   >>> browser.getControl('E-mail address').value
   ''
-  
+
 Let's switch back to the standard "My subscriptions".
 
   >>> browser.open(portal.absolute_url() + '/portal_newsletters/settings.html')
   >>> browser.getControl(
-  ...     name='form.widgets.use_single_form_subscriptions_page:list').value = ['false']
+  ...     name='form.widgets.use_single_form_subscriptions_page').value = ['false']
   >>> browser.getControl('Apply').click()
 
-  
+
 
 Configuring composers
 ---------------------
@@ -1858,7 +1860,7 @@ have taken effect.
   >>> browser.getControl('Address').value = u'daniel@domain.tld'
   >>> browser.getControl(
   ...     name='preview.widgets.include_collector_items:list').value = ['false']
-  >>> browser.getControl('Send preview').click() # doctest: +ELLIPSIS
+  >>> browser.getControl(name='preview.buttons.preview').click() # doctest: +ELLIPSIS
   >>> "1 message(s) queued" in browser.contents
   True
 

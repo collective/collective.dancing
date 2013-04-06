@@ -1,7 +1,12 @@
+# -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
 
-def read(name):
-    return open(name).read()
+import os
+
+
+def read(*paths):
+    return open(os.path.join(os.path.dirname(__file__), *paths)).read()
+
 
 version = '1.0dev'
 
@@ -9,17 +14,19 @@ setup(name='collective.dancing',
       version=version,
       description="The all-singing all-dancing newsletter add-on for Plone.",
       long_description='\n'.join([
-          read('README.txt'),
-          read('THANKS.txt'),
-          read('CHANGES.txt'),
-          ]),
+          read('README.rst'),
+          read('docs', 'THANKS.rst'),
+          read('docs', 'CHANGES.rst'),
+      ]),
       classifiers=[
-        "Framework :: Plone",
-        'Framework :: Plone :: 4.0',
-        'Framework :: Plone :: 4.1',
-        "Framework :: Zope2",
-        "Programming Language :: Python",
-        ],
+          "Framework :: Plone",
+          "Framework :: Plone :: 4.3",
+          "Framework :: Plone :: 4.2",
+          "Framework :: Plone :: 4.1",
+          "Framework :: Plone :: 4.0",
+          "Framework :: Zope2",
+          "Programming Language :: Python",
+      ],
       keywords='zope plone notification newsletter',
       author='Daniel Nouri, Thomas Clement Mogensen and contributors',
       author_email='singing-dancing@googlegroups.com',
@@ -42,8 +49,12 @@ setup(name='collective.dancing',
           'StoneageHTML',
           'BeautifulSoup',
           'collective.monkeypatcher',
-          'zope.testbrowser',
       ],
+      extras_require={
+          'test': [
+              'zope.testbrowser',
+          ],
+      },
       entry_points="""
       [z3c.autoinclude.plugin]
       target = plone

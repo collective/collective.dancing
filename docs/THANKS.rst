@@ -14,6 +14,7 @@ Thanks to the following people for support, code, patches, etc:
   - Jens W. Klein
   - Katja Suess
   - Malthe Borch
+  - Mathieu Le Marec-Pasquet
   - Maurits van Rees
   - Maurizio Delmonte
   - Peter Holzer
