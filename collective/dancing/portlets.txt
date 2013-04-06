@@ -25,7 +25,7 @@ First off, let's edit the default collector, delete the default Collection and a
   >>> browser.addHeader('Authorization',
   ...                   'Basic %s:%s' % ('portal_owner', user_password))
   >>> browser.open(portal.absolute_url()+'/portal_newsletters/collectors')
-  >>> browser.getLink('Latest news').click()		
+  >>> browser.getLink('Latest news').click()
   >>> browser.getControl('Remove block').click()
   >>> browser.getControl('Title', index=1).value = 'News'
   >>> browser.getControl('Add').click()
@@ -35,11 +35,11 @@ First off, let's edit the default collector, delete the default Collection and a
   <!DOCTYPE...
   block: News...
   block: Events...
-  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-0.widgets.optional:list').value = ['true']
-  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-1.widgets.optional:list').value = ['true'] 
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-0.widgets.optional').value = ['true']
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-1.widgets.optional').value = ['true']
   >>> browser.getControl('Apply').click()
 
-  
+
 Let's add a second collector and channel pair with different options.
 
   >>> browser.getLink('Up to Collector administration').click()
@@ -56,8 +56,8 @@ Let's add a second collector and channel pair with different options.
   <!DOCTYPE...
   block: Creepy stories...
   block: Gory stories...
-  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-tales-from-the-crypt-0.widgets.optional:list').value = ['true']
-  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-tales-from-the-crypt-1.widgets.optional:list').value = ['true']
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-tales-from-the-crypt-0.widgets.optional').value = ['true']
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-tales-from-the-crypt-1.widgets.optional').value = ['true']
   >>> browser.getControl('Apply').click()
 
 Create new channel and make sure we have a channel using each of our two collectors.
@@ -76,12 +76,12 @@ Then add new channel that uses our "Tales from.." collector:
 Let's make sure both channels are subscribeable
 
   >>> browser.getControl(
-  ...     name='crud-edit.default-channel.widgets.subscribeable:list').value = ['true']
+  ...     name='crud-edit.default-channel.widgets.subscribeable').value = ['true']
   >>> browser.getControl(
-  ...     name='crud-edit.tftc-newsletter.widgets.subscribeable:list').value = ['true']
+  ...     name='crud-edit.tftc-newsletter.widgets.subscribeable').value = ['true']
   >>> browser.getControl('Apply').click()
-  
-  
+
+
 Create Mailing-list subscribe portlet
 --------------------------------
 
@@ -97,12 +97,7 @@ Create Mailing-list subscribe portlet
   >>> browser.getControl('Portlet description').value = 'Enter your email to subscribe to our latest news.'
   >>> browser.getControl('Add').click()
   >>> 'Subscribe to News' in browser.contents
-  True   
-
-Since this is a z3c.form base portlet, we are not taken back to manage_portlets (yet).
-We do this manually by clicking the back link.
-
-  >>> browser.getLink('Back to portlets').click()
+  True
 
 Now lets edit it - setting subscriber options. We will choose to let the portlet set options, and choose only the News option.
 
@@ -110,7 +105,7 @@ Now lets edit it - setting subscriber options. We will choose to let the portlet
   >>> 'Edit Mailing-list Subscribe Portlet' in browser.contents
   True
   >>> browser.getControl('The mailing-list to enable subscriptions to.').displayValue = ['Newsletter']
-  >>> browser.getControl(name='form.widgets.subscribe_directly:list').value = ['true']
+  >>> browser.getControl(name='form.widgets.subscribe_directly').value = ['true']
   >>> default_collector_options = browser.getControl('News').control
   >>> default_collector_options.displayOptions
   ['News', 'Events']
@@ -129,11 +124,11 @@ However, it seems we do not have a widget for hidden mode ;-(
   >>> input.disabled
   False
 
-What happens if we delete a collector option that is selected in the portlet? 
+What happens if we delete a collector option that is selected in the portlet?
 
   >>> browser.open(portal.absolute_url()+'/portal_newsletters/collectors')
-  >>> browser.getLink('Latest news').click()		
-  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-0.widgets.optional:list').value = ['true']
+  >>> browser.getLink('Latest news').click()
+  >>> browser.getControl(name='EditCollectorForm-plone-portal_newsletters-collectors-default-latest-news-0.widgets.optional').value = ['true']
   >>> browser.getControl('Apply', index=0).click()
   >>> browser.open(portal.absolute_url())
   >>> input = browser.getControl(name='default-channel.html.widgets.collector.selected_collectors:list')
@@ -146,7 +141,7 @@ What happens if we delete a collector option that is selected in the portlet?
 
 Subscribe via portlet
 ---------------------
-  
+
   >>> browser.open(portal.absolute_url())
   >>> browser.getControl('E-mail address').value = u'tmog@domain.tld'
   >>> browser.getControl('Subscribe').click()
@@ -172,11 +167,11 @@ page.
 
   >>> browser.getLink('Manage portlets').click()
   >>> browser.getLink('Subscribe to News').click()
-  >>> browser.getControl(name='form.widgets.subscribe_directly:list').value = ['false']
+  >>> browser.getControl(name='form.widgets.subscribe_directly').value = ['false']
   >>> browser.getControl('Apply').click()
   >>> browser.open(portal.absolute_url())
   >>> browser.getControl('E-mail address').value = u'tmog@domain.tld'
   >>> browser.getControl('Proceed').click()
   >>> browser.url
   'http://nohost/plone/portal_newsletters/channels/default-channel/subscribe.html?composer.widgets.email=tmog%40domain.tld'
-  
+

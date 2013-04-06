@@ -770,10 +770,6 @@ class Subscriptions(BrowserView):
         return getSite().portal_newsletters
 
     @property
-    def single_form_subscriptions(self):
-        return self.newsletters.get('use_single_form_subscriptions_page', '')
-
-    @property
     def addforms(self):
         return [f for f in self.subscription_addforms if not f.added]
 
@@ -793,7 +789,7 @@ class Subscriptions(BrowserView):
                   request_layer=collective.singing.interfaces.IFormLayer)
         subscriptions, channels = self._subscriptions_and_channels(self.secret)
 
-        if self.single_form_subscriptions:
+        if self.newsletters.use_single_form_subscriptions_page:
             self.form = PrettySubscriptionsForm(self.context, self.request,
                                                 subscriptions, channels)
             self.form.update()
