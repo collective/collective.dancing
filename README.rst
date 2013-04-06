@@ -80,7 +80,6 @@ these steps:
          parts =
              zope2
              ...
-             ...
 
          Should you already have an ``extends =`` line, add the new line at
          the end of the other extends files.  For Plone 3.2.2, your
@@ -92,7 +91,6 @@ these steps:
              https://svn.plone.org/svn/collective/collective.dancing/buildout-extends/0.9.0.cfg
          parts =
              zope2
-             ...
              ...
 
   2) Next, you'll need to add ``collective.dancing`` to the ``eggs`` and
@@ -130,6 +128,9 @@ these steps:
              ${buildout:eggs}
              ...
              collective.dancing
+
+  2) Please use version pins out of ``versions.cfg`` file which is included in
+     package if you have package conflicts or strange errors.
 
 Once you're done editing your buildout configuration, don't forget to
 run your buildout again before you start up Zope::
@@ -271,13 +272,19 @@ that you need to run an upgrade of the database.  In the
 ``portal_setup`` tool in the ZMI, visit the *Upgrades* tab and run any
 available new upgrades for the ``collective.dancing:default`` profile.
 
+
 Contact us
 ==========
 
-If you have a question, or comment, get in touch with us!  Our
-`mailing list`_ is a good place to do so. If you find a bug, please
-`let us know`_. We also have an IRC channel called
-``#singing-dancing`` on Freenode_.
+If you have a question, or comment, get in touch with us!  Feel free to
+extend S&D and send us a pull-request on github. Since all collective and
+plone packages moved to github we `prefer reporting issues on github`_ too.
+
+If you have an older installation you may also want to have a look to our
+`mailing list`_ or `old issue tracker on launchpad`_.
+
+We also have an IRC channel called ``#singing-dancing`` on Freenode_.
+
 
 Donate
 ======
@@ -289,8 +296,12 @@ appreciation, you might want to `donate via PayPal`_.
 There's other ways to contribute to the project if you're not a
 developer; one is to post a message to the `mailing list`_ describing
 any successes or problems that you have with the software.  That's the
-only way we can know if S&D is working correctly for you.  Another is
-to add a screenshot to the `sites using S&D`_.
+only way we can know if S&D is working correctly for you.
+
+Another is to add a line to the `sites using S&D`_. Please fork S&D and update
+``SITES_USING_SINGING_AND_DANCING.rst`` in docs directory. After finishing you
+can send us a pull request, and we'll merge it.
+
 
 Developers
 ==========
@@ -303,16 +314,12 @@ Developer documentation exists in the form of doctests and Zope 3
 interfaces in the source tree.  To check out the development buildout,
 type this into your terminal::
 
-  svn co http://svn.plone.org/svn/collective/collective.dancing/trunk-buildout singing-dancing-dev
+  git clone https://github.com/collective/collective.dancing singing-dancing-dev
 
 When the checkout is complete, you can find the doctests in ``*.txt``
 files in the ``src/collective.singing/collective/singing/`` and
-``src/collective.dancing/collective/dancing/`` directories.  There's
-also a documentation area for use cases and manuals in
-``src/collective.dancing/docs/``.
-
-The latest version of collective.dancing itself can also be found on
-`github`_.
+``collective/dancing/`` directories.  There's also a documentation area for
+use cases and manuals in ``docs/``.
 
 Get in touch with us if you need help or have comments.  See the
 `Contact us`_ section.
@@ -325,11 +332,11 @@ Get in touch with us if you need help or have comments.  See the
 .. _how to create a buildout: http://plone.org/documentation/tutorial/buildout/creating-a-buildout-for-your-project
 .. _follow this tutorial: http://plone.org/documentation/tutorial/buildout
 .. _ClockServer: http://plope.com/software/ClockServer/
-.. _let us know: http://bugs.launchpad.net/singing-dancing/+filebug
+.. _prefer reporting issues on github: https://github.com/collective/collective.dancing/issues
+.. _old issue tracker on launchpad: http://bugs.launchpad.net/singing-dancing/+filebug
 .. _zope.sendmail: http://pypi.python.org/pypi/zope.sendmail
 .. _mailing list: http://groups.google.com/group/singing-dancing
 .. _Freenode: http://freenode.net
 .. _donate via PayPal: http://ur1.ca/2d41
-.. _sites using S&D: http://ur1.ca/2d4p
+.. _sites using S&D: https://github.com/collective/collective.dancing/blob/master/docs/SITES_USING_SINGING_AND_DANCING.rst
 .. _interfaces.py: http://dev.plone.org/collective/browser/collective.singing/trunk/collective/singing/interfaces.py
-.. _github: https://github.com/collective/collective.dancing
