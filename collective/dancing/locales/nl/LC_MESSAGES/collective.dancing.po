@@ -1,12 +1,13 @@
 # Martijn Jacobs <martijn@fourdigits.nl>, 2009
 # Maurits van Rees <m.van.rees@zestsoftware.nl>, 2010
 # Wim Boucquaert <wim@infrae.com>, 2010
+# Jarno de Wit <jarno@callmelocalhost.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.dancing 0.8.13\n"
-"POT-Creation-Date: 2011-12-10 02:05+0000\n"
+"POT-Creation-Date: 2013-04-12 10:15+0000\n"
 "PO-Revision-Date: 2010-08-05 15:43+0200\n"
-"Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
+"Last-Translator: Jarno de Wit <jarno@callmelocalhost.com>\n"
 "Language-Team: Dutch <plone-nl@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -68,7 +69,7 @@ msgstr ""
 
 #: ./browser/channel.py:95
 msgid "Add or edit mailing-lists that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
-msgstr "Voeg mailinglijsten toe of bewerk ze. Mailinglijsten gebruiken collecties om specifieke stukken informatie van je site te vinden en te emailen naar ingeschreven e-mailadressen (abonnees), op gezette tijden."
+msgstr "Voeg mailinglijsten toe of bewerk ze. Mailinglijsten gebruiken collecties om specifieke stukken informatie van je site te vinden en te e-mailen naar ingeschreven e-mailadressen (abonnees), op gezette tijden."
 
 #: ./browser/interfaces.py:22
 msgid "Address to send the preview to"
@@ -220,7 +221,7 @@ msgstr "Download"
 
 #: ./composer.py:125
 msgid "E-mail address"
-msgstr "E-mail adres"
+msgstr "E-mailadres"
 
 #: ./browser/channel.py:751
 msgid "Edit"
@@ -550,7 +551,7 @@ msgstr "Bekijk een voorbeeldweergave van de nieuwbrief in de browser."
 
 #: ./browser/channel.py:485
 msgid "Select this if you want to use the csv header row to designate document variables.The header row must contain one 'email' field."
-msgstr "Selecteer dit als u de eerste rij van de csv wil gebruiken om variabelen van het document aan te wijzen. De eerste rij moet één email veld bevatten."
+msgstr "Selecteer dit als u de eerste rij van de csv wil gebruiken om variabelen van het document aan te wijzen. De eerste rij moet één e-mailveld bevatten."
 
 #: ./browser/sendnewsletter.py:62
 msgid "Send"
@@ -838,7 +839,7 @@ msgstr "U ontvangt deze e-mail omdat u ingeschreven bent op de ${channel} nieuws
 
 #: ./composer.py:44
 msgid "Your e-mail address is invalid"
-msgstr "Uw e-mail adres is ongeldig"
+msgstr "Uw e-mailadres is ongeldig"
 
 #: ./browser/subscribe.py:30
 msgid "Your email address is already subscribed. Click the 'Send my subscription details' button below."
@@ -905,4 +906,3 @@ msgstr "Configuratie van statistieken"
 #: ./browser/portlets/htmlstatusform.pt:39
 msgid "title_required"
 msgstr "Verplicht"
-
