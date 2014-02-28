@@ -8,6 +8,7 @@ See ``collective.singing.interfaces.ICollector``
 
   >>> from collective.dancing.tests import replace_with_fieldindex
   >>> replace_with_fieldindex('created', portal)
+  >>> replace_with_fieldindex('effective', portal)
 
 Give me a list of all collectors
 --------------------------------
@@ -35,7 +36,12 @@ Collectors implement the ``get_item`` method, which returns a tuple of
 the form ``(items, cue)``.  See
 ``collective.singing.interfaces.ICollector``.
 
+
+  >>> from Products.ATContentTypes.content.topic import ATTopic
   >>> collector = term.value
+  >>> for child in collector.objectValues():
+  ...     if isinstance(child, ATTopic):
+  ...       child.setSortCriterion('effective', False)
   >>> items, cue = collector.get_items()
   >>> len(items)
   0
@@ -50,6 +56,7 @@ item in the site:
   >>> news.invokeFactory(
   ...     'News Item', id='flu', title='Drug-resistant flu rising, says WHO')
   'flu'
+  >>> news['flu'].update(effectiveDate=DateTime()-10.0/24/60)  # effective 10 minutes ago
   >>> workflow.doActionFor(news['flu'], 'publish')
 
   >>> items, cue = collector.get_items()
@@ -63,14 +70,40 @@ method.  Let's create another news item to verify that:
   >>> news.invokeFactory(
   ...     'News Item', id='mini', title='The miniskirt is back again')
   'mini'
+  >>> news['mini'].update(effectiveDate=DateTime()-10.0/24/60)  # effective 10 minutes ago
   >>> workflow.doActionFor(news['mini'], 'publish')
 
+Additionaly create News Item which is going to be published 4 days from now.
+
+  >>> news.invokeFactory(
+  ...     'News Item', id='later', title='This should be visible later only')
+  'later'
+  >>> news['later'].update(effectiveDate=DateTime()+4)
+  >>> workflow.doActionFor(news['later'], 'publish')
+
 Let's imagine we have a cue that we retrieved yesterday.  When using
-it, we'll get both items:
+it, we'll get two currently available items only. The third item (later) must 
+not be visible:
 
   >>> items, cue = collector.get_items(cue=cue-1)
   >>> items
-  [<ATNewsItem at /plone/news/mini>, <ATNewsItem at /plone/news/flu>]
+  [<ATNewsItem at /plone/news/flu>, <ATNewsItem at /plone/news/mini>]
+
+"Later" item is not visible until its publication date.
+
+  >>> items, cue = collector.get_items(cue=cue+3)
+  >>> items
+  []
+
+But the "later" item will be available after its publication date.
+
+  >>> items, cue = collector.get_items(cue=cue+5)
+  >>> items
+  [<ATNewsItem at /plone/news/later>]
+  
+  Remove "later" item.
+  
+  >>> news.manage_delObjects(['later'])
 
 The collector also implements a ``schema`` attribute.  See the
 ``ICollector`` interface.  Our default collector returns an empty
@@ -87,6 +120,7 @@ of the newsletter optional for subscribers, we'll need to have each
 part in its own collector, and then set the collectors to be optional
 later.
 
+  >>> collector = portal['portal_newsletters']['collectors']['default-latest-news']
   >>> collector.manage_delObjects(['0'])
   >>> import collective.dancing.collector
   >>> def add_collector(context, title):

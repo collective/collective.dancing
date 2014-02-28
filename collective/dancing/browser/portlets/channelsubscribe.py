@@ -5,32 +5,27 @@ from zope import interface
 from zope import schema
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
-from zope.app.pagetemplate import viewpagetemplatefile
-from zope.formlib import form
+try:
+    from zope.app.pagetemplate import viewpagetemplatefile
+except ImportError:
+    from zope.browserpage import viewpagetemplatefile
 
 from Products.CMFCore.utils import getToolByName
 from urllib import urlencode
 from Products.Five import BrowserView
 import z3c.form
-from z3c.form import subform
-from plone.z3cform import z2
-
-from plone.memoize.instance import memoize
-from plone.memoize import ram
-from plone.memoize.compress import xhtml_compress
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
-import zope.app.container
-import collective.singing
 from collective.singing.channel import channel_lookup
 from collective.dancing import MessageFactory as _
 from collective.dancing.browser.subscribe import SubscriptionAddForm
 from collective.singing.interfaces import ICollectorSchema
+from collective.dancing.utils import switch_on
 
 
 test_vocab = schema.vocabulary.SimpleVocabulary.fromValues(range(5))
- 
+
 class IChannelSubscribePortlet(IPortletDataProvider):
     """A portlet which renders the results of a collection object.
     """
@@ -38,8 +33,8 @@ class IChannelSubscribePortlet(IPortletDataProvider):
     header = schema.TextLine(title=_(u"Portlet header"),
                              description=_(u"Title of the rendered portlet"),
                              required=True)
-    channel = schema.Choice(title=_(u"The channel to enable subscriptions to."),
-                            description=_(u"Find the channel you want to enable direct subscription to"),
+    channel = schema.Choice(title=_(u"The mailing-list to enable subscriptions to."),
+                            description=_(u"Find the mailing-list you want to enable direct subscription to"),
                             required=False,
                             vocabulary='collective.singing.vocabularies.ChannelVocabulary'
                             )
@@ -51,7 +46,7 @@ class IChannelSubscribePortlet(IPortletDataProvider):
                             required=True,
                             default=True)
     footer_text = schema.TextLine(title=_(u"Footer text"),
-                             description=_(u"Text in footer - if omitted the channel title is used"),
+                             description=_(u"Text in footer - if omitted the mailing-list title is used"),
                              required=False)
 
     show_footer = schema.Bool(title=_(u"Show footer"),
@@ -61,7 +56,7 @@ class IChannelSubscribePortlet(IPortletDataProvider):
 
 class Assignment(base.Assignment):
     """
-    Portlet assignment.    
+    Portlet assignment.
     This is what is actually managed through the portlets UI and associated
     with columns.
     """
@@ -113,7 +108,7 @@ class Assignment(base.Assignment):
     @property
     def all_channels(self):
         return channel_lookup(only_subscribeable=True)
-        
+
 class ValuesMixin(object):
     """Mix-in class that allows convenient access to data stored on
     the assignment."""
@@ -134,7 +129,7 @@ class ValuesMixin(object):
             d[self.channel_id] = value
             self.assignment._stored_values = d
         return property(get, set)
-    
+
 class PortletSubscriptionAddForm(ValuesMixin, SubscriptionAddForm):
     """ """
     template = viewpagetemplatefile.ViewPageTemplateFile('htmlstatusform.pt')
@@ -143,14 +138,22 @@ class PortletSubscriptionAddForm(ValuesMixin, SubscriptionAddForm):
 
     @property
     def status_already_subscribed(self):
-        return _(u'You are already subscribed to this newsletter. Click here to <a href="${url}">edit your subscriptions</a>.',
-                 mapping={'url':
-                          '%s/sendsecret.html' % self.newslettertool.absolute_url()})
+        link_start = '<a href="%s/sendsecret.html">' % (
+            self.newslettertool.absolute_url())
+        link_end = '</a>'
+        # The link_start plus link_end construction is not very
+        # pretty, but it is needed to avoid syntax errors in the
+        # generated po files.
+        return _(
+            u'You are already subscribed to this newsletter. Click here to '
+            '${link_start}edit your subscriptions${link_end}.',
+            mapping={'link_start': link_start,
+                     'link_end': link_end})
 
     @property
     def newslettertool(self):
         return getToolByName(self.context, 'portal_newsletters')
-    
+
     def update(self):
         super(PortletSubscriptionAddForm, self).update()
         self.channel_id = self.context.id
@@ -170,7 +173,7 @@ class PortletSubscriptionAddForm(ValuesMixin, SubscriptionAddForm):
 #                               (hasattr(subfield, 'value_type')):
 #                         subfield = subfield.value_type
 #                     if hasattr(subfield, 'vocabulary'):
-#                         if 
+#                         if
 #                         value = set([v for v in stored_value
 #                                      if v in subfield.vocabulary])
                 if value:
@@ -196,7 +199,7 @@ class PortletSubscribeLinkForm(z3c.form.form.Form):
     template = viewpagetemplatefile.ViewPageTemplateFile('titlelessform.pt')
     ignoreContext = True
     formErrorsMessage = _('There were some errors.')
-    
+
     def __init__(self, context, request):
         super(PortletSubscribeLinkForm, self).__init__(context, request)
 
@@ -215,11 +218,11 @@ class PortletSubscribeLinkForm(z3c.form.form.Form):
         subscribe_url = '%s/subscribe.html?%s' % (self.context.absolute_url(),
                                                   params)
         self.request.response.redirect(subscribe_url)
-        return 
-    
+        return
+
 class Renderer(base.Renderer):
     """Portlet renderer.
-    
+
     This is registered in configure.zcml. The referenced page template is
     rendered, and the implicit variable 'view' will refer to an instance
     of this class. Other methods can be added and referenced in the template.
@@ -229,10 +232,9 @@ class Renderer(base.Renderer):
 
     def __init__(self, *args):
         base.Renderer.__init__(self, *args)
-        self.setup_form()
 
     def setup_form(self):
-        z2.switch_on(self)
+        switch_on(self)
         if self.channel is not None:
             if self.data.subscribe_directly:
                 self.form = PortletSubscriptionAddForm(self.channel, self.request)
@@ -241,8 +243,10 @@ class Renderer(base.Renderer):
                 self.form = PortletSubscribeLinkForm(self.channel, self.request)
             self.form.format = 'html'
             self.form.update()
-        
-    render = _template
+
+    def render(self):
+        self.setup_form()
+        return self._template()
 
     @property
     def available(self):
@@ -256,7 +260,7 @@ class Renderer(base.Renderer):
             for channel in channels:
                 if channel.name == self.data.channel.name:
                     return channel
-        return None                 
+        return None
 
     def channel_link(self):
 
@@ -264,13 +268,13 @@ class Renderer(base.Renderer):
                 'title':self.getFooterText()}
         return link
 
-        
+
     def getFooterText(self):
         if bool(self.data.footer_text):
             return self.data.footer_text
         return self.channel.Title()
- 
-            
+
+
 def prefix(self):
     return str(self.__class__.__name__ + '-'.join(self.context.getPhysicalPath()))
 
@@ -302,27 +306,27 @@ class EditCollectorOptionsForm(ValuesMixin, z3c.form.subform.EditSubForm):
     def assignment(self):
         return self.parentForm.context
 
-    @z3c.form.button.handler(z3c.form.form.EditForm.buttons['apply']) 
-    def handleApply(self, action): 
+    @z3c.form.button.handler(z3c.form.form.EditForm.buttons['apply'])
+    def handleApply(self, action):
         data, errors = self.extractData()
-        if errors: 
-            self.status = self.formErrorsMessage 
+        if errors:
+            self.status = self.formErrorsMessage
             return
 
         stored_values = self.stored_values
-        changed = False 
+        changed = False
 
         for name, widget_value in data.items():
             if stored_values.get(name) == widget_value:
                 continue
             else:
                 stored_values[name] = widget_value
-            changed = True 
+            changed = True
 
-        if changed: 
+        if changed:
             self.stored_values = stored_values
-            self.status = self.successMessage 
-        else: 
+            self.status = self.successMessage
+        else:
             self.status = self.noChangesMessage
 
     def update(self):
@@ -333,8 +337,8 @@ class EditCollectorOptionsForm(ValuesMixin, z3c.form.subform.EditSubForm):
         # we have ``ignoreContext = True``.
 
         stored_values = self.stored_values
-        for name in self.context.collector.schema.names(): 
-            field = self.context.collector.schema.get(name) 
+        for name in self.context.collector.schema.names():
+            field = self.context.collector.schema.get(name)
             widget = self.widgets[name]
             stored_value = stored_values.get(name)
             widget_value = widget.extract()
@@ -350,24 +354,24 @@ class EditCollectorOptionsForm(ValuesMixin, z3c.form.subform.EditSubForm):
                 while (not hasattr(subfield, 'vocabulary')) and \
                           (hasattr(subfield, 'value_type')):
                     subfield = subfield.value_type
-                if hasattr(subfield, 'vocabulary'):                
+                if hasattr(subfield, 'vocabulary'):
                     value = set([v for v in stored_value
                                  if v in subfield.vocabulary])
-                    
+
                 if len(value):
                     converter = z3c.form.interfaces.IDataConverter(widget)
                     widget.value = converter.toWidgetValue(value)
                 else:
                     widget.value = value
                 widget.update()
-    
+
 class ChannelSubscribePortletEditForm(z3c.form.form.EditForm):
     """  """
     template = viewpagetemplatefile.ViewPageTemplateFile('../form-with-subforms.pt')
     fields = z3c.form.field.Fields(IChannelSubscribePortlet)
 
     css_class = 'editForm portletEditForm'
-    heading = _(u"Edit Channel Subscribe Portlet")
+    heading = _(u"Edit Mailing-list Subscribe Portlet")
 
     def update(self):
         super(ChannelSubscribePortletEditForm, self).update()
@@ -379,7 +383,7 @@ class ChannelSubscribePortletEditForm(z3c.form.form.EditForm):
                                                        self)
                 option_form.update()
                 self.subforms.append(option_form)
-        
+
 
 class ChannelSubscribePortletView(BrowserView):
     __call__ = ViewPageTemplateFile('z3c.plone.portlet.pt')
@@ -403,11 +407,11 @@ class ChannelSubscribePortletView(BrowserView):
 
 class ChannelSubscribePortletEditView(ChannelSubscribePortletView):
 
-    label = _(u"Edit Channel Subscribe Portlet")
-    description = _(u"This portlet allows a visitor to subscribe to a specific newsletter channel.")
+    label = _(u"Edit Mailing-list Subscribe Portlet")
+    description = _(u"This portlet allows a visitor to subscribe to a specific newsletter.")
 
     def contents(self):
-        z2.switch_on(self)
+        switch_on(self)
         return ChannelSubscribePortletEditForm(self.context, self.request)()
 
 
@@ -418,9 +422,9 @@ class EditCollectorOptionsAddForm(z3c.form.form.Form):
         '../subform.pt')
 
     css_class = 'subForm subForm-level-1'
-    ignoreContext = True    
+    ignoreContext = True
     prefix = property(prefix)
-    
+
     def __init__(self, context, request, channel, parentForm):
         super(EditCollectorOptionsAddForm, self).__init__(context, request)
         self.context = context
@@ -428,7 +432,7 @@ class EditCollectorOptionsAddForm(z3c.form.form.Form):
         self.channel = channel
         self.parentForm = self.__parent__ = parentForm
         self.heading = 'Options for %s'%channel.Title()
-    
+
     @property
     def fields(self):
         return z3c.form.field.Fields(self.channel.collector.schema)
@@ -441,17 +445,17 @@ class EditCollectorOptionsAddForm(z3c.form.form.Form):
     def selected_channel(self):
         return self.context == self.parentForm.context.channel
 
-    
+
 class ChannelSubscribePortletAddForm(z3c.form.form.AddForm):
     """ """
     template = viewpagetemplatefile.ViewPageTemplateFile('../form-with-subforms.pt')
     fields = z3c.form.field.Fields(IChannelSubscribePortlet)
 
     css_class = 'addForm portletAddForm'
-    heading = _(u"Add Channel Subscribe Portlet")
+    heading = _(u"Add Mailing-list Subscribe Portlet")
 
     subforms = []
-    
+
     def create(self, data):
         return Assignment(**data)
 
@@ -466,14 +470,14 @@ class ChannelSubscribePortletAddForm(z3c.form.form.AddForm):
             return '../%s/edit' % (self.context.items()[-1][0])
         else:
             return '../../@@manage-portlets'
-        
-     
+
+
 class ChannelSubscribePortletAddView(ChannelSubscribePortletView):
 
-    label = _(u"Add Channel Subscribe Portlet")
-    description = _(u"This portlet allows a visitor to subscribe to a specific newsletter channel.")
+    label = _(u"Add Mailing-list Subscribe Portlet")
+    description = _(u"This portlet allows a visitor to subscribe to a specific newsletter.")
 
     def contents(self):
-        z2.switch_on(self)
+        switch_on(self)
         return ChannelSubscribePortletAddForm(self.context, self.request)()
 

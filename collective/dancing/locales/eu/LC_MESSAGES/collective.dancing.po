@@ -1,0 +1,944 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-12-10 02:05+0000\n"
+"PO-Revision-Date: 2009-06-25 12:28+0100\n"
+"Last-Translator: Mikel Larreategi <mlarreategi@codesyntax.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: eu\n"
+"Language-Name: Basque\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.dancing\n"
+
+#: ./browser/portlets/channelsubscribe.py:289
+msgid "${channel} options"
+msgstr "${channel} aukerak"
+
+#: ./browser/sendnewsletter.py:105
+msgid "${name} does not support scheduling."
+msgstr "${name}k ez du antolaketa onartzen."
+
+#: ./browser/channel.py:617
+msgid "${numberadded} subscriptions updated successfully!"
+msgstr "${numberadded} harpidetza ondo eguneratu dira!"
+
+#: ./browser/channel.py:611
+msgid "${numberadded} subscriptions updated successfully, ${numberremoved} removed!"
+msgstr "${numberadded} harpidetza ondo eguneratu dira, ${numberremoved} ezabatu dira!"
+
+#: ./browser/channel.py:601
+msgid "${numberadded} subscriptions updated successfully. ${numberremoved} removed. ${numbernotadded} could not be added. (${errorcandidates})"
+msgstr "${numberadded} harpidetza ondo eguneratu dira, ${numberremoved} ezabatu dira. ${numbernotadded} ezin izan dira gehitu. (${errorcandidates})"
+
+#: ./browser/channel.py:598
+msgid "${numberremoved} subscriptions removed successfully!"
+msgstr ""
+
+#: ./browser/scheduler.py:33
+msgid "${number} messages queued."
+msgstr "${number} mezu ilaran."
+
+#: ./browser/sendnewsletter.py:196
+msgid "${num} message(s) queued."
+msgstr "${num} mezu ilaran gorde dira."
+
+#: ./browser/stats.py:115
+msgid "${sent} message(s) sent, ${failed} failure(s)."
+msgstr "${sent} mezu bidali dira, ${failed} errore."
+
+#: ./browser/collector.py:182
+msgid "Add"
+msgstr "Gehitu"
+
+#: ./browser/portlets/channelsubscribe.py:452
+#, fuzzy
+msgid "Add Mailing-list Subscribe Portlet"
+msgstr "Gehitu buletinera harpidetzeko portleta"
+
+#: ./browser/collector.py:164
+msgid "Add item to ${title}"
+msgstr ""
+
+#: ./browser/channel.py:95
+msgid "Add or edit mailing-lists that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
+msgstr ""
+
+#: ./browser/interfaces.py:22
+msgid "Address to send the preview to"
+msgstr "Aurreikuspen mezua bidaltzeko helbidea"
+
+#: ./browser/stats.py:135
+msgid "All finished jobs cleared"
+msgstr "Egindako lan guztiak garbituta"
+
+#: ./browser/stats.py:127
+msgid "All pending jobs processed"
+msgstr "Egin gabe zeuden lanak eginda"
+
+#: ./browser/stats.py:159
+msgid "All sent and failed messages deleted"
+msgstr "Bidalitako eta huts egindako mezu guztiak ezabatuta"
+
+#. Default: "Already subscribed?"
+#: ./browser/prettysubscriptions.pt:23
+#: ./browser/subscriptions.pt:33
+msgid "Already subscribed?"
+msgstr "Jada harpidetuta zaude?"
+
+#: ./browser/interfaces.py:16
+msgid "Append automatically collected content in this send-out"
+msgstr "Bildutako edukia automatikoki gehitu bidalketara"
+
+#: ./browser/scheduler.py:23
+#: ./browser/subscribe.py:696
+msgid "Apply"
+msgstr "Gorde"
+
+#: ./browser/subscribe.py:200
+msgid "Apply changes"
+msgstr "Aldaketak egin"
+
+#: ./browser/portlets/channelsubscribe.py:402
+msgid "Back to portlets"
+msgstr "Portletetara itzuli"
+
+#. Default: "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
+#: ./browser/prettysubscriptions.pt:10
+#: ./browser/subscriptions.pt:10
+msgid "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
+msgstr "Dauzkagun buletinen zerrenda daukazu behean. Hauetakoren batera harpidetuta bazaude, bukaeran dagoen formularioa betez zure harpidetzak editatzeko helbidea bidaliko dizugu."
+
+#. Default: "Best regards"
+#: ./browser/composer-html-forgot.pt:30
+msgid "Best regards"
+msgstr "Agur bat"
+
+#: ./interfaces.py:57
+msgid "CSS Stylesheet"
+msgstr "CSS estilo orria"
+
+#: ./browser/channel.py:484
+msgid "CSV contains a header row"
+msgstr "CSV fitxategiak goiburukoa dauka"
+
+#: ./browser/channel.py:491
+msgid "CSV delimiter"
+msgstr "CSV fitxategiko edukien banatzailea"
+
+#: ./browser/subscribe.py:116
+msgid "Can't identify your subscription. Please check your URL."
+msgstr ""
+
+#. Default: "Change your subscriptions with ${site_title}"
+#: ./browser/composer-html-forgot.pt:16
+#: ./composer.py:351
+msgid "Change your subscriptions with ${site_title}"
+msgstr "${site_title} webguneko zure harpidetzak aldatu"
+
+#: ./browser/stats.py:129
+msgid "Clear finished jobs"
+msgstr "Egindako lanak garbitu"
+
+#: ./browser/stats.py:95
+msgid "Clear queued messages"
+msgstr "Ilaran dauden mezuak garbitu"
+
+#. Default: "Click here to manage your subscriptions with ${site_title}:"
+#: ./browser/composer-html-forgot.pt:21
+msgid "Click here to manage your subscriptions with ${site_title}:"
+msgstr "Egin klik hemen ${site_title} webguneko zure harpidetzak kudeatzeko:"
+
+#: ./browser/portlets/channelsubscribe.py:42
+msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
+msgstr "Porltlet honetatik harpidetzean automatikoki aktibatuko diren informazio-bildumen aukerak aukeratzeko egin klik hemen."
+
+#: ./browser/portlets/channelsubscribe.py:50
+msgid "Click here to show the portlet footer."
+msgstr "Portletaren oina erakusteko hemen egin klik"
+
+#. Default: "Click here to unsubscribe."
+#: ./browser/composer-html.pt:44
+msgid "Click here to unsubscribe."
+msgstr "Egin klik hemen harpidetza eteteko"
+
+#: ./collector.py:227
+msgid "Collection for ${title}"
+msgstr ""
+
+#: ./browser/collector.py:98
+msgid "Collection: ${title}"
+msgstr ""
+
+#: ./collector.py:125
+msgid "Collector block"
+msgstr ""
+
+#: ./browser/collector.py:298
+msgid "Collector block: ${title}"
+msgstr ""
+
+#: ./browser/composer.py:35
+msgid "Composer for format : ${format}"
+msgstr "Formatuarentzako egilea: ${format}"
+
+#: ./browser/channel.py:752
+msgid "Composers"
+msgstr "Egileaak"
+
+#: ./composer.py:325
+msgid "Confirm your subscription with ${channel-title}"
+msgstr "${channel-title} buletinerako zure harpidetza konfirmatu"
+
+#: ./browser/subscribe.py:96
+msgid "Confirming your subscription"
+msgstr "Zure harpidetza konfirmatzen"
+
+#: ./collector.py:93
+msgid "Content selection"
+msgstr ""
+
+#: ./browser/sendnewsletter.py:252
+msgid "Custom Subject"
+msgstr "Pertsonalizatutako gaia"
+
+#. Default: "Date of execution"
+#: ./browser/jobs.pt:25
+msgid "Date of execution"
+msgstr "Bidalketa data"
+
+#: ./browser/portlets/channelsubscribe.py:39
+msgid "Description of the rendered portlet"
+msgstr "Portletaren deskribapena"
+
+#. Default: "Displays a form that lets you send this content item as a newsletter."
+#: ./profiles/default/actions.xml
+msgid "Displays a form that lets you send this content item as a newsletter."
+msgstr "Eduki hau buletin gisa bidaltzeko formularioa erakustarazten du."
+
+#: ./browser/channel.py:641
+msgid "Download"
+msgstr "Deskargatu"
+
+#: ./composer.py:125
+msgid "E-mail address"
+msgstr "E-posta helbidea"
+
+#: ./browser/channel.py:751
+msgid "Edit"
+msgstr "Editatu"
+
+#: ./browser/collector.py:330
+msgid "Edit ${collector}"
+msgstr "${collector} editatu"
+
+#: ./browser/scheduler.py:90
+msgid "Edit ${selector} for ${channel}"
+msgstr "${channel} buletinean ${selector} editatu"
+
+#: ./browser/channel.py:727
+#, fuzzy
+msgid "Edit Mailing-list ${channel}"
+msgstr "${channel} buletina editatu"
+
+#: ./browser/portlets/channelsubscribe.py:371
+#, fuzzy
+msgid "Edit Mailing-list Subscribe Portlet"
+msgstr "Buletinera harpidetzeko portleta editatu"
+
+#: ./browser/subscribe.py:38
+msgid "Edit existing subscriptions"
+msgstr "Harpidetzak editatu"
+
+#: ./browser/collector.py:104
+msgid "Edit the Smart Folder"
+msgstr ""
+
+#: ./browser/composer.py:26
+msgid "Edit the properties of the composer."
+msgstr "Egilearen propietateak editatu"
+
+#: ./browser/channel.py:358
+#, fuzzy
+msgid "Edit the properties of the mailing-list."
+msgstr "Buletinaren propietateak editatu"
+
+#: ./browser/sendnewsletter.py:253
+#, fuzzy
+msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and mailing-list."
+msgstr "Idatzi bidaliko den buletinaren Gaia eremua. Utzi hutsik defektuzko gaia erabiltzeko."
+
+#: ./browser/query.py:12
+msgid "Enter a search query to find content."
+msgstr "Edukia bilatzeko testua sartu"
+
+#: ./browser/channel.py:420
+msgid "Error importing subscriber file. %s"
+msgstr "Errorea harpidedunen fitxategia inportatzerakoan. %s"
+
+#: ./browser/stats.py:40
+msgid "Failed messages"
+msgstr "Huts egin duten mezuak"
+
+#: ./browser/channel.py:552
+msgid "File has incorrect format."
+msgstr "Fitxategiaren formatua ez da egokia."
+
+#: ./browser/channel.py:546
+msgid "File was not given."
+msgstr "Ez duzu fitxategirik kargatu."
+
+#: ./browser/subscribe.py:40
+msgid "Fill out the form below to receive an email with a link from which you can edit your subscriptions."
+msgstr "Bete ezazu beheko formularioa zure harpidetzak editatzeko helbidea e-postaz jasotzeko."
+
+#: ./browser/subscribe.py:69
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to ${link_start}edit your subscriptions${link_end}."
+msgstr ""
+
+#: ./browser/portlets/channelsubscribe.py:34
+#, fuzzy
+msgid "Find the mailing-list you want to enable direct subscription to"
+msgstr "Harpidetzak egiteko buletina aukeratu"
+
+#. Default: "Finished jobs"
+#: ./browser/jobs.pt:19
+msgid "Finished jobs"
+msgstr "Amaitutako lanak"
+
+#: ./browser/portlets/channelsubscribe.py:45
+#: ./interfaces.py:52
+msgid "Footer text"
+msgstr "Oineko testua"
+
+#: ./interfaces.py:29
+msgid "From address"
+msgstr "Bidaltzailearen helbidea"
+
+#: ./interfaces.py:24
+msgid "From name"
+msgstr "Bidaltzailearen izena"
+
+#: ./browser/channel.py:333
+msgid "Generate"
+msgstr "Sortu"
+
+#: ./composer.py:154
+msgid "HTML E-Mail"
+msgstr "HTML e-posta"
+
+#: ./interfaces.py:45
+msgid "Header text"
+msgstr "Goiburuko testua"
+
+#: ./browser/interfaces.py:15
+msgid "Include collector items"
+msgstr "Informazio-bildumako elementuak gehitu."
+
+#: ./browser/subscribe.py:316
+msgid "Information on how to confirm your subscription has been sent to you."
+msgstr "Zure harpidetza konfirmatzeko informazioa bidali dizugu."
+
+#: ./browser/collector.py:190
+msgid "Item added successfully."
+msgstr "Elementua ondo gehitu da."
+
+#: ./browser/collector.py:201
+msgid "Item successfully deleted."
+msgstr "Elementua ezabatuta."
+
+#: ./browser/collector.py:234
+msgid "Item successfully moved."
+msgstr "Elementua ondo mugitu da-"
+
+#: ./browser/query.py:11
+msgid "Items"
+msgstr "Elementuak"
+
+#. Default: "Job title"
+#: ./browser/jobs.pt:23
+msgid "Job title"
+msgstr "Lanaren izenburua"
+
+#: ./browser/stats.py:31
+msgid "Last Change"
+msgstr "Azken aldaketa"
+
+#: ./collector.py:55
+msgid "Latest news"
+msgstr ""
+
+#: ./browser/channel.py:220
+msgid "Manage or add subscriptions."
+msgstr "Harpidetzak kudeatu edo gehitu"
+
+#. Default: "Manage your subscriptions"
+#: ./browser/composer-html-forgot.pt:24
+msgid "Manage your subscriptions"
+msgstr "Zure harpidetzak kudeatu"
+
+#: ./interfaces.py:34
+msgid "Message subject"
+msgstr "Mezuaren gaia"
+
+#: ./browser/sendnewsletter.py:92
+msgid "Messages queued for delivery."
+msgstr "Bidaltzeko ilaran dauden mezuak"
+
+#: ./browser/stats.py:35
+msgid "Messages successfully sent"
+msgstr "Ondo bidalitako mezuak"
+
+#: ./browser/stats.py:29
+msgid "Messages waiting to be sent"
+msgstr "Bidaltzeko zain dauden mezuak"
+
+#: ./browser/stats.py:41
+msgid "Messages with errors"
+msgstr "Erroredun mezuak"
+
+#: ./browser/stats.py:47
+msgid "Messages with errors in the retry queue"
+msgstr "Berriz saiatzeko ilaran erroredun mezuak daude"
+
+#: ./browser/collector.py:237
+msgid "Move block down"
+msgstr "Blokea behera mugitu"
+
+#: ./browser/collector.py:230
+msgid "Move block up"
+msgstr "Blokea gora mugitu"
+
+#: ./collector.py:109
+msgid "Must be a weak reference (got ${title})"
+msgstr ""
+
+#: ./browser/subscribe.py:728
+msgid "My subscriptions"
+msgstr "Nire harpidetzak"
+
+#: ./browser/stats.py:28
+msgid "New messages"
+msgstr "Mezu berriak"
+
+#: ./channel.py:115
+msgid "Newsletter"
+msgstr "Buletina"
+
+#: ./channel.py:78
+msgid "Newsletters"
+msgstr ""
+
+#: ./browser/preview.py:79
+msgid "No items found."
+msgstr "Ez da elementurik aurkitu."
+
+#: ./browser/scheduler.py:36
+msgid "No messages queued."
+msgstr "Ez dago mezurik ilaran"
+
+#: ./browser/channel.py:475
+msgid "Only purge subscribers present in this list."
+msgstr ""
+
+#: ./browser/channel.py:668
+msgid "Only some of your changes were saved"
+msgstr "Zure aldaketa batzuk bakarrik gorde dira"
+
+#. Default: "Pending jobs"
+#: ./browser/jobs.pt:9
+msgid "Pending jobs"
+msgstr "Egiteke dauden lanak"
+
+#. Default: "Please confirm your subscription"
+#: ./browser/composer-html-confirm.pt:14
+msgid "Please confirm your subscription"
+msgstr "Konfirmatu zure harpidetza."
+
+#: ./browser/sendnewsletter.py:109
+msgid "Please fill in a date."
+msgstr "Data bat idatzi."
+
+#: ./browser/stats.py:88
+msgid "Please select items to remove."
+msgstr "Ezabatu beharreko mezuak aukeratu."
+
+#: ./browser/stats.py:97
+msgid "Please select items with new messages to clear."
+msgstr "Garbitu beharrezko mezu berriak dituzten elementuak aukeratu."
+
+#: ./browser/stats.py:106
+msgid "Please select which mailing-list's queued e-mails you'd like to send."
+msgstr ""
+
+#: ./browser/portlets/channelsubscribe.py:38
+msgid "Portlet description"
+msgstr "Portletaren deskribapena"
+
+#: ./browser/portlets/channelsubscribe.py:30
+msgid "Portlet header"
+msgstr "Portletaren goiburua"
+
+#: ./browser/channel.py:753
+#: ./browser/sendnewsletter.py:142
+msgid "Preview"
+msgstr "Aurreikusi"
+
+#: ./browser/portlets/channelsubscribe.py:207
+msgid "Proceed"
+msgstr "Aurrera"
+
+#: ./browser/stats.py:118
+msgid "Process jobs"
+msgstr "Lanak abiarazi"
+
+#: ./browser/channel.py:480
+msgid "Purge list before import."
+msgstr ""
+
+#: ./browser/channel.py:479
+msgid "Purge list."
+msgstr ""
+
+#: ./browser/collector.py:198
+msgid "Remove block"
+msgstr "Blokea ezabatu"
+
+#: ./browser/scheduler.py:78
+msgid "Remove entries"
+msgstr "Sarrerak ezabatu"
+
+#: ./browser/stats.py:86
+msgid "Remove old messages"
+msgstr "Mezu zaharrak ezabatu"
+
+#: ./browser/channel.py:474
+msgid "Remove subscribers in list."
+msgstr ""
+
+#: ./interfaces.py:40
+msgid "Reply-to address"
+msgstr "Erantzuteko helbidea."
+
+#: ./browser/stats.py:46
+msgid "Retry messages"
+msgstr "Berriz saiatu"
+
+#: ./collector.py:72
+msgid "Rich text"
+msgstr "Testua"
+
+#: ./browser/collector.py:125
+msgid "Rich text: ${title}"
+msgstr ""
+
+#: ./browser/channel.py:684
+msgid "Save"
+msgstr "Gorde"
+
+#: ./browser/sendnewsletter.py:94
+msgid "Schedule distribution"
+msgstr "Banaketa antolatu"
+
+#: ./browser/interfaces.py:29
+msgid "Scheduled time"
+msgstr "Programatutako ordua"
+
+#: ./browser/channel.py:191
+msgid "Search"
+msgstr "Bilatu"
+
+#: ./browser/channel.py:188
+msgid "Search subscribers"
+msgstr "Harpidedunak bilatu"
+
+#: ./collector.py:215
+msgid "Sections"
+msgstr "Atalak"
+
+#: ./browser/channel.py:323
+msgid "See an in-browser preview of the newsletter."
+msgstr "Buletinaren aurrebista nabigatzailean ikusi."
+
+#: ./browser/channel.py:485
+msgid "Select this if you want to use the csv header row to designate document variables.The header row must contain one 'email' field."
+msgstr "Aukeratu CSV fitxategiaren goiburu-lerroa erabilil nahi baduzu. Lerro horrek gutxienez 'email' izeneko zutabe bat izan behar du."
+
+#: ./browser/sendnewsletter.py:62
+msgid "Send"
+msgstr "Bidali"
+
+#: ./browser/sendnewsletter.py:244
+msgid "Send ${item} as newsletter"
+msgstr "${item} buletin gisa bidali"
+
+#: ./browser/sendnewsletter.py:85
+msgid "Send '${context}' through ${channel}."
+msgstr ""
+
+#. Default: "Send as newsletter"
+#: ./profiles/default/actions.xml
+msgid "Send as newsletter"
+msgstr "Buletin gisa bidali"
+
+#: ./browser/sendnewsletter.py:168
+msgid "Send preview"
+msgstr "Aurrebista-mezua bidali"
+
+#: ./browser/stats.py:104
+msgid "Send queued messages now"
+msgstr "Ilaran dauden mezuak orain bidali"
+
+#: ./browser/stats.py:34
+msgid "Sent messages"
+msgstr "Mezuak bidalita"
+
+#. Default: "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
+#: ./browser/prettysubscriptions.pt:24
+#: ./browser/subscriptions.pt:34
+msgid "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
+msgstr "Gure zerrendetakoren batera harpidetuta bazaude, erabili formulario hau zure harpidetzak kudeatzeko helbidea lortzeko:"
+
+#: ./browser/portlets/channelsubscribe.py:49
+msgid "Show footer"
+msgstr "Oina erakutsi"
+
+#: ./browser/sendnewsletter.py:149
+msgid "Show preview"
+msgstr "Aurrebista ikusi"
+
+#: ./browser/controlpanel.py:19
+msgid "Singing & Dancing configuration"
+msgstr "Singin & Dancingen konfigurazioa"
+
+#: ./channel.py:129
+msgid "Standard Channel"
+msgstr "Buletin estandarra"
+
+#. Default: "Status"
+#: ./browser/jobs.pt:24
+msgid "Status"
+msgstr "Egoera"
+
+#: ./browser/subscribe.py:255
+msgid "Subscribe"
+msgstr "Harpidetu"
+
+#: ./browser/portlets/channelsubscribe.py:41
+msgid "Subscribe directly from portlet"
+msgstr "Portletetik zuzenean harpidetu"
+
+#: ./browser/subscribe.py:79
+msgid "Subscribe to ${channel}"
+msgstr "${channel} buletinera harpidetu"
+
+#: ./browser/channel.py:465
+msgid "Subscribers"
+msgstr "Harpidedunak"
+
+#: ./browser/channel.py:643
+msgid "Subscribers exported."
+msgstr "Harpidedunak esportatuta."
+
+#: ./browser/channel.py:748
+msgid "Subscriptions"
+msgstr "Harpidetzak"
+
+#: ./browser/stats.py:100
+#, fuzzy
+msgid "Successfully cleared queued messages in mailing-lists."
+msgstr "Mezuen ilarak ondo hustu dira."
+
+#: ./browser/stats.py:91
+#, fuzzy
+msgid "Successfully removed old messages from mailing-lists."
+msgstr "Mezu zaharrak ondo ezabatu dira."
+
+#: ./browser/sendnewsletter.py:118
+msgid "Successfully scheduled distribution."
+msgstr "Ondo antolatutako banaketa."
+
+#: ./interfaces.py:62
+msgid "Template"
+msgstr ""
+
+#: ./browser/portlets/channelsubscribe.py:46
+#, fuzzy
+msgid "Text in footer - if omitted the mailing-list title is used"
+msgstr "Oineko testua - hutsik utziz gero, buletinaren izena erabiliko da."
+
+#: ./interfaces.py:46
+msgid "Text to appear at the beginning of every message. You may use a number of variables here including ${subject}."
+msgstr "Mezu guztien hasieran agertuko den testua. Hemen, hainbat aldagai erabil ditzakezu, adibidez ${subject}"
+
+#: ./interfaces.py:53
+msgid "Text to appear at the end of every message"
+msgstr "Mezu guztien oinean agertuko den testua"
+
+#: ./browser/sendnewsletter.py:178
+msgid "The address to send the preview to is missing."
+msgstr ""
+
+#: ./browser/channel.py:492
+msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
+msgstr "CSV fitxategiko edukien banatzailea. (Normalean ',' edo ';' izan ohi da, baina komatxoak ez dira beharrezkoak)"
+
+#: ./interfaces.py:30
+msgid "The from address that will appear in messages sent from this composer."
+msgstr "Bidalitako mezuetan bidaltzaile gisa agertuko den helbidea."
+
+#: ./browser/portlets/channelsubscribe.py:33
+#, fuzzy
+msgid "The mailing-list to enable subscriptions to."
+msgstr "Zein buletinetara harpidetu"
+
+#: ./browser/interfaces.py:10
+#, fuzzy
+msgid "The mailing-list to send this through"
+msgstr "Hau bidaltzeko buletina"
+
+#: ./interfaces.py:41
+msgid "The reply-to address that will appear in messages sent from this composer."
+msgstr "Bidalitako mezuetan agertuko den nori-erantzuteko helbidea."
+
+#: ./interfaces.py:25
+#, fuzzy
+msgid "The sender name that will appear in messages sent from this mailing-list."
+msgstr "Bidalitako mezuetan agertuko den bidaltzailearen izena."
+
+#: ./interfaces.py:58
+msgid "The stylesheet will be applied to the document."
+msgstr "Dokumentuari aplikatuko zaion estilo-orria."
+
+#: ./interfaces.py:63
+msgid "The template that will be used."
+msgstr ""
+
+#: ./browser/subscribe.py:278
+msgid "There seems to be an error with the information you entered."
+msgstr "Emandako informazioak erroreren bat duela dirudi."
+
+#: ./browser/portlets/channelsubscribe.py:198
+msgid "There were some errors."
+msgstr "Errore batzuk egon dira."
+
+#: ./browser/interfaces.py:30
+msgid "This is only required if you click 'Schedule distribution' below"
+msgstr "'Banaketa antolatun'-n klik egiten baduzu bakarrik da beharrezkoa."
+
+#: ./browser/interfaces.py:23
+msgid "This is only required if you click 'Send preview' below"
+msgstr "'Aurreikuspen mezua bidali'-n klik egiten baduzu bakarrik da beharrezkoa."
+
+#: ./browser/portlets/channelsubscribe.py:408
+#, fuzzy
+msgid "This portlet allows a visitor to subscribe to a specific newsletter."
+msgstr "Buletin jakin batera harpidetzeko portleta"
+
+#: ./browser/collector.py:90
+#: ./browser/stats.py:20
+msgid "Title"
+msgstr "Izenburua"
+
+#: ./browser/portlets/channelsubscribe.py:31
+msgid "Title of the rendered portlet"
+msgstr "Portletaren izenburua"
+
+#. Default: "To confirm your subscription with ${channel}, please click here: ${url}"
+#: ./browser/composer-html-confirm.pt:20
+msgid "To confirm your subscription with ${channel}, please click here: ${url}"
+msgstr "Egin klik hemen ${channel} buletinera zure harpidetza konfirmatzeko: ${url}"
+
+#: ./browser/stats.py:23
+msgid "Total messages sent"
+msgstr "Guztira bidalitako mezu kopurua:"
+
+#: ./browser/stats.py:24
+msgid "Total number of messages sent successsfully"
+msgstr "Ondo bidalitako mezuak"
+
+#: ./browser/scheduler.py:28
+msgid "Trigger now"
+msgstr "Orain bidali"
+
+#: ./browser/channel.py:108
+#: ./browser/collector.py:37
+msgid "Type"
+msgstr "Mota"
+
+#: ./browser/channel.py:584
+msgid "Unknown"
+msgstr "Ezezaguna"
+
+#: ./browser/subscribe.py:125
+msgid "Unsubscribe"
+msgstr "Harpidetza eten"
+
+#: ./browser/subscribe.py:212
+msgid "Unsubscribe from newsletter"
+msgstr "Buletinetik harpidetza eten"
+
+#: ./browser/collector.py:334
+msgid "Up to Collector administration"
+msgstr "Informazio-bildumen kudeaketara joan"
+
+#: ./browser/channel.py:722
+#: ./browser/scheduler.py:96
+msgid "Up to Mailing-lists administration"
+msgstr ""
+
+#: ./browser/controlpanel.py:12
+msgid "Up to Singing & Dancing configuration"
+msgstr "Singing & Dancingen konfiguraziora joan"
+
+#: ./browser/controlpanel.py:22
+msgid "Up to Site Setup"
+msgstr "Atariaren konfiguraziora joan"
+
+#: ./browser/channel.py:459
+msgid "Upload"
+msgstr "Kargatu"
+
+#: ./browser/channel.py:466
+msgid "Upload a CSV file with a list of subscribers here. Subscribers already present in the database will be overwritten. Each line should contain: ${columns}."
+msgstr "Harpidedunen zerrenda duen CSV fitxategia kargatu. Datu-basean aurretik dauden harpidedunen datuak gainidatzi egingo dira. Lerro bakoitzak informazio hau eduki behar du: ${columns}"
+
+#: ./browser/channel.py:648
+msgid "Upload list of subscribers."
+msgstr "Harpidedunen zerrenda kargatu."
+
+#: ./channel.py:64
+msgid "Use single form subscriptions page"
+msgstr ""
+
+#: ./channel.py:65
+msgid "Use single form subscriptions page when possible."
+msgstr ""
+
+#: ./browser/portlets/channelsubscribe.py:144
+msgid "You are already subscribed to this newsletter. Click here to ${link_start}edit your subscriptions${link_end}."
+msgstr ""
+
+#: ./browser/subscribe.py:227
+msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
+msgstr "Harpidetuta zaude. Orrialdearen bukaeran dagoen formularioa bete ezazu zure harpidetza konfiguratzeko helbidea lortzeko."
+
+#. Default: "You are currently subscribed to these newsletters:"
+#: ./browser/subscriptions.pt:21
+msgid "You are currently subscribed to these newsletters:"
+msgstr "Buletin hauetara harpidetuta zaude:"
+
+#: ./browser/subscribe.py:138
+#, fuzzy
+msgid "You aren't subscribed to this mailing-list."
+msgstr "Ez zaude buletin honetara harpidetuta."
+
+#: ./browser/channel.py:630
+msgid "You can not add things in purge only mode!"
+msgstr ""
+
+#. Default: "You can subscribe to these newsletters:"
+#: ./browser/subscriptions.pt:28
+msgid "You can subscribe to these newsletters:"
+msgstr "Buletin hauetara harpidetu zaitezke:"
+
+#: ./browser/subscribe.py:98
+msgid "You confirmed your subscription successfully."
+msgstr "Zure harpidetza baieztatu duzu."
+
+#: ./interfaces.py:35
+msgid "You may use a number of variables here, like ${site_title}."
+msgstr "Hemen aldagaiak erabil ditzakezu, adibidez ${site_title}"
+
+#: ./browser/subscribe.py:310
+msgid "You subscribed successfully."
+msgstr "Ondo harpidetu zara."
+
+#: ./browser/subscribe.py:136
+msgid "You unsubscribed successfully."
+msgstr "Ondo ezabatu da zure harpidetza."
+
+#. Default: "You're receiving this e-mail because you're registered for the ${channel} newsletter."
+#: ./browser/composer-html.pt:39
+msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
+msgstr "Mezu hau ${channel} buletinera harpidetuta zaudelako jaso duzu."
+
+#: ./composer.py:44
+msgid "Your e-mail address is invalid"
+msgstr "Zure e-posta helbidea ez da baliozkoa"
+
+#: ./browser/subscribe.py:30
+msgid "Your email address is already subscribed. Click the 'Send my subscription details' button below."
+msgstr ""
+
+#: ./browser/subscribe.py:99
+msgid "Your subscription isn't known to us."
+msgstr "Ez zaude harpidetuta."
+
+#: ./browser/subscribe.py:166
+msgid "Your subscription was updated."
+msgstr "Zure harpidetza eguneratu da."
+
+#. Default: "A Mailing-list is a hub of configuration. It doesn't do anything by itself. Rather, it provides a number of components to configure and work with. It is also the container of subscriptions to it."
+#: ./browser/controlpanel-links.pt:7
+#, fuzzy
+msgid "description_channel_administration"
+msgstr "Konfigurazioa besterik ez dago hemen. Bere kabuz ez du ezer egiten, baina konfiguratzeko hainbat elementu ditu. Harpidetzak ere bertan gordetzen dira."
+
+#. Default: "Collectors are useful for automatic newsletters. They are responsible for assembling a list of items for publishing."
+#: ./browser/controlpanel-links.pt:18
+#, fuzzy
+msgid "description_collector_administration"
+msgstr "Informazio-bildumak buletin automatikoentzat dira erabilgarriak. Bidali beharreko elementu-zerrenda automatikoki sortzeaz arduratzen dira."
+
+#. Default: "Change some aspects of how Singing & Dancing behaves."
+#: ./browser/controlpanel-links.pt:28
+msgid "description_globalsettings_administration"
+msgstr ""
+
+#. Default: "View newsletter statistics"
+#: ./browser/controlpanel-links.pt:37
+msgid "description_statistics_administration"
+msgstr "Buletinaren estatistikak ikusi"
+
+#. Default: "Mailing-list administration"
+#: ./browser/channel.py:173
+#: ./browser/controlpanel-links.pt:3
+#, fuzzy
+msgid "label_channel_administration"
+msgstr "Buletinen kudeaketa"
+
+#. Default: "Collector administration"
+#: ./browser/collector.py:63
+#: ./browser/controlpanel-links.pt:13
+msgid "label_collector_administration"
+msgstr "Informazio-bildumen kudeaketa"
+
+#. Default: "Global settings"
+#: ./browser/controlpanel-links.pt:23
+#: ./browser/settings.py:15
+msgid "label_newsletters_settings_administration"
+msgstr ""
+
+#. Default: "(Required)"
+#: ./browser/portlets/htmlstatusform.pt:39
+msgid "label_required"
+msgstr ""
+
+#. Default: "Statistics"
+#: ./browser/controlpanel-links.pt:32
+#: ./browser/stats.py:167
+msgid "label_statistics_administration"
+msgstr "Estatistikak"
+
+#. Default: "Required"
+#: ./browser/portlets/htmlstatusform.pt:39
+msgid "title_required"
+msgstr ""
+

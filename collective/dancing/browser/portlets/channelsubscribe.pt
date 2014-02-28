@@ -16,9 +16,9 @@
       <span tal:content="view/data/header" />
       <span class="portletTopRight"></span>
     </dt>
-    
+
    <dd class="portletItem">
-   
+
       <div tal:content="view/data/description">
 	    Portlet description
 	  </div>
@@ -26,10 +26,10 @@
 	
    <div tal:content="structure view/form/render">
 	   Subscribe form here
-   </div> 
-   <div class="visualClear"></div>  
+   </div>
+   <div class="visualClear"></div>
    </dd>
-   <dd class="portletFooter" 
+   <dd class="portletFooter"
        tal:condition="view/data/show_footer"
        tal:define="channel_link view/channel_link">
 	  <a href=""
@@ -38,8 +38,8 @@
 	      Link to channel
 	    </span>
 	  </a>
-	  
-   </dd> 
+	
+   </dd>
 </dl>
 
 </html>

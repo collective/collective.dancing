@@ -1,0 +1,904 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-12-10 02:05+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: no\n"
+"Language-Name: Norsk\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: ./browser/portlets/channelsubscribe.py:289
+msgid "${channel} options"
+msgstr "${channel} innstillinger"
+
+#: ./browser/sendnewsletter.py:105
+msgid "${name} does not support scheduling."
+msgstr "${name}  har ikke støtte for planlegging."
+
+#: ./browser/channel.py:617
+msgid "${numberadded} subscriptions updated successfully!"
+msgstr "${numberadded} abonnementer oppdatert!"
+
+#: ./browser/channel.py:611
+msgid "${numberadded} subscriptions updated successfully, ${numberremoved} removed!"
+msgstr "${numberadded} abonnementer oppdatert, ${numberremoved} fjernet!"
+
+#: ./browser/channel.py:601
+msgid "${numberadded} subscriptions updated successfully. ${numberremoved} removed. ${numbernotadded} could not be added. (${errorcandidates})"
+msgstr "${numberadded} abonnementer oppdatert, ${numberremoved} fjernet. ${numbernotadded} kunne ikke legges til. (${errorcandidates})"
+
+#: ./browser/channel.py:598
+msgid "${numberremoved} subscriptions removed successfully!"
+msgstr "${numberremoved} abonnementer fjernet!"
+
+#: ./browser/scheduler.py:33
+msgid "${number} messages queued."
+msgstr "${number} meldinger lagt til kø."
+
+#: ./browser/sendnewsletter.py:196
+msgid "${num} message(s) queued."
+msgstr "${num} melding(er) lagt til kø."
+
+#: ./browser/stats.py:115
+msgid "${sent} message(s) sent, ${failed} failure(s)."
+msgstr "${sent} melding(er) sendt, ${failed} feil."
+
+#: ./browser/collector.py:182
+msgid "Add"
+msgstr "Legg til"
+
+#: ./browser/portlets/channelsubscribe.py:452
+msgid "Add Mailing-list Subscribe Portlet"
+msgstr "Legg til Abonner-infoboks"
+
+#: ./browser/collector.py:164
+msgid "Add item to ${title}"
+msgstr ""
+
+#: ./browser/channel.py:95
+msgid "Add or edit mailing-lists that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
+msgstr "Legg til eller rediger postlister som skal bruke Samlinger til sende spesifikke sett av document fra nettstedet till abonnerte e-postadresser, på fastsatte tider."
+
+#: ./browser/interfaces.py:22
+msgid "Address to send the preview to"
+msgstr "Adresse for å sende forhåndsvisningen til"
+
+#: ./browser/stats.py:135
+msgid "All finished jobs cleared"
+msgstr "Alle ferdige jobber ryddet"
+
+#: ./browser/stats.py:127
+msgid "All pending jobs processed"
+msgstr "Alle ventende jobber behandlet"
+
+#: ./browser/stats.py:159
+msgid "All sent and failed messages deleted"
+msgstr "Alle sendte og feilde medlinger slettet"
+
+#: ./browser/prettysubscriptions.pt:23
+#: ./browser/subscriptions.pt:33
+msgid "Already subscribed?"
+msgstr "Allerede abonnert?"
+
+#: ./browser/interfaces.py:16
+msgid "Append automatically collected content in this send-out"
+msgstr "Legg automatisk innsamlet innholdet i denne sending"
+
+#: ./browser/scheduler.py:23
+#: ./browser/subscribe.py:696
+msgid "Apply"
+msgstr "Appliser"
+
+#: ./browser/subscribe.py:200
+msgid "Apply changes"
+msgstr "Appliser endringer"
+
+#: ./browser/portlets/channelsubscribe.py:402
+msgid "Back to portlets"
+msgstr "Tilbake til infobokser"
+
+#: ./browser/prettysubscriptions.pt:10
+#: ./browser/subscriptions.pt:10
+msgid "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
+msgstr "Nedenfor ser du en liste over nyhetsbrev vi tilbyr. Hvis du allerede abonnerer på noen av disse du kan fylle ut skjemaet på slutten av denne siden skal sendes en link til hvor du kan redigere eksisterende abonnement."
+
+#: ./browser/composer-html-forgot.pt:30
+msgid "Best regards"
+msgstr "Vennlig hilsen"
+
+#: ./interfaces.py:57
+msgid "CSS Stylesheet"
+msgstr "CSS Stylesheet"
+
+#: ./browser/channel.py:484
+msgid "CSV contains a header row"
+msgstr "CSV inneholder en overskriftsrad"
+
+#: ./browser/channel.py:491
+msgid "CSV delimiter"
+msgstr "CSV delimiter"
+
+#: ./browser/subscribe.py:116
+msgid "Can't identify your subscription. Please check your URL."
+msgstr ""
+
+#: ./browser/composer-html-forgot.pt:16
+#: ./composer.py:351
+msgid "Change your subscriptions with ${site_title}"
+msgstr "Endre dine abonnementer hos ${site_title}"
+
+#: ./browser/stats.py:129
+msgid "Clear finished jobs"
+msgstr "Rydd ferdige jobb"
+
+#: ./browser/stats.py:95
+msgid "Clear queued messages"
+msgstr "Rydd medlinger i kø"
+
+#: ./browser/composer-html-forgot.pt:21
+msgid "Click here to manage your subscriptions with ${site_title}:"
+msgstr "Klikk her for å administrere abonnementene hos ${site_title}:"
+
+#: ./browser/portlets/channelsubscribe.py:42
+msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
+msgstr "Klikk her for å velge vilke samlings-alternativer som skal aktiveres automatisk, når du abonnerer fra infoboksen."
+
+#: ./browser/portlets/channelsubscribe.py:50
+msgid "Click here to show the portlet footer."
+msgstr "Klikk her for å vise bunnteksten i infoboksen."
+
+#: ./browser/composer-html.pt:44
+msgid "Click here to unsubscribe."
+msgstr "Klikk her for å si opp abonnementet."
+
+#: ./collector.py:227
+msgid "Collection for ${title}"
+msgstr ""
+
+#: ./browser/collector.py:98
+msgid "Collection: ${title}"
+msgstr ""
+
+#: ./collector.py:125
+msgid "Collector block"
+msgstr ""
+
+#: ./browser/collector.py:298
+msgid "Collector block: ${title}"
+msgstr ""
+
+#: ./browser/composer.py:35
+msgid "Composer for format : ${format}"
+msgstr "Komponist for format: ${format}"
+
+#: ./browser/channel.py:752
+msgid "Composers"
+msgstr "Komponister"
+
+#: ./composer.py:325
+msgid "Confirm your subscription with ${channel-title}"
+msgstr "Bekreft abonnementet for ${channel-title}"
+
+#: ./browser/subscribe.py:96
+msgid "Confirming your subscription"
+msgstr "Bekrefter abonnementet"
+
+#: ./collector.py:93
+msgid "Content selection"
+msgstr ""
+
+#: ./browser/sendnewsletter.py:252
+msgid "Custom Subject"
+msgstr "Tilpasset Emne"
+
+#: ./browser/jobs.pt:25
+msgid "Date of execution"
+msgstr "Dato for gjennomføring"
+
+#: ./browser/portlets/channelsubscribe.py:39
+msgid "Description of the rendered portlet"
+msgstr "Beskrivelse av gjengitte infoboksen"
+
+#: ./profiles/default/actions.xml
+msgid "Displays a form that lets you send this content item as a newsletter."
+msgstr "Viser et skjema som lar deg sende dette innholdet elementet som et nyhetsbrev."
+
+#: ./browser/channel.py:641
+msgid "Download"
+msgstr "Nedlasting"
+
+#: ./composer.py:125
+msgid "E-mail address"
+msgstr "E-postadresse"
+
+#: ./browser/channel.py:751
+msgid "Edit"
+msgstr "Rediger"
+
+#: ./browser/collector.py:330
+msgid "Edit ${collector}"
+msgstr "Rediger ${collector}"
+
+#: ./browser/scheduler.py:90
+msgid "Edit ${selector} for ${channel}"
+msgstr "Rediger ${selector} for ${channel}"
+
+#: ./browser/channel.py:727
+msgid "Edit Mailing-list ${channel}"
+msgstr "Rediger postliste ${channel}"
+
+#: ./browser/portlets/channelsubscribe.py:371
+msgid "Edit Mailing-list Subscribe Portlet"
+msgstr "Rediger Abonner-infobox"
+
+#: ./browser/subscribe.py:38
+msgid "Edit existing subscriptions"
+msgstr "Redigere eksisterende abonnement"
+
+#: ./browser/collector.py:104
+msgid "Edit the Smart Folder"
+msgstr ""
+
+#: ./browser/composer.py:26
+msgid "Edit the properties of the composer."
+msgstr "Redigere egenskapene for komponisten."
+
+#: ./browser/channel.py:358
+msgid "Edit the properties of the mailing-list."
+msgstr "Redigere egenskapene for postlisten."
+
+#: ./browser/sendnewsletter.py:253
+msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and mailing-list."
+msgstr "Angi en egendefinert emne for nyhetsbrevet her. Om tomt brukes standard emnet for den valgte innhold og postliste."
+
+#: ./browser/query.py:12
+msgid "Enter a search query to find content."
+msgstr "Angi et søk for å finne innhold."
+
+#: ./browser/channel.py:420
+msgid "Error importing subscriber file. %s"
+msgstr "Feil under importering av abonnent fil. %s"
+
+#: ./browser/stats.py:40
+msgid "Failed messages"
+msgstr "Klarte meldinger"
+
+#: ./browser/channel.py:552
+msgid "File has incorrect format."
+msgstr "Fil har feil format."
+
+#: ./browser/channel.py:546
+msgid "File was not given."
+msgstr "Ingen fil ble angitt"
+
+#: ./browser/subscribe.py:40
+msgid "Fill out the form below to receive an email with a link from which you can edit your subscriptions."
+msgstr "Fyll ut skjemaet nedenfor for å motta en e-post med en link som du kan bruke før att redigere dine abonnement."
+
+#: ./browser/subscribe.py:69
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to ${link_start}edit your subscriptions${link_end}."
+msgstr "Fyll ut skjemaet nedenfor for å abonnere på ${channel}. Vær oppmerksom på at dette er for nye abonnementer. Klikk her for å ${link_start}endre dine abonnement${link_end}."
+
+#: ./browser/portlets/channelsubscribe.py:34
+msgid "Find the mailing-list you want to enable direct subscription to"
+msgstr "Finn den postlisten du vil aktivere direkte abonnement på"
+
+#: ./browser/jobs.pt:19
+msgid "Finished jobs"
+msgstr "Ferdige jobber"
+
+#: ./browser/portlets/channelsubscribe.py:45
+#: ./interfaces.py:52
+msgid "Footer text"
+msgstr "Bunntekst"
+
+#: ./interfaces.py:29
+msgid "From address"
+msgstr "Fra-adresse"
+
+#: ./interfaces.py:24
+msgid "From name"
+msgstr "Fra-navn"
+
+#: ./browser/channel.py:333
+msgid "Generate"
+msgstr "Generer"
+
+#: ./composer.py:154
+msgid "HTML E-Mail"
+msgstr "HTML E-post"
+
+#: ./interfaces.py:45
+msgid "Header text"
+msgstr "Topptekst"
+
+#: ./browser/interfaces.py:15
+msgid "Include collector items"
+msgstr "Inkluder samlingselementer"
+
+#: ./browser/subscribe.py:316
+msgid "Information on how to confirm your subscription has been sent to you."
+msgstr "Informasjon om hvordan du bekrefte abonnementet er blitt sendt til deg."
+
+#: ./browser/collector.py:190
+msgid "Item added successfully."
+msgstr "Post lagt til."
+
+#: ./browser/collector.py:201
+msgid "Item successfully deleted."
+msgstr "Post slettet."
+
+#: ./browser/collector.py:234
+msgid "Item successfully moved."
+msgstr "Post flyttet."
+
+#: ./browser/query.py:11
+msgid "Items"
+msgstr "Poster"
+
+#: ./browser/jobs.pt:23
+msgid "Job title"
+msgstr "Jobbtitel"
+
+#: ./browser/stats.py:31
+msgid "Last Change"
+msgstr "Siste Endring"
+
+#: ./collector.py:55
+msgid "Latest news"
+msgstr ""
+
+#: ./browser/channel.py:220
+msgid "Manage or add subscriptions."
+msgstr "Administrer eller legg til abonnement."
+
+#: ./browser/composer-html-forgot.pt:24
+msgid "Manage your subscriptions"
+msgstr "Administrer dine abonnementer"
+
+#: ./interfaces.py:34
+msgid "Message subject"
+msgstr "Meldingsemne"
+
+#: ./browser/sendnewsletter.py:92
+msgid "Messages queued for delivery."
+msgstr "Meldinger i kø for levering."
+
+#: ./browser/stats.py:35
+msgid "Messages successfully sent"
+msgstr "Meldinger sendt"
+
+#: ./browser/stats.py:29
+msgid "Messages waiting to be sent"
+msgstr "Meldinger som venter på å bli sendt"
+
+#: ./browser/stats.py:41
+msgid "Messages with errors"
+msgstr "Meldinger med feil"
+
+#: ./browser/stats.py:47
+msgid "Messages with errors in the retry queue"
+msgstr "Meldinger med feil i kø før å prøve på nytt"
+
+#: ./browser/collector.py:237
+msgid "Move block down"
+msgstr "Flytt blokk ned"
+
+#: ./browser/collector.py:230
+msgid "Move block up"
+msgstr "Flytt blokk opp"
+
+#: ./collector.py:109
+msgid "Must be a weak reference (got ${title})"
+msgstr ""
+
+#: ./browser/subscribe.py:728
+msgid "My subscriptions"
+msgstr "Mine abonnementer"
+
+#: ./browser/stats.py:28
+msgid "New messages"
+msgstr "Nye meldinger"
+
+#: ./channel.py:115
+msgid "Newsletter"
+msgstr "Nyhetsbrev"
+
+#: ./channel.py:78
+msgid "Newsletters"
+msgstr "Nyhetsbrev"
+
+#: ./browser/preview.py:79
+msgid "No items found."
+msgstr "Ingen poster funnet"
+
+#: ./browser/scheduler.py:36
+msgid "No messages queued."
+msgstr "Ingen meldinger i kø."
+
+#: ./browser/channel.py:475
+msgid "Only purge subscribers present in this list."
+msgstr "Bare rydde abonnenter i denne listen."
+
+#: ./browser/channel.py:668
+msgid "Only some of your changes were saved"
+msgstr "Bare noen av endringene ble lagret"
+
+#: ./browser/jobs.pt:9
+msgid "Pending jobs"
+msgstr "Jobber som venter"
+
+#: ./browser/composer-html-confirm.pt:14
+msgid "Please confirm your subscription"
+msgstr "Vennligst bekreft din påmelding"
+
+#: ./browser/sendnewsletter.py:109
+msgid "Please fill in a date."
+msgstr "Vennligst fyll ut en dato."
+
+#: ./browser/stats.py:88
+msgid "Please select items to remove."
+msgstr "Velg poster å fjerne."
+
+#: ./browser/stats.py:97
+msgid "Please select items with new messages to clear."
+msgstr "Vennligst velg poster med nye meldinger å rydde."
+
+#: ./browser/stats.py:106
+msgid "Please select which mailing-list's queued e-mails you'd like to send."
+msgstr "Velg hvilken postlistes kø du vil sende."
+
+#: ./browser/portlets/channelsubscribe.py:38
+msgid "Portlet description"
+msgstr "Infoboksbeskrivelse"
+
+#: ./browser/portlets/channelsubscribe.py:30
+msgid "Portlet header"
+msgstr "Infobokstopptekst"
+
+#: ./browser/channel.py:753
+#: ./browser/sendnewsletter.py:142
+msgid "Preview"
+msgstr "Forhåndsvisning"
+
+#: ./browser/portlets/channelsubscribe.py:207
+msgid "Proceed"
+msgstr "Fortsett"
+
+#: ./browser/stats.py:118
+msgid "Process jobs"
+msgstr "Prosess jobber"
+
+#: ./browser/channel.py:480
+msgid "Purge list before import."
+msgstr "Rydd listen før import."
+
+#: ./browser/channel.py:479
+msgid "Purge list."
+msgstr "Rydd liste."
+
+#: ./browser/collector.py:198
+msgid "Remove block"
+msgstr "Fjern blokk"
+
+#: ./browser/scheduler.py:78
+msgid "Remove entries"
+msgstr "Fjern oppføringer"
+
+#: ./browser/stats.py:86
+msgid "Remove old messages"
+msgstr "Fjern gamle meldinger"
+
+#: ./browser/channel.py:474
+msgid "Remove subscribers in list."
+msgstr "Fjern abonnenter i listen."
+
+#: ./interfaces.py:40
+msgid "Reply-to address"
+msgstr "Svar til-adresse"
+
+#: ./browser/stats.py:46
+msgid "Retry messages"
+msgstr "Prøv meldinger på nytt"
+
+#: ./collector.py:72
+msgid "Rich text"
+msgstr "Fulltekst"
+
+#: ./browser/collector.py:125
+msgid "Rich text: ${title}"
+msgstr ""
+
+#: ./browser/channel.py:684
+msgid "Save"
+msgstr "Lagre"
+
+#: ./browser/sendnewsletter.py:94
+msgid "Schedule distribution"
+msgstr "Planlegg distribusjon"
+
+#: ./browser/interfaces.py:29
+msgid "Scheduled time"
+msgstr "Planlagt tid"
+
+#: ./browser/channel.py:191
+msgid "Search"
+msgstr "Søk"
+
+#: ./browser/channel.py:188
+msgid "Search subscribers"
+msgstr "Søk abonnenter"
+
+#: ./collector.py:215
+msgid "Sections"
+msgstr "Deler"
+
+#: ./browser/channel.py:323
+msgid "See an in-browser preview of the newsletter."
+msgstr "Se en forhåndsvisning av nyhetsbrevet."
+
+#: ./browser/channel.py:485
+msgid "Select this if you want to use the csv header row to designate document variables.The header row must contain one 'email' field."
+msgstr "Velg dette hvis du vil bruke CSV overskriftsraden å utpeke variabler. Overskriftsraden må inneholde ett felt med navn 'email'."
+
+#: ./browser/sendnewsletter.py:62
+msgid "Send"
+msgstr "Send"
+
+#: ./browser/sendnewsletter.py:244
+msgid "Send ${item} as newsletter"
+msgstr "Send ${item} som nyhetsbrev"
+
+#: ./browser/sendnewsletter.py:85
+msgid "Send '${context}' through ${channel}."
+msgstr "Send '${context}' gjennom ${channel}."
+
+#: ./profiles/default/actions.xml
+msgid "Send as newsletter"
+msgstr "Send som nyhetsbrev"
+
+#: ./browser/sendnewsletter.py:168
+msgid "Send preview"
+msgstr "Send forhåndsvisning"
+
+#: ./browser/stats.py:104
+msgid "Send queued messages now"
+msgstr "Send meldinger i køen nå"
+
+#: ./browser/stats.py:34
+msgid "Sent messages"
+msgstr "Sendte meldinger"
+
+#: ./browser/prettysubscriptions.pt:24
+#: ./browser/subscriptions.pt:34
+msgid "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
+msgstr "Skulle du være abonnerer allerede på en av våre lister, kan du bruke dette skjemaet til å hente en link til din personlige abonnementet siden:"
+
+#: ./browser/portlets/channelsubscribe.py:49
+msgid "Show footer"
+msgstr "Vis bunntekst"
+
+#: ./browser/sendnewsletter.py:149
+msgid "Show preview"
+msgstr "Vis forhåndsvisning"
+
+#: ./browser/controlpanel.py:19
+msgid "Singing & Dancing configuration"
+msgstr "Singing & Dancing konfigurasjon"
+
+#: ./channel.py:129
+msgid "Standard Channel"
+msgstr "Standardpostliste"
+
+#: ./browser/jobs.pt:24
+msgid "Status"
+msgstr "Status"
+
+#: ./browser/subscribe.py:255
+msgid "Subscribe"
+msgstr "Abonner"
+
+#: ./browser/portlets/channelsubscribe.py:41
+msgid "Subscribe directly from portlet"
+msgstr "Abonner direkte fra portlet"
+
+#: ./browser/subscribe.py:79
+msgid "Subscribe to ${channel}"
+msgstr "Abboner på ${channel}"
+
+#: ./browser/channel.py:465
+msgid "Subscribers"
+msgstr "Abonnenter"
+
+#: ./browser/channel.py:643
+msgid "Subscribers exported."
+msgstr "Abonnenter eksportert."
+
+#: ./browser/channel.py:748
+msgid "Subscriptions"
+msgstr "Abonnement"
+
+#: ./browser/stats.py:100
+msgid "Successfully cleared queued messages in mailing-lists."
+msgstr "Ryddet kø meldinger i postlister."
+
+#: ./browser/stats.py:91
+msgid "Successfully removed old messages from mailing-lists."
+msgstr "Rydder gamle meldinger fra postlister."
+
+#: ./browser/sendnewsletter.py:118
+msgid "Successfully scheduled distribution."
+msgstr "Distribusjon planlagt."
+
+#: ./interfaces.py:62
+msgid "Template"
+msgstr "Mal"
+
+#: ./browser/portlets/channelsubscribe.py:46
+msgid "Text in footer - if omitted the mailing-list title is used"
+msgstr "Bunntekst - hvis utelatt brukes postlistetittelen"
+
+#: ./interfaces.py:46
+msgid "Text to appear at the beginning of every message. You may use a number of variables here including ${subject}."
+msgstr "Tekst som vises i begynnelsen av hver melding. Du kan bruke en rekke variabler her, inkludert ${subject}."
+
+#: ./interfaces.py:53
+msgid "Text to appear at the end of every message"
+msgstr "Tekst som vises på slutten av hver melding"
+
+#: ./browser/sendnewsletter.py:178
+msgid "The address to send the preview to is missing."
+msgstr "Adressen å sende forhåndsvisningen til mangler."
+
+#: ./browser/channel.py:492
+msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
+msgstr "Skilletegnen i CSV-filen. (Vanligvis ',' eller ';', men ingen anførselstegn er nødvendig.)"
+
+#: ./interfaces.py:30
+msgid "The from address that will appear in messages sent from this composer."
+msgstr "Fra adressen som vises i meldinger sendt fra denne postlisten."
+
+#: ./browser/portlets/channelsubscribe.py:33
+msgid "The mailing-list to enable subscriptions to."
+msgstr "Postlisten for å aktivere abonnement på."
+
+#: ./browser/interfaces.py:10
+msgid "The mailing-list to send this through"
+msgstr "Postlisten att sende dette gjennom"
+
+#: ./interfaces.py:41
+msgid "The reply-to address that will appear in messages sent from this composer."
+msgstr "Svar til-adresse som skal vises i meldinger sendt fra denne postlisten."
+
+#: ./interfaces.py:25
+msgid "The sender name that will appear in messages sent from this mailing-list."
+msgstr "Avsenderen navnet som vil vises i meldinger sendt fra denne postlisten."
+
+#: ./interfaces.py:58
+msgid "The stylesheet will be applied to the document."
+msgstr "Stilarket vil bli brukt på dokumentet."
+
+#: ./interfaces.py:63
+msgid "The template that will be used."
+msgstr "Malen som skal brukes."
+
+#: ./browser/subscribe.py:278
+msgid "There seems to be an error with the information you entered."
+msgstr "Det synes å være en feil med informasjonen du har angitt."
+
+#: ./browser/portlets/channelsubscribe.py:198
+msgid "There were some errors."
+msgstr "Det var noen feil."
+
+#: ./browser/interfaces.py:30
+msgid "This is only required if you click 'Schedule distribution' below"
+msgstr "This is only required if you click 'Planlegg distribusjon' nedenfor"
+
+#: ./browser/interfaces.py:23
+msgid "This is only required if you click 'Send preview' below"
+msgstr "This is only required if you click 'Send forhåndsvisning' nedenfor"
+
+#: ./browser/portlets/channelsubscribe.py:408
+msgid "This portlet allows a visitor to subscribe to a specific newsletter."
+msgstr "Denne infoboksen tillater en besøkende å abonnere på en bestemt nyhetsbrev."
+
+#: ./browser/collector.py:90
+#: ./browser/stats.py:20
+msgid "Title"
+msgstr "Tittel"
+
+#: ./browser/portlets/channelsubscribe.py:31
+msgid "Title of the rendered portlet"
+msgstr "Tittel på gjengitte infoboksen"
+
+#: ./browser/composer-html-confirm.pt:20
+msgid "To confirm your subscription with ${channel}, please click here: ${url}"
+msgstr "For å bekrefte abonnementet med ${channel}, vennligst klikk her: ${url}"
+
+#: ./browser/stats.py:23
+msgid "Total messages sent"
+msgstr "Totalt antall meldinger sendt"
+
+#: ./browser/stats.py:24
+msgid "Total number of messages sent successsfully"
+msgstr "Totalt antall meldinger sendt"
+
+#: ./browser/scheduler.py:28
+msgid "Trigger now"
+msgstr "Trigger nå"
+
+#: ./browser/channel.py:108
+#: ./browser/collector.py:37
+msgid "Type"
+msgstr "Type"
+
+#: ./browser/channel.py:584
+msgid "Unknown"
+msgstr "Ukjent"
+
+#: ./browser/subscribe.py:125
+msgid "Unsubscribe"
+msgstr "Avslutt abonnement"
+
+#: ./browser/subscribe.py:212
+msgid "Unsubscribe from newsletter"
+msgstr "Avslutt abonnement på nyhetsbrev"
+
+#: ./browser/collector.py:334
+msgid "Up to Collector administration"
+msgstr "Opp til administrasjon av Samlinger"
+
+#: ./browser/channel.py:722
+#: ./browser/scheduler.py:96
+msgid "Up to Mailing-lists administration"
+msgstr "Opp til postlisteadministrasjon"
+
+#: ./browser/controlpanel.py:12
+msgid "Up to Singing & Dancing configuration"
+msgstr "Opp til administrasjon av Singing & Dancing"
+
+#: ./browser/controlpanel.py:22
+msgid "Up to Site Setup"
+msgstr "Opp til Plone-oppsett"
+
+#: ./browser/channel.py:459
+msgid "Upload"
+msgstr "Last opp"
+
+#: ./browser/channel.py:466
+msgid "Upload a CSV file with a list of subscribers here. Subscribers already present in the database will be overwritten. Each line should contain: ${columns}."
+msgstr "Last opp en CSV-fil med en liste over abonnenter her. Abonnenter som allerede finnes i databasen vil bli overskrevet. Hver linje skal inneholde ${columns}."
+
+#: ./browser/channel.py:648
+msgid "Upload list of subscribers."
+msgstr "Last opp liste over abonnenter."
+
+#: ./channel.py:64
+msgid "Use single form subscriptions page"
+msgstr "Bruk ett enkelt abonnement-skjema"
+
+#: ./channel.py:65
+msgid "Use single form subscriptions page when possible."
+msgstr "Bruk ett enkelt abonnement-skjema når det er mulig."
+
+#: ./browser/portlets/channelsubscribe.py:144
+msgid "You are already subscribed to this newsletter. Click here to ${link_start}edit your subscriptions${link_end}."
+msgstr "Du abonnerer allerede på dette nyhetsbrevet. Klikk her for å ${link_start}endre dine abonnement${link_end}."
+
+#: ./browser/subscribe.py:227
+msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
+msgstr "Du er allerede abonnerer. Fyll ut skjemaet på slutten av denne siden skal sendes en link hvor du kan redigere din påmelding."
+
+#: ./browser/subscriptions.pt:21
+msgid "You are currently subscribed to these newsletters:"
+msgstr "Du abonnerer for tiden på disse nyhetsbrevene:"
+
+#: ./browser/subscribe.py:138
+msgid "You aren't subscribed to this mailing-list."
+msgstr "Du abonnerer ikke på denne postlisten."
+
+#: ./browser/channel.py:630
+msgid "You can not add things in purge only mode!"
+msgstr "Du kan ikke legge til ting i rydd-modus!"
+
+#: ./browser/subscriptions.pt:28
+msgid "You can subscribe to these newsletters:"
+msgstr "Du kan abonnere på disse nyhetsbrev:"
+
+#: ./browser/subscribe.py:98
+msgid "You confirmed your subscription successfully."
+msgstr "Du har bekreftet din påmelding."
+
+#: ./interfaces.py:35
+msgid "You may use a number of variables here, like ${site_title}."
+msgstr "Du kan bruke en rekke variabler her, som ${site_title}."
+
+#: ./browser/subscribe.py:310
+msgid "You subscribed successfully."
+msgstr "Du abonnerer nå på nyhetsbrevet."
+
+#: ./browser/subscribe.py:136
+msgid "You unsubscribed successfully."
+msgstr "Du abonnerer nå ikke lenger på nyhetsbrevet."
+
+#: ./browser/composer-html.pt:39
+msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
+msgstr "Du mottar denne e-posten fordi du er registrert for nyhetsbrevet ${channel}"
+
+#: ./composer.py:44
+msgid "Your e-mail address is invalid"
+msgstr "Din e-postadresse er ugyldig"
+
+#: ./browser/subscribe.py:30
+msgid "Your email address is already subscribed. Click the 'Send my subscription details' button below."
+msgstr "Din e-postadresse er allerede abonnerer. Klikk på 'Send mine abonnent-detaljer' knappen under."
+
+#: ./browser/subscribe.py:99
+msgid "Your subscription isn't known to us."
+msgstr "Abonnementet er ikke kjent for oss."
+
+#: ./browser/subscribe.py:166
+msgid "Your subscription was updated."
+msgstr "Abonnementet ble oppdatert."
+
+#. Default: "A Mailing-list is a hub of configuration. It doesn't do anything by itself. Rather, it provides a number of components to configure and work with. It is also the container of subscriptions to it."
+#: ./browser/controlpanel-links.pt:7
+msgid "description_channel_administration"
+msgstr "En postliste er et knutepunkt for konfigurasjon. Det trenger ikke gjøre noe av seg selv. Snarere gir det en rekke komponenter for å konfigurere og arbeide med. Det er også beholderen av abonnement til det."
+
+#. Default: "Collectors are useful for automatic newsletters. They are responsible for assembling a list of items for publishing."
+#: ./browser/controlpanel-links.pt:18
+msgid "description_collector_administration"
+msgstr "Samlinger er nyttige for automatisk nyhetsbrev. De er ansvarlig for å sette sammen en liste over elementer for publisering."
+
+#. Default: "Change some aspects of how Singing & Dancing behaves."
+#: ./browser/controlpanel-links.pt:28
+msgid "description_globalsettings_administration"
+msgstr "Endre noen aspekter av hvordan Singing & Dancing oppfører seg."
+
+#. Default: "View newsletter statistics"
+#: ./browser/controlpanel-links.pt:37
+msgid "description_statistics_administration"
+msgstr "Vis nyhetsbrev statistikk"
+
+#. Default: "Mailing-list administration"
+#: ./browser/channel.py:173
+#: ./browser/controlpanel-links.pt:3
+msgid "label_channel_administration"
+msgstr "Postliste-administrasjon"
+
+#. Default: "Collector administration"
+#: ./browser/collector.py:63
+#: ./browser/controlpanel-links.pt:13
+msgid "label_collector_administration"
+msgstr "Samlinger-administrasjon"
+
+#. Default: "Global settings"
+#: ./browser/controlpanel-links.pt:23
+#: ./browser/settings.py:15
+msgid "label_newsletters_settings_administration"
+msgstr "Globale innstillinger"
+
+#. Default: "(Required)"
+#: ./browser/portlets/htmlstatusform.pt:39
+msgid "label_required"
+msgstr "(Obligatorisk)"
+
+#. Default: "Statistics"
+#: ./browser/controlpanel-links.pt:32
+#: ./browser/stats.py:167
+msgid "label_statistics_administration"
+msgstr "Statistikk"
+
+#. Default: "Required"
+#: ./browser/portlets/htmlstatusform.pt:39
+msgid "title_required"
+msgstr "Nødvendig"
+

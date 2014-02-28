@@ -1,0 +1,41 @@
+<html>
+  <body>
+    <div class="portalMessage"
+	 tal:condition="view/status" tal:content="view/status">
+    </div>
+    <ul tal:condition="python: view.widgets and view.widgets.errors">
+      <li tal:repeat="error view/widgets/errors">
+        <tal:block condition="error/widget">
+          <tal:block replace="error/widget/label" />:
+        </tal:block>
+        <tal:block replace="structure error/render" />
+      </li>
+    </ul>
+
+    <h2 i18n:translate="" tal:content="view/label">
+      You are currently subscribed to these newsletters</h2>
+
+    <form action="." method="post"
+          tal:attributes="action request/getURL; enctype view/enctype">
+
+      <div class="subform" tal:repeat="form view/forms"
+	   tal:condition="view/forms|nothing">
+        <div tal:replace="structure form/render" />
+      </div>
+
+      <tal:widgets condition="view/widgets">
+	<div class="row" tal:repeat="widget view/widgets/values">
+          <b tal:condition="widget/error"
+             tal:content="structure widget/error/render"
+             /><label for=""
+		      tal:attributes="for widget/id"
+		      tal:content="widget/label" />
+          <input type="text" tal:replace="structure widget/render"
+		 /></div>
+      </tal:widgets>
+      <div class="action" tal:repeat="action view/actions/values">
+        <input type="submit" tal:replace="structure action/render"
+      /></div>
+    </form>
+  </body>
+</html>

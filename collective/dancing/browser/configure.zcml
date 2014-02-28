@@ -1,6 +1,14 @@
 <zope:configure
    xmlns:zope="http://namespaces.zope.org/zope"
+   xmlns:zcml="http://namespaces.zope.org/zcml"
    xmlns="http://namespaces.zope.org/browser">
+
+  <!-- On Plone 4.1 and higher we must load the permissions zcml from
+       cmf core.  Not needed but works on Plone 4.0 too.  The
+       condition makes sure this is not done on Plone 3, where it
+       would fail otherwise. -->
+  <include package="Products.CMFCore" file="permissions.zcml"
+           zcml:condition="installed plone.app.upgrade"/>
 
   <include package=".portlets" />
 
@@ -37,7 +45,7 @@
   <zope:adapter
      factory=".composer.EditHTMLComposerForm"
      provides="z3c.form.interfaces.ISubForm" />
-  
+
   <!-- Administration views -->
 
   <defaultView
@@ -59,7 +67,7 @@
       for="collective.singing.interfaces.ICollector"
       name="index_html"
       />
-    
+
   <defaultView
       for="collective.singing.interfaces.IScheduler"
       name="index_html"
@@ -78,6 +86,13 @@
       class=".stats.StatsView"
       permission="dancing.ManageNewsletters"
       />
+
+  <page
+     name="settings.html"
+     for="collective.dancing.channel.PortalNewsletters"
+     class=".settings.NewslettersSettingsView"
+     permission="dancing.ManageNewsletters"
+     />
 
   <page
       name="index_html"
@@ -106,7 +121,7 @@
       class=".collector.RootCollectorEditView"
       permission="dancing.ManageNewsletters"
       />
-  
+
   <page
       name="index_html"
       for="collective.singing.collector.IFilteredSubjectsCollectorBase"
@@ -127,7 +142,7 @@
       class=".scheduler.TimedSchedulerEditView"
       permission="dancing.ManageNewsletters"
       />
-      
+
   <page
        name="export"
        for="collective.singing.interfaces.IChannel"
@@ -143,7 +158,7 @@
       class=".subscribe.Subscriptions"
       permission="zope2.View"
       />
-  
+
   <page
       name="sendsecret.html"
       for="collective.dancing.channel.IPortalNewsletters"
@@ -190,6 +205,13 @@
      name="send-newsletter.html"
      for="*"
      class=".sendnewsletter.SendAsNewsletterView"
+     permission="dancing.SendAsNewsletter"
+     />
+
+  <page
+     name="send-newsletter-with-subject.html"
+     for="*"
+     class=".sendnewsletter.SendAsNewsletterViewWithCustomSubject"
      permission="dancing.SendAsNewsletter"
      />
 

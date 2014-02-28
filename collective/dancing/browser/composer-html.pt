@@ -9,37 +9,42 @@
     <style type="text/css"
            tal:content="structure options/stylesheet" />
   </head>
-  
+
   <body>
-    <p class="header"
+    <div class="header"
        tal:define="header options/header_text|nothing"
        tal:condition="header"
        tal:content="structure header">
       Header text
-    </p>
+    </div>
 
-    <p tal:repeat="html options/contents"
-       tal:content="structure html">
-      Contents
-    </p>
+    <div id="contents"
+      tal:define="contents options/contents"
+      tal:condition="contents">
+        <div class="contentItem" tal:repeat="html contents"
+           tal:content="structure html">
+          Contents
+        </div>
+    </div>
 
-    <p class="footer"
+    <div class="footer"
        tal:define="footer options/footer_text|nothing"
        tal:condition="footer"
        tal:content="structure footer">
       Footer text
-    </p>
+    </div>
 
-    <p i18n:translate="">
+    <div class="whyReceiving" i18n:translate="">
       You're receiving this e-mail because you're registered for the
       <span tal:replace="options/channel_title" i18n:name="channel" />
       newsletter.
-    </p>
-    <p>
+    </div>
+
+    <div class="unsubOption">
       <a href="" tal:attributes="href options/unsubscribe_url" i18n:translate="">
         Click here to unsubscribe.
       </a>
-    </p>
+    </div>
 
   </body>
 

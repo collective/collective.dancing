@@ -1,8 +1,17 @@
-import zope.schema.vocabulary
-import z3c.form.interfaces
+import logging
+
 import Acquisition
+from plone.app.z3cform.interfaces import IPloneFormLayer
+from plone.z3cform import z2
+import stoneagehtml
+import z3c.form.interfaces
+from zope.interface import noLongerProvides
+import zope.schema.vocabulary
 
 import collective.singing.async
+
+logger = logging.getLogger('collective.dancing')
+
 
 def get_queue():
     """Get the job queue"""
@@ -18,7 +27,7 @@ def fix_request(wrapped, skip=1):
 def aq_append(wrapped, item, skip=0):
     """Return wrapped with an aq chain that includes `item` at the
     end.
-    
+
       >>> class AQ(Acquisition.Explicit):
       ...     def __init__(self, name):
       ...         self.name = name
@@ -61,3 +70,34 @@ class LaxVocabulary(zope.schema.vocabulary.SimpleVocabulary):
             return same[0]
         else:
             raise LookupError(value)
+
+
+def compactify(html):
+    """Make the html compact.
+
+    We use stoneagehtml for this.  We catch at least one error that
+    can occur with some css code, that stoneagehtml tries to clean up
+    using cssutils.
+    See https://bugs.launchpad.net/singing-dancing/+bug/410238
+
+    We also return utf-8.
+    """
+    try:
+        html = stoneagehtml.compactify(html, filter_tags=False)
+    except IndexError:
+        logger.warn("Exception while compacting html with stoneagehtml; "
+                    "using original instead.")
+        pass
+    return html.decode('utf-8')
+
+
+def switch_on(view, request_layer=z3c.form.interfaces.IFormLayer):
+    # Fix the request. If we find a form layer from plone.app.z3cform take
+    # it away. It uses a base template using context/main_template but our
+    # views don't have an implicit Acquisition context. The base template
+    # from plone.z3cform uses /@@standard-macros which does work, so we fall
+    # back on that one
+    z2.switch_on(view, request_layer=request_layer)
+    request = view.request
+    if IPloneFormLayer.providedBy(request):
+        noLongerProvides(request, IPloneFormLayer)

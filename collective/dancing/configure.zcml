@@ -4,17 +4,13 @@
    xmlns:i18n="http://namespaces.zope.org/i18n"
    xmlns:five="http://namespaces.zope.org/five"
    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+   xmlns:monkey="http://namespaces.plone.org/monkey"
+   xmlns:zcml="http://namespaces.zope.org/zcml"
    i18n_domain="collective.dancing">
 
   <include package="collective.singing" />
+  <include package="collective.singing.browser" />
   <include package="plone.app.z3cform" />
-  <include package="five.intid" />
-
-  <!-- Prevent scripts from being intid'ed.
-       XXX: Figure out what's going on here -->
-  <five:implements
-      interface="Products.CMFCore.interfaces.IDirectoryView"
-      class="Products.CMFCore.FSPythonScript.FSPythonScript" />
 
   <include file="mail.zcml" />
   <include file="permissions.zcml" />
@@ -22,8 +18,68 @@
 
   <include package=".browser" />
 
+  <!-- Only load parts of Five.intid to avoid the problems that come
+       with registering handlers for IPersistent
+    -->
+  <!-- Prevent scripts from being intid'ed.
+       XXX: Figure out what's going on here -->
+  <!--     interface="Products.CMFCore.interfaces.IDirectoryView" -->
+  <!--     class="Products.CMFCore.FSPythonScript.FSPythonScript" /> -->
+
+  <!-- <include package="five.intid" /> -->
+  <!-- <five:implements -->
+
+<!--  <includeOverrides package="five.intid" file="overrides.zcml" />-->
+  <include package="five.intid" file="base.zcml" />
+  <include package="five.intid" file="cmfdirectoryview.zcml" />
+
+  <subscriber
+      zcml:condition="not-have plone-4"
+      handler="five.intid.intid.addIntIdSubscriber"
+      for="collective.singing.interfaces.ISubscription
+      zope.app.container.interfaces.IObjectAddedEvent"
+    />
+  <subscriber
+      zcml:condition="not-have plone-4"
+      handler="five.intid.intid.removeIntIdSubscriber"
+      for="collective.singing.interfaces.ISubscription
+      zope.app.container.interfaces.IObjectRemovedEvent"
+    />
+  <subscriber
+      zcml:condition="not-have plone-4"
+      handler="five.intid.intid.moveIntIdSubscriber"
+      for="collective.singing.interfaces.ISubscription
+      zope.app.container.interfaces.IObjectMovedEvent"
+    />
+  <subscriber
+      zcml:condition="have plone-4"
+      handler="five.intid.intid.addIntIdSubscriber"
+      for="collective.singing.interfaces.ISubscription
+      zope.lifecycleevent.interfaces.IObjectAddedEvent"
+    />
+  <subscriber
+      zcml:condition="have plone-4"
+      handler="five.intid.intid.removeIntIdSubscriber"
+      for="collective.singing.interfaces.ISubscription
+      zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+    />
+  <subscriber
+      zcml:condition="have plone-4"
+      handler="five.intid.intid.moveIntIdSubscriber"
+      for="collective.singing.interfaces.ISubscription
+      zope.lifecycleevent.interfaces.IObjectMovedEvent"
+    />
+
   <!-- Make this package a Zope 2 product -->
   <five:registerPackage package="." initialize=".initialize" />
+  <include package="collective.monkeypatcher" />
+  <monkey:patch
+     description="patch ATTopic to allow overriding *all* of the query that it builds by providing keyword arguments."
+     class="Products.ATContentTypes.content.topic.ATTopic"
+     original="queryCatalog"
+     replacement=".patch.topic.queryCatalog"
+     zcml:condition="not-installed plone.app.collection"
+  />
 
   <i18n:registerTranslations directory="locales"/>
 
@@ -35,7 +91,7 @@
      provides="Products.GenericSetup.interfaces.EXTENSION"
      />
 
-  <browser:resourceDirectory 	   
+  <browser:resourceDirectory
       name="dancing-resources"
       directory="resources"
       permission="zope2.Public"
@@ -44,8 +100,9 @@
   <!-- Channel and subscriptions registrations -->
   <utility component=".channel.portal_newsletters" name="portal-newsletters" />
   <subscriber handler=".channel.tool_added" />
-  <subscriber handler=".channel.channels_added" /> 
-  <subscriber handler=".channel.collector_removed" /> 
+  <subscriber handler=".channel.channels_added" />
+  <subscriber handler=".channel.channel_added" />
+  <subscriber handler=".channel.collector_removed" />
   <subscriber handler="collective.singing.subscribe.subscription_added" />
   <subscriber handler="collective.singing.subscribe.subscription_modified" />
   <subscriber handler="collective.singing.subscribe.subscription_removed" />
@@ -59,21 +116,37 @@
 
   <!-- Composer registrations-->
   <adapter factory=".composer.composerdata_from_subscription" />
+  <utility factory=".composer.HTMLTemplateVocabularyFactory"
+           name="html_template_vocabulary"/>
+  <utility component=".composer.default_template"
+           name="default"
+           provides=".interfaces.IHTMLComposerTemplate" />
+
   <adapter factory=".composer.CMFDublinCoreHTMLFormatter"
            for="Products.CMFCore.interfaces.IDublinCore
                 zope.publisher.interfaces.browser.IBrowserRequest"
            name="html" />
   <five:implements
+      zcml:condition="not-have plone-41"
       interface="Products.CMFCore.interfaces.IDublinCore"
       class="Products.Archetypes.BaseContent.BaseContent" />
   <five:implements
+      zcml:condition="not-have plone-41"
       interface="Products.CMFCore.interfaces.IDublinCore"
       class="Products.Archetypes.BaseFolder.BaseFolder" />
+  <class class="Products.Archetypes.BaseFolder.BaseFolder" zcml:condition="have plone-41">
+    <implements interface="Products.CMFCore.interfaces.IDublinCore" />
+  </class>
+  <class class="Products.Archetypes.BaseFolder.BaseFolder" zcml:condition="have plone-41">
+    <implements interface="Products.CMFCore.interfaces.IDublinCore" />
+  </class>
+
   <adapter factory=".composer.HTMLFormatItemFully"
            for=".composer.FullFormatWrapper
-                zope.publisher.interfaces.browser.IBrowserRequest" 
+                zope.publisher.interfaces.browser.IBrowserRequest"
            name="html" />
-  <!-- In the future, we'll want more than just this call formatter -->
+
+  <!-- Formatter -->
   <adapter factory=".composer.PloneCallHTMLFormatter"
            for="Products.CMFCore.interfaces.IContentish
                 zope.publisher.interfaces.browser.IBrowserRequest"
@@ -96,8 +169,11 @@
 
   <!-- We want to be able to make local portlet assignments on the tool -->
   <five:implements
+     zcml:condition="not-have plone-41"
      class=".channel.PortalNewsletters"
      interface="plone.portlets.interfaces.ILocalPortletAssignable" />
-  
-  
+  <class class=".channel.PortalNewsletters" zcml:condition="have plone-41">
+    <implements interface="plone.portlets.interfaces.ILocalPortletAssignable" />
+  </class>
+
 </configure>

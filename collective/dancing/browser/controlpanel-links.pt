@@ -1,11 +1,11 @@
   <dl i18n:domain="collective.dancing">
     <dt>
       <a i18n:translate="label_channel_administration" href="./channels">
-        Channel administration
+        Mailing-list administration
       </a>
     </dt>
     <dd i18n:translate="description_channel_administration">
-        A Channel is a hub of configuration.  It doesn't do anything by
+        A Mailing-list is a hub of configuration.  It doesn't do anything by
         itself.  Rather, it provides a number of components to configure
         and work with.  It is also the container of subscriptions to it.
     </dd>
@@ -18,6 +18,15 @@
     <dd i18n:translate="description_collector_administration">
       Collectors are useful for automatic newsletters.  They are
       responsible for assembling a list of items for publishing.
+    </dd>
+    <dt>
+      <a i18n:translate="label_newsletters_settings_administration"
+	 href="./settings.html">
+	Global settings
+      </a>
+    </dt>
+    <dd i18n:translate="description_globalsettings_administration">
+      Change some aspects of how Singing & Dancing behaves.
     </dd>
     <dt>
       <a i18n:translate="label_statistics_administration"

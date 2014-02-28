@@ -5,7 +5,10 @@ from Products.Five import BrowserView
 from Products.Five.browser import pagetemplatefile
 
 from collective.dancing import MessageFactory as _
-from zope.app.component.hooks import getSite
+try:
+    from zope.app.component.hooks import getSite
+except ImportError:
+    from zope.component.hooks import getSite
 
 def back_to_controlpanel(self):
     root = getSite()

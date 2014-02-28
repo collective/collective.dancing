@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      i18n:domain="collective.dancing"
+      tal:omit-tag="">
+
+<div>
+  <p i18n:translate="">
+    Below you see a list the newsletters we offer. If you are already
+    subscribed to some of these you can fill out the form at the end
+    of this page to be sent a link to where you can edit your existing
+    subscriptions.
+  </p>
+</div>
+
+<div id="subscription-combinedform">
+  <tal:form replace="structure view/form/render" />
+</div>
+
+<div tal:condition="python:view.secret is None">
+  <h2 i18n:translate="">Already subscribed?</h2>
+  <p i18n:translate="">
+    Should you be already subscribed to one of our lists, please use
+    this form to retrieve a link to your personalized subscription
+    page:
+  </p>
+  <tal:block replace="structure view/forgot_secret_form"></tal:block>
+
+</div>
+
+</html>

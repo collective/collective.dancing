@@ -15,11 +15,11 @@
   <!-- This ISMTPMailer Will fetch settings from the portal. -->
   <utility name="plone.smtp" factory=".composer.SMTPMailer" />
 
-  <mail:directDelivery 
+  <mail:directDelivery
       name=""
       mailer="plone.smtp"
       permission="zope.Public" />
-  
+
   <!-- end of default settings -->
 
 
@@ -42,7 +42,7 @@
       permission="zope.SendMail"
       />
   -->
-  
+
   <!--
       You can use the following mailer instead of the default one to
       log instead of really sending out mail.  Use this for debugging:

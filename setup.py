@@ -1,31 +1,32 @@
-import os
+# -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
-from xml.dom.minidom import parse
 
-def readversion():
-    mdfile = os.path.join(os.path.dirname(__file__), 'collective', 'dancing', 
-                          'profiles', 'default', 'metadata.xml')
-    metadata = parse(mdfile)
-    assert metadata.documentElement.tagName == "metadata"
-    return metadata.getElementsByTagName("version")[0].childNodes[0].data
+import os
 
-def read(*pathnames):
-    return open(os.path.join(os.path.dirname(__file__), *pathnames)).read()
+
+def read(*paths):
+    return open(os.path.join(os.path.dirname(__file__), *paths)).read()
+
+
+version = '1.0dev'
 
 setup(name='collective.dancing',
-      version=readversion().strip(),
-      description="The all-singing all-dancing newsletter product for Plone.",
+      version=version,
+      description="The all-singing all-dancing newsletter add-on for Plone.",
       long_description='\n'.join([
-          read('docs', 'README.txt'),
-          read('docs', 'THANKS.txt'),
-          read('docs', 'HISTORY.txt'),
-          ]),
+          read('README.rst'),
+          read('docs', 'THANKS.rst'),
+          read('docs', 'CHANGES.rst'),
+      ]),
       classifiers=[
-        "Framework :: Plone",
-        "Framework :: Zope2",
-        "Programming Language :: Python",
-        "Topic :: Software Development :: Libraries :: Python Modules",
-        ],
+          "Framework :: Plone",
+          "Framework :: Plone :: 4.3",
+          "Framework :: Plone :: 4.2",
+          "Framework :: Plone :: 4.1",
+          "Framework :: Plone :: 4.0",
+          "Framework :: Zope2",
+          "Programming Language :: Python",
+      ],
       keywords='zope plone notification newsletter',
       author='Daniel Nouri, Thomas Clement Mogensen and contributors',
       author_email='singing-dancing@googlegroups.com',
@@ -40,16 +41,22 @@ setup(name='collective.dancing',
       # 2 environment, try the `fakezope2eggs` recipe
       install_requires=[
           'setuptools',
-          'collective.singing>=0.6.5',
+          'collective.singing>=0.7.1',
           'plone.z3cform>=0.5.1',
-          'plone.app.z3cform>=0.4.2',
+          'plone.app.z3cform>=0.5',
           'five.intid',
           'zc.lockfile',
           'StoneageHTML',
           'BeautifulSoup',
+          'collective.monkeypatcher',
       ],
-      
+      extras_require={
+          'test': [
+              'zope.testbrowser',
+          ],
+      },
       entry_points="""
-      # -*- Entry points: -*-
+      [z3c.autoinclude.plugin]
+      target = plone
       """,
       )

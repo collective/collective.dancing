@@ -5,8 +5,16 @@ from UserString import UserString
 import persistent.dict
 from zope import component
 from zope import interface
-import zope.app.container.interfaces
-import zope.app.component.hooks
+from zope import schema
+try:
+    import zope.app.container.interfaces as zopeappcontainerinterfaces
+except ImportError:
+    import zope.lifecycleevent.interfaces as zopeappcontainerinterfaces
+
+try:
+    import zope.app.component.hooks as zopeappcomponenthooks
+except ImportError:
+    import zope.component.hooks as zopeappcomponenthooks
 import AccessControl
 from Acquisition import aq_base
 import OFS.event
@@ -16,6 +24,7 @@ import Products.CMFPlone.interfaces
 import collective.singing.interfaces
 import collective.singing.message
 import collective.singing.channel
+import collective.singing.subscribe
 import collective.dancing.collector
 import collective.dancing.composer
 import collective.dancing.subscribe
@@ -23,17 +32,20 @@ import collective.dancing.utils
 from collective.dancing import MessageFactory as _
 
 def portal_newsletters():
-    """Return channels created with the newsletter tool."""
+    """Return mailing-lists created with the newsletter tool."""
 
     root = component.queryUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
     if root is None:
         return []
     root = collective.dancing.utils.fix_request(root, 0)
-    channels = root['portal_newsletters']['channels'].objectValues()
-    security = AccessControl.getSecurityManager()
-    return [c for c in channels if \
-            security.checkPermission('View', c) and \
-            collective.singing.interfaces.IChannel.providedBy(c)]
+    if 'portal_newsletters' in root.objectIds():
+        channels = root['portal_newsletters']['channels'].objectValues()
+        security = AccessControl.getSecurityManager()
+        return [c for c in channels if
+                security.checkPermission('View', c) and
+                collective.singing.interfaces.IChannel.providedBy(c)]
+    else:
+        return []
 
 interface.directlyProvides(portal_newsletters,
                            collective.singing.interfaces.IChannelLookup)
@@ -54,17 +66,26 @@ class Salt(UserString):
             for i in range(50)])
         UserString.__init__(self, salt)
 
-class IPortalNewsletters(interface.Interface):
+class INewslettersSettings(interface.Interface):
+    use_single_form_subscriptions_page = schema.Bool(
+        title=_(u"Use single form subscriptions page"),
+        description=_(u"Use single form subscriptions page when possible."),
+        default=False,
+        required=False)
+
+class IPortalNewsletters(INewslettersSettings):
     pass
 
 class PortalNewsletters(OFS.Folder.Folder):
     interface.implements(IPortalNewsletters)
 
+    use_single_form_subscriptions_page = False
+
     def Title(self):
-        return u"Newsletters"
+        return _(u"Newsletters")
 
 @component.adapter(IPortalNewsletters,
-                   zope.app.container.interfaces.IObjectAddedEvent)
+                   zopeappcontainerinterfaces.IObjectAddedEvent)
 def tool_added(tool, event):
     # Add children
     factories = dict(channels=ChannelContainer,
@@ -75,9 +96,9 @@ def tool_added(tool, event):
             tool[name] = factory(name)
 
     # Create and register salt
-    salt = Salt()
-    sm = zope.component.getSiteManager(tool)
+    salt = getattr(aq_base(tool), 'salt', Salt())
     tool.salt = salt
+    sm = component.getSiteManager(tool)
     sm.registerUtility(salt, collective.singing.interfaces.ISalt)
 
 class IChannelContainer(interface.Interface):
@@ -92,13 +113,14 @@ class ChannelContainer(OFS.Folder.Folder):
       ['your-channel']
     """
     def Title(self):
-        return u"Channels"
+        return u"Mailing-lists"
 
 @component.adapter(IChannelContainer,
-                   zope.app.container.interfaces.IObjectAddedEvent)
+                   zopeappcontainerinterfaces.IObjectAddedEvent)
 def channels_added(container, event):
-    default_channel = Channel('default-channel', title=_(u"Newsletter"))
-    container['default-channel'] = default_channel
+    if 'default-channel' not in container.objectIds():
+        default_channel = Channel('default-channel', title=_(u"Newsletter"))
+        container['default-channel'] = default_channel
 
 class Channel(OFS.SimpleItem.SimpleItem):
     """
@@ -114,16 +136,20 @@ class Channel(OFS.SimpleItem.SimpleItem):
     type_name = _("Standard Channel")
 
     subscribeable = True
-    
+
     sendable = True
-    
+
+    keep_sent_messages = collective.singing.interfaces.IChannel[
+        'keep_sent_messages'].default
+
     def __init__(self, name, title=None, composers=None,
-                 collector=None, scheduler=None, description=u""):
+                 collector=None, scheduler=None, description=u"", subscribeable=False):
         self.name = name
         if title is None:
             title = name
         self.title = title
         self.description = description
+        self.subscribeable = subscribeable
         self.subscriptions = collective.dancing.subscribe.Subscriptions()
         if composers is None:
             composers = persistent.dict.PersistentDict()
@@ -132,7 +158,7 @@ class Channel(OFS.SimpleItem.SimpleItem):
         self.collector = collector
         self.scheduler = scheduler
         self.queue = collective.singing.message.MessageQueues()
-        super(Channel, self).__init__(name)
+        super(Channel, self).__init__()
 
     @property
     def id(self):
@@ -141,8 +167,31 @@ class Channel(OFS.SimpleItem.SimpleItem):
     def Title(self):
         return self.title
 
+@component.adapter(Channel,
+                   zopeappcontainerinterfaces.IObjectAddedEvent)
+def channel_added(channel, event):
+    # We'll take extra care that when we're imported through the ZMI,
+    # we update things to keep everything up to date:
+    subscriptions = collective.singing.subscribe.subscriptions_data(channel)
+    subscriptions._catalog.clear()
+
+    for subscription in subscriptions.values():
+        # Let's make sure that ``subscription.channel`` refers to the
+        # channel:
+        if aq_base(subscription.channel) is not aq_base(channel):
+            subscription.channel = channel
+
+        # The secret may have changed:
+        composer = channel.composers[subscription.metadata['format']]
+        secret = composer.secret(subscription.composer_data)
+        if subscription.secret != secret:
+            subscription.secret = secret
+
+        # This will finally catalog the subscription:
+        collective.singing.subscribe.subscription_added(subscription, None)
+
 @component.adapter(collective.singing.interfaces.ICollector,
-                   zope.app.container.interfaces.IObjectRemovedEvent)
+                   zopeappcontainerinterfaces.IObjectRemovedEvent)
 def collector_removed(collector, event):
     for channel in collective.singing.channel.channel_lookup():
         if isinstance(channel, Channel):

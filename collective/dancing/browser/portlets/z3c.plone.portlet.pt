@@ -4,17 +4,17 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="collective.dancing">
-  
+
 
 <metal:block fill-slot="top_slot"
                  tal:define="dummy python:request.set('disable_border',1)" />
-                 
+
 <div metal:fill-slot="portlets_one_slot">&nbsp;</div>
 <div metal:fill-slot="portlets_two_slot">&nbsp;</div>
 
 <body>
   <div metal:fill-slot="main">
-    
+
   <h1 tal:content="view/label">Portlet setup</h1>
 
   <a href="#"

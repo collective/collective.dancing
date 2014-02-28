@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/collective/collective.dancing.png?branch=master
+    :target: http://travis-ci.org/collective/collective.dancing
+
 =================
 Singing & Dancing
 =================
@@ -45,73 +48,107 @@ Subscriptions
 .. image:: http://danielnouri.org/media/singing-dancing.jpg
    :alt: Singing & Dancing Logo by Giuseppe Zizza
 
-Screenshots
+User Manual
 ===========
 
-A `walk-through with screenshots`_ is available online, which should
-give you a good idea of what Singing & Dancing is capable of, and also
-guide you through the steps necessary to get you set up and dancing!
+The Singing & Dancing user manual is available here:
+http://www.webtide.co.za/how-to/singing-dancing-user-manual
 
 Installation
 ============
 
-Singing & Dancing is available as `Python eggs on PyPI`_.  To install,
-you can simply depend_ on the ``collective.dancing`` package in your
-own site policy package, and add *fake zope eggs* to your zope2
-install section in your buildout_ configuration, as explained below.
+Installation of Singing & Dancing uses buildout_.  If you don't know
+what buildout is or `how to create a buildout`_, `follow this
+tutorial`_ first.
 
-Alternatively, add ``collective.dancing`` to the list of eggs in your
-``buildout.cfg`` if you don't have your own package.  This is what we
-explain below.
+These instructions assume that you already have a Plone buildout that's built
+and ready to run.
 
-Installing S&D with Buildout
-----------------------------
+Singing & Dancing is available as `Python eggs on PyPI`_.
 
-If you don't know what buildout is or `how to create a buildout`_,
-`follow this tutorial`_ first.
+To install Singing & Dancing, add it to your buildout by following
+these steps:
 
-These instructions assume that you already have a Plone 3 buildout
-that's built and ready to run.
+* Plone 3.x
 
-1) Edit your buildout.cfg file and look for the ``eggs`` key in the
-   ``[instance]`` section.  Add ``collective.dancing`` to that list.
-   Your list will look something like this::
+  1) Edit your ``buildout.cfg`` file and look for the ``[buildout]``
+     section.  Add an ``extends =`` option in that section like the
+     following::
 
-     eggs =
-         ${buildout:eggs}
-         ${plone:eggs}
-         collective.dancing
+         [buildout]
+         extends = https://svn.plone.org/svn/collective/collective.dancing/buildout-extends/0.9.0.cfg
+         parts =
+             zope2
+             ...
 
-   In the same section, look for the ``zcml`` key.  Add
-   ``collective.dancing`` here, too::
+         Should you already have an ``extends =`` line, add the new line at
+         the end of the other extends files.  For Plone 3.2.2, your
+         ``[buildout]`` section might start like this::
 
-     zcml = collective.dancing
+         [buildout]
+         extends =
+             http://dist.plone.org/release/3.2.2/versions.cfg
+             https://svn.plone.org/svn/collective/collective.dancing/buildout-extends/0.9.0.cfg
+         parts =
+             zope2
+             ...
 
-2) Still in your buildout configuration file, look for the ``[zope2]``
-   section (which uses the ``plone.recipe.zope2install`` recipe), and
-   add the following lines to it::
+  2) Next, you'll need to add ``collective.dancing`` to the ``eggs`` and
+     ``zcml`` options in your ``[instance]`` section.  Which should then look
+     like this::
 
-     fake-zope-eggs = true
-     additional-fake-eggs = ZODB3
-     skip-fake-eggs =
-         zope.testing
-         zope.component
-         zope.i18n
-         zope.sendmail
+         [instance]
+         ...
+         eggs =
+             ${buildout:eggs}
+             ...
+             collective.dancing
+         zcml =
+             ...
+             collective.dancing
 
-3) Now that we're done editing the buildout configuration file, we can
-   run buildout again::
+     Note: When you are using Plone > 3.3 you can skipt the zcml part, because
+     ``z3c.autoinclude`` is shipped with Plone 3.3.x by default.
 
-     $ ./bin/buildout -v
 
-4) That's it!  You can now start up your Zope instance, and then
-   install Singing & Dancing in your Plone site by visiting the
-   *Add-on Products* site control panel.
+  3) Remove all ``additional-fake-eggs`` and ``skip-fake-eggs`` options
+     from your ``[zope2]`` section, if any.  (This is so you don't
+     overrride the ones defined in the S&D extends file that we added in
+     step 1.)
+
+* Plone 4.x
+
+  1) On Plone 4 you don't need to extend your buildout configuration using
+     `extends=...``. You'll need to add ``collective.dancing`` to the ``eggs``
+     in your ``[instance]`` section.  Which should then look like this::
+
+         [instance]
+         ...
+         eggs =
+             ${buildout:eggs}
+             ...
+             collective.dancing
+
+  2) Please use version pins out of ``versions.cfg`` file which is included in
+     package if you have package conflicts or strange errors.
+
+Once you're done editing your buildout configuration, don't forget to
+run your buildout again before you start up Zope::
+
+  $ ./bin/buildout -v
+
+That's it!  You can now start up your Zope instance, and then install
+Singing & Dancing in your Plone site by visiting the *Add-on Products*
+site control panel.
 
 Troubleshooting
 ---------------
 
-Should these instructions not work for you, `contact us`_.
+Should the above instructions not work for you, `contact us`_.
+
+**NOTE**: If you're upgrading your buildout from an older version
+where you included version dependencies of S&D by hand, remove the
+``develop-eggs`` directory inside your buildout and re-run buildout.
 
 Here's a list of the most common stumbling blocks:
 
@@ -125,6 +162,21 @@ Here's a list of the most common stumbling blocks:
      ``plone.recipe.zope2install`` >= 2.2.  You may use buildout's
      ``versions`` feature to tell it which version to use.
 
+   - Since version 0.7.0 of collective.singing we don't support older
+     versions of ``z3c.form`` by default. Radio button and checkbox widget
+     hidden templates are already included in more recent ``z3c.form``
+     versions. ( > 2.3.3 as described here
+     http://pypi.python.org/pypi/z3c.form#id14)
+
+     If you want to use an old version (for example the popular 1.9.0 which was
+     pinned in older buildout-extends files) you have to manually include a
+     zcml file located in ``collective.singing.browser.widgets.zcml`` which
+     registers the missing templates for these widgets::
+
+        <include package="collective.singing.browser" file="widgets.zcml" />
+
+     This fixed https://bugs.launchpad.net/singing-dancing/+bug/620608.
+
 It's installed.  What's next?
 -----------------------------
 
@@ -132,7 +184,7 @@ You'll now have an entry in the control panel to *Singing & Dancing*.
 This will lead you to to the advanced configuration panel of S&D.
 
 Note that there's already a default newsletter set up for your
-convenience.  You can create a *Channel subscribe portlet* to enable
+convenience.  You can create a *Mailing-list subscribe portlet* to enable
 your users to subscribe to this channel, or you can point them to
 http://yoursite/portal_newsletters/channels/default-channel/subscribe.html
 
@@ -162,7 +214,7 @@ To set up ClockServer to trigger the processing automatically for you,
 add this stanza to the Zope 2 ``[instance]`` section of your buildout
 configuration and rerun ``bin/buildout -v``::
 
-  zope-conf-additional = 
+  zope-conf-additional =
       <clock-server>
         # plonesite is your plone path
         method /plonesite/@@dancing.utils/tick_and_dispatch
@@ -170,13 +222,13 @@ configuration and rerun ``bin/buildout -v``::
         user admin
         password admin
         # You need your *real* host here
-        host www.mysite.com 
+        host www.mysite.com
       </clock-server>
-      
-Or, if your site is behind Apache using a Virtual Host, 
+
+Or, if your site is behind Apache using a Virtual Host,
 the zope.conf clock server configuration would be ::
 
-  zope-conf-additional = 
+  zope-conf-additional =
       <clock-server>
         # plonesite is your plone path
         # www.mysite.com your site url
@@ -185,8 +237,6 @@ the zope.conf clock server configuration would be ::
         user admin
         password admin
       </clock-server>
-
-    
 
 This will process the message queue every five minutes.  It assumes
 that your Plone site's ID is ``portal``, that your username and
@@ -223,10 +273,32 @@ available new upgrades for the ``collective.dancing:default`` profile.
 Contact us
 ==========
 
-If you have a question, or comment, get in touch with us!  Our
-`mailing list`_ is a good place to do so. If you find a bug, please
-`let us know`_. We also have an IRC channel called
-``#singing-dancing`` on Freenode_.
+If you have a question, or comment, get in touch with us!  Feel free to
+extend S&D and send us a pull-request on github. Since all collective and
+plone packages moved to github we `prefer reporting issues on github`_ too.
+
+If you have an older installation you may also want to have a look to our
+`mailing list`_ or `old issue tracker on launchpad`_.
+
+We also have an IRC channel called ``#singing-dancing`` on Freenode_.
+
+
+Donate
+======
+
+Developing software as Open Source can be a thankless task sometimes.
+If you're a happy user of Singing & Dancing, and you'd like to show your
+appreciation, you might want to `donate via PayPal`_.
+
+There's other ways to contribute to the project if you're not a
+developer; one is to post a message to the `mailing list`_ describing
+any successes or problems that you have with the software.  That's the
+only way we can know if S&D is working correctly for you.
+
+Another is to add a line to the `sites using S&D`_. Please fork S&D and update
+``SITES_USING_SINGING_AND_DANCING.rst`` in docs directory. After finishing you
+can send us a pull request, and we'll merge it.
+
 
 Developers
 ==========
@@ -239,31 +311,28 @@ Developer documentation exists in the form of doctests and Zope 3
 interfaces in the source tree.  To check out the development buildout,
 type this into your terminal::
 
-  svn co http://svn.plone.org/svn/collective/collective.dancing/trunk-buildout singing-dancing-dev
+  git clone https://github.com/collective/collective.dancing singing-dancing-dev
 
 When the checkout is complete, you can find the doctests in ``*.txt``
 files in the ``src/collective.singing/collective/singing/`` and
-``src/collective.dancing/collective/dancing/`` directories.  There's
-also a documentation area for use cases and manuals in
-``src/collective.dancing/docs/``.
-
-The latest version of collective.dancing itself can also be found in
-the `Subversion repository`_.
+``collective/dancing/`` directories.  There's also a documentation area for
+use cases and manuals in ``docs/``.
 
 Get in touch with us if you need help or have comments.  See the
 `Contact us`_ section.
 
 
-.. _walk-through with screenshots: http://groups.google.com/group/singing-dancing/web/singing-dancing-screenshots
 .. _Python eggs on PyPI: http://pypi.python.org/pypi/collective.dancing
 .. _depend: http://peak.telecommunity.com/DevCenter/setuptools#declaring-dependencies
 .. _buildout: http://pypi.python.org/pypi/zc.buildout
 .. _how to create a buildout: http://plone.org/documentation/tutorial/buildout/creating-a-buildout-for-your-project
 .. _follow this tutorial: http://plone.org/documentation/tutorial/buildout
 .. _ClockServer: http://plope.com/software/ClockServer/
-.. _let us know: http://bugs.launchpad.net/singing-dancing/+filebug
+.. _prefer reporting issues on github: https://github.com/collective/collective.dancing/issues
+.. _old issue tracker on launchpad: http://bugs.launchpad.net/singing-dancing/+filebug
 .. _zope.sendmail: http://pypi.python.org/pypi/zope.sendmail
 .. _mailing list: http://groups.google.com/group/singing-dancing
 .. _Freenode: http://freenode.net
+.. _donate via PayPal: http://ur1.ca/2d41
+.. _sites using S&D: https://github.com/collective/collective.dancing/blob/master/docs/SITES_USING_SINGING_AND_DANCING.rst
 .. _interfaces.py: http://dev.plone.org/collective/browser/collective.singing/trunk/collective/singing/interfaces.py
-.. _Subversion repository: http://svn.plone.org/svn/collective/collective.dancing/trunk#egg=collective.dancing-dev

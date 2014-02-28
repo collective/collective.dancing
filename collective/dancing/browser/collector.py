@@ -2,8 +2,10 @@ import zope.publisher
 from zope import schema
 import zope.schema.vocabulary
 from zope import component
-from zope import interface
-from zope.app.pagetemplate import viewpagetemplatefile
+try:
+    from zope.app.pagetemplate import viewpagetemplatefile
+except ImportError:
+    from zope.browserpage import viewpagetemplatefile
 from z3c.form import field
 from z3c.form import form, subform
 import z3c.form.interfaces
@@ -15,15 +17,14 @@ import Products.CMFPlone.utils
 from collective.singing.interfaces import ICollector
 from plone.z3cform.crud import crud
 from plone.app.z3cform import wysiwyg
-from plone.z3cform import z2
 import collective.singing.interfaces
-
-import OFS.interfaces
 
 from collective.dancing import MessageFactory as _
 from collective.dancing import collector
 from collective.dancing.browser import controlpanel
 from collective.dancing.browser import query
+from collective.dancing.utils import switch_on
+
 
 class ManageCollectorsForm(crud.CrudForm):
     """Crud form for collectors.
@@ -41,7 +42,7 @@ class ManageCollectorsForm(crud.CrudForm):
                 [zope.schema.vocabulary.SimpleTerm(value=f, title=f.title)
                  for f in collector.standalone_collectors])
             ))
-    
+
     def get_items(self):
         return [(ob.getId(), ob) for ob in self.context.objectValues()]
 
@@ -62,11 +63,12 @@ class ManageCollectorsForm(crud.CrudForm):
 class CollectorAdministrationView(BrowserView):
     __call__ = ViewPageTemplateFile('controlpanel.pt')
 
-    label = _(u'Collector administration')
+    label = _(u"label_collector_administration",
+              default=u'Collector administration')
     back_link = controlpanel.back_to_controlpanel
 
     def contents(self):
-        z2.switch_on(self)
+        switch_on(self)
         return ManageCollectorsForm(self.context, self.request)()
 
 collector_fields = field.Fields(
@@ -74,7 +76,7 @@ collector_fields = field.Fields(
 
 def heading(self):
     if self.label:
-        return "<h%s>%s</h%s>" % (self.level, self.label, self.level)
+        return "<h%s>%s</h%s>" % (self.level, self.context.translate(self.label), self.level)
 
 def prefix(self):
     return self.__class__.__name__ + '-'.join(self.context.getPhysicalPath())
@@ -96,13 +98,13 @@ class EditTopicForm(subform.EditSubForm):
 
     @property
     def label(self):
-        return u"Collection: %s" % self.context.title
+        return _(u"Collection: ${title}", mapping={'title': self.context.title})
 
     prefix = property(prefix)
 
     def contents_bottom(self):
-        return u'<a href="%s/criterion_edit_form">Edit the Smart Folder</a>' % (
-            self.context.absolute_url())
+        return u'<a href="%s/criterion_edit_form">%s</a>' % (
+            self.context.absolute_url(), self.context.translate(_(u"Edit the Smart Folder")))
 
     heading = heading
 
@@ -123,7 +125,7 @@ class EditTextForm(subform.EditSubForm):
 
     @property
     def label(self):
-        return u"Rich text: %s" % self.context.title
+        return _(u"Rich text: ${title}", mapping={'title': self.context.title})
 
     prefix = property(prefix)
 
@@ -147,7 +149,7 @@ class EditReferenceForm(subform.EditSubForm):
 
     @property
     def label(self):
-        return u"Rich text: %s" % self.context.title
+        return _(u"Rich text: ${title}", mapping={'title': self.context.title})
 
     prefix = property(prefix)
 
@@ -162,7 +164,7 @@ class AddToCollectorForm(form.Form):
 
     @property
     def label(self):
-        return u"Add item to %s" % self.context.title
+        return _(u"Add item to ${title}", mapping={'title': self.context.title})
 
     @property
     def fields(self):
@@ -238,13 +240,13 @@ class MoveBlockForm(form.Form):
         _('Move block down'), name='down',
         condition=lambda form: (form._info_idx() <
                                 len(form.context.aq_parent._objects) - 1))
-    def handle_moveup(self, action):
+    def handle_movedown(self, action):
         self._move(1)
         self.status = _("Item successfully moved.")
 
 class AbstractEditCollectorForm(object):
     level = 1
-    
+
     @property
     def css_class(self):
         return "subform subform-level-%s" % self.level
@@ -296,7 +298,7 @@ class EditCollectorForm(AbstractEditCollectorForm, subform.EditSubForm):
 
     @property
     def label(self):
-        return u"Collector block: %s" % self.context.title
+        return _(u"Collector block: ${title}", mapping={'title': self.context.title})
 
     @property
     def parent_form(self):
@@ -336,7 +338,7 @@ class CollectorEditView(BrowserView):
                     url=self.context.aq_inner.aq_parent.absolute_url())
 
     def contents(self):
-        z2.switch_on(self)
+        switch_on(self)
         form = self.form(self.context, self.request)
         return '<div class="collector-form">' + form() + '</div>'
 

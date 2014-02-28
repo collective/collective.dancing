@@ -1,7 +1,7 @@
 <tal:block define="tups view/getCombinedWidgets;
-                   niceTitles view/getNiceTitles" 
+                   niceTitles view/getNiceTitles"
            repeat="tup tups">
-           
+
   <td tal:define="error python:tup[0].error;
                   idx repeat/tup/index"
       tal:attributes="class python:'field' + (error and ' error' or '')">
@@ -17,7 +17,7 @@
         <div tal:condition="error" tal:replace="structure error/render" />
         <input type="text" tal:replace="structure widget/render" />
       </span>
-      
+
     </a>
 </tal:notSubscribers>
 <tal:subscribers  tal:condition="python: niceTitles[idx] == 'Subscribers'">

@@ -9,7 +9,7 @@
 <div>
   <p tal:content="structure view/send_secret_link" />
 </div>
-  
+
 <div tal:define="subscribeform view/subscribeform"
      tal:condition="subscribeform"
      id="subscription-subscribeform">

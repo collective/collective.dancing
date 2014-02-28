@@ -4,7 +4,10 @@ from zope import schema
 import zope.interface.interface
 import zope.schema.vocabulary
 import zope.schema.interfaces
-import zope.app.container.interfaces
+try:
+    import zope.app.container.interfaces as zopeappcontainerinterfaces
+except ImportError:
+    import zope.lifecycleevent.interfaces as zopeappcontainerinterfaces
 import zope.i18nmessageid
 import Acquisition
 import DateTime
@@ -40,17 +43,19 @@ interface.alsoProvides(collector_vocabulary,
 
 class CollectorContainer(OFS.Folder.Folder):
     title = u"Collectors"
-    
+
     def Title(self):
         return self.title
 
 
 @component.adapter(CollectorContainer,
-                   zope.app.container.interfaces.IObjectAddedEvent)
+                   zopeappcontainerinterfaces.IObjectAddedEvent)
 def container_added(container, event):
     name = 'default-latest-news'
+    if name in container.objectIds():
+        return
     container[name] = Collector(
-        name, u"Latest news")
+        name, container.translate(_(u'Latest news')))
     topic = container[name].objectValues()[0]
     type_crit = topic.addCriterion('Type', 'ATPortalTypeCriterion')
     type_crit.setValue('News Item')
@@ -72,7 +77,7 @@ class ITextCollector(collective.singing.interfaces.ICollector):
 class TextCollector(OFS.SimpleItem.SimpleItem):
     interface.implements(ITextCollector)
     significant = False
-    title = 'Rich text'
+    title = _(u'Rich text')
     value = u''
 
     def __init__(self, id, title):
@@ -88,7 +93,7 @@ class IReferenceCollector(collective.singing.interfaces.ICollector):
 
 class ReferenceCollector(OFS.SimpleItem.SimpleItem):
     interface.implements(IReferenceCollector)
-    title = 'Content selection'
+    title = _(u'Content selection')
     items = ()
 
     def __init__(self, id, title):
@@ -96,7 +101,7 @@ class ReferenceCollector(OFS.SimpleItem.SimpleItem):
         self.title = title
 
     def get_items(self, cue=None, subscription=None):
-        items = self._rebuild_items()        
+        items = self._rebuild_items()
         return tuple(items), None
 
     def _rebuild_items(self):
@@ -104,8 +109,8 @@ class ReferenceCollector(OFS.SimpleItem.SimpleItem):
 
         for ref in self.items:
             if not isinstance(ref, persistent.wref.WeakRef):
-                raise ValueError("Must be a weak reference (got %s)" % repr(ref))
-                
+                raise ValueError(_(u"Must be a weak reference (got ${title})", mapping={'title': repr(ref)}))
+
             item = ref()
 
             if item is not None:
@@ -115,12 +120,12 @@ class ReferenceCollector(OFS.SimpleItem.SimpleItem):
                     brain = catalog(UID=uid)[0]
                 except IndexError:
                     continue
-                
+
                 yield brain.getObject()
-    
+
 class Collector(OFS.Folder.Folder):
     interface.implements(collective.singing.interfaces.ICollector)
-    title = 'Collector block'
+    title = _(u'Collector block')
 
     def __init__(self, id, title):
         self.id = id
@@ -166,10 +171,12 @@ class Collector(OFS.Folder.Folder):
         query_args = {}
         if cue is not None and topic.hasSortCriterion():
             sort_criterion = topic.getSortCriterion()
-            query_args[str(sort_criterion.field)] = dict(
-                query=cue, range='min')
+            fname = str(sort_criterion.field)
+            query_factory = sort_criteria.get(
+                fname, sort_criteria.get('default'))
+            query_args[fname] = query_factory(cue)
         return topic.queryCatalog(full_objects=True, **query_args)
-        
+
     def get_optional_collectors(self):
         optional_collectors = []
         if self.optional:
@@ -181,7 +188,7 @@ class Collector(OFS.Folder.Folder):
                     optional_collectors.extend(child.get_optional_collectors())
                 elif getattr(Acquisition.aq_base(child), 'optional', False):
                     optional_collectors.append(child)
-                
+
         return optional_collectors
 
     def get_next_id(self):
@@ -220,15 +227,21 @@ class Collector(OFS.Folder.Folder):
 
     def add_topic(self):
         name = self.get_next_id()
+        title = self.translate(_(u'Collection for ${title}', mapping={'title': self.title}))
         Products.CMFPlone.utils._createObjectByType(
-            'Topic', self, id=name, title='Collection for %s' % self.title)
+            'Topic', self, id=name, title=title)
         self[name].unmarkCreationFlag()
         return self[name]
 
-@component.adapter(Collector, zope.app.container.interfaces.IObjectAddedEvent)
+@component.adapter(Collector, zopeappcontainerinterfaces.IObjectAddedEvent)
 def sfc_added(sfc, event):
     sfc.add_topic()
 
 # These lists of factories are mutable: You can add to them:
 collectors = [Collector, TextCollector, ReferenceCollector]
 standalone_collectors = [Collector]
+
+sort_criteria = dict(
+     default=lambda cue: dict(query=cue, range='min'),
+     effective=lambda cue: dict(query=(cue, DateTime.DateTime()), range='minmax'),
+     )

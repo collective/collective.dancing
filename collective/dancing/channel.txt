@@ -1,6 +1,9 @@
 Channels
 ========
 
+Channels are a subscription list and configuration. In the user interface they
+are called "Mailing-lists".
+
 Setup
 -----
 

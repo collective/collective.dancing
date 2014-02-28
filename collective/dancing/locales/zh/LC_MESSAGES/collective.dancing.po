@@ -1,0 +1,905 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: dancing\n"
+"POT-Creation-Date: 2011-12-10 02:05+0000\n"
+"PO-Revision-Date: 2011-01-05 16:43+0800\n"
+"Last-Translator: adam tang <yuejun.tang@gmail.com>\n"
+"Language-Team: 315ok <LL@315ok.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: ./browser/portlets/channelsubscribe.py:289
+msgid "${channel} options"
+msgstr "${channel} 配置选项"
+
+#: ./browser/sendnewsletter.py:105
+msgid "${name} does not support scheduling."
+msgstr "${name}不支持调度。"
+
+#: ./browser/channel.py:617
+msgid "${numberadded} subscriptions updated successfully!"
+msgstr "${numberadded}个预订已成功更新！"
+
+#: ./browser/channel.py:611
+msgid "${numberadded} subscriptions updated successfully, ${numberremoved} removed!"
+msgstr "${numberadded} 个预订成功更新，${numberremoved}个删除！"
+
+#: ./browser/channel.py:601
+msgid "${numberadded} subscriptions updated successfully. ${numberremoved} removed. ${numbernotadded} could not be added. (${errorcandidates})"
+msgstr "${numberadded} 个预订成功更新，${numberremoved}个删除，${numbernotadded}个不能添加！（${errorcandidates}）"
+
+#: ./browser/channel.py:598
+msgid "${numberremoved} subscriptions removed successfully!"
+msgstr "${numberremoved}个预订成功删除！"
+
+#: ./browser/scheduler.py:33
+msgid "${number} messages queued."
+msgstr "${number} 个邮件在队列中（待发送）。"
+
+#: ./browser/sendnewsletter.py:196
+msgid "${num} message(s) queued."
+msgstr "${num}个信息排队中。"
+
+#: ./browser/stats.py:115
+msgid "${sent} message(s) sent, ${failed} failure(s)."
+msgstr "${sent} 个消息已发送，${failed}个失败。"
+
+#: ./browser/collector.py:182
+msgid "Add"
+msgstr "添加"
+
+#: ./browser/portlets/channelsubscribe.py:452
+msgid "Add Mailing-list Subscribe Portlet"
+msgstr "添加邮件列表预定面板"
+
+#: ./browser/collector.py:164
+msgid "Add item to ${title}"
+msgstr ""
+
+#: ./browser/channel.py:95
+msgid "Add or edit mailing-lists that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
+msgstr "添加或编辑邮件列表"
+
+#: ./browser/interfaces.py:22
+msgid "Address to send the preview to"
+msgstr "发送预览的收件人地址"
+
+#: ./browser/stats.py:135
+msgid "All finished jobs cleared"
+msgstr "所有已完成的作业被清除"
+
+#: ./browser/stats.py:127
+msgid "All pending jobs processed"
+msgstr "所有等候作业已处理"
+
+#: ./browser/stats.py:159
+msgid "All sent and failed messages deleted"
+msgstr "所有已发送或发送失败的邮件被删除"
+
+#: ./browser/prettysubscriptions.pt:23
+#: ./browser/subscriptions.pt:33
+msgid "Already subscribed?"
+msgstr "已预订了吗？"
+
+#: ./browser/interfaces.py:16
+msgid "Append automatically collected content in this send-out"
+msgstr "自动添加已收集的内容到此"
+
+#: ./browser/scheduler.py:23
+#: ./browser/subscribe.py:696
+msgid "Apply"
+msgstr "应用"
+
+#: ./browser/subscribe.py:200
+msgid "Apply changes"
+msgstr "保存更改"
+
+#: ./browser/portlets/channelsubscribe.py:402
+msgid "Back to portlets"
+msgstr "回到控制面板"
+
+#: ./browser/prettysubscriptions.pt:10
+#: ./browser/subscriptions.pt:10
+msgid "Below you see a list the newsletters we offer. If you are already subscribed to some of these you can fill out the form at the end of this page to be sent a link to where you can edit your existing subscriptions."
+msgstr "下面是本站提供的邮件预定频道列表。如果你已经预订了其中某些内容，你可以填写下面表单，以便发送一个链接，通过该链接你能编辑已存的预订。"
+
+#: ./browser/composer-html-forgot.pt:30
+msgid "Best regards"
+msgstr "此致好运！"
+
+#: ./interfaces.py:57
+msgid "CSS Stylesheet"
+msgstr "CSS 样式表"
+
+#: ./browser/channel.py:484
+msgid "CSV contains a header row"
+msgstr "CSV 包含一个表头行"
+
+#: ./browser/channel.py:491
+msgid "CSV delimiter"
+msgstr "CSV分割符"
+
+#: ./browser/subscribe.py:116
+msgid "Can't identify your subscription. Please check your URL."
+msgstr ""
+
+#: ./browser/composer-html-forgot.pt:16
+#: ./composer.py:351
+msgid "Change your subscriptions with ${site_title}"
+msgstr "更改${site_title}站点的预定"
+
+#: ./browser/stats.py:129
+msgid "Clear finished jobs"
+msgstr "清除已完成作业"
+
+#: ./browser/stats.py:95
+msgid "Clear queued messages"
+msgstr "清除队列中的信息"
+
+#: ./browser/composer-html-forgot.pt:21
+msgid "Click here to manage your subscriptions with ${site_title}:"
+msgstr "点击这儿管理你在${site-title}站点的预订"
+
+#: ./browser/portlets/channelsubscribe.py:42
+msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
+msgstr "从这个面板预订时，点击这儿选择的收集器选项将自动启用。"
+
+#: ./browser/portlets/channelsubscribe.py:50
+msgid "Click here to show the portlet footer."
+msgstr "点击这儿显示控制面板下部"
+
+#: ./browser/composer-html.pt:44
+msgid "Click here to unsubscribe."
+msgstr "点击这儿取消预订"
+
+#: ./collector.py:227
+msgid "Collection for ${title}"
+msgstr ""
+
+#: ./browser/collector.py:98
+msgid "Collection: ${title}"
+msgstr ""
+
+#: ./collector.py:125
+msgid "Collector block"
+msgstr ""
+
+#: ./browser/collector.py:298
+msgid "Collector block: ${title}"
+msgstr ""
+
+#: ./browser/composer.py:35
+msgid "Composer for format : ${format}"
+msgstr "组成格式：${format}"
+
+#: ./browser/channel.py:752
+msgid "Composers"
+msgstr "构造器"
+
+#. Default: "channel-title"
+#: ./composer.py:325
+msgid "Confirm your subscription with ${channel-title}"
+msgstr "请确认您预定的快报频道"
+
+#: ./browser/subscribe.py:96
+msgid "Confirming your subscription"
+msgstr "确认您的预订"
+
+#: ./collector.py:93
+msgid "Content selection"
+msgstr ""
+
+#: ./browser/sendnewsletter.py:252
+msgid "Custom Subject"
+msgstr "定制的主题"
+
+#: ./browser/jobs.pt:25
+msgid "Date of execution"
+msgstr "执行日期"
+
+#: ./browser/portlets/channelsubscribe.py:39
+msgid "Description of the rendered portlet"
+msgstr "呈现面板的描述"
+
+#: ./profiles/default/actions.xml
+msgid "Displays a form that lets you send this content item as a newsletter."
+msgstr "显示一个让你发送内容作为快报的表单。"
+
+#: ./browser/channel.py:641
+msgid "Download"
+msgstr "下载"
+
+#: ./composer.py:125
+msgid "E-mail address"
+msgstr "邮件地址"
+
+#: ./browser/channel.py:751
+msgid "Edit"
+msgstr "編輯"
+
+#: ./browser/collector.py:330
+msgid "Edit ${collector}"
+msgstr "编辑${collector}收集器"
+
+#: ./browser/scheduler.py:90
+msgid "Edit ${selector} for ${channel}"
+msgstr "为${channel}频道编辑${selector}"
+
+#: ./browser/channel.py:727
+msgid "Edit Mailing-list ${channel}"
+msgstr "编辑${channel}邮件列表"
+
+#: ./browser/portlets/channelsubscribe.py:371
+msgid "Edit Mailing-list Subscribe Portlet"
+msgstr "编辑邮件列表预定面板"
+
+#: ./browser/subscribe.py:38
+msgid "Edit existing subscriptions"
+msgstr "编辑现有的预订"
+
+#: ./browser/collector.py:104
+msgid "Edit the Smart Folder"
+msgstr ""
+
+#: ./browser/composer.py:26
+msgid "Edit the properties of the composer."
+msgstr "编辑这个构造器参数"
+
+#: ./browser/channel.py:358
+msgid "Edit the properties of the mailing-list."
+msgstr "编辑邮件列表属性"
+
+#: ./browser/sendnewsletter.py:253
+msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and mailing-list."
+msgstr "为快报输入一个主题行"
+
+#: ./browser/query.py:12
+msgid "Enter a search query to find content."
+msgstr "输入搜索查询以找到内容。"
+
+#: ./browser/channel.py:420
+msgid "Error importing subscriber file. %s"
+msgstr "导入预定者文件错误。%s"
+
+#: ./browser/stats.py:40
+msgid "Failed messages"
+msgstr "失败的邮件"
+
+#: ./browser/channel.py:552
+msgid "File has incorrect format."
+msgstr "文件格式不正确"
+
+#: ./browser/channel.py:546
+msgid "File was not given."
+msgstr "文件没有给定"
+
+#: ./browser/subscribe.py:40
+msgid "Fill out the form below to receive an email with a link from which you can edit your subscriptions."
+msgstr "填写下面表单信息，以便能接收一个带链接的邮件，点击该链接可以编辑你的预订。"
+
+#: ./browser/subscribe.py:69
+msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to ${link_start}edit your subscriptions${link_end}."
+msgstr "如果是新预定者，为预定新闻频道，请填写下面表单。如果有预定，点击下面链接${link_start}编辑您的预定${link_end}。"
+
+#: ./browser/portlets/channelsubscribe.py:34
+msgid "Find the mailing-list you want to enable direct subscription to"
+msgstr "搜索你想允许直接预定的邮件列表"
+
+#: ./browser/jobs.pt:19
+msgid "Finished jobs"
+msgstr "已完成的作业"
+
+#: ./browser/portlets/channelsubscribe.py:45
+#: ./interfaces.py:52
+msgid "Footer text"
+msgstr "页脚文本"
+
+#: ./interfaces.py:29
+msgid "From address"
+msgstr "发送者地址"
+
+#: ./interfaces.py:24
+msgid "From name"
+msgstr "发送者名称"
+
+#: ./browser/channel.py:333
+msgid "Generate"
+msgstr "生成"
+
+#: ./composer.py:154
+msgid "HTML E-Mail"
+msgstr "HTML格式邮件"
+
+#: ./interfaces.py:45
+msgid "Header text"
+msgstr "头部文本"
+
+#: ./browser/interfaces.py:15
+msgid "Include collector items"
+msgstr "包括的收集器项目"
+
+#: ./browser/subscribe.py:316
+msgid "Information on how to confirm your subscription has been sent to you."
+msgstr "您的预订确认邮件已发送到您的邮箱。"
+
+#: ./browser/collector.py:190
+msgid "Item added successfully."
+msgstr "项目已成功添加。"
+
+#: ./browser/collector.py:201
+msgid "Item successfully deleted."
+msgstr "项目成功删除"
+
+#: ./browser/collector.py:234
+msgid "Item successfully moved."
+msgstr "项目成功移动"
+
+#: ./browser/query.py:11
+msgid "Items"
+msgstr "项目"
+
+#: ./browser/jobs.pt:23
+msgid "Job title"
+msgstr "作业标题"
+
+#: ./browser/stats.py:31
+msgid "Last Change"
+msgstr "上次更改"
+
+#: ./collector.py:55
+msgid "Latest news"
+msgstr ""
+
+#: ./browser/channel.py:220
+msgid "Manage or add subscriptions."
+msgstr "管理或添加预订"
+
+#: ./browser/composer-html-forgot.pt:24
+msgid "Manage your subscriptions"
+msgstr "管理您的预订"
+
+#: ./interfaces.py:34
+msgid "Message subject"
+msgstr "邮件主题"
+
+#: ./browser/sendnewsletter.py:92
+msgid "Messages queued for delivery."
+msgstr "等候发送的消息队列"
+
+#: ./browser/stats.py:35
+msgid "Messages successfully sent"
+msgstr "已成功发送的邮件"
+
+#: ./browser/stats.py:29
+msgid "Messages waiting to be sent"
+msgstr "等候发送的邮件"
+
+#: ./browser/stats.py:41
+msgid "Messages with errors"
+msgstr "有错误的邮件"
+
+#: ./browser/stats.py:47
+msgid "Messages with errors in the retry queue"
+msgstr "重试队列中出错的邮件"
+
+#: ./browser/collector.py:237
+msgid "Move block down"
+msgstr "下移"
+
+#: ./browser/collector.py:230
+msgid "Move block up"
+msgstr "上移"
+
+#: ./collector.py:109
+msgid "Must be a weak reference (got ${title})"
+msgstr ""
+
+#: ./browser/subscribe.py:728
+msgid "My subscriptions"
+msgstr "我的预订"
+
+#: ./browser/stats.py:28
+msgid "New messages"
+msgstr "新邮件"
+
+#: ./channel.py:115
+msgid "Newsletter"
+msgstr "快报"
+
+#: ./channel.py:78
+msgid "Newsletters"
+msgstr "频道快报"
+
+#: ./browser/preview.py:79
+msgid "No items found."
+msgstr "没有找到相应的项目。"
+
+#: ./browser/scheduler.py:36
+msgid "No messages queued."
+msgstr "队列中没有邮件。"
+
+#: ./browser/channel.py:475
+msgid "Only purge subscribers present in this list."
+msgstr "仅仅清空这个列表中的预定者。"
+
+#: ./browser/channel.py:668
+msgid "Only some of your changes were saved"
+msgstr "仅仅某些改变成功保存"
+
+#: ./browser/jobs.pt:9
+msgid "Pending jobs"
+msgstr "待处理作业"
+
+#: ./browser/composer-html-confirm.pt:14
+msgid "Please confirm your subscription"
+msgstr "请确认你的预订"
+
+#: ./browser/sendnewsletter.py:109
+msgid "Please fill in a date."
+msgstr "请填充一个日期。"
+
+#: ./browser/stats.py:88
+msgid "Please select items to remove."
+msgstr "请选择要删除的项目"
+
+#: ./browser/stats.py:97
+msgid "Please select items with new messages to clear."
+msgstr "请选择带有新消息的项目清除。"
+
+#: ./browser/stats.py:106
+msgid "Please select which mailing-list's queued e-mails you'd like to send."
+msgstr "请选择你想发送那个邮件列表的排队邮件。"
+
+#: ./browser/portlets/channelsubscribe.py:38
+msgid "Portlet description"
+msgstr "面板描述"
+
+#: ./browser/portlets/channelsubscribe.py:30
+msgid "Portlet header"
+msgstr "面板头部"
+
+#: ./browser/channel.py:753
+#: ./browser/sendnewsletter.py:142
+msgid "Preview"
+msgstr "预览"
+
+#: ./browser/portlets/channelsubscribe.py:207
+msgid "Proceed"
+msgstr "处理"
+
+#: ./browser/stats.py:118
+msgid "Process jobs"
+msgstr "处理作业"
+
+#: ./browser/channel.py:480
+msgid "Purge list before import."
+msgstr "在导入前清空列表"
+
+#: ./browser/channel.py:479
+msgid "Purge list."
+msgstr "清除列表"
+
+#: ./browser/collector.py:198
+msgid "Remove block"
+msgstr "删除块"
+
+#: ./browser/scheduler.py:78
+msgid "Remove entries"
+msgstr "删除条目"
+
+#: ./browser/stats.py:86
+msgid "Remove old messages"
+msgstr "删除旧消息"
+
+#: ./browser/channel.py:474
+msgid "Remove subscribers in list."
+msgstr "删除列表中的预定者"
+
+#: ./interfaces.py:40
+msgid "Reply-to address"
+msgstr "答复到的地址"
+
+#: ./browser/stats.py:46
+msgid "Retry messages"
+msgstr "重试邮件"
+
+#: ./collector.py:72
+msgid "Rich text"
+msgstr "富文本"
+
+#: ./browser/collector.py:125
+msgid "Rich text: ${title}"
+msgstr ""
+
+#: ./browser/channel.py:684
+msgid "Save"
+msgstr "保存"
+
+#: ./browser/sendnewsletter.py:94
+msgid "Schedule distribution"
+msgstr "调度发布"
+
+#: ./browser/interfaces.py:29
+msgid "Scheduled time"
+msgstr "调度时间"
+
+#: ./browser/channel.py:191
+msgid "Search"
+msgstr "搜寻"
+
+#: ./browser/channel.py:188
+msgid "Search subscribers"
+msgstr "搜索预订者"
+
+#: ./collector.py:215
+msgid "Sections"
+msgstr "段落"
+
+#: ./browser/channel.py:323
+msgid "See an in-browser preview of the newsletter."
+msgstr "查看新闻快报在浏览器中预览。"
+
+#: ./browser/channel.py:485
+msgid "Select this if you want to use the csv header row to designate document variables.The header row must contain one 'email' field."
+msgstr "如果你要采用CSV表头行，选择这个，该表头行必须包含一个email字段。"
+
+#: ./browser/sendnewsletter.py:62
+msgid "Send"
+msgstr "发送"
+
+#: ./browser/sendnewsletter.py:244
+msgid "Send ${item} as newsletter"
+msgstr "发送${item}作为新闻快报"
+
+#: ./browser/sendnewsletter.py:85
+msgid "Send '${context}' through ${channel}."
+msgstr "通过 ${channel}发送'${context}'"
+
+#: ./profiles/default/actions.xml
+msgid "Send as newsletter"
+msgstr "作为新闻快报发送"
+
+#: ./browser/sendnewsletter.py:168
+msgid "Send preview"
+msgstr "发件预览"
+
+#: ./browser/stats.py:104
+msgid "Send queued messages now"
+msgstr "马上发送队列中信息。"
+
+#: ./browser/stats.py:34
+msgid "Sent messages"
+msgstr "已发送的邮件"
+
+#: ./browser/prettysubscriptions.pt:24
+#: ./browser/subscriptions.pt:34
+msgid "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
+msgstr "你应该已经预订了我们的快报，请填写下面表单，以获取一个指向你个人预订配置页的链接。"
+
+#: ./browser/portlets/channelsubscribe.py:49
+msgid "Show footer"
+msgstr "显示页脚"
+
+#: ./browser/sendnewsletter.py:149
+msgid "Show preview"
+msgstr "显示预览"
+
+#: ./browser/controlpanel.py:19
+msgid "Singing & Dancing configuration"
+msgstr "S&D配置"
+
+#: ./channel.py:129
+msgid "Standard Channel"
+msgstr "标准频道"
+
+#: ./browser/jobs.pt:24
+msgid "Status"
+msgstr "状态"
+
+#: ./browser/subscribe.py:255
+msgid "Subscribe"
+msgstr "预定"
+
+#: ./browser/portlets/channelsubscribe.py:41
+msgid "Subscribe directly from portlet"
+msgstr "直接从面板预订"
+
+#: ./browser/subscribe.py:79
+msgid "Subscribe to ${channel}"
+msgstr "预订${channel}频道"
+
+#: ./browser/channel.py:465
+msgid "Subscribers"
+msgstr "预订者"
+
+#: ./browser/channel.py:643
+msgid "Subscribers exported."
+msgstr "已导出的预订者"
+
+#: ./browser/channel.py:748
+msgid "Subscriptions"
+msgstr "预订者"
+
+#: ./browser/stats.py:100
+msgid "Successfully cleared queued messages in mailing-lists."
+msgstr "已从邮件列表中删除排队的信息。"
+
+#: ./browser/stats.py:91
+msgid "Successfully removed old messages from mailing-lists."
+msgstr "已从邮件列表中删除旧信息。"
+
+#: ./browser/sendnewsletter.py:118
+msgid "Successfully scheduled distribution."
+msgstr "已成功调度分发"
+
+#: ./interfaces.py:62
+msgid "Template"
+msgstr "模版"
+
+#: ./browser/portlets/channelsubscribe.py:46
+msgid "Text in footer - if omitted the mailing-list title is used"
+msgstr "邮件页脚区文本，默认采用邮件列表标题"
+
+#: ./interfaces.py:46
+msgid "Text to appear at the beginning of every message. You may use a number of variables here including ${subject}."
+msgstr "附加在每份邮件开头部的文本。该处可以用各种变量包括${subject}。"
+
+#: ./interfaces.py:53
+msgid "Text to appear at the end of every message"
+msgstr "附加在每一个邮件尾部的文本"
+
+#: ./browser/sendnewsletter.py:178
+msgid "The address to send the preview to is missing."
+msgstr "发送预览的邮件地址缺失。"
+
+#: ./browser/channel.py:492
+msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
+msgstr "在你的CSV文件的分割符，（通常是',' 或 ';'）"
+
+#: ./interfaces.py:30
+msgid "The from address that will appear in messages sent from this composer."
+msgstr "发送者地址将出现在邮件中。"
+
+#: ./browser/portlets/channelsubscribe.py:33
+msgid "The mailing-list to enable subscriptions to."
+msgstr "这个邮件列表允许预定到"
+
+#: ./browser/interfaces.py:10
+msgid "The mailing-list to send this through"
+msgstr "通过这个邮件列表发送吗？"
+
+#: ./interfaces.py:41
+msgid "The reply-to address that will appear in messages sent from this composer."
+msgstr "回复到地址将出现在邮件中。"
+
+#: ./interfaces.py:25
+msgid "The sender name that will appear in messages sent from this mailing-list."
+msgstr "发送者的名称将出现在邮件的发送者栏中。"
+
+#: ./interfaces.py:58
+msgid "The stylesheet will be applied to the document."
+msgstr "这个样式表将应用到文档。"
+
+#: ./interfaces.py:63
+msgid "The template that will be used."
+msgstr "这个模板将被采用。"
+
+#: ./browser/subscribe.py:278
+msgid "There seems to be an error with the information you entered."
+msgstr "看起来你输入的信息有错。"
+
+#: ./browser/portlets/channelsubscribe.py:198
+msgid "There were some errors."
+msgstr "有一些错误."
+
+#: ./browser/interfaces.py:30
+msgid "This is only required if you click 'Schedule distribution' below"
+msgstr "如果你采用下面的'调度分发'，这里才要求要。"
+
+#: ./browser/interfaces.py:23
+msgid "This is only required if you click 'Send preview' below"
+msgstr "这个只有在点击'发送预览时'，才要求"
+
+#: ./browser/portlets/channelsubscribe.py:408
+msgid "This portlet allows a visitor to subscribe to a specific newsletter."
+msgstr "这个面板允许用户预订新闻快报频道。"
+
+#: ./browser/collector.py:90
+#: ./browser/stats.py:20
+msgid "Title"
+msgstr "标题"
+
+#: ./browser/portlets/channelsubscribe.py:31
+msgid "Title of the rendered portlet"
+msgstr "呈现面板的标题"
+
+#: ./browser/composer-html-confirm.pt:20
+msgid "To confirm your subscription with ${channel}, please click here: ${url}"
+msgstr "为了确认在http://ddsep.cea-igp.ac.cn预订的快报频道，请点击这个链接：${url}<p>若您没有在网站<strong>重要地震震源信息</strong>上提交订阅，请忽略此邮件。</p>"
+
+#: ./browser/stats.py:23
+msgid "Total messages sent"
+msgstr "已发送邮件数量"
+
+#: ./browser/stats.py:24
+msgid "Total number of messages sent successsfully"
+msgstr "总共成功发送的邮件数量"
+
+#: ./browser/scheduler.py:28
+msgid "Trigger now"
+msgstr "马上触发"
+
+#: ./browser/channel.py:108
+#: ./browser/collector.py:37
+msgid "Type"
+msgstr "类型"
+
+#: ./browser/channel.py:584
+msgid "Unknown"
+msgstr "未知"
+
+#: ./browser/subscribe.py:125
+msgid "Unsubscribe"
+msgstr "退订"
+
+#: ./browser/subscribe.py:212
+msgid "Unsubscribe from newsletter"
+msgstr "解除快报预订"
+
+#: ./browser/collector.py:334
+msgid "Up to Collector administration"
+msgstr "去到收集器（内容）管理"
+
+#: ./browser/channel.py:722
+#: ./browser/scheduler.py:96
+msgid "Up to Mailing-lists administration"
+msgstr "去到邮件列表管理"
+
+#: ./browser/controlpanel.py:12
+msgid "Up to Singing & Dancing configuration"
+msgstr "去到S&D设置"
+
+#: ./browser/controlpanel.py:22
+msgid "Up to Site Setup"
+msgstr "去到站点设置"
+
+#: ./browser/channel.py:459
+msgid "Upload"
+msgstr "上载"
+
+#: ./browser/channel.py:466
+msgid "Upload a CSV file with a list of subscribers here. Subscribers already present in the database will be overwritten. Each line should contain: ${columns}."
+msgstr "上载一个包含预订者列表的CSV文件，每行应该包含：${columns}。系统中原有的预订者列表将被覆盖。"
+
+#: ./browser/channel.py:648
+msgid "Upload list of subscribers."
+msgstr "上载预订者列表"
+
+#: ./channel.py:64
+msgid "Use single form subscriptions page"
+msgstr "采用单表单预定页"
+
+#: ./channel.py:65
+msgid "Use single form subscriptions page when possible."
+msgstr "如果可能，采用单表单预定页"
+
+#: ./browser/portlets/channelsubscribe.py:144
+msgid "You are already subscribed to this newsletter. Click here to ${link_start}edit your subscriptions${link_end}."
+msgstr "你已预定了该频道，点击这儿${link_start}编辑预定${link_end}"
+
+#: ./browser/subscribe.py:227
+msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
+msgstr "你已经预订了。填写下面表单，以便发送一个链接，点击该链接即可编辑你的预订。"
+
+#: ./browser/subscriptions.pt:21
+msgid "You are currently subscribed to these newsletters:"
+msgstr "你当前已预订了这些频道："
+
+#: ./browser/subscribe.py:138
+msgid "You aren't subscribed to this mailing-list."
+msgstr "你不能预定这个邮件列表。"
+
+#: ./browser/channel.py:630
+msgid "You can not add things in purge only mode!"
+msgstr "在清理模式不能添加任何东西！"
+
+#: ./browser/subscriptions.pt:28
+msgid "You can subscribe to these newsletters:"
+msgstr "你能预订这些快报："
+
+#: ./browser/subscribe.py:98
+msgid "You confirmed your subscription successfully."
+msgstr "你确认预订成功"
+
+#: ./interfaces.py:35
+msgid "You may use a number of variables here, like ${site_title}."
+msgstr "这儿可以用一些变量，如 ${site-title}。"
+
+#: ./browser/subscribe.py:310
+msgid "You subscribed successfully."
+msgstr "你预订成功"
+
+#: ./browser/subscribe.py:136
+msgid "You unsubscribed successfully."
+msgstr "你解除预订成功"
+
+#: ./browser/composer-html.pt:39
+msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
+msgstr "你接收了这个邮件是因为你在我们网站预定了${channel} 频道快报。"
+
+#: ./composer.py:44
+msgid "Your e-mail address is invalid"
+msgstr "你的邮件地址无效"
+
+#: ./browser/subscribe.py:30
+msgid "Your email address is already subscribed. Click the 'Send my subscription details' button below."
+msgstr "你的邮件地址已预定，点击下面按钮'发送预定详情'"
+
+#: ./browser/subscribe.py:99
+msgid "Your subscription isn't known to us."
+msgstr "你的预订不可识别。"
+
+#: ./browser/subscribe.py:166
+msgid "Your subscription was updated."
+msgstr "您的预定已更新。"
+
+#. Default: "A Mailing-list is a hub of configuration. It doesn't do anything by itself. Rather, it provides a number of components to configure and work with. It is also the container of subscriptions to it."
+#: ./browser/controlpanel-links.pt:7
+msgid "description_channel_administration"
+msgstr "频道管理"
+
+#. Default: "Collectors are useful for automatic newsletters. They are responsible for assembling a list of items for publishing."
+#: ./browser/controlpanel-links.pt:18
+msgid "description_collector_administration"
+msgstr "收集器管理"
+
+#. Default: "Change some aspects of how Singing & Dancing behaves."
+#: ./browser/controlpanel-links.pt:28
+msgid "description_globalsettings_administration"
+msgstr "更改邮件预定行为配置"
+
+#. Default: "View newsletter statistics"
+#: ./browser/controlpanel-links.pt:37
+msgid "description_statistics_administration"
+msgstr "查看快报统计"
+
+#. Default: "Mailing-list administration"
+#: ./browser/channel.py:173
+#: ./browser/controlpanel-links.pt:3
+msgid "label_channel_administration"
+msgstr "频道管理"
+
+#. Default: "Collector administration"
+#: ./browser/collector.py:63
+#: ./browser/controlpanel-links.pt:13
+msgid "label_collector_administration"
+msgstr "收集器管理"
+
+#. Default: "Global settings"
+#: ./browser/controlpanel-links.pt:23
+#: ./browser/settings.py:15
+msgid "label_newsletters_settings_administration"
+msgstr "全局配置"
+
+#. Default: "(Required)"
+#: ./browser/portlets/htmlstatusform.pt:39
+msgid "label_required"
+msgstr "要求填写"
+
+#. Default: "Statistics"
+#: ./browser/controlpanel-links.pt:32
+#: ./browser/stats.py:167
+msgid "label_statistics_administration"
+msgstr "统计"
+
+#. Default: "Required"
+#: ./browser/portlets/htmlstatusform.pt:39
+msgid "title_required"
+msgstr "要求填写"
+

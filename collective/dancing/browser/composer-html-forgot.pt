@@ -9,19 +9,19 @@
     <style type="text/css"
            tal:content="structure options/stylesheet" />
   </head>
-  
+
   <body>
     <h1 i18n:translate="">
       Change your subscriptions with
-      <span i18n:name="site-title" tal:content="options/site_title"></span>
+      <span i18n:name="site_title" tal:content="options/site_title"></span>
     </h1>
 
     <p i18n:translate="">
-      Click here to manage your subscriptions with 
-      <span i18n:name="site-title" tal:content="options/site_title"></span>:
+      Click here to manage your subscriptions with
+      <span i18n:name="site_title" tal:content="options/site_title"></span>:
     </p>
     <p>
-      <a href="" 
+      <a href=""
          tal:attributes="href options/my_subscriptions_url"
          i18n:translate="">
         Manage your subscriptions

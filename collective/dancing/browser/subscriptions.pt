@@ -14,7 +14,7 @@
     subscriptions.
   </p>
 </div>
-  
+
 <div tal:define="editforms view/editforms"
      tal:condition="editforms"
      id="subscription-editforms">

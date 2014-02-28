@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="collective.dancing"
+      tal:omit-tag="">
+  
+    <div class="portalMessage"
+         tal:condition="view/status" tal:content="view/status">
+    </div>
+
+    <dl class="enableFormTabbing">
+        <tal:loop tal:repeat="form view/subforms">
+        <dt tal:attributes="id python:'fieldsetlegend-'+form.prefix[:-1]" 
+            tal:content="form/label">
+            Title
+        </dt>
+
+        <dd tal:attributes="id python:'fieldset-'+form.prefix[:-1]">
+            <div tal:replace="structure form/render"/>
+
+            <div class="action" tal:repeat="action view/actions/values">
+                <input type="submit" tal:replace="structure action/render" />
+            </div>
+        </dd>
+        </tal:loop> 
+    </dl>
+  
+    <tal:tag replace="structure string:<script type='text/javascript'>" />
+    
+      function ShowHideTime(){
+        var selected = jQuery('#send-widgets-channel').val();
+        var timed = <tal:block replace="view/timed_channels"/>;
+        if (jQuery.inArray(selected, timed) != -1) {
+          jQuery('#formfield-send-widgets-datetime').show()
+          jQuery('#send-buttons-schedule').show()
+        } else {
+          jQuery('#formfield-send-widgets-datetime').hide()
+          jQuery('#send-buttons-schedule').hide()
+        };
+      }
+      
+      jQuery('#send-widgets-channel').change(ShowHideTime);
+      
+      // Initial value:
+      ShowHideTime();
+      
+    <tal:tag replace="structure string:</script>" />
+
+</html>

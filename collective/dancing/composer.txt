@@ -57,42 +57,54 @@ That is, we can use it to retrieve a subscription's secret:
 
   >>> channel = Channel('News for nerds', 'http://my.chann.el')
   >>> subscription = Subscription(channel)
-  >>> subscription.composer_data['email'] = u'daniel@localhost'
+  >>> subscription.composer_data['email'] = u'daniel@domain.tld'
   >>> secret = HTMLComposer.secret(subscription.composer_data)
   >>> isinstance(secret, str)
   True
   >>> subscription.secret = secret
 
   >>> composer = HTMLComposer()
+  
+  Lets also try to add some style e.g. font-family for p tags  
+  >>> composer.stylesheet = """
+  ...     p{font-family:Arial,'Lucida Grande',
+  ...     Verdana,Lucida,Helvetica,sans-serif;}
+  ...     """
 
   Test _from_address
   >>> from Products.CMFCore.interfaces import IPropertiesTool
   >>> properties = component.getUtility(IPropertiesTool)
   >>> old_name = properties.email_from_name
-  >>> properties.email_from_name = u'Ko\u010dka'.encode('utf8')
-  >>> composer._from_address
-  '=?utf-8?b?S2/EjWth?= <>'
+  >>> properties.email_from_name = u'Ko\u010dka'.encode('utf-8')
+  >>> import email
+  >>> decoded = email.Header.decode_header(composer._from_address)
+  >>> unicode(*decoded[0]) == properties.email_from_name.decode('utf-8')
+  True
   >>> properties.email_from_name = old_name
 
   Rendering
 
-  >>> items = (
+  >>> items = [
   ...     'My bonnie lies over the ocean',
   ...     'My bonnie lies over the sea',
   ...     'My bonnie lies over the ocean',
-  ...     'Oh bring back my bonnie to me')
+  ...     'Oh bring back my bonnie to me',
+  ...     'Er ... if the cab fare is less than $2.00',] #$ tests bug #300720
+  
+  >>> items.append('<p style="Arial">A paragraph with font-family style attribute</p>') \
+  ... # tests bug #438003
 
   >>> msg = composer.render(subscription, items=zip(items, items))
   >>> msg # doctest: +ELLIPSIS
   <collective.singing.message.Message object ...>
   >>> msg.payload # doctest: +ELLIPSIS
-  <email.MIMEMultipart.MIMEMultipart instance ...>
+  <email...MIMEMultipart instance ...>
   >>> print decodeMessageAsString(msg.payload) # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   Content-Type: multipart/mixed;...
   Subject: Plone site: News for nerds...
   From: Site Administrator <>...
-  To: daniel@localhost...
-  ...My bonnie lies over the ocean...My bonnie lies over the sea...
+  To: daniel@domain.tld...
+  ...My bonnie lies over the ocean...My bonnie lies over the sea...<p...style...Arial...>A paragraph...
 
   >>> msg = composer.render_confirmation(subscription) # doctest: +ELLIPSIS
   >>> msg # doctest: +ELLIPSIS
@@ -101,7 +113,7 @@ That is, we can use it to retrieve a subscription's secret:
   Content-Type: multipart/mixed;...
   Subject: Confirm your subscription with News for nerds...
   From: Site Administrator <>...
-  To: daniel@localhost...
+  To: daniel@domain.tld...
   ...To confirm your subscription with News for nerds, please click here...
 
 IMailer
@@ -144,9 +156,11 @@ The PloneCallHTMLFormatter assumes that the item passed to it is a
 Plone object that returns its Plone view when called:
 
   >>> html = composer.PloneCallHTMLFormatter(portal['front-page'], request)()
-  >>> '<h1 class="documentFirstHeading">' in html
+  >>> 'class="documentFirstHeading"' in html
   True
   >>> 'Welcome to Plone' in html
   True
   >>> 'Congratulations! You have successfully installed Plone' in html
   True
+
+

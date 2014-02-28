@@ -1,0 +1,7 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   i18n_domain="collective.dancing">
+
+   <include package="plone.z3cform" file="overrides.zcml" />
+
+</configure>

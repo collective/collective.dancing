@@ -1,15 +1,15 @@
-import datetime
 from zope import component
 from zope import interface
 from zope import schema
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from zope.app.pagetemplate import viewpagetemplatefile
+try:
+    from zope.app.pagetemplate import viewpagetemplatefile
+except ImportError:
+    from zope.browserpage import viewpagetemplatefile
 
 from z3c.form import button
-from z3c.form import field
 
 from plone.app.z3cform import layout
-from plone.z3cform import z2
 from plone.z3cform.crud import crud
 from collective.singing import interfaces
 from collective.singing.channel import channel_lookup
@@ -17,6 +17,7 @@ from collective.singing.channel import channel_lookup
 from collective.dancing.browser import controlpanel
 from collective.dancing import utils
 from collective.dancing import MessageFactory as _
+
 
 class IQueueStatistics(interface.Interface):
     title = schema.TextLine(title=_(u"Title"))
@@ -90,7 +91,7 @@ class EditForm(crud.EditForm):
         self.status = _(u"Please select items to remove.")
         selected = self.selected_items()
         if selected:
-            self.status = _(u"Successfully removed old messages from channels.")
+            self.status = _(u"Successfully removed old messages from mailing-lists.")
             for id, stats in selected:
                 stats.channel.queue.clear()
 
@@ -99,13 +100,13 @@ class EditForm(crud.EditForm):
         self.status = _(u"Please select items with new messages to clear.")
         selected = self.selected_items()
         if selected:
-            self.status = _(u"Successfully cleared queued messages in channels.")
+            self.status = _(u"Successfully cleared queued messages in mailing-lists.")
             for id, stats in selected:
                 stats.channel.queue.clear(queue_names=('new','retry'))
 
     @button.buttonAndHandler(_('Send queued messages now'), name='send')
     def handle_send(self, action):
-        self.status = _(u"Please select which channel's queued e-mails"
+        self.status = _(u"Please select which mailing-list's queued e-mails"
                         " you'd like to send.")
         selected = self.selected_items()
         if selected:
@@ -127,6 +128,14 @@ class EditForm(crud.EditForm):
             self.status = finished[0].value
         else:
             self.status = _(u"All pending jobs processed")
+
+    @button.buttonAndHandler(_('Clear pending jobs'), name='clear_pending_jobs',
+                             condition=lambda form: form.pending_jobs())
+    def handle_clear_pending_jobs(self, action):
+        queue = utils.get_queue()
+        while queue.pending:
+            queue.pending.pop()
+        self.status = _(u"All pending jobs cleared")
 
     @button.buttonAndHandler(_('Clear finished jobs'), name='clear_jobs',
                              condition=lambda form: form.finished_jobs())
@@ -166,5 +175,6 @@ class StatsForm(crud.CrudForm):
 StatsView = layout.wrap_form(
     StatsForm,
     index=ViewPageTemplateFile('controlpanel.pt'),
-    label = _(u"Newsletter statistics"),
+    label = _(u"label_statistics_administration",
+              default=u"Statistics"),
     back_link = controlpanel.back_to_controlpanel)
