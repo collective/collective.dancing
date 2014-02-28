@@ -4,6 +4,10 @@ Changelog
 1.0dev (Unreleased)
 -------------------
 
+- Feature: Metadata should be included in export/import. If you don't export
+  pending property, you might get confirmed recipients after reimporting.
+  [saily]
+
 - Don't try to patch ATTopic if ``plone.app.collection`` is available.
   [saily]
 
@@ -459,10 +463,6 @@ Version 0.8.3 - 2008-12-03
 
 Version 0.8.2 - 2008-11-17
 --------------------------
-
-- ATTENTION: this feature is incomplete in this branch. Metadata should be 
-  included in export/import. This could be a security hole, if pending is not 
-  exported.  [saily]
 
 - Fixed a bug in ``HTMLComposer`` where unsubscribe_url could not be substituted
   by template engine because of double dollars in variable name.  [saily]
