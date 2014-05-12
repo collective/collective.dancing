@@ -53,6 +53,7 @@ setup(name='collective.dancing',
       extras_require={
           'test': [
               'zope.testbrowser',
+              'Products.PloneTestCase',
           ],
       },
       entry_points="""
