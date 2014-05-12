@@ -64,6 +64,9 @@ Changelog
   if they will be erased, the dispatch doesn't breaks.
   [cekk]
 
+- Added two new events, raised when an user confirm or remove his subscription
+  [cekk]
+
 0.9.10 (2012-02-25)
 -------------------
 
