@@ -59,6 +59,9 @@ Changelog
   for now.
   [tmog]
 
+- Add a new event, raised when an user confirm the subscription
+  [cekk]
+
 0.9.10 (2012-02-25)
 -------------------
 

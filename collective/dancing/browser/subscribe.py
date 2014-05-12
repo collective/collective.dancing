@@ -28,6 +28,8 @@ from collective.singing.channel import channel_lookup
 from collective.singing.interfaces import ISubscriptionKey
 from collective.dancing import MessageFactory as _
 from collective.dancing.utils import switch_on
+from collective.dancing.events import ConfirmSubscriptionEvent
+from zope.event import notify
 
 
 class SubscribeForm(collective.singing.browser.subscribe.Subscribe):
@@ -115,6 +117,7 @@ class Confirm(BrowserView):
                         if sub.metadata.get('pending', False):
                             sub.metadata['pending'] = False
                     self.status = self.successMessage
+                    notify(ConfirmSubscriptionEvent(channel, subscriptions))
                     break
             else:
                 self.status = self.notKnownMessage
