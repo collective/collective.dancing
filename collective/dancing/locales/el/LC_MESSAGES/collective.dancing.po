@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.dancing\n"
-"POT-Creation-Date: 2011-12-10 02:05+0000\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "PO-Revision-Date: 2008-11-12 17:26+0200\n"
 "Last-Translator: G. Gozadinos <ggozad@qiweb.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,56 +14,64 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.dancing\n"
 
-#: ./browser/portlets/channelsubscribe.py:289
+#: ./browser/portlets/channelsubscribe.py:292
 msgid "${channel} options"
 msgstr "${channel} επιλογές"
 
-#: ./browser/sendnewsletter.py:105
+#: ./browser/sendnewsletter.py:129
 msgid "${name} does not support scheduling."
 msgstr "${name} δεν υποστηρίζει προγραμματισμό ημερολογίου."
 
-#: ./browser/channel.py:617
+#: ./browser/channel.py:620
 msgid "${numberadded} subscriptions updated successfully!"
 msgstr "${numberadded} εγγραφές ενημερώθηκαν επιτυχώς!"
 
-#: ./browser/channel.py:611
+#: ./browser/channel.py:614
 msgid "${numberadded} subscriptions updated successfully, ${numberremoved} removed!"
 msgstr "${numberadded} εγγραφές ενημερώθηκαν επιτυχώς, ${numberremoved} απομακρύνθηκαν!"
 
-#: ./browser/channel.py:601
+#: ./browser/channel.py:604
 msgid "${numberadded} subscriptions updated successfully. ${numberremoved} removed. ${numbernotadded} could not be added. (${errorcandidates})"
 msgstr "${numberadded} εγγραφές ενημερώθηκαν επιτυχώς. ${numberremoved} απομακρύνθηκαν. ${numbernotadded} δεν μπορούσαν να προστεθούν. (${errorcandidates})"
 
-#: ./browser/channel.py:598
+#: ./browser/channel.py:601
 msgid "${numberremoved} subscriptions removed successfully!"
 msgstr ""
 
-#: ./browser/scheduler.py:33
+#: ./browser/scheduler.py:36
 msgid "${number} messages queued."
 msgstr "${number} μηνύματα μπήκαν στην ουρά"
 
-#: ./browser/sendnewsletter.py:196
+#: ./browser/sendnewsletter.py:220
 msgid "${num} message(s) queued."
 msgstr ""
 
-#: ./browser/stats.py:115
+#: ./browser/sendnewsletter.py:77
+msgid "${queued} message(s) queued for delivery."
+msgstr ""
+
+#: ./browser/stats.py:118
 msgid "${sent} message(s) sent, ${failed} failure(s)."
 msgstr "${sent} μηνύμα(τα) στάλθηκε/καν, ${failed} απέτυχε/αν."
 
-#: ./browser/collector.py:182
+#: ./browser/sendnewsletter.py:66
+msgid "0 messages queued for delivery. Item '${newsletter_path}' not found."
+msgstr ""
+
+#: ./browser/collector.py:185
 msgid "Add"
 msgstr "Προσθήκη"
 
-#: ./browser/portlets/channelsubscribe.py:452
+#: ./browser/portlets/channelsubscribe.py:455
 #, fuzzy
 msgid "Add Mailing-list Subscribe Portlet"
 msgstr "Προσθέσθε Πλαίσιο Εγγραφής Καναλιού"
 
-#: ./browser/collector.py:164
+#: ./browser/collector.py:167
 msgid "Add item to ${title}"
 msgstr ""
 
-#: ./browser/channel.py:95
+#: ./browser/channel.py:98
 msgid "Add or edit mailing-lists that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
 msgstr ""
 
@@ -71,15 +79,19 @@ msgstr ""
 msgid "Address to send the preview to"
 msgstr "Διεύθυνση για την αποστολή της προεπισκόπησης"
 
-#: ./browser/stats.py:135
+#: ./browser/stats.py:146
 msgid "All finished jobs cleared"
 msgstr ""
 
-#: ./browser/stats.py:127
+#: ./browser/stats.py:138
+msgid "All pending jobs cleared"
+msgstr ""
+
+#: ./browser/stats.py:130
 msgid "All pending jobs processed"
 msgstr ""
 
-#: ./browser/stats.py:159
+#: ./browser/stats.py:170
 msgid "All sent and failed messages deleted"
 msgstr "Όλα τα απεσταλμένα και τα αποτυχημένα μηνύματα διαγράφηκαν"
 
@@ -93,16 +105,16 @@ msgstr "Ήδη εγγεγραμμένος/η;"
 msgid "Append automatically collected content in this send-out"
 msgstr "Προσαρτήστε το αυτόματα συλλεγόμενο περιεχόμενο σε αυτή την αποστολή"
 
-#: ./browser/scheduler.py:23
-#: ./browser/subscribe.py:696
+#: ./browser/scheduler.py:26
+#: ./browser/subscribe.py:728
 msgid "Apply"
 msgstr "Εφαρμογή"
 
-#: ./browser/subscribe.py:200
+#: ./browser/subscribe.py:209
 msgid "Apply changes"
 msgstr "Εφαρμογή αλλαγών"
 
-#: ./browser/portlets/channelsubscribe.py:402
+#: ./browser/portlets/channelsubscribe.py:405
 msgid "Back to portlets"
 msgstr "Πίσω στα πλαίσια"
 
@@ -121,29 +133,33 @@ msgstr "Χαιρετισμούς"
 msgid "CSS Stylesheet"
 msgstr "CSS Stylesheet"
 
-#: ./browser/channel.py:484
+#: ./browser/channel.py:487
 msgid "CSV contains a header row"
 msgstr ""
 
-#: ./browser/channel.py:491
+#: ./browser/channel.py:494
 msgid "CSV delimiter"
 msgstr ""
 
-#: ./browser/subscribe.py:116
+#: ./browser/subscribe.py:122
 msgid "Can't identify your subscription. Please check your URL."
 msgstr ""
 
 #. Default: "Change your subscriptions with ${site_title}"
 #: ./browser/composer-html-forgot.pt:16
-#: ./composer.py:351
+#: ./composer.py:383
 msgid "Change your subscriptions with ${site_title}"
 msgstr "Αλλάξτε τις εγγραφές σας στην ${site_title}"
 
-#: ./browser/stats.py:129
+#: ./browser/stats.py:140
 msgid "Clear finished jobs"
 msgstr ""
 
-#: ./browser/stats.py:95
+#: ./browser/stats.py:132
+msgid "Clear pending jobs"
+msgstr ""
+
+#: ./browser/stats.py:98
 msgid "Clear queued messages"
 msgstr ""
 
@@ -152,11 +168,11 @@ msgstr ""
 msgid "Click here to manage your subscriptions with ${site_title}:"
 msgstr "Κλικάρετε εδώ για να διαχειριστείτε τις εγγραφές σας στην ${site_title}:"
 
-#: ./browser/portlets/channelsubscribe.py:42
+#: ./browser/portlets/channelsubscribe.py:45
 msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
 msgstr "Κλικάρετε εδώ για να διαλέξετε τις επιλογές του συλλέκτη που ενεργοποιούνται αυτόματα, με την εγγραφή από αυτό το πλαίσιο."
 
-#: ./browser/portlets/channelsubscribe.py:50
+#: ./browser/portlets/channelsubscribe.py:53
 msgid "Click here to show the portlet footer."
 msgstr "Κλικάρετε εδώ για να εμφανίζεται το υποσέλιδο του πλαισίου"
 
@@ -165,43 +181,43 @@ msgstr "Κλικάρετε εδώ για να εμφανίζεται το υπο
 msgid "Click here to unsubscribe."
 msgstr "Κλικάρετε εδώ για να διαγραφείτε"
 
-#: ./collector.py:227
+#: ./collector.py:230
 msgid "Collection for ${title}"
 msgstr ""
 
-#: ./browser/collector.py:98
+#: ./browser/collector.py:101
 msgid "Collection: ${title}"
 msgstr ""
 
-#: ./collector.py:125
+#: ./collector.py:128
 msgid "Collector block"
 msgstr ""
 
-#: ./browser/collector.py:298
+#: ./browser/collector.py:301
 msgid "Collector block: ${title}"
 msgstr ""
 
-#: ./browser/composer.py:35
+#: ./browser/composer.py:38
 msgid "Composer for format : ${format}"
 msgstr "Συνθέτης για το φορμάτ : ${format}"
 
-#: ./browser/channel.py:752
+#: ./browser/channel.py:755
 msgid "Composers"
 msgstr "Συνθέτες"
 
-#: ./composer.py:325
+#: ./composer.py:357
 msgid "Confirm your subscription with ${channel-title}"
 msgstr "Επιβεβαιώστε την εγγραφή σας στο ${channel-title}"
 
-#: ./browser/subscribe.py:96
+#: ./browser/subscribe.py:102
 msgid "Confirming your subscription"
 msgstr "Επιβεβαιώνεται η εγγραφή σας"
 
-#: ./collector.py:93
+#: ./collector.py:96
 msgid "Content selection"
 msgstr ""
 
-#: ./browser/sendnewsletter.py:252
+#: ./browser/sendnewsletter.py:276
 msgid "Custom Subject"
 msgstr ""
 
@@ -210,7 +226,7 @@ msgstr ""
 msgid "Date of execution"
 msgstr ""
 
-#: ./browser/portlets/channelsubscribe.py:39
+#: ./browser/portlets/channelsubscribe.py:42
 msgid "Description of the rendered portlet"
 msgstr "Περιγραφή του πλαισίου"
 
@@ -219,54 +235,54 @@ msgstr "Περιγραφή του πλαισίου"
 msgid "Displays a form that lets you send this content item as a newsletter."
 msgstr "Εμφανίζει μια φόρμα που σας επιτρέπει να στείλετε αυτό το περιεχόμενο σαν ενημερωτικό δελτίο"
 
-#: ./browser/channel.py:641
+#: ./browser/channel.py:644
 msgid "Download"
 msgstr "Μεταφόρτωση"
 
-#: ./composer.py:125
+#: ./composer.py:131
 msgid "E-mail address"
 msgstr "Διεύθυνση Ε-mail"
 
-#: ./browser/channel.py:751
+#: ./browser/channel.py:754
 msgid "Edit"
 msgstr "Επεξεργασία"
 
-#: ./browser/collector.py:330
+#: ./browser/collector.py:333
 msgid "Edit ${collector}"
 msgstr "Επεξεργασία ${collector}"
 
-#: ./browser/scheduler.py:90
+#: ./browser/scheduler.py:93
 msgid "Edit ${selector} for ${channel}"
 msgstr "Επεξεργασία ${selector} για το ${channel}"
 
-#: ./browser/channel.py:727
+#: ./browser/channel.py:730
 #, fuzzy
 msgid "Edit Mailing-list ${channel}"
 msgstr "Επεξεργασία καναλιού ${channel}"
 
-#: ./browser/portlets/channelsubscribe.py:371
+#: ./browser/portlets/channelsubscribe.py:374
 #, fuzzy
 msgid "Edit Mailing-list Subscribe Portlet"
 msgstr "Επεξεργασία Πλαίσιου Εγγραφής Καναλιού"
 
-#: ./browser/subscribe.py:38
+#: ./browser/subscribe.py:43
 msgid "Edit existing subscriptions"
 msgstr "Επεξεργασία υπαρχόντων εγγραφών"
 
-#: ./browser/collector.py:104
+#: ./browser/collector.py:107
 msgid "Edit the Smart Folder"
 msgstr ""
 
-#: ./browser/composer.py:26
+#: ./browser/composer.py:29
 msgid "Edit the properties of the composer."
 msgstr "Επεξεργασία ιδιοτήτων του συνθέτη"
 
-#: ./browser/channel.py:358
+#: ./browser/channel.py:361
 #, fuzzy
 msgid "Edit the properties of the mailing-list."
 msgstr "Επεξεργασία ιδιοτήτων του καναλιού"
 
-#: ./browser/sendnewsletter.py:253
+#: ./browser/sendnewsletter.py:277
 msgid "Enter a custom subject line for your newsletter here. Leave blank to use the default subject for the chosen content and mailing-list."
 msgstr ""
 
@@ -274,31 +290,31 @@ msgstr ""
 msgid "Enter a search query to find content."
 msgstr "Εισάγετε μια αναζήτηση για την εύρεση περιεχομένου"
 
-#: ./browser/channel.py:420
+#: ./browser/channel.py:423
 msgid "Error importing subscriber file. %s"
 msgstr ""
 
-#: ./browser/stats.py:40
+#: ./browser/stats.py:43
 msgid "Failed messages"
 msgstr "Αποτυχημένα μηνύματα"
 
-#: ./browser/channel.py:552
+#: ./browser/channel.py:555
 msgid "File has incorrect format."
 msgstr ""
 
-#: ./browser/channel.py:546
+#: ./browser/channel.py:549
 msgid "File was not given."
 msgstr "Δεν δώθηκε αρχείο"
 
-#: ./browser/subscribe.py:40
+#: ./browser/subscribe.py:45
 msgid "Fill out the form below to receive an email with a link from which you can edit your subscriptions."
 msgstr ""
 
-#: ./browser/subscribe.py:69
+#: ./browser/subscribe.py:75
 msgid "Fill out the form below to subscribe to ${channel}. Note that this is for new subscriptions. Click here to ${link_start}edit your subscriptions${link_end}."
 msgstr ""
 
-#: ./browser/portlets/channelsubscribe.py:34
+#: ./browser/portlets/channelsubscribe.py:37
 #, fuzzy
 msgid "Find the mailing-list you want to enable direct subscription to"
 msgstr "Βρείτε το κανάλι για το οποίο θέλετε να ενεργοποιήσετε την άμεση εγγραφή"
@@ -308,7 +324,7 @@ msgstr "Βρείτε το κανάλι για το οποίο θέλετε να 
 msgid "Finished jobs"
 msgstr ""
 
-#: ./browser/portlets/channelsubscribe.py:45
+#: ./browser/portlets/channelsubscribe.py:48
 #: ./interfaces.py:52
 msgid "Footer text"
 msgstr "Κείμενο υποσέλιδου"
@@ -321,11 +337,11 @@ msgstr "Από διεύθυνση"
 msgid "From name"
 msgstr "Από όνομα"
 
-#: ./browser/channel.py:333
+#: ./browser/channel.py:336
 msgid "Generate"
 msgstr "Δημιουργία"
 
-#: ./composer.py:154
+#: ./composer.py:160
 msgid "HTML E-Mail"
 msgstr "HTML E-Mail"
 
@@ -337,19 +353,19 @@ msgstr "Κείμενο επικεφαλίδας"
 msgid "Include collector items"
 msgstr "Συμπερίληψη αντικειμένων συλλέκτη"
 
-#: ./browser/subscribe.py:316
+#: ./browser/subscribe.py:333
 msgid "Information on how to confirm your subscription has been sent to you."
 msgstr "Σας στάλθηκαν πληροφορίες για το πως θα επιβεβαιώσετε τη συνδρομή σας"
 
-#: ./browser/collector.py:190
+#: ./browser/collector.py:193
 msgid "Item added successfully."
 msgstr "Το αντικείμενο προστέθηκε με επιτυχία"
 
-#: ./browser/collector.py:201
+#: ./browser/collector.py:204
 msgid "Item successfully deleted."
 msgstr "Το αντικείμενο διαγράφτηκε με επιτυχία"
 
-#: ./browser/collector.py:234
+#: ./browser/collector.py:237
 msgid "Item successfully moved."
 msgstr "Το αντικείμενο μετακινήθηκε με επιτυχία"
 
@@ -362,15 +378,15 @@ msgstr "Αντικείμενα"
 msgid "Job title"
 msgstr ""
 
-#: ./browser/stats.py:31
+#: ./browser/stats.py:34
 msgid "Last Change"
 msgstr "Τελευταία αλλαγή"
 
-#: ./collector.py:55
+#: ./collector.py:58
 msgid "Latest news"
 msgstr ""
 
-#: ./browser/channel.py:220
+#: ./browser/channel.py:223
 msgid "Manage or add subscriptions."
 msgstr "Διαχειριστείτε ή προσθέστε εγγραφές"
 
@@ -383,67 +399,67 @@ msgstr "Διαχειριστείτε τις εγγραφές σας"
 msgid "Message subject"
 msgstr "Θέμα μηνύματος"
 
-#: ./browser/sendnewsletter.py:92
+#: ./browser/sendnewsletter.py:116
 msgid "Messages queued for delivery."
 msgstr ""
 
-#: ./browser/stats.py:35
+#: ./browser/stats.py:38
 msgid "Messages successfully sent"
 msgstr "Μηνύματα στάλθηκαν με επιτυχία"
 
-#: ./browser/stats.py:29
+#: ./browser/stats.py:32
 msgid "Messages waiting to be sent"
 msgstr "Μηνύματα αναμένουν αποστολή"
 
-#: ./browser/stats.py:41
+#: ./browser/stats.py:44
 msgid "Messages with errors"
 msgstr "Μηνύματα με σφάλματα"
 
-#: ./browser/stats.py:47
+#: ./browser/stats.py:50
 msgid "Messages with errors in the retry queue"
 msgstr "Μηνύματα με σφάλματα σε αναμονή επαναδοκιμής"
 
-#: ./browser/collector.py:237
+#: ./browser/collector.py:240
 msgid "Move block down"
 msgstr "Μετακινήστε το μπλοκ κάτω"
 
-#: ./browser/collector.py:230
+#: ./browser/collector.py:233
 msgid "Move block up"
 msgstr "Μετακινήστε το μπλοκ πάνω"
 
-#: ./collector.py:109
+#: ./collector.py:112
 msgid "Must be a weak reference (got ${title})"
 msgstr ""
 
-#: ./browser/subscribe.py:728
+#: ./browser/subscribe.py:759
 msgid "My subscriptions"
 msgstr "Οι εγγραφές μου"
 
-#: ./browser/stats.py:28
+#: ./browser/stats.py:31
 msgid "New messages"
 msgstr "Νέα μηνύματα"
 
-#: ./channel.py:115
+#: ./channel.py:122
 msgid "Newsletter"
 msgstr "Ενημερωτικό δελτίο"
 
-#: ./channel.py:78
+#: ./channel.py:85
 msgid "Newsletters"
 msgstr ""
 
-#: ./browser/preview.py:79
+#: ./browser/preview.py:78
 msgid "No items found."
 msgstr "Δεν βρέθηκαν αντικείμενα."
 
-#: ./browser/scheduler.py:36
+#: ./browser/scheduler.py:39
 msgid "No messages queued."
 msgstr "Δεν υπάρχουν μηνύματα στην αναμονή"
 
-#: ./browser/channel.py:475
+#: ./browser/channel.py:478
 msgid "Only purge subscribers present in this list."
 msgstr ""
 
-#: ./browser/channel.py:668
+#: ./browser/channel.py:671
 msgid "Only some of your changes were saved"
 msgstr "Μόνο ορισμένες από τις αλλαγές σας αποθηκεύτηκαν"
 
@@ -457,64 +473,64 @@ msgstr ""
 msgid "Please confirm your subscription"
 msgstr "Παρακαλούμε επιβεβαιώστε την εγγραφή σας"
 
-#: ./browser/sendnewsletter.py:109
+#: ./browser/sendnewsletter.py:133
 msgid "Please fill in a date."
 msgstr "Παρακαλούμε συμπληρώστε μια ημερομηνία."
 
-#: ./browser/stats.py:88
+#: ./browser/stats.py:91
 msgid "Please select items to remove."
 msgstr ""
 
-#: ./browser/stats.py:97
+#: ./browser/stats.py:100
 msgid "Please select items with new messages to clear."
 msgstr ""
 
-#: ./browser/stats.py:106
+#: ./browser/stats.py:109
 msgid "Please select which mailing-list's queued e-mails you'd like to send."
 msgstr ""
 
-#: ./browser/portlets/channelsubscribe.py:38
+#: ./browser/portlets/channelsubscribe.py:41
 msgid "Portlet description"
 msgstr "Περιγραφή πλαισίου"
 
-#: ./browser/portlets/channelsubscribe.py:30
+#: ./browser/portlets/channelsubscribe.py:33
 msgid "Portlet header"
 msgstr "Επικεφαλίδα πλαισίου"
 
-#: ./browser/channel.py:753
-#: ./browser/sendnewsletter.py:142
+#: ./browser/channel.py:756
+#: ./browser/sendnewsletter.py:166
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
-#: ./browser/portlets/channelsubscribe.py:207
+#: ./browser/portlets/channelsubscribe.py:210
 msgid "Proceed"
 msgstr "Προχωρήστε"
 
-#: ./browser/stats.py:118
+#: ./browser/stats.py:121
 msgid "Process jobs"
 msgstr ""
 
-#: ./browser/channel.py:480
+#: ./browser/channel.py:483
 msgid "Purge list before import."
 msgstr ""
 
-#: ./browser/channel.py:479
+#: ./browser/channel.py:482
 msgid "Purge list."
 msgstr ""
 
-#: ./browser/collector.py:198
+#: ./browser/collector.py:201
 msgid "Remove block"
 msgstr "Απομακρύνετε το μπλοκ"
 
-#: ./browser/scheduler.py:78
+#: ./browser/scheduler.py:81
 msgid "Remove entries"
 msgstr "Απομακρύνετε τις εισαγωγές"
 
-#: ./browser/stats.py:86
+#: ./browser/stats.py:89
 msgid "Remove old messages"
 msgstr ""
 
-#: ./browser/channel.py:474
+#: ./browser/channel.py:477
 msgid "Remove subscribers in list."
 msgstr ""
 
@@ -522,23 +538,23 @@ msgstr ""
 msgid "Reply-to address"
 msgstr "Διεύθυνση αποστολής απαντήσεων"
 
-#: ./browser/stats.py:46
+#: ./browser/stats.py:49
 msgid "Retry messages"
 msgstr "Μηνύματα επαναπροσπάθειας"
 
-#: ./collector.py:72
+#: ./collector.py:75
 msgid "Rich text"
 msgstr "Πλούσιο κείμενο"
 
-#: ./browser/collector.py:125
+#: ./browser/collector.py:128
 msgid "Rich text: ${title}"
 msgstr ""
 
-#: ./browser/channel.py:684
+#: ./browser/channel.py:687
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: ./browser/sendnewsletter.py:94
+#: ./browser/sendnewsletter.py:118
 msgid "Schedule distribution"
 msgstr "Προγραμματισμός διανομής"
 
@@ -546,35 +562,35 @@ msgstr "Προγραμματισμός διανομής"
 msgid "Scheduled time"
 msgstr "Προγραμματισμένη ώρα"
 
-#: ./browser/channel.py:191
+#: ./browser/channel.py:194
 msgid "Search"
 msgstr "Αναζήτηση"
 
-#: ./browser/channel.py:188
+#: ./browser/channel.py:191
 msgid "Search subscribers"
 msgstr "Αναζήτηση εγγεγραμμένων"
 
-#: ./collector.py:215
+#: ./collector.py:218
 msgid "Sections"
 msgstr "Τμήματα"
 
-#: ./browser/channel.py:323
+#: ./browser/channel.py:326
 msgid "See an in-browser preview of the newsletter."
 msgstr "Δείτε μια προεπισκόπηση του ενημερωτικού δελτίου μέσα στο φυλλομετρητή"
 
-#: ./browser/channel.py:485
+#: ./browser/channel.py:488
 msgid "Select this if you want to use the csv header row to designate document variables.The header row must contain one 'email' field."
 msgstr ""
 
-#: ./browser/sendnewsletter.py:62
+#: ./browser/sendnewsletter.py:82
 msgid "Send"
 msgstr "Αποστολή"
 
-#: ./browser/sendnewsletter.py:244
+#: ./browser/sendnewsletter.py:268
 msgid "Send ${item} as newsletter"
 msgstr "Αποστολή του ${item} σαν ενημερωτικό δελτίο"
 
-#: ./browser/sendnewsletter.py:85
+#: ./browser/sendnewsletter.py:109
 msgid "Send '${context}' through ${channel}."
 msgstr ""
 
@@ -583,15 +599,15 @@ msgstr ""
 msgid "Send as newsletter"
 msgstr "Αποστολή σαν ενημερωτικό δελτίο"
 
-#: ./browser/sendnewsletter.py:168
+#: ./browser/sendnewsletter.py:192
 msgid "Send preview"
 msgstr "Προεπισκόπηση αποστολής"
 
-#: ./browser/stats.py:104
+#: ./browser/stats.py:107
 msgid "Send queued messages now"
 msgstr ""
 
-#: ./browser/stats.py:34
+#: ./browser/stats.py:37
 msgid "Sent messages"
 msgstr "Απεσταλμένα μηνύματα"
 
@@ -601,19 +617,19 @@ msgstr "Απεσταλμένα μηνύματα"
 msgid "Should you be already subscribed to one of our lists, please use this form to retrieve a link to your personalized subscription page:"
 msgstr "Εάν έχετε ήδη εγγραφεί σε κάποια από τις λίστες μας, παρακαλούμε χρησιμοποιήστε αυτή τη φόρμα για να ανακτήσετε ένα σύνδεσμο προς την προσωπική σελίδα εγγραφών σας"
 
-#: ./browser/portlets/channelsubscribe.py:49
+#: ./browser/portlets/channelsubscribe.py:52
 msgid "Show footer"
 msgstr "Προβολή υποσέλιδου"
 
-#: ./browser/sendnewsletter.py:149
+#: ./browser/sendnewsletter.py:173
 msgid "Show preview"
 msgstr "Προβολή προεπισκόπησης"
 
-#: ./browser/controlpanel.py:19
+#: ./browser/controlpanel.py:22
 msgid "Singing & Dancing configuration"
 msgstr "Ρυθμίσεις Singing & Dancing"
 
-#: ./channel.py:129
+#: ./channel.py:136
 msgid "Standard Channel"
 msgstr "Κανονικό κανάλι"
 
@@ -622,39 +638,39 @@ msgstr "Κανονικό κανάλι"
 msgid "Status"
 msgstr ""
 
-#: ./browser/subscribe.py:255
+#: ./browser/subscribe.py:271
 msgid "Subscribe"
 msgstr "Εγγραφή"
 
-#: ./browser/portlets/channelsubscribe.py:41
+#: ./browser/portlets/channelsubscribe.py:44
 msgid "Subscribe directly from portlet"
 msgstr "Εγγραφή κατευθείαν από το πλαίσιο"
 
-#: ./browser/subscribe.py:79
+#: ./browser/subscribe.py:85
 msgid "Subscribe to ${channel}"
 msgstr "Εγγραφή στο ${channel}"
 
-#: ./browser/channel.py:465
+#: ./browser/channel.py:468
 msgid "Subscribers"
 msgstr "Εγγεγραμμένοι"
 
-#: ./browser/channel.py:643
+#: ./browser/channel.py:646
 msgid "Subscribers exported."
 msgstr "Εγγεγραμμένοι εξήχθησαν"
 
-#: ./browser/channel.py:748
+#: ./browser/channel.py:751
 msgid "Subscriptions"
 msgstr "Εγγραφές"
 
-#: ./browser/stats.py:100
+#: ./browser/stats.py:103
 msgid "Successfully cleared queued messages in mailing-lists."
 msgstr ""
 
-#: ./browser/stats.py:91
+#: ./browser/stats.py:94
 msgid "Successfully removed old messages from mailing-lists."
 msgstr ""
 
-#: ./browser/sendnewsletter.py:118
+#: ./browser/sendnewsletter.py:142
 msgid "Successfully scheduled distribution."
 msgstr "Διανομή που προγραμματίστηκε με επιτυχία"
 
@@ -662,7 +678,7 @@ msgstr "Διανομή που προγραμματίστηκε με επιτυχ
 msgid "Template"
 msgstr ""
 
-#: ./browser/portlets/channelsubscribe.py:46
+#: ./browser/portlets/channelsubscribe.py:49
 #, fuzzy
 msgid "Text in footer - if omitted the mailing-list title is used"
 msgstr "Κείμενο στο υποσέλιδο - αν παραλειφθεί θα χρησιμοποιηθεί ο τίτλος του καναλιού"
@@ -675,11 +691,11 @@ msgstr "Κείμενο που εμφανίζεται στην αρχή κάθε 
 msgid "Text to appear at the end of every message"
 msgstr "Κείμενο που εμφανίζεται στο τέλος κάθε μηνύματος"
 
-#: ./browser/sendnewsletter.py:178
+#: ./browser/sendnewsletter.py:202
 msgid "The address to send the preview to is missing."
 msgstr ""
 
-#: ./browser/channel.py:492
+#: ./browser/channel.py:495
 msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
 msgstr ""
 
@@ -687,7 +703,7 @@ msgstr ""
 msgid "The from address that will appear in messages sent from this composer."
 msgstr "Η διεύθυνση αποστολέα που θα εμφανίζεται στα μηνύματα που στέλνονται από αυτό το συνθέτη"
 
-#: ./browser/portlets/channelsubscribe.py:33
+#: ./browser/portlets/channelsubscribe.py:36
 #, fuzzy
 msgid "The mailing-list to enable subscriptions to."
 msgstr "Το κανάλι για το οποίο ενεργοποιείτε τις εγγραφές"
@@ -714,11 +730,11 @@ msgstr "Το στυλ σελίδας που θα εφαρμόζεται στο �
 msgid "The template that will be used."
 msgstr ""
 
-#: ./browser/subscribe.py:278
+#: ./browser/subscribe.py:347
 msgid "There seems to be an error with the information you entered."
 msgstr "Μάλλον υπάρχει κάποιο λάθος σε πληροφορίες που εισάγατε"
 
-#: ./browser/portlets/channelsubscribe.py:198
+#: ./browser/portlets/channelsubscribe.py:201
 msgid "There were some errors."
 msgstr "Υπήρξαν κάποια λάθη"
 
@@ -730,17 +746,17 @@ msgstr "Αυτό απαιτείται μόνο αν επιλέξετε 'Προγ
 msgid "This is only required if you click 'Send preview' below"
 msgstr "Αυτό απαιτείται μόνο αν επιλέξετε 'Αποστολή προεπισκόπησης' παρακάτω"
 
-#: ./browser/portlets/channelsubscribe.py:408
+#: ./browser/portlets/channelsubscribe.py:411
 #, fuzzy
 msgid "This portlet allows a visitor to subscribe to a specific newsletter."
 msgstr "Αυτό το πλαίσιο επιτρέπει σε έναν επισκέπτη να εγγραφεί σε ένα συγκεκριμένο κανάλι ενημερωτικού δελτίου."
 
-#: ./browser/collector.py:90
-#: ./browser/stats.py:20
+#: ./browser/collector.py:93
+#: ./browser/stats.py:23
 msgid "Title"
 msgstr "Τίτλος"
 
-#: ./browser/portlets/channelsubscribe.py:31
+#: ./browser/portlets/channelsubscribe.py:34
 msgid "Title of the rendered portlet"
 msgstr "Τίτλος του εισαγώμενου πλαισίου"
 
@@ -749,77 +765,77 @@ msgstr "Τίτλος του εισαγώμενου πλαισίου"
 msgid "To confirm your subscription with ${channel}, please click here: ${url}"
 msgstr "Για να επιβεβαιώσετε την εγγραφή σας στο ${channel}, παρακαλούμε πατήστε εδώ: ${url}"
 
-#: ./browser/stats.py:23
+#: ./browser/stats.py:26
 msgid "Total messages sent"
 msgstr "Συνολικός αριθμός απεσταλμένων μηνυμάτων"
 
-#: ./browser/stats.py:24
+#: ./browser/stats.py:27
 msgid "Total number of messages sent successsfully"
 msgstr "Συνολικός αριθμός απεσταλμένων μηνυμάτων με επιτυχία"
 
-#: ./browser/scheduler.py:28
+#: ./browser/scheduler.py:31
 msgid "Trigger now"
 msgstr "Ενεργοποίηση τώρα"
 
-#: ./browser/channel.py:108
-#: ./browser/collector.py:37
+#: ./browser/channel.py:111
+#: ./browser/collector.py:40
 msgid "Type"
 msgstr "Τύπος"
 
-#: ./browser/channel.py:584
+#: ./browser/channel.py:587
 msgid "Unknown"
 msgstr "Άγνωστο"
 
-#: ./browser/subscribe.py:125
+#: ./browser/subscribe.py:132
 msgid "Unsubscribe"
 msgstr "Διαγραφή"
 
-#: ./browser/subscribe.py:212
+#: ./browser/subscribe.py:221
 msgid "Unsubscribe from newsletter"
 msgstr "Διαγραφή από το ενημερωτικό δελτίο"
 
-#: ./browser/collector.py:334
+#: ./browser/collector.py:337
 msgid "Up to Collector administration"
 msgstr "Πάνω προς τη διαχείριση Συλλεκτών"
 
-#: ./browser/channel.py:722
-#: ./browser/scheduler.py:96
+#: ./browser/channel.py:725
+#: ./browser/scheduler.py:99
 msgid "Up to Mailing-lists administration"
 msgstr ""
 
-#: ./browser/controlpanel.py:12
+#: ./browser/controlpanel.py:15
 msgid "Up to Singing & Dancing configuration"
 msgstr "Πάνω προς τις ρυθμίσεις Singing & Dancing"
 
-#: ./browser/controlpanel.py:22
+#: ./browser/controlpanel.py:25
 msgid "Up to Site Setup"
 msgstr "Πάνω προς την εγκατάσταση της ιστοσελίδας"
 
-#: ./browser/channel.py:459
+#: ./browser/channel.py:462
 msgid "Upload"
 msgstr "Μεταφόρτωση"
 
-#: ./browser/channel.py:466
+#: ./browser/channel.py:469
 msgid "Upload a CSV file with a list of subscribers here. Subscribers already present in the database will be overwritten. Each line should contain: ${columns}."
 msgstr ""
 
-#: ./browser/channel.py:648
+#: ./browser/channel.py:651
 msgid "Upload list of subscribers."
 msgstr "Μεταφορτώστε μια λίστα εγγεγραμμένων"
 
-#: ./channel.py:64
+#: ./channel.py:71
 msgid "Use single form subscriptions page"
 msgstr ""
 
-#: ./channel.py:65
+#: ./channel.py:72
 msgid "Use single form subscriptions page when possible."
 msgstr ""
 
-#: ./browser/portlets/channelsubscribe.py:144
+#: ./browser/portlets/channelsubscribe.py:147
 msgid "You are already subscribed to this newsletter. Click here to ${link_start}edit your subscriptions${link_end}."
 msgstr ""
 
-#: ./browser/subscribe.py:227
+#: ./browser/subscribe.py:343
 msgid "You are already subscribed. Fill out the form at the end of this page to be sent a link from where you can edit your subscription."
 msgstr "Είστε ήδη εγγεγραμμένος/η. Συμπληρώστε τη φόρμα στο τέλος αυτής της σελίδας για να σταλεί ένας σύνδεσμος από όπου μπορείτε να επεξεργαστείτε την εγγραφή σας."
 
@@ -828,12 +844,12 @@ msgstr "Είστε ήδη εγγεγραμμένος/η. Συμπληρώστε 
 msgid "You are currently subscribed to these newsletters:"
 msgstr "Είστε ήδη εγγεγραμμένος/η σε αυτά τα ενημερωτικά δελτία:"
 
-#: ./browser/subscribe.py:138
+#: ./browser/subscribe.py:145
 #, fuzzy
 msgid "You aren't subscribed to this mailing-list."
 msgstr "Δεν είστε εγγεγραμμένος/η σε αυτό το κανάλι."
 
-#: ./browser/channel.py:630
+#: ./browser/channel.py:633
 msgid "You can not add things in purge only mode!"
 msgstr ""
 
@@ -842,7 +858,7 @@ msgstr ""
 msgid "You can subscribe to these newsletters:"
 msgstr "Μπορείτε να εγγραφείτε σε αυτά τα ενημρωτικά δελτία:"
 
-#: ./browser/subscribe.py:98
+#: ./browser/subscribe.py:104
 msgid "You confirmed your subscription successfully."
 msgstr "Επιβεβαιώσατε την εγγραφή σας με επιτυχία."
 
@@ -850,32 +866,36 @@ msgstr "Επιβεβαιώσατε την εγγραφή σας με επιτυ�
 msgid "You may use a number of variables here, like ${site_title}."
 msgstr "Μπορείτε να χρησιμοποιήσετε έναν αριθμό μεταβλητών εδώ, όπως ${site_title}."
 
-#: ./browser/subscribe.py:310
+#: ./browser/subscribe.py:327
 msgid "You subscribed successfully."
 msgstr "Εγγραφήκατε με επιτυχία."
 
-#: ./browser/subscribe.py:136
+#: ./browser/subscribe.py:143
 msgid "You unsubscribed successfully."
 msgstr "Διαγραφήκατε με επιτυχία."
+
+#: ./browser/subscribe.py:723
+msgid "You were unsubscribed completely."
+msgstr ""
 
 #. Default: "You're receiving this e-mail because you're registered for the ${channel} newsletter."
 #: ./browser/composer-html.pt:39
 msgid "You're receiving this e-mail because you're registered for the ${channel} newsletter."
 msgstr "Λαμβάνετε αυτό το e-mail γιατί είστε εγγεγραμμένος/η στο ενημερωτικό δελτίο ${channel}."
 
-#: ./composer.py:44
+#: ./composer.py:50
 msgid "Your e-mail address is invalid"
 msgstr "Η διεύθυνση e-mail σας δεν είναι έγκυρη"
 
-#: ./browser/subscribe.py:30
+#: ./browser/subscribe.py:34
 msgid "Your email address is already subscribed. Click the 'Send my subscription details' button below."
 msgstr ""
 
-#: ./browser/subscribe.py:99
+#: ./browser/subscribe.py:105
 msgid "Your subscription isn't known to us."
 msgstr "Η εγγραφή σας δεν υπάρχει."
 
-#: ./browser/subscribe.py:166
+#: ./browser/subscribe.py:175
 msgid "Your subscription was updated."
 msgstr "Η εγγραφή σας ενημερώθηκε."
 
@@ -902,14 +922,14 @@ msgid "description_statistics_administration"
 msgstr "Δείτε τα στατιστικά του ενημερωτικού δελτίου"
 
 #. Default: "Mailing-list administration"
-#: ./browser/channel.py:173
+#: ./browser/channel.py:176
 #: ./browser/controlpanel-links.pt:3
 #, fuzzy
 msgid "label_channel_administration"
 msgstr "Διαχείριση Καναλιού"
 
 #. Default: "Collector administration"
-#: ./browser/collector.py:63
+#: ./browser/collector.py:66
 #: ./browser/controlpanel-links.pt:13
 msgid "label_collector_administration"
 msgstr "Διαχείριση Συλλέκτη"
@@ -927,7 +947,7 @@ msgstr ""
 
 #. Default: "Statistics"
 #: ./browser/controlpanel-links.pt:32
-#: ./browser/stats.py:167
+#: ./browser/stats.py:178
 msgid "label_statistics_administration"
 msgstr "Στατιστικά"
 
