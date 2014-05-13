@@ -8,7 +8,10 @@ Setup
 -----
 
   >>> from zope import component
-  >>> from zope.app.component.hooks import setSite
+  >>> try:
+  ...     from zope.app.component.hooks import setSite
+  ... except ImportError:
+  ...     from zope.component.hooks import setSite
   >>> setSite(self.portal)
 
 The portal tool
@@ -69,7 +72,10 @@ Salt
 
 An ISalt utility is created at install time.  It's available for us:
 
-  >>> from zope.app.component import hooks
+  >>> try:
+  ...     from zope.app.component import hooks
+  ... except ImportError:
+  ...     from zope.component import hooks
   >>> from collective.singing.interfaces import ISalt
   >>> hooks.setSite(portal)
   >>> salt = component.getUtility(ISalt)
