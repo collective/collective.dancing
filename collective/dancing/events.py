@@ -11,6 +11,6 @@ class ConfirmSubscriptionEvent(zope.component.interfaces.ObjectEvent):
     """A subscription has benn confirmed"""
     implements(IConfirmSubscriptionEvent)
 
-    def __init__(self, channel, subscriber):
-        super(ConfirmSubscriptionEvent, self).__init__({'channel': channel,
-                                                        'subscriber': subscriber})
+    def __init__(self, channel, subscription):
+        super(ConfirmSubscriptionEvent, self).__init__(channel)
+        self.subscription = subscription

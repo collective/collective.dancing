@@ -116,8 +116,8 @@ class Confirm(BrowserView):
                     for sub in subscriptions:
                         if sub.metadata.get('pending', False):
                             sub.metadata['pending'] = False
+                            notify(ConfirmSubscriptionEvent(channel, sub))
                     self.status = self.successMessage
-                    notify(ConfirmSubscriptionEvent(channel, subscriptions))
                     break
             else:
                 self.status = self.notKnownMessage
