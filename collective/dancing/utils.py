@@ -10,6 +10,13 @@ import zope.schema.vocabulary
 
 import collective.singing.async
 
+try:
+    # Plone < 4.3
+    from zope.app.component.hooks import getSite
+except ImportError:
+    # Plone >= 4.3
+    from zope.component.hooks import getSite
+
 logger = logging.getLogger('collective.dancing')
 
 
@@ -18,7 +25,7 @@ def get_queue():
     return collective.singing.async.get_queue('collective.dancing.jobs')
 
 def get_request_container():
-    site = zope.app.component.hooks.getSite()
+    site = getSite()
     return site.aq_chain[-1]
 
 def fix_request(wrapped, skip=1):
