@@ -1185,7 +1185,7 @@ more depth later:
   *TestingMailDelivery sending*:
   ...
   >>> print browser.contents # doctest +NORMALIZE_WHITESPACE
-  3 message(s) queued for delivery.
+  ${queued} message(s) queued for delivery.
   default-channel: 0 messages queued, dispatched: (0, 0)
   my-other-channel: 0 messages queued, dispatched: (3, 0)
 
@@ -1284,6 +1284,52 @@ When we now tick the scheduler, we expect mail to be sent out:
   ...Are you doing something interesting with Plone?...
   (3, 0)
 
+Sending newsletters renamed/moved
+---------------------------------
+
+Sometimes, editors put a newsletter in the queue and then move the content to an archive
+before the dispatch. We need to check that the newsletter will be dispatched correctly:
+
+  >>> news.invokeFactory('News Item', id='foo',title="A foo news that will be renamed",text="Some very fuzzy text.")
+  'foo'
+
+  >>> browser.open(portal.absolute_url() + '/news/foo/send-newsletter.html')
+  >>> browser.getControl(name='send.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl('Send', index=0).click()
+  >>> "Messages queued for delivery" in browser.contents
+  True
+  >>> news.manage_renameObject('foo', 'bar')
+  >>> browser.open('http://nohost/plone/portal_newsletters')
+  >>> browser.getLink('Statistics').click()
+  >>> "Send 'A foo news that will be renamed'" in browser.contents
+  True
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/tick_and_dispatch')
+  *TestingMailDelivery sending*:
+  ...
+
+Sending newsletters deleted
+---------------------------
+
+Sometimes, editors put a newsletter in the queue and then delete the content before the dispatch. We need to check that the newsletter doesn't breaks:
+
+  >>> news.invokeFactory('News Item', id='temp-news',title="A temporary news that will be deleted",text="Some very fuzzy text.")
+  'temp-news'
+
+  >>> browser.open(portal.absolute_url() + '/news/temp-news/send-newsletter.html')
+  >>> browser.getControl(name='send.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl('Send', index=0).click()
+  >>> "Messages queued for delivery" in browser.contents
+  True
+  >>> news.manage_delObjects(['temp-news',])
+  >>> browser.open('http://nohost/plone/portal_newsletters')
+  >>> browser.getLink('Statistics').click()
+  >>> "Send 'A temporary news that will be deleted'" in browser.contents
+  True
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/tick_and_dispatch')
+  >>> browser.open('http://nohost/plone/portal_newsletters')
+  >>> browser.getLink('Statistics').click()
+  >>> "0 messages queued for delivery. Item '/plone/news/temp-news' not found." in browser.contents
+  True
 
 Customizing the send as newsletter form
 ---------------------------------------
