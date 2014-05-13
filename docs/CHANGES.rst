@@ -59,6 +59,11 @@ Changelog
   for now.
   [tmog]
 
+- Fix newsletter queue handling. Now the key to get a newsletter is the UID and not the path.
+  In this way, newsletters can be renamed/moved also when they are already in the queue, and
+  if they will be erased, the dispatch doesn't breaks.
+  [cekk]
+
 0.9.10 (2012-02-25)
 -------------------
 
