@@ -4,11 +4,11 @@ from zope.interface import implements
 
 
 class IConfirmSubscriptionEvent(zope.component.interfaces.IObjectEvent):
-    """A subscription has benn confirmed"""
+    """A subscription has been confirmed"""
 
 
 class ConfirmSubscriptionEvent(zope.component.interfaces.ObjectEvent):
-    """A subscription has benn confirmed"""
+    """A subscription has been confirmed"""
     implements(IConfirmSubscriptionEvent)
 
     def __init__(self, channel, subscription):
