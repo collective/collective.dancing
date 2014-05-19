@@ -59,7 +59,7 @@ Changelog
   for now.
   [tmog]
 
-- Add a new event, raised when an user confirm the subscription
+- Added two new events, raised when an user confirm or remove his subscription
   [cekk]
 
 0.9.10 (2012-02-25)
