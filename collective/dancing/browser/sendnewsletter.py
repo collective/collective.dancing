@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import datetime
 import urllib
 
@@ -33,8 +34,11 @@ import collective.singing.interfaces
 from collective.dancing.composer import FullFormatWrapper
 from collective.dancing.browser.interfaces import ISendAndPreviewForm
 from collective.dancing import utils
+from collective.dancing import logger
 from collective.dancing import MessageFactory as _
 from Products.statusmessages.interfaces import IStatusMessage
+
+from plone.uuid.interfaces import IUUID
 
 
 class UIDResolver(object):
@@ -46,14 +50,23 @@ class UIDResolver(object):
         return FullFormatWrapper(rc.lookupObject(self.uid))
 
 
-def _assemble_messages(channel_paths, context_path,
+def _assemble_messages(channel_paths, newsletter_uid, newsletter_path,
                        include_collector_items, override_vars=None):
     if override_vars is None:
         override_vars = {}
     queued = 0
     site = getSite()
     request = site.REQUEST
-    context = site.restrictedTraverse(context_path)
+    uid_catalog = getToolByName(site, 'uid_catalog', None)
+    newsletter_item = uid_catalog(UID=newsletter_uid)
+    if not newsletter_item:
+        message = "There was a problem in dispatching newsletters. %s was not found and this queue will be deleted." % newsletter_path
+        logger.warning(message)
+        IStatusMessage(site.REQUEST).add(message, "warning")
+        return _(u"0 messages queued for delivery. Item '${newsletter_path}' not found.",
+             mapping=dict(newsletter_path=newsletter_path))
+        # raise KeyError('Newsletter not found')
+    context = newsletter_item[0].getObject()
     for path in channel_paths:
         channel = site.restrictedTraverse(path)
         assembler = collective.singing.interfaces.IMessageAssemble(channel)
@@ -61,7 +74,8 @@ def _assemble_messages(channel_paths, context_path,
             request, (FullFormatWrapper(context),), include_collector_items, override_vars)
         if channel.scheduler is not None and include_collector_items:
             channel.scheduler.triggered_last = datetime.datetime.now()
-    return "%s message(s) queued for delivery." % queued
+    return _(u"${queued} message(s) queued for delivery.",
+             mapping=dict(queued=queued))
 
 
 class SendForm(form.Form):
@@ -74,20 +88,24 @@ class SendForm(form.Form):
 
     @button.buttonAndHandler(_('Send'), name='send')
     def handle_send(self, action):
-	context = self.context.context
+        context = self.context.context
         data, errors = self.extractData()
         if errors:
             self.status = form.EditForm.formErrorsMessage
             return
         channel = data['channel']
         channel_paths = ['/'.join(channel.getPhysicalPath())]
-        context_path = '/'.join(context.getPhysicalPath())
+        newsletter_path = "/".join(context.getPhysicalPath())
+        newsletter_uid = IUUID(context)
         include_collector_items = data['include_collector_items']
         override_vars = self.get_override_vars()
 
-        job = collective.singing.async.Job(
-            _assemble_messages,
-            channel_paths, context_path, include_collector_items, override_vars)
+        job = collective.singing.async.Job(_assemble_messages,
+                                            channel_paths,
+                                            newsletter_uid,
+                                            newsletter_path,
+                                            include_collector_items,
+                                            override_vars)
         title = _(u"Send '${context}' through ${channel}.",
                   mapping=dict(
             context=context.Title().decode(context.plone_utils.getSiteEncoding()),
@@ -261,16 +279,20 @@ class ISendAndPreviewFormWithCustomSubject(ISendAndPreviewForm):
                       "content and mailing-list."),
         required=False)
 
+
 class SendFormWithCustomSubject(SendForm):
     fields = field.Fields(ISendAndPreviewFormWithCustomSubject).select(
         'channel', 'subject', 'include_collector_items', 'datetime')
+
 
 class PreviewFormWithCustomSubject(PreviewForm):
     fields = field.Fields(ISendAndPreviewFormWithCustomSubject).select(
         'channel', 'subject', 'include_collector_items', 'address')
 
+
 class SendAsNewsletterFormWithCustomSubject(SendAsNewsletterForm):
     factories = [SendFormWithCustomSubject, PreviewFormWithCustomSubject]
+
 
 class SendAsNewsletterViewWithCustomSubject(SendAsNewsletterView):
     form = SendAsNewsletterFormWithCustomSubject
