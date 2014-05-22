@@ -143,7 +143,7 @@ class Unsubscribe(BrowserView):
             if len(subscriptions):
                 for sub in subscriptions:
                     subs.remove_subscription(sub)
-                    notify(ConfirmUnsubscriptionEvent(self.context, sub))
+                    notify(ConfirmUnsubscriptionEvent(sub))
                 self.status = _(u"You unsubscribed successfully.")
             else:
                 self.status = _(u"You aren't subscribed to this mailing-list.")
@@ -593,7 +593,7 @@ class SubscriptionEditSubForm(SubscriptionSubForm):
         subs = self.context.channel.subscriptions
         for subscription in subs.query(secret=secret, format=format):
             subs.remove_subscription(subscription)
-            notify(ConfirmUnsubscriptionEvent(self.context, subscription))
+            notify(ConfirmUnsubscriptionEvent(subscription))
         self.removed = self.context
         self.status = self.status_unsubscribed
 
