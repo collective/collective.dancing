@@ -28,6 +28,8 @@ from collective.singing.channel import channel_lookup
 from collective.singing.interfaces import ISubscriptionKey
 from collective.dancing import MessageFactory as _
 from collective.dancing.utils import switch_on
+from collective.dancing.events import ConfirmSubscriptionEvent, ConfirmUnsubscriptionEvent
+from zope.event import notify
 
 
 class SubscribeForm(collective.singing.browser.subscribe.Subscribe):
@@ -114,6 +116,7 @@ class Confirm(BrowserView):
                     for sub in subscriptions:
                         if sub.metadata.get('pending', False):
                             sub.metadata['pending'] = False
+                            notify(ConfirmSubscriptionEvent(channel, sub))
                     self.status = self.successMessage
                     break
             else:
@@ -140,6 +143,7 @@ class Unsubscribe(BrowserView):
             if len(subscriptions):
                 for sub in subscriptions:
                     subs.remove_subscription(sub)
+                    notify(ConfirmUnsubscriptionEvent(sub))
                 self.status = _(u"You unsubscribed successfully.")
             else:
                 self.status = _(u"You aren't subscribed to this mailing-list.")
@@ -225,6 +229,7 @@ class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
         subs = self.context.channel.subscriptions
         for subscription in subs.query(secret=secret):
             subs.remove_subscription(subscription)
+            notify(ConfirmUnsubscriptionEvent(subscription))
         self.removed = self.context
         self.status = _(u"You unsubscribed successfully.")
 
@@ -307,7 +312,6 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
             self.request, zope.i18n.interfaces.IUserPreferredLanguages)
         if pl is not None:
             metadata['languages'] = pl.getPreferredLanguages()
-
         # By using another method here we allow subclasses to override
         # what really happens here:
         self.add_subscription(
@@ -319,6 +323,10 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
         try:
             self.added = self.context.subscriptions.add_subscription(
                 self.context, secret, comp_data, coll_data, metadata)
+            if secret and not self.added.metadata.get('pending', False):
+                #in this case the user subscribed himself in my-subscriptions.html
+                #panel and he doesn't need to confirm his subscription
+                notify(ConfirmSubscriptionEvent(context, self.added))
         except ValueError:
             self.added = None
             self.status = self.status_already_subscribed
@@ -585,6 +593,7 @@ class SubscriptionEditSubForm(SubscriptionSubForm):
         subs = self.context.channel.subscriptions
         for subscription in subs.query(secret=secret, format=format):
             subs.remove_subscription(subscription)
+            notify(ConfirmUnsubscriptionEvent(subscription))
         self.removed = self.context
         self.status = self.status_unsubscribed
 

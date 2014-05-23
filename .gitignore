@@ -19,7 +19,7 @@ develop-eggs
 .installed.cfg
 lib
 lib64
-include/
+include
 
 # Installer logs
 pip-log.txt
@@ -39,3 +39,5 @@ nosetests.xml
 
 # Local development
 local.cfg
+
+.Python
