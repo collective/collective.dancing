@@ -436,27 +436,31 @@ class ExportCSV(BrowserView):
         res = cStringIO.StringIO()
         writer = csv.writer(res, dialect=csv.excel, delimiter=csv_delimiter)
         collectors_keys = []
-        for item in self.context.collectors.keys():
-            for optional in self.context.collectors[item].get_optional_collectors():
-                title_id = optional.title.strip() + ' (' + optional.id + ')'
-                collectors_keys.append(title_id)
+        if self.context.collector:
+            selected_collector = self.context.collector.id
+            if selected_collector in self.context.collectors.keys():
+                for optional in self.context.collectors[selected_collector].get_optional_collectors():
+                    title_id = optional.title.strip() + ' (' + optional.id + ')'
+                    collectors_keys.append(title_id)
         for format in self.context.composers.keys():
             composers_keys = field.Fields(self.context.composers[format].schema).keys()
             # add csv header row
-            writer.writerow(composers_keys + collectors_keys)
+            writer.writerow(composers_keys + ['sections'])
             for subscription in tuple(self.context.subscriptions.query(format=format)):
                 row = []
                 for item in composers_keys:
                     v = subscription.composer_data.get(item) or ''
                     row.append(self._convertValue(v, charset))
-                selected_collectors = []
+                selected_collectors = {}
                 if 'selected_collectors' in subscription.collector_data:
-                    selected_collectors = [c.title.strip() + ' (' + c.id + ')' for c in subscription.collector_data['selected_collectors']]
+                    selected_collectors = dict([(c.title.strip() + ' (' + c.id + ')', c.title.strip()) for c in subscription.collector_data['selected_collectors']])
+                sections = []
                 for item in collectors_keys:
                     if item in selected_collectors:
-                        row.append(self._convertValue(item, charset))
+                        sections.append(self._convertValue(selected_collectors[item], charset))
                     else:
-                        row.append('')
+                        sections.append('')
+                row.append('|'.join(sections))
 
                 writer.writerow(row)
         return res.getvalue()
