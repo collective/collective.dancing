@@ -556,17 +556,17 @@ Subscriptions can be downloaded as csv:
   >>> browser.getControl('Download').click()
   >>> browser.headers['content-type']
   'text/csv; charset=UTF-8'
-  >>> 'email,Events (1),News (0)\r\n' in browser.contents
+  >>> 'email,sections\r\n' in browser.contents
   True
-  >>> 'daniel@domain.tld,,\r\n' in browser.contents
+  >>> 'daniel@domain.tld,|\r\n' in browser.contents
   True
-  >>> 'mailman@domain.tld,,News (0)\r\n' in browser.contents
+  >>> 'mailman@domain.tld,|News\r\n' in browser.contents
   True
-  >>> 'lars@domain.tld,,\r\n' in browser.contents
+  >>> 'lars@domain.tld,|\r\n' in browser.contents
   True
-  >>> 'pia@domain.tld,,\r\n' in browser.contents
+  >>> 'pia@domain.tld,|\r\n' in browser.contents
   True
-  >>> 'pengo@domain.tld,,\r\n' in browser.contents
+  >>> 'pengo@domain.tld,|\r\n' in browser.contents
   True
 
 Now add custom composer with different types of fields inside it's schema and
@@ -602,17 +602,17 @@ Download csv file:
   >>> browser.getControl(name='crud-add.my_format.buttons.download').click()
   >>> browser.headers['content-type']
   'text/csv; charset=UTF-8'
-  >>> 'email,Events (1),News (0)\r\n' in browser.contents
+  >>> 'email,sections\r\n' in browser.contents
   True
-  >>> 'daniel@domain.tld,,\r\n' in browser.contents
+  >>> 'daniel@domain.tld,|\r\n' in browser.contents
   True
-  >>> 'mailman@domain.tld,,News (0)\r\n' in browser.contents
+  >>> 'mailman@domain.tld,|News\r\n' in browser.contents
   True
-  >>> 'lars@domain.tld,,\r\n' in browser.contents
+  >>> 'lars@domain.tld,|\r\n' in browser.contents
   True
-  >>> 'pia@domain.tld,,\r\n' in browser.contents
+  >>> 'pia@domain.tld,|\r\n' in browser.contents
   True
-  >>> 'pengo@domain.tld,,\r\n' in browser.contents
+  >>> 'pengo@domain.tld,|\r\n' in browser.contents
   True
 
 Cleanup:
