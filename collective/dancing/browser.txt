@@ -567,7 +567,7 @@ Subscriptions can be downloaded as csv:
   True
   >>> 'daniel@domain.tld,|\r\n' in browser.contents
   True
-  >>> 'mailman@domain.tld,|News\r\n' in browser.contents
+  >>> 'mailman@domain.tld,|News (0)\r\n' in browser.contents
   True
   >>> 'lars@domain.tld,|\r\n' in browser.contents
   True
@@ -613,7 +613,7 @@ Download csv file:
   True
   >>> 'daniel@domain.tld,|\r\n' in browser.contents
   True
-  >>> 'mailman@domain.tld,|News\r\n' in browser.contents
+  >>> 'mailman@domain.tld,|News (0)\r\n' in browser.contents
   True
   >>> 'lars@domain.tld,|\r\n' in browser.contents
   True

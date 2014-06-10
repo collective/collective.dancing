@@ -399,6 +399,7 @@ def parseSubscriberCSVFile(subscriberdata, composer,
         reader = csv.reader(data, delimiter=str(delimiter))
         subscriberslist = []
         errorcandidates = []
+        sections = []
         for index, parsedline in enumerate(reader):
             if index == 0:
                 if header_row_present:
@@ -406,19 +407,29 @@ def parseSubscriberCSVFile(subscriberdata, composer,
                     continue
                 else:
                     fields = field.Fields(composer.schema).keys()
+                    # could be import old csv that does not have sections column
+                    if len(parsedline) != len(fields):
+                        fields.append('sections')
             if len(parsedline)<len(fields):
                 pass
             else:
                 try:
                     subscriber = dict(zip(fields,\
                        map(lambda x:x.decode(charset), parsedline)))
+
+                    # splits 'sections' data from subscriber
+                    if 'sections' in subscriber:
+                        section = dict([('email', subscriber['email']), ('sections', subscriber['sections'])])
+                        sections.append(section)
+                        del subscriber['sections']
+
                     subscriber['email'] = subscriber['email'].lower()
                     check_email(subscriber['email'])
                 except:
                     errorcandidates.append(subscriber['email'])
                 else:
                     subscriberslist.append(subscriber)
-        return subscriberslist, errorcandidates
+        return subscriberslist, errorcandidates, sections
     except Exception, e:
         return _(u"Error importing subscriber file. %s" % e), []
 
@@ -457,7 +468,8 @@ class ExportCSV(BrowserView):
                 sections = []
                 for item in collectors_keys:
                     if item in selected_collectors:
-                        sections.append(self._convertValue(selected_collectors[item], charset))
+                        # the csv section field format is "title (id)"
+                        sections.append(self._convertValue(item, charset))
                     else:
                         sections.append('')
                 row.append('|'.join(sections))
@@ -567,12 +579,34 @@ class UploadForm(crud.AddForm):
         delimiter = data.get('csv_delimiter', csv_delimiter)
         if subscriberdata is None:
             return _(u"File was not given.")
-        subscribers, errorcandidates = parseSubscriberCSVFile(subscriberdata,
-                                self.context.composer,
-                                header_row_present=header_row_present,
-                                delimiter=delimiter)
+        subscribers, errorcandidates, sections = parseSubscriberCSVFile(
+            subscriberdata,
+            self.context.composer,
+            header_row_present=header_row_present,
+            delimiter=delimiter)
         if not type(subscribers)==type([]):
             return _(u"File has incorrect format.")
+
+        # generate new selected collectors
+        new_sections = {}
+        if self.mychannel.collector and self.mychannel.collector.id in self.mychannel.collectors.keys():
+            optional_collectors = self.mychannel.collectors[self.mychannel.collector.id].get_optional_collectors()
+            collector_data = {}
+            for optional_collector in optional_collectors:
+                collector_data[optional_collector.id] = optional_collector
+            for section in sections:
+                if 'sections' in section and 'email' in section:
+                    sections_data = section['sections'].split('|')
+                    new_section_data = []
+                    for section_data in sections_data:
+                        if not section_data:
+                            continue
+                        # section data format is "title (id)"
+                        section_id = section_data.split(' ')[-1][1:-1]
+                        if section_id in collector_data:
+                            new_section_data.append(collector_data[section_id])
+                    new_sections[section['email']] = sets.Set(new_section_data)
+
         added = 0
         new_and_updated = []
         notadded = len(errorcandidates)
@@ -600,6 +634,14 @@ class UploadForm(crud.AddForm):
                         if 'selected_collectors' in old_collector_data \
                            and old_collector_data['selected_collectors']:
                             item.collector_data = old_collector_data
+                    # add new section selection
+                    if subscriber_data['email'] in new_sections:
+                        new_selected_collectors = new_sections[subscriber_data['email']]
+                        if len(new_selected_collectors):
+                            item.collector_data = dict([('selected_collectors', new_selected_collectors)])
+                        else:
+                            item.collector_data = {}
+
                     added += 1
                 except Exception, e: # XXX refine which exceptions we want to catch
                     # TODO; put some information about error e into the message
