@@ -142,9 +142,6 @@ class Channel(OFS.SimpleItem.SimpleItem):
     keep_sent_messages = collective.singing.interfaces.IChannel[
         'keep_sent_messages'].default
 
-    is_external_subscriptions = collective.singing.interfaces.IChannel[
-        'is_external_subscriptions'].default
-
     external_subscriptions_path = collective.singing.interfaces.IChannel[
         'external_subscriptions_path'].default
 
