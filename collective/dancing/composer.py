@@ -286,6 +286,7 @@ class HTMLComposer(persistent.Persistent):
         """
         vars = {}
         channel = subscription.channel
+        external = getattr(subscription, 'external', False)
         site = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
         site = utils.fix_request(site, 0)
         secret_var = '$%s' % template_var('secret')
@@ -299,6 +300,20 @@ class HTMLComposer(persistent.Persistent):
             '%s/../../my-subscriptions.html?secret=%s' %
             (channel.absolute_url(), secret_var))
         vars['to_addr'] = '$%s' % template_var('to_addr')
+        if external:
+            if 'external_confirm_url' in subscription.composer_data:
+                vars['confirm_url'] = (
+                    '%s?secret=%s' %
+                    (subscription.composer_data['external_confirm_url'], secret_var))
+            if 'external_unsubscribe_url' in subscription.composer_data:
+                vars['unsubscribe_url'] = (
+                    '%s?secret=%s' %
+                    (subscription.composer_data['external_unsubscribe_url'], secret_var))
+            if 'external_my_subscriptions_url' in subscription.composer_data:
+                vars['my_subscriptions_url'] = (
+                    '%s?secret=%s' %
+                    (subscription.composer_data['external_my_subscriptions_url'], secret_var))
+        logger.info('vars in "more_vars" method: %s' % vars)
         return vars
 
     def _subscription_vars(self, subscription):
