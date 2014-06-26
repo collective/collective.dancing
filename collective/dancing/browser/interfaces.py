@@ -11,6 +11,11 @@ class ISendAndPreviewForm(interface.Interface):
         vocabulary='collective.singing.vocabularies.SendableChannelVocabulary',
         )
 
+    channel_topics = schema.Choice(
+        title=_("Send newsletter to a subscribers of a topic"),
+        vocabulary='collective.dancing.sendnewsletter.TopicsForSelectedShannel'
+        )
+
     include_collector_items = schema.Bool(
         title=_(u"Include collector items"),
         description=_(u"Append automatically collected content in this "

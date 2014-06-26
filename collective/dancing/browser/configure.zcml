@@ -232,4 +232,11 @@
      />
 
 
+
+  <!-- Vocabularies stuff -->
+  <zope:utility component=".sendnewsletter.TopicsForSelectedShannel"
+           name="collective.dancing.sendnewsletter.TopicsForSelectedShannel"
+           provides="zope.schema.interfaces.IVocabularyFactory" />
+
+
 </zope:configure>
