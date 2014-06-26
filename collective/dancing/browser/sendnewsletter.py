@@ -4,6 +4,7 @@ import urllib
 
 from zope import interface
 from zope import schema
+from zope.schema.vocabulary import SimpleVocabulary
 
 try:
     from zope.app.pagetemplate import viewpagetemplatefile
@@ -78,13 +79,27 @@ def _assemble_messages(channel_paths, newsletter_uid, newsletter_path,
              mapping=dict(queued=queued))
 
 
+
+from datetime import datetime
+
+def TopicsForSelectedShannel (context):
+    return SimpleVocabulary.fromValues(("All", "latest-news", str(datetime.now().isoformat()) ))
+
+
 class SendForm(form.Form):
     label = _(u'Send')
     fields = field.Fields(ISendAndPreviewForm).select(
-        'channel', 'include_collector_items', 'datetime')
+        'channel', 'channel_topics', 'include_collector_items', 'datetime')
     prefix = 'send.'
     ignoreContext = True # The context doesn't provide the data
     template = viewpagetemplatefile.ViewPageTemplateFile('subform-formtab.pt')
+
+    def update(self):
+        super(SendForm, self).update()
+        logger.info("send newsletter update called")
+        self.widgets["channel_topics"].update()
+
+
 
     @button.buttonAndHandler(_('Send'), name='send')
     def handle_send(self, action):
@@ -132,7 +147,7 @@ class SendForm(form.Form):
         if not data.get('datetime'):
             self.status = _("Please fill in a date.")
             return
-
+            
         # XXX: We want to get the UIDResolver through an adapter
         # in the future
         channel.scheduler.items.append((
