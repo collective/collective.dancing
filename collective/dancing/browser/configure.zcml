@@ -241,8 +241,8 @@
 
 
   <!-- Vocabularies stuff -->
-  <zope:utility component=".sendnewsletter.TopicsForSelectedShannel"
-           name="collective.dancing.sendnewsletter.TopicsForSelectedShannel"
+  <zope:utility component=".sendnewsletter.ChannelAndCollectorVocab"
+           name="collective.dancing.sendnewsletter.ChannelAndCollectorVocab"
            provides="zope.schema.interfaces.IVocabularyFactory" />
 
 
