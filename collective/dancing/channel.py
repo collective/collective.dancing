@@ -146,9 +146,6 @@ class Channel(OFS.SimpleItem.SimpleItem):
     keep_sent_messages = collective.singing.interfaces.IChannel[
         'keep_sent_messages'].default
 
-    external_subscriptions_path = collective.singing.interfaces.IChannel[
-        'external_subscriptions_path'].default
-
     def __init__(self, name, title=None, composers=None,
                  collector=None, scheduler=None, description=u"", subscribeable=False):
         self.name = name
