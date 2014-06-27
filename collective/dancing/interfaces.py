@@ -5,6 +5,18 @@ import collective.singing.interfaces
 
 from collective.dancing import MessageFactory as _
 
+
+from collective.singing.interfaces import IChannel
+
+
+class ISubscriptionsFromScriptChannel(IChannel):
+
+    script_path = schema.TextLine(
+        title=_(u"Script path in this plone portal"),
+        description=_(u"Path to python script or zope object capable of return the current subscriptions"),
+        required=False )
+
+
 class IFullFormatter(interface.Interface):
     """Format the item for use as main newsletter content.
 
