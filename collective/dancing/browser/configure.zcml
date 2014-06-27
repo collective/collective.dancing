@@ -239,4 +239,11 @@
      />
 
 
+
+  <!-- Vocabularies stuff -->
+  <zope:utility component=".sendnewsletter.ChannelAndCollectorVocab"
+           name="collective.dancing.sendnewsletter.ChannelAndCollectorVocab"
+           provides="zope.schema.interfaces.IVocabularyFactory" />
+
+
 </zope:configure>
