@@ -37,7 +37,6 @@ class PreviewSubscription(object):
         self.composer_data = dict(
             (name, field.default) \
             for name, field in schema.getFields(composer.schema).items())
-        self.external = False
 
 class PreviewNewsletterView(BrowserView):
     template = ViewPageTemplateFile("preview.pt")
