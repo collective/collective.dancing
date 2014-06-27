@@ -5,6 +5,7 @@ import urllib
 from zope import interface
 from zope import schema
 from zope.schema.vocabulary import SimpleVocabulary
+import zope.schema.vocabulary
 
 try:
     from zope.app.pagetemplate import viewpagetemplatefile
@@ -41,6 +42,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 
 from plone.uuid.interfaces import IUUID
 
+from collective.singing.channel import channel_lookup
 
 class UIDResolver(object):
     def __init__(self, uid):
@@ -79,25 +81,31 @@ def _assemble_messages(channel_paths, newsletter_uid, newsletter_path,
              mapping=dict(queued=queued))
 
 
+def ChannelAndCollectorVocab (context):
+    terms = []
+    for channel in channel_lookup(only_sendable=True):
+        terms.append(zope.schema.vocabulary.SimpleTerm(
+                value=(channel,),
+                token=channel.name,
+                title=channel.title))
+        for collector in channel.collector.get_optional_collectors():
 
-from datetime import datetime
+            terms.append(zope.schema.vocabulary.SimpleTerm(
+                value=(channel,collector),
+                token=channel.name + "/" + collector.title,
+                title=channel.title + " - " + collector.title
+                ))
 
-def TopicsForSelectedShannel (context):
-    return SimpleVocabulary.fromValues(("All", "latest-news", str(datetime.now().isoformat()) ))
+    return SimpleVocabulary(terms)
 
 
 class SendForm(form.Form):
     label = _(u'Send')
     fields = field.Fields(ISendAndPreviewForm).select(
-        'channel', 'channel_topics', 'include_collector_items', 'datetime')
+      'channel_and_collector', 'include_collector_items', 'datetime')
     prefix = 'send.'
     ignoreContext = True # The context doesn't provide the data
     template = viewpagetemplatefile.ViewPageTemplateFile('subform-formtab.pt')
-
-    def update(self):
-        super(SendForm, self).update()
-        logger.info("send newsletter update called")
-        self.widgets["channel_topics"].update()
 
 
 
@@ -108,7 +116,8 @@ class SendForm(form.Form):
         if errors:
             self.status = form.EditForm.formErrorsMessage
             return
-        channel = data['channel']
+
+        channel = data["channel_and_collector"][0]
         channel_paths = ['/'.join(channel.getPhysicalPath())]
         newsletter_path = "/".join(context.getPhysicalPath())
         newsletter_uid = IUUID(context)
@@ -138,7 +147,7 @@ class SendForm(form.Form):
             self.status = form.EditForm.formErrorsMessage
             return
 
-        channel = data['channel']
+        channel = data["channel_and_collector"][0]
         if not isinstance(channel.scheduler,
                           collective.singing.scheduler.TimedScheduler):
             self.status = _("${name} does not support scheduling.",
@@ -170,9 +179,12 @@ class SendForm(form.Form):
             return
 
         for field_name in self.fields.omit('channel', 'address', 'datetime',
-                                           'include_collector_items'):
+                                           'include_collector_items', 'channel_and_collector'):
             if data[field_name] is not None:
                 override_vars[field_name] = data[field_name]
+
+        if len(data["channel_and_collector"]) == 2:
+            override_vars["subscriptions_for_collector"] = data["channel_and_collector"][1]
 
         return override_vars
 
