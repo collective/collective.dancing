@@ -173,7 +173,9 @@ def channel_added(channel, event):
     # We'll take extra care that when we're imported through the ZMI,
     # we update things to keep everything up to date:
     subscriptions = collective.singing.subscribe.subscriptions_data(channel)
-    subscriptions._catalog.clear()
+
+    if hasattr(subscriptions, "_catalog"):
+        subscriptions._catalog.clear()
 
     for subscription in subscriptions.values():
         # Let's make sure that ``subscription.channel`` refers to the
