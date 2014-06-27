@@ -40,7 +40,7 @@ from collective.dancing.composer import check_email
 from collective.dancing.browser import controlpanel
 from collective.dancing.browser.interfaces import ISendAndPreviewForm
 from collective.dancing.utils import switch_on
-
+from collective.dancing.interfaces import ISubscriptionsFromScriptChannel
 
 def simpleitem_wrap(klass, name):
     class SimpleItemWrapper(klass, OFS.SimpleItem.SimpleItem):
@@ -828,3 +828,17 @@ class ManageChannelView(BrowserView):
         return wrapper % \
                ("\n".join((template % (id(msg), zope.i18n.translate(msg, context=self.request), id(msg), html)
                            for (msg, html) in fieldsets)))
+
+
+
+class EditScriptChannelForm(EditChannelForm):
+
+    @property
+    def fields(self):
+
+        fields = super(EditScriptChannelForm, self).fields
+        fields += z3c.form.field.Fields(ISubscriptionsFromScriptChannel).select('script_path')
+        return fields
+
+class ManageScriptChannelView(ManageChannelView):
+    edit_form = EditScriptChannelForm

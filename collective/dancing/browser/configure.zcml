@@ -110,6 +110,13 @@
 
   <page
       name="index_html"
+      for="collective.dancing.interfaces.ISubscriptionsFromScriptChannel"
+      class=".channel.ManageScriptChannelView"
+      permission="dancing.ManageNewsletters"
+      />
+
+  <page
+      name="index_html"
       for="collective.dancing.collector.CollectorContainer"
       class=".collector.CollectorAdministrationView"
       permission="dancing.ManageNewsletters"
