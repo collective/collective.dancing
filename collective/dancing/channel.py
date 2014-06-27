@@ -31,6 +31,10 @@ import collective.dancing.subscribe
 import collective.dancing.utils
 from collective.dancing import MessageFactory as _
 
+
+from interfaces import ISubscriptionsFromScriptChannel
+from subscribe import SubscriptionsFromScript
+
 def portal_newsletters():
     """Return mailing-lists created with the newsletter tool."""
 
@@ -203,5 +207,22 @@ def collector_removed(collector, event):
             if aq_base(channel.collector) is aq_base(collector):
                 channel.collector = None
 
+
+class SubscriptionsFromScriptChannel(Channel):
+    interface.implements(ISubscriptionsFromScriptChannel)
+    type_name = _("Subscriptions from Script Channel")
+
+    def __init__ (self, *args, **kwargs):
+        super(SubscriptionsFromScriptChannel, self).__init__ (*args, **kwargs)
+
+        self.script_path = None
+        self.subscriptions = SubscriptionsFromScript()
+
+
+
+
+
+
+
 # This lists of factories is mutable: You can add to it:
-channels = [Channel,]
+channels = [Channel,SubscriptionsFromScriptChannel]
