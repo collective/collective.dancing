@@ -408,8 +408,10 @@ def parseSubscriberCSVFile(subscriberdata, composer,
                 else:
                     fields = field.Fields(composer.schema).keys()
                     # could be import old csv that does not have sections column
-                    if len(parsedline) != len(fields):
-                        fields.append('sections')
+                    if len(parsedline) > len(fields):
+                        section_length = len(parsedline) - len(fields)
+                        for i in section_length:
+                            fields.append('section')
             if len(parsedline)<len(fields):
                 pass
             else:
@@ -418,10 +420,10 @@ def parseSubscriberCSVFile(subscriberdata, composer,
                        map(lambda x:x.decode(charset), parsedline)))
 
                     # splits 'sections' data from subscriber
-                    if 'sections' in subscriber:
-                        section = dict([('email', subscriber['email']), ('sections', subscriber['sections'])])
+                    if 'section' in subscriber:
+                        section = dict([('email', subscriber['email']), ('section', subscriber['section'])])
                         sections.append(section)
-                        del subscriber['sections']
+                        del subscriber['section']
 
                     subscriber['email'] = subscriber['email'].lower()
                     check_email(subscriber['email'])
@@ -456,7 +458,7 @@ class ExportCSV(BrowserView):
         for format in self.context.composers.keys():
             composers_keys = field.Fields(self.context.composers[format].schema).keys()
             # add csv header row
-            writer.writerow(composers_keys + ['sections'])
+            writer.writerow(composers_keys + ['section'] * len(collectors_keys))
             for subscription in tuple(self.context.subscriptions.query(format=format)):
                 row = []
                 for item in composers_keys:
@@ -465,14 +467,12 @@ class ExportCSV(BrowserView):
                 selected_collectors = {}
                 if 'selected_collectors' in subscription.collector_data:
                     selected_collectors = dict([(c.title.strip() + ' (' + c.id + ')', c.title.strip()) for c in subscription.collector_data['selected_collectors']])
-                sections = []
                 for item in collectors_keys:
                     if item in selected_collectors:
                         # the csv section field format is "title (id)"
-                        sections.append(self._convertValue(item, charset))
+                        row.append(self._convertValue(item, charset))
                     else:
-                        sections.append('')
-                row.append('|'.join(sections))
+                        row.append('')
 
                 writer.writerow(row)
         return res.getvalue()
