@@ -404,20 +404,45 @@ def parseSubscriberCSVFile(subscriberdata, composer,
             if index == 0:
                 if header_row_present:
                     fields = parsedline
-                    continue
                 else:
                     fields = field.Fields(composer.schema).keys()
                     # could be import old csv that does not have sections column
                     if len(parsedline) > len(fields):
                         section_length = len(parsedline) - len(fields)
-                        for i in section_length:
+                        for i in range(section_length):
                             fields.append('section')
+                # combine all the sections into one section list
+                section_row_fields = []
+                section_index = -1
+                for i in range(len(fields)):
+                    if fields[i] != 'section':
+                        section_row_fields.append(fields[i])
+                    elif section_index < 0:
+                        section_index = i
+                        section_row_fields.append(fields[i])
+                if header_row_present:
+                    continue
+
             if len(parsedline)<len(fields):
                 pass
             else:
                 try:
-                    subscriber = dict(zip(fields,\
-                       map(lambda x:x.decode(charset), parsedline)))
+                    # combine all the sections into one section list
+                    new_fields = fields
+                    old_parsedline = parsedline
+                    parsedline = []
+                    section_field = []
+                    for i in range(len(fields)):
+                        if fields[i] != 'section':
+                            parsedline.append(old_parsedline[i])
+                        else:
+                            section_field.append(old_parsedline[i].decode(charset))
+                    if section_index > -1:
+                        new_fields = section_row_fields
+                        parsedline.insert(section_index, section_field)
+
+                    subscriber = dict(zip(new_fields,\
+                       map(lambda x:x.decode(charset) if isinstance(x, basestring) else x, parsedline)))
 
                     # splits 'sections' data from subscriber
                     if 'section' in subscriber:
@@ -591,20 +616,31 @@ class UploadForm(crud.AddForm):
         new_sections = {}
         if self.mychannel.collector and self.mychannel.collector.id in self.mychannel.collectors.keys():
             optional_collectors = self.mychannel.collectors[self.mychannel.collector.id].get_optional_collectors()
-            collector_data = {}
+            collectors_dict_title = {}
+            collectors_dict_id = {}
             for optional_collector in optional_collectors:
-                collector_data[optional_collector.id] = optional_collector
+                collectors_dict_title[optional_collector.title] = optional_collector
+                collectors_dict_id[optional_collector.id] = optional_collector
+
             for section in sections:
-                if 'sections' in section and 'email' in section:
-                    sections_data = section['sections'].split('|')
+                if 'section' in section and 'email' in section:
+                    sections_data = section['section']
                     new_section_data = []
                     for section_data in sections_data:
                         if not section_data:
                             continue
-                        # section data format is "title (id)"
-                        section_id = section_data.split(' ')[-1][1:-1]
-                        if section_id in collector_data:
-                            new_section_data.append(collector_data[section_id])
+                        # section data format is "title (id)" or "title"
+                        if section_data.split(' ')[-1][0] == '(' and section_data.split(' ')[-1][-1] == ')':
+                            # use id
+                            # check if title (id)
+                            section_id = section_data.split(' ')[-1][1:-1]
+                            if section_id in collectors_dict_id:
+                                new_section_data.append(collectors_dict_id[section_id])
+                        else:
+                            # use title
+                            # section data format is "title"
+                            if section_data in collectors_dict_title:
+                                new_section_data.append(collectors_dict_title[section_data])   
                     new_sections[section['email']] = sets.Set(new_section_data)
 
         added = 0
