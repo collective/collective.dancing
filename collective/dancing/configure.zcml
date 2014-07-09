@@ -178,7 +178,7 @@
 
 
   
-  <configure zcml:condition"installed collective.cron" >
+  <configure zcml:condition="installed collective.cron" >
       <adapter factory=".cronrunner.SingingCronJob" name="singingcronjob"/>
   </configure>
 
