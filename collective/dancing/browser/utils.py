@@ -56,7 +56,10 @@ class DancingUtilsView(BrowserView):
         for channel in channel_lookup():
             queued = status = None
             if channel.scheduler is not None:
-                queued = channel.scheduler.tick(channel, self.request)
+                if hasattr(channel.scheduler, "assemble_due_items"):
+                    queued = channel.scheduler.assemble_due_items(channel, self.request)
+                else:
+                    queued = channel.scheduler.tick(channel, self.request)
             if channel.queue is not None:
                 status = channel.queue.dispatch()
             d = {'channel':channel.name,
