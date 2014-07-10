@@ -17,5 +17,4 @@ class SingingCronJob(crontab.Runner):
         portal = makerequest(portal)
         utilsview = portal.unrestrictedTraverse("@@dancing.utils")
 
-        import pdb; pdb.set_trace()
         utilsview._tick_and_dispatch()
