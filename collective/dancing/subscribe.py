@@ -45,17 +45,25 @@ class Subscriptions(collective.singing.subscribe.Subscriptions):
     subscription_factory = Subscription
 
 
-class SubscriptionFromDictionary (SimpleSubscription):
+class SubscriptionFromDictionary(SimpleSubscription):
     """
       A transiant subscription object. Turns a dictionary into a subscription.
     """
 
     def find_topic(self, title):
         collector = self._channel.collector
-        optional_collectors = collector.get_optional_collectors()
-        for c in optional_collectors:
-            if c.title == title:
-                return c
+        if not collector:
+            return None
+
+        selected_collector = collector.id
+        collectors = self._channel.collectors
+        if selected_collector not in collectors.keys():
+            return None
+
+        optional_collectors = collectors[selected_collector].get_optional_collectors()
+        for optional in optional_collectors:
+            if optional.title == title:
+                return optional
         return None
 
     def __init__(self, channel, data):
@@ -69,6 +77,10 @@ class SubscriptionFromDictionary (SimpleSubscription):
             collector = self.find_topic(collector_title)
             if collector is not None:
                 collector_data["selected_collectors"].append(collector)
+        # in original s+d, not all collector_data have 'selected_collectors',
+        # it is save to delete the empty one
+        if not len(collector_data["selected_collectors"]):
+            del collector_data["selected_collectors"]
 
         super(SubscriptionFromDictionary, self).__init__(
             channel,
