@@ -40,10 +40,9 @@ class Subscription(collective.singing.subscribe.SimpleSubscription):
             self._channel = channel
         return property(get, set)
 
+
 class Subscriptions(collective.singing.subscribe.Subscriptions):
     subscription_factory = Subscription
-
-
 
 
 class SubscriptionFromDictionary (SimpleSubscription):
@@ -51,14 +50,13 @@ class SubscriptionFromDictionary (SimpleSubscription):
       A transiant subscription object. Turns a dictionary into a subscription.
     """
 
-    def find_topic (self, title):
+    def find_topic(self, title):
         collector = self._channel.collector
         optional_collectors = collector.get_optional_collectors()
         for c in optional_collectors:
             if c.title == title:
                 return c
         return None
-
 
     def __init__(self, channel, data):
 
@@ -72,15 +70,13 @@ class SubscriptionFromDictionary (SimpleSubscription):
             if collector is not None:
                 collector_data["selected_collectors"].append(collector)
 
-        
-        super(SubscriptionFromDictionary, self).__init__ (
-                channel, 
-                data['secret'], 
-                copy(data["composer_data"]), 
-                collector_data, 
-                copy(data["metadata"])
-            )
-
+        super(SubscriptionFromDictionary, self).__init__(
+            channel,
+            data['secret'],
+            copy(data["composer_data"]),
+            collector_data,
+            copy(data["metadata"])
+        )
 
 
 class SubscriptionsFromScript (SimpleItem):
@@ -91,10 +87,10 @@ class SubscriptionsFromScript (SimpleItem):
     
     zope.interface.implements(ISubscriptions)
 
-    def __init__ (self):
+    def __init__(self):
         super(SubscriptionsFromScript, self).__init__()
 
-    def get_channel (self):
+    def get_channel(self):
         return self.aq_parent
 
     def values(self):
@@ -109,8 +105,7 @@ class SubscriptionsFromScript (SimpleItem):
             for item in script():
                 yield SubscriptionFromDictionary(channel, item)
 
-    def add_subscription(self,
-        channel, secret, composer_data, collector_data, metadata):
+    def add_subscription(self, channel, secret, composer_data, collector_data, metadata):
         """Add a subscription and return it.
 
         Raises ValueError if subscription already exists.
@@ -128,8 +123,3 @@ class SubscriptionsFromScript (SimpleItem):
         Available fields are: 'fulltext', 'secret', 'format', 'key', 'label'.
         """
         return []
-
-
-
-
-
