@@ -1,20 +1,25 @@
 
 
-from AccessControl.SecurityManagement import newSecurityManager
+from AccessControl.SecurityManagement import newSecurityManager, setSecurityManager
 from AccessControl.SecurityManager import setSecurityPolicy 
-from Testing.makerequest import makerequest 
-from Products.CMFCore.tests.base.security import PermissiveSecurityPolicy, OmnipotentUser
+from Testing.makerequest import makerequest
+
+
 
 
 from collective.cron import crontab
 class SingingCronJob(crontab.Runner):
     def run(self):
 
+        cron = self.cron
         portal = self.context
-
-        # not quite sure where to get a requet from
-        newSecurityManager(None, OmnipotentUser().__of__(portal.acl_users))
+        user = portal.acl_users.getUser(cron.user)
+        newSecurityManager(None, user)
         portal = makerequest(portal)
-        utilsview = portal.unrestrictedTraverse("@@dancing.utils")
 
-        utilsview._tick_and_dispatch()
+        dancing_utils = portal.unrestrictedTraverse("@@dancing.utils")
+        dancing_utils._tick_and_dispatch()
+
+        setSecurityManager(None)
+
+
