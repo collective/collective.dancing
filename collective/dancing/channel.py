@@ -214,6 +214,10 @@ class SubscriptionsFromScriptChannel(Channel):
 
         self.script_path = None
         self.subscriptions = SubscriptionsFromScript()
+        # currently the old email still keep in subscriptions_metadata
+        # might delete it in the future.
+        # and the email is unique
+        self.subscriptions_metadata = persistent.dict.PersistentDict()
 
 
 

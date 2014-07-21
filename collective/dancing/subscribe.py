@@ -82,12 +82,22 @@ class SubscriptionFromDictionary(SimpleSubscription):
         if not len(collector_data["selected_collectors"]):
             del collector_data["selected_collectors"]
 
+        composer_data = copy(data["composer_data"])
+        metadata = copy(data["metadata"])
+
+        subscription_email = composer_data["email"]
+        if subscription_email in self._channel.subscriptions_metadata:
+            subscriptions_metadata = self._channel.subscriptions_metadata[subscription_email]
+            subscriptions_metadata.update(metadata)
+        else:
+            self._channel.subscriptions_metadata[subscription_email] = metadata
+
         super(SubscriptionFromDictionary, self).__init__(
             channel,
-            data['secret'],
-            copy(data["composer_data"]),
+            data["secret"],
+            composer_data,
             collector_data,
-            copy(data["metadata"])
+            self._channel.subscriptions_metadata[subscription_email]
         )
 
 
@@ -115,6 +125,20 @@ class SubscriptionsFromScript (SimpleItem):
         if channel.script_path is not None:
             script = portal.unrestrictedTraverse(str(channel.script_path))
             for item in script():
+                # check the script have right data
+                # data have "composer_data", "secret", "collector_data", and "metadata"
+                if "composer_data" not in item:
+                    continue
+                if "email" not in item["composer_data"]:
+                    continue
+                if "secret" not in item:
+                    continue
+                if "collector_data" not in item:
+                    continue
+                if "selected_collectors" not in item["collector_data"]:
+                    continue
+                if "metadata" not in item:
+                    continue
                 yield SubscriptionFromDictionary(channel, item)
 
     def add_subscription(self, channel, secret, composer_data, collector_data, metadata):
