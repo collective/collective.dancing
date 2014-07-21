@@ -32,6 +32,35 @@ from Acquisition import aq_inner, aq_base
 logger = logging.getLogger("collective.dancing")
 
 
+
+# A content rules based scheduler
+# content rule action to send as a newsletter - lets you pick channel to send to, and date to use to schedule
+# a content rule filter to use a collector to determine (or could use collective.keywordcondition 1.0b1)
+# can just use timed schedular.
+# some how also need to pick a section to send to? or might have to include collector. Except that would be confusing
+# as email will go to everyone regardless.
+
+# e.g
+# 1. object published
+# 2. triggers rule
+# 3. item is in collector results
+# 4. effective date used to schedule
+# 5. use send as newsletter, schedule and don't include collector results
+
+
+
+# or
+# every minute schedular
+# modify collectors to pick a que field (instead of modified it might be start or effective
+# also don't store the queue unless an item actually matched. This will help by reducing transactions.
+# this will have the side effect that if an event moves its date into the past it can get triggered.
+# it also means it runs all teh searches on every trigger for every subscriber, which isn't very efficient
+
+
+
+
+
+
 class IChannelAction(Interface):
     """Definition of the configuration available for a send to channel action
     """
