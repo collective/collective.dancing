@@ -88,13 +88,14 @@ def ChannelAndCollectorVocab (context):
                 value=(channel,),
                 token=channel.name,
                 title=channel.title))
-        for collector in channel.collector.get_optional_collectors():
+        if channel.collector is not None:
+            for collector in channel.collector.get_optional_collectors():
 
-            terms.append(zope.schema.vocabulary.SimpleTerm(
-                value=(channel,collector),
-                token=channel.name + "/" + collector.title,
-                title=channel.title + " - " + collector.title
-                ))
+                terms.append(zope.schema.vocabulary.SimpleTerm(
+                    value=(channel,collector),
+                    token=channel.name + "/" + collector.title,
+                    title=channel.title + " - " + collector.title
+                    ))
 
     return SimpleVocabulary(terms)
 

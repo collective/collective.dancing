@@ -6,6 +6,7 @@
    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
    xmlns:monkey="http://namespaces.plone.org/monkey"
    xmlns:zcml="http://namespaces.zope.org/zcml"
+   xmlns:plone="http://namespaces.plone.org/plone"
    i18n_domain="collective.dancing">
 
   <include package="collective.singing" />
@@ -181,6 +182,36 @@
   <configure zcml:condition="installed collective.cron" >
       <adapter factory=".cronrunner.SingingCronJob" name="singingcronjob"/>
   </configure>
+
+    <!-- Channel content rule action definition -->
+
+     <adapter factory=".contentrules.ChannelActionExecutor" />
+
+     <browser:page
+       for="plone.app.contentrules.browser.interfaces.IRuleActionAdding"
+       name="collective.dancing.actions.Channel"
+       class=".contentrules.ChannelAddForm"
+       permission="plone.app.contentrules.ManageContentRules"
+       />
+
+     <browser:page
+       for=".contentrules.IChannelAction"
+       name="edit"
+       class=".contentrules.ChannelEditForm"
+       permission="plone.app.contentrules.ManageContentRules"
+       />
+
+     <plone:ruleAction
+         name="collective.dancing.actions.Channel"
+         title="Send as newsletter"
+         description="Send the item as a singing and dancing newsletter"
+         for="*"
+         event="zope.component.interfaces.IObjectEvent"
+         addview="collective.dancing.actions.Channel"
+         editview="edit"
+         schema=".contentrules.IChannelAction"
+         factory=".contentrules.ChannelAction"
+         />
 
 
 </configure>
