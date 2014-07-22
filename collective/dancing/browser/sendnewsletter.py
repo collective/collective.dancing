@@ -81,21 +81,24 @@ def _assemble_messages(channel_paths, newsletter_uid, newsletter_path,
              mapping=dict(queued=queued))
 
 
-def ChannelAndCollectorVocab (context):
+def ChannelAndCollectorVocab(context):
     terms = []
     for channel in channel_lookup(only_sendable=True):
         terms.append(zope.schema.vocabulary.SimpleTerm(
-                value=(channel,),
-                token=channel.name,
-                title=channel.title))
-        for collector in channel.collector.get_optional_collectors():
+            value=(channel,),
+            token=channel.name,
+            title=channel.title))
 
+        # channel.collector could be none
+        if not channel.collector:
+            continue
+
+        for collector in channel.collector.get_optional_collectors():
             terms.append(zope.schema.vocabulary.SimpleTerm(
-                value=(channel,collector),
+                value=(channel, collector),
                 token=channel.name + "/" + collector.title,
                 title=channel.title + " - " + collector.title
-                ))
-
+            ))
     return SimpleVocabulary(terms)
 
 
