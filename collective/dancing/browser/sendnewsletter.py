@@ -81,22 +81,24 @@ def _assemble_messages(channel_paths, newsletter_uid, newsletter_path,
              mapping=dict(queued=queued))
 
 
-def ChannelAndCollectorVocab (context):
+def ChannelAndCollectorVocab(context):
     terms = []
     for channel in channel_lookup(only_sendable=True):
         terms.append(zope.schema.vocabulary.SimpleTerm(
-                value=(channel,),
-                token=channel.name,
-                title=channel.title))
-        if channel.collector is not None:
-            for collector in channel.collector.get_optional_collectors():
+            value=(channel,),
+            token=channel.name,
+            title=channel.title))
 
-                terms.append(zope.schema.vocabulary.SimpleTerm(
-                    value=(channel,collector),
-                    token=channel.name + "/" + collector.title,
-                    title=channel.title + " - " + collector.title
-                    ))
+        # channel.collector could be none
+        if not channel.collector:
+            continue
 
+        for collector in channel.collector.get_optional_collectors():
+            terms.append(zope.schema.vocabulary.SimpleTerm(
+                value=(channel, collector),
+                token=channel.name + "/" + collector.title,
+                title=channel.title + " - " + collector.title
+            ))
     return SimpleVocabulary(terms)
 
 
@@ -157,7 +159,7 @@ class SendForm(form.Form):
         if not data.get('datetime'):
             self.status = _("Please fill in a date.")
             return
-            
+
         # XXX: We want to get the UIDResolver through an adapter
         # in the future
         channel.scheduler.items.append((
