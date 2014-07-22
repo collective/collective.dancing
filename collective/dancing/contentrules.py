@@ -195,10 +195,10 @@ class CollectorCondition(SimpleItem):
     """
     implements(ICollectorCondition, IRuleElementData)
 
-    check_types = []
+    channel_and_collector = (None,None)
     element = "collective.dancing.contentrules.Collector"
 
-     @property
+    @property
     def summary(self):
         channel, collector = self.channel_and_collector
         try:
@@ -228,12 +228,21 @@ class CollectorConditionExecutor(object):
         # get the collector. Run the collector and see if obj is in the results
         use_cue = None
         subscription = None
-        self.element.collector
-        collector_items, cue = collector.get_items(use_cue, subscription)
-        if obj in collector_items:
-            return True
+        path, collector_title = self.element.channel_and_collector
+        site = getSite()
+        channel = site.unrestrictedTraverse(path)
+        collector = channel.collector
+        items = []
+        if collector_title is None:
+            # use selected collector on the channel
+            # warning, this means that everyone on the channel will get anything that one part of the collector matched.
+            items, cue = collector.get_items(use_cue, subscription)
         else:
-            return False
+            for section in channel.collector.get_optional_collectors():
+                if section.title == collector_title:
+                    items, cue = section.get_items(use_cue, subscription)
+
+        return obj in items
 
 
 class CollectorAddForm(AddForm):
