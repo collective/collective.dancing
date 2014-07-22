@@ -93,3 +93,10 @@ Let's create subscriptions from script channel:
   [<Channel at /plone/portal_newsletters/channels/default-channel>,
    <Channel at /plone/portal_newsletters/channels/wq>,
    <SubscriptionsFromScriptChannel at /plone/portal_newsletters/channels/external>]
+
+Delete subscriptions from script channel:
+
+  >>> del channels['external']
+  >>> channel_lookup() # doctest: +NORMALIZE_WHITESPACE
+  [<Channel at /plone/portal_newsletters/channels/default-channel>,
+   <Channel at /plone/portal_newsletters/channels/wq>]
