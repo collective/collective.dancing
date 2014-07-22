@@ -94,6 +94,35 @@ Let's create subscriptions from script channel:
    <Channel at /plone/portal_newsletters/channels/wq>,
    <SubscriptionsFromScriptChannel at /plone/portal_newsletters/channels/external>]
 
+Add python scripts
+
+  >>> from Products.PythonScripts.PythonScript import PythonScript
+  >>> ps = PythonScript('ps')
+  >>> txt = """return {'composer_data':
+  ...     {'organization': u'blah',
+  ...     'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34',
+  ...     'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34',
+  ...     'email': u'test@mail.com',
+  ...     'confirm_url': u'https://localhost:8080/db/pgConfirmSubscription?secret=34'},
+  ...     'secret': u'34',
+  ...     'collector_data':
+  ...     {'selected_collectors': ['news']},
+  ...     'metadata':
+  ...     {'pending': False,
+  ...     'format': 'html'}}"""
+  >>> ps.write(txt)
+  >>> ps._makeFunction()
+  >>> ps._exec({}, (), {})
+  {'composer_data': {'organization': u'blah', 'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34', 'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34', 'email': u'test@mail.com', 'confirm_url': u'https://localhost:8080/db/pgConfirmSubscription?secret=34'}, 'secret': u'34', 'collector_data': {'selected_collectors': ['news']}, 'metadata': {'pending': False, 'format': 'html'}}
+
+  >>> channels['external'].subscriptions
+  <SubscriptionsFromScript at /plone/portal_newsletters/channels/external/>
+
+  >>> channels['external'].subscriptions_metadata
+  {}
+
+Need to know how to add python script to plone site and assign to SubscriptionsFromScriptChannel script_path
+
 Delete subscriptions from script channel:
 
   >>> del channels['external']
