@@ -85,20 +85,24 @@ class SubscriptionFromDictionary(SimpleSubscription):
         composer_data = copy(data["composer_data"])
         metadata = copy(data["metadata"])
 
-        subscription_email = composer_data["email"]
-        if subscription_email in self._channel.subscriptions_metadata:
-            subscriptions_metadata = self._channel.subscriptions_metadata[subscription_email]
-            subscriptions_metadata.update(metadata)
-        else:
-            self._channel.subscriptions_metadata[subscription_email] = metadata
-
         super(SubscriptionFromDictionary, self).__init__(
             channel,
             data["secret"],
             composer_data,
             collector_data,
-            self._channel.subscriptions_metadata[subscription_email]
+            metadata
         )
+
+        # we need to reference the metadata from Subscription to Channel
+        # when self.metadata set a value. the value is copy to
+        # self._channel.subscriptions_metadata[subscription_email] as well
+        subscription_email = composer_data["email"]
+        if subscription_email in self._channel.subscriptions_metadata:
+            self._channel.subscriptions_metadata[subscription_email].update(metadata)
+        else:
+            self._channel.subscriptions_metadata[subscription_email] = metadata
+
+        self.metadata = self._channel.subscriptions_metadata[subscription_email]
 
 
 class SubscriptionsFromScript (SimpleItem):
