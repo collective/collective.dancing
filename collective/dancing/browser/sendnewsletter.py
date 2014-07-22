@@ -191,9 +191,14 @@ class SendForm(form.Form):
             if data[field_name] is not None:
                 override_vars[field_name] = data[field_name]
 
-        channel, section = data["channel_and_collector"]
-        if section is not None:
-            override_vars["subscriptions_for_collector"] = section
+        channel_path, section_title = data["channel_and_collector"]
+        if section_title is not None:
+            site = getSite()
+            channel = site.unrestrictedTraverse(channel_path)
+            for section in channel.collector.get_optional_collectors():
+                if section.title == section_title:
+                    override_vars["subscriptions_for_collector"] = section
+                    break
 
         return override_vars
 
