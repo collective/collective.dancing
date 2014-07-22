@@ -84,21 +84,21 @@ def _assemble_messages(channel_paths, newsletter_uid, newsletter_path,
 def ChannelAndCollectorVocab(context):
     terms = []
     for channel in channel_lookup(only_sendable=True):
+        # use path so we can store the value savely if needed
+        path = '/'.join(channel.getPhysicalPath())
         terms.append(zope.schema.vocabulary.SimpleTerm(
-            value=(channel,),
+            value=(path, None),
             token=channel.name,
             title=channel.title))
+        if channel.collector is not None:
+            for collector in channel.collector.get_optional_collectors():
 
-        # channel.collector could be none
-        if not channel.collector:
-            continue
+                terms.append(zope.schema.vocabulary.SimpleTerm(
+                    value=(path, collector.name),
+                    token=channel.name + "/" + collector.title,
+                    title=channel.title + " - " + collector.title
+                    ))
 
-        for collector in channel.collector.get_optional_collectors():
-            terms.append(zope.schema.vocabulary.SimpleTerm(
-                value=(channel, collector),
-                token=channel.name + "/" + collector.title,
-                title=channel.title + " - " + collector.title
-            ))
     return SimpleVocabulary(terms)
 
 
@@ -120,8 +120,8 @@ class SendForm(form.Form):
             self.status = form.EditForm.formErrorsMessage
             return
 
-        channel = data["channel_and_collector"][0]
-        channel_paths = ['/'.join(channel.getPhysicalPath())]
+        path = data["channel_and_collector"][0]
+        channel_paths = [path]
         newsletter_path = "/".join(context.getPhysicalPath())
         newsletter_uid = IUUID(context)
         include_collector_items = data['include_collector_items']
@@ -133,6 +133,8 @@ class SendForm(form.Form):
                                             newsletter_path,
                                             include_collector_items,
                                             override_vars)
+        site = getSite()
+        channel = site.unrestrictedTraverse(path)
         title = _(u"Send '${context}' through ${channel}.",
                   mapping=dict(
             context=context.Title().decode(context.plone_utils.getSiteEncoding()),
@@ -150,7 +152,10 @@ class SendForm(form.Form):
             self.status = form.EditForm.formErrorsMessage
             return
 
-        channel = data["channel_and_collector"][0]
+        path, section = data["channel_and_collector"]
+        site = getSite()
+        channel = site.unrestrictedTraverse(path)
+
         if not isinstance(channel.scheduler,
                           collective.singing.scheduler.TimedScheduler):
             self.status = _("${name} does not support scheduling.",
@@ -186,8 +191,9 @@ class SendForm(form.Form):
             if data[field_name] is not None:
                 override_vars[field_name] = data[field_name]
 
-        if len(data["channel_and_collector"]) == 2:
-            override_vars["subscriptions_for_collector"] = data["channel_and_collector"][1]
+        channel, section = data["channel_and_collector"]
+        if section is not None:
+            override_vars["subscriptions_for_collector"] = section
 
         return override_vars
 
