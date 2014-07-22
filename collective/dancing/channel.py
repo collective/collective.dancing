@@ -219,11 +219,5 @@ class SubscriptionsFromScriptChannel(Channel):
         # and the email is unique
         self.subscriptions_metadata = persistent.dict.PersistentDict()
 
-
-
-
-
-
-
 # This lists of factories is mutable: You can add to it:
 channels = [Channel,SubscriptionsFromScriptChannel]

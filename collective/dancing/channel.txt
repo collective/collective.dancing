@@ -81,3 +81,15 @@ An ISalt utility is created at install time.  It's available for us:
   >>> salt = component.getUtility(ISalt)
   >>> len(salt)
   50
+
+Subscriptions From Script Channel
+---------------------------------
+Let's create subscriptions from script channel:
+
+  >>> from collective.dancing.channel import SubscriptionsFromScriptChannel
+  >>> channels = self.portal['portal_newsletters']['channels']
+  >>> channels['external'] = SubscriptionsFromScriptChannel('external')
+  >>> channel_lookup() # doctest: +NORMALIZE_WHITESPACE
+  [<Channel at /plone/portal_newsletters/channels/default-channel>,
+   <Channel at /plone/portal_newsletters/channels/wq>,
+   <SubscriptionsFromScriptChannel at /plone/portal_newsletters/channels/external>]
