@@ -155,7 +155,7 @@ We now have the option to add one of these ;-)
 
   >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
   >>> browser.getControl('Type').displayOptions
-  ['Standard Channel', 'Awesome Channel']
+  ['Standard Channel', 'Subscriptions from Script Channel', 'Awesome Channel']
 
   >>> browser.getControl('Type').displayValue = ['Awesome Channel']
   >>> browser.getControl('Title').value = 'My awesome channel'
@@ -223,7 +223,10 @@ creating new channels.
   >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
   >>> 'Standard Channel' in browser.contents
   True
-  >>> del collective.dancing.channel.channels[1]
+
+For master branch, del collective.dancing.channel.channels[0] or [1], the test below will still pass, but not when 'Subscriptions from Script Channel' is added.
+
+  >>> del collective.dancing.channel.channels[0]
   >>> browser.reload()
   >>> 'Standard Channel' in browser.contents
   False
