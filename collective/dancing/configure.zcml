@@ -213,5 +213,34 @@
          factory=".contentrules.ChannelAction"
          />
 
+    <adapter factory=".contentrules.CollectorConditionExecutor" />
+
+    <browser:page
+      for="plone.app.contentrules.browser.interfaces.IRuleConditionAdding"
+      name="collective.dancing.conditions.Collector"
+      class=".contentrules.CollectorAddForm"
+      permission="plone.app.contentrules.ManageContentRules"
+      />
+
+    <browser:page
+      for="collective.dancing.contentrules.ICollectorCondition"
+      name="edit"
+      class=".contentrules.CollectorEditForm"
+      permission="plone.app.contentrules.ManageContentRules"
+      />
+
+    <plone:ruleCondition
+        name="collective.dancing.contentrules.Collector"
+        title="Collector"
+        description="Apply only when it matches a collector"
+        for="*"
+        event="zope.component.interfaces.IObjectEvent"
+        addview="collective.dancing.conditions.Collector"
+        editview="edit"
+        schema=".contentrules.ICollectorCondition"
+        factory=".contentrules.CollectorCondition"
+        />
+
+
 
 </configure>

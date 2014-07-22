@@ -92,9 +92,9 @@ def ChannelAndCollectorVocab(context):
             title=channel.title))
         if channel.collector is not None:
             for collector in channel.collector.get_optional_collectors():
-
+                # the value needs to be collector.title as that is what is stored in the subscription
                 terms.append(zope.schema.vocabulary.SimpleTerm(
-                    value=(path, collector.name),
+                    value=(path, collector.title),
                     token=channel.name + "/" + collector.title,
                     title=channel.title + " - " + collector.title
                     ))
