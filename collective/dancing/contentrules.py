@@ -110,8 +110,8 @@ class ChannelActionExecutor(object):
 
         context = self.event.object
 
-        channel, section = self.element.channel_and_collector
-        channel_paths = [channel]
+        channel_path, section_title = self.element.channel_and_collector
+        channel_paths = [channel_path]
         newsletter_path = "/".join(context.getPhysicalPath())
         try:
             newsletter_uid = IUUID(context)
@@ -121,8 +121,13 @@ class ChannelActionExecutor(object):
         #include_collector_items = self.element.include_collector_items
         include_collector_items = False
         override_vars = {} # later could support saving overrides
-        if section is not None:
-            override_vars["subscriptions_for_collector"] = section
+        site = getSite()
+        channel = site.unrestrictedTraverse(channel_path)
+        if section_title is not None:
+            for section in channel.collector.get_optional_collectors():
+                if section.title == section_title:
+                    override_vars["subscriptions_for_collector"] = section
+                    break
 
         job = collective.singing.async.Job(_assemble_messages,
                                             channel_paths,
