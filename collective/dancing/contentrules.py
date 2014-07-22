@@ -21,6 +21,7 @@ from collective.dancing import MessageFactory as _
 from plone.app.contentrules.browser.formhelper import AddForm, EditForm
 from collective.dancing.browser.sendnewsletter import _assemble_messages
 import collective.singing
+from collective.dancing import utils
 
 
 from zope.site.hooks import getSite
@@ -79,17 +80,19 @@ class ChannelAction(SimpleItem):
     """
     implements(IChannelAction, IRuleElementData)
 
-    subject = u''
-    source = u''
-    recipients = u''
-    message = u''
+    channel_and_collector = u''
 
     element = 'collective.dancing.actions.Channel'
 
     @property
     def summary(self):
-        return _(u"Email report to ${recipients}",
-                 mapping=dict(recipients=self.recipients))
+        channel, collector = self.channel_and_collector
+        try:
+            title = channel + " - " + collector
+        except:
+            title = channel
+        return _(u"Send to channel ${channel}",
+                 mapping=dict(channel=title))
 
 
 class ChannelActionExecutor(object):
@@ -107,12 +110,19 @@ class ChannelActionExecutor(object):
 
         context = self.event.object
 
-        channel = self.element.channel_and_collector[0]
-        channel_paths = ['/'.join(channel.getPhysicalPath())]
+        channel, section = self.element.channel_and_collector
+        channel_paths = [channel]
         newsletter_path = "/".join(context.getPhysicalPath())
-        newsletter_uid = IUUID(context)
-        include_collector_items = self.element.include_collector_items
-        override_vars = self.get_override_vars()
+        try:
+            newsletter_uid = IUUID(context)
+        except TypeError:
+            # we got a could not adapt error. Object which can't send.
+            return False
+        #include_collector_items = self.element.include_collector_items
+        include_collector_items = False
+        override_vars = {} # later could support saving overrides
+        if section is not None:
+            override_vars["subscriptions_for_collector"] = section
 
         job = collective.singing.async.Job(_assemble_messages,
                                             channel_paths,
@@ -129,7 +139,6 @@ class ChannelActionExecutor(object):
 
         logger.info(u"Messages queued for delivery.")
         return True
-
 
 
 class ChannelAddForm(AddForm):
@@ -174,10 +183,9 @@ class ICollectorCondition(Interface):
     This is also used to create add and edit forms, below.
     """
 
-    collector = schema.Set(title=_(u"Content type"),
-                              description=_(u"The content type to check for."),
-                              required=True,
-                              value_type=schema.Choice(vocabulary="plone.app.vocabularies.ReallyUserFriendlyTypes"))
+    channel_and_collector = schema.Choice(
+        title=_("Select collector to filter item by. Optionally also select the specific section"),
+        vocabulary='collective.dancing.sendnewsletter.ChannelAndCollectorVocab')
 
 
 class CollectorCondition(SimpleItem):
@@ -190,17 +198,15 @@ class CollectorCondition(SimpleItem):
     check_types = []
     element = "collective.dancing.contentrules.Collector"
 
-    @property
+     @property
     def summary(self):
-        portal = getSite()
-        portal_types = getToolByName(portal, 'portal_types')
-        titles = []
-        for name in self.check_types:
-            fti = getattr(portal_types, name, None)
-            if fti is not None:
-                title = translate(fti.Title(), context=portal.REQUEST)
-                titles.append(title)
-        return _(u"Content types are: ${names}", mapping=dict(names=", ".join(titles)))
+        channel, collector = self.channel_and_collector
+        try:
+            title = channel + " - " + collector
+        except:
+            title = channel
+        return _(u"Filter by collector ${channel}",
+                 mapping=dict(channel=title))
 
 
 class CollectorConditionExecutor(object):
@@ -218,15 +224,16 @@ class CollectorConditionExecutor(object):
 
     def __call__(self):
         obj = aq_inner(self.event.object)
-        if not hasattr(aq_base(obj), 'getTypeInfo'):
-            return False
 
         # get the collector. Run the collector and see if obj is in the results
-
-        ti = obj.getTypeInfo() # getTypeInfo can be None
-        if ti is None:
+        use_cue = None
+        subscription = None
+        self.element.collector
+        collector_items, cue = collector.get_items(use_cue, subscription)
+        if obj in collector_items:
+            return True
+        else:
             return False
-        return ti.getId() in self.element.check_types
 
 
 class CollectorAddForm(AddForm):
