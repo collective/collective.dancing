@@ -77,10 +77,11 @@ class SubscriptionFromDictionary(SimpleSubscription):
             collector = self.find_topic(collector_title)
             if collector is not None:
                 collector_data["selected_collectors"].append(collector)
-        # in original s+d, not all collector_data have 'selected_collectors',
-        # it is save to delete the empty one
-        if not len(collector_data["selected_collectors"]):
-            del collector_data["selected_collectors"]
+        # if selected_collectors is empty it is important to leave it empty even though some channels
+        # don't have optional sections.
+        # In a channel with optional sections a missing selected_collectors means subscriber will get everything
+        # An empty selected_collectors means they will get nothing.
+        # we want the latter.
 
         composer_data = copy(data["composer_data"])
         metadata = copy(data["metadata"])
@@ -93,6 +94,7 @@ class SubscriptionFromDictionary(SimpleSubscription):
             metadata
         )
 
+        # Metadata is saved to for example the 'cue'. So we have to have somewhere to save it
         # we need to reference the metadata from Subscription to Channel
         # when self.metadata set a value. the value is copy to
         # self._channel.subscriptions_metadata[subscription_email] as well
