@@ -213,6 +213,9 @@ class CollectorCondition(SimpleItem):
         return _(u"Filter by collector ${channel}",
                  mapping=dict(channel=title))
 
+class FakeSubscriber:
+    collector_data = {}
+
 
 class CollectorConditionExecutor(object):
     """The executor for this condition.
@@ -238,13 +241,23 @@ class CollectorConditionExecutor(object):
         channel = site.unrestrictedTraverse(path)
         collector = channel.collector
         items = []
+
+        #HACK: reindex seems to fire after contentrules so you can't use catalog queries on data that's could have changed
+        # for example rule for state change and rely on collector that only finds published items
+        # for now we will do a reindex now. This will likely cause a double reindex which isn't nice
+        obj.reindex()
+
+        subscription = FakeSubscriber()
         if collector_title is None:
             # use selected collector on the channel
             # warning, this means that everyone on the channel will get anything that one part of the collector matched.
+            #subscription.collector_data['selected_collectors'] = set([collector])
             items, cue = collector.get_items(use_cue, subscription)
         else:
             for section in channel.collector.get_optional_collectors():
                 if section.title == collector_title:
+                    # we are faking the subscriber as items are only returned for optional collectors if subscribed to
+                    subscription.collector_data['selected_collectors'] = set([section])
                     items, cue = section.get_items(use_cue, subscription)
 
         return obj in items
