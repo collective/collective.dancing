@@ -245,13 +245,13 @@ class CollectorConditionExecutor(object):
         #HACK: reindex seems to fire after contentrules so you can't use catalog queries on data that's could have changed
         # for example rule for state change and rely on collector that only finds published items
         # for now we will do a reindex now. This will likely cause a double reindex which isn't nice
-        obj.reindex()
+        obj.reindexObject()
 
         subscription = FakeSubscriber()
         if collector_title is None:
             # use selected collector on the channel
             # warning, this means that everyone on the channel will get anything that one part of the collector matched.
-            #subscription.collector_data['selected_collectors'] = set([collector])
+            subscription.collector_data['selected_collectors'] = set([collector])
             items, cue = collector.get_items(use_cue, subscription)
         else:
             for section in channel.collector.get_optional_collectors():
