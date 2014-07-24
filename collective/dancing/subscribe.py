@@ -45,6 +45,8 @@ class Subscriptions(collective.singing.subscribe.Subscriptions):
     subscription_factory = Subscription
 
 
+dummy_collector = object()
+
 class SubscriptionFromDictionary(SimpleSubscription):
     """
       A transiant subscription object. Turns a dictionary into a subscription.
@@ -72,7 +74,8 @@ class SubscriptionFromDictionary(SimpleSubscription):
         
         collector_data = copy(data["collector_data"])
 
-        collector_data["selected_collectors"] = []
+
+        collector_data["selected_collectors"] = [dummy_collector]
         for collector_title in data["collector_data"]["selected_collectors"]:
             collector = self.find_topic(collector_title)
             if collector is not None:
