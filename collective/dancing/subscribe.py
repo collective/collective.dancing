@@ -80,14 +80,16 @@ class SubscriptionFromDictionary(SimpleSubscription):
             collector = self.find_topic(collector_title)
             if collector is not None:
                 selected_collectors.append(collector)
+
         if not selected_collectors:
+            # if selected_collectors is empty it is important to leave it empty even though some channels
+            # don't have optional sections.
+            # In a channel with optional sections a missing selected_collectors means subscriber will get everything
+            # An empty selected_collectors means they will get nothing.
+            # we want the latter.
             selected_collectors = [dummy_collector]
+
         collector_data["selected_collectors"] = set(selected_collectors)
-        # if selected_collectors is empty it is important to leave it empty even though some channels
-        # don't have optional sections.
-        # In a channel with optional sections a missing selected_collectors means subscriber will get everything
-        # An empty selected_collectors means they will get nothing.
-        # we want the latter.
 
         composer_data = copy(data["composer_data"])
         metadata = copy(data["metadata"])
