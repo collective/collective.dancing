@@ -64,7 +64,8 @@ class SubscriptionFromDictionary(SimpleSubscription):
 
         optional_collectors = collectors[selected_collector].get_optional_collectors()
         for optional in optional_collectors:
-            if optional.title == title:
+            # make sure both are same format
+            if unicode(optional.title) == unicode(title):
                 return optional
         return None
 
@@ -74,12 +75,14 @@ class SubscriptionFromDictionary(SimpleSubscription):
         
         collector_data = copy(data["collector_data"])
 
-
-        collector_data["selected_collectors"] = [dummy_collector]
+        selected_collectors = []
         for collector_title in data["collector_data"]["selected_collectors"]:
             collector = self.find_topic(collector_title)
             if collector is not None:
-                collector_data["selected_collectors"].append(collector)
+                selected_collectors.append(collector)
+        if not selected_collectors:
+            selected_collectors = [dummy_collector]
+        collector_data["selected_collectors"] = set(selected_collectors)
         # if selected_collectors is empty it is important to leave it empty even though some channels
         # don't have optional sections.
         # In a channel with optional sections a missing selected_collectors means subscriber will get everything
@@ -88,6 +91,10 @@ class SubscriptionFromDictionary(SimpleSubscription):
 
         composer_data = copy(data["composer_data"])
         metadata = copy(data["metadata"])
+
+        # make sure the composer_data email is unicode too
+        subscription_email = unicode(composer_data["email"])
+        composer_data["email"] = subscription_email
 
         super(SubscriptionFromDictionary, self).__init__(
             channel,
@@ -101,7 +108,6 @@ class SubscriptionFromDictionary(SimpleSubscription):
         # we need to reference the metadata from Subscription to Channel
         # when self.metadata set a value. the value is copy to
         # self._channel.subscriptions_metadata[subscription_email] as well
-        subscription_email = composer_data["email"]
         if subscription_email in self._channel.subscriptions_metadata:
             self._channel.subscriptions_metadata[subscription_email].update(metadata)
         else:
