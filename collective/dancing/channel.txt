@@ -106,14 +106,14 @@ Add python scripts
   ...     'confirm_url': u'https://localhost:8080/db/pgConfirmSubscription?secret=34'},
   ...     'secret': u'34',
   ...     'collector_data':
-  ...     {'selected_collectors': ['news']},
+  ...     {'selected_collectors': [u'news']},
   ...     'metadata':
   ...     {'pending': False,
   ...     'format': 'html'}}"""
   >>> ps.write(txt)
   >>> ps._makeFunction()
   >>> ps._exec({}, (), {})
-  {'composer_data': {'organization': u'blah', 'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34', 'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34', 'email': u'test@mail.com', 'confirm_url': u'https://localhost:8080/db/pgConfirmSubscription?secret=34'}, 'secret': u'34', 'collector_data': {'selected_collectors': ['news']}, 'metadata': {'pending': False, 'format': 'html'}}
+  {'composer_data': {'organization': u'blah', 'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34', 'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34', 'email': u'test@mail.com', 'confirm_url': u'https://localhost:8080/db/pgConfirmSubscription?secret=34'}, 'secret': u'34', 'collector_data': {'selected_collectors': [u'news']}, 'metadata': {'pending': False, 'format': 'html'}}
 
   >>> channels['external'].subscriptions
   <SubscriptionsFromScript at /plone/portal_newsletters/channels/external/>
