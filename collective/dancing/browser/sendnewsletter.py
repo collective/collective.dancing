@@ -197,6 +197,8 @@ class SendForm(form.Form):
             channel = site.unrestrictedTraverse(channel_path)
             for section in channel.collector.get_optional_collectors():
                 if section.title == section_title:
+                    # this special override is used by c.singing schedule
+                    # to only send to certain sections
                     override_vars["subscriptions_for_collector"] = section
                     break
 

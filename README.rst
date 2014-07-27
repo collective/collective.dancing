@@ -45,6 +45,27 @@ Subscriptions
   newsletters in the site, or through individual subscription forms,
   e.g. in portlets.
 
+Personalisation
+  Singing & Dancing allows a channel to define optional collectors
+  or *sections* which a user can optional subscribe to. Scheduled
+  daily or weekly newsletters can then include additional content
+  personalised to those segments of the channel.
+
+External subscriber database
+  Optionally instead of using the builtin subscriber database and
+  subscription forms you can use another product such as Plomino of
+  PloneFormGen. Configure a path to a script to list the subscribers
+  is is all that is needed to intergrate S&D with your external
+  subscriber database.
+
+Automatic sending
+  Any Plone content item can be sent at a scheduled time using the
+  "Send as newsletter" feature. These can be sent to the whole
+  subscriber list or to a specific section.
+  Content rules can be configured to send an item as a newsletter
+  immediatly under certain conditions including if it matches one
+  of Singing & Dancing's *collection* based *collectors*.
+
 .. image:: http://danielnouri.org/media/singing-dancing.jpg
    :alt: Singing & Dancing Logo by Giuseppe Zizza
 
