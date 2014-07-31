@@ -8,7 +8,7 @@ def read(*paths):
     return open(os.path.join(os.path.dirname(__file__), *paths)).read()
 
 
-version = '1.0dev3'
+version = '1.0dev4'
 
 setup(name='collective.dancing',
       version=version,
