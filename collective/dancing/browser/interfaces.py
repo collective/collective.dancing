@@ -12,7 +12,10 @@ class ISendAndPreviewForm(interface.Interface):
         )
 
     channel_and_collector = schema.Choice(
-        title=_("Select channel. Optionally also select the specific collector"),
+        title=_(u"The mailing-list/section to send this to"),
+        description=_(u"Pick a channel to send to the whole list. Pick a 'channel - section' "
+                        u"to send this is a segment of the mailing-list based on the optional "
+                        u"section they subscribered to. Must have a Timed scheduler to work"),
         vocabulary='collective.dancing.sendnewsletter.ChannelAndCollectorVocab'
         )
 

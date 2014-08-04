@@ -50,15 +50,15 @@ logger = logging.getLogger("collective.dancing")
 
 
 
-# or
-# every minute schedular
-# modify collectors to pick a que field (instead of modified it might be start or effective
+# Alternative solution to enable immediate automated sending would be an every minute schedular.
+# However currently S&D has a performance problems with collector cues. It writes a transaction
+# on every trigger event, including saving the cue on every single subscriber objects. Slow
+# and leads to DB bloat.  it also means it runs all teh searches on every trigger for every
+# subscriber, which isn't very efficient
+#
+# Could modify collectors to pick a que field (instead of modified it might be start or effective
 # also don't store the queue unless an item actually matched. This will help by reducing transactions.
-# this will have the side effect that if an event moves its date into the past it can get triggered.
-# it also means it runs all teh searches on every trigger for every subscriber, which isn't very efficient
-
-
-
+# However this will have the side effect that if an event moves its date into the past it can get triggered.
 
 
 
@@ -66,7 +66,10 @@ class IChannelAction(Interface):
     """Definition of the configuration available for a send to channel action
     """
     channel_and_collector = schema.Choice(
-        title=_("Select channel to send item to. Optionally also select the specific section"),
+        title=_(u"The mailing-list/section to send this to"),
+        description=_(u"Pick a channel to send to the whole list. Pick a 'channel - section' "
+                        u"to send this is a segment of the mailing-list based on the optional "
+                        u"section they subscribered to. Must have a Timed scheduler to work"),
         vocabulary='collective.dancing.sendnewsletter.ChannelAndCollectorVocab'
         )
 #    schedule_field = schema.TextLine(title=_(u"Schedule Field"),
@@ -126,6 +129,7 @@ class ChannelActionExecutor(object):
         if section_title is not None:
             for section in channel.collector.get_optional_collectors():
                 if section.title == section_title:
+                    # Special override to send only to those who subscribed to optional collector
                     override_vars["subscriptions_for_collector"] = section
                     break
 
@@ -135,7 +139,7 @@ class ChannelActionExecutor(object):
                                             newsletter_path,
                                             include_collector_items,
                                             override_vars)
-        title = _(u"Send '${context}' through ${channel}.",
+        title = _(u"Content rule send '${context}' through ${channel}.",
                   mapping=dict(
             context=context.Title().decode(context.plone_utils.getSiteEncoding()),
             channel=u'"%s"' % channel.title))
@@ -151,8 +155,8 @@ class ChannelAddForm(AddForm):
     An add form for the mail action
     """
     form_fields = form.FormFields(IChannelAction)
-    label = _(u"Add Channel Action")
-    description = _(u"A channel action can send item as a newsletter")
+    label = _(u"Add S&D Newsletter Action")
+    description = _(u"A S&D Newsletter action can send an item as a newsletter")
     form_name = _(u"Configure element")
 
     # custom template will allow us to add help text
@@ -169,8 +173,8 @@ class ChannelEditForm(EditForm):
     An edit form for the mail action
     """
     form_fields = form.FormFields(IChannelAction)
-    label = _(u"Edit Channel Action")
-    description = _(u"A channel action can send an item as a newsletter")
+    label = _(u"Edit S&D Newsletter Action")
+    description = _(u"A S&D Newsletter action can send an item as a newsletter")
     form_name = _(u"Configure element")
 
     # custom template will allow us to add help text
@@ -267,8 +271,8 @@ class CollectorAddForm(AddForm):
     """An add form for Collector conditions.
     """
     form_fields = form.FormFields(ICollectorCondition)
-    label = _(u"Add Content Type Condition")
-    description = _(u"A collector condition makes the rule apply items that match the collector.")
+    label = _(u"Add S&D Collector Condition")
+    description = _(u"A S&D Collector condition filters to only items in a collector.")
     form_name = _(u"Configure element")
 
     def create(self, data):
@@ -281,6 +285,6 @@ class CollectorEditForm(EditForm):
     """An edit form for Collector conditions
     """
     form_fields = form.FormFields(ICollectorCondition)
-    label = _(u"Edit Content Type Condition")
-    description = _(u"A collector condition makes the rule apply items that match the collector.")
+    label = _(u"Edit S&D Collector Condition")
+    description = _(u"A S&D Collector condition filters to only items in a collector.")
     form_name = _(u"Configure element")

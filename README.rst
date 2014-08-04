@@ -63,8 +63,8 @@ Automatic sending
   "Send as newsletter" feature. These can be sent to the whole
   subscriber list or to a specific section.
   Content rules can be configured to send an item as a newsletter
-  immediatly under certain conditions including if it matches one
-  of Singing & Dancing's *collection* based *collectors*.
+  immediately under certain conditions including if it matches a
+  of Singing & Dancing's *collection* based *collector*.
 
 .. image:: http://danielnouri.org/media/singing-dancing.jpg
    :alt: Singing & Dancing Logo by Giuseppe Zizza

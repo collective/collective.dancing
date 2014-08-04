@@ -106,14 +106,14 @@ class SubscriptionFromDictionary(SimpleSubscription):
             metadata
         )
 
-        # Metadata is saved to for example the 'cue'. So we have to have somewhere to save it
-        # we need to reference the metadata from Subscription to Channel
-        # when self.metadata set a value. the value is copy to
-        # self._channel.subscriptions_metadata[subscription_email] as well
-        if subscription_email in self._channel.subscriptions_metadata:
+        # S&D expects to have a persistent store during send to store the
+        # cue for example. It stores it in self.metadata. We will instead
+        # replace it with a store in the channel object itself.
+        if subscription_email not in self._channel.subscriptions_metadata:
+            self._channel.subscriptions_metadata[subscription_email] = PersistentDict()
+            # we only set the metadata the first time from the subscriber list.
+            # We don't want to keep creating commits on sends
             self._channel.subscriptions_metadata[subscription_email].update(metadata)
-        else:
-            self._channel.subscriptions_metadata[subscription_email] = metadata
 
         self.metadata = self._channel.subscriptions_metadata[subscription_email]
 
@@ -139,8 +139,16 @@ class SubscriptionsFromScript (SimpleItem):
         channel = self.get_channel()
         portal = getToolByName(channel, "portal_url").getPortalObject()
 
+        #HACK: This needs to change to a much simpler format compatible with
+        # plone gazette.
+        # ie [(email, html, changeUrl), ...]
+        # or [(email, html, changeUrl, {"name":"me"...}), ...]
+        # or [(email, html, changeUrl, {"name":"me"...}, ['jobs','news',...]), ...]
+
         if channel.script_path is not None:
+            #HACK: Why aren't we using a tal expression like plone gazette?
             script = portal.unrestrictedTraverse(str(channel.script_path))
+            #HACK: Why are we silently dropping subscribers?
             for item in script():
                 # check the script have right data
                 # data have "composer_data", "secret", "collector_data", and "metadata"
@@ -148,6 +156,7 @@ class SubscriptionsFromScript (SimpleItem):
                     continue
                 if "email" not in item["composer_data"]:
                     continue
+                #HACK: Why does secret have to be here? We need a unsubscribe link instead
                 if "secret" not in item:
                     continue
                 if "collector_data" not in item:
