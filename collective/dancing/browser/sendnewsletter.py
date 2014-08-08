@@ -54,7 +54,7 @@ class UIDResolver(object):
 
 
 def _assemble_messages(channel_paths, newsletter_uid, newsletter_path,
-                       include_collector_items, override_vars=None):
+                       include_collector_items, override_vars=None, use_full_format=True):
     if override_vars is None:
         override_vars = {}
     queued = 0
@@ -73,8 +73,9 @@ def _assemble_messages(channel_paths, newsletter_uid, newsletter_path,
     for path in channel_paths:
         channel = site.restrictedTraverse(path)
         assembler = collective.singing.interfaces.IMessageAssemble(channel)
+        wrapped_context = FullFormatWrapper(context) if use_full_format else context
         queued += assembler(
-            request, (FullFormatWrapper(context),), include_collector_items, override_vars)
+            request, (wrapped_context,), include_collector_items, override_vars)
         if channel.scheduler is not None and include_collector_items:
             channel.scheduler.triggered_last = datetime.datetime.now()
     return _(u"${queued} message(s) queued for delivery.",

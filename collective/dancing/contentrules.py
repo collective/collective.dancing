@@ -72,6 +72,11 @@ class IChannelAction(Interface):
                         u"section they subscribered to. Must have a Timed scheduler to work"),
         vocabulary='collective.dancing.sendnewsletter.ChannelAndCollectorVocab'
         )
+    include_collector_items = schema.Bool(title=_(u"Include collector items"),
+                                          default=False)
+    use_full_format = schema.Bool(title=_(u"Send as Newsletter"),
+                                  description=_(u"If not, only link, title  and summary will be sent"),
+                                  default=True)
 #    schedule_field = schema.TextLine(title=_(u"Schedule Field"),
 #                              description=_(u"Pick which field to use to determine when the newsletter is sent"),
 #                              required=True)
@@ -85,16 +90,22 @@ class ChannelAction(SimpleItem):
 
     channel_and_collector = u''
 
+    include_collector_items = False
+
+    use_full_format = True
+
     element = 'collective.dancing.actions.Channel'
 
     @property
     def summary(self):
-        channel, collector = self.channel_and_collector
+        site = getSite()
+        channel_path, collector = self.channel_and_collector
         try:
-            title = channel + " - " + collector
+            channel = site.unrestrictedTraverse(channel_path).name
+            title = '%s (section: %s)' % (channel, collector)
         except:
-            title = channel
-        return _(u"Send to channel ${channel}",
+            title = channel_path + " (WARNING: not found)"
+        return _(u"Send to channel: ${channel}",
                  mapping=dict(channel=title))
 
 
@@ -122,7 +133,8 @@ class ChannelActionExecutor(object):
             # we got a could not adapt error. Object which can't send.
             return False
         #include_collector_items = self.element.include_collector_items
-        include_collector_items = False
+        include_collector_items = self.element.include_collector_items
+        use_full_format = self.element.use_full_format
         override_vars = {} # later could support saving overrides
         site = getSite()
         channel = site.unrestrictedTraverse(channel_path)
@@ -138,7 +150,8 @@ class ChannelActionExecutor(object):
                                             newsletter_uid,
                                             newsletter_path,
                                             include_collector_items,
-                                            override_vars)
+                                            override_vars,
+                                            use_full_format)
         title = _(u"Content rule send '${context}' through ${channel}.",
                   mapping=dict(
             context=context.Title().decode(context.plone_utils.getSiteEncoding()),
@@ -209,11 +222,13 @@ class CollectorCondition(SimpleItem):
 
     @property
     def summary(self):
-        channel, collector = self.channel_and_collector
+        site = getSite()
+        channel_path, collector = self.channel_and_collector
         try:
-            title = channel + " - " + collector
+            channel = site.unrestrictedTraverse(channel_path).name
+            title = '%s (optional collector: %s)' % (channel, collector)
         except:
-            title = channel
+            title = channel_path + " (WARNING: not found)"
         return _(u"Filter by collector ${channel}",
                  mapping=dict(channel=title))
 
