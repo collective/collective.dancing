@@ -3,7 +3,7 @@ from Acquisition import aq_base
 import collective.singing.subscribe
 from collective.singing.interfaces import ISubscriptions, ISubscription
 import zope.interface
-from Persistence import Persistent
+import persistent.dict
 
 from Products.CMFCore.utils import getToolByName
 from collective.singing.subscribe import SimpleSubscription
@@ -72,7 +72,7 @@ class SubscriptionFromDictionary(SimpleSubscription):
     def __init__(self, channel, data):
 
         self._channel = channel
-        
+
         collector_data = copy(data["collector_data"])
 
         selected_collectors = []
@@ -110,7 +110,7 @@ class SubscriptionFromDictionary(SimpleSubscription):
         # cue for example. It stores it in self.metadata. We will instead
         # replace it with a store in the channel object itself.
         if subscription_email not in self._channel.subscriptions_metadata:
-            self._channel.subscriptions_metadata[subscription_email] = PersistentDict()
+            self._channel.subscriptions_metadata[subscription_email] = persistent.dict.PersistentDict()
             # we only set the metadata the first time from the subscriber list.
             # We don't want to keep creating commits on sends
             self._channel.subscriptions_metadata[subscription_email].update(metadata)
@@ -123,7 +123,7 @@ class SubscriptionsFromScript (SimpleItem):
         Call a script within the portal to get a list of subscriptions. Each subscription
         is a dictionary which is transiantly converted using SubscriptionFromDictionary
     """
-    
+
     zope.interface.implements(ISubscriptions)
 
     def __init__(self):
