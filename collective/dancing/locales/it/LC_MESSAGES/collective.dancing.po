@@ -151,7 +151,7 @@ msgstr "Non è stato possibile trovare la tua iscrizione. Per favore controlla l
 #: ./browser/composer-html-forgot.pt:16
 #: ./composer.py:383
 msgid "Change your subscriptions with ${site_title}"
-msgstr "Modifica la tua iscrizione a ${site-title}"
+msgstr "Modifica la tua iscrizione a ${site_title}"
 
 #: ./browser/stats.py:140
 msgid "Clear finished jobs"
@@ -167,7 +167,7 @@ msgstr "Rimuovi messaggi accodati"
 
 #: ./browser/composer-html-forgot.pt:21
 msgid "Click here to manage your subscriptions with ${site_title}:"
-msgstr "Clicca qui per gestire la tua iscrizione a ${site-title}:"
+msgstr "Clicca qui per gestire la tua iscrizione a ${site_title}:"
 
 #: ./browser/portlets/channelsubscribe.py:45
 msgid "Click here to select collector options to be automatically enabled, when subscribing from this portlet."
@@ -841,7 +841,7 @@ msgstr "Hai confermato la tua iscrizione con successo."
 
 #: ./interfaces.py:35
 msgid "You may use a number of variables here, like ${site_title}."
-msgstr "Qui è possibile usare un certo numero di variabili, quali ${site-title}."
+msgstr "Qui è possibile usare un certo numero di variabili, quali ${site_title}."
 
 #: ./browser/subscribe.py:327
 msgid "You subscribed successfully."
