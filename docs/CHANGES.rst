@@ -67,6 +67,8 @@ Changelog
 - Added two new events, raised when an user confirm or remove his subscription.
   [cekk]
 
+- Fix Italian translations [cekk]
+
 0.9.10 (2012-02-25)
 -------------------
 
