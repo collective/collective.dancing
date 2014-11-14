@@ -1135,7 +1135,7 @@ This of course also works with non-ascii chars in the frontpage title.
 
   >>> previous_trigger_time = channel.scheduler.triggered_last
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
-  >>> browser.getControl(name='send.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').value = ['my-other-channel']
   >>> browser.getControl('Send', index=0).click()
   >>> "Messages queued for delivery" in browser.contents
   True
@@ -1195,7 +1195,7 @@ channels:
 
   >>> previous_trigger_time = channel.scheduler.triggered_last
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
-  >>> browser.getControl(name='send.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').value = ['my-other-channel']
 
 This time we won't add the collector items:
 
@@ -1249,7 +1249,7 @@ that the cue time remains the same:
   >>> root = tuple(channel.subscriptions.query(key=u'root@domain.tld'))[0]
   >>> old_cue = root.metadata['cue']
   >>> browser.getControl('Address').value = u'root@domain.tld'
-  >>> browser.getControl(name='preview.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl(name='preview.widgets.channel_and_collector:list').value = ['my-other-channel']
   >>> browser.getControl(name='preview.buttons.preview').click() # doctest: +ELLIPSIS
   >>> "1 message(s) queued" in browser.contents
   True
@@ -1289,12 +1289,12 @@ call a "timed scheduler".
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
   >>> "Schedule distribution" in browser.contents
   True
-  >>> browser.getControl(name="send.widgets.channel:list").value = ['default-channel']
+  >>> browser.getControl(name="send.widgets.channel_and_collector:list").value = ['default-channel']
   >>> browser.getControl("Schedule distribution").click()
   >>> "Newsletter does not support scheduling" in browser.contents
   True
 
-  >>> browser.getControl(name='send.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').value = ['my-other-channel']
 
   >>> name_pre = 'send.widgets.datetime-'
   >>> browser.getControl(name=name_pre + "day").value = "6"
@@ -1329,7 +1329,7 @@ before the dispatch. We need to check that the newsletter will be dispatched cor
   'foo'
 
   >>> browser.open(portal.absolute_url() + '/news/foo/send-newsletter.html')
-  >>> browser.getControl(name='send.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').value = ['my-other-channel']
   >>> browser.getControl('Send', index=0).click()
   >>> "Messages queued for delivery" in browser.contents
   True
@@ -1351,7 +1351,7 @@ Sometimes, editors put a newsletter in the queue and then delete the content bef
   'temp-news'
 
   >>> browser.open(portal.absolute_url() + '/news/temp-news/send-newsletter.html')
-  >>> browser.getControl(name='send.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').value = ['my-other-channel']
   >>> browser.getControl('Send', index=0).click()
   >>> "Messages queued for delivery" in browser.contents
   True
@@ -1388,7 +1388,7 @@ This form has a Custom Subject field, let's try filling it out and sending.
 So let's see if it works in all cases. First we do a normal,
 asynchronous send-out:
 
-  >>> browser.getControl(name='send.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').value = ['my-other-channel']
   >>> browser.getControl(name='send.widgets.subject').value = u'My new subject'
   >>> browser.getControl('Send', index=0).click()
   >>> "Messages queued for delivery" in browser.contents
@@ -1405,7 +1405,7 @@ As you can see the sent out mail has the subject we entered.
 Next we try sending a preview.
 
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter-with-subject.html')
-  >>> browser.getControl(name='preview.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl(name='preview.widgets.channel_and_collector:list').value = ['my-other-channel']
   >>> browser.getControl(name='preview.widgets.subject').value = u'My new subject'
   >>> browser.getControl('Address').value = u'root@domain.tld'
   >>> browser.getControl(name='preview.buttons.preview').click() # doctest: +ELLIPSIS
@@ -1430,7 +1430,7 @@ And finally a scheduled send-out:
 
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter-with-subject.html')
 
-  >>> browser.getControl(name='send.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').value = ['my-other-channel']
   >>> browser.getControl(name='send.widgets.subject').value = u'My new subject'
   >>> name_pre = 'send.widgets.datetime-'
   >>> browser.getControl(name=name_pre + "day").value = "6"
@@ -1937,7 +1937,7 @@ Now let's send out a frontpage preview to see the new composer values
 have taken effect.
 
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
-  >>> browser.getControl(name='preview.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl(name='preview.widgets.channel_and_collector:list').value = ['my-other-channel']
   >>> browser.getControl('Address').value = u'daniel@domain.tld'
   >>> browser.getControl(
   ...     name='preview.widgets.include_collector_items:list').value = ['false']

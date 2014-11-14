@@ -153,7 +153,10 @@ class SendForm(form.Form):
             self.status = form.EditForm.formErrorsMessage
             return
 
-        path, section = data["channel_and_collector"]
+        try:
+            path, section = data["channel_and_collector"]
+        except KeyError:
+            import pdb; pdb.set_trace()
         site = getSite()
         channel = site.unrestrictedTraverse(path)
 
@@ -209,7 +212,7 @@ class SendForm(form.Form):
 class PreviewForm(form.Form):
     label = _(u'Preview')
     fields = field.Fields(ISendAndPreviewForm).select(
-        'channel', 'include_collector_items', 'address')
+        'channel_and_collector', 'include_collector_items', 'address')
     prefix = 'preview.'
     ignoreContext = True # The context doesn't provide the data
     template = viewpagetemplatefile.ViewPageTemplateFile('subform-formtab.pt')
@@ -221,7 +224,7 @@ class PreviewForm(form.Form):
             self.status = form.EditForm.formErrorsMessage
             return
 
-        channel = data['channel']
+        channel = data['channel_and_collector']
         name = channel.name
         include_collector_items = data['include_collector_items']
 
@@ -239,7 +242,7 @@ class PreviewForm(form.Form):
         if errors:
             self.status = form.EditForm.formErrorsMessage
             return
-        channel = data['channel']
+        channel = data['channel_and_collector']
         include_collector_items = data['include_collector_items']
         address = data['address']
         if not address:
@@ -271,7 +274,7 @@ class PreviewForm(form.Form):
             return
 
         for field_name in self.fields.omit('channel', 'address', 'datetime',
-                                           'include_collector_items'):
+                                           'include_collector_items', 'channel_and_collector'):
             if data[field_name] is not None:
                 override_vars[field_name] = data[field_name]
 
@@ -326,12 +329,12 @@ class ISendAndPreviewFormWithCustomSubject(ISendAndPreviewForm):
 
 class SendFormWithCustomSubject(SendForm):
     fields = field.Fields(ISendAndPreviewFormWithCustomSubject).select(
-        'channel', 'subject', 'include_collector_items', 'datetime')
+        'channel_and_collector', 'subject', 'include_collector_items', 'datetime')
 
 
 class PreviewFormWithCustomSubject(PreviewForm):
     fields = field.Fields(ISendAndPreviewFormWithCustomSubject).select(
-        'channel', 'subject', 'include_collector_items', 'address')
+        'channel_and_collector', 'subject', 'include_collector_items', 'address')
 
 
 class SendAsNewsletterFormWithCustomSubject(SendAsNewsletterForm):
