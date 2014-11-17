@@ -212,7 +212,7 @@ class SendForm(form.Form):
 class PreviewForm(form.Form):
     label = _(u'Preview')
     fields = field.Fields(ISendAndPreviewForm).select(
-        'channel_and_collector', 'include_collector_items', 'address')
+        'channel', 'include_collector_items', 'address')
     prefix = 'preview.'
     ignoreContext = True # The context doesn't provide the data
     template = viewpagetemplatefile.ViewPageTemplateFile('subform-formtab.pt')
@@ -224,7 +224,7 @@ class PreviewForm(form.Form):
             self.status = form.EditForm.formErrorsMessage
             return
 
-        channel = data['channel_and_collector']
+        channel = data['channel']
         name = channel.name
         include_collector_items = data['include_collector_items']
 
@@ -242,7 +242,7 @@ class PreviewForm(form.Form):
         if errors:
             self.status = form.EditForm.formErrorsMessage
             return
-        channel = data['channel_and_collector']
+        channel = data['channel']
         include_collector_items = data['include_collector_items']
         address = data['address']
         if not address:
@@ -274,7 +274,7 @@ class PreviewForm(form.Form):
             return
 
         for field_name in self.fields.omit('channel', 'address', 'datetime',
-                                           'include_collector_items', 'channel_and_collector'):
+                                           'include_collector_items'):
             if data[field_name] is not None:
                 override_vars[field_name] = data[field_name]
 
@@ -334,7 +334,7 @@ class SendFormWithCustomSubject(SendForm):
 
 class PreviewFormWithCustomSubject(PreviewForm):
     fields = field.Fields(ISendAndPreviewFormWithCustomSubject).select(
-        'channel_and_collector', 'subject', 'include_collector_items', 'address')
+        'channel', 'subject', 'include_collector_items', 'address')
 
 
 class SendAsNewsletterFormWithCustomSubject(SendAsNewsletterForm):

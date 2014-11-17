@@ -1249,7 +1249,7 @@ that the cue time remains the same:
   >>> root = tuple(channel.subscriptions.query(key=u'root@domain.tld'))[0]
   >>> old_cue = root.metadata['cue']
   >>> browser.getControl('Address').value = u'root@domain.tld'
-  >>> browser.getControl(name='preview.widgets.channel_and_collector:list').value = ['my-other-channel']
+  >>> browser.getControl(name='preview.widgets.channel:list').value = ['my-other-channel']
   >>> browser.getControl(name='preview.buttons.preview').click() # doctest: +ELLIPSIS
   >>> "1 message(s) queued" in browser.contents
   True
@@ -1405,7 +1405,7 @@ As you can see the sent out mail has the subject we entered.
 Next we try sending a preview.
 
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter-with-subject.html')
-  >>> browser.getControl(name='preview.widgets.channel_and_collector:list').value = ['my-other-channel']
+  >>> browser.getControl(name='preview.widgets.channel:list').value = ['my-other-channel']
   >>> browser.getControl(name='preview.widgets.subject').value = u'My new subject'
   >>> browser.getControl('Address').value = u'root@domain.tld'
   >>> browser.getControl(name='preview.buttons.preview').click() # doctest: +ELLIPSIS
@@ -1937,7 +1937,7 @@ Now let's send out a frontpage preview to see the new composer values
 have taken effect.
 
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
-  >>> browser.getControl(name='preview.widgets.channel_and_collector:list').value = ['my-other-channel']
+  >>> browser.getControl(name='preview.widgets.channel:list').value = ['my-other-channel']
   >>> browser.getControl('Address').value = u'daniel@domain.tld'
   >>> browser.getControl(
   ...     name='preview.widgets.include_collector_items:list').value = ['false']
