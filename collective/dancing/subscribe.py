@@ -1,7 +1,7 @@
 from Acquisition import aq_base
 
 import collective.singing.subscribe
-from collective.singing.interfaces import ISubscriptions, ISubscription
+from collective.singing.interfaces import ISubscriptions
 import zope.interface
 import persistent.dict
 
@@ -9,12 +9,16 @@ from Products.CMFCore.utils import getToolByName
 from collective.singing.subscribe import SimpleSubscription
 
 from OFS.SimpleItem import SimpleItem
-from collective.singing.channel import channel_lookup
 
 from copy import copy
 
+import logging
+logger = logging.getLogger('collective.dancing')
+
+
 class Subscription(collective.singing.subscribe.SimpleSubscription):
     _channel = None
+
     @apply
     def channel():
         def get(self):
@@ -47,6 +51,7 @@ class Subscriptions(collective.singing.subscribe.Subscriptions):
 
 dummy_collector = object()
 
+
 class SubscriptionFromDictionary(SimpleSubscription):
     """
       A transiant subscription object. Turns a dictionary into a subscription.
@@ -62,7 +67,13 @@ class SubscriptionFromDictionary(SimpleSubscription):
         if selected_collector not in collectors.keys():
             return None
 
-        optional_collectors = collectors[selected_collector].get_optional_collectors()
+        logger.debug("collectors[selected_collector] %s" %
+                    (type(collectors[selected_collector])))
+        if not collectors[selected_collector]:
+            return None
+
+        optional_collectors = collectors[selected_collector]. \
+            get_optional_collectors()
         for optional in optional_collectors:
             # make sure both are same format
             if unicode(optional.title) == unicode(title):
@@ -76,19 +87,27 @@ class SubscriptionFromDictionary(SimpleSubscription):
         collector_data = copy(data["collector_data"])
 
         selected_collectors = []
-        for collector_title in data["collector_data"]["selected_collectors"]:
-            collector = self.find_topic(collector_title)
+        # introduce subscribe_collectors for custom channel that
+        # don't use the default collector
+        subscribe_collectors = data["collector_data"]["selected_collectors"]
+        for collector_title in subscribe_collectors:
+            try:
+                collector = self.find_topic(collector_title)
+            except AttributeError:
+                collector = None
             if collector is not None:
                 selected_collectors.append(collector)
 
         if not selected_collectors:
-            # if selected_collectors is empty it is important to leave it empty even though some channels
-            # don't have optional sections.
-            # In a channel with optional sections a missing selected_collectors means subscriber will get everything
+            # if selected_collectors is empty it is important to leave it empty
+            # even though some channels don't have optional sections.
+            # In a channel with optional sections a missing selected_collectors
+            # means subscriber will get everything
             # An empty selected_collectors means they will get nothing.
             # we want the latter.
             selected_collectors = [dummy_collector]
 
+        collector_data["subscribe_collectors"] = set(subscribe_collectors)
         collector_data["selected_collectors"] = set(selected_collectors)
 
         composer_data = copy(data["composer_data"])
@@ -110,18 +129,21 @@ class SubscriptionFromDictionary(SimpleSubscription):
         # cue for example. It stores it in self.metadata. We will instead
         # replace it with a store in the channel object itself.
         if subscription_email not in self._channel.subscriptions_metadata:
-            self._channel.subscriptions_metadata[subscription_email] = persistent.dict.PersistentDict()
+            self._channel.subscriptions_metadata[subscription_email] = \
+                persistent.dict.PersistentDict()
             # we only set the metadata the first time from the subscriber list.
             # We don't want to keep creating commits on sends
-            self._channel.subscriptions_metadata[subscription_email].update(metadata)
+            self._channel.subscriptions_metadata[subscription_email]. \
+                update(metadata)
 
         self.metadata = self._channel.subscriptions_metadata[subscription_email]
 
 
 class SubscriptionsFromScript (SimpleItem):
     """
-        Call a script within the portal to get a list of subscriptions. Each subscription
-        is a dictionary which is transiantly converted using SubscriptionFromDictionary
+        Call a script within the portal to get a list of subscriptions.
+        Each subscription is a dictionary which is transiantly converted
+        using SubscriptionFromDictionary
     """
 
     zope.interface.implements(ISubscriptions)
@@ -143,20 +165,23 @@ class SubscriptionsFromScript (SimpleItem):
         # plone gazette.
         # ie [(email, html, changeUrl), ...]
         # or [(email, html, changeUrl, {"name":"me"...}), ...]
-        # or [(email, html, changeUrl, {"name":"me"...}, ['jobs','news',...]), ...]
+        # or [(email, html, changeUrl, {"name":"me"...},
+        # ['jobs','news',...]), ...]
 
         if channel.script_path is not None:
-            #HACK: Why aren't we using a tal expression like plone gazette?
+            # HACK: Why aren't we using a tal expression like plone gazette?
             script = portal.unrestrictedTraverse(str(channel.script_path))
-            #HACK: Why are we silently dropping subscribers?
+            # HACK: Why are we silently dropping subscribers?
             for item in script():
                 # check the script have right data
-                # data have "composer_data", "secret", "collector_data", and "metadata"
+                # data have "composer_data", "secret", "collector_data",
+                # and "metadata"
                 if "composer_data" not in item:
                     continue
                 if "email" not in item["composer_data"]:
                     continue
-                #HACK: Why does secret have to be here? We need a unsubscribe link instead
+                # HACK: Why does secret have to be here?
+                # We need a unsubscribe link instead
                 if "secret" not in item:
                     continue
                 if "collector_data" not in item:
@@ -167,7 +192,8 @@ class SubscriptionsFromScript (SimpleItem):
                     continue
                 yield SubscriptionFromDictionary(channel, item)
 
-    def add_subscription(self, channel, secret, composer_data, collector_data, metadata):
+    def add_subscription(self, channel, secret, composer_data,
+                         collector_data, metadata):
         """Add a subscription and return it.
 
         Raises ValueError if subscription already exists.

@@ -82,6 +82,9 @@ Changelog
 - External subscriber database and sign up form support.
   [ivanteoh]
 
+- Introduce "subscribe_collectors" for custom channel that don't use the default collector.
+  [ivanteoh]
+
 0.9.10 (2012-02-25)
 -------------------
 

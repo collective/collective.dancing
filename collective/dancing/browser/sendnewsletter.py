@@ -156,7 +156,7 @@ class SendForm(form.Form):
         try:
             path, section = data["channel_and_collector"]
         except KeyError:
-            import pdb; pdb.set_trace()
+            return
         site = getSite()
         channel = site.unrestrictedTraverse(path)
 
