@@ -153,7 +153,7 @@
            provides=".interfaces.IFullFormatter"
            name="html" />
 
-  <adapter factory="collective.singing.mail.Dispatch" />
+  <adapter factory="collective.dancing.composer.Dispatch" />
 
   <!-- Transforms -->
   <adapter factory=".transform.URL"

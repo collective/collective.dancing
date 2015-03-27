@@ -8,8 +8,10 @@ import re
 import os
 import string
 import tempfile
+import traceback
 from email.Utils import formataddr
 from email.Header import Header
+from email.Message import Message
 
 from BeautifulSoup import BeautifulSoup
 
@@ -574,3 +576,21 @@ def at_exit():
         "StubSMTPMailer shutting down, sent %s messages to %s recipients.\n" %
         (StubSMTPMailer.sent, len(StubSMTPMailer.recipients)))
     StubSMTPMailer.logfile.close()
+
+
+class Dispatch(collective.singing.mail.Dispatch):
+    """An IDispatcher registered for ``email.message.Message`` that'll
+    send e-mails using the default Plone MailHost. """
+    interface.implements(collective.singing.interfaces.IDispatch)
+    component.adapts(Message)
+
+    def __call__(self):
+        msg = self.message
+        delivery = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot).MailHost
+        try:
+            delivery.send(msg.as_string(), mfrom=msg['From'], mto=self._split(msg['To']))
+        except Exception, e:
+            # TODO: log
+            return u'error', traceback.format_exc(e)
+        else:
+            return u'sent', None
