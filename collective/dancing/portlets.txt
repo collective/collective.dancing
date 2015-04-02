@@ -17,8 +17,14 @@ Test Setup
 
 We want messages to be printed out instead of sending them:
 
-  >>> from collective.dancing.tests import setup_testing_maildelivery
-  >>> delivery = setup_testing_maildelivery()
+  >>> from collective.dancing.tests import MockMailHost
+  >>> self.portal._delObject('MailHost')
+  >>> mail_host = MockMailHost('MailHost')
+  >>> self.portal._setObject('MailHost', mail_host)
+  'MailHost'
+  >>> self.portal.MailHost
+  <MockMailHost at /plone/>
+  >>> delivery = self.portal.MailHost
 
 First off, let's edit the default collector, delete the default Collection and add two optional blocks. These can later be set from our portlet.
 

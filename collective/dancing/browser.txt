@@ -21,8 +21,15 @@ Setup
 
 We want messages to be printed out instead of sending them:
 
-  >>> from collective.dancing.tests import setup_testing_maildelivery
-  >>> delivery = setup_testing_maildelivery()
+  >>> from collective.dancing.tests import MockMailHost
+  >>> from Products.MailHost.interfaces import IMailHost
+  >>> self.portal._delObject('MailHost')
+  >>> mail_host = MockMailHost('MailHost')
+  >>> self.portal._setObject('MailHost', mail_host)
+  'MailHost'
+  >>> self.portal.MailHost
+  <MockMailHost at /plone/>
+  >>> delivery = self.portal.MailHost
 
 Control panel
 -------------
@@ -752,6 +759,24 @@ If sending the message fails, we'll get notified:
   >>> "0 message(s) sent" in browser.contents
   True
 
+Test Dispatch from collective.dancing that used MailHost:
+
+  >>> import email
+  >>> test_message = email.Message.Message()
+  >>> test_message['From'] = 'daniel@testingunderground.com'
+  >>> test_message['To'] = 'plone-users@lists.sourceforge.net'
+  >>> test_message.set_payload('Hello, Plone users!')
+  >>> from collective.dancing.composer import Dispatch
+  >>> component.provideAdapter(Dispatch)
+  >>> dispatcher = Dispatch(test_message)
+  >>> dispatcher() \
+  ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *TestingMailDelivery sending*:
+  From: daniel@testingunderground.com
+  To: plone-users@lists.sourceforge.net
+  Message follows:
+  ...
+  (u'sent', None)
 
 Subscribe
 ---------
@@ -925,14 +950,13 @@ sent:
   *TestingMailDelivery sending*:
   ...
   (3, 0)
-
   >>> print delivery.last_messages(purge=False) \
   ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
   Content-Type: multipart/mixed;
   ...
   Subject: Plone site: My other channel...
+  To: daniel@domain.tld...
   From: Site Administrator <>
-  To: daniel@domain.tld
   ...Super Bowl XLII...Drug-resistant flu rising, says WHO...
   To: mailman@domain.tld
   ...Drug-resistant flu rising, says WHO...
@@ -1853,7 +1877,7 @@ For the default HTMLComposer we can specify sender name and address
 as well as reply-to address.
 
   >>> browser.open(portal.absolute_url() +
-  ...  	'/portal_newsletters/channels/my-other-channel')
+  ...   '/portal_newsletters/channels/my-other-channel')
   >>> from_name = browser.getControl(name="composers.html.widgets.from_name")
   >>> from_addr = browser.getControl(name="composers.html.widgets.from_address")
   >>> replyto = browser.getControl(name="composers.html.widgets.replyto_address")
@@ -1876,7 +1900,7 @@ Let's set some values.
 And see that they've stuck.
 
   >>> browser.open(portal.absolute_url() +
-  ...  	'/portal_newsletters/channels/my-other-channel')
+  ...   '/portal_newsletters/channels/my-other-channel')
   >>> browser.getControl(name="composers.html.widgets.from_name").value
   'Portal Master'
   >>> browser.getControl(name="composers.html.widgets.from_address").value
@@ -1928,7 +1952,7 @@ If a channel has more formats, they will of course all be editable
 from this page.
 
   >>> browser.open(portal.absolute_url() +
-  ...  	'/portal_newsletters/channels/my-other-channel')
+  ...   '/portal_newsletters/channels/my-other-channel')
   >>> 'composers.html.widgets.from_name' in browser.contents
   True
   >>> 'composers.text.widgets.from_name' in browser.contents
@@ -1937,7 +1961,7 @@ from this page.
   >>> channel.composers['text'] = HTMLComposer()
 
   >>> browser.open(portal.absolute_url() +
-  ...  	'/portal_newsletters/channels/my-other-channel')
+  ...   '/portal_newsletters/channels/my-other-channel')
   >>> 'composers.html.widgets.from_name' in browser.contents
   True
   >>> 'composers.text.widgets.from_name' in browser.contents

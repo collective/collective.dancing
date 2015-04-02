@@ -93,38 +93,42 @@ def decodeMessageAsString(msg):
 
     return new.as_string()
 
-def setup_testing_maildelivery():
-    class TestingMailDelivery(object):
+from Products.MailHost.MailHost import _mungeHeaders
+from Products.MailHost.MailHost import MailBase
 
-        interface.implements(zope.sendmail.interfaces.IMailDelivery)
-        sent = []
 
-        def send(self, from_, to, message):
-            print '*TestingMailDelivery sending*:'
-            print 'From:', decode_header(from_)[0][0]
-            print 'To:', ', '.join(to)
-            print 'Message follows:'
-            decoded = decodeMessageAsString(message)
-            print decoded
-            self.sent.append(decoded)
+class MockMailHost(MailBase):
+    """A MailHost that collects messages instead of sending them.
+    """
 
-        @classmethod
-        def last_messages(klass, purge=True):
-            klass.order()
-            value = '\n'.join(klass.sent)
-            if purge:
-                klass.sent = []
-            return value
+    def __init__(self, id):
+        self.sent = []
 
-        @classmethod
-        def order(klass):
-            klass.sent = sorted(
-                klass.sent,
-                key=lambda msg: re.findall('To: .*$', msg, re.MULTILINE))
+    def send(self, messageText, mto=None, mfrom=None, subject=None,
+             encode=None, immediate=False, charset=None, msg_type=None):
+        messageText, mto, mfrom = _mungeHeaders(messageText,
+                                                mto, mfrom, subject,
+                                                charset=charset,
+                                                msg_type=msg_type)
+        print '*TestingMailDelivery sending*:'
+        print 'From:', decode_header(mfrom)[0][0]
+        print 'To:', ', '.join(mto)
+        print 'Message follows:'
+        decoded = decodeMessageAsString(messageText)
+        print decoded
+        self.sent.append(decoded)
 
-    delivery = TestingMailDelivery()
-    component.provideUtility(delivery)
-    return TestingMailDelivery
+    def last_messages(self, purge=True):
+        self.order()
+        value = '\n'.join(self.sent)
+        if purge:
+            self.sent = []
+        return value
+
+    def order(self):
+        self.sent = sorted(
+            self.sent,
+            key=lambda msg: re.findall('To: .*$', msg, re.MULTILINE))
 
 from Products.Five import testbrowser
 from zope.testbrowser import browser
