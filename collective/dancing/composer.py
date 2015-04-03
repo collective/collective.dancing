@@ -586,9 +586,11 @@ class Dispatch(collective.singing.mail.Dispatch):
 
     def __call__(self):
         msg = self.message
-        delivery = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot).MailHost
+        delivery = component.getUtility(
+            Products.CMFPlone.interfaces.IPloneSiteRoot).MailHost
         try:
-            delivery.send(msg.as_string(), mfrom=msg['From'], mto=self._split(msg['To']))
+            delivery.send(msg.as_string(), mfrom=msg['From'],
+                mto=self._split(msg['To']))
         except Exception, e:
             # TODO: log
             return u'error', traceback.format_exc(e)
