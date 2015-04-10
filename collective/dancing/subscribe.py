@@ -11,7 +11,8 @@ from collective.singing.subscribe import SimpleSubscription
 from OFS.SimpleItem import SimpleItem
 
 from copy import copy
-
+import random
+import string
 import logging
 logger = logging.getLogger('collective.dancing')
 
@@ -84,12 +85,15 @@ class SubscriptionFromDictionary(SimpleSubscription):
 
         self._channel = channel
 
-        collector_data = copy(data["collector_data"])
+        # generate random secret number as dummy
+        secret = ''.join([random.choice(
+            string.ascii_letters + string.digits) for i in range(50)])
 
+        collector_data = {}
         selected_collectors = []
         # introduce subscribe_collectors for custom channel that
         # don't use the default collector
-        subscribe_collectors = data["collector_data"]["selected_collectors"]
+        subscribe_collectors = data["topics"]
         for collector_title in subscribe_collectors:
             try:
                 collector = self.find_topic(collector_title)
@@ -110,16 +114,28 @@ class SubscriptionFromDictionary(SimpleSubscription):
         collector_data["subscribe_collectors"] = set(subscribe_collectors)
         collector_data["selected_collectors"] = set(selected_collectors)
 
-        composer_data = copy(data["composer_data"])
-        metadata = copy(data["metadata"])
+        # make sure the email is unicode too
+        subscription_email = unicode(data["email"].strip())
+        # "confirm_url" is no needed here
+        composer_data = dict(
+            email=subscription_email,
+            unsubscribe_url=data["unsubscribe_url"],
+            my_subscriptions_url=data["my_subscriptions_url"]
+        )
+        if "user_info" in data:
+            composer_data.update(data["user_info"])
 
-        # make sure the composer_data email is unicode too
-        subscription_email = unicode(composer_data["email"])
-        composer_data["email"] = subscription_email
+        metadata = dict(format=data["format"])
+        if "subscription_info" in data:
+            metadata.update(data["subscription_info"])
+            # default the pending value to False
+            # date and language are optional
+            if "pending" not in data["subscription_info"]:
+                metadata["pending"] = False
 
         super(SubscriptionFromDictionary, self).__init__(
             channel,
-            data["secret"],
+            secret,
             composer_data,
             collector_data,
             metadata
@@ -174,21 +190,17 @@ class SubscriptionsFromScript (SimpleItem):
             # HACK: Why are we silently dropping subscribers?
             for item in script():
                 # check the script have right data
-                # data have "composer_data", "secret", "collector_data",
-                # and "metadata"
-                if "composer_data" not in item:
+                # data have "email", "format", "unsubscribe_url",
+                # "my_subscriptions_url" and "topics"
+                if "email" not in item:
                     continue
-                if "email" not in item["composer_data"]:
+                if "format" not in item:
                     continue
-                # HACK: Why does secret have to be here?
-                # We need a unsubscribe link instead
-                if "secret" not in item:
+                if "unsubscribe_url" not in item:
                     continue
-                if "collector_data" not in item:
+                if "my_subscriptions_url" not in item:
                     continue
-                if "selected_collectors" not in item["collector_data"]:
-                    continue
-                if "metadata" not in item:
+                if "topics" not in item:
                     continue
                 yield SubscriptionFromDictionary(channel, item)
 
