@@ -79,7 +79,7 @@ Changelog
   than the whole channel.
   [arterrey]
 
-- External subscriber database and sign up form support.
+- External subscriber database and sign up form support with json object call.
   [ivanteoh]
 
 - Introduce "subscribe_collectors" for custom channel that don't use the default collector.
