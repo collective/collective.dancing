@@ -10,7 +10,6 @@ from collective.singing.subscribe import SimpleSubscription
 
 from OFS.SimpleItem import SimpleItem
 
-from copy import copy
 import random
 import string
 import logging
@@ -93,6 +92,8 @@ class SubscriptionFromDictionary(SimpleSubscription):
         selected_collectors = []
         # introduce subscribe_collectors for custom channel that
         # don't use the default collector
+        if not isinstance(data["topics"], (list, tuple)):
+            data["topics"] = []
         subscribe_collectors = data["topics"]
         for collector_title in subscribe_collectors:
             try:
@@ -117,21 +118,24 @@ class SubscriptionFromDictionary(SimpleSubscription):
         # make sure the email is unicode too
         subscription_email = unicode(data["email"].strip())
         # "confirm_url" is no needed here
-        composer_data = dict(
-            email=subscription_email,
-            unsubscribe_url=data["unsubscribe_url"],
-            my_subscriptions_url=data["my_subscriptions_url"]
-        )
-        if "user_info" in data:
-            composer_data.update(data["user_info"])
+        composer_data = dict(email=subscription_email)
+        if isinstance(data["unsubscribe_url"], basestring) and \
+           data["unsubscribe_url"]:
+            composer_data["unsubscribe_url"] = data["unsubscribe_url"]
+        if isinstance(data["my_subscriptions_url"], basestring) and \
+           data["my_subscriptions_url"]:
+            composer_data["my_subscriptions_url"] = data["my_subscriptions_url"]
+        if isinstance(data["subscriber_data"], dict):
+            composer_data.update(data["subscriber_data"])
 
-        metadata = dict(format=data["format"])
-        if "subscription_info" in data:
-            metadata.update(data["subscription_info"])
-            # default the pending value to False
-            # date and language are optional
-            if "pending" not in data["subscription_info"]:
-                metadata["pending"] = False
+        # default the pending value to False
+        metadata = dict(format="html", pending=False)
+        if isinstance(data["format"], basestring) and \
+           data["format"]:
+            metadata["format"] = data["format"]
+
+        if data["subscription_date"]:
+            metadata["date"] = data["subscription_date"]
 
         super(SubscriptionFromDictionary, self).__init__(
             channel,
@@ -190,17 +194,26 @@ class SubscriptionsFromScript (SimpleItem):
             # HACK: Why are we silently dropping subscribers?
             for item in script():
                 # check the script have right data
-                # data have "email", "format", "unsubscribe_url",
-                # "my_subscriptions_url" and "topics"
+                # data have "email", "format", "subscription_date",
+                # "unsubscribe_url", "my_subscriptions_url",
+                # "topics" and "subscriber_data"
                 if "email" not in item:
                     continue
+                if not item["email"]:
+                    continue
+                if not isinstance(item["email"], basestring):
+                    continue
                 if "format" not in item:
+                    continue
+                if "subscription_date" not in item:
                     continue
                 if "unsubscribe_url" not in item:
                     continue
                 if "my_subscriptions_url" not in item:
                     continue
                 if "topics" not in item:
+                    continue
+                if "subscriber_data" not in item:
                     continue
                 yield SubscriptionFromDictionary(channel, item)
 
