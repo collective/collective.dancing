@@ -40,7 +40,7 @@ Let's create another channel and ask for the list of channels again:
   >>> channels = self.portal['portal_newsletters']['channels']
   >>> channels['wq'] = Channel('wq')
   >>> channel_lookup() # doctest: +NORMALIZE_WHITESPACE
-  [<Channel at /plone/portal_newsletters/channels/default-channel>, 
+  [<Channel at /plone/portal_newsletters/channels/default-channel>,
    <Channel at /plone/portal_newsletters/channels/wq>]
 
 Channels and collectors
@@ -98,22 +98,17 @@ Add python scripts
 
   >>> from Products.PythonScripts.PythonScript import PythonScript
   >>> ps = PythonScript('ps')
-  >>> txt = """return {'composer_data':
-  ...     {'organization': u'blah',
+  >>> txt = """return {'email': u'test@mail.com',
+  ...     'format': 'html',
+  ...     'subscription_date': None,
   ...     'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34',
   ...     'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34',
-  ...     'email': u'test@mail.com',
-  ...     'confirm_url': u'https://localhost:8080/db/pgConfirmSubscription?secret=34'},
-  ...     'secret': u'34',
-  ...     'collector_data':
-  ...     {'selected_collectors': [u'news']},
-  ...     'metadata':
-  ...     {'pending': False,
-  ...     'format': 'html'}}"""
+  ...     'topics': [u'news'],
+  ...     'subscriber_data': {'organization': u'blah'}}"""
   >>> ps.write(txt)
   >>> ps._makeFunction()
   >>> ps._exec({}, (), {})
-  {'composer_data': {'organization': u'blah', 'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34', 'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34', 'email': u'test@mail.com', 'confirm_url': u'https://localhost:8080/db/pgConfirmSubscription?secret=34'}, 'secret': u'34', 'collector_data': {'selected_collectors': [u'news']}, 'metadata': {'pending': False, 'format': 'html'}}
+  {'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34', 'subscription_date': None, 'subscriber_data': {'organization': u'blah'}, 'format': 'html', 'topics': [u'news'], 'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34', 'email': u'test@mail.com'}
 
   >>> channels['external'].subscriptions
   <SubscriptionsFromScript at /plone/portal_newsletters/channels/external/>
