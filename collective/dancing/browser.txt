@@ -240,7 +240,7 @@ For master branch, del collective.dancing.channel.channels[0] or [1], the test b
 
 Subscriptions From Script Channel
 ---------------------------------
-This channel accepts script path that return a list of the subscribers in JSON object from external source.
+This channel accepts script path that return a Python list of the subscribers from external source.
 The structure of subscriber as below
 {'email': u'test@mail.com',
 'format': 'html',
@@ -303,6 +303,9 @@ Testing the channel to make sure all the values are corrected updated:
   u'https://localhost:8080/db/pgUnsubscribe?secret=34'
   >>> external_subscription.composer_data['my_subscriptions_url']
   u'https://localhost:8080/db/pgMySubscriptions?secret=34'
+
+`selected_collectors` is a list of selection of newsletter content that are subscribed and available from the channel collector block. `subscribe_collectors` is a list of all selection of newsletter content that are subscribed from external source and might not be necessary available from the channel collector block. `subscribe_collectors` is useful for custom collector that don't used collector block and still able to get the list of the selection that are subscribed.
+
   >>> external_subscription.collector_data['subscribe_collectors']
   set([u'news'])
   >>> external_subscription.metadata['format']
