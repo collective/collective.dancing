@@ -79,6 +79,9 @@ Changelog
   than the whole channel.
   [arterrey]
 
+- Import / export CSV file includes section values, and backward compatible with original format.
+  [ivanteoh]
+
 - External subscriber database and sign up form support with json object call.
   [ivanteoh]
 
