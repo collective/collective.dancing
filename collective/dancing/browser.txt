@@ -245,17 +245,17 @@ Add python scripts
 
   >>> from Products.PythonScripts.PythonScript import PythonScript
   >>> ps = PythonScript('ps')
-  >>> txt = """return {'email': u'test@mail.com',
+  >>> txt = """return [{'email': u'test@mail.com',
   ...     'format': 'html',
   ...     'subscription_date': None,
   ...     'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34',
   ...     'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34',
   ...     'topics': [u'news'],
-  ...     'subscriber_data': {'organization': u'blah'}}"""
+  ...     'subscriber_data': {'organization': u'blah'}}]"""
   >>> ps.write(txt)
   >>> ps._makeFunction()
   >>> ps._exec({}, (), {})
-  {'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34', 'subscription_date': None, 'subscriber_data': {'organization': u'blah'}, 'format': 'html', 'topics': [u'news'], 'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34', 'email': u'test@mail.com'}
+  [{'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34', 'subscription_date': None, 'subscriber_data': {'organization': u'blah'}, 'format': 'html', 'topics': [u'news'], 'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34', 'email': u'test@mail.com'}]
   >>> self.portal.my_script = ps
 
   >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
@@ -278,6 +278,30 @@ Add python scripts
 
   >>> script_channel = collective.singing.channel.lookup('my-script-channel')
   >>> script_subscriptions = script_channel.subscriptions
+  >>> external_subscription = [subscription for subscription in script_subscriptions.values()][0]
+  >>> external_subscription.composer_data['email']
+  u'test@mail.com'
+  >>> external_subscription.composer_data['organization']
+  u'blah'
+  >>> external_subscription.composer_data['unsubscribe_url']
+  u'https://localhost:8080/db/pgUnsubscribe?secret=34'
+  >>> external_subscription.composer_data['my_subscriptions_url']
+  u'https://localhost:8080/db/pgMySubscriptions?secret=34'
+  >>> external_subscription.metadata['format']
+  'html'
+  >>> external_subscription.metadata['pending']
+  False
+
+  Let's delete subscriptions from script channel:
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> btn = browser.getControl(name='crud-edit.my-script-channel.widgets.select:list')
+  >>> btn.value = ['selected']
+  >>> browser.getControl("Delete").click()
+  >>> "Successfully deleted items" in browser.contents
+  True
+  >>> 'My script channel' in browser.contents
+  False
 
 Configuring collectors
 ----------------------
