@@ -238,6 +238,47 @@ For master branch, del collective.dancing.channel.channels[0] or [1], the test b
   >>> 'Standard Channel' in browser.contents
   False
 
+Subscriptions From Script Channel
+---------------------------------
+
+Add python scripts
+
+  >>> from Products.PythonScripts.PythonScript import PythonScript
+  >>> ps = PythonScript('ps')
+  >>> txt = """return {'email': u'test@mail.com',
+  ...     'format': 'html',
+  ...     'subscription_date': None,
+  ...     'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34',
+  ...     'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34',
+  ...     'topics': [u'news'],
+  ...     'subscriber_data': {'organization': u'blah'}}"""
+  >>> ps.write(txt)
+  >>> ps._makeFunction()
+  >>> ps._exec({}, (), {})
+  {'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34', 'subscription_date': None, 'subscriber_data': {'organization': u'blah'}, 'format': 'html', 'topics': [u'news'], 'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34', 'email': u'test@mail.com'}
+  >>> self.portal.my_script = ps
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> browser.getControl('Type').displayValue = ['Subscriptions from Script Channel']
+  >>> browser.getControl('Title').value = 'My script channel'
+  >>> browser.getControl('Add').click()
+  >>> 'Item added successfully' in browser.contents
+  True
+  >>> 'My script channel' in browser.contents
+  True
+  >>> browser.getLink('My script channel').click()
+  >>> 'Manage or add subscriptions.' in browser.contents
+  True
+  >>> browser.getLink('Edit').click()
+  >>> 'Edit the properties of the mailing-list.' in browser.contents
+  True
+  >>> browser.getControl('Description').value = 'Description'
+  >>> browser.getControl('Script path in this plone portal').value = '/plone/my_script'
+  >>> browser.getControl('Apply').click()
+
+  >>> script_channel = collective.singing.channel.lookup('my-script-channel')
+  >>> script_subscriptions = script_channel.subscriptions
+
 Configuring collectors
 ----------------------
 

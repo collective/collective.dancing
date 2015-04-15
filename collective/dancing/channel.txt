@@ -109,11 +109,13 @@ Add python scripts
   >>> ps._makeFunction()
   >>> ps._exec({}, (), {})
   {'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34', 'subscription_date': None, 'subscriber_data': {'organization': u'blah'}, 'format': 'html', 'topics': [u'news'], 'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34', 'email': u'test@mail.com'}
-
-  >>> channels['external'].subscriptions
+  >>> self.portal.my_script = ps
+  >>> external_channel = channel_lookup()[2]
+  >>> external_channel.script_path = '/plone/my_script'
+  >>> subscriptions = external_channel.subscriptions
+  >>> subscriptions
   <SubscriptionsFromScript at /plone/portal_newsletters/channels/external/>
-
-  >>> channels['external'].subscriptions_metadata
+  >>> external_channel.subscriptions_metadata
   {}
 
 Need to know how to add python script to plone site and assign to SubscriptionsFromScriptChannel script_path
