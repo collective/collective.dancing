@@ -240,8 +240,20 @@ For master branch, del collective.dancing.channel.channels[0] or [1], the test b
 
 Subscriptions From Script Channel
 ---------------------------------
+This channel accepts script path that return a list of the subscribers in JSON object from external source.
+The structure of subscriber as below
+{'email': u'test@mail.com',
+'format': 'html',
+'subscription_date': CreationDate,
+'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34',
+'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34',
+'topics': [u'news'],
+'subscriber_data': {'organization': u'blah'}}
+where both `format` and `subscription_date` keys will be insert into `metadata`,
+list of values of `topics` key will be insert into `collector_data` and
+the rest will be insert into `composer_data`.
 
-Add python scripts
+In order to test this channel, we need to add a list of subscribers through a Python script:
 
   >>> from Products.PythonScripts.PythonScript import PythonScript
   >>> ps = PythonScript('ps')
@@ -257,6 +269,8 @@ Add python scripts
   >>> ps._exec({}, (), {})
   [{'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34', 'subscription_date': None, 'subscriber_data': {'organization': u'blah'}, 'format': 'html', 'topics': [u'news'], 'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34', 'email': u'test@mail.com'}]
   >>> self.portal.my_script = ps
+
+Then new channel is added and script path value is inserted as well:
 
   >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
   >>> browser.getControl('Type').displayValue = ['Subscriptions from Script Channel']
@@ -276,6 +290,8 @@ Add python scripts
   >>> browser.getControl('Script path in this plone portal').value = '/plone/my_script'
   >>> browser.getControl('Apply').click()
 
+Testing the channel to make sure all the values are corrected updated:
+
   >>> script_channel = collective.singing.channel.lookup('my-script-channel')
   >>> script_subscriptions = script_channel.subscriptions
   >>> external_subscription = [subscription for subscription in script_subscriptions.values()][0]
@@ -287,12 +303,14 @@ Add python scripts
   u'https://localhost:8080/db/pgUnsubscribe?secret=34'
   >>> external_subscription.composer_data['my_subscriptions_url']
   u'https://localhost:8080/db/pgMySubscriptions?secret=34'
+  >>> external_subscription.collector_data['subscribe_collectors']
+  set([u'news'])
   >>> external_subscription.metadata['format']
   'html'
   >>> external_subscription.metadata['pending']
   False
 
-  Let's delete subscriptions from script channel:
+Let's delete subscriptions from script channel:
 
   >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
   >>> btn = browser.getControl(name='crud-edit.my-script-channel.widgets.select:list')
