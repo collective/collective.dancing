@@ -90,12 +90,9 @@ class SubscriptionFromDictionary(SimpleSubscription):
 
         collector_data = {}
         selected_collectors = []
-        # introduce subscribe_collectors for custom channel that
-        # don't use the default collector
         if not isinstance(data["topics"], (list, tuple)):
             data["topics"] = []
-        subscribe_collectors = data["topics"]
-        for collector_title in subscribe_collectors:
+        for collector_title in data["topics"]:
             try:
                 collector = self.find_topic(collector_title)
             except AttributeError:
@@ -112,7 +109,6 @@ class SubscriptionFromDictionary(SimpleSubscription):
             # we want the latter.
             selected_collectors = [dummy_collector]
 
-        collector_data["subscribe_collectors"] = set(subscribe_collectors)
         collector_data["selected_collectors"] = set(selected_collectors)
 
         # make sure the email is unicode too

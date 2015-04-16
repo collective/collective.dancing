@@ -82,10 +82,7 @@ Changelog
 - Import / export CSV file includes section values, and backward compatible with original format.
   [ivanteoh]
 
-- External subscriber database and sign up form support with json object call.
-  [ivanteoh]
-
-- Introduce "subscribe_collectors" for custom channel that don't use the default collector.
+- External subscriber database and sign up form support.
   [ivanteoh]
 
 0.9.10 (2012-02-25)
