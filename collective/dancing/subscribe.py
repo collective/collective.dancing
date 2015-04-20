@@ -1,18 +1,16 @@
 from Acquisition import aq_base
-
-import collective.singing.subscribe
-from collective.singing.interfaces import ISubscriptions
-import zope.interface
-import persistent.dict
-
+from OFS.SimpleItem import SimpleItem
 from Products.CMFCore.utils import getToolByName
+from collective.singing.interfaces import ISubscriptions
 from collective.singing.subscribe import SimpleSubscription
 
-from OFS.SimpleItem import SimpleItem
-
+import collective.singing.subscribe
+import logging
+import persistent.dict
 import random
 import string
-import logging
+import zope.interface
+
 logger = logging.getLogger('collective.dancing')
 
 
@@ -53,8 +51,9 @@ dummy_collector = object()
 
 
 class SubscriptionFromDictionary(SimpleSubscription):
-    """
-      A transiant subscription object. Turns a dictionary into a subscription.
+    """ A transiant subscription object.
+
+    Turns a dictionary into a subscription.
     """
 
     def find_topic(self, title):
@@ -156,10 +155,10 @@ class SubscriptionFromDictionary(SimpleSubscription):
 
 
 class SubscriptionsFromScript (SimpleItem):
-    """
-        Call a script within the portal to get a list of subscriptions.
-        Each subscription is a dictionary which is transiantly converted
-        using SubscriptionFromDictionary
+    """Call a script within the portal to get a list of subscriptions.
+
+    Each subscription is a dictionary which is transiantly converted
+    using SubscriptionFromDictionary
     """
 
     zope.interface.implements(ISubscriptions)
@@ -177,17 +176,10 @@ class SubscriptionsFromScript (SimpleItem):
         channel = self.get_channel()
         portal = getToolByName(channel, "portal_url").getPortalObject()
 
-        #HACK: This needs to change to a much simpler format compatible with
-        # plone gazette.
-        # ie [(email, html, changeUrl), ...]
-        # or [(email, html, changeUrl, {"name":"me"...}), ...]
-        # or [(email, html, changeUrl, {"name":"me"...},
-        # ['jobs','news',...]), ...]
-
         if channel.script_path is not None:
-            # HACK: Why aren't we using a tal expression like plone gazette?
+            # Should using a tal expression like plone gazette?
             script = portal.unrestrictedTraverse(str(channel.script_path))
-            # HACK: Why are we silently dropping subscribers?
+            # Could silently dropping subscribers?
             for item in script():
                 # check the script have right data
                 # data have "email", "format", "subscription_date",

@@ -30,10 +30,9 @@ import collective.dancing.composer
 import collective.dancing.subscribe
 import collective.dancing.utils
 from collective.dancing import MessageFactory as _
-
-
 from interfaces import ISubscriptionsFromScriptChannel
 from subscribe import SubscriptionsFromScript
+
 
 def portal_newsletters():
     """Return mailing-lists created with the newsletter tool."""
@@ -209,8 +208,8 @@ class SubscriptionsFromScriptChannel(Channel):
     interface.implements(ISubscriptionsFromScriptChannel)
     type_name = _("Subscriptions from Script Channel")
 
-    def __init__ (self, *args, **kwargs):
-        super(SubscriptionsFromScriptChannel, self).__init__ (*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super(SubscriptionsFromScriptChannel, self).__init__(*args, **kwargs)
 
         self.script_path = None
         self.subscriptions = SubscriptionsFromScript()
@@ -220,4 +219,4 @@ class SubscriptionsFromScriptChannel(Channel):
         self.subscriptions_metadata = persistent.dict.PersistentDict()
 
 # This lists of factories is mutable: You can add to it:
-channels = [Channel,SubscriptionsFromScriptChannel]
+channels = [Channel, SubscriptionsFromScriptChannel]

@@ -54,7 +54,8 @@ class UIDResolver(object):
 
 
 def _assemble_messages(channel_paths, newsletter_uid, newsletter_path,
-                       include_collector_items, override_vars=None, use_full_format=True):
+                       include_collector_items, override_vars=None,
+                       use_full_format=True):
     if override_vars is None:
         override_vars = {}
     queued = 0
@@ -93,12 +94,13 @@ def ChannelAndCollectorVocab(context):
             title=channel.title))
         if channel.collector is not None:
             for collector in channel.collector.get_optional_collectors():
-                # the value needs to be collector.title as that is what is stored in the subscription
+                # the value needs to be collector.title as
+                # that is what is stored in the subscription
                 terms.append(zope.schema.vocabulary.SimpleTerm(
                     value=(path, collector.title),
                     token=channel.name + "/" + collector.title,
                     title=channel.title + " - " + collector.title
-                    ))
+                ))
 
     return SimpleVocabulary(terms)
 
@@ -106,12 +108,10 @@ def ChannelAndCollectorVocab(context):
 class SendForm(form.Form):
     label = _(u'Send')
     fields = field.Fields(ISendAndPreviewForm).select(
-      'channel_and_collector', 'include_collector_items', 'datetime')
+        'channel_and_collector', 'include_collector_items', 'datetime')
     prefix = 'send.'
-    ignoreContext = True # The context doesn't provide the data
+    ignoreContext = True  # The context doesn't provide the data
     template = viewpagetemplatefile.ViewPageTemplateFile('subform-formtab.pt')
-
-
 
     @button.buttonAndHandler(_('Send'), name='send')
     def handle_send(self, action):
@@ -191,7 +191,8 @@ class SendForm(form.Form):
             return
 
         for field_name in self.fields.omit('channel', 'address', 'datetime',
-                                           'include_collector_items', 'channel_and_collector'):
+                                           'include_collector_items',
+                                           'channel_and_collector'):
             if data[field_name] is not None:
                 override_vars[field_name] = data[field_name]
 
@@ -329,7 +330,8 @@ class ISendAndPreviewFormWithCustomSubject(ISendAndPreviewForm):
 
 class SendFormWithCustomSubject(SendForm):
     fields = field.Fields(ISendAndPreviewFormWithCustomSubject).select(
-        'channel_and_collector', 'subject', 'include_collector_items', 'datetime')
+        'channel_and_collector', 'subject',
+        'include_collector_items', 'datetime')
 
 
 class PreviewFormWithCustomSubject(PreviewForm):

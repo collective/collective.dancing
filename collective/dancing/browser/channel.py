@@ -42,6 +42,7 @@ from collective.dancing.browser.interfaces import ISendAndPreviewForm
 from collective.dancing.utils import switch_on
 from collective.dancing.interfaces import ISubscriptionsFromScriptChannel
 
+
 def simpleitem_wrap(klass, name):
     class SimpleItemWrapper(klass, OFS.SimpleItem.SimpleItem):
         __doc__ = OFS.SimpleItem.SimpleItem.__doc__
@@ -423,7 +424,7 @@ def parseSubscriberCSVFile(subscriberdata, composer,
                 if header_row_present:
                     continue
 
-            if len(parsedline)<len(fields):
+            if len(parsedline) < len(fields):
                 pass
             else:
                 try:
@@ -436,17 +437,22 @@ def parseSubscriberCSVFile(subscriberdata, composer,
                         if fields[i] != 'section':
                             parsedline.append(old_parsedline[i])
                         else:
-                            section_field.append(old_parsedline[i].decode(charset))
+                            section_field.append(
+                                old_parsedline[i].decode(charset))
                     if section_index > -1:
                         new_fields = section_row_fields
                         parsedline.insert(section_index, section_field)
 
-                    subscriber = dict(zip(new_fields,\
-                       map(lambda x:x.decode(charset) if isinstance(x, basestring) else x, parsedline)))
+                    subscriber = dict(
+                        zip(new_fields, map(lambda x: x.decode(charset)
+                            if isinstance(x, basestring)
+                            else x, parsedline)))
 
                     # splits 'sections' data from subscriber
                     if 'section' in subscriber:
-                        section = dict([('email', subscriber['email']), ('section', subscriber['section'])])
+                        section = dict([
+                            ('email', subscriber['email']),
+                            ('section', subscriber['section'])])
                         sections.append(section)
                         del subscriber['section']
 
@@ -460,6 +466,7 @@ def parseSubscriberCSVFile(subscriberdata, composer,
     except Exception, e:
         return _(u"Error importing subscriber file. %s" % e), []
 
+
 class ExportCSV(BrowserView):
 
     def __call__(self):
@@ -468,30 +475,38 @@ class ExportCSV(BrowserView):
                                                          'utf-8').upper()
         self.request.response.setHeader('Content-Type',
                                         'text/csv; charset=%s' % charset)
-        self.request.response.setHeader('Content-disposition',
+        self.request.response.setHeader(
+            'Content-disposition',
             'attachment; filename=subscribers_%s_%s.csv' % (self.context.id,
-                                      datetime.date.today().strftime("%Y%m%d")))
+            datetime.date.today().strftime("%Y%m%d")))
         res = cStringIO.StringIO()
         writer = csv.writer(res, dialect=csv.excel, delimiter=csv_delimiter)
         collectors_keys = []
         if self.context.collector:
             selected_collector = self.context.collector.id
             if selected_collector in self.context.collectors.keys():
-                for optional in self.context.collectors[selected_collector].get_optional_collectors():
+                for optional in \
+                        self.context.collectors[selected_collector] \
+                        .get_optional_collectors():
                     title_id = optional.title.strip() + ' (' + optional.id + ')'
                     collectors_keys.append(title_id)
         for format in self.context.composers.keys():
-            composers_keys = field.Fields(self.context.composers[format].schema).keys()
+            composers_keys = field.Fields(
+                self.context.composers[format].schema).keys()
             # add csv header row
             writer.writerow(composers_keys + ['section'] * len(collectors_keys))
-            for subscription in tuple(self.context.subscriptions.query(format=format)):
+            for subscription in tuple(
+                    self.context.subscriptions.query(format=format)):
                 row = []
                 for item in composers_keys:
                     v = subscription.composer_data.get(item) or ''
                     row.append(self._convertValue(v, charset))
                 selected_collectors = {}
                 if 'selected_collectors' in subscription.collector_data:
-                    selected_collectors = dict([(c.title.strip() + ' (' + c.id + ')', c.title.strip()) for c in subscription.collector_data['selected_collectors']])
+                    selected_collectors = dict([
+                        (c.title.strip() + ' (' + c.id + ')', c.title.strip())
+                        for c in subscription.collector_data[
+                            'selected_collectors']])
                 for item in collectors_keys:
                     if item in selected_collectors:
                         # the csv section field format is "title (id)"
@@ -614,12 +629,15 @@ class UploadForm(crud.AddForm):
 
         # generate new selected collectors
         new_sections = {}
-        if self.mychannel.collector and self.mychannel.collector.id in self.mychannel.collectors.keys():
-            optional_collectors = self.mychannel.collectors[self.mychannel.collector.id].get_optional_collectors()
+        if self.mychannel.collector and \
+                self.mychannel.collector.id in self.mychannel.collectors.keys():
+            optional_collectors = self.mychannel.collectors[
+                self.mychannel.collector.id].get_optional_collectors()
             collectors_dict_title = {}
             collectors_dict_id = {}
             for optional_collector in optional_collectors:
-                collectors_dict_title[optional_collector.title] = optional_collector
+                collectors_dict_title[optional_collector.title] = \
+                    optional_collector
                 collectors_dict_id[optional_collector.id] = optional_collector
 
             for section in sections:
@@ -630,17 +648,20 @@ class UploadForm(crud.AddForm):
                         if not section_data:
                             continue
                         # section data format is "title (id)" or "title"
-                        if section_data.split(' ')[-1][0] == '(' and section_data.split(' ')[-1][-1] == ')':
+                        if section_data.split(' ')[-1][0] == '(' and \
+                                section_data.split(' ')[-1][-1] == ')':
                             # use id
                             # check if title (id)
                             section_id = section_data.split(' ')[-1][1:-1]
                             if section_id in collectors_dict_id:
-                                new_section_data.append(collectors_dict_id[section_id])
+                                new_section_data.append(
+                                    collectors_dict_id[section_id])
                         else:
                             # use title
                             # section data format is "title"
                             if section_data in collectors_dict_title:
-                                new_section_data.append(collectors_dict_title[section_data])   
+                                new_section_data.append(
+                                    collectors_dict_title[section_data])
                     new_sections[section['email']] = sets.Set(new_section_data)
 
         added = 0
@@ -672,9 +693,12 @@ class UploadForm(crud.AddForm):
                             item.collector_data = old_collector_data
                     # add new section selection
                     if subscriber_data['email'] in new_sections:
-                        new_selected_collectors = new_sections[subscriber_data['email']]
+                        new_selected_collectors = \
+                            new_sections[subscriber_data['email']]
                         if len(new_selected_collectors):
-                            item.collector_data = dict([('selected_collectors', new_selected_collectors)])
+                            item.collector_data = dict([(
+                                'selected_collectors',
+                                new_selected_collectors)])
                         else:
                             item.collector_data = {}
 
@@ -866,15 +890,16 @@ class ManageChannelView(BrowserView):
                            for (msg, html) in fieldsets)))
 
 
-
 class EditScriptChannelForm(EditChannelForm):
 
     @property
     def fields(self):
 
         fields = super(EditScriptChannelForm, self).fields
-        fields += z3c.form.field.Fields(ISubscriptionsFromScriptChannel).select('script_path')
+        fields += z3c.form.field.Fields(
+            ISubscriptionsFromScriptChannel).select('script_path')
         return fields
+
 
 class ManageScriptChannelView(ManageChannelView):
     edit_form = EditScriptChannelForm

@@ -289,15 +289,18 @@ class HTMLComposer(persistent.Persistent):
         site = component.getUtility(Products.CMFPlone.interfaces.IPloneSiteRoot)
         site = utils.fix_request(site, 0)
         secret_var = '$%s' % template_var('secret')
-        vars['confirm_url'] = subscription.composer_data.get("composer_url") or (
-            '%s/confirm-subscription.html?secret=%s' %
-            (site.portal_newsletters.absolute_url(), secret_var))
-        vars['unsubscribe_url'] = subscription.composer_data.get("unsubscribe_url") or (
-            '%s/unsubscribe.html?secret=%s' %
-            (channel.absolute_url(), secret_var))
-        vars['my_subscriptions_url'] =  subscription.composer_data.get("my_subscriptions_url") or (
-            '%s/../../my-subscriptions.html?secret=%s' %
-            (channel.absolute_url(), secret_var))
+        vars['confirm_url'] = \
+            subscription.composer_data.get("composer_url") or \
+            ('%s/confirm-subscription.html?secret=%s' % (
+                site.portal_newsletters.absolute_url(), secret_var))
+        vars['unsubscribe_url'] = \
+            subscription.composer_data.get("unsubscribe_url") or \
+            ('%s/unsubscribe.html?secret=%s' %
+                (channel.absolute_url(), secret_var))
+        vars['my_subscriptions_url'] = \
+            subscription.composer_data.get("my_subscriptions_url") or \
+            ('%s/../../my-subscriptions.html?secret=%s' %
+                (channel.absolute_url(), secret_var))
         vars['to_addr'] = '$%s' % template_var('to_addr')
         return vars
 
