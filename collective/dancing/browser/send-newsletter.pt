@@ -29,7 +29,8 @@
     <tal:tag replace="structure string:<script type='text/javascript'>" />
     
       function ShowHideTime(){
-        var selected = jQuery('#send-widgets-channel').val();
+        var selected = jQuery('#send-widgets-channel_and_collector').val();
+        selected = selected.split("/")[0]
         var timed = <tal:block replace="view/timed_channels"/>;
         if (jQuery.inArray(selected, timed) != -1) {
           jQuery('#formfield-send-widgets-datetime').show()
@@ -40,7 +41,7 @@
         };
       }
       
-      jQuery('#send-widgets-channel').change(ShowHideTime);
+      jQuery('#send-widgets-channel_and_collector').change(ShowHideTime);
       
       // Initial value:
       ShowHideTime();

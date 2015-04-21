@@ -40,7 +40,7 @@ Let's create another channel and ask for the list of channels again:
   >>> channels = self.portal['portal_newsletters']['channels']
   >>> channels['wq'] = Channel('wq')
   >>> channel_lookup() # doctest: +NORMALIZE_WHITESPACE
-  [<Channel at /plone/portal_newsletters/channels/default-channel>, 
+  [<Channel at /plone/portal_newsletters/channels/default-channel>,
    <Channel at /plone/portal_newsletters/channels/wq>]
 
 Channels and collectors

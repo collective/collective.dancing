@@ -30,6 +30,9 @@ import collective.dancing.composer
 import collective.dancing.subscribe
 import collective.dancing.utils
 from collective.dancing import MessageFactory as _
+from interfaces import ISubscriptionsFromScriptChannel
+from subscribe import SubscriptionsFromScript
+
 
 def portal_newsletters():
     """Return mailing-lists created with the newsletter tool."""
@@ -173,7 +176,9 @@ def channel_added(channel, event):
     # We'll take extra care that when we're imported through the ZMI,
     # we update things to keep everything up to date:
     subscriptions = collective.singing.subscribe.subscriptions_data(channel)
-    subscriptions._catalog.clear()
+
+    if hasattr(subscriptions, "_catalog"):
+        subscriptions._catalog.clear()
 
     for subscription in subscriptions.values():
         # Let's make sure that ``subscription.channel`` refers to the
@@ -198,5 +203,20 @@ def collector_removed(collector, event):
             if aq_base(channel.collector) is aq_base(collector):
                 channel.collector = None
 
+
+class SubscriptionsFromScriptChannel(Channel):
+    interface.implements(ISubscriptionsFromScriptChannel)
+    type_name = _("Subscriptions from Script Channel")
+
+    def __init__(self, *args, **kwargs):
+        super(SubscriptionsFromScriptChannel, self).__init__(*args, **kwargs)
+
+        self.script_path = None
+        self.subscriptions = SubscriptionsFromScript()
+        # currently the old email still keep in subscriptions_metadata
+        # might delete it in the future.
+        # and the email is unique
+        self.subscriptions_metadata = persistent.dict.PersistentDict()
+
 # This lists of factories is mutable: You can add to it:
-channels = [Channel,]
+channels = [Channel, SubscriptionsFromScriptChannel]

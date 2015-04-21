@@ -4,6 +4,8 @@ import urllib
 
 from zope import interface
 from zope import schema
+from zope.schema.vocabulary import SimpleVocabulary
+import zope.schema.vocabulary
 
 try:
     from zope.app.pagetemplate import viewpagetemplatefile
@@ -40,6 +42,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 
 from plone.uuid.interfaces import IUUID
 
+from collective.singing.channel import channel_lookup
 
 class UIDResolver(object):
     def __init__(self, uid):
@@ -51,7 +54,8 @@ class UIDResolver(object):
 
 
 def _assemble_messages(channel_paths, newsletter_uid, newsletter_path,
-                       include_collector_items, override_vars=None):
+                       include_collector_items, override_vars=None,
+                       use_full_format=True):
     if override_vars is None:
         override_vars = {}
     queued = 0
@@ -70,20 +74,43 @@ def _assemble_messages(channel_paths, newsletter_uid, newsletter_path,
     for path in channel_paths:
         channel = site.restrictedTraverse(path)
         assembler = collective.singing.interfaces.IMessageAssemble(channel)
+        wrapped_context = FullFormatWrapper(context) if use_full_format else context
         queued += assembler(
-            request, (FullFormatWrapper(context),), include_collector_items, override_vars)
+            request, (wrapped_context,), include_collector_items, override_vars)
         if channel.scheduler is not None and include_collector_items:
             channel.scheduler.triggered_last = datetime.datetime.now()
     return _(u"${queued} message(s) queued for delivery.",
              mapping=dict(queued=queued))
 
 
+def ChannelAndCollectorVocab(context):
+    terms = []
+    for channel in channel_lookup(only_sendable=True):
+        # use path so we can store the value savely if needed
+        path = '/'.join(channel.getPhysicalPath())
+        terms.append(zope.schema.vocabulary.SimpleTerm(
+            value=(path, None),
+            token=channel.name,
+            title=channel.title))
+        if channel.collector is not None:
+            for collector in channel.collector.get_optional_collectors():
+                # the value needs to be collector.title as
+                # that is what is stored in the subscription
+                terms.append(zope.schema.vocabulary.SimpleTerm(
+                    value=(path, collector.title),
+                    token=channel.name + "/" + collector.title,
+                    title=channel.title + " - " + collector.title
+                ))
+
+    return SimpleVocabulary(terms)
+
+
 class SendForm(form.Form):
     label = _(u'Send')
     fields = field.Fields(ISendAndPreviewForm).select(
-        'channel', 'include_collector_items', 'datetime')
+        'channel_and_collector', 'include_collector_items', 'datetime')
     prefix = 'send.'
-    ignoreContext = True # The context doesn't provide the data
+    ignoreContext = True  # The context doesn't provide the data
     template = viewpagetemplatefile.ViewPageTemplateFile('subform-formtab.pt')
 
     @button.buttonAndHandler(_('Send'), name='send')
@@ -93,8 +120,9 @@ class SendForm(form.Form):
         if errors:
             self.status = form.EditForm.formErrorsMessage
             return
-        channel = data['channel']
-        channel_paths = ['/'.join(channel.getPhysicalPath())]
+
+        path = data["channel_and_collector"][0]
+        channel_paths = [path]
         newsletter_path = "/".join(context.getPhysicalPath())
         newsletter_uid = IUUID(context)
         include_collector_items = data['include_collector_items']
@@ -106,6 +134,8 @@ class SendForm(form.Form):
                                             newsletter_path,
                                             include_collector_items,
                                             override_vars)
+        site = getSite()
+        channel = site.unrestrictedTraverse(path)
         title = _(u"Send '${context}' through ${channel}.",
                   mapping=dict(
             context=context.Title().decode(context.plone_utils.getSiteEncoding()),
@@ -123,7 +153,13 @@ class SendForm(form.Form):
             self.status = form.EditForm.formErrorsMessage
             return
 
-        channel = data['channel']
+        try:
+            path, section = data["channel_and_collector"]
+        except KeyError:
+            return
+        site = getSite()
+        channel = site.unrestrictedTraverse(path)
+
         if not isinstance(channel.scheduler,
                           collective.singing.scheduler.TimedScheduler):
             self.status = _("${name} does not support scheduling.",
@@ -155,9 +191,21 @@ class SendForm(form.Form):
             return
 
         for field_name in self.fields.omit('channel', 'address', 'datetime',
-                                           'include_collector_items'):
+                                           'include_collector_items',
+                                           'channel_and_collector'):
             if data[field_name] is not None:
                 override_vars[field_name] = data[field_name]
+
+        channel_path, section_title = data["channel_and_collector"]
+        if section_title is not None:
+            site = getSite()
+            channel = site.unrestrictedTraverse(channel_path)
+            for section in channel.collector.get_optional_collectors():
+                if section.title == section_title:
+                    # this special override is used by c.singing schedule
+                    # to only send to certain sections
+                    override_vars["subscriptions_for_collector"] = section
+                    break
 
         return override_vars
 
@@ -282,7 +330,8 @@ class ISendAndPreviewFormWithCustomSubject(ISendAndPreviewForm):
 
 class SendFormWithCustomSubject(SendForm):
     fields = field.Fields(ISendAndPreviewFormWithCustomSubject).select(
-        'channel', 'subject', 'include_collector_items', 'datetime')
+        'channel_and_collector', 'subject',
+        'include_collector_items', 'datetime')
 
 
 class PreviewFormWithCustomSubject(PreviewForm):

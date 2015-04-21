@@ -162,7 +162,7 @@ We now have the option to add one of these ;-)
 
   >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
   >>> browser.getControl('Type').displayOptions
-  ['Standard Channel', 'Awesome Channel']
+  ['Standard Channel', 'Subscriptions from Script Channel', 'Awesome Channel']
 
   >>> browser.getControl('Type').displayValue = ['Awesome Channel']
   >>> browser.getControl('Title').value = 'My awesome channel'
@@ -230,9 +230,93 @@ creating new channels.
   >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
   >>> 'Standard Channel' in browser.contents
   True
-  >>> del collective.dancing.channel.channels[1]
+
+For master branch, del collective.dancing.channel.channels[0] or [1], the test below will still pass, but not when 'Subscriptions from Script Channel' is added.
+
+  >>> del collective.dancing.channel.channels[0]
   >>> browser.reload()
   >>> 'Standard Channel' in browser.contents
+  False
+
+Subscriptions From Script Channel
+---------------------------------
+This channel accepts script path that return a Python list of the subscribers from external source.
+The structure of subscriber as below
+{'email': u'test@mail.com',
+'format': 'html',
+'subscription_date': CreationDate,
+'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34',
+'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34',
+'topics': [u'news'],
+'subscriber_data': {'organization': u'blah'}}
+where both `format` and `subscription_date` keys will be insert into `metadata`,
+list of values of `topics` key will be insert into `collector_data` and
+the rest will be insert into `composer_data`.
+
+In order to test this channel, we need to add a list of subscribers through a Python script:
+
+  >>> from Products.PythonScripts.PythonScript import PythonScript
+  >>> ps = PythonScript('ps')
+  >>> txt = """return [{'email': u'test@mail.com',
+  ...     'format': 'html',
+  ...     'subscription_date': None,
+  ...     'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34',
+  ...     'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34',
+  ...     'topics': [u'news'],
+  ...     'subscriber_data': {'organization': u'blah'}}]"""
+  >>> ps.write(txt)
+  >>> ps._makeFunction()
+  >>> ps._exec({}, (), {})
+  [{'unsubscribe_url': u'https://localhost:8080/db/pgUnsubscribe?secret=34', 'subscription_date': None, 'subscriber_data': {'organization': u'blah'}, 'format': 'html', 'topics': [u'news'], 'my_subscriptions_url': u'https://localhost:8080/db/pgMySubscriptions?secret=34', 'email': u'test@mail.com'}]
+  >>> self.portal.my_script = ps
+
+Then new channel is added and script path value is inserted as well:
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> browser.getControl('Type').displayValue = ['Subscriptions from Script Channel']
+  >>> browser.getControl('Title').value = 'My script channel'
+  >>> browser.getControl('Add').click()
+  >>> 'Item added successfully' in browser.contents
+  True
+  >>> 'My script channel' in browser.contents
+  True
+  >>> browser.getLink('My script channel').click()
+  >>> 'Manage or add subscriptions.' in browser.contents
+  True
+  >>> browser.getLink('Edit').click()
+  >>> 'Edit the properties of the mailing-list.' in browser.contents
+  True
+  >>> browser.getControl('Description').value = 'Description'
+  >>> browser.getControl('Script path in this plone portal').value = '/plone/my_script'
+  >>> browser.getControl('Apply').click()
+
+Testing the channel to make sure all the values are corrected updated:
+
+  >>> script_channel = collective.singing.channel.lookup('my-script-channel')
+  >>> script_subscriptions = script_channel.subscriptions
+  >>> external_subscription = [subscription for subscription in script_subscriptions.values()][0]
+  >>> external_subscription.composer_data['email']
+  u'test@mail.com'
+  >>> external_subscription.composer_data['organization']
+  u'blah'
+  >>> external_subscription.composer_data['unsubscribe_url']
+  u'https://localhost:8080/db/pgUnsubscribe?secret=34'
+  >>> external_subscription.composer_data['my_subscriptions_url']
+  u'https://localhost:8080/db/pgMySubscriptions?secret=34'
+  >>> external_subscription.metadata['format']
+  'html'
+  >>> external_subscription.metadata['pending']
+  False
+
+Let's delete subscriptions from script channel:
+
+  >>> browser.open(portal.absolute_url() + '/portal_newsletters/channels')
+  >>> btn = browser.getControl(name='crud-edit.my-script-channel.widgets.select:list')
+  >>> btn.value = ['selected']
+  >>> browser.getControl("Delete").click()
+  >>> "Successfully deleted items" in browser.contents
+  True
+  >>> 'My script channel' in browser.contents
   False
 
 Configuring collectors
@@ -563,13 +647,17 @@ Subscriptions can be downloaded as csv:
   >>> browser.getControl('Download').click()
   >>> browser.headers['content-type']
   'text/csv; charset=UTF-8'
-  >>> 'daniel@domain.tld\r\n' in browser.contents
+  >>> 'email,section,section\r\n' in browser.contents
   True
-  >>> 'mailman@domain.tld\r\n' in browser.contents
+  >>> 'daniel@domain.tld,,\r\n' in browser.contents
   True
-  >>> 'lars@domain.tld\r\n' in browser.contents
+  >>> 'mailman@domain.tld,,News (0)\r\n' in browser.contents
   True
-  >>> 'pia@domain.tld\r\n' in browser.contents
+  >>> 'lars@domain.tld,,\r\n' in browser.contents
+  True
+  >>> 'pia@domain.tld,,\r\n' in browser.contents
+  True
+  >>> 'pengo@domain.tld,,\r\n' in browser.contents
   True
 
 Now add custom composer with different types of fields inside it's schema and
@@ -605,13 +693,17 @@ Download csv file:
   >>> browser.getControl(name='crud-add.my_format.buttons.download').click()
   >>> browser.headers['content-type']
   'text/csv; charset=UTF-8'
-  >>> 'daniel@domain.tld\r\n' in browser.contents
+  >>> 'email,section,section\r\n' in browser.contents
   True
-  >>> 'mailman@domain.tld\r\n' in browser.contents
+  >>> 'daniel@domain.tld,,\r\n' in browser.contents
   True
-  >>> 'lars@domain.tld\r\n' in browser.contents
+  >>> 'mailman@domain.tld,,News (0)\r\n' in browser.contents
   True
-  >>> 'pia@domain.tld\r\n' in browser.contents
+  >>> 'lars@domain.tld,,\r\n' in browser.contents
+  True
+  >>> 'pia@domain.tld,,\r\n' in browser.contents
+  True
+  >>> 'pengo@domain.tld,,\r\n' in browser.contents
   True
 
 Cleanup:
@@ -1124,7 +1216,14 @@ This of course also works with non-ascii chars in the frontpage title.
 
   >>> previous_trigger_time = channel.scheduler.triggered_last
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
-  >>> browser.getControl(name='send.widgets.channel:list').value = ['my-other-channel']
+
+"Send as Newsletter" can now be sent to an optionally subscribed section rather
+than the whole channel.
+
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').options
+  ['default-channel', 'my-other-channel', 'my-other-channel/Events', 'my-other-channel/News']
+
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').value = ['my-other-channel']
   >>> browser.getControl('Send', index=0).click()
   >>> "Messages queued for delivery" in browser.contents
   True
@@ -1184,7 +1283,7 @@ channels:
 
   >>> previous_trigger_time = channel.scheduler.triggered_last
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
-  >>> browser.getControl(name='send.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').value = ['my-other-channel']
 
 This time we won't add the collector items:
 
@@ -1278,12 +1377,12 @@ call a "timed scheduler".
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
   >>> "Schedule distribution" in browser.contents
   True
-  >>> browser.getControl(name="send.widgets.channel:list").value = ['default-channel']
+  >>> browser.getControl(name="send.widgets.channel_and_collector:list").value = ['default-channel']
   >>> browser.getControl("Schedule distribution").click()
   >>> "Newsletter does not support scheduling" in browser.contents
   True
 
-  >>> browser.getControl(name='send.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').value = ['my-other-channel']
 
   >>> name_pre = 'send.widgets.datetime-'
   >>> browser.getControl(name=name_pre + "day").value = "6"
@@ -1318,7 +1417,7 @@ before the dispatch. We need to check that the newsletter will be dispatched cor
   'foo'
 
   >>> browser.open(portal.absolute_url() + '/news/foo/send-newsletter.html')
-  >>> browser.getControl(name='send.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').value = ['my-other-channel']
   >>> browser.getControl('Send', index=0).click()
   >>> "Messages queued for delivery" in browser.contents
   True
@@ -1340,7 +1439,7 @@ Sometimes, editors put a newsletter in the queue and then delete the content bef
   'temp-news'
 
   >>> browser.open(portal.absolute_url() + '/news/temp-news/send-newsletter.html')
-  >>> browser.getControl(name='send.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').value = ['my-other-channel']
   >>> browser.getControl('Send', index=0).click()
   >>> "Messages queued for delivery" in browser.contents
   True
@@ -1377,7 +1476,7 @@ This form has a Custom Subject field, let's try filling it out and sending.
 So let's see if it works in all cases. First we do a normal,
 asynchronous send-out:
 
-  >>> browser.getControl(name='send.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').value = ['my-other-channel']
   >>> browser.getControl(name='send.widgets.subject').value = u'My new subject'
   >>> browser.getControl('Send', index=0).click()
   >>> "Messages queued for delivery" in browser.contents
@@ -1419,7 +1518,7 @@ And finally a scheduled send-out:
 
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter-with-subject.html')
 
-  >>> browser.getControl(name='send.widgets.channel:list').value = ['my-other-channel']
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').value = ['my-other-channel']
   >>> browser.getControl(name='send.widgets.subject').value = u'My new subject'
   >>> name_pre = 'send.widgets.datetime-'
   >>> browser.getControl(name=name_pre + "day").value = "6"
@@ -1443,6 +1542,106 @@ And finally a scheduled send-out:
   Subject: My new subject
   ...
   (3, 0)
+
+Sent to an optionally subscribed section using send as newsletter action:
+
+  >>> portal.invokeFactory('Document', id='news-page', title="A News Page", text="Some very complex text.")
+  'news-page'
+  >>> workflow.doActionFor(portal['news-page'], 'publish')
+  >>> browser.open(portal.absolute_url() + '/news-page/send-newsletter.html')
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').options
+  ['default-channel', 'my-other-channel', 'my-other-channel/Events', 'my-other-channel/News']
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').value = ['my-other-channel/News']
+  >>> browser.getControl('Send', index=0).click()
+  >>> "Messages queued for delivery" in browser.contents
+  True
+  >>> browser.open('http://nohost/plone/portal_newsletters')
+  >>> browser.getLink('Statistics').click()
+  >>> "Send 'A News Page' through" in browser.contents
+  True
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/tick_and_dispatch')
+  *TestingMailDelivery sending*:
+  ...
+  A News Page...Some very complex text...
+
+
+Add content rules
+-----------------
+
+Now you can send Singing and Dancing newsletter with content rules.
+
+  >>> browser.open(portal.absolute_url() + '/+rule/plone.ContentRule')
+  >>> browser.getControl('Title').value = 'Testing Singing and Dancing'
+  >>> browser.getControl('Triggering event').displayValue = ['Workflow state changed']
+  >>> browser.getControl('Enabled').selected
+  True
+  >>> browser.getControl('Save').click()
+  >>> "New content rule created." in browser.contents
+  True
+  >>> browser.getControl('Add condition').displayValue = ['Workflow state']
+  >>> browser.getControl(name='form.button.AddCondition').click()
+  >>> browser.getControl('Workflow state').displayValue = ['Published [published]']
+  >>> browser.getControl('Save').click()
+  >>> "Workflow states are: published" in browser.contents
+  True
+  >>> browser.getControl('Add condition').displayValue = ['Collector']
+  >>> browser.getControl(name='form.button.AddCondition').click()
+  >>> browser.getControl(name='form.channel_and_collector').displayOptions
+  ['(nothing selected)', 'Newsletter', 'My other channel', 'My other channel - Events', 'My other channel - News']
+  >>> browser.getControl(name='form.channel_and_collector').displayValue = ['My other channel - News']
+  >>> browser.getControl('Save').click()
+  >>> "Filter by collector my-other-channel (optional collector: News)" in browser.contents
+  True
+  >>> browser.getControl('Add action').displayValue = ['Send as newsletter']
+  >>> browser.getControl(name='form.button.AddAction').click()
+  >>> browser.getControl(name='form.channel_and_collector').displayOptions
+  ['(nothing selected)', 'Newsletter', 'My other channel', 'My other channel - Events', 'My other channel - News']
+  >>> browser.getControl(name='form.channel_and_collector').displayValue = ['My other channel - News']
+  >>> browser.getControl('Include collector items').selected
+  False
+  >>> browser.getControl('Send as Newsletter').selected
+  True
+  >>> browser.getControl('Save').click()
+  >>> "Send to channel: my-other-channel (section: News)" in browser.contents
+  True
+  >>> browser.getControl('Apply rule on the whole site').click()
+  >>> "The rule has been enabled on site root and all its subfolders" in browser.contents
+  True
+
+  >>> news.invokeFactory('News Item', id='content-news', title="A Content Rules News", text="Some very random text.")
+  'content-news'
+  >>> workflow.doActionFor(news['content-news'], 'publish')
+  >>> browser.open('http://nohost/plone/portal_newsletters')
+  >>> browser.getLink('Statistics').click()
+  >>> 'Content rule send "A Content Rules News" through "My other channel"' in browser.contents
+  True
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/tick_and_dispatch')
+  *TestingMailDelivery sending*:
+  ...
+  A Content Rules News...Some very random text...
+
+It also allow you to send the newsletter as link, title and summary instead of whole content.
+
+  >>> browser.open(portal.absolute_url() + '/++rule++rule-1/@@manage-elements')
+  >>> browser.getControl('Edit', index=2).click()
+  >>> browser.getControl('Send as Newsletter').selected
+  True
+  >>> browser.getControl('Send as Newsletter').selected = False
+  >>> browser.getControl('Send as Newsletter').selected
+  False
+  >>> browser.getControl('Save').click()
+
+  >>> news.invokeFactory('News Item', id='link-news', title="A Link News", text="Some very small link.")
+  'link-news'
+  >>> workflow.doActionFor(news['link-news'], 'publish')
+  >>> browser.open('http://nohost/plone/portal_newsletters')
+  >>> browser.getLink('Statistics').click()
+  >>> 'Content rule send "A Link News" through "My other channel"' in browser.contents
+  True
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/tick_and_dispatch')
+  *TestingMailDelivery sending*:
+  ...
+  A Link News[1]...[1] http://nohost/plone/news/link-news...
 
 
 The "My subscriptions" page

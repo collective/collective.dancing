@@ -69,6 +69,22 @@ Changelog
 
 - Fix Italian translations [cekk]
 
+- Added content rules to allow automated sending of content as a newsletter.
+  [djay]
+
+- Configure content rule to send as newsletter or send as link and summary only.
+  [djay]
+
+- "Send as Newsletter" can now be sent to an optionally subscribed section rather
+  than the whole channel.
+  [arterrey]
+
+- Import / export CSV file includes section values, and backward compatible with original format.
+  [ivanteoh]
+
+- External subscriber database and sign up form support.
+  [ivanteoh]
+
 0.9.10 (2012-02-25)
 -------------------
 
