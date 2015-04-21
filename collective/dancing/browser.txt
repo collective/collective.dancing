@@ -1216,6 +1216,13 @@ This of course also works with non-ascii chars in the frontpage title.
 
   >>> previous_trigger_time = channel.scheduler.triggered_last
   >>> browser.open(portal.absolute_url() + '/front-page/send-newsletter.html')
+
+"Send as Newsletter" can now be sent to an optionally subscribed section rather
+than the whole channel.
+
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').options
+  ['default-channel', 'my-other-channel', 'my-other-channel/Events', 'my-other-channel/News']
+
   >>> browser.getControl(name='send.widgets.channel_and_collector:list').value = ['my-other-channel']
   >>> browser.getControl('Send', index=0).click()
   >>> "Messages queued for delivery" in browser.contents
@@ -1535,6 +1542,83 @@ And finally a scheduled send-out:
   Subject: My new subject
   ...
   (3, 0)
+
+
+Sent to an optionally subscribed section using "Send as Newsletter"
+-------------------------------------------------------------------
+
+  >>> portal.invokeFactory('Document', id='news-page', title="A News Page", text="Some very complex text.")
+  'news-page'
+  >>> workflow.doActionFor(portal['news-page'], 'publish')
+  >>> browser.open(portal.absolute_url() + '/news-page/send-newsletter.html')
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').options
+  ['default-channel', 'my-other-channel', 'my-other-channel/Events', 'my-other-channel/News']
+  >>> browser.getControl(name='send.widgets.channel_and_collector:list').value = ['my-other-channel/News']
+  >>> browser.getControl('Send', index=0).click()
+  >>> "Messages queued for delivery" in browser.contents
+  True
+  >>> browser.open('http://nohost/plone/portal_newsletters')
+  >>> browser.getLink('Statistics').click()
+  >>> "Send 'A News Page' through" in browser.contents
+  True
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/tick_and_dispatch')
+  *TestingMailDelivery sending*:
+  ...
+  A News Page...Some very complex text...
+
+
+Add content rules
+-----------------
+
+  >>> browser.open(portal.absolute_url() + '/+rule/plone.ContentRule')
+  >>> browser.getControl('Title').value = 'Testing Singing and Dancing'
+  >>> browser.getControl('Triggering event').displayValue = ['Workflow state changed']
+  >>> browser.getControl('Enabled').selected
+  True
+  >>> browser.getControl('Save').click()
+  >>> "New content rule created." in browser.contents
+  True
+  >>> browser.getControl('Add condition').displayValue = ['Workflow state']
+  >>> browser.getControl(name='form.button.AddCondition').click()
+  >>> browser.getControl('Workflow state').displayValue = ['Published [published]']
+  >>> browser.getControl('Save').click()
+  >>> "Workflow states are: published" in browser.contents
+  True
+  >>> browser.getControl('Add condition').displayValue = ['Collector']
+  >>> browser.getControl(name='form.button.AddCondition').click()
+  >>> browser.getControl(name='form.channel_and_collector').displayOptions
+  ['(nothing selected)', 'Newsletter', 'My other channel', 'My other channel - Events', 'My other channel - News']
+  >>> browser.getControl(name='form.channel_and_collector').displayValue = ['My other channel - News']
+  >>> browser.getControl('Save').click()
+  >>> "Filter by collector my-other-channel (optional collector: News)" in browser.contents
+  True
+  >>> browser.getControl('Add action').displayValue = ['Send as newsletter']
+  >>> browser.getControl(name='form.button.AddAction').click()
+  >>> browser.getControl(name='form.channel_and_collector').displayOptions
+  ['(nothing selected)', 'Newsletter', 'My other channel', 'My other channel - Events', 'My other channel - News']
+  >>> browser.getControl(name='form.channel_and_collector').displayValue = ['My other channel - News']
+  >>> browser.getControl('Include collector items').selected
+  False
+  >>> browser.getControl('Send as Newsletter').selected
+  True
+  >>> browser.getControl('Save').click()
+  >>> "Send to channel: my-other-channel (section: News)" in browser.contents
+  True
+  >>> browser.getControl('Apply rule on the whole site').click()
+  >>> "The rule has been enabled on site root and all its subfolders" in browser.contents
+  True
+
+  >>> news.invokeFactory('News Item', id='content-news', title="A Content Rules News", text="Some very random text.")
+  'content-news'
+  >>> workflow.doActionFor(news['content-news'], 'publish')
+  >>> browser.open('http://nohost/plone/portal_newsletters')
+  >>> browser.getLink('Statistics').click()
+  >>> 'Content rule send "A Content Rules News" through "My other channel"' in browser.contents
+  True
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/tick_and_dispatch')
+  *TestingMailDelivery sending*:
+  ...
+  A Content Rules News...Some very random text...
 
 
 The "My subscriptions" page
