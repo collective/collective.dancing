@@ -1543,9 +1543,7 @@ And finally a scheduled send-out:
   ...
   (3, 0)
 
-
-Sent to an optionally subscribed section using "Send as Newsletter"
--------------------------------------------------------------------
+Sent to an optionally subscribed section using send as newsletter action:
 
   >>> portal.invokeFactory('Document', id='news-page', title="A News Page", text="Some very complex text.")
   'news-page'
@@ -1569,6 +1567,8 @@ Sent to an optionally subscribed section using "Send as Newsletter"
 
 Add content rules
 -----------------
+
+Now you can send Singing and Dancing newsletter with content rules.
 
   >>> browser.open(portal.absolute_url() + '/+rule/plone.ContentRule')
   >>> browser.getControl('Title').value = 'Testing Singing and Dancing'
@@ -1619,6 +1619,29 @@ Add content rules
   *TestingMailDelivery sending*:
   ...
   A Content Rules News...Some very random text...
+
+It also allow you to send the newsletter as link, title and summary instead of whole content.
+
+  >>> browser.open(portal.absolute_url() + '/++rule++rule-1/@@manage-elements')
+  >>> browser.getControl('Edit', index=2).click()
+  >>> browser.getControl('Send as Newsletter').selected
+  True
+  >>> browser.getControl('Send as Newsletter').selected = False
+  >>> browser.getControl('Send as Newsletter').selected
+  False
+  >>> browser.getControl('Save').click()
+
+  >>> news.invokeFactory('News Item', id='link-news', title="A Link News", text="Some very small link.")
+  'link-news'
+  >>> workflow.doActionFor(news['link-news'], 'publish')
+  >>> browser.open('http://nohost/plone/portal_newsletters')
+  >>> browser.getLink('Statistics').click()
+  >>> 'Content rule send "A Link News" through "My other channel"' in browser.contents
+  True
+  >>> browser.open(portal.absolute_url() + '/@@dancing.utils/tick_and_dispatch')
+  *TestingMailDelivery sending*:
+  ...
+  A Link News[1]...[1] http://nohost/plone/news/link-news...
 
 
 The "My subscriptions" page
