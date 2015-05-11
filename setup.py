@@ -8,7 +8,7 @@ def read(*paths):
     return open(os.path.join(os.path.dirname(__file__), *paths)).read()
 
 
-version = '1.0dev9'
+version = '1.0'
 
 setup(name='collective.dancing',
       version=version,
@@ -31,6 +31,7 @@ setup(name='collective.dancing',
       author='Daniel Nouri, Thomas Clement Mogensen and contributors',
       author_email='singing-dancing@googlegroups.com',
       url='http://plone.org/products/dancing',
+      download_url = 'https://github.com/collective/collective.dancing/tarball/1.0',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['collective'],

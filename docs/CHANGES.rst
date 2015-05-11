@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0dev (Unreleased)
+1.0 (2015-05-11)
 -------------------
 
 - Don't try to patch ATTopic if ``plone.app.collection`` is available.
