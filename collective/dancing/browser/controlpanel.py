@@ -22,6 +22,7 @@ class ControlPanelView(BrowserView):
     label = _(u"Singing & Dancing configuration")
 
     def back_link(self):
-        return dict(label=_(u"Up to Site Setup"),
-                    url=self.context.absolute_url() + '/plone_control_panel')
+        root = getSite()
 
+        return dict(label=_(u"Up to Site Setup"),
+                    url=root.absolute_url() + '/plone_control_panel')
