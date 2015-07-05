@@ -1,26 +1,25 @@
-import re
-import unittest
-from zope import interface, component, schema
-import zope.sendmail.interfaces
-from zope.testing import doctest
-from zope.component import testing
-from Testing import ZopeTestCase as ztc
-from Products.Five import zcml
 from Products.Five import fiveconfigure
+from Products.Five import zcml
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
-
-from email.Parser import Parser
-from email.Header import Header, decode_header
-from email.Charset import Charset, QP, SHORTEST
-from copy import deepcopy
-
+from Testing import ZopeTestCase as ztc
+from collective.dancing.composer import HTMLComposer
+from collective.dancing.composer import PrimaryLabelTextLine
+from collective.dancing.interfaces import IHTMLComposer
 from collective.singing.interfaces import ISubscription
+from copy import deepcopy
+from email.Charset import Charset, QP, SHORTEST
+from email.Header import Header, decode_header
+from email.Parser import Parser
+from zope import interface, component, schema
+from zope.component import testing
+from zope.testing import doctest
+
 import collective.dancing
 import collective.dancing.utils
-from collective.dancing.composer import HTMLComposer
-from collective.dancing.interfaces import IHTMLComposer
-from collective.dancing.composer import PrimaryLabelTextLine
+import re
+import unittest
+import zope.sendmail.interfaces
 
 
 # custom composer definition
@@ -81,11 +80,11 @@ def decodeMessageAsString(msg):
     new.replace_header('Subject', decode_header(new['Subject'])[0][0])
     charset = Charset('utf-8')
     charset.header_encoding = SHORTEST
-    charset.body_encoding   = QP
-    charset.output_charset  = 'utf-8'
+    charset.body_encoding = QP
+    charset.output_charset = 'utf-8'
 
     for part in new.walk():
-        if part.get_content_maintype()=="multipart":
+        if part.get_content_maintype() == "multipart":
             continue
         decoded = part.get_payload(decode=1)
         del part['Content-Transfer-Encoding']
@@ -140,7 +139,7 @@ class PublisherMechanizeBrowser(mechanize.Browser):
     default_schemes = ['http']
     default_others = ["_unknown", "_http_error", "_http_default_error"]
     default_features = ['_redirect', '_cookies', '_referer', '_refresh',
-                        '_equiv', '_basicauth', '_digestauth',]
+                        '_equiv', '_basicauth', '_digestauth', ]
 
     def __init__(self, *args, **kws):
         inherited_handlers = ['_unknown', '_http_error',
@@ -162,7 +161,7 @@ class Browser(browser.Browser):
 class DancingTestCase(ptc.FunctionalTestCase):
     """set expected email_from_name to help tests pass in Plone 4"""
     def afterSetUp(self):
-        #in plone4 email_from_name is not set.
+        # in plone4 email_from_name is not set.
         prop = {'email_from_name':u'Site Administrator'}
         self.portal.portal_properties.site_properties.editProperties(prop)
 

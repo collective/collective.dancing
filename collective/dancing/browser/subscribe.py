@@ -1,8 +1,29 @@
-import datetime
-import operator
-
+from Products.Five import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from collective.dancing import MessageFactory as _
+from collective.dancing.events import ConfirmSubscriptionEvent
+from collective.dancing.events import ConfirmUnsubscriptionEvent
+from collective.dancing.utils import switch_on
+from collective.singing.channel import channel_lookup
+from collective.singing.interfaces import ISubscriptionKey
+from plone.z3cform.widget import singlecheckboxwidget_factory
+from z3c.form import button
+from z3c.form import field
+from z3c.form import form
+from z3c.form import subform
 from zope import component
 from zope import schema
+from zope.event import notify
+
+import collective.singing.browser.subscribe
+import collective.singing.interfaces
+import collective.singing.message
+import datetime
+import operator
+import z3c.form
+import z3c.form.interfaces
+import zope.i18n.interfaces
+
 try:
     from zope.app.component.hooks import getSite
 except ImportError:
@@ -11,25 +32,6 @@ try:
     from zope.app.pagetemplate import viewpagetemplatefile
 except ImportError:
     from zope.browserpage import viewpagetemplatefile
-import zope.i18n.interfaces
-from Products.Five import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from z3c.form import button
-from z3c.form import field
-from z3c.form import form
-from z3c.form import subform
-import z3c.form.interfaces
-import z3c.form
-from plone.z3cform.widget import singlecheckboxwidget_factory
-import collective.singing.interfaces
-import collective.singing.message
-import collective.singing.browser.subscribe
-from collective.singing.channel import channel_lookup
-from collective.singing.interfaces import ISubscriptionKey
-from collective.dancing import MessageFactory as _
-from collective.dancing.utils import switch_on
-from collective.dancing.events import ConfirmSubscriptionEvent, ConfirmUnsubscriptionEvent
-from zope.event import notify
 
 
 class SubscribeForm(collective.singing.browser.subscribe.Subscribe):
@@ -266,7 +268,7 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
     def fields(self):
         if self.context.collector is not None:
             fields = field.Fields(self.context.collector.schema,
-                                   prefix='collector.')
+                                  prefix='collector.')
         else:
             fields = field.Fields()
         fields += field.Fields(self.context.composers[self.format].schema,
@@ -324,8 +326,8 @@ class SubscriptionAddForm(IncludeHiddenSecret, form.Form):
             self.added = self.context.subscriptions.add_subscription(
                 self.context, secret, comp_data, coll_data, metadata)
             if secret and not self.added.metadata.get('pending', False):
-                #in this case the user subscribed himself in my-subscriptions.html
-                #panel and he doesn't need to confirm his subscription
+                # in this case the user subscribed himself in my-subscriptions.html
+                # panel and he doesn't need to confirm his subscription
                 notify(ConfirmSubscriptionEvent(context, self.added))
         except ValueError:
             self.added = None
@@ -368,8 +370,8 @@ class SubscriptionSubForm(IncludeHiddenSecret, subform.EditSubForm):
         widgets[0].items[0]['label'] = self.label
         widgets[0].label = u''
         for widget in widgets[1:]:
-            #widget.label = u""
-            #widget.required = False
+            # widget.label = u""
+            # widget.required = False
             widget.addClass('level-1')
 
 
@@ -407,7 +409,7 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
     def fields(self):
         if self.context.collector is not None:
             fields = field.Fields(self.context.collector.schema,
-                                   prefix='collector.')
+                                  prefix='collector.')
         else:
             fields = field.Fields()
 
@@ -418,11 +420,12 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
 
         select_field = field.Field(
             schema.Bool(
-            __name__=self.channel_selector,
-            title=self.label,
-            default=False,
-            required=False,
-            ))
+                __name__=self.channel_selector,
+                title=self.label,
+                default=False,
+                required=False,
+            )
+        )
         select_field.widgetFactory[z3c.form.interfaces.INPUT_MODE] = (
             singlecheckboxwidget_factory)
 
@@ -463,8 +466,8 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
             # Check if subscribed to other channels
             if not secret_provided and not self.parentForm.confirmation_sent:
                 existing = sum(
-                    [len(channel.subscriptions.query(secret=secret)) \
-                     for channel in channel_lookup(only_subscribeable=True)])
+                    [len(channel.subscriptions.query(secret=secret))
+                        for channel in channel_lookup(only_subscribeable=True)])
                 if existing:
                     self.status = self.status_already_subscribed
                     return
@@ -543,11 +546,12 @@ class SubscriptionEditSubForm(SubscriptionSubForm):
     def fields(self):
         select_field = field.Field(
             schema.Bool(
-            __name__=self.channel_selector,
-            title=self.label,
-            default=True,
-            required=False
-            ))
+                __name__=self.channel_selector,
+                title=self.label,
+                default=True,
+                required=False
+            )
+        )
         select_field.widgetFactory[z3c.form.interfaces.INPUT_MODE] = (
             singlecheckboxwidget_factory)
 
@@ -603,7 +607,7 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
     template = viewpagetemplatefile.ViewPageTemplateFile(
         'prettysubscriptionsform.pt')
     ignoreContext = True
-    #ignoreRequest = True
+    # ignoreRequest = True
     confirmation_sent = False
     status_message = None
     unsubscribed_all = False
@@ -667,7 +671,7 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
                 fields += field.Fields(current)
             if self.subs and not self.unsubscribed_all:
                 self.request.form['form.widgets.' + kf.getName()] = \
-                           self.subs[0].composer_data[kf.getName()]
+                    self.subs[0].composer_data[kf.getName()]
         return fields
 
     def updateWidgets(self):
@@ -709,7 +713,7 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
                 addform.update()
                 self.subscription_addforms.append(addform)
                 addform.status = form.status
-            #elif form.status != form.noChangesMessage:
+            # elif form.status != form.noChangesMessage:
             #    self.status = form.status
 
         # Let's update the add forms now.  One of them may have added
@@ -722,12 +726,12 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
                     subscription, self.request, self)
                 editform.update()
                 self.subscription_editforms.append(editform)
-                #_(u"You subscribed successfully.")
+                # _(u"You subscribed successfully.")
                 editform.status = form.status
 
         # check if all subscriptions are now cancelled
-        if not sum([len(c.subscriptions.query(secret=self.secret)) \
-                for c in channel_lookup(only_subscribeable=True)]):
+        if not sum([len(c.subscriptions.query(secret=self.secret))
+                    for c in channel_lookup(only_subscribeable=True)]):
             self.unsubscribed_all = True
             self.status_message = _(u"You were unsubscribed completely.")
             # update after setting unsubscribed_all
@@ -848,7 +852,7 @@ class Subscriptions(BrowserView):
                     subscription, self.request)
                 editform.update()
                 self.subscription_editforms.append(editform)
-                #_(u"You subscribed successfully.")
+                # _(u"You subscribed successfully.")
                 editform.status = form.status
 
         return self.contents_template()

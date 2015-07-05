@@ -3,7 +3,6 @@ from OFS.SimpleItem import SimpleItem
 from Products.CMFCore.utils import getToolByName
 from collective.singing.interfaces import ISubscriptions
 from collective.singing.subscribe import SimpleSubscription
-
 import collective.singing.subscribe
 import logging
 import persistent.dict
