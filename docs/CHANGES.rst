@@ -1,8 +1,14 @@
 Changelog
 =========
 
+dev (unreleased)
+----------------
+
+- Disable diazo for `@@preview-newsletter.html`
+  [fRiSi]
+
 1.0 (2015-05-11)
--------------------
+----------------
 
 - Don't try to patch ATTopic if ``plone.app.collection`` is available.
   [saily]

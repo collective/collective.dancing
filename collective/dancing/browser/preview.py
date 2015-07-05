@@ -43,6 +43,9 @@ class PreviewNewsletterView(BrowserView):
 
     def __call__(self, name=None, include_collector_items=False, override_vars=None):
 
+        # deactivate diazo - we style our newsletters without it
+        self.request.response.setHeader('X-Theme-Disabled', 'True')
+
         if override_vars is None:
             override_vars = '{}'
 
