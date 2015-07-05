@@ -4,6 +4,9 @@ Changelog
 dev (unreleased)
 ----------------
 
+- Allow to confirm a subscription for multiple channels (fixes #8)
+  [fRiSi]
+
 - Disable diazo for `@@preview-newsletter.html`
   [fRiSi]
 

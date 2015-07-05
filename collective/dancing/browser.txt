@@ -905,6 +905,17 @@ We'll subscribe to events only:
   >>> secret.startswith('secret=')
   True
 
+Let's subscribe to the default-channel too (so we can test if both subscriptions can be
+confirmed
+
+  >>> default_channel = portal.portal_newsletters.channels['default-channel']
+  >>> browser.open(default_channel.absolute_url() + '/subscribe.html')
+  >>> browser.getControl('E-mail address').value = u"root@domain.tld"
+  >>> browser.getControl('Finish').click() \
+  ... # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+  *TestingMailDelivery sending*:
+  ...
+
 So now we've received an e-mail to confirm our subscription.  Using
 the subscriptions query interface, we can see that our subscription is
 *pending*:
@@ -919,7 +930,17 @@ the subscriptions query interface, we can see that our subscription is
   >>> dict((subscription.composer_data))
   {'email': u'root@domain.tld'}
 
-After confirming our subscription, the subscription is no longer
+  >>> subs = list(
+  ...    default_channel.subscriptions.query(secret=secret.split('=')[1]))
+  >>> len(subs)
+  1
+  >>> second_subscription = subs[0]
+  >>> second_subscription.metadata['pending']
+  True
+  >>> dict((second_subscription.composer_data))
+  {'email': u'root@domain.tld'}
+
+After confirming our subscription, the subscription of both channels is no longer
 pending:
 
   >>> browser.open(confirm_url + '?' + secret)
@@ -927,6 +948,13 @@ pending:
   True
   >>> subscription.metadata['pending']
   False
+  >>> second_subscription.metadata['pending']
+  False
+
+
+Cleanup our subscription to the default-channel:
+
+  >>> default_channel.subscriptions.remove_subscription(subscription)
 
 Trying to confirm a subscription that doesn't exist will give us a
 meaningful message:

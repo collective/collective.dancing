@@ -191,7 +191,7 @@ def test_suite():
         ztc.ZopeDocFileSuite(
             'browser.txt',
             test_class=DancingTestCase,
-            encoding='utf-8'
+            encoding='utf-8',
         ),
         ztc.ZopeDocFileSuite(
             'portlets.txt',
