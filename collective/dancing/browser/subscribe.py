@@ -110,7 +110,7 @@ class Confirm(BrowserView):
 
     def __call__(self):
         secret = self.request.form['secret']
-
+        found = False
         if secret:
             for channel in channel_lookup(only_subscribeable=True):
                 subscriptions = channel.subscriptions.query(secret=secret)
@@ -120,8 +120,8 @@ class Confirm(BrowserView):
                             sub.metadata['pending'] = False
                             notify(ConfirmSubscriptionEvent(channel, sub))
                     self.status = self.successMessage
-                    break
-            else:
+                    found = True
+            if not found:
                 self.status = self.notKnownMessage
         else:
             self.status = _(u"Can't identify your subscription. "
