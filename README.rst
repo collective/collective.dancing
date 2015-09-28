@@ -356,4 +356,4 @@ Get in touch with us if you need help or have comments.  See the
 .. _Freenode: http://freenode.net
 .. _donate via PayPal: http://ur1.ca/2d41
 .. _sites using S&D: https://github.com/collective/collective.dancing/blob/master/docs/SITES_USING_SINGING_AND_DANCING.rst
-.. _interfaces.py: http://dev.plone.org/collective/browser/collective.singing/trunk/collective/singing/interfaces.py
+.. _interfaces.py: https://github.com/collective/collective.singing/blob/master/collective/singing/interfaces.py
