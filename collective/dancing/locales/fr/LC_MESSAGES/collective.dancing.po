@@ -878,7 +878,7 @@ msgstr "Une liste de diffusion est un ensemble de configuration. Elle ne fait ri
 #. Default: "Collectors are useful for automatic newsletters. They are responsible for assembling a list of items for publishing."
 #: ./browser/controlpanel-links.pt:18
 msgid "description_collector_administration"
-msgstr "Les collections sont utiles pour les newsletters automatiques. Elles sont responsable d'assembler un ensemble d'éléments à publier."
+msgstr "Les collections sont utiles pour les newsletters automatiques. Elles sont responsables d'assembler un ensemble d'éléments à publier."
 
 #. Default: "Change some aspects of how Singing & Dancing behaves."
 #: ./browser/controlpanel-links.pt:28
