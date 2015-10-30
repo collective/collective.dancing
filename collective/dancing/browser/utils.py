@@ -1,14 +1,28 @@
 import os
+import pkg_resources
 import tempfile
 
-from zope.interface import Interface
-import zc.lockfile
-from Products.Five import BrowserView
-from collective.singing.channel import channel_lookup
 from collective.dancing import utils
+from collective.singing.channel import channel_lookup
+from pkg_resources import parse_version
+from Products.Five import BrowserView
+import zc.lockfile
+from zope.interface import alsoProvides
+from zope.interface import Interface
+
+try:
+    plone_protect = pkg_resources.get_distribution('plone.protect')
+    if parse_version(plone_protect.version) < parse_version('3.0'):
+        HAS_PLONE_PROTECT = False
+    else:
+        from plone.protect.interfaces import IDisableCSRFProtection
+        HAS_PLONE_PROTECT = True
+except pkg_resources.DistributionNotFound:
+    HAS_PLONE_PROTECT = False
 
 LOCKFILE_NAME = os.path.join(tempfile.gettempdir(),
                              __name__ + '.tick_and_dispatch')
+
 
 class IDancingUtilsView(Interface):
 
@@ -27,12 +41,17 @@ class IDancingUtilsView(Interface):
         variable.
         """
 
+
 class DancingUtilsView(BrowserView):
 
     bounce_limit = 2
 
     def tick_and_dispatch(self):
-        """ """
+        """Tick all schedulers of all channels and dispatch their queues."""
+        if HAS_PLONE_PROTECT:
+            # Disabling CSRF protection
+            alsoProvides(self.request, IDisableCSRFProtection)
+
         try:
             lock = zc.lockfile.LockFile(LOCKFILE_NAME)
         except zc.lockfile.LockError:
@@ -59,14 +78,15 @@ class DancingUtilsView(BrowserView):
                 queued = channel.scheduler.tick(channel, self.request)
             if channel.queue is not None:
                 status = channel.queue.dispatch()
-            d = {'channel':channel.name,
-                 'queued':queued or 0,
-                 'status':str(status or (0,0))}
-            msg += u'%(channel)s: %(queued)d messages queued, dispatched: %(status)s\n' % d
+            d = {'channel': channel.name,
+                 'queued': queued or 0,
+                 'status': str(status or (0, 0))}
+            msg += u"""%(channel)s: %(queued)d messages queued, dispatched:
+                %(status)s\n""" % d
         return msg
 
     def handle_bounce(self):
-        """ """
+        """Process a list of bouncing e-mail addresses."""
         count = 0
         addrs = self.request['addrs']
         if isinstance(addrs, (str, unicode)):
@@ -87,10 +107,10 @@ class DancingUtilsView(BrowserView):
         return "%d addresses received, %d deactivated" % (len(addrs), count)
 
     def empty_queue(self):
-        """ """
+        """Empth the queue."""
         queue = utils.get_queue()
         while True:
             try:
                 queue.pull()
             except IndexError:
-                pass # done
+                pass  # done

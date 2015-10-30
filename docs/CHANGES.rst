@@ -10,6 +10,9 @@ dev (unreleased)
 - Disable diazo for `@@preview-newsletter.html`
   [fRiSi]
 
+- Disable CSRF protection on `tick_and_dispatch` request (fixes #24)
+  [ivanteoh]
+
 1.0 (2015-05-11)
 ----------------
 
