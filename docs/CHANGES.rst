@@ -4,6 +4,10 @@ Changelog
 dev (unreleased)
 ----------------
 
+- Fix html generation in `preview.pt`. Now it generates only 1 <body> tag.
+  This was a problem with plone.protect's transform.
+  [cekk]
+
 - Allow to confirm a subscription for multiple channels (fixes #8)
   [fRiSi]
 
@@ -12,6 +16,7 @@ dev (unreleased)
 
 - Disable CSRF protection on `tick_and_dispatch` request (fixes #24)
   [ivanteoh]
+
 
 1.0 (2015-05-11)
 ----------------

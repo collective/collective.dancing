@@ -10,6 +10,6 @@
     </title>
   </head>
 
-  <body tal:content="structure options/content" />
+  <body tal:replace="structure options/content" />
 
 </html>
