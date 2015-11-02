@@ -1,7 +1,7 @@
 Changelog
 =========
 
-dev (unreleased)
+1.1 (2015-11-03)
 ----------------
 
 - Fix html generation in `preview.pt`. Now it generates only 1 <body> tag.
