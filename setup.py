@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from setuptools import setup, find_packages
+from setuptools import find_packages
+from setuptools import setup
 
 import os
 
@@ -31,7 +32,9 @@ setup(name='collective.dancing',
       author='Daniel Nouri, Thomas Clement Mogensen and contributors',
       author_email='singing-dancing@googlegroups.com',
       url='http://plone.org/products/dancing',
-      download_url = 'https://github.com/collective/collective.dancing/tarball/1.0',
+      download_url="""
+      https://github.com/collective/collective.dancing/tarball/1.0
+      """,
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['collective'],
