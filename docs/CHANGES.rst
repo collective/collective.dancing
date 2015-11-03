@@ -1,8 +1,14 @@
 Changelog
 =========
 
+1.0.2 (2015-11-03)
+------------------
+
+- Fix readme file.
+  [ivanteoh]
+
 1.0.1 (2015-11-03)
-----------------
+------------------
 
 - Fix html generation in `preview.pt`. Now it generates only 1 <body> tag.
   This was a problem with plone.protect's transform.
