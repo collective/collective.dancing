@@ -1,10 +1,11 @@
+# Harald Friessnegger <harald@webmeisterei.com>, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: Singing & Dancing\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: \n"
-"Last-Translator: Daniel Widerin <daniel.widerin@kombinat.at>\n"
-"Language-Team: David Picó Vila <david.pico.vila@gmail.com>\n"
+"PO-Revision-Date: 2017-02-27 16:35+0100\n"
+"Last-Translator: Harald Friessnegger <harald@webmeisterei.com>\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,6 +18,8 @@ msgstr ""
 "X-Poedit-Language: German\n"
 "X-Poedit-Country: AUSTRIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"Language: de_DE\n"
+"X-Generator: Lokalize 2.0\n"
 
 #: ../browser/portlets/channelsubscribe.py:292
 msgid "${channel} options"
@@ -748,7 +751,7 @@ msgstr "Dieser Text wird automatisch am Ende jeder Nachricht angezeigt."
 
 #: ../browser/subscribe.pt:23
 msgid "The Mailing-list '${channel}' is not open for subscriptions."
-msgstr ""
+msgstr "Derzeit ist die Anmeldung für den Newsletter '${channel}' nicht möglich."
 
 #: ../browser/sendnewsletter.py:250
 msgid "The address to send the preview to is missing."
