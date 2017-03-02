@@ -6,15 +6,22 @@
       i18n:domain="collective.dancing"
       tal:omit-tag="">
 
-<div>
-  <p tal:content="structure view/send_secret_link" />
-</div>
+<tal:subscribeable condition="context/subscribeable">
+  <div>
+    <p tal:content="structure view/send_secret_link" />
+  </div>
 
-<div tal:define="subscribeform view/subscribeform"
-     tal:condition="subscribeform"
-     id="subscription-subscribeform">
-  <div tal:content="structure subscribeform"></div>
-</div>
+  <div tal:define="subscribeform view/subscribeform"
+       tal:condition="subscribeform"
+       id="subscription-subscribeform">
+    <div tal:content="structure subscribeform"></div>
+  </div>
+</tal:subscribeable>
 
+<tal:notsubscribeable condition="not: context/subscribeable">
+
+<p i18n:translate="">The Mailing-list '<span i18n:name="channel" tal:content="context/Title">Channel</span>' is not open for subscriptions.</p>
+
+</tal:notsubscribeable>
 
 </html>

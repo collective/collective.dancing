@@ -4,6 +4,10 @@ Changelog
 1.0.3 (unreleased)
 ------------------
 
+- Do not show subscription form on channel/subscribe.html if
+  `channel.subscribeable == False` [fRiSi]
+
+
 1.0.2 (2015-11-03)
 ------------------
 
