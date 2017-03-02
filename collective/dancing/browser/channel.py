@@ -494,7 +494,8 @@ class ExportCSV(BrowserView):
                         .get_optional_collectors():
                     title_id = optional.title.strip() + ' (' + optional.id + ')'
                     collectors_keys.append(title_id)
-        subscription_data = ['creation_date', 'pending', 'cue', 'secret']
+        subscription_data = [
+            'creation_date', 'pending', 'format', 'language', 'cue', 'secret']
         for format in self.context.composers.keys():
             composers_keys = field.Fields(
                 self.context.composers[format].schema).keys()
@@ -522,7 +523,10 @@ class ExportCSV(BrowserView):
                 # add subsciption_data
                 row.append(subscription.metadata.get('date', ''))
                 row.append(subscription.metadata.get('pending', 'imported'))
-                row.append(subscription.metadata.get('cue', 'never-received-newsletter'))
+                row.append(subscription.metadata.get('format', ''))
+                row.append(subscription.metadata.get('language', ''))
+                row.append(subscription.metadata.get(
+                    'cue', 'never-received-newsletter'))
                 row.append(HTMLComposer.secret(subscription.composer_data))
 
                 writer.writerow(row)

@@ -647,18 +647,17 @@ Subscriptions can be downloaded as csv:
   >>> browser.getControl('Download').click()
   >>> browser.headers['content-type']
   'text/csv; charset=UTF-8'
-  >>> 'email,section,section\r\n' in browser.contents
+  >>> 'email,section,section,creation_date,pending,format,language,cue,secret\r\n' in browser.contents
   True
-  >>> 'daniel@domain.tld,,\r\n' in browser.contents
-  True
-  >>> 'mailman@domain.tld,,News (0)\r\n' in browser.contents
-  True
-  >>> 'lars@domain.tld,,\r\n' in browser.contents
-  True
-  >>> 'pia@domain.tld,,\r\n' in browser.contents
-  True
-  >>> 'pengo@domain.tld,,\r\n' in browser.contents
-  True
+  >>> import csv
+  >>> import StringIO
+  >>> reader = csv.reader(StringIO.StringIO(browser.contents))
+  >>> rows = [row for row in reader]
+  >>> rows
+  [...['daniel@domain.tld', '', '', '...', 'imported', 'html', '', 'never-received-newsletter', '...']...]
+  >>> [values[0] for values in rows]
+  ['email', 'mailman@domain.tld', 'daniel@domain.tld', 'lars@domain.tld', 'pengo@domain.tld', 'pia@domain.tld']
+
 
 Now add custom composer with different types of fields inside it's schema and
 check if we can still download subscribers as csv file.
@@ -693,18 +692,24 @@ Download csv file:
   >>> browser.getControl(name='crud-add.my_format.buttons.download').click()
   >>> browser.headers['content-type']
   'text/csv; charset=UTF-8'
-  >>> 'email,section,section\r\n' in browser.contents
-  True
-  >>> 'daniel@domain.tld,,\r\n' in browser.contents
-  True
-  >>> 'mailman@domain.tld,,News (0)\r\n' in browser.contents
-  True
-  >>> 'lars@domain.tld,,\r\n' in browser.contents
-  True
-  >>> 'pia@domain.tld,,\r\n' in browser.contents
-  True
-  >>> 'pengo@domain.tld,,\r\n' in browser.contents
-  True
+
+It contains data for all composers
+
+  >>> reader = csv.reader(StringIO.StringIO(browser.contents))
+  >>> rows = [row for row in reader]
+
+  >>> rows[0]
+  ['name', 'email', 'programmer', 'interests', 'registered', 'section', 'section', 'creation_date', 'pending', 'format', 'language', 'cue', 'secret']
+  >>> rows[1]
+  ['Elvis Presley', 'elvis@mail.com', 'True', '', '21/11/2010 00:00:00', '', '', '...', 'imported', 'my_format', '', 'never-received-newsletter', '...']
+
+  >>> rows[2]
+  ['email', 'section', 'section', 'creation_date', 'pending', 'format', 'language', 'cue', 'secret']
+  >>> [values[0] for values in rows[2:]]
+  ['email', 'mailman@domain.tld', 'daniel@domain.tld', 'lars@domain.tld', 'pengo@domain.tld', 'pia@domain.tld']
+  >>> [values[2] for values in rows[2:]]
+  ['section', 'News (0)', '', '', '', '']
+
 
 Cleanup:
 
