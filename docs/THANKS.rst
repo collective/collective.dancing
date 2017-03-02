@@ -10,6 +10,7 @@ Thanks to the following people for support, code, patches, etc:
   - David Pico
   - Giuseppe Zizza
   - Hanno Schlichting
+  - Harald Friessnegger
   - Jakob Bartholdy Bruun
   - Jens W. Klein
   - Katja Suess

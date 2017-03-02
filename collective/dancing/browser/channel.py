@@ -9,6 +9,7 @@ from collective.dancing import utils
 from collective.dancing.browser import controlpanel
 from collective.dancing.browser.interfaces import ISendAndPreviewForm
 from collective.dancing.composer import check_email
+from collective.dancing.composer import HTMLComposer
 from collective.dancing.interfaces import ISubscriptionsFromScriptChannel
 from collective.dancing.utils import switch_on
 from collective.singing.interfaces import IChannel, ICollectorSchema
@@ -43,6 +44,7 @@ try:
     from zope.app.pagetemplate import viewpagetemplatefile
 except ImportError:
     from zope.browserpage import viewpagetemplatefile
+
 
 
 def simpleitem_wrap(klass, name):
@@ -492,11 +494,13 @@ class ExportCSV(BrowserView):
                         .get_optional_collectors():
                     title_id = optional.title.strip() + ' (' + optional.id + ')'
                     collectors_keys.append(title_id)
+        subscription_data = ['creation_date', 'pending', 'cue', 'secret']
         for format in self.context.composers.keys():
             composers_keys = field.Fields(
                 self.context.composers[format].schema).keys()
             # add csv header row
-            writer.writerow(composers_keys + ['section'] * len(collectors_keys))
+
+            writer.writerow(composers_keys + ['section'] * len(collectors_keys) + subscription_data)
             for subscription in tuple(
                     self.context.subscriptions.query(format=format)):
                 row = []
@@ -515,6 +519,11 @@ class ExportCSV(BrowserView):
                         row.append(self._convertValue(item, charset))
                     else:
                         row.append('')
+                # add subsciption_data
+                row.append(subscription.metadata.get('date', ''))
+                row.append(subscription.metadata.get('pending', 'imported'))
+                row.append(subscription.metadata.get('cue', 'never-received-newsletter'))
+                row.append(HTMLComposer.secret(subscription.composer_data))
 
                 writer.writerow(row)
         return res.getvalue()
