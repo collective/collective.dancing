@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.1.1 (unreleased)
+------------------
+
+- Nothing changed yet.
+
+
 1.1 (2017-03-03)
 ------------------c
 
@@ -273,7 +279,7 @@ Changelog
 - A new 'mass delete from csv' feature has been added to the channel
   administration page. [kiorky]
 
-- French translations have been updatedÂ [kiorky]
+- French translations have been updatedĂÂ [kiorky]
 
 - "Channels" have been renamed "Mailing-lists" in the userinterface. [regebro]
 
