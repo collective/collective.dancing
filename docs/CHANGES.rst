@@ -8,7 +8,7 @@ Changelog
 
 
 1.1 (2017-03-03)
-------------------c
+----------------
 
 - Include metadata when exporting subscriptions for a channel:
 
