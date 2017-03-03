@@ -1,0 +1,5 @@
+graft collective
+graft docs
+include *.cfg *.rst *.py
+global-exclude *pyc
+exclude .installed.cfg .mr.developer.cfg
