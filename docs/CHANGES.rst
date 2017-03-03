@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.3 (unreleased)
+1.1 (2017-03-03)
 ------------------c
 
 - Include metadata when exporting subscriptions for a channel:
@@ -273,7 +273,7 @@ Changelog
 - A new 'mass delete from csv' feature has been added to the channel
   administration page. [kiorky]
 
-- French translations have been updated [kiorky]
+- French translations have been updatedÂ [kiorky]
 
 - "Channels" have been renamed "Mailing-lists" in the userinterface. [regebro]
 
