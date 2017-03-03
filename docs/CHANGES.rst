@@ -2,7 +2,39 @@ Changelog
 =========
 
 1.0.3 (unreleased)
-------------------
+------------------c
+
+- Include metadata when exporting subscriptions for a channel:
+
+  * creation_date: The creation date of this subscription
+
+  * pending:
+
+    allows to identify subscriptions that have not been validated (pending=True)
+    (otherwhise ex- and importing would add users that did not confirm their subscription)
+
+    True
+      subscription has not been validated (will not receive newsletters)
+
+    False
+      subscription has been validate
+
+    imported
+      subscription has been imported or added by an admin
+
+  * cue:
+
+    The date this subscription has received the last newsletter
+
+  * secret:
+
+    Used to authenticate when (un-)subscribing and editing personal preferences
+
+    * portal_newsletters/channels/my-channel/unsubscribe.html?secret=8a27d9c4fc2f8f0f031d654dc3172844
+
+    * portal_newsletters/my-subscriptions.html?secret=8a27d9c4fc2f8f0f031d654dc3172844
+
+    Future versions might support to import the secret so unsubscribe links work after re-importing a subscription.
 
 - Do not show subscription form on channel/subscribe.html if
   `channel.subscribeable == False` [fRiSi]

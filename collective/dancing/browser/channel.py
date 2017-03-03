@@ -1,46 +1,50 @@
-import types
-import cStringIO
-import datetime
-import sys
-import sets
-import csv
-from zope import interface
+from Acquisition import aq_inner
+from Globals import DevelopmentMode
+from Products.CMFCore.interfaces import IPropertiesTool
+from Products.Five import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from collective.dancing import MessageFactory as _
+from collective.dancing import channel
+from collective.dancing import utils
+from collective.dancing.browser import controlpanel
+from collective.dancing.browser.interfaces import ISendAndPreviewForm
+from collective.dancing.composer import check_email
+from collective.dancing.composer import HTMLComposer
+from collective.dancing.interfaces import ISubscriptionsFromScriptChannel
+from collective.dancing.utils import switch_on
+from collective.singing.interfaces import IChannel, ICollectorSchema
+from plone.app.z3cform import wysiwyg
+from plone.z3cform.crud import crud
+from z3c.form import field, form
 from zope import component
+from zope import interface
 from zope import schema
+import OFS.SimpleItem
+import Products.CMFPlone.utils
+import cStringIO
+import collective.singing.channel
+import collective.singing.scheduler
+import collective.singing.subscribe
+
+import csv
+import datetime
+import sets
+import sys
+import types
+import z3c.form.button
+import z3c.form.datamanager
+import z3c.form.interfaces
+import z3c.form.term
+import zope.i18n
 import zope.interface
 import zope.schema.interfaces
 import zope.schema.vocabulary
-import zope.i18n
-from z3c.form import field, form
-import z3c.form.interfaces
-import z3c.form.datamanager
-import z3c.form.term
-import z3c.form.button
-import OFS.SimpleItem
-from Globals import DevelopmentMode
-from Products.Five import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.CMFCore.interfaces import IPropertiesTool
-from Acquisition import aq_inner
-import Products.CMFPlone.utils
-from collective.singing.interfaces import IChannel, ICollectorSchema
-from plone.z3cform.crud import crud
-from plone.app.z3cform import wysiwyg
-import collective.singing.scheduler
-import collective.singing.subscribe
-import collective.singing.channel
+
 try:
     from zope.app.pagetemplate import viewpagetemplatefile
 except ImportError:
     from zope.browserpage import viewpagetemplatefile
-from collective.dancing import MessageFactory as _
-from collective.dancing import utils
-from collective.dancing import channel
-from collective.dancing.composer import check_email
-from collective.dancing.browser import controlpanel
-from collective.dancing.browser.interfaces import ISendAndPreviewForm
-from collective.dancing.utils import switch_on
-from collective.dancing.interfaces import ISubscriptionsFromScriptChannel
+
 
 
 def simpleitem_wrap(klass, name):
@@ -344,7 +348,7 @@ class ChannelPreviewForm(z3c.form.form.Form):
         collector_items = int(bool(data['include_collector_items']))
 
         return self.request.response.redirect(
-            self.context.absolute_url()+\
+            self.context.absolute_url() + \
             '/preview-newsletter.html?include_collector_items=%d' % \
             collector_items)
 
@@ -490,11 +494,14 @@ class ExportCSV(BrowserView):
                         .get_optional_collectors():
                     title_id = optional.title.strip() + ' (' + optional.id + ')'
                     collectors_keys.append(title_id)
+        subscription_data = [
+            'creation_date', 'pending', 'format', 'language', 'cue', 'secret']
         for format in self.context.composers.keys():
             composers_keys = field.Fields(
                 self.context.composers[format].schema).keys()
             # add csv header row
-            writer.writerow(composers_keys + ['section'] * len(collectors_keys))
+
+            writer.writerow(composers_keys + ['section'] * len(collectors_keys) + subscription_data)
             for subscription in tuple(
                     self.context.subscriptions.query(format=format)):
                 row = []
@@ -513,6 +520,14 @@ class ExportCSV(BrowserView):
                         row.append(self._convertValue(item, charset))
                     else:
                         row.append('')
+                # add subsciption_data
+                row.append(subscription.metadata.get('date', ''))
+                row.append(subscription.metadata.get('pending', 'imported'))
+                row.append(subscription.metadata.get('format', ''))
+                row.append(subscription.metadata.get('language', ''))
+                row.append(subscription.metadata.get(
+                    'cue', 'never-received-newsletter'))
+                row.append(HTMLComposer.secret(subscription.composer_data))
 
                 writer.writerow(row)
         return res.getvalue()
@@ -536,7 +551,7 @@ class UploadForm(crud.AddForm):
     @property
     def fields(self):
         subscriberdata = schema.Bytes(
-            __name__ = 'subscriberdata',
+            __name__='subscriberdata',
             title=_(u"Subscribers"),
             description=_(u"Upload a CSV file with a list of subscribers here. "
                           u"Subscribers already present in the database will "
@@ -545,28 +560,28 @@ class UploadForm(crud.AddForm):
                           mapping=dict(columns=';'.join(field.Fields(
                                          self.context.composer.schema).keys())))
         )
-        onlyremove = schema.Bool(__name__ = 'onlyremove',
+        onlyremove = schema.Bool(__name__='onlyremove',
             title=_(u"Remove subscribers in list."),
             description=_(u"Only purge subscribers present in this list."),
-            default = False
+            default=False
         )
-        remove = schema.Bool(__name__ = 'removenonexisting',
+        remove = schema.Bool(__name__='removenonexisting',
             title=_(u"Purge list."),
             description=_(u"Purge list before import."),
-            default = False
+            default=False
         )
-        header_row_present = schema.Bool(__name__ = 'header_row_present',
+        header_row_present = schema.Bool(__name__='header_row_present',
             title=_(u"CSV contains a header row"),
             description=_(u"Select this if you want to use the csv "
                           u"header row to designate document variables."
                           u"The header row must contain one 'email' field."),
-            default = False
+            default=False
         )
-        csv_delimiter = schema.TextLine(__name__ = 'csv_delimiter',
+        csv_delimiter = schema.TextLine(__name__='csv_delimiter',
             title=_(u"CSV delimiter"),
             description=_(u"The delimiter in your CSV file. "
                           u"(Usually ',' or ';', but no quotes are necessary.)"),
-            default = u','
+            default=u','
         )
 
         return field.Fields(subscriberdata, remove, onlyremove,
@@ -624,7 +639,7 @@ class UploadForm(crud.AddForm):
             self.context.composer,
             header_row_present=header_row_present,
             delimiter=delimiter)
-        if not type(subscribers)==type([]):
+        if not type(subscribers) == type([]):
             return _(u"File has incorrect format.")
 
         # generate new selected collectors
