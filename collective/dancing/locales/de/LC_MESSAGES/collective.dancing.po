@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Singing & Dancing\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"PO-Revision-Date: 2017-02-27 16:35+0100\n"
+"PO-Revision-Date: 2017-04-14 14:43+0100\n"
 "Last-Translator: Harald Friessnegger <harald@webmeisterei.com>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,21 +29,21 @@ msgstr "${channel} Einstellungen"
 msgid "${name} does not support scheduling."
 msgstr "${name} unterstützt keinen Zeitplan!"
 
-#: ../browser/channel.py:742
+#: ../browser/channel.py:757
 msgid "${numberadded} subscriptions updated successfully!"
 msgstr "${numberadded} Anmeldungen erfolgreich aktualisiert."
 
-#: ../browser/channel.py:736
+#: ../browser/channel.py:751
 msgid "${numberadded} subscriptions updated successfully, ${numberremoved} removed!"
 msgstr "${numberadded} Anmeldungen erfolgreich aktualisiert, ${numberremoved} entfernt!"
 
-#: ../browser/channel.py:726
+#: ../browser/channel.py:741
 msgid "${numberadded} subscriptions updated successfully. ${numberremoved} removed. ${numbernotadded} could not be added. (${errorcandidates})"
 msgstr "${numberadded} Anmeldungen erfolgreich aktualisiert. ${numbernotadded} Anmeldung(en) konnte(n) nicht hinzugefügt werden. (${errorcandidates})"
 
-#: ../browser/channel.py:723
+#: ../browser/channel.py:738
 msgid "${numberremoved} subscriptions removed successfully!"
-msgstr "${numberadded} Anmeldungen erfolgreich entfernt."
+msgstr "${numberremoved} Anmeldungen erfolgreich entfernt."
 
 #: ../browser/scheduler.py:36
 msgid "${number} messages queued."
@@ -93,7 +93,7 @@ msgstr ""
 msgid "Add item to ${title}"
 msgstr ""
 
-#: ../browser/channel.py:99
+#: ../browser/channel.py:103
 msgid "Add or edit mailing-lists that will use collectors to gather and email specific sets of information from your site, to subscribed email addresses, at scheduled times."
 msgstr ""
 
@@ -152,11 +152,11 @@ msgstr "mit freundlichen Grüßen"
 msgid "CSS Stylesheet"
 msgstr ""
 
-#: ../browser/channel.py:559
+#: ../browser/channel.py:574
 msgid "CSV contains a header row"
 msgstr "CSV beinhaltet eine Kopfzeile"
 
-#: ../browser/channel.py:566
+#: ../browser/channel.py:581
 msgid "CSV delimiter"
 msgstr "CSV Trennzeichen"
 
@@ -217,7 +217,7 @@ msgstr ""
 msgid "Composer for format : ${format}"
 msgstr "Vorlage für folgendes Format: ${format}"
 
-#: ../browser/channel.py:877
+#: ../browser/channel.py:892
 msgid "Composers"
 msgstr "Vorlagen"
 
@@ -257,7 +257,7 @@ msgstr "Geben Sie eine kurze Beschreibung des Portlets an."
 msgid "Displays a form that lets you send this content item as a newsletter."
 msgstr "Zeigt ein Formular an, welches Sie diesen Inhalt als Newsletter versenden lässt."
 
-#: ../browser/channel.py:766
+#: ../browser/channel.py:781
 msgid "Download"
 msgstr "Herunterladen"
 
@@ -265,7 +265,7 @@ msgstr "Herunterladen"
 msgid "E-mail address"
 msgstr "E-Mail Adresse"
 
-#: ../browser/channel.py:876
+#: ../browser/channel.py:891
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -277,7 +277,7 @@ msgstr "${collector} bearbeiten"
 msgid "Edit ${selector} for ${channel}"
 msgstr "${selector} von ${channel} bearbeiten"
 
-#: ../browser/channel.py:852
+#: ../browser/channel.py:867
 msgid "Edit Mailing-list ${channel}"
 msgstr ""
 
@@ -305,7 +305,7 @@ msgstr ""
 msgid "Edit the properties of the composer."
 msgstr "Eigenschaften der Vorlage bearbeiten"
 
-#: ../browser/channel.py:362
+#: ../browser/channel.py:366
 msgid "Edit the properties of the mailing-list."
 msgstr "Eigenschaften des Newsletters bearbeiten"
 
@@ -317,7 +317,7 @@ msgstr "Optional kann der E-Mail Betreff geändert werden. Lassen Sie dieses Fel
 msgid "Enter a search query to find content."
 msgstr "Geben Sie einen Suchbegriff ein."
 
-#: ../browser/channel.py:467
+#: ../browser/channel.py:471
 msgid "Error importing subscriber file. %s"
 msgstr ""
 
@@ -325,11 +325,11 @@ msgstr ""
 msgid "Failed messages"
 msgstr "Fehlgeschlagene Nachrichten"
 
-#: ../browser/channel.py:628
+#: ../browser/channel.py:643
 msgid "File has incorrect format."
 msgstr "Falsches Dateiformat"
 
-#: ../browser/channel.py:621
+#: ../browser/channel.py:636
 msgid "File was not given."
 msgstr "Keine Datei angegeben."
 
@@ -366,7 +366,7 @@ msgstr "E-Mail Adresse des Absenders"
 msgid "From name"
 msgstr "Absender"
 
-#: ../browser/channel.py:337
+#: ../browser/channel.py:341
 msgid "Generate"
 msgstr "Erstellen"
 
@@ -419,7 +419,7 @@ msgstr "Letzte Änderung"
 msgid "Latest news"
 msgstr ""
 
-#: ../browser/channel.py:224
+#: ../browser/channel.py:228
 msgid "Manage or add subscriptions."
 msgstr "Verwalten Sie ihre Abonnements"
 
@@ -487,11 +487,11 @@ msgstr "Keine Elemente gefunden."
 msgid "No messages queued."
 msgstr "Keine Nachrichten auf der Warteliste"
 
-#: ../browser/channel.py:550
+#: ../browser/channel.py:565
 msgid "Only purge subscribers present in this list."
 msgstr ""
 
-#: ../browser/channel.py:793
+#: ../browser/channel.py:808
 msgid "Only some of your changes were saved"
 msgstr "Nur einige Änderungen wurden gespeichert."
 
@@ -539,7 +539,7 @@ msgstr "Beschreibung des Portlets"
 msgid "Portlet header"
 msgstr "Kopfzeile des Portlets"
 
-#: ../browser/channel.py:878
+#: ../browser/channel.py:893
 #: ../browser/sendnewsletter.py:214
 msgid "Preview"
 msgstr "Vorschau senden"
@@ -552,11 +552,11 @@ msgstr "Weiter"
 msgid "Process jobs"
 msgstr "Aufgaben ausführen"
 
-#: ../browser/channel.py:555
+#: ../browser/channel.py:570
 msgid "Purge list before import."
 msgstr "Liste vor dem Import leeren. "
 
-#: ../browser/channel.py:554
+#: ../browser/channel.py:569
 msgid "Purge list."
 msgstr "Liste leeren."
 
@@ -572,7 +572,7 @@ msgstr "Einträge entfernen"
 msgid "Remove old messages"
 msgstr "Alte Nachrichten entfernen"
 
-#: ../browser/channel.py:549
+#: ../browser/channel.py:564
 msgid "Remove subscribers in list."
 msgstr "Anmeldungen entfernen."
 
@@ -592,7 +592,7 @@ msgstr "Freier Text"
 msgid "Rich text: ${title}"
 msgstr ""
 
-#: ../browser/channel.py:809
+#: ../browser/channel.py:824
 msgid "Save"
 msgstr "Speichern"
 
@@ -608,11 +608,11 @@ msgstr "Zeit planen"
 msgid "Script path in this plone portal"
 msgstr ""
 
-#: ../browser/channel.py:195
+#: ../browser/channel.py:199
 msgid "Search"
 msgstr "Suche"
 
-#: ../browser/channel.py:192
+#: ../browser/channel.py:196
 msgid "Search subscribers"
 msgstr "Abonnenten durchsuchen"
 
@@ -620,7 +620,7 @@ msgstr "Abonnenten durchsuchen"
 msgid "Sections"
 msgstr "Sektionen"
 
-#: ../browser/channel.py:327
+#: ../browser/channel.py:331
 msgid "See an in-browser preview of the newsletter."
 msgstr "Vorschau des Newsletters im Browser anzeigen."
 
@@ -628,7 +628,7 @@ msgstr "Vorschau des Newsletters im Browser anzeigen."
 msgid "Select collector to filter item by. Optionally also select the specific section"
 msgstr ""
 
-#: ../browser/channel.py:560
+#: ../browser/channel.py:575
 msgid "Select this if you want to use the csv header row to designate document variables.The header row must contain one 'email' field."
 msgstr "Wenn aktiviert werden die verfügbaren Variablen über die Kopfzeile bestimmt. Die Kopfzeile muss eine Spalte 'email' enthalten."
 
@@ -705,15 +705,15 @@ msgstr "Direktes Anmelden ermöglichen?"
 msgid "Subscribe to ${channel}"
 msgstr "Zu ${channel} anmelden"
 
-#: ../browser/channel.py:540
+#: ../browser/channel.py:555
 msgid "Subscribers"
 msgstr "Abonnenten"
 
-#: ../browser/channel.py:768
+#: ../browser/channel.py:783
 msgid "Subscribers exported."
 msgstr "Anmeldungen exportiert."
 
-#: ../browser/channel.py:873
+#: ../browser/channel.py:888
 msgid "Subscriptions"
 msgstr "Abonnements"
 
@@ -757,7 +757,7 @@ msgstr "Derzeit ist die Anmeldung für den Newsletter '${channel}' nicht möglic
 msgid "The address to send the preview to is missing."
 msgstr "Es fehlt die E-Mail Adresse an welche die Vorschau versendet werden."
 
-#: ../browser/channel.py:567
+#: ../browser/channel.py:582
 msgid "The delimiter in your CSV file. (Usually ',' or ';', but no quotes are necessary.)"
 msgstr "Das Trennzeichen der CSV-Datei. (Meist ',' oder ';', es sind keine Anführungszeichen erforderlich)."
 
@@ -839,12 +839,12 @@ msgstr "Anzahl der erfolgreich gesendeten Nachrichten"
 msgid "Trigger now"
 msgstr ""
 
-#: ../browser/channel.py:112
+#: ../browser/channel.py:116
 #: ../browser/collector.py:40
 msgid "Type"
 msgstr "Typ"
 
-#: ../browser/channel.py:709
+#: ../browser/channel.py:724
 msgid "Unknown"
 msgstr "Unbekannt"
 
@@ -860,7 +860,7 @@ msgstr "Vom Newsletter abmelden"
 msgid "Up to Collector administration"
 msgstr "Zurück zur Verwaltung der Sammler"
 
-#: ../browser/channel.py:847
+#: ../browser/channel.py:862
 #: ../browser/scheduler.py:99
 msgid "Up to Mailing-lists administration"
 msgstr ""
@@ -873,15 +873,15 @@ msgstr "Zurück zur Singing & Dancing Konfiguration"
 msgid "Up to Site Setup"
 msgstr "Zurück zur Website-Konfiguration"
 
-#: ../browser/channel.py:534
+#: ../browser/channel.py:549
 msgid "Upload"
 msgstr "Hochladen"
 
-#: ../browser/channel.py:541
+#: ../browser/channel.py:556
 msgid "Upload a CSV file with a list of subscribers here. Subscribers already present in the database will be overwritten. Each line should contain: ${columns}."
 msgstr "Laden Sie eine CSV-Datei hoch. Neue Abonnenten werden hinzugefügt, bereits bestehende überschrieben. Jede Zeile muss folgende getrennte Werte enthalten: ${columns}."
 
-#: ../browser/channel.py:773
+#: ../browser/channel.py:788
 msgid "Upload list of subscribers."
 msgstr "Upload Liste neuer Abonnenten."
 
@@ -909,7 +909,7 @@ msgstr "Sie sind im Moment für folgende Newsletter angemeldet:"
 msgid "You aren't subscribed to this mailing-list."
 msgstr "Sie haben diesen Newsletter nicht abonniert."
 
-#: ../browser/channel.py:755
+#: ../browser/channel.py:770
 msgid "You can not add things in purge only mode!"
 msgstr ""
 
@@ -978,7 +978,7 @@ msgid "description_statistics_administration"
 msgstr "Hier können Sie die Newsletterstatistik einsehen."
 
 #. Default: "Mailing-list administration"
-#: ../browser/channel.py:177
+#: ../browser/channel.py:181
 #: ../browser/controlpanel-links.pt:3
 msgid "label_channel_administration"
 msgstr "Newsletter verwalten"

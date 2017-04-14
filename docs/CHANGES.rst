@@ -4,7 +4,8 @@ Changelog
 1.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix variable replacement in the "subscriptions removed successfully" message for
+  German translation [fRiSi]
 
 
 1.1 (2017-03-03)
