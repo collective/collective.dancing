@@ -17,6 +17,7 @@ from collective.dancing import MessageFactory as _
 
 import transaction
 
+
 class PreviewSubscription(object):
     interface.implements(ISubscription)
 
@@ -34,9 +35,13 @@ class PreviewSubscription(object):
         composer = self.channel.composers[self.format]
 
         # set default composer data
-        self.composer_data = dict(
-            (name, field.default) \
-            for name, field in schema.getFields(composer.schema).items())
+        self.composer_data = {}
+        for name, field in schema.getFields(composer.schema).items():
+            val = field.default
+            if val is None:
+                val = '{{{}}}"'.format(name)
+            self.composer_data[name] = val
+
 
 class PreviewNewsletterView(BrowserView):
     template = ViewPageTemplateFile("preview.pt")

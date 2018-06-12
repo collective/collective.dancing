@@ -4,6 +4,10 @@ Changelog
 1.1.1 (unreleased)
 ------------------
 
+- PreviewSubscription prints `{variablename}` instead of `None` for fields
+  without default value. This makes it easier for users to check if substitution
+  works and variables are placed correctly when previewing newsletters.
+
 - Fix variable replacement in the "subscriptions removed successfully" message for
   German translation [fRiSi]
 
