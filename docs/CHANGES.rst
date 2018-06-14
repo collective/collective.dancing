@@ -4,6 +4,9 @@ Changelog
 1.1.1 (unreleased)
 ------------------
 
+- Fix tests by (temporarily) pinning Plone 4.3.x to 4.3.11
+  and dropping support for Python2.6 (Plone 4.0 and 4.1)
+
 - PreviewSubscription prints `{variablename}` instead of `None` for fields
   without default value. This makes it easier for users to check if substitution
   works and variables are placed correctly when previewing newsletters.
