@@ -18,6 +18,7 @@ from zope.testing import doctest
 import collective.dancing
 import collective.dancing.utils
 import re
+import tempfile
 import unittest
 import zope.sendmail.interfaces
 
@@ -32,9 +33,11 @@ class IMyComposerSchema(interface.Interface):
         value_type=schema.Choice(values=('Plone', 'Zope', 'Python')))
     registered = schema.Datetime(title=u"Date of registration")
 
+
 class MyComposer(HTMLComposer):
   title = u'My Composer'
   schema = IMyComposerSchema
+
 
 @component.adapter(ISubscription)
 @interface.implementer(IMyComposerSchema)
@@ -45,16 +48,20 @@ def composerdata_from_subscription(subscription):
 
 def setup_error_log(site):
     site.error_log._ignored_exceptions = ()
+
     def print_error(index=0):
         logs = site.error_log.getLogEntries()
         if logs:
             print logs[index]['tb_text']
+
     return print_error
+
 
 def replace_with_fieldindex(name, site):
     site.portal_catalog.delIndex(name)
     site.portal_catalog.addIndex(name, 'FieldIndex')
     site.portal_catalog.manage_reindexIndex((name,))
+
 
 @onsetup
 def setUp():
@@ -63,8 +70,10 @@ def setUp():
     fiveconfigure.debug_mode = False
     ztc.installPackage('collective.dancing')
 
+
 setUp()
 ptc.setupPloneSite(products=['collective.dancing'])
+
 
 def decodeMessageAsString(msg):
     """ This helper method takes Message object or string and returns
@@ -91,6 +100,7 @@ def decodeMessageAsString(msg):
         part.set_payload(decoded, charset)
 
     return new.as_string()
+
 
 from Products.MailHost.MailHost import _mungeHeaders
 from Products.MailHost.MailHost import MailBase
@@ -129,9 +139,11 @@ class MockMailHost(MailBase):
             self.sent,
             key=lambda msg: re.findall('To: .*$', msg, re.MULTILINE))
 
+
 from Products.Five import testbrowser
 from zope.testbrowser import browser
 import mechanize
+
 
 class PublisherMechanizeBrowser(mechanize.Browser):
     """Special ``mechanize`` browser using the Zope Publisher HTTP handler."""
@@ -151,19 +163,43 @@ class PublisherMechanizeBrowser(mechanize.Browser):
             self.handler_classes[name] = mechanize.Browser.handler_classes[name]
         mechanize.Browser.__init__(self, *args, **kws)
 
+
 class Browser(browser.Browser):
     """overrides zope.testbrowser Browser to support nested forms (use of a recent mechanize version)"""
+
     def __init__(self, url=None):
         mech_browser = PublisherMechanizeBrowser()
         mech_browser.handler_classes["http"] = testbrowser.PublisherHTTPHandler
         super(Browser, self).__init__(url=url, mech_browser=mech_browser)
 
+
 class DancingTestCase(ptc.FunctionalTestCase):
     """set expected email_from_name to help tests pass in Plone 4"""
+
     def afterSetUp(self):
         # in plone4 email_from_name is not set.
         prop = {'email_from_name':u'Site Administrator'}
         self.portal.portal_properties.site_properties.editProperties(prop)
+
+    def _dump_browser(self, browser=None):
+        name = tempfile.mktemp() + '.html'
+        f = file(name, 'w')
+        if browser is None:
+            browser = self.browser
+        f.write(browser.contents)
+        f.close()
+        return name
+
+    def _access_server(self):
+        """run a zserver to be able to interactively check the test-setup
+        http://docs.plone.org/old-reference-manuals/testing/tests_with_zope_testbrowser.html#using-a-real-browser-to-render-the-results-of-your-tests
+        """
+        from Testing.ZopeTestCase.utils import startZServer
+        host, port = startZServer()
+        return 'http://portal_owner:secret@localhost:{port:d}{path}'.format(
+            port=port,
+            path='/'.join(self.portal.getPhysicalPath()))
+
 
 def test_suite():
     return unittest.TestSuite([
