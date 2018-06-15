@@ -18,6 +18,7 @@ class Subscription(collective.singing.subscribe.SimpleSubscription):
 
     @apply
     def channel():
+
         def get(self):
             if self._channel is not None:
                 all_channels = list(collective.singing.channel.channel_lookup())
@@ -39,6 +40,7 @@ class Subscription(collective.singing.subscribe.SimpleSubscription):
 
         def set(self, channel):
             self._channel = channel
+
         return property(get, set)
 
 
@@ -123,7 +125,11 @@ class SubscriptionFromDictionary(SimpleSubscription):
             composer_data.update(data["subscriber_data"])
 
         # default the pending value to False
-        metadata = dict(format="html", pending=False)
+        metadata = dict(
+            format="html",
+            pending=False,
+            unsubscribed=None)
+
         if isinstance(data["format"], basestring) and \
            data["format"]:
             metadata["format"] = data["format"]

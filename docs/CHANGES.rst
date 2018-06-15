@@ -4,6 +4,10 @@ Changelog
 1.1.1 (unreleased)
 ------------------
 
+- When unsubscribing from a channel, do not delete subscription but mark it as
+  `unsubscribed`. This allows to find out who unsubscribed when re-importing
+  subscriptions from other systems. (fixes #15) [fRiSi]
+
 - Fix tests by (temporarily) pinning Plone 4.3.x to 4.3.11
   and dropping support for Python2.6 (Plone 4.0 and 4.1)
 

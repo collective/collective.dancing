@@ -500,7 +500,7 @@ then 'add_subscription' with the modified subscription object:
   >>> subscription = subscriptions['daniele@domain.tld-html']
   >>> subscriptions.remove_subscription(subscription)
   >>> subscription.composer_data['email'] = 'daniel@domain.tld'
-  >>> subscriptions.add_subscription_obj(subscription)
+  >>> _ = subscriptions.add_subscription_obj(subscription)
 
 CSV Upload and Download of subscriptions
 ----------------------------------------
@@ -647,14 +647,14 @@ Subscriptions can be downloaded as csv:
   >>> browser.getControl('Download').click()
   >>> browser.headers['content-type']
   'text/csv; charset=UTF-8'
-  >>> 'email,section,section,creation_date,pending,format,language,cue,secret\r\n' in browser.contents
+  >>> 'email,section,section,creation_date,pending,unsubscribed,format,language,cue,secret\r\n' in browser.contents
   True
   >>> import csv
   >>> import StringIO
   >>> reader = csv.reader(StringIO.StringIO(browser.contents))
   >>> rows = [row for row in reader]
   >>> rows
-  [...['daniel@domain.tld', '', '', '...', 'imported', 'html', '', 'never-received-newsletter', '...']...]
+  [...['daniel@domain.tld', '', '', '...', 'imported', '', 'html', '', 'never-received-newsletter', '...']...]
   >>> [values[0] for values in rows]
   ['email', 'mailman@domain.tld', 'daniel@domain.tld', 'lars@domain.tld', 'pengo@domain.tld', 'pia@domain.tld']
 
@@ -699,12 +699,12 @@ It contains data for all composers
   >>> rows = [row for row in reader]
 
   >>> rows[0]
-  ['name', 'email', 'programmer', 'interests', 'registered', 'section', 'section', 'creation_date', 'pending', 'format', 'language', 'cue', 'secret']
+  ['name', 'email', 'programmer', 'interests', 'registered', 'section', 'section', 'creation_date', 'pending', 'unsubscribed', 'format', 'language', 'cue', 'secret']
   >>> rows[1]
-  ['Elvis Presley', 'elvis@mail.com', 'True', '', '21/11/2010 00:00:00', '', '', '...', 'imported', 'my_format', '', 'never-received-newsletter', '...']
+  ['Elvis Presley', 'elvis@mail.com', 'True', '', '21/11/2010 00:00:00', '', '', '...', 'imported', '', 'my_format', '', 'never-received-newsletter', '...']
 
   >>> rows[2]
-  ['email', 'section', 'section', 'creation_date', 'pending', 'format', 'language', 'cue', 'secret']
+  ['email', 'section', 'section', 'creation_date', 'pending', 'unsubscribed', 'format', 'language', 'cue', 'secret']
   >>> [values[0] for values in rows[2:]]
   ['email', 'mailman@domain.tld', 'daniel@domain.tld', 'lars@domain.tld', 'pengo@domain.tld', 'pia@domain.tld']
   >>> [values[2] for values in rows[2:]]
@@ -956,6 +956,20 @@ pending:
   >>> second_subscription.metadata['pending']
   False
 
+Confirming an unsubscribed subscription results in the same error as if a non
+existent secret was given
+
+  >>> subscription.metadata['unsubscribed'] = DateTime()
+  >>> second_subscription.metadata['unsubscribed'] = DateTime()
+  >>> browser.open(confirm_url + '?' + secret)
+  >>> "Your subscription isn't known to us" in browser.contents
+  True
+
+  # reset subscription state
+  >>> subscription.metadata['unsubscribed'] = None
+  >>> second_subscription.metadata['unsubscribed'] = None
+
+
 
 Cleanup our subscription to the default-channel:
 
@@ -1034,6 +1048,20 @@ We're now no longer subscribed:
   True
 
   >>> delivery.sent = []
+
+The subscription has not been deleted but marked as 'unsubscribed'.
+This helps admins that need to re-import subscribers from thirdparty datasources
+to sort out who unsubscribed in the meantime and should not be included in the re-import
+(see https://github.com/collective/collective.dancing/issues/15)
+
+  >>> subs = list(channel.subscriptions.query(key='daemon@domain.tld'))
+  >>> len(subs)
+  1
+  >>> subs[0].metadata['unsubscribed']
+  DateTime(...)
+  >>> subs[0].metadata['unsubscribed'].Date() == DateTime().Date()
+  True
+
 
 Of course, not providing a secret is an error:
 
@@ -1115,18 +1143,25 @@ when it queued something the last time:
   >>> now - channel.scheduler.delta < channel.scheduler.triggered_last
   True
 
-Secondly, all our subscriptions have a "cue" set, which marks the time
+Secondly, all our active subscriptions have a "cue" set, which marks the time
 when they last received an item:
 
   >>> subscriptions = channel.subscriptions.values()
-  >>> [s.metadata['cue'] for s in subscriptions] # doctest: +ELLIPSIS
-  [DateTime(...), DateTime(...), DateTime(...)]
+  >>> [s.metadata.get('cue','not-sent') for s in subscriptions] # doctest: +ELLIPSIS
+  ['not-sent', DateTime(...), DateTime(...), DateTime(...)]
+
+The first subscription has no cue date because it belongs to the subscription
+of daemon@domain.tld who unsubscribed before
+
+  >>> [s.metadata.get('unsubscribed',None) for s in subscriptions] # doctest: +ELLIPSIS
+  [DateTime(...), None, None, None]
 
 We have to reset *both* the cues and the ``triggered_last`` time for
 messages to be queued again:
 
   >>> for subs in subscriptions:
-  ...     del subs.metadata['cue']
+  ...     if 'cue' in subs.metadata.keys():
+  ...         del subs.metadata['cue']
   >>> channel.scheduler.tick(channel, request)
 
   >>> channel.scheduler.triggered_last = datetime.datetime(1, 1, 1, 0, 0)
@@ -1170,7 +1205,8 @@ still have their cues set:
 
   >>> channel.scheduler.tick(channel, request)
   >>> for subs in subscriptions:
-  ...     del subs.metadata['cue']
+  ...     if 'cue' in subs.metadata.keys():
+  ...         del subs.metadata['cue']
   >>> channel.scheduler.tick(channel, request)
 
 We can visit the scheduler's management screen to activate it:
@@ -1195,7 +1231,8 @@ The scheduler will send messages now:
 Now it's silent again:
 
   >>> for subs in subscriptions:
-  ...     del subs.metadata['cue']
+  ...     if 'cue' in subs.metadata.keys():
+  ...         del subs.metadata['cue']
   >>> channel.scheduler.tick(channel, request)
 
 We can manually trigger the scheduler and thereby override the time

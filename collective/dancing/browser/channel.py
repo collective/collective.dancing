@@ -46,11 +46,12 @@ except ImportError:
     from zope.browserpage import viewpagetemplatefile
 
 
-
 def simpleitem_wrap(klass, name):
+
     class SimpleItemWrapper(klass, OFS.SimpleItem.SimpleItem):
         __doc__ = OFS.SimpleItem.SimpleItem.__doc__
         id = name
+
         def Title(self):
             return klass.title
 
@@ -61,19 +62,23 @@ def simpleitem_wrap(klass, name):
     setattr(module, klassname, SimpleItemWrapper)
     return SimpleItemWrapper
 
+
 schedulers = [
     simpleitem_wrap(klass, 'scheduler')
     for klass in collective.singing.scheduler.schedulers]
 
 csv_delimiter = ","
 
+
 class FactoryChoice(schema.Choice):
+
     def _validate(self, value):
         if self._init_field:
             return
         super(schema.Choice, self)._validate(value)
 
         # We'll skip validating against the vocabulary
+
 
 def scheduler_vocabulary(context):
     terms = []
@@ -84,10 +89,14 @@ def scheduler_vocabulary(context):
                 token='%s.%s' % (factory.__module__, factory.__name__),
                 title=factory.title))
     return utils.LaxVocabulary(terms)
+
+
 zope.interface.alsoProvides(scheduler_vocabulary,
                             zope.schema.interfaces.IVocabularyFactory)
 
+
 class ChannelEditForm(crud.EditForm):
+
     def _update_subforms(self):
         self.subforms = []
         for channel in collective.singing.channel.channel_lookup():
@@ -96,6 +105,7 @@ class ChannelEditForm(crud.EditForm):
             subform.content_id = channel.name
             subform.update()
             self.subforms.append(subform)
+
 
 class ManageChannelsForm(crud.CrudForm):
     """Crud form for channels."""
@@ -186,6 +196,7 @@ class ChannelAdministrationView(BrowserView):
         switch_on(self)
         return ManageChannelsForm(self.context.channels, self.request)()
 
+
 class SubscriptionsSearchForm(z3c.form.form.Form):
     prefix = 'search.'
     ignoreContext = True
@@ -200,7 +211,9 @@ class SubscriptionsSearchForm(z3c.form.form.Form):
     def handle_search(self, action):
         pass
 
+
 class ManageSubscriptionsFormEdit(crud.EditForm):
+
     def update(self):
         super(ManageSubscriptionsFormEdit, self).update()
         self.search = SubscriptionsSearchForm(self.context, self.request)
@@ -217,6 +230,7 @@ class ManageSubscriptionsFormEdit(crud.EditForm):
             table = table[:idx] + hidden + table[idx:]
         return ('<div id="subscriber-search">%s</div>' % self.search.render() +
                 table)
+
 
 class ManageSubscriptionsForm(crud.CrudForm):
     """Crud form for subscriptions.
@@ -319,6 +333,7 @@ class SubscriptionChoiceFieldDataManager(z3c.form.datamanager.AttributeField):
             if issubclass(self.field.interface, ICollectorSchema):
                 self.field.interface = ICollectorSchema
 
+
 class ChannelPreviewForm(z3c.form.form.Form):
     """Channel preview form.
 
@@ -351,6 +366,7 @@ class ChannelPreviewForm(z3c.form.form.Form):
             self.context.absolute_url() + \
             '/preview-newsletter.html?include_collector_items=%d' % \
             collector_items)
+
 
 class EditChannelForm(z3c.form.form.EditForm):
     """Channel edit form.
@@ -495,7 +511,8 @@ class ExportCSV(BrowserView):
                     title_id = optional.title.strip() + ' (' + optional.id + ')'
                     collectors_keys.append(title_id)
         subscription_data = [
-            'creation_date', 'pending', 'format', 'language', 'cue', 'secret']
+            'creation_date', 'pending', 'unsubscribed', 'format', 'language',
+            'cue', 'secret']
         for format in self.context.composers.keys():
             composers_keys = field.Fields(
                 self.context.composers[format].schema).keys()
@@ -523,6 +540,7 @@ class ExportCSV(BrowserView):
                 # add subsciption_data
                 row.append(subscription.metadata.get('date', ''))
                 row.append(subscription.metadata.get('pending', 'imported'))
+                row.append(subscription.metadata.get('unsubscribed', ''))
                 row.append(subscription.metadata.get('format', ''))
                 row.append(subscription.metadata.get('language', ''))
                 row.append(subscription.metadata.get(
@@ -718,7 +736,7 @@ class UploadForm(crud.AddForm):
                             item.collector_data = {}
 
                     added += 1
-                except Exception, e: # XXX refine which exceptions we want to catch
+                except Exception, e:  # XXX refine which exceptions we want to catch
                     # TODO; put some information about error e into the message
                     errorcandidates.append(subscriber_data.get('email',
                                                                _(u'Unknown')))
@@ -783,6 +801,7 @@ class UploadForm(crud.AddForm):
         self.status = _(u"Subscribers exported.")
         return self.request.response.redirect(self.mychannel.absolute_url() + \
                                               '/export')
+
 
 class ManageUploadForm(crud.CrudForm):
     description = _(u"Upload list of subscribers.")

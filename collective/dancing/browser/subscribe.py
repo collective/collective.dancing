@@ -15,6 +15,7 @@ from zope import component
 from zope import schema
 from zope.event import notify
 
+import DateTime
 import collective.singing.browser.subscribe
 import collective.singing.interfaces
 import collective.singing.message
@@ -116,12 +117,16 @@ class Confirm(BrowserView):
                 subscriptions = channel.subscriptions.query(secret=secret)
                 if len(subscriptions):
                     for sub in subscriptions:
+                        if sub.metadata.get('unsubscribed', None) is not None:
+                            # skip unsubscribed
+                            continue
                         if sub.metadata.get('pending', False):
                             sub.metadata['pending'] = False
                             notify(ConfirmSubscriptionEvent(channel, sub))
-                    self.status = self.successMessage
-                    found = True
-            if not found:
+                            found = True
+            if found:
+                self.status = self.successMessage
+            else:
                 self.status = self.notKnownMessage
         else:
             self.status = _(u"Can't identify your subscription. "
@@ -142,10 +147,17 @@ class Unsubscribe(BrowserView):
             subs = self.context.aq_inner.subscriptions
             subscriptions = subs.query(secret=secret)
 
+            unsubscribed_marker = False
             if len(subscriptions):
                 for sub in subscriptions:
-                    subs.remove_subscription(sub)
-                    notify(ConfirmUnsubscriptionEvent(sub))
+                    # do not remove, but mark as unsubscribed
+                    # subs.remove_subscription(sub)
+                    if sub.metadata.get('unsubscribed', None) is None:
+                        sub.metadata['unsubscribed'] = DateTime.DateTime()
+                        notify(ConfirmUnsubscriptionEvent(sub))
+                        unsubscribed_marker = True
+
+            if unsubscribed_marker:
                 self.status = _(u"You unsubscribed successfully.")
             else:
                 self.status = _(u"You aren't subscribed to this mailing-list.")
@@ -157,6 +169,7 @@ class Unsubscribe(BrowserView):
 
 
 class IncludeHiddenSecret(object):
+
     def render(self):
         html = super(IncludeHiddenSecret, self).render()
         secret = self.secret
@@ -230,6 +243,7 @@ class SubscriptionEditForm(IncludeHiddenSecret, form.EditForm):
         secret = self.secret
         subs = self.context.channel.subscriptions
         for subscription in subs.query(secret=secret):
+            # XXX handle unsubscribed here too?
             subs.remove_subscription(subscription)
             notify(ConfirmUnsubscriptionEvent(subscription))
         self.removed = self.context
@@ -432,6 +446,7 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
         return field.Fields(select_field, prefix='selector.') + fields
 
     def update(self):
+
         def handleApply(self, action):
             data, errors = self.extractData()
 
@@ -465,6 +480,7 @@ class SubscriptionAddSubForm(SubscriptionSubForm):
 
             # Check if subscribed to other channels
             if not secret_provided and not self.parentForm.confirmation_sent:
+                # XXX handle unsubscribed here too?
                 existing = sum(
                     [len(channel.subscriptions.query(secret=secret))
                         for channel in channel_lookup(only_subscribeable=True)])
@@ -564,6 +580,7 @@ class SubscriptionEditSubForm(SubscriptionSubForm):
         return fields
 
     def update(self):
+
         def handleApply(self, action):
             data, errors = self.extractData()
 
@@ -596,6 +613,7 @@ class SubscriptionEditSubForm(SubscriptionSubForm):
         format = self.context.metadata['format']
         subs = self.context.channel.subscriptions
         for subscription in subs.query(secret=secret, format=format):
+            # XXX handle unsubscribed here too?
             subs.remove_subscription(subscription)
             notify(ConfirmUnsubscriptionEvent(subscription))
         self.removed = self.context
@@ -730,6 +748,7 @@ class PrettySubscriptionsForm(IncludeHiddenSecret, form.EditForm):
                 editform.status = form.status
 
         # check if all subscriptions are now cancelled
+        # XXX handle unsubscribed here too?
         if not sum([len(c.subscriptions.query(secret=self.secret))
                     for c in channel_lookup(only_subscribeable=True)]):
             self.unsubscribed_all = True
@@ -863,10 +882,12 @@ class Subscriptions(BrowserView):
 
         for channel in channel_lookup(only_subscribeable=True):
             channel_subs = channel.subscriptions
-
             subscribed_formats = []
             if self.secret is not None:
                 for s in channel_subs.query(secret=self.secret):
+                    # XXX handle unsubscribed here too?
+#                    if s.metadata.get('unsubscribed', None) is None:
+#                        # filter out unsubscribed
                     subscriptions.append(s)
                     subscribed_formats.append(s.metadata['format'])
 

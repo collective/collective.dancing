@@ -50,8 +50,10 @@ def portal_newsletters():
     else:
         return []
 
+
 interface.directlyProvides(portal_newsletters,
                            collective.singing.interfaces.IChannelLookup)
+
 
 class Salt(UserString):
     """
@@ -69,6 +71,7 @@ class Salt(UserString):
             for i in range(50)])
         UserString.__init__(self, salt)
 
+
 class INewslettersSettings(interface.Interface):
     use_single_form_subscriptions_page = schema.Bool(
         title=_(u"Use single form subscriptions page"),
@@ -76,8 +79,10 @@ class INewslettersSettings(interface.Interface):
         default=False,
         required=False)
 
+
 class IPortalNewsletters(INewslettersSettings):
     pass
+
 
 class PortalNewsletters(OFS.Folder.Folder):
     interface.implements(IPortalNewsletters)
@@ -86,6 +91,7 @@ class PortalNewsletters(OFS.Folder.Folder):
 
     def Title(self):
         return _(u"Newsletters")
+
 
 @component.adapter(IPortalNewsletters,
                    zopeappcontainerinterfaces.IObjectAddedEvent)
@@ -104,8 +110,10 @@ def tool_added(tool, event):
     sm = component.getSiteManager(tool)
     sm.registerUtility(salt, collective.singing.interfaces.ISalt)
 
+
 class IChannelContainer(interface.Interface):
     pass
+
 
 class ChannelContainer(OFS.Folder.Folder):
     interface.implements(IChannelContainer)
@@ -115,8 +123,10 @@ class ChannelContainer(OFS.Folder.Folder):
       >>> container.objectIds()
       ['your-channel']
     """
+
     def Title(self):
         return u"Mailing-lists"
+
 
 @component.adapter(IChannelContainer,
                    zopeappcontainerinterfaces.IObjectAddedEvent)
@@ -124,6 +134,7 @@ def channels_added(container, event):
     if 'default-channel' not in container.objectIds():
         default_channel = Channel('default-channel', title=_(u"Newsletter"))
         container['default-channel'] = default_channel
+
 
 class Channel(OFS.SimpleItem.SimpleItem):
     """
@@ -170,6 +181,7 @@ class Channel(OFS.SimpleItem.SimpleItem):
     def Title(self):
         return self.title
 
+
 @component.adapter(Channel,
                    zopeappcontainerinterfaces.IObjectAddedEvent)
 def channel_added(channel, event):
@@ -195,6 +207,7 @@ def channel_added(channel, event):
         # This will finally catalog the subscription:
         collective.singing.subscribe.subscription_added(subscription, None)
 
+
 @component.adapter(collective.singing.interfaces.ICollector,
                    zopeappcontainerinterfaces.IObjectRemovedEvent)
 def collector_removed(collector, event):
@@ -217,6 +230,7 @@ class SubscriptionsFromScriptChannel(Channel):
         # might delete it in the future.
         # and the email is unique
         self.subscriptions_metadata = persistent.dict.PersistentDict()
+
 
 # This lists of factories is mutable: You can add to it:
 channels = [Channel, SubscriptionsFromScriptChannel]
