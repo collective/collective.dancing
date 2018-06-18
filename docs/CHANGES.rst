@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.1.1 (unreleased)
-------------------
+1.2 (2018-06-18)
+----------------
 
 - Fix tests by (temporarily) pinning Plone 4.3.x to 4.3.11
   and dropping support for Python2.6 (Plone 4.0 and 4.1)
